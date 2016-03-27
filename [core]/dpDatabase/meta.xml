@@ -1,3 +1,10 @@
 <meta>
 	<oop>true</oop>
+	<include resource="dpLog"/>
+
+	<script type="server" src="server/DatabaseUtils.lua"/>
+	<script type="server" src="server/DatabaseConfig.lua"/>
+	<script type="server" src="server/Database.lua"/>
+	<script type="server" src="server/DatabaseTable.lua"/>
+	<script type="server" src="server/main.lua"/>
 </meta>

@@ -13,7 +13,7 @@ function argcheck(arg, argType, options)
 
 	if options then
 		if argType == "table" then
-			if options.notEmpty and #arg == 0 then
+			if options.notEmpty and next(arg) == nil then
 				outputDebugString("argcheck: table must not be empty")
 				return false
 			end

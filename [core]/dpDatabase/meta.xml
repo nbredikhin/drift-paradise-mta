@@ -1,6 +1,7 @@
 <meta>
 	<oop>true</oop>
 	<include resource="dpLog"/>
+	<include resource="dpUtils"/>
 
 	<script type="server" src="server/DatabaseUtils.lua"/>
 	<script type="server" src="server/DatabaseConfig.lua"/>

@@ -29,6 +29,9 @@ function Database.connect()
 end
 
 function Database.getConnection()
+	if not isElement(dbConnection) then
+		dbConnection = nil
+	end
 	return dbConnection
 end
 

@@ -1,3 +1,7 @@
 <meta>
 	<oop>true</oop>
+
+	<script type="shared" src="shared/argcheck.lua"/>
+
+	<export type="shared" function="argcheck"/>
 </meta>

@@ -4,7 +4,7 @@ local DB_PASSWORD_SECRET = "test"
 
 function Users.setup()
 	DatabaseTable.create(DB_TABLE_NAME, {
-		{ name="username", type="varchar", size=255, options="UNIQUE" },
+		{ name="username", type="varchar", size=25, options="UNIQUE" },
 		{ name="password", type="varchar", size=255 }
 	}, function (result)
 		outputDebugString("Users table already created")
@@ -50,6 +50,7 @@ function Users.loginPlayer(player, username, password, callback)
 	-- Получение пользователя из базы
 	DatabaseTable.select(DB_TABLE_NAME, nil, function(result)
 		local success = false
+		local errorType = ""
 		if result then
 			success = true
 		end
@@ -58,13 +59,17 @@ function Users.loginPlayer(player, username, password, callback)
 			-- Проверка пароля
 			if password == result[1].password then
 				-- Запустить сессию
-				Sessions.start(username, result[1])
+				success = Sessions.start(username, result[1])
+				if not success then
+					errorType = "already_logged_in"
+				end
 			else
 				success = false
+				errorType = "incorrect_password"
 			end		
 		end
 		if callback and type(callback) == "function" then
-			callback(success)
+			callback(success, errorType)
 		end
 	end)
 	return true
@@ -87,8 +92,8 @@ end)
 addEvent("dpAccounts.login", true)
 addEventHandler("dpAccounts.login", resourceRoot, function(username, password)
 	local player = client
-	local success = Users.loginPlayer(player, username, password, function(result)
-		triggerClientEvent(player, "dpAccounts.login", resourceRoot, result)
+	local success = Users.loginPlayer(player, username, password, function(result, errorType)
+		triggerClientEvent(player, "dpAccounts.login", resourceRoot, result, errorType)
 	end)
 	if not success then
 		triggerClientEvent(player, "dpAccounts.login", resourceRoot, false)

@@ -15,11 +15,11 @@ addCommandHandler("dp_register", function (cmd, username, password)
 end)
 
 addEvent("dpAccounts.login", true)
-addEventHandler("dpAccounts.login", root, function(success)
+addEventHandler("dpAccounts.login", root, function(success, errorType)
 	if success then
 		outputChatBox("Вы вошли")
 	else
-		outputChatBox("error")
+		outputChatBox("error: " .. tostring(errorType))
 	end
 end)
 

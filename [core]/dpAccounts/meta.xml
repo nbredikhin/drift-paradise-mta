@@ -4,7 +4,7 @@
 	<include resource="dpUtils"/>
 
 	<!-- Функция для проверки имени пользователя -->
-	<script type="shared" src="shared/username.lua"/>
+	<script type="shared" src="shared/usercheck.lua"/>
 	<export type="shared" function="checkUsername"/>
 
 	<!-- Модули для работы с базой данных -->

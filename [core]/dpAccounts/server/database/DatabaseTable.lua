@@ -152,6 +152,7 @@ function DatabaseTable.select(tableName, columns, callback, ...)
 	return connection:query(createQueryCallback(callback), queryString, ...)
 end
 
+-- TODO
 function DatabaseTable.delete()
 	local connection = Database.getConnection()
 	return true

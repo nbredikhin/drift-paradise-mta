@@ -1,13 +1,25 @@
 -- Модуль для работы с таблицами в базе данных
 DatabaseTable = {}
 
-local function returnQueryResults(queryHandle, ...)
-	local result = queryHandle:poll(0)
-	outputDebugString("Database query result: " .. tostring(result))
-	-- TODO: triggerEvent
+local function createQueryCallback(callback)
+	return function(queryHandle, ...)
+		local result = queryHandle:poll(0)
+		outputDebugString("Database query result: " .. tostring(result))
+		triggerEvent("dpDatabase.queryResult", root, queryHandle, result, ...)
+
+		if callback and type(callback) == "function" then
+			local success, err = pcall(callback, result, ...)
+			if not success then
+				outputDebugString("Error in callback: " .. tostring(err))
+			end
+		end
+	end
 end
 
-function DatabaseTable.create(tableName, columns, ...)
+-- Создание таблицы
+-- string tableName, table columns, [...]
+-- Columns: {name="string", type="varchar", size=255, options="NOT NULL PRIMARY"}
+function DatabaseTable.create(tableName, columns, callback, ...)
 	if 	not exports.dpUtils:argcheck(tableName, "string") or 
 		not exports.dpUtils:argcheck(columns, "table")
 	then
@@ -40,10 +52,13 @@ function DatabaseTable.create(tableName, columns, ...)
 		"CREATE TABLE `??` (" .. table.concat(columnsQueries, ", ") .. ");", 
 		tableName
 	)
-	return connection:query(returnQueryResults, queryString, ...)
+	return connection:query(createQueryCallback(callback), queryString, ...)
 end
 
-function DatabaseTable.insert(tableName, insertValues, ...)
+-- Вставка в таблицу
+-- string tableName, table insertValues, [...]
+-- insertValues: Таблица {ключ=значение}
+function DatabaseTable.insert(tableName, insertValues, callback, ...)
 	if 	not exports.dpUtils:argcheck(tableName, "string") or 
 		not exports.dpUtils:argcheck(insertValues, "table", {notEmpty = true})
 	then
@@ -64,7 +79,7 @@ function DatabaseTable.insert(tableName, insertValues, ...)
 		valuesCount = valuesCount + 1
 	end
 	if valuesCount == 0 then
-		return connection:query(returnQueryResults, connection:prepareString("INSERT INTO `??`;"), ...)
+		return connection:query(createQueryCallback(callback), connection:prepareString("INSERT INTO `??`;"), ...)
 	end
 	local columnsQuery = connection:prepareString("(" .. table.concat(columnsQueries, ",") .. ")")
 	local valuesQuery = connection:prepareString("(" .. table.concat(valuesQueries, ",") .. ")")
@@ -72,10 +87,14 @@ function DatabaseTable.insert(tableName, insertValues, ...)
 		"INSERT INTO `??` " .. columnsQuery .. " VALUES " .. valuesQuery .. ";", 
 		tableName
 	)
-	return connection:query(returnQueryResults, queryString, ...)
+	return connection:query(createQueryCallback(callback), queryString, ...)
 end
 
-function DatabaseTable.update(tableName, setFields, whereFields, ...)
+-- Обновление записей в таблице
+-- string tableName, table setFields, table whereFields, [...]
+-- setFields: {key=value}
+-- whereFields: {key=value}
+function DatabaseTable.update(tableName, setFields, whereFields, callback, ...)
 	if 	not exports.dpUtils:argcheck(tableName, "string") or 
 		not exports.dpUtils:argcheck(setFields, "table", {notEmpty = true}) or
 		not exports.dpUtils:argcheck(whereFields, "table", {notEmpty = true})
@@ -97,20 +116,43 @@ function DatabaseTable.update(tableName, setFields, whereFields, ...)
 	for column, value in pairs(whereFields) do
 		table.insert(updateQueries, connection:prepareString("`??`=?", column, value))
 	end
-	outputDebugString(queryString)
 	local queryString = connection:prepareString(
 		"UPDATE `??` SET " .. table.concat(setQueries, ", ") .. " WHERE " .. table.concat(updateQueries, ", ") .. ";", 
 		tableName
 	)
-	return connection:query(returnQueryResults, queryString, ...)
+	return connection:query(createQueryCallback(callback), queryString, ...)
+end
+
+-- Получение записей из таблицы
+-- string tableName, [table columns, ...]
+-- columns: Массив {"column1", "column2", ...}
+-- Если не указаны columns, делается SELECT *
+function DatabaseTable.select(tableName, columns, callback, ...)
+	if not exports.dpUtils:argcheck(tableName, "string") then
+		exports.dpLog:error("DatabaseTable.select: bad arguments")
+		return false
+	end
+	local connection = Database.getConnection()
+	if not connection then
+		exports.dpLog:error("DatabaseTable.select: no database connection")
+		return false
+	end
+	if not columns or type(columns) ~= "table" or #columns == 0 then
+		return connection:query(createQueryCallback(callback), connection:prepareString("SELECT * FROM `??`;", tableName), ...)
+	end
+	local selectColumns = {}
+	for column, value in ipairs(columns) do
+		table.insert(selectColumns, connection:prepareString("`??`", column))
+	end
+	outputDebugString(queryString)
+	local queryString = connection:prepareString(
+		"SELECT " .. table.concat(selectColumns, ",") .." FROM `??`;", 
+		tableName
+	)
+	return connection:query(createQueryCallback(callback), queryString, ...)
 end
 
 function DatabaseTable.delete()
-	local connection = Database.getConnection()
-	return true
-end
-
-function DatabaseTable.select()
 	local connection = Database.getConnection()
 	return true
 end

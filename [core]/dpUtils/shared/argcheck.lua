@@ -1,5 +1,5 @@
 function argcheck(arg, argType, options)
-	if not argType then
+	if not argType or type(argType) ~= "string" then
 		argType = "nil"
 	end
 	if argType == "function" then
@@ -7,6 +7,10 @@ function argcheck(arg, argType, options)
 		return true
 	end
 	local result = tostring(type(arg)) == argType
+	-- Проверка МТА типов
+	if isElement(arg) then
+		result = tostring(arg.type) == argType 
+	end
 	if not result then
 		return result
 	end

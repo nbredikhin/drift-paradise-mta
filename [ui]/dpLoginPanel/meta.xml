@@ -1,0 +1,6 @@
+<meta>
+	<oop>true</oop>
+	<include resource="dpAccounts"/>
+	
+	<script type="client" src="test.lua"/>
+</meta>

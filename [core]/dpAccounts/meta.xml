@@ -1,0 +1,32 @@
+<meta>
+	<oop>true</oop>
+	<include resource="dpLog"/>
+	<include resource="dpUtils"/>
+
+	<!-- Функция для проверки имени пользователя -->
+	<script type="shared" src="shared/username.lua"/>
+	<export type="shared" function="checkUsername"/>
+
+	<!-- Модули для работы с базой данных -->
+	<script type="server" src="server/database/DatabaseUtils.lua"/>
+	<script type="server" src="server/database/DatabaseConfig.lua"/>
+	<script type="server" src="server/database/Database.lua"/>
+	<script type="server" src="server/database/DatabaseTable.lua"/>
+	<script type="server" src="server/database/exports.lua"/>
+	<!-- Пользователи -->
+	<script type="server" src="server/users/Sessions.lua"/>
+	<script type="server" src="server/users/Users.lua"/>
+	<!-- Основной файл -->
+	<script type="server" src="server/main.lua"/>
+	<!-- Функции для работы с базой данных -->
+	<export type="server" function="createTable"/>
+	<export type="server" function="insert"/>
+	<export type="server" function="update"/>
+	<export type="server" function="select"/>
+	<export type="server" function="delete"/>
+
+	<script type="client" src="client/users.lua"/>
+	<!-- Функции для авторизации -->
+	<export type="client" function="register"/>
+	<export type="client" function="login"/>	
+</meta>

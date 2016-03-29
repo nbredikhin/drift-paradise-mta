@@ -1,5 +1,5 @@
-addEvent("dpAccounts.register", true)
-addEventHandler("dpAccounts.register", root, function(success)
+addEvent("dpAccounts.registerResponse", true)
+addEventHandler("dpAccounts.registerResponse", root, function(success)
 	if success then
 		outputChatBox("success")
 	else
@@ -14,8 +14,8 @@ addCommandHandler("dp_register", function (cmd, username, password)
 	end
 end)
 
-addEvent("dpAccounts.login", true)
-addEventHandler("dpAccounts.login", root, function(success, errorType)
+addEvent("dpAccounts.loginResponse", true)
+addEventHandler("dpAccounts.loginResponse", root, function(success, errorType)
 	if success then
 		outputChatBox("Вы вошли")
 	else

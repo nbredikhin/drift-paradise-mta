@@ -1,0 +1,19 @@
+<meta>
+	<oop>true</oop>
+
+	<script type="shared" src="shared/Locales.lua"/>
+	<script type="client" src="client/Language.lua"/>
+	<script type="client" src="client/exports.lua"/>
+	<script type="server" src="server/exports.lua"/>
+
+	<!-- Exports -->
+	<export type="client" function="getString"/>
+	<export type="client" function="setLanguage"/>
+	<export type="client" function="chatMessage"/>
+
+	<export type="server" function="chatMessage"/>
+
+	<!-- Языки -->
+	<file src="languages/english.json"/>
+	<file src="languages/russian.json"/>
+</meta>

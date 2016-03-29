@@ -7,7 +7,7 @@ function register(username, password)
 		return false
 	end	
 	--password = sha256(password)
-	triggerServerEvent("dpAccounts.register", resourceRoot, username, password)
+	triggerServerEvent("dpAccounts.registerRequest", resourceRoot, username, password)
 	return true
 end
 
@@ -20,6 +20,6 @@ function login(username, password)
 		return false
 	end
 	--password = sha256(password)
-	triggerServerEvent("dpAccounts.login", resourceRoot, username, password)
+	triggerServerEvent("dpAccounts.loginRequest", resourceRoot, username, password)
 	return true
 end

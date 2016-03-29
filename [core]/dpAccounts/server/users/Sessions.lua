@@ -7,4 +7,5 @@ function Sessions.start(username, account)
 	end
 	authorizedUsers[username] = true
 	outputChatBox("User authorized: " .. tostring(username))
+	return true
 end

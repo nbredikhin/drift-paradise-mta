@@ -75,27 +75,31 @@ function Users.loginPlayer(player, username, password, callback)
 	return true
 end
 
-addEvent("dpAccounts.register", true)
-addEventHandler("dpAccounts.register", resourceRoot, function(username, password)
+addEvent("dpAccounts.registerRequest", true)
+addEventHandler("dpAccounts.registerRequest", resourceRoot, function(username, password)
 	local player = client
 	local success = Users.registerPlayer(player, username, password, function(result)
 		if result then
 			result = true
 		end
-		triggerClientEvent(player, "dpAccounts.register", resourceRoot, result)
+		triggerClientEvent(player, "dpAccounts.registerResponse", resourceRoot, result)
+		triggerEvent("dpAccounts.register", player, result)
 	end)
 	if not success then
-		triggerClientEvent(player, "dpAccounts.register", resourceRoot, false)
+		triggerClientEvent(player, "dpAccounts.registerResponse", resourceRoot, false)
+		triggerEvent("dpAccounts.register", player, false)
 	end
 end)
 
-addEvent("dpAccounts.login", true)
-addEventHandler("dpAccounts.login", resourceRoot, function(username, password)
+addEvent("dpAccounts.loginRequest", true)
+addEventHandler("dpAccounts.loginRequest", resourceRoot, function(username, password)
 	local player = client
 	local success = Users.loginPlayer(player, username, password, function(result, errorType)
-		triggerClientEvent(player, "dpAccounts.login", resourceRoot, result, errorType)
+		triggerClientEvent(player, "dpAccounts.loginResponse", resourceRoot, result, errorType)
+		triggerEvent("dpAccounts.login", player, result)
 	end)
 	if not success then
-		triggerClientEvent(player, "dpAccounts.login", resourceRoot, false)
+		triggerClientEvent(player, "dpAccounts.loginResponse", resourceRoot, false)
+		triggerEvent("dpAccounts.login", player, false)
 	end
 end)

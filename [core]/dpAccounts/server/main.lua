@@ -7,3 +7,7 @@ addEventHandler("onResourceStart", resourceRoot, function ()
 	outputDebugString("Creating users table...")
 	Users.setup()
 end)
+
+addEventHandler("onPlayerQuit", root, function ()
+	Users.logoutPlayer(source)
+end)

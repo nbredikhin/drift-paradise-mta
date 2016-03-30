@@ -1,0 +1,5 @@
+AccountsConfig = {
+	HASH_PASSWORDS_CLIENTSIDE = false,
+
+	--AUTOSAVE_TIMEOUT = 1000,
+}

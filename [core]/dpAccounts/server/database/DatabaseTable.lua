@@ -97,7 +97,7 @@ end
 function DatabaseTable.update(tableName, setFields, whereFields, callback, ...)
 	if 	not exports.dpUtils:argcheck(tableName, "string") or 
 		not exports.dpUtils:argcheck(setFields, "table", {notEmpty = true}) or
-		not exports.dpUtils:argcheck(whereFields, "table", {notEmpty = true})
+		not exports.dpUtils:argcheck(whereFields, "table", {notEmpty = false})
 	then
 		exports.dpLog:error("DatabaseTable.update: bad arguments")
 		return false
@@ -112,14 +112,15 @@ function DatabaseTable.update(tableName, setFields, whereFields, callback, ...)
 	for column, value in pairs(setFields) do
 		table.insert(setQueries, connection:prepareString("`??`=?", column, value))
 	end
-	local updateQueries = {}
+	local whereQueries = {}
 	for column, value in pairs(whereFields) do
-		table.insert(updateQueries, connection:prepareString("`??`=?", column, value))
+		table.insert(whereQueries, connection:prepareString("`??`=?", column, value))
 	end
-	local queryString = connection:prepareString(
-		"UPDATE `??` SET " .. table.concat(setQueries, ", ") .. " WHERE " .. table.concat(updateQueries, ", ") .. ";", 
-		tableName
-	)
+	local queryString = connection:prepareString("UPDATE `??` SET " .. table.concat(setQueries, ", "), tableName)
+	if #whereQueries > 0 then
+		queryString = queryString .. connection:prepareString(" WHERE " .. table.concat(whereQueries, ", "))
+	end
+	queryString = queryString .. ";"
 	return connection:query(createQueryCallback(callback), queryString, ...)
 end
 

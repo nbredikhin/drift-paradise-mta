@@ -1,25 +1,36 @@
 -- Result event:
--- dpAccounts.register
+-- dpAccounts.registerResponse
 function register(username, password)
 	if 	not exports.dpUtils:argcheck(username, "string") or 
 		not exports.dpUtils:argcheck(password, "string")
 	then
 		return false
 	end	
-	--password = sha256(password)
+	if AccountsConfig.HASH_PASSWORDS_CLIENTSIDE then
+		password = sha256(password)
+	end
 	triggerServerEvent("dpAccounts.registerRequest", resourceRoot, username, password)
 	return true
 end
 
 -- Result event:
--- dpAccounts.login
+-- dpAccounts.loginResponse
 function login(username, password)
 	if 	not exports.dpUtils:argcheck(username, "string") or 
 		not exports.dpUtils:argcheck(password, "string")
 	then
 		return false
 	end
-	--password = sha256(password)
+	if AccountsConfig.HASH_PASSWORDS_CLIENTSIDE then
+		password = sha256(password)
+	end
 	triggerServerEvent("dpAccounts.loginRequest", resourceRoot, username, password)
+	return true
+end
+
+-- Result event:
+-- dpAccounts.loginResponse
+function logout()
+	triggerServerEvent("dpAccounts.logoutRequest", resourceRoot)
 	return true
 end

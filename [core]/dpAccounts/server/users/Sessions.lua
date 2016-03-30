@@ -1,11 +1,28 @@
 Sessions = {} 
 local authorizedUsers = {}
 
-function Sessions.start(username, account)
-	if authorizedUsers[username] then
+function Sessions.isActive(player)
+	if not isElement(player) then
 		return false
 	end
-	authorizedUsers[username] = true
-	outputChatBox("User authorized: " .. tostring(username))
+	return not not authorizedUsers[player]
+end
+
+function Sessions.start(player)
+	if not isElement(player) then
+		return false
+	end
+	if Sessions.isActive(player) then
+		return false
+	end
+	authorizedUsers[player] = true
+	return true
+end
+
+function Sessions.stop(player)
+	if not Sessions.isActive(player) then
+		return false
+	end
+	authorizedUsers[player] = nil
 	return true
 end

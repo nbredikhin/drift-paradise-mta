@@ -3,6 +3,8 @@
 	<include resource="dpLog"/>
 	<include resource="dpUtils"/>
 
+	<!-- Основной конфиг -->
+	<script type="shared" src="shared/AccountsConfig.lua"/>
 	<!-- Функция для проверки имени пользователя -->
 	<script type="shared" src="shared/usercheck.lua"/>
 	<export type="shared" function="checkUsername"/>
@@ -29,5 +31,6 @@
 	<script type="client" src="client/users.lua"/>
 	<!-- Функции для авторизации -->
 	<export type="client" function="register"/>
-	<export type="client" function="login"/>	
+	<export type="client" function="login"/>
+	<export type="client" function="logout"/>	
 </meta>

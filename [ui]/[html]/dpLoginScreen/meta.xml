@@ -1,0 +1,7 @@
+<meta>
+	<oop>true</oop>
+	<include resource="dpUI"/>
+
+	<script type="client" src="client/screen.lua"/>
+	<script type="client" src="test.lua"/>
+</meta>

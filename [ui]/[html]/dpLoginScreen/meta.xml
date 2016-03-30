@@ -17,4 +17,5 @@
 	<file src="html/fonts/RobotoCondensed-Regular.ttf"/>
 	<file src="html/css/main.css"/>
 	<file src="html/index.html"/>
+	<file src="static.json"/>
 </meta>

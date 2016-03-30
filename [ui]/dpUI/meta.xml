@@ -2,6 +2,7 @@
 	<oop>true</oop>
 
 	<script type="client" src="client/ScreenManager.lua"/>
+	<script type="client" src="client/ScreenRender.lua"/>
 	<script type="client" src="client/ScreenView.lua"/>
 	<script type="client" src="client/main.lua"/>
 	<script type="client" src="client/exports.lua"/>
@@ -14,4 +15,7 @@
 	<file src="assets/shaders/include/tex_matrix.fx"/>
 	<file src="assets/shaders/include/texture.fx"/>
 	<file src="assets/shaders/mask.fx"/>
+
+	<file src="assets/html/handlebars.js"/>
+	<file src="assets/html/index.html"/>
 </meta>

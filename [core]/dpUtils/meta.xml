@@ -2,6 +2,11 @@
 	<oop>true</oop>
 
 	<script type="shared" src="shared/argcheck.lua"/>
+	<script type="shared" src="shared/time.lua"/>
 
 	<export type="shared" function="argcheck"/>
+	<!-- Работа со временем -->
+	<export type="shared" function="isLeapYear"/>
+	<export type="shared" function="getTimestamp"/>
+	<export type="shared" function="convertTimestampToSeconds"/>
 </meta>

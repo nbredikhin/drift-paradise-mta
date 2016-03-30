@@ -162,13 +162,13 @@ end)
 addEvent("dpAccounts.loginRequest", true)
 addEventHandler("dpAccounts.loginRequest", resourceRoot, function(username, password)
 	local player = client
-	local success = Users.loginPlayer(player, username, password, function(result, errorType)
+	local success, errorType = Users.loginPlayer(player, username, password, function(result, errorType)
 		triggerClientEvent(player, "dpAccounts.loginResponse", resourceRoot, result, errorType)
-		triggerEvent("dpAccounts.login", player, result)
+		triggerEvent("dpAccounts.login", player, result, errorType)
 	end)
 	if not success then
-		triggerClientEvent(player, "dpAccounts.loginResponse", resourceRoot, false)
-		triggerEvent("dpAccounts.login", player, false)
+		triggerClientEvent(player, "dpAccounts.loginResponse", resourceRoot, false, errorType)
+		triggerEvent("dpAccounts.login", player, false, errorType)
 	end
 end)
 

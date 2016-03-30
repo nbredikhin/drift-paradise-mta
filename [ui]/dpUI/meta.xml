@@ -3,6 +3,7 @@
 
 	<script type="client" src="client/ScreenManager.lua"/>
 	<script type="client" src="client/ScreenView.lua"/>
+	<script type="client" src="client/main.lua"/>
 	<script type="client" src="client/exports.lua"/>
 
 	<export type="client" function="addScreen"/>
@@ -12,5 +13,5 @@
 
 	<file src="assets/shaders/include/tex_matrix.fx"/>
 	<file src="assets/shaders/include/texture.fx"/>
-	<file src="assets/shaders/hud_mask.fx"/>
+	<file src="assets/shaders/mask.fx"/>
 </meta>

@@ -3,7 +3,6 @@
 
 	<script type="client" src="client/ScreenManager.lua"/>
 	<script type="client" src="client/ScreenRender.lua"/>
-	<script type="client" src="client/ScreenView.lua"/>
 	<script type="client" src="client/main.lua"/>
 	<script type="client" src="client/exports.lua"/>
 
@@ -16,6 +15,21 @@
 	<file src="assets/shaders/include/texture.fx"/>
 	<file src="assets/shaders/mask.fx"/>
 
-	<file src="assets/html/handlebars.js"/>
-	<file src="assets/html/index.html"/>
+	<file src="html/screens/panel/images/bg_left.png"/>
+	<file src="html/screens/panel/images/bgs.gif"/>
+	<file src="html/screens/panel/images/level.png"/>
+	<file src="html/screens/panel/images/logo.png"/>
+	<file src="html/screens/panel/fonts/RobotoCondensed-Bold.ttf"/>
+	<file src="html/screens/panel/fonts/RobotoCondensed-BoldItalic.ttf"/>
+	<file src="html/screens/panel/fonts/RobotoCondensed-Italic.ttf"/>
+	<file src="html/screens/panel/fonts/RobotoCondensed-Light.ttf"/>
+	<file src="html/screens/panel/fonts/RobotoCondensed-LightItalic.ttf"/>
+	<file src="html/screens/panel/fonts/RobotoCondensed-Regular.ttf"/>
+	<file src="html/screens/panel/css/main.css"/>
+	<file src="html/screens/panel/index.html"/>
+
+	<file src="html/jquery.js"/>
+	<file src="html/handlebars.js"/>
+	<file src="html/Screens.js"/>
+	<file src="html/index.html"/>
 </meta>

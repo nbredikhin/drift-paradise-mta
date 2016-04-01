@@ -1,60 +1,99 @@
 ScreenManager = {}
-local screens = {}
-local activeScreen
+local screenWidth, screenHeight = guiGetScreenSize()
 
-function ScreenManager.addScreen(name, resourceName, resourceRoot)
-	if type(name) ~= "string" then
-		return false
+local BROWSER_TRANSPARENT = true
+local BROWSER_POST_GUI = false
+local BROWSER_MOUSE_WHEEL_SPEED = 40
+local MAX_TRANSORM_ANGLE = 10
+
+-- Браузер и шейдер
+local isActive = false
+local maskShader
+
+local testBorder = 0
+local testTexture = dxCreateTexture("assets/images/tab.png")
+
+local function getMousePosition()
+	local mx, my = screenWidth / 2, screenHeight / 2
+	if isCursorShowing() then
+		mx, my = getCursorPosition()
+		mx = mx * screenWidth
+		my = my * screenHeight
 	end
-	if not isElement(resourceRoot) then
-		return false
-	end
-	if screens[name] then
-		ScreenManager.removeScreen(resource)
-	end
-	screens[name] = {
-		resourceName = resourceName,
-		resourceRoot = resourceRoot
-	}
-	resourceRoot:setData("screen_name", name)
-	outputDebugString(string.format("ScreenManager: added screen: %q", name))
-	return true
+	return mx, my
 end
 
-function ScreenManager.removeScreen(name)
-	if type(name) ~= "string" then
-		return false
+local function draw()
+	if not isActive then
+		return
 	end
-	if not screens[name] then
-		return false
+	local mouseX, mouseY = getMousePosition()
+	local rotationX = -(mouseX - screenWidth / 2) / screenWidth * MAX_TRANSORM_ANGLE
+	local rotationY = (mouseY - screenHeight / 2) / screenHeight * MAX_TRANSORM_ANGLE
+
+ 	dxSetShaderTransform(maskShader, rotationX, rotationY, 0)
+	dxSetShaderValue(maskShader, "sPicTexture", ScreenManager.browser)
+
+	-- Фон
+	dxDrawRectangle(0, 0, screenWidth, screenHeight, tocolor(0, 0, 0, 200))
+	if maskShader then
+		-- Браузер
+		dxDrawImage(
+			testBorder, 
+			testBorder, 
+			screenWidth - testBorder * 2, 
+			screenHeight - testBorder * 2, 
+			maskShader, 
+			0, 0, 0, 
+			tocolor(255, 255, 255, 255), 
+			BROWSER_POST_GUI
+		)
+	else
+		dxDrawImage(0, 0, screenWidth, screenHeight, ScreenManager.browser, 0, 0, 0, tocolor(255, 255, 255, 255), BROWSER_POST_GUI)
 	end
-	if isElement(screens[name].resourceRoot) then
-		screens[name].resourceRoot:setData("screen_name", nil)
-	end
-	screens[name] = nil
-	outputDebugString(string.format("ScreenManager: removed screen: %q", name))
-	return true
 end
 
-function ScreenManager.showScreen(name)
-	if not screens[name] or not isElement(screens[name].resourceRoot) then
+function ScreenManager.start()
+	ScreenManager.browser = Browser(screenWidth, screenHeight, true, BROWSER_TRANSPARENT)
+	maskShader = dxCreateShader("assets/shaders/mask.fx")
+
+	addEventHandler("onClientRender", root, draw)
+	ScreenRender.start()
+	ScreenManager.hide()
+
+	addEventHandler("onClientCursorMove", root, function (_, _, x, y)
+		ScreenManager.browser:injectMouseMove(x, y)
+	end)
+	addEventHandler("onClientClick", root, function (button, state)
+		if state == "down" then
+			ScreenManager.browser:injectMouseDown(button)
+		else
+			ScreenManager.browser:injectMouseUp(button)
+		end
+	end)
+	addEventHandler("onClientKey", root, function (button)
+		local wheelOffset = 0
+		if button == "mouse_wheel_down" then
+			ScreenManager.browser:injectMouseWheel(-BROWSER_MOUSE_WHEEL_SPEED, 0)
+		elseif button == "mouse_wheel_up" then
+			ScreenManager.browser:injectMouseWheel(BROWSER_MOUSE_WHEEL_SPEED, 0)
+		end
+	end)	
+end
+
+function ScreenManager.show(name)
+	if not name then
 		return false
 	end
-	if activeScreen then
-		ScreenManager.hide()
-	end
-	activeScreen = name
-	return ScreenView.show(screens[name].resourceName)
+	ScreenManager.browser.renderingPaused = false
+	ScreenRender.renderScreen(name)
+	outputDebugString("ScreenManager.show: " .. tostring(name))
+	isActive = true
+	return true
 end
 
 function ScreenManager.hide()
-	if not activeScreen then
-		return false
-	end
-	activeScreen = nil
-	return ScreenView.hide()
+	ScreenManager.browser.renderingPaused = true
+	isActive = false
+	return true
 end
-
-addEventHandler("onClientResourceStop", root, function (resource)
-	ScreenManager.removeScreen(resource.rootElement:getData("screen_name"))
-end)

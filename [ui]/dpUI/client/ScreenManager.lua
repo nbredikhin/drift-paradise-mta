@@ -10,8 +10,9 @@ local MAX_TRANSORM_ANGLE = 10
 local isActive = false
 local maskShader
 
-local testBorder = 0
 local testTexture = dxCreateTexture("assets/images/tab.png")
+local ANIMATION_SPEED = 0.05
+local animationProgress = 0
 
 local function getMousePosition()
 	local mx, my = screenWidth / 2, screenHeight / 2
@@ -27,6 +28,8 @@ local function draw()
 	if not isActive then
 		return
 	end
+	animationProgress = math.min(1, animationProgress + ANIMATION_SPEED)
+
 	local mouseX, mouseY = getMousePosition()
 	local rotationX = -(mouseX - screenWidth / 2) / screenWidth * MAX_TRANSORM_ANGLE
 	local rotationY = (mouseY - screenHeight / 2) / screenHeight * MAX_TRANSORM_ANGLE
@@ -35,21 +38,21 @@ local function draw()
 	dxSetShaderValue(maskShader, "sPicTexture", ScreenManager.browser)
 
 	-- Фон
-	dxDrawRectangle(0, 0, screenWidth, screenHeight, tocolor(0, 0, 0, 200))
+	dxDrawRectangle(0, 0, screenWidth, screenHeight, tocolor(0, 0, 0, 200 * animationProgress))
 	if maskShader then
 		-- Браузер
 		dxDrawImage(
-			testBorder, 
-			testBorder, 
-			screenWidth - testBorder * 2, 
-			screenHeight - testBorder * 2, 
+			0, 
+			0, 
+			screenWidth, 
+			screenHeight, 
 			maskShader, 
 			0, 0, 0, 
-			tocolor(255, 255, 255, 255), 
+			tocolor(255, 255, 255, 255 * animationProgress), 
 			BROWSER_POST_GUI
 		)
 	else
-		dxDrawImage(0, 0, screenWidth, screenHeight, ScreenManager.browser, 0, 0, 0, tocolor(255, 255, 255, 255), BROWSER_POST_GUI)
+		dxDrawImage(0, 0, screenWidth, screenHeight, ScreenManager.browser, 0, 0, 0, tocolor(255, 255, 255, 255 * animationProgress), BROWSER_POST_GUI)
 	end
 end
 
@@ -86,15 +89,15 @@ function ScreenManager.show(name)
 	if not name then
 		return false
 	end
-	ScreenManager.browser.renderingPaused = false
+	animationProgress = 0
 	ScreenRender.renderScreen(name)
 	outputDebugString("ScreenManager.show: " .. tostring(name))
 	isActive = true
 	return true
 end
 
-function ScreenManager.hide()
-	ScreenManager.browser.renderingPaused = true
+function ScreenManager.hide(name)
+	ScreenRender.clear()
 	isActive = false
 	return true
 end

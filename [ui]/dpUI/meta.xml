@@ -16,7 +16,6 @@
 	<file src="assets/shaders/mask.fx"/>
 
 	<file src="html/screens/panel/images/bg_left.png"/>
-	<file src="html/screens/panel/images/bgs.gif"/>
 	<file src="html/screens/panel/images/level.png"/>
 	<file src="html/screens/panel/images/logo.png"/>
 	<file src="html/screens/panel/fonts/RobotoCondensed-Bold.ttf"/>
@@ -27,6 +26,18 @@
 	<file src="html/screens/panel/fonts/RobotoCondensed-Regular.ttf"/>
 	<file src="html/screens/panel/css/main.css"/>
 	<file src="html/screens/panel/index.html"/>
+
+	<file src="html/screens/test/images/bg_left.png"/>
+	<file src="html/screens/test/images/level.png"/>
+	<file src="html/screens/test/images/logo.png"/>
+	<file src="html/screens/test/fonts/RobotoCondensed-Bold.ttf"/>
+	<file src="html/screens/test/fonts/RobotoCondensed-BoldItalic.ttf"/>
+	<file src="html/screens/test/fonts/RobotoCondensed-Italic.ttf"/>
+	<file src="html/screens/test/fonts/RobotoCondensed-Light.ttf"/>
+	<file src="html/screens/test/fonts/RobotoCondensed-LightItalic.ttf"/>
+	<file src="html/screens/test/fonts/RobotoCondensed-Regular.ttf"/>
+	<file src="html/screens/test/css/main.css"/>
+	<file src="html/screens/test/index.html"/>	
 
 	<file src="html/jquery.js"/>
 	<file src="html/handlebars.js"/>

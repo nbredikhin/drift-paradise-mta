@@ -8,6 +8,10 @@ Screens.passLocales = function (data) {
 	}
 }
 
+Screens.unload = function () {
+	$("#screen_container").html("");
+}
+
 Screens.load = function (name, data) {
 	if (data) {
 		data = JSON.parse(data)[0];

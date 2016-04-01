@@ -24,3 +24,12 @@ function chatMessage(...)
 		return false
 	end	
 end
+
+function getAllStrings(...)
+	success, result = pcall(Language.getAllStrings, ...)
+	if success then 
+		return result
+	else
+		return false
+	end	
+end

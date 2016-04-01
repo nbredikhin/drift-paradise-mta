@@ -1,10 +1,21 @@
 Screens = {}
 var templates = {}
+var languageStrings = {}
+
+Screens.passLocales = function (data) {
+	if (data) {
+		languageStrings = JSON.parse(data)[0];	
+	}
+}
 
 Screens.load = function (name, data) {
 	if (data) {
 		data = JSON.parse(data)[0];
+	} else {
+		data = {};
 	}
+
+	data.lang = languageStrings;
 	if (templates[name] === undefined) {
 		$.ajax({
 			url: "screens/" + name + "/index.html",

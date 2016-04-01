@@ -25,6 +25,13 @@ function Locales.load(lang)
 	return true
 end
 
+function Locales.getLang(lang)
+	if not locales[lang] then
+		return false
+	end
+	return locales[lang]
+end
+
 function Locales.unload(lang)
 	if not locales[lang] then
 		return false

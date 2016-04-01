@@ -16,6 +16,14 @@ function Language.getString(name)
 	return localizedString
 end
 
+function Language.getAllStrings(name)
+	local strings = Locales.getLang(currentLanguage)
+	if not strings then
+		return false
+	end
+	return strings
+end
+
 -- Обертка над outputChatBox, отображающая сообщения в зависимости от текущего языка
 function Language.chatMessage(name, ...)
 	local message = Language.getString(name)

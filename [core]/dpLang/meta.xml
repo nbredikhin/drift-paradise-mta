@@ -10,6 +10,7 @@
 	<export type="client" function="getString"/>
 	<export type="client" function="setLanguage"/>
 	<export type="client" function="chatMessage"/>
+	<export type="client" function="getAllStrings"/>
 
 	<export type="server" function="chatMessage"/>
 

@@ -1,4 +1,5 @@
 {
-	"login_panel_username": "Username",
-	"login_panel_password": "Password"	
+	"global_score": "Score",
+	"global_level": "Level",
+	"global_nickname": "Nickname"
 }

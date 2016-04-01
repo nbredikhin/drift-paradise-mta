@@ -1,6 +1,9 @@
 ScreenRender = {}
 local SCREENS_PATH = "html/screens/"
 local SCREENS_URL = "http://mta/local/" .. SCREENS_PATH
+local INDEX_URL = "http://mta/local/html/index.html"
+local isReady = false
+local renderWhenReady = nil
 
 setDevelopmentMode(true, true)
 
@@ -15,10 +18,27 @@ local function readFile(path)
 end
 
 function ScreenRender.start()
-	ScreenManager.browser:loadURL("http://mta/local/html/index.html")
+	ScreenManager.browser:loadURL(INDEX_URL)
+	addEventHandler("onClientBrowserDocumentReady", ScreenManager.browser, function (url)
+		if url == INDEX_URL then
+			isReady = true
+			local strings = exports.dpLang:getAllStrings()
+			if strings then
+				ScreenManager.browser:executeJavascript("Screens.passLocales('" .. toJSON(strings) .."');")	
+			end	
+			if renderWhenReady then
+				ScreenRender.renderScreen(renderWhenReady)
+				renderWhenReady = nil
+			end			
+		end
+	end) 
 end
 
 function ScreenRender.renderScreen(name)
+	if not isReady then
+		renderWhenReady = name
+		return false
+	end
 	if type(name) ~= "string" then
 		return false
 	end

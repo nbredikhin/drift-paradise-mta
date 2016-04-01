@@ -56,11 +56,12 @@ end
 function ScreenManager.start()
 	ScreenManager.browser = Browser(screenWidth, screenHeight, true, BROWSER_TRANSPARENT)
 	maskShader = dxCreateShader("assets/shaders/mask.fx")
-
 	addEventHandler("onClientRender", root, draw)
-	ScreenRender.start()
-	ScreenManager.hide()
 
+	addEventHandler("onClientBrowserCreated", ScreenManager.browser, function ()
+		ScreenRender.start()
+		ScreenManager.hide()
+	end)
 	addEventHandler("onClientCursorMove", root, function (_, _, x, y)
 		ScreenManager.browser:injectMouseMove(x, y)
 	end)

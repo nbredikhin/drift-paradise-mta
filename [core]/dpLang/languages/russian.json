@@ -1,4 +1,14 @@
 {
-	"login_panel_username": "Имя пользователя",
-	"login_panel_password": "Пароль"
+	"global_score": "Очки",
+	"global_level": "Уровень",
+	"global_nickname": "Никнейм",
+
+	"main_panel_garage": "Гараж",
+	"main_panel_teleport": "Телепорт",
+	"main_panel_settings": "Настройки",
+	"main_panel_players": "Игроки",
+	"main_panel_map": "Карта",
+	"main_panel_block": "Блокировать",
+	"main_panel_money": "Наличные",
+	"main_panel_pm": "Написать в личку",	
 }

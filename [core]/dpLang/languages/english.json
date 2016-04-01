@@ -1,5 +1,14 @@
 {
 	"global_score": "Score",
 	"global_level": "Level",
-	"global_nickname": "Nickname"
+	"global_nickname": "Nickname",
+
+	"main_panel_garage": "Garage",
+	"main_panel_teleport": "Teleport",
+	"main_panel_settings": "Settings",
+	"main_panel_players": "Players",
+	"main_panel_map": "Map",
+	"main_panel_block": "Block",
+	"main_panel_money": "Money",
+	"main_panel_pm": "Private message",
 }

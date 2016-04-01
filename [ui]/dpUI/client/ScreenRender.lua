@@ -7,25 +7,24 @@ local renderWhenReady = nil
 
 setDevelopmentMode(true, true)
 
-local function readFile(path)
-	local file = File(path)
-	if not file then
-		return false
-	end
-	local str = file:read(file.size)
-	file:close()
-	return str
+local function passLocales()
+	local strings = exports.dpLang:getAllStrings()
+	if strings then
+		ScreenManager.browser:executeJavascript("Screens.passLocales('" .. toJSON(strings) .."');")	
+	end	
 end
+
+addEvent("dpLang.languageChanged", false)
+addEventHandler("dpLang.languageChanged", root, function (newLanguage)
+	passLocales()
+end)
 
 function ScreenRender.start()
 	ScreenManager.browser:loadURL(INDEX_URL)
 	addEventHandler("onClientBrowserDocumentReady", ScreenManager.browser, function (url)
 		if url == INDEX_URL then
 			isReady = true
-			local strings = exports.dpLang:getAllStrings()
-			if strings then
-				ScreenManager.browser:executeJavascript("Screens.passLocales('" .. toJSON(strings) .."');")	
-			end	
+			passLocales()
 			if renderWhenReady then
 				ScreenRender.renderScreen(renderWhenReady)
 				renderWhenReady = nil

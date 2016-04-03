@@ -1,3 +1,26 @@
 <meta>
 	<oop>true</oop>
+
+	<script type="client" src="client/Utils.lua"/>
+	<script type="client" src="client/main.lua"/>
+	<script type="client" src="client/Speedometer.lua"/>
+	<script type="client" src="client/Radar.lua"/>
+
+	<file src="assets/textures/1.png"/>
+	<file src="assets/textures/2.png"/>
+	<file src="assets/textures/3.png"/>
+	<file src="assets/textures/4.png"/>
+	<file src="assets/textures/5.png"/>
+	<file src="assets/textures/n.png"/>
+	<file src="assets/textures/r.png"/>
+	<file src="assets/textures/circle.png"/>
+	<file src="assets/textures/circle2.png"/>
+	<file src="assets/textures/hp.png"/>
+	<file src="assets/textures/hpfull.png"/>
+	<file src="assets/textures/nitro.png"/>
+	<file src="assets/textures/nitrofull.png"/>
+	<file src="assets/textures/icons.png"/>
+	<file src="assets/textures/numbers.png"/>
+
+	<file src="assets/fonts/speed.ttf"/>
 </meta>

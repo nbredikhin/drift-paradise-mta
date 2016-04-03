@@ -1,5 +1,6 @@
 <meta>
 	<oop>true</oop>
+	<include resource="dpLang"/>
 
 	<script type="client" src="client/ScreenManager.lua"/>
 	<script type="client" src="client/ScreenRender.lua"/>
@@ -10,10 +11,6 @@
 	<export type="client" function="removeScreen"/>
 	<export type="client" function="showScreen"/>
 	<export type="client" function="hideScreen"/>
-
-	<file src="assets/shaders/include/tex_matrix.fx"/>
-	<file src="assets/shaders/include/texture.fx"/>
-	<file src="assets/shaders/mask.fx"/>
 
 	<file src="html/screens/panel/images/bg_left.png"/>
 	<file src="html/screens/panel/images/level.png"/>

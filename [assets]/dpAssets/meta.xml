@@ -1,0 +1,16 @@
+<meta>
+	<oop>true</oop>
+
+	<script type="client" src="client/exports.lua"/>
+
+	<export type="client" function="createShader"/>
+	<export type="client" function="createTexture"/>
+	<export type="client" function="createShaderCached"/>
+	<export type="client" function="createTextureCached"/>
+
+	<file src="assets/shaders/include/tex_matrix.fx"/>
+	<file src="assets/shaders/include/texture.fx"/>
+	<file src="assets/shaders/mask2d.fx"/>
+	<file src="assets/shaders/mask3d.fx"/>
+	<file src="assets/shaders/texture3d.fx"/>
+</meta>

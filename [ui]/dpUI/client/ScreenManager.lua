@@ -10,6 +10,9 @@ local MAX_TRANSORM_ANGLE = 10
 local isActive = false
 local maskShader
 
+local isBackgroundVisible = false
+local activeScreen
+
 local testTexture = dxCreateTexture("assets/images/tab.png")
 local ANIMATION_SPEED = 0.05
 local animationProgress = 0
@@ -38,7 +41,9 @@ local function draw()
 	dxSetShaderValue(maskShader, "sPicTexture", ScreenManager.browser)
 
 	-- Фон
-	dxDrawRectangle(0, 0, screenWidth, screenHeight, tocolor(0, 0, 0, 200 * animationProgress))
+	if isBackgroundVisible then
+		dxDrawRectangle(0, 0, screenWidth, screenHeight, tocolor(0, 0, 0, 200 * animationProgress))
+	end
 	if maskShader then
 		-- Браузер
 		dxDrawImage(
@@ -58,9 +63,9 @@ end
 
 function ScreenManager.start()
 	ScreenManager.browser = Browser(screenWidth, screenHeight, true, BROWSER_TRANSPARENT)
-	maskShader = dxCreateShader("assets/shaders/mask.fx")
+	maskShader = exports.dpAssets:createShader("texture3d.fx")
+	
 	addEventHandler("onClientRender", root, draw)
-
 	addEventHandler("onClientBrowserCreated", ScreenManager.browser, function ()
 		ScreenRender.start()
 		ScreenManager.hide()
@@ -85,18 +90,27 @@ function ScreenManager.start()
 	end)	
 end
 
-function ScreenManager.show(name)
+function ScreenManager.show(name, options)
 	if not name then
 		return false
 	end
-	animationProgress = 0
+	if not options then
+		options = {}
+	end
+	if options.animation then
+		animationProgress = 0
+	else
+		animationProgress = 1
+	end
+	isBackgroundVisible = not not options.background
 	ScreenRender.renderScreen(name)
-	outputDebugString("ScreenManager.show: " .. tostring(name))
 	isActive = true
+	activeScreen = name
+	outputDebugString("ScreenManager.show: " .. tostring(name))
 	return true
 end
 
-function ScreenManager.hide(name)
+function ScreenManager.hide()
 	ScreenRender.clear()
 	isActive = false
 	return true

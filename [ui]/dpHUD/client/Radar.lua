@@ -1,5 +1,5 @@
 Radar = {}
-Radar.visible = true
+Radar.visible = false
 local DRAW_POST_GUI = false
 local screenWidth, screenHeight = guiGetScreenSize()
 
@@ -45,6 +45,9 @@ local function drawRadar()
 end
 
 addEventHandler("onClientRender", root, function ()
+	if not Radar.visible then
+		return
+	end
 	if not fallbackTo2d then	
 		-- Отрисовка радара в renderTarget
 		dxSetRenderTarget(renderTarget, true)

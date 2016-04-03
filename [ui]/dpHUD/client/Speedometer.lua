@@ -17,15 +17,15 @@ local renderTarget
 
 local font
 
-local function getCarSpeed()
+local function getVehicleSpeed()
 	if not localPlayer.vehicle then
 		return 0
 	end
 	return math.floor(localPlayer.vehicle.velocity:getLength() * 180)
 end
 
-local function getCarSpeedString()
-	local speed = getCarSpeed()
+local function getVehicleSpeedString()
+	local speed = getVehicleSpeed()
 	if speed < 100 then
 		if speed < 10 then
 			speed = "00" .. tostring(speed)
@@ -41,7 +41,8 @@ end
 local function drawSpeedometer(x, y, width, height)
 	-- Круг скорости
 	dxDrawImage(x, y, width, height, "assets/textures/speedometer/circle.png")
-	local sectorsCount = math.min(SPEED_SECTORS_COUNT, getCarSpeed() / MAX_SPEED * SPEED_SECTORS_COUNT)
+	local speed = getVehicleSpeed()
+	local sectorsCount = math.min(SPEED_SECTORS_COUNT, speed / MAX_SPEED * SPEED_SECTORS_COUNT)
 	for i = 1, sectorsCount do
 		local rotation = (i - 1) * 3
 		dxDrawImage(x, y, width, height, "assets/textures/speedometer/circle2.png", rotation)
@@ -50,19 +51,26 @@ local function drawSpeedometer(x, y, width, height)
 
 	-- hp
 	dxDrawImage(x, y, width, height, "assets/textures/speedometer/hpfull.png")
-	if localPlayer.vehicle then
-		sectorsCount = localPlayer.vehicle.health / 1000 * SIDEBAR_SECTORS_COUNT
-		for i = 1, sectorsCount do
-			local rotation = -(i - 1) * 6.8
-			dxDrawImage(x, y, width, height, "assets/textures/speedometer/hp.png", rotation)
-		end
+	sectorsCount = localPlayer.vehicle.health / 1000 * SIDEBAR_SECTORS_COUNT
+	for i = 1, sectorsCount do
+		local rotation = -(i - 1) * 6.8
+		dxDrawImage(x, y, width, height, "assets/textures/speedometer/hp.png", rotation)
 	end
+
 	-- nitro
 	dxDrawImage(x, y, width, height, "assets/textures/speedometer/nitrofull.png")
 
 	-- Скорость
-	dxDrawImage(x, y, width, height, "assets/textures/speedometer/3.png")
-	dxDrawText(getCarSpeedString(), x, y, x + width, y + height, tocolor(255, 255, 255, 160), 1, font, "center", "bottom")
+	local gear = getVehicleCurrentGear(localPlayer.vehicle)
+	outputChatBox(gear)
+	if gear == 0 then
+		gear = "R"
+	end
+	if speed == 0 then
+		gear = "N"
+	end
+	dxDrawImage(x, y, width, height, "assets/textures/speedometer/" .. gear ..".png")
+	dxDrawText(getVehicleSpeedString(), x, y, x + width, y + height, tocolor(255, 255, 255, 160), 1, font, "center", "bottom")
 
 	-- Иконки
 	dxDrawImage(x, y, width, height, "assets/textures/speedometer/icons.png")

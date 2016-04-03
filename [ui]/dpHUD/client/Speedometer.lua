@@ -39,29 +39,33 @@ local function getCarSpeedString()
 end
 
 local function drawSpeedometer(x, y, width, height)
-	dxDrawImage(x, y, width, height, "assets/textures/circle.png")
-	-- Заполнение круга
+	-- Круг скорости
+	dxDrawImage(x, y, width, height, "assets/textures/speedometer/circle.png")
 	local sectorsCount = math.min(SPEED_SECTORS_COUNT, getCarSpeed() / MAX_SPEED * SPEED_SECTORS_COUNT)
 	for i = 1, sectorsCount do
 		local rotation = (i - 1) * 3
-		dxDrawImage(x, y, width, height, "assets/textures/circle2.png", rotation)
+		dxDrawImage(x, y, width, height, "assets/textures/speedometer/circle2.png", rotation)
 	end
+	dxDrawImage(x, y, width, height, "assets/textures/speedometer/numbers.png")
 
-	dxDrawImage(x, y, width, height, "assets/textures/hpfull.png")
-	dxDrawImage(x, y, width, height, "assets/textures/nitrofull.png")
-	dxDrawImage(x, y, width, height, "assets/textures/icons.png")
-
+	-- hp
+	dxDrawImage(x, y, width, height, "assets/textures/speedometer/hpfull.png")
 	if localPlayer.vehicle then
 		sectorsCount = localPlayer.vehicle.health / 1000 * SIDEBAR_SECTORS_COUNT
 		for i = 1, sectorsCount do
 			local rotation = -(i - 1) * 6.8
-			dxDrawImage(x, y, width, height, "assets/textures/hp.png", rotation)
+			dxDrawImage(x, y, width, height, "assets/textures/speedometer/hp.png", rotation)
 		end
 	end
-	dxDrawImage(x, y, width, height, "assets/textures/numbers.png")
+	-- nitro
+	dxDrawImage(x, y, width, height, "assets/textures/speedometer/nitrofull.png")
 
-	dxDrawImage(x, y, width, height, "assets/textures/3.png")
+	-- Скорость
+	dxDrawImage(x, y, width, height, "assets/textures/speedometer/3.png")
 	dxDrawText(getCarSpeedString(), x, y, x + width, y + height, tocolor(255, 255, 255, 160), 1, font, "center", "bottom")
+
+	-- Иконки
+	dxDrawImage(x, y, width, height, "assets/textures/speedometer/icons.png")
 end
 
 addEventHandler("onClientRender", root, function ()

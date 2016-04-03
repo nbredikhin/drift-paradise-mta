@@ -10,7 +10,6 @@
 
 	<file src="assets/shaders/include/tex_matrix.fx"/>
 	<file src="assets/shaders/include/texture.fx"/>
-	<file src="assets/shaders/mask2d.fx"/>
 	<file src="assets/shaders/mask3d.fx"/>
 	<file src="assets/shaders/texture3d.fx"/>
 </meta>

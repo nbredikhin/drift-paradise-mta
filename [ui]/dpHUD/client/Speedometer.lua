@@ -2,8 +2,7 @@ Speedometer = {}
 Speedometer.visible = true
 local DRAW_POST_GUI = false
 local MAX_SPEED = 220
-local SPEED_SECTORS_COUNT = 88
-local SIDEBAR_SECTORS_COUNT = 13
+local SPEED_SECTORS_COUNT = 134
 
 local screenWidth, screenHeight = guiGetScreenSize()
 local originalSize = 400
@@ -40,29 +39,17 @@ end
 
 local function drawSpeedometer(x, y, width, height)
 	-- Круг скорости
-	dxDrawImage(x, y, width, height, "assets/textures/speedometer/circle.png")
+	dxDrawImage(x, y, width, height, "assets/textures/speedometer/circle.png", 0, 0, 0, tocolor(255, 255, 255, 200))
 	local speed = getVehicleSpeed()
 	local sectorsCount = math.min(SPEED_SECTORS_COUNT, speed / MAX_SPEED * SPEED_SECTORS_COUNT)
 	for i = 1, sectorsCount do
-		local rotation = (i - 1) * 3
+		local rotation = (i - 1) * 2
 		dxDrawImage(x, y, width, height, "assets/textures/speedometer/circle2.png", rotation)
 	end
 	dxDrawImage(x, y, width, height, "assets/textures/speedometer/numbers.png")
 
-	-- hp
-	dxDrawImage(x, y, width, height, "assets/textures/speedometer/hpfull.png")
-	sectorsCount = localPlayer.vehicle.health / 1000 * SIDEBAR_SECTORS_COUNT
-	for i = 1, sectorsCount do
-		local rotation = -(i - 1) * 6.8
-		dxDrawImage(x, y, width, height, "assets/textures/speedometer/hp.png", rotation)
-	end
-
-	-- nitro
-	dxDrawImage(x, y, width, height, "assets/textures/speedometer/nitrofull.png")
-
 	-- Скорость
 	local gear = getVehicleCurrentGear(localPlayer.vehicle)
-	outputChatBox(gear)
 	if gear == 0 then
 		gear = "R"
 	end
@@ -70,10 +57,7 @@ local function drawSpeedometer(x, y, width, height)
 		gear = "N"
 	end
 	dxDrawImage(x, y, width, height, "assets/textures/speedometer/" .. gear ..".png")
-	dxDrawText(getVehicleSpeedString(), x, y, x + width, y + height, tocolor(255, 255, 255, 160), 1, font, "center", "bottom")
-
-	-- Иконки
-	dxDrawImage(x, y, width, height, "assets/textures/speedometer/icons.png")
+	dxDrawText(getVehicleSpeedString(), x, y, x + width, y + height, tocolor(255, 255, 255, 255), 1, font, "center", "bottom")
 end
 
 addEventHandler("onClientRender", root, function ()
@@ -97,7 +81,7 @@ addEventHandler("onClientRender", root, function ()
 			height,
 			textureShader, 
 			0, 0, 0, 
-			tocolor(255, 255, 255, 255), 
+			tocolor(255, 255, 255, 200), 
 			DRAW_POST_GUI
 		)
 	end
@@ -108,7 +92,7 @@ function Speedometer.start()
 		return false
 	end
 	font = dxCreateFont("assets/fonts/speed.ttf", 90, false)
-	renderTarget = dxCreateRenderTarget(originalSize, originalSize, false)
+	renderTarget = dxCreateRenderTarget(originalSize, originalSize, true)
 	textureShader = exports.dpAssets:createShader("texture3d.fx")
 	if not (renderTarget and textureShader) then
 		fallbackTo2d = true

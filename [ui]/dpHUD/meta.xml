@@ -16,11 +16,6 @@
 	<file src="assets/textures/speedometer/r.png"/>
 	<file src="assets/textures/speedometer/circle.png"/>
 	<file src="assets/textures/speedometer/circle2.png"/>
-	<file src="assets/textures/speedometer/hp.png"/>
-	<file src="assets/textures/speedometer/hpfull.png"/>
-	<file src="assets/textures/speedometer/nitro.png"/>
-	<file src="assets/textures/speedometer/nitrofull.png"/>
-	<file src="assets/textures/speedometer/icons.png"/>
 	<file src="assets/textures/speedometer/numbers.png"/>
 
 	<file src="assets/textures/radar/map.png"/>

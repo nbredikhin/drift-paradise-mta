@@ -1,5 +1,6 @@
 <meta>
 	<oop>true</oop>
+	<include resource="dpAssets"/>
 	<include resource="dpLang"/>
 
 	<script type="client" src="client/ScreenManager.lua"/>
@@ -12,29 +13,22 @@
 	<export type="client" function="showScreen"/>
 	<export type="client" function="hideScreen"/>
 
-	<file src="html/screens/panel/images/bg_left.png"/>
-	<file src="html/screens/panel/images/level.png"/>
-	<file src="html/screens/panel/images/logo.png"/>
-	<file src="html/screens/panel/fonts/RobotoCondensed-Bold.ttf"/>
-	<file src="html/screens/panel/fonts/RobotoCondensed-BoldItalic.ttf"/>
-	<file src="html/screens/panel/fonts/RobotoCondensed-Italic.ttf"/>
-	<file src="html/screens/panel/fonts/RobotoCondensed-Light.ttf"/>
-	<file src="html/screens/panel/fonts/RobotoCondensed-LightItalic.ttf"/>
-	<file src="html/screens/panel/fonts/RobotoCondensed-Regular.ttf"/>
-	<file src="html/screens/panel/css/main.css"/>
-	<file src="html/screens/panel/index.html"/>
-
-	<file src="html/screens/test/images/bg_left.png"/>
-	<file src="html/screens/test/images/level.png"/>
-	<file src="html/screens/test/images/logo.png"/>
-	<file src="html/screens/test/fonts/RobotoCondensed-Bold.ttf"/>
-	<file src="html/screens/test/fonts/RobotoCondensed-BoldItalic.ttf"/>
-	<file src="html/screens/test/fonts/RobotoCondensed-Italic.ttf"/>
-	<file src="html/screens/test/fonts/RobotoCondensed-Light.ttf"/>
-	<file src="html/screens/test/fonts/RobotoCondensed-LightItalic.ttf"/>
-	<file src="html/screens/test/fonts/RobotoCondensed-Regular.ttf"/>
-	<file src="html/screens/test/css/main.css"/>
-	<file src="html/screens/test/index.html"/>	
+	<file src="html/screens/images/bg_left.png"/>
+	<file src="html/screens/images/level.png"/>
+	<file src="html/screens/images/logo.png"/>
+	<file src="html/screens/images/bgs.jpg"/>
+	<file src="html/screens/images/en.png"/>
+	<file src="html/screens/images/ru.png"/>
+	<file src="html/screens/images/ua.png"/>
+	<file src="html/screens/images/logo_login.png"/>
+	<file src="html/screens/fonts/RobotoCondensed-Bold.ttf"/>
+	<file src="html/screens/fonts/RobotoCondensed-BoldItalic.ttf"/>
+	<file src="html/screens/fonts/RobotoCondensed-Italic.ttf"/>
+	<file src="html/screens/fonts/RobotoCondensed-Light.ttf"/>
+	<file src="html/screens/fonts/RobotoCondensed-LightItalic.ttf"/>
+	<file src="html/screens/fonts/RobotoCondensed-Regular.ttf"/>
+	<file src="html/screens/css/main.css"/>
+	<file src="html/screens/login.html"/>	
 
 	<file src="html/jquery.js"/>
 	<file src="html/handlebars.js"/>

@@ -1,0 +1,79 @@
+<div class="wrapper_login" id="login">
+	<div class="logo_login"></div>
+	<div class="block_login">
+		<div class="top_link_login">
+			<div class="ls_block">
+				<div class="btn">
+					<a href="#" class="l active" id="start_game">Начать игру</a>
+					<a href="#" class="r" onclick="show_reg();return false;">Зарегистрироваться</a>
+				</div>
+			</div>
+		</div>
+		<div class="cont_login">
+			<form class="login_form" id="login_form">
+				<label class="nii">Твой ник</label>
+				<div class="inp"><input type="text" class="nick" name="nick" id="login_nickname" /></div>
+				<label>Твой пароль</label>
+				<div class="inp"><input type="password" class="pass" name="pass" id="login_password" /></div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="wrapper_reg" id="reg" style="display:none;">
+	<div class="block_reg">
+		<div class="top_link_login">
+			<div class="ls_block">
+				<div class="btn">
+					<a href="#" class="l" onclick="show_login();return false;">Назад</a>
+					<a href="#" class="r active">Зарегистрироваться</a>
+				</div>
+			</div>
+		</div>
+		<div class="cont_reg">
+		
+			<div class="lang_color">
+				<div class="lang">
+					<div class="til">Язык</div>
+					<div class="list_lang">
+						<div class="ua"><a href="#"></a></div>
+						<div class="ru"><a href="#"></a></div>
+						<div class="en"><a href="#"></a></div>
+					</div>
+				</div>
+				<div class="color">
+					<div class="til">Цвет</div>
+					<div class="list_color">
+						<div class="c1"><a href="#"></a></div>
+						<div class="c2"><a href="#"></a></div>
+						<div class="c3"><a href="#"></a></div>
+					</div>
+				</div>
+			</div>
+			<form class="reg_form">
+				<label class="nii">Твой ник</label>
+				<div class="inp"><input type="text" class="nick" name="nick" /></div>
+				<label>Твой пароль</label>
+				<div class="inp"><input type="password" class="pass" name="pass" /></div>		
+			</form>
+		</div>
+	</div>
+</div>
+
+<script>
+	function show_login(){			
+		$("#login").fadeIn(0);
+		document.getElementById('reg').style.display='none';
+	}
+	function show_reg(){
+		$("#reg").fadeIn(0);
+		document.getElementById('login').style.display='none';
+	}
+
+	$("#start_game").click(function(event) {
+		var nickname = $("#login_nickname").val();
+		var password = $("#login_password").val();
+
+		mta.triggerEvent("dpUI.login.startGameClick", nickname, password);
+	});
+</script>

@@ -1,0 +1,9 @@
+<meta>
+	<oop>true</oop>
+	<include resource="dpUI"/>
+
+	<script type="client" src="client/main.lua"/>
+	<file src="assets/background.jpg"/>
+
+	<export type="client" function="setVisible"/>
+</meta>

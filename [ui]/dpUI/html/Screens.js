@@ -22,7 +22,7 @@ Screens.load = function (name, data) {
 	data.lang = languageStrings;
 	if (templates[name] === undefined) {
 		$.ajax({
-			url: "screens/" + name + "/index.html",
+			url: "screens/" + name + ".html",
 			success: function (html) {
 				templates[name] = Handlebars.compile(html);
 				$("#screen_container").html(templates[name](data));

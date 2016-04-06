@@ -1,13 +1,5 @@
-function addScreen(...)
-	ScreenManager.addScreen(...)
-end
-
-function removeScreen(...)
-	ScreenManager.removeScreen(...)
-end
-
 function showScreen(...)
-	ScreenManager.showScreen(...)
+	ScreenManager.show(...)
 end
 
 function hideScreen(...)

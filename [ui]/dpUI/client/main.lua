@@ -1,27 +1,3 @@
 addEventHandler("onClientResourceStart", resourceRoot, function ()
 	ScreenManager.start()
 end)
-
-bindKey("tab", "down", function ()
-	ScreenManager.show("panel")
-	showCursor(true)
-	setPlayerHudComponentVisible("all", false)	
-end)
-
-bindKey("tab", "up", function ()
-	ScreenManager.hide()
-	showCursor(false)
-	setPlayerHudComponentVisible("all", true)	
-end)
-
-bindKey("f2", "down", function ()
-	ScreenManager.show("test")
-	showCursor(true)
-	setPlayerHudComponentVisible("all", false)	
-end)
-
-bindKey("f2", "up", function ()
-	ScreenManager.hide()
-	showCursor(false)
-	setPlayerHudComponentVisible("all", true)	
-end)

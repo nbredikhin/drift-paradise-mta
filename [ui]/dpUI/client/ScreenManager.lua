@@ -1,10 +1,16 @@
 ScreenManager = {}
 local screenWidth, screenHeight = guiGetScreenSize()
+local screenScale = 1
+if screenWidth < 1280 then
+	screenScale = 1280 / screenWidth
+end
+
+setDevelopmentMode(true, true)
 
 local BROWSER_TRANSPARENT = true
-local BROWSER_POST_GUI = false
+local BROWSER_POST_GUI = true
 local BROWSER_MOUSE_WHEEL_SPEED = 40
-local MAX_TRANSORM_ANGLE = 10
+local MAX_TRANSORM_ANGLE = 15
 
 -- Браузер и шейдер
 local isActive = false
@@ -13,7 +19,6 @@ local maskShader
 local isBackgroundVisible = false
 local activeScreen
 
-local testTexture = dxCreateTexture("assets/images/tab.png")
 local ANIMATION_SPEED = 0.05
 local animationProgress = 0
 
@@ -62,10 +67,9 @@ local function draw()
 end
 
 function ScreenManager.start()
-	ScreenManager.browser = Browser(screenWidth, screenHeight, true, BROWSER_TRANSPARENT)
+	ScreenManager.browser = Browser(screenWidth * screenScale, screenHeight * screenScale, true, BROWSER_TRANSPARENT)
 	maskShader = exports.dpAssets:createShader("texture3d.fx")
-	
-	addEventHandler("onClientRender", root, draw)
+
 	addEventHandler("onClientBrowserCreated", ScreenManager.browser, function ()
 		ScreenRender.start()
 		ScreenManager.hide()
@@ -74,7 +78,7 @@ function ScreenManager.start()
 		ScreenManager.browser:injectMouseMove(x, y)
 	end)
 	addEventHandler("onClientClick", root, function (button, state)
-		if state == "down" then
+		if state == "down" then			
 			ScreenManager.browser:injectMouseDown(button)
 		else
 			ScreenManager.browser:injectMouseUp(button)
@@ -88,6 +92,8 @@ function ScreenManager.start()
 			ScreenManager.browser:injectMouseWheel(BROWSER_MOUSE_WHEEL_SPEED, 0)
 		end
 	end)	
+
+	guiSetInputMode("no_binds")
 end
 
 function ScreenManager.show(name, options)
@@ -104,13 +110,21 @@ function ScreenManager.show(name, options)
 	end
 	isBackgroundVisible = not not options.background
 	ScreenRender.renderScreen(name)
+	if not isActive then
+		addEventHandler("onClientRender", root, draw)
+	end	
 	isActive = true
 	activeScreen = name
 	outputDebugString("ScreenManager.show: " .. tostring(name))
+	ScreenManager.browser:focus()
+	guiSetInputEnabled(true)
 	return true
 end
 
 function ScreenManager.hide()
+	guiSetInputEnabled(false)
+	focusBrowser(nil)
+	removeEventHandler("onClientRender", root, draw)
 	ScreenRender.clear()
 	isActive = false
 	return true

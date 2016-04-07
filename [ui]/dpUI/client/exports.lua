@@ -1,7 +1,11 @@
 function showScreen(...)
-	ScreenManager.show(...)
+	return ScreenManager.show(...)
 end
 
 function hideScreen(...)
-	ScreenManager.hide(...)
+	return ScreenManager.hide(...)
+end
+
+function showMessageBox(...)
+	return MessageBox.show(...)
 end

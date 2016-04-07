@@ -1,3 +1,5 @@
 addEventHandler("onClientResourceStart", resourceRoot, function ()
-	exports.dpLoginScreen:setVisible(true)
+	setTimer(function ()
+		exports.dpLoginScreen:setVisible(true)
+	end, 500, 1)
 end)

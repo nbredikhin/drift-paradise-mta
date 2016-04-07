@@ -22,16 +22,6 @@ local activeScreen
 local ANIMATION_SPEED = 0.05
 local animationProgress = 0
 
-local function getMousePosition()
-	local mx, my = screenWidth / 2, screenHeight / 2
-	if isCursorShowing() then
-		mx, my = getCursorPosition()
-		mx = mx * screenWidth
-		my = my * screenHeight
-	end
-	return mx, my
-end
-
 local function draw()
 	if not isActive then
 		return
@@ -70,14 +60,27 @@ function ScreenManager.start()
 	ScreenManager.browser = Browser(screenWidth * screenScale, screenHeight * screenScale, true, BROWSER_TRANSPARENT)
 	maskShader = exports.dpAssets:createShader("texture3d.fx")
 
+	if not maskShader then
+		outputDebugString("NO MASK SHADER")
+	end
+	if not ScreenManager.browser then
+		outputDebugString("NO BROWSER")
+	end
+
 	addEventHandler("onClientBrowserCreated", ScreenManager.browser, function ()
 		ScreenRender.start()
 		ScreenManager.hide()
 	end)
 	addEventHandler("onClientCursorMove", root, function (_, _, x, y)
+		if isMTAWindowActive() or MessageBox.isActive() then
+			return 
+		end				
 		ScreenManager.browser:injectMouseMove(x, y)
 	end)
 	addEventHandler("onClientClick", root, function (button, state)
+		if isMTAWindowActive() or MessageBox.isActive() then
+			return 
+		end		
 		if state == "down" then			
 			ScreenManager.browser:injectMouseDown(button)
 		else
@@ -85,6 +88,9 @@ function ScreenManager.start()
 		end
 	end)
 	addEventHandler("onClientKey", root, function (button)
+		if isMTAWindowActive() or MessageBox.isActive() then
+			return 
+		end
 		local wheelOffset = 0
 		if button == "mouse_wheel_down" then
 			ScreenManager.browser:injectMouseWheel(-BROWSER_MOUSE_WHEEL_SPEED, 0)
@@ -111,7 +117,7 @@ function ScreenManager.show(name, options)
 	isBackgroundVisible = not not options.background
 	ScreenRender.renderScreen(name)
 	if not isActive then
-		addEventHandler("onClientRender", root, draw)
+		addEventHandler("onClientRender", root, draw, false, "low")
 	end	
 	isActive = true
 	activeScreen = name

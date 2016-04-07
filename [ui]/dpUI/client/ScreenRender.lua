@@ -30,17 +30,17 @@ local function stopRendering()
 end
 
 function ScreenRender.start()
-	ScreenManager.browser:loadURL(INDEX_URL)
 	addEventHandler("onClientBrowserDocumentReady", ScreenManager.browser, function (url)
 		if url == INDEX_URL then
 			isReady = true
-			passLocales()
 			if renderWhenReady then
 				ScreenRender.renderScreen(renderWhenReady)
 				renderWhenReady = nil
-			end			
+			end						
+			passLocales()	
 		end
 	end)
+	ScreenManager.browser:loadURL(INDEX_URL)
 end
 
 function ScreenRender.renderScreen(name, data)

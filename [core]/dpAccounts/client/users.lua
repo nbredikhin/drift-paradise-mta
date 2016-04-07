@@ -6,6 +6,10 @@ function register(username, password)
 	then
 		return false
 	end	
+	local success, errorType = checkUsername(username)
+	if not success then
+		return false, errorType
+	end	
 	if AccountsConfig.HASH_PASSWORDS_CLIENTSIDE then
 		password = sha256(password)
 	end

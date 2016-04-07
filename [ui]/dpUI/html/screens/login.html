@@ -26,7 +26,7 @@
 			<div class="ls_block">
 				<div class="btn">
 					<a href="#" class="l" onclick="show_login();return false;">Назад</a>
-					<a href="#" class="r active">Зарегистрироваться</a>
+					<a href="#" class="r active" id="register">Зарегистрироваться</a>
 				</div>
 			</div>
 		</div>
@@ -52,9 +52,9 @@
 			</div>
 			<form class="reg_form">
 				<label class="nii">Твой ник</label>
-				<div class="inp"><input type="text" class="nick" name="nick" /></div>
+				<div class="inp"><input type="text" class="nick" name="nick" id="register_username"/></div>
 				<label>Твой пароль</label>
-				<div class="inp"><input type="password" class="pass" name="pass" /></div>		
+				<div class="inp"><input type="password" class="pass" name="pass"  id="register_password"/></div>		
 			</form>
 		</div>
 	</div>
@@ -76,4 +76,11 @@
 
 		mta.triggerEvent("dpUI.login.startGameClick", nickname, password);
 	});
+
+	$("#register").click(function(event) {
+		var nickname = $("#register_username").val();
+		var password = $("#register_password").val();
+
+		mta.triggerEvent("dpUI.login.registerClick", nickname, password);
+	});	
 </script>

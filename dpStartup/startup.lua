@@ -5,8 +5,8 @@ local startupResources = {
 	-- Core
 	"dpUtils",
 	"dpAccounts",
-	"dpLang",
 	"dpLog",
+	"dpLang",
 	"dpPlayers",
 	"dpVehicles",
 
@@ -18,7 +18,8 @@ local startupResources = {
 	-- Gameplay
 	"dpGarage",
 	"dpTuning",
-	"dpCarShop"
+	"dpCarShop",
+	"dpGameplay"
 }
 
 local function processResourceByName(resourceName, start)
@@ -27,9 +28,6 @@ local function processResourceByName(resourceName, start)
 		return false
 	end
 	if start then
-		if resource.state == "running" then
-			stopResource(resource)
-		end
 		startResource(resource)
 		if resource.state == "running" then
 			return true

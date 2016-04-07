@@ -1,17 +1,19 @@
 <meta>
 	<oop>true</oop>
+	<min_mta_version client="1.3.0-9.04431" />
 	<include resource="dpAssets"/>
 	<include resource="dpLang"/>
 
+	<script type="client" src="client/utils.lua"/>
 	<script type="client" src="client/ScreenManager.lua"/>
 	<script type="client" src="client/ScreenRender.lua"/>
+	<script type="client" src="client/MessageBox.lua"/>
 	<script type="client" src="client/main.lua"/>
 	<script type="client" src="client/exports.lua"/>
 
-	<export type="client" function="addScreen"/>
-	<export type="client" function="removeScreen"/>
 	<export type="client" function="showScreen"/>
 	<export type="client" function="hideScreen"/>
+	<export type="client" function="showMessageBox"/>
 
 	<file src="html/screens/images/bg_left.png"/>
 	<file src="html/screens/images/level.png"/>

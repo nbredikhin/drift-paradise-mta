@@ -2,4 +2,6 @@
 	<oop>true</oop>
 
 	<script type="server" src="server/player_join.lua"/>
+
+	<script type="client" src="client/player_join.lua"/>
 </meta>

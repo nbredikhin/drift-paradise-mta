@@ -87,7 +87,7 @@ function Users.loginPlayer(player, username, password, callback)
 		return false, "already_logged_in"
 	end
 	-- Получение пользователя из базы
-	DatabaseTable.select(DB_TABLE_NAME, nil, function(result)
+	return DatabaseTable.select(DB_TABLE_NAME, nil, function(result)
 		local success, errorType = not not result, "user_not_found"
 		local account
 		-- Проверка пароля и т. д.
@@ -110,7 +110,6 @@ function Users.loginPlayer(player, username, password, callback)
 			callback(success, errorType)
 		end
 	end)
-	return true
 end
 
 function Users.logoutPlayer(player, callback)
@@ -124,12 +123,11 @@ function Users.logoutPlayer(player, callback)
 	Sessions.stop(player)
 
 	local username = player:getData("username")
-	DatabaseTable.update(DB_TABLE_NAME, {online=0}, {username=username}, function(result)
+	return DatabaseTable.update(DB_TABLE_NAME, {online=0}, {username=username}, function(result)
 		if type(callback) == "function" then
 			callback(not not result)
 		end
 	end)
-	return true
 end
 
 function Users.saveAccount(player)

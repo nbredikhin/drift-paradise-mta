@@ -21,7 +21,7 @@ function setVisible(visible)
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
-	setVisible(true)
+	--setVisible(true)
 end)
 
 addEvent("dpUI.login.startGameClick", false)

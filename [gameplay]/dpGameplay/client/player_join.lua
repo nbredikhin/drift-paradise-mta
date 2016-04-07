@@ -1,3 +1,3 @@
 addEventHandler("onClientResourceStart", resourceRoot, function ()
-	-- TODO: Показать экран входа
+	exports.dpLoginScreen:setVisible(true)
 end)

@@ -28,18 +28,17 @@ local function draw()
 	end
 	animationProgress = math.min(1, animationProgress + ANIMATION_SPEED)
 
-	local mouseX, mouseY = getMousePosition()
-	local rotationX = -(mouseX - screenWidth / 2) / screenWidth * MAX_TRANSORM_ANGLE
-	local rotationY = (mouseY - screenHeight / 2) / screenHeight * MAX_TRANSORM_ANGLE
-
- 	dxSetShaderTransform(maskShader, rotationX, rotationY, 0)
-	dxSetShaderValue(maskShader, "sPicTexture", ScreenManager.browser)
-
 	-- Фон
 	if isBackgroundVisible then
 		dxDrawRectangle(0, 0, screenWidth, screenHeight, tocolor(0, 0, 0, 200 * animationProgress))
 	end
 	if maskShader then
+		local mouseX, mouseY = getMousePosition()
+		local rotationX = -(mouseX - screenWidth / 2) / screenWidth * MAX_TRANSORM_ANGLE
+		local rotationY = (mouseY - screenHeight / 2) / screenHeight * MAX_TRANSORM_ANGLE
+
+	 	dxSetShaderTransform(maskShader, rotationX, rotationY, 0)
+		dxSetShaderValue(maskShader, "sPicTexture", ScreenManager.browser)		
 		-- Браузер
 		dxDrawImage(
 			0, 

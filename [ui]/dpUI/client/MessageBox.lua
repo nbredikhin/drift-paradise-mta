@@ -15,26 +15,39 @@ local function draw()
 	if not isActive then
 		return
 	end	
-	local mouseX, mouseY = getMousePosition()
-	local rotationX = -(mouseX - screenWidth / 2) / screenWidth * MAX_TRANSORM_ANGLE
-	local rotationY = (mouseY - screenHeight / 2) / screenHeight * MAX_TRANSORM_ANGLE	
-
- 	dxSetShaderTransform(maskShader, rotationX, rotationY, 0, 0, 0, 0.1)
-	dxSetShaderValue(maskShader, "sPicTexture", renderTarget)
 
 	if FADE_SCREEN then
 		dxDrawRectangle(0, 0, screenWidth, screenHeight, tocolor(0, 0, 0, 200))
 	end
-	dxDrawImage(
-		(screenWidth - width) / 2, 
-		(screenHeight - height) / 2, 
-		width, 
-		height,
-		maskShader,
-		0, 0, 0,
-		tocolor(255, 255, 255, 240), 
-		true
-	)
+	if maskShader then
+		local mouseX, mouseY = getMousePosition()
+		local rotationX = -(mouseX - screenWidth / 2) / screenWidth * MAX_TRANSORM_ANGLE
+		local rotationY = (mouseY - screenHeight / 2) / screenHeight * MAX_TRANSORM_ANGLE	
+
+	 	dxSetShaderTransform(maskShader, rotationX, rotationY, 0, 0, 0, 0.1)
+		dxSetShaderValue(maskShader, "sPicTexture", renderTarget)		
+		dxDrawImage(
+			(screenWidth - width) / 2, 
+			(screenHeight - height) / 2, 
+			width, 
+			height,
+			maskShader,
+			0, 0, 0,
+			tocolor(255, 255, 255, 240), 
+			true
+		)
+	else
+		dxDrawImage(
+			(screenWidth - width) / 2, 
+			(screenHeight - height) / 2, 
+			width, 
+			height,
+			renderTarget,
+			0, 0, 0,
+			tocolor(255, 255, 255, 240), 
+			true
+		)		
+	end
 end
 
 local function drawButton(x, y, w, h, text)

@@ -3,9 +3,12 @@ local HIDE_CHAT = false
 local screenWidth, screenHeight = guiGetScreenSize()
 local backgroundScale = screenHeight / 720
 local backgroundWidth, backgroundHeight = 1280 * backgroundScale, 720 * backgroundScale
+local animationProgress = 0
+local ANIMATION_SPEED = 0.01
 
 local function draw()
-	dxDrawImage(0, 0, backgroundWidth, backgroundHeight, "assets/background.jpg")
+	animationProgress = math.min(1, animationProgress + ANIMATION_SPEED)
+	dxDrawImage(0, 0, backgroundWidth, backgroundHeight, "assets/background.jpg", 0, 0, 0, tocolor(255, 255, 255, 255 * animationProgress))
 end
 
 function setVisible(visible)
@@ -16,7 +19,8 @@ function setVisible(visible)
 
 	if visible then
 		addEventHandler("onClientRender", root, draw)
-		exports.dpUI:showScreen("login")
+		exports.dpUI:showScreen("login", {animation = true})
+		animationProgress = 0
 	else
 		exports.dpUI:hideScreen("login")
 		removeEventHandler("onClientRender", root, draw)

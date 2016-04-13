@@ -6,5 +6,6 @@ addEventHandler("dpAccounts.login", root, function (success)
 		return
 	end
 	
+	-- Если не выбран персонаж - перекинуть на экран выбора персонажа
 	exports.dpPlayers:spawnPlayer(source)
 end)

@@ -9,3 +9,7 @@ function getMousePosition()
 	end
 	return mx, my
 end
+
+function isPointInRect(x, y, rx, ry, rw, rh)
+	return (x >= rx and y >= ry and x <= rx + rw and y <= ry + rh)
+end

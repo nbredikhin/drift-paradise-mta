@@ -5,35 +5,18 @@
 	<include resource="dpLang"/>
 
 	<script type="client" src="client/utils.lua"/>
-	<script type="client" src="client/ScreenManager.lua"/>
-	<script type="client" src="client/ScreenRender.lua"/>
-	<script type="client" src="client/MessageBox.lua"/>
+	<script type="client" src="client/Colors.lua"/>
+	<script type="client" src="client/Drawing.lua"/>
+	<script type="client" src="client/Render.lua"/>
 	<script type="client" src="client/main.lua"/>
 	<script type="client" src="client/exports.lua"/>
+
+	<script type="client" src="client/widgets/Widget.lua"/>
+	<script type="client" src="client/widgets/Rectangle.lua"/>
+	<script type="client" src="client/widgets/TextField.lua"/>
+	<script type="client" src="client/widgets/Button.lua"/>
 
 	<export type="client" function="showScreen"/>
 	<export type="client" function="hideScreen"/>
 	<export type="client" function="showMessageBox"/>
-
-	<file src="html/screens/images/bg_left.png"/>
-	<file src="html/screens/images/level.png"/>
-	<file src="html/screens/images/logo.png"/>
-	<file src="html/screens/images/bgs.jpg"/>
-	<file src="html/screens/images/en.png"/>
-	<file src="html/screens/images/ru.png"/>
-	<file src="html/screens/images/ua.png"/>
-	<file src="html/screens/images/logo_login.png"/>
-	<file src="html/screens/fonts/RobotoCondensed-Bold.ttf"/>
-	<file src="html/screens/fonts/RobotoCondensed-BoldItalic.ttf"/>
-	<file src="html/screens/fonts/RobotoCondensed-Italic.ttf"/>
-	<file src="html/screens/fonts/RobotoCondensed-Light.ttf"/>
-	<file src="html/screens/fonts/RobotoCondensed-LightItalic.ttf"/>
-	<file src="html/screens/fonts/RobotoCondensed-Regular.ttf"/>
-	<file src="html/screens/css/main.css"/>
-	<file src="html/screens/login.html"/>	
-
-	<file src="html/jquery.js"/>
-	<file src="html/handlebars.js"/>
-	<file src="html/Screens.js"/>
-	<file src="html/index.html"/>
 </meta>

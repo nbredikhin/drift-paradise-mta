@@ -4,7 +4,9 @@
 	<script type="shared" src="shared/argcheck.lua"/>
 	<script type="shared" src="shared/time.lua"/>
 	<script type="shared" src="shared/geom.lua"/>
+	<script type="shared" src="shared/table.lua"/>
 
+	<export type="shared" function="tableCopy"/>
 	<export type="shared" function="argcheck"/>
 	<!-- Работа со временем -->
 	<export type="shared" function="isLeapYear"/>

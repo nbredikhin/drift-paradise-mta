@@ -12,8 +12,9 @@ local startupResources = {
 
 	-- UI
 	"dpUI",
-	"dpLoginScreen",
 	"dpHUD",
+	-- UI screens
+	"dpLoginScreen",
 
 	-- Gameplay
 	"dpGarage",

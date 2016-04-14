@@ -1,14 +1,25 @@
 {
-	"global_score": "Очки",
-	"global_level": "Уровень",
-	"global_nickname": "Никнейм",
+	// UI
+	"login_panel_username_label": "Имя пользователя",
+	"login_panel_password_label": "Пароль",
+	"login_panel_start_game_button": "Начать игру",
+	"login_panel_register_button_toggle": "Регистрация",
+	"login_panel_register_button": "Зарегистрироваться",
+	"login_panel_language": "Язык",
+	"login_panel_color": "Цвет",
+	"login_panel_back": "Назад",
 
-	"main_panel_garage": "Гараж",
-	"main_panel_teleport": "Телепорт",
-	"main_panel_settings": "Настройки",
-	"main_panel_players": "Игроки",
-	"main_panel_map": "Карта",
-	"main_panel_block": "Блокировать",
-	"main_panel_money": "Наличные",
-	"main_panel_pm": "Написать в личку",	
+	// Message box
+	"login_panel_auth_error": "Ошибка авторизации",
+	"login_panel_register_error": "Ошибка регистрации",
+	"login_panel_err_enter_username": "Введите имя пользователя",
+	"login_panel_err_enter_password": "Введите пароль",
+	"login_panel_err_login_unknown": "Не удалось войти",
+	"login_panel_err_register_unknown": "Не удалось зарегистрироваться",
+	"login_panel_err_bad_password": "Неверный пароль",
+	"login_panel_err_user_not_found": "Пользователь не найден",
+	"login_panel_err_account_in_use": "Этот аккаунт уже используется",
+
+	// Chat message
+	"chat_message_login_success": "Вы успешно вошли"	
 }

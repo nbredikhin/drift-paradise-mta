@@ -7,6 +7,11 @@
 	<script type="client" src="client/main.lua"/>
 	<script type="client" src="client/Speedometer.lua"/>
 	<script type="client" src="client/Radar.lua"/>
+	<script type="client" src="client/exports.lua"/>
+
+	<export type="client" function="setVisible"/>
+	<export type="client" function="setRadarVisible"/>
+	<export type="client" function="setSpeedometerVisible"/>
 
 	<file src="assets/textures/speedometer/1.png"/>
 	<file src="assets/textures/speedometer/2.png"/>

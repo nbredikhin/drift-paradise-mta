@@ -4,16 +4,16 @@
 		<div class="top_link_login">
 			<div class="ls_block">
 				<div class="btn">
-					<a href="#" class="l active" id="start_game">Начать игру</a>
-					<a href="#" class="r" onclick="show_reg();return false;">Зарегистрироваться</a>
+					<a href="#" class="l active" id="start_game">{{lang.login_panel_start_game_button}}</a>
+					<a href="#" class="r" onclick="show_reg();return false;">{{lang.login_panel_register_button_toggle}}</a>
 				</div>
 			</div>
 		</div>
 		<div class="cont_login">
 			<form class="login_form" id="login_form">
-				<label class="nii">Твой ник</label>
+				<label class="nii">{{lang.login_panel_username_label}}</label>
 				<div class="inp"><input type="text" class="nick" name="nick" id="login_nickname" /></div>
-				<label>Твой пароль</label>
+				<label>{{lang.login_panel_password_label}}</label>
 				<div class="inp"><input type="password" class="pass" name="pass" id="login_password" /></div>
 			</form>
 		</div>
@@ -25,8 +25,8 @@
 		<div class="top_link_login">
 			<div class="ls_block">
 				<div class="btn">
-					<a href="#" class="l" onclick="show_login();return false;">Назад</a>
-					<a href="#" class="r active" id="register">Зарегистрироваться</a>
+					<a href="#" class="l" onclick="show_login();return false;">{{lang.login_panel_back}}</a>
+					<a href="#" class="r active" id="register">{{lang.login_panel_register_button}}</a>
 				</div>
 			</div>
 		</div>
@@ -34,15 +34,15 @@
 		
 			<div class="lang_color">
 				<div class="lang">
-					<div class="til">Язык</div>
+					<div class="til">{{lang.login_panel_language}}</div>
 					<div class="list_lang">
-						<div class="ua"><a href="#"></a></div>
-						<div class="ru"><a href="#"></a></div>
-						<div class="en"><a href="#"></a></div>
+						<div class="ua" onclick='mta.triggerEvent("dpUI.login.languageClick", "ua");'><a href="#"></a></div>
+						<div class="ru" onclick='mta.triggerEvent("dpUI.login.languageClick", "ru");'><a href="#"></a></div>
+						<div class="en" onclick='mta.triggerEvent("dpUI.login.languageClick", "en");'><a href="#"></a></div>
 					</div>
 				</div>
 				<div class="color">
-					<div class="til">Цвет</div>
+					<div class="til">{{lang.login_panel_color}}</div>
 					<div class="list_color">
 						<div class="c1"><a href="#"></a></div>
 						<div class="c2"><a href="#"></a></div>
@@ -51,9 +51,9 @@
 				</div>
 			</div>
 			<form class="reg_form">
-				<label class="nii">Твой ник</label>
+				<label class="nii">{{lang.login_panel_username_label}}</label>
 				<div class="inp"><input type="text" class="nick" name="nick" id="register_username"/></div>
-				<label>Твой пароль</label>
+				<label>{{lang.login_panel_password_label}}</label>
 				<div class="inp"><input type="password" class="pass" name="pass"  id="register_password"/></div>		
 			</form>
 		</div>

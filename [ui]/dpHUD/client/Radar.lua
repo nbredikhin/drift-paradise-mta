@@ -137,3 +137,7 @@ function Radar.setRotation(x, y, z)
 	end
 	dxSetShaderTransform(maskShader, x, y, z)
 end
+
+function Radar.setVisible(visible)
+	Radar.visible = not not visible
+end

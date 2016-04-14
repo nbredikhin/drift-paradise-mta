@@ -1,7 +1,7 @@
 Speedometer = {}
 Speedometer.visible = true
 local DRAW_POST_GUI = false
-local MAX_SPEED = 220
+local MAX_SPEED = 50
 local SPEED_SECTORS_COUNT = 134
 
 local screenWidth, screenHeight = guiGetScreenSize()
@@ -19,6 +19,7 @@ local circleTextures = {}
 local imageIndexPrev = 0
 
 local font
+local circleTargetColor = {213, 0, 40}
 
 local function getVehicleSpeed()
 	if not localPlayer.vehicle then
@@ -58,7 +59,13 @@ local function drawSpeedometer(x, y, width, height)
 		imageIndexPrev = imageIndex
 	end
 	maskShader:setValue("gUVRotAngle", math.rad(angle))
-	dxDrawImage(x, y, width, height, maskShader)
+	local mul = math.min(1, speed / MAX_SPEED)
+	local circleColor = tocolor(
+		255 - (255 - circleTargetColor[1]) * mul, 
+		255 - (255 - circleTargetColor[2]) * mul, 
+		255 - (255 - circleTargetColor[3]) * mul
+	)
+	dxDrawImage(x, y, width, height, maskShader, 0, 0, 0, circleColor)
 	dxDrawImage(x, y, width, height, "assets/textures/speedometer/numbers.png")
 
 	-- Скорость
@@ -132,4 +139,8 @@ function Speedometer.setRotation(x, y, z)
 		return false
 	end
 	dxSetShaderTransform(textureShader, x, y, z)
+end
+
+function Speedometer.setVisible(visible)
+	Speedometer.visible = not not visible
 end

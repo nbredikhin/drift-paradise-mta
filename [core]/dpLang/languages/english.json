@@ -1,14 +1,25 @@
 {
-	"global_score": "Score",
-	"global_level": "Level",
-	"global_nickname": "Nickname",
+	// UI
+	"login_panel_username_label": "Username",
+	"login_panel_password_label": "Password",
+	"login_panel_start_game_button": "Start game",
+	"login_panel_register_button_toggle": "Register",
+	"login_panel_register_button": "Register",
+	"login_panel_language": "Language",
+	"login_panel_color": "UI color",
+	"login_panel_back": "Back",
 
-	"main_panel_garage": "Garage",
-	"main_panel_teleport": "Teleport",
-	"main_panel_settings": "Settings",
-	"main_panel_players": "Players",
-	"main_panel_map": "Map",
-	"main_panel_block": "Block",
-	"main_panel_money": "Money",
-	"main_panel_pm": "Private message",
+	// Message box
+	"login_panel_auth_error": "Authorization error",
+	"login_panel_register_error": "Registration error",
+	"login_panel_err_enter_username": "Enter your username",
+	"login_panel_err_enter_password": "Enter your password",
+	"login_panel_err_login_unknown": "Failed to login",
+	"login_panel_err_register_unknown": "Failed to register",
+	"login_panel_err_bad_password": "Wrong password",
+	"login_panel_err_user_not_found": "User not found",
+	"login_panel_err_account_in_use": "This account is already in use",
+
+	// Chat message
+	"chat_message_login_success": "You successfully logged in"
 }

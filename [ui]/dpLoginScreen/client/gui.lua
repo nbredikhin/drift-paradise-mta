@@ -101,6 +101,9 @@ local function createLoginPanel()
 	UI:setVisible(panel, false)
 		
 	loginPanel.registerButton = registerButton
+	loginPanel.startGameButton = startGameButton
+	loginPanel.password = passwordInput
+	loginPanel.username = usernameInput
 	loginPanel.panel = panel
 end
 
@@ -203,6 +206,8 @@ local function createRegisterPanel()
 	registerPanel.panel = panel
 	registerPanel.registerButton = registerButton
 	registerPanel.backButton = backButton
+	registerPanel.password = passwordInput
+	registerPanel.username = usernameInput	
 	registerPanel.langButtons = {
 		en = languageEn,
 		ru = languageRu
@@ -212,24 +217,27 @@ end
 addEventHandler("onClientResourceStart", resourceRoot, function ()
 	createLoginPanel()
 	createRegisterPanel()
-	setVisible(true)
-	showCursor(true)
-
-	UI:setVisible(loginPanel.panel, false)
-	UI:setVisible(registerPanel.panel, true)		
 end)
 
 addEvent("dpUI.click", false)
 addEventHandler("dpUI.click", resourceRoot, function(widget)
+	-- Переключение панелей
 	if widget == loginPanel.registerButton then
 		UI:setVisible(loginPanel.panel, false)
 		UI:setVisible(registerPanel.panel, true)
 	elseif widget == registerPanel.backButton then
 		UI:setVisible(loginPanel.panel, true)
 		UI:setVisible(registerPanel.panel, false)
+	-- Переключение языка
 	elseif widget == registerPanel.langButtons.en then
 		exports.dpLang:setLanguage("english")
 	elseif widget == registerPanel.langButtons.ru then
 		exports.dpLang:setLanguage("russian")
+	-- Кнопка входа
+	elseif widget == loginPanel.startGameButton then
+		startGameClick(UI:getText(loginPanel.username), UI:getText(loginPanel.password))
+	-- Кнопка регистрации
+	elseif widget == registerPanel.registerButton then
+		registerClick(UI:getText(registerPanel.username), UI:getText(registerPanel.password))
 	end
 end)

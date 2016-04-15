@@ -17,6 +17,10 @@ local function draw()
 	Drawing.origin()
 
 	local mouseX, mouseY = getMousePosition()
+	if MessageBox.isActive() then
+		mouseX = 0
+		mouseY = 0
+	end
 	mouseX = mouseX / screenWidth * screenWidthLimited
 	mouseY = mouseY / screenHeight * screenHeightLimited
 
@@ -34,13 +38,13 @@ local function draw()
 	end
 	dxSetRenderTarget()
 
-	if Render.clickedWidget then
+	if Render.clickedWidget and not MessageBox.isActive() then
 		triggerEvent("dpUI.click", Render.clickedWidget.resourceRoot, Render.clickedWidget.id)
 		if type(Render.clickedWidget.click) == "function" then
 			Render.clickedWidget:click(mouseX, mouseY)
 		end
 	end
-	if Render.mouseClick then
+	if Render.mouseClick and not MessageBox.isActive() then
 		triggerEvent("_dpUI.clickInternal", resourceRoot)
 	end
 	Render.mouseClick = false
@@ -59,7 +63,7 @@ end
 
 function Render.start()
 	renderTarget3D = RenderTarget3D.create(screenWidthLimited, screenHeightLimited)
-	Drawing.POST_GUI = not not renderTarget3D.fallbackr
+	Drawing.POST_GUI = not not renderTarget3D.fallback
 	outputDebugString("Created RenderTarget3D: " .. tostring(renderTarget3D))
 	addEventHandler("onClientRender", root, draw)
 end

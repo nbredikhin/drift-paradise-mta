@@ -2,8 +2,8 @@
 	<oop>true</oop>
 	<include resource="dpUI"/>
 
+	<script type="client" src="client/login.lua"/>
 	<script type="client" src="client/gui.lua"/>
-	<!-- <script type="client" src="client/main.lua"/> -->
 	<file src="assets/background.jpg"/>
 	<file src="assets/en.png"/>
 	<file src="assets/ru.png"/>

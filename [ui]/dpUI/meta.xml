@@ -10,6 +10,7 @@
 	<script type="client" src="client/Fonts.lua"/>
 	<script type="client" src="client/Drawing.lua"/>
 	<script type="client" src="client/Render.lua"/>
+	<script type="client" src="client/MessageBox.lua"/>
 	<script type="client" src="client/RenderTarget3D.lua"/>
 	<script type="client" src="client/main.lua"/>
 	<script type="client" src="client/exports.lua"/>
@@ -28,19 +29,21 @@
 	<script type="client" src="client/widgets/DpImageButton.lua"/>
 
 	<!-- Generated exports -->
-	<export type="client" function="createRectangle"/>
 	<export type="client" function="getScreenSize"/>
-	<export type="client" function="createButton"/>
-	<export type="client" function="createDpPanel"/>
-	<export type="client" function="createDpButton"/>
-	<export type="client" function="createDpInput"/>
-	<export type="client" function="createDpLabel"/>
-	<export type="client" function="createDpImageButton"/>
-	<export type="client" function="createImage"/>
-	<export type="client" function="createTextField"/>
+	<export type="client" function="showMessageBox"/>
 	<export type="client" function="getRootWidget"/>
 	<export type="client" function="addChild"/>
 	<export type="client" function="removeChild"/>
+	<export type="client" function="createRectangle"/>
+	<export type="client" function="createButton"/>
+	<export type="client" function="createImage"/>
+	<export type="client" function="createTextField"/>
+	<export type="client" function="createInput"/>
+	<export type="client" function="createDpButton"/>
+	<export type="client" function="createDpPanel"/>
+	<export type="client" function="createDpInput"/>
+	<export type="client" function="createDpLabel"/>
+	<export type="client" function="createDpImageButton"/>
 	<export type="client" function="getX"/>
 	<export type="client" function="setX"/>
 	<export type="client" function="getY"/>

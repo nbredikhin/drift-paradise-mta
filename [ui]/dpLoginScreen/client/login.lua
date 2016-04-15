@@ -1,35 +1,4 @@
-local HIDE_CHAT = false
-
-local screenWidth, screenHeight = guiGetScreenSize()
-local backgroundScale = screenHeight / 720
-local backgroundWidth, backgroundHeight = 1280 * backgroundScale, 720 * backgroundScale
-local animationProgress = 0
-local ANIMATION_SPEED = 0.01
-
-local function draw()
-	animationProgress = math.min(1, animationProgress + ANIMATION_SPEED)
-	dxDrawImage(0, 0, backgroundWidth, backgroundHeight, "assets/background.jpg", 0, 0, 0, tocolor(255, 255, 255, 255 * animationProgress))
-end
-
-function setVisible(visible)
-	visible = not not visible
-	if HIDE_CHAT then
-		showChat(not visible)
-	end
-	exports.dpHUD:setVisible(not visible)
-	if visible then
-		addEventHandler("onClientRender", root, draw)
-		exports.dpUI:showScreen("login", {animation = true})
-		animationProgress = 0
-	else
-		exports.dpUI:hideScreen("login")
-		removeEventHandler("onClientRender", root, draw)
-	end
-	showCursor(visible)
-end
-
-addEvent("dpUI.login.startGameClick", false)
-addEventHandler("dpUI.login.startGameClick", root, function (username, password)
+function startGameClick(username, password)
 	if not username or string.len(username) < 1 then		
 		exports.dpUI:showMessageBox(
 			exports.dpLang:getString("login_panel_auth_error"), 
@@ -51,7 +20,7 @@ addEventHandler("dpUI.login.startGameClick", root, function (username, password)
 		)
 		return
 	end
-end)
+end
 
 addEvent("dpAccounts.loginResponse", true)
 addEventHandler("dpAccounts.loginResponse", root, function (success, err)
@@ -72,9 +41,7 @@ addEventHandler("dpAccounts.loginResponse", root, function (success, err)
 	outputChatBox(exports.dpLang:getString("chat_message_login_success"), 0, 255, 0)
 end)
 
--- Регистрация
-addEvent("dpUI.login.registerClick", false)
-addEventHandler("dpUI.login.registerClick", root, function (username, password)
+function registerClick(username, password)
 	if not username or string.len(username) < 1 then
 		exports.dpUI:showMessageBox(
 			exports.dpLang:getString("login_panel_register_error"), 
@@ -96,7 +63,7 @@ addEventHandler("dpUI.login.registerClick", root, function (username, password)
 		)
 		return
 	end
-end)
+end
 
 addEvent("dpAccounts.registerResponse", true)
 addEventHandler("dpAccounts.registerResponse", root, function (success, err)

@@ -76,6 +76,28 @@ end)
 local function handleKey(key, repeatKey)
 	if key == "backspace" then
 		activeInput.text = string.sub(activeInput.text, 1, -2)
+	elseif key == "tab" then
+		if activeInput then
+			local inputs = {}
+			local currentIndex = 0
+			local index = 0
+			for i, v in ipairs(activeInput.parent.children) do				
+				if v._type == "Input" then
+					index = index + 1
+					table.insert(inputs, v)
+					if v == activeInput then
+						currentIndex = index
+					end
+				end	
+			end
+			if #inputs > 1 then
+				currentIndex = currentIndex + 1
+				if currentIndex > #inputs then
+					currentIndex = 1
+				end
+				activeInput = inputs[currentIndex]
+			end
+		end
 	else
 		return
 	end
@@ -85,7 +107,7 @@ local function handleKey(key, repeatKey)
 	end
 end
 addEventHandler("onClientKey", root, function (key, state)
-	if not activeInput then
+	if not activeInput or MessageBox.isActive() then
 		return
 	end
 	if not state then
@@ -102,7 +124,7 @@ addEventHandler("onClientKey", root, function (key, state)
 end)
 
 addEventHandler("onClientCharacter", root, function (character)
-	if activeInput then
+	if activeInput or MessageBox.isActive() then
 		activeInput.text = activeInput.text .. tostring(character)
 	end
 end)

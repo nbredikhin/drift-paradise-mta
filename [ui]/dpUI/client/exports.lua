@@ -10,6 +10,11 @@ function getScreenSize()
 end
 printMetaExport("getScreenSize")
 
+function showMessageBox(...)
+	return MessageBox.show(...)
+end
+printMetaExport("showMessageBox")
+
 function getRootWidget()
 	Render.setupResource(sourceResourceRoot)
 	return Render.resources[sourceResourceRoot].rootWidget.id

@@ -1,4 +1,7 @@
 {
+	// Stuff
+	"message_box_close": "Close",
+
 	// UI
 	"login_panel_username_label": "Username",
 	"login_panel_password_label": "Password",

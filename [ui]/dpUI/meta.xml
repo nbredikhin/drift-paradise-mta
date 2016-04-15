@@ -1,11 +1,13 @@
 <meta>
 	<oop>true</oop>
 	<min_mta_version client="1.3.0-9.04431" />
+	<include resource="dpUtils"/>
 	<include resource="dpAssets"/>
 	<include resource="dpLang"/>
 
 	<script type="client" src="client/utils.lua"/>
 	<script type="client" src="client/Colors.lua"/>
+	<script type="client" src="client/Fonts.lua"/>
 	<script type="client" src="client/Drawing.lua"/>
 	<script type="client" src="client/Render.lua"/>
 	<script type="client" src="client/main.lua"/>
@@ -15,8 +17,47 @@
 	<script type="client" src="client/widgets/Rectangle.lua"/>
 	<script type="client" src="client/widgets/TextField.lua"/>
 	<script type="client" src="client/widgets/Button.lua"/>
+	<script type="client" src="client/widgets/Image.lua"/>
 
-	<export type="client" function="showScreen"/>
-	<export type="client" function="hideScreen"/>
-	<export type="client" function="showMessageBox"/>
+	<script type="client" src="client/widgets/DpPanel.lua"/>
+	<script type="client" src="client/widgets/DpButton.lua"/>
+	<script type="client" src="client/widgets/DpInput.lua"/>
+
+	<!-- Generated exports -->
+	<export type="client" function="createRectangle"/>
+	<export type="client" function="createButton"/>
+	<export type="client" function="createDpPanel"/>
+	<export type="client" function="createDpButton"/>
+	<export type="client" function="createDpInput"/>
+	<export type="client" function="createImage"/>
+	<export type="client" function="createTextField"/>
+	<export type="client" function="getRootWidget"/>
+	<export type="client" function="addChild"/>
+	<export type="client" function="removeChild"/>
+	<export type="client" function="getX"/>
+	<export type="client" function="setX"/>
+	<export type="client" function="getY"/>
+	<export type="client" function="setY"/>
+	<export type="client" function="getWidth"/>
+	<export type="client" function="setWidth"/>
+	<export type="client" function="getHeight"/>
+	<export type="client" function="setHeight"/>
+	<export type="client" function="getColor"/>
+	<export type="client" function="setColor"/>
+	<export type="client" function="getVisible"/>
+	<export type="client" function="setVisible"/>
+	<export type="client" function="getText"/>
+	<export type="client" function="setText"/>
+	<export type="client" function="getAlignX"/>
+	<export type="client" function="setAlignX"/>
+	<export type="client" function="getAlignY"/>
+	<export type="client" function="setAlignY"/>
+	<export type="client" function="getClip"/>
+	<export type="client" function="setClip"/>
+	<export type="client" function="getWordBreak"/>
+	<export type="client" function="setWordBreak"/>
+	<export type="client" function="getColorCoded"/>
+	<export type="client" function="setColorCoded"/>
+	<export type="client" function="getColors"/>
+	<export type="client" function="setColors"/>
 </meta>

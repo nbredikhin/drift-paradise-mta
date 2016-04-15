@@ -5,11 +5,19 @@
 
 	<export type="client" function="createShader"/>
 	<export type="client" function="createTexture"/>
+	<export type="client" function="createFont"/>
 	<export type="client" function="createShaderCached"/>
 	<export type="client" function="createTextureCached"/>
+	<export type="client" function="createFontCached"/>
 
 	<file src="assets/shaders/include/tex_matrix.fx"/>
 	<file src="assets/shaders/include/texture.fx"/>
 	<file src="assets/shaders/mask3d.fx"/>
 	<file src="assets/shaders/texture3d.fx"/>
+
+	<file src="assets/fonts/Roboto-Regular.ttf"/>
+	<file src="assets/fonts/Roboto-Light.ttf"/>
+	<file src="assets/fonts/Roboto-Italic.ttf"/>
+
+	<file src="assets/textures/logo.png"/>
 </meta>

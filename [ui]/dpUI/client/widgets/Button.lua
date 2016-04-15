@@ -6,11 +6,12 @@ function Button.create(properties)
 	end
 	local widget = Widget.create(properties)
 	properties = exports.dpUtils:tableCopy(properties)
+
 	properties.x = 0
 	properties.y = 0
 	-- Фон
 	widget.background = Rectangle.create(properties)
-	widget.background.color = properties.backgroundColor or tocolor(0, 0, 0)
+	widget.background.color = exports.dpUtils:defaultValue(properties.backgroundColor, tocolor(0, 0, 0))
 	Widget.addChild(widget, widget.background)
 	-- Текст
 	properties.alignX = "center"
@@ -37,7 +38,6 @@ function Button.create(properties)
 		else
 			self.background.color = self.colors.normal
 		end
-		self.textField.text = math.floor(self.mouseX)
 	end
 	return widget
 end

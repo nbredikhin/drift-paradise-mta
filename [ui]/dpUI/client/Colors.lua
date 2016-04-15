@@ -3,13 +3,14 @@ Colors = {}
 local colorScheme = {
 	white			= {255, 255, 255},
 
-	gray_darker 	= {34, 34, 34},
-	gray_dark 		= {51, 51, 51},
-	gray 			= {85, 85, 85},
-	gray_light 		= {119, 119, 119},
-	gray_lighter 	= {238, 238, 238},
+	gray_darker 	= {29, 29, 29},
+	gray_dark 		= {42, 40, 41},
+	gray 			= {54, 52, 53},
+	gray_light 		= {196, 203, 209},
+	gray_lighter 	= {222, 230, 233},
 
-	primary			= {51, 122, 183},
+	default 		= {238, 238, 238},
+	primary			= {212, 0, 40},
 	success			= {92, 184, 92},
 	info			= {91, 192, 222},
 	warning			= {240, 173, 78},
@@ -40,7 +41,7 @@ function Colors.darken(name, amount, alpha)
 	return tocolor(r, g, b, alpha)
 end
 
-function Colors.lighter(name, amount, alpha)
+function Colors.lighten(name, amount, alpha)
 	local color = colorScheme[name]
 	if not color then
 		return tocolor(255, 255, 255, alpha)

@@ -5,9 +5,12 @@
 	<script type="shared" src="shared/time.lua"/>
 	<script type="shared" src="shared/geom.lua"/>
 	<script type="shared" src="shared/table.lua"/>
+	<script type="shared" src="shared/other.lua"/>
 
 	<export type="shared" function="tableCopy"/>
 	<export type="shared" function="argcheck"/>
+	<export type="shared" function="defaultValue"/>
+	<export type="shared" function="capitalizeString"/>
 	<!-- Работа со временем -->
 	<export type="shared" function="isLeapYear"/>
 	<export type="shared" function="getTimestamp"/>

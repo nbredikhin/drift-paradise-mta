@@ -1,10 +1,12 @@
-local ASSETS_PATH = "assets/"
-local SHADERS_PATH = "shaders/"
+local ASSETS_PATH 	= "assets/"
+local SHADERS_PATH 	= "shaders/"
 local TEXTURES_PATH = "textures/"
+local FONTS_PATH 	= "fonts/"
 
 local cache = {
 	textures = {},
-	shaders = {}
+	shaders = {},
+	fonts = {}
 }
 
 local function setupElementParent(element, resource)
@@ -23,6 +25,12 @@ end
 
 function createTexture(name, ...)
 	local element = dxCreateTexture(ASSETS_PATH .. TEXTURES_PATH .. tostring(name), ...)
+	setupElementParent(element, sourceResource)
+	return element	
+end
+
+function createFont(name, ...)
+	local element = dxCreateFont(ASSETS_PATH .. FONTS_PATH .. tostring(name), ...)
 	setupElementParent(element, sourceResource)
 	return element	
 end
@@ -49,4 +57,16 @@ function createTextureCached(name, ...)
 	cache.textures[name] = createTexture(name, ...)
 	setupElementParent(cache.textures[name], sourceResource)
 	return cache.textures[name]
+end
+
+function createFontCached(name, ...)
+	if not name then
+		return false
+	end
+	if cache.fonts[name] then
+		return cache.fonts[name]
+	end
+	cache.fonts[name] = createFont(name, ...)
+	setupElementParent(cache.fonts[name], sourceResource)
+	return cache.fonts[name]
 end

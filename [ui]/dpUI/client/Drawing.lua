@@ -47,3 +47,9 @@ function Drawing.text(x, y, width, height, text, alignX, alignY, clip, wordBreak
 	y = y + drawY
 	dxDrawText(text, x, y, x + width, y + height, drawColor, 1, drawFont, alignX, alignY, clip, wordBreak, POST_GUI, false, colorCoded)
 end
+
+function Drawing.image(x, y, width, height, image)
+	x = x + drawX
+	y = y + drawY
+	dxDrawImage(x, y, width, height, image, 0, 0, 0, drawColor, POST_GUI)
+end

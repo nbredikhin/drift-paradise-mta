@@ -6,23 +6,28 @@ function Widget.create(properties)
 	end
 
 	local widget = {}
-	widget.x = properties.x or 0
-	widget.y = properties.y or 0
-	widget.width = properties.width or 0
-	widget.height = properties.height or 0
+	widget.x = exports.dpUtils:defaultValue(properties.x, 0)
+	widget.y = exports.dpUtils:defaultValue(properties.y, 0)
+	widget.width = exports.dpUtils:defaultValue(properties.width, 0)
+	widget.height = exports.dpUtils:defaultValue(properties.height, 0)
 	widget.parent = nil
 	widget.children = {}
-	widget.color = properties.color or Colors.color("white")
+	widget.color = exports.dpUtils:defaultValue(properties.color, Colors.color("white"))
+	widget.visible = exports.dpUtils:defaultValue(properties.visible, true)
 	return widget
 end
 
 function Widget.draw(widget, mouseX, mouseY)
+	if not widget.visible then
+		return
+	end
 	mouseX = mouseX - widget.x
 	mouseY = mouseY - widget.y
 	if widget.draw then
 		widget.mouseX = mouseX
 		widget.mouseY = mouseY		
 		Drawing.setColor(widget.color)
+		Drawing.setFont(widget.font)
 		widget:draw()
 	end
 	Drawing.translate(widget.x, widget.y)
@@ -46,6 +51,9 @@ end
 
 function Widget.addChild(widget, child)
 	if not widget or not child then
+		return false
+	end
+	if child.parent then
 		return false
 	end
 	if Widget.getChildIndex(widget, child) then

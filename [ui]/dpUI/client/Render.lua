@@ -2,7 +2,13 @@ Render = {}
 Render.resources = {}
 Render.clickedWidget = false
 Render.mouseClick = false
+
+local MAX_TRANSORM_ANGLE = 20 
+local screenWidth, screenHeight = guiGetScreenSize()
+local screenWidthLimited, screenHeightLimited = getLimitedScreenSize()
 local oldMouseState = false
+
+-- Отрисовка в 3D
 
 local function draw()
 	-- Сброс цвета
@@ -11,6 +17,9 @@ local function draw()
 	Drawing.origin()
 
 	local mouseX, mouseY = getMousePosition()
+	mouseX = mouseX / screenWidth * screenWidthLimited
+	mouseY = mouseY / screenHeight * screenHeightLimited
+
 	Render.clickedWidget = false
 	-- Проверка нажатия мыши
 	local newMouseState = getKeyState("mouse1")
@@ -19,9 +28,12 @@ local function draw()
 	end
 	oldMouseState = newMouseState
 
+	RenderTarget3D.set(renderTarget3D)
 	for resourceRoot, resourceInfo in pairs(Render.resources) do
 		Widget.draw(resourceInfo.rootWidget, mouseX, mouseY)
 	end
+	dxSetRenderTarget()
+
 	if Render.clickedWidget then
 		triggerEvent("dpUI.click", Render.clickedWidget.resourceRoot, Render.clickedWidget.id)
 		if type(Render.clickedWidget.click) == "function" then
@@ -32,9 +44,22 @@ local function draw()
 		triggerEvent("_dpUI.clickInternal", resourceRoot)
 	end
 	Render.mouseClick = false
+
+	-- Draw renderTarget3D
+	if renderTarget3D then
+		RenderTarget3D.draw(renderTarget3D, 0, 0, screenWidth, screenHeight)
+
+		local mouseX, mouseY = getMousePosition()
+		local rotationX = -(mouseX - screenWidth / 2) / screenWidth * MAX_TRANSORM_ANGLE
+		local rotationY = (mouseY - screenHeight / 2) / screenHeight * MAX_TRANSORM_ANGLE	
+
+		RenderTarget3D.setTransform(renderTarget3D, rotationX, rotationY, 0)			
+	end
 end
 
 function Render.start()
+	renderTarget3D = RenderTarget3D.create(screenWidthLimited, screenHeightLimited)
+	outputDebugString("Created RenderTarget3D: " .. tostring(renderTarget3D))
 	addEventHandler("onClientRender", root, draw)
 end
 

@@ -2,6 +2,7 @@ Input = {}
 local activeInput
 local repeatTimer
 local repeatStartTimer
+local MASKED_CHAR = "●"
 local REPEAT_WAIT = 500
 local REPEAT_DELAY = 50
 
@@ -41,7 +42,7 @@ function Input.create(properties)
 			if self.masked then
 				text = ""
 				for i = 1, string.len(self.text) do
-					text = text .. "*"
+					text = text .. MASKED_CHAR
 				end
 			end
 		end

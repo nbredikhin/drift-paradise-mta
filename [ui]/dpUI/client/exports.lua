@@ -5,6 +5,11 @@ local function printMetaExport(name)
 	end
 end
 
+function getScreenSize()
+	return getLimitedScreenSize()
+end
+printMetaExport("getScreenSize")
+
 function getRootWidget()
 	Render.setupResource(sourceResourceRoot)
 	return Render.resources[sourceResourceRoot].rootWidget.id
@@ -44,7 +49,9 @@ local widgetsList = {
 	"Input",
 	"DpButton",
 	"DpPanel",
-	"DpInput"
+	"DpInput",
+	"DpLabel",
+	"DpImageButton"
 }
 
 local function createWidgetProxy(name, resourceRoot, ...)

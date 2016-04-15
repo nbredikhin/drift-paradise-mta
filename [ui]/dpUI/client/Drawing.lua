@@ -1,5 +1,5 @@
 Drawing = {}
-local POST_GUI = true
+local POST_GUI = false
 local DEFAULT_COLOR = tocolor(255, 255, 255)
 local DEFAULT_FONT = "default"
 

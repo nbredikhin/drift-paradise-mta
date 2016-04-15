@@ -1,6 +1,6 @@
 local UI = exports.dpUI
 local HIDE_CHAT = false
-local screenWidth, screenHeight = guiGetScreenSize()
+local screenWidth, screenHeight = exports.dpUI:getScreenSize()
 local backgroundScale = screenHeight / 720
 local backgroundWidth, backgroundHeight = 1280 * backgroundScale, 720 * backgroundScale
 local animationProgress = 0
@@ -37,7 +37,7 @@ local function createLoginPanel()
 	local panelHeight = 260
 	local panel = UI:createDpPanel({
 		x = (screenWidth - panelWidth) / 2, 
-		y = (screenHeight - panelHeight) / 2,
+		y = (screenHeight - panelHeight) / 1.8,
 		width = panelWidth, height = panelHeight,
 		type = "dark"
 	})
@@ -105,7 +105,7 @@ local function createRegisterPanel()
 	local panelHeight = 340
 	local panel = UI:createDpPanel({
 		x = (screenWidth - panelWidth) / 2, 
-		y = (screenHeight - panelHeight) / 2,
+		y = (screenHeight - panelHeight) / 1.7,
 		width = panelWidth, height = panelHeight,
 		type = "dark"
 	})
@@ -123,6 +123,31 @@ local function createRegisterPanel()
 		texture = logoTexture
 	})
 	UI:addChild(panel, logoImage)
+
+	local languageLabel = UI:createDpLabel({
+		x = 50,
+		y = 40,
+		width = 100,
+		height = 50,
+		alignX = "left",
+		alignY = "top",
+		text = "Язык"
+	})
+	UI:addChild(panel, languageLabel)
+
+	local languageEn = UI:createDpImageButton({
+		x = 100, y = 40,
+		width = 27, height = 27,
+		texture = dxCreateTexture("assets/en.png") 
+	})
+	UI:addChild(panel, languageEn)
+
+	local languageRu = UI:createDpImageButton({
+		x = 135, y = 40,
+		width = 27, height = 27,
+		texture = dxCreateTexture("assets/ru.png") 
+	})
+	UI:addChild(panel, languageRu)	
 
 	local usernameInput = UI:createDpInput({
 		x = 50,
@@ -167,6 +192,8 @@ local function createRegisterPanel()
 
 	UI:setVisible(panel, false)
 	registerPanel.panel = panel
+	registerPanel.registerButton = registerButton
+	registerPanel.backButton = backButton
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
@@ -174,6 +201,9 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	createRegisterPanel()
 	setVisible(true)
 	showCursor(true)
+
+	UI:setVisible(loginPanel.panel, false)
+	UI:setVisible(registerPanel.panel, true)		
 end)
 
 addEvent("dpUI.click", false)
@@ -181,5 +211,8 @@ addEventHandler("dpUI.click", resourceRoot, function(widget)
 	if widget == loginPanel.registerButton then
 		UI:setVisible(loginPanel.panel, false)
 		UI:setVisible(registerPanel.panel, true)
-	end
+	elseif widget == registerPanel.backButton then
+		UI:setVisible(loginPanel.panel, true)
+		UI:setVisible(registerPanel.panel, false)
+	end	
 end)

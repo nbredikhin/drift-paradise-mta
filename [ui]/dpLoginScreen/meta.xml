@@ -5,6 +5,8 @@
 	<script type="client" src="client/gui.lua"/>
 	<!-- <script type="client" src="client/main.lua"/> -->
 	<file src="assets/background.jpg"/>
+	<file src="assets/en.png"/>
+	<file src="assets/ru.png"/>
 
 	<export type="client" function="setVisible"/>
 </meta>

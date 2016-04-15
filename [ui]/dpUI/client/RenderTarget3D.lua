@@ -8,7 +8,7 @@ function RenderTarget3D.create(width, height)
 	rt.maskShader = exports.dpAssets:createShader("texture3d.fx")
 	rt.renderTarget = dxCreateRenderTarget(width, height, true)
 
-	rt.fallback = false
+	rt.fallback = not rt.renderTarget or not rt.maskShader
 
 	return rt
 end

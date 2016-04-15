@@ -15,6 +15,7 @@ function Widget.create(properties)
 	widget.color = exports.dpUtils:defaultValue(properties.color, Colors.color("white"))
 	widget.visible = exports.dpUtils:defaultValue(properties.visible, true)
 	widget.text = exports.dpUtils:defaultValue(properties.text, "")
+	widget.locale = exports.dpUtils:defaultValue(properties.locale, false)
 	return widget
 end
 

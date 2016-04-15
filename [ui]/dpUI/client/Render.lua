@@ -59,6 +59,7 @@ end
 
 function Render.start()
 	renderTarget3D = RenderTarget3D.create(screenWidthLimited, screenHeightLimited)
+	Drawing.POST_GUI = not not renderTarget3D.fallbackr
 	outputDebugString("Created RenderTarget3D: " .. tostring(renderTarget3D))
 	addEventHandler("onClientRender", root, draw)
 end
@@ -75,11 +76,24 @@ function Render.setupResource(resourceRoot)
 	Render.resources[resourceRoot].rootWidget.id = 1
 end
 
+function Render.updateWidgetLocale(widget)
+	if widget.locale then
+		if widget.placeholder then
+			widget.placeholder = exports.dpLang:getString(widget.locale)
+		elseif widget.text then
+			widget.text = exports.dpLang:getString(widget.locale)
+		end
+	end
+end
+
 function Render.exportWidget(widget, resourceRoot)
 	Render.setupResource(resourceRoot)
 	table.insert(Render.resources[resourceRoot].widgets, widget)
 	widget.id = #Render.resources[resourceRoot].widgets
 	widget.resourceRoot = resourceRoot
+
+	-- Локализация
+	Render.updateWidgetLocale(widget)
 	return widget.id
 end
 
@@ -95,4 +109,13 @@ end
 
 addEventHandler("onClientResourceStop", root, function ()
 	Render.resources[source] = nil
+end)
+
+addEvent("dpLang.languageChanged", false)
+addEventHandler("dpLang.languageChanged", root, function (newLanguage)
+	for resourceRoot, resourceInfo in pairs(Render.resources) do
+		for i, widget in ipairs(resourceInfo.widgets) do
+			Render.updateWidgetLocale(widget)
+		end
+	end
 end)

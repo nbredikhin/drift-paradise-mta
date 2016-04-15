@@ -61,7 +61,8 @@ local function createLoginPanel()
 		width = panelWidth / 2,
 		height = 55,
 		type = "default_dark",
-		text = "Начать игру"
+		text = "Начать игру",
+		locale = "login_panel_start_game_button"
 	})
 	UI:addChild(panel, startGameButton)
 
@@ -70,7 +71,8 @@ local function createLoginPanel()
 		width = panelWidth / 2,
 		height = 55,
 		type = "primary",
-		text = "Регистрация"
+		text = "Регистрация",
+		locale = "login_panel_register_button_toggle"
 	})
 	UI:addChild(panel, registerButton)	
 
@@ -80,7 +82,8 @@ local function createLoginPanel()
 		width = 450,
 		height = 50,
 		type = "dark",
-		placeholder = "Имя пользователя"
+		placeholder = "Имя пользователя",
+		locale = "login_panel_username_label"
 	})
 	UI:addChild(panel, usernameInput)
 
@@ -91,7 +94,8 @@ local function createLoginPanel()
 		height = 50,
 		type = "dark",
 		placeholder = "Пароль",
-		masked = true
+		masked = true,
+		locale = "login_panel_password_label"
 	})
 	UI:addChild(panel, passwordInput)	
 	UI:setVisible(panel, false)
@@ -124,26 +128,29 @@ local function createRegisterPanel()
 	})
 	UI:addChild(panel, logoImage)
 
+	local languageLabelWidth = 118
 	local languageLabel = UI:createDpLabel({
 		x = 50,
 		y = 40,
-		width = 100,
+		width = languageLabelWidth,
+		wordBreak = false,
+		clip = true,
 		height = 50,
 		alignX = "left",
 		alignY = "top",
-		text = "Язык"
+		locale = "login_panel_language"
 	})
 	UI:addChild(panel, languageLabel)
 
 	local languageEn = UI:createDpImageButton({
-		x = 100, y = 40,
+		x = 50 + languageLabelWidth + 7, y = 40,
 		width = 27, height = 27,
 		texture = dxCreateTexture("assets/en.png") 
 	})
 	UI:addChild(panel, languageEn)
 
 	local languageRu = UI:createDpImageButton({
-		x = 135, y = 40,
+		x = 50 + languageLabelWidth + 7 + 27 + 10, y = 40,
 		width = 27, height = 27,
 		texture = dxCreateTexture("assets/ru.png") 
 	})
@@ -155,7 +162,7 @@ local function createRegisterPanel()
 		width = 450,
 		height = 50,
 		type = "dark",
-		placeholder = "Имя пользователя"
+		locale = "login_panel_username_label"
 	})
 	UI:addChild(panel, usernameInput)
 
@@ -165,8 +172,8 @@ local function createRegisterPanel()
 		width = 450,
 		height = 50,
 		type = "dark",
-		placeholder = "Пароль",
-		masked = true
+		masked = true,
+		locale = "login_panel_password_label"
 	})
 	UI:addChild(panel, passwordInput)	
 
@@ -176,7 +183,8 @@ local function createRegisterPanel()
 		width = panelWidth / 2,
 		height = 55,
 		type = "default_dark",
-		text = "Назад"
+		text = "Назад",
+		locale = "login_panel_back"
 	})
 	UI:addChild(panel, backButton)
 
@@ -186,7 +194,8 @@ local function createRegisterPanel()
 		width = panelWidth / 2,
 		height = 55,
 		type = "primary",
-		text = "Зарегистрироваться"
+		text = "Зарегистрироваться",
+		locale = "login_panel_register_button"
 	})
 	UI:addChild(panel, registerButton)	
 
@@ -194,6 +203,10 @@ local function createRegisterPanel()
 	registerPanel.panel = panel
 	registerPanel.registerButton = registerButton
 	registerPanel.backButton = backButton
+	registerPanel.langButtons = {
+		en = languageEn,
+		ru = languageRu
+	}
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
@@ -214,5 +227,9 @@ addEventHandler("dpUI.click", resourceRoot, function(widget)
 	elseif widget == registerPanel.backButton then
 		UI:setVisible(loginPanel.panel, true)
 		UI:setVisible(registerPanel.panel, false)
-	end	
+	elseif widget == registerPanel.langButtons.en then
+		exports.dpLang:setLanguage("english")
+	elseif widget == registerPanel.langButtons.ru then
+		exports.dpLang:setLanguage("russian")
+	end
 end)

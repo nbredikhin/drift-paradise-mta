@@ -13,9 +13,8 @@ function TextField.create(properties)
 	widget.clip = not not properties.clip
 	widget.wordBreak = not not properties.wordBreak
 	widget.colorCoded = not not properties.colorCoded
-
+	
 	function widget:draw()
-		Drawing.setFont(self.font)
 		Drawing.text(
 			self.x, 
 			self.y, 

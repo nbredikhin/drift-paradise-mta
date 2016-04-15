@@ -4,26 +4,16 @@ function Button.create(properties)
 	if type(properties) ~= "table" then
 		properties = {}
 	end
+
 	local widget = Widget.create(properties)
-	properties = exports.dpUtils:tableCopy(properties)
-
-	properties.x = 0
-	properties.y = 0
-	-- Фон
-	widget.background = Rectangle.create(properties)
-	widget.background.color = exports.dpUtils:defaultValue(properties.backgroundColor, tocolor(0, 0, 0))
-	Widget.addChild(widget, widget.background)
-	-- Текст
-	properties.alignX = "center"
-	properties.alignY = "center"
-	widget.textField = TextField.create(properties)
-	Widget.addChild(widget, widget.textField)
-
+	widget.text = exports.dpUtils:defaultValue(properties.text, "")
+	widget.alignX = exports.dpUtils:defaultValue(properties.alignX, "center")
+	widget.alignY = exports.dpUtils:defaultValue(properties.alignY, "center")
 	if not properties.colors then
 		properties.colors = {}
 	end
 	widget.colors = {
-		normal = widget.background.color,
+		normal = properties.colors.normal or tocolor(0, 0, 0),
 		hover = properties.colors.hover or tocolor(150, 150, 150),
 		down = properties.colors.down or tocolor(255, 255, 255),
 	}
@@ -31,13 +21,17 @@ function Button.create(properties)
 	function widget:draw()
 		if isPointInRect(self.mouseX, self.mouseY, 0, 0, self.width, self.height) then
 			if getKeyState("mouse1") then
-				self.background.color = self.colors.down
+				self.color = self.colors.down
 			else
-				self.background.color = self.colors.hover
+				self.color = self.colors.hover
 			end
 		else
-			self.background.color = self.colors.normal
+			self.color = self.colors.normal
 		end
+
+		Drawing.rectangle(self.x, self.y, self.width, self.height)
+		Drawing.setColor()
+		Drawing.text(self.x, self.y, self.width, self.height, self.text, self.alignX, self.alignY, true, false)		
 	end
 	return widget
 end

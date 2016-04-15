@@ -18,6 +18,7 @@
 	<script type="client" src="client/widgets/TextField.lua"/>
 	<script type="client" src="client/widgets/Button.lua"/>
 	<script type="client" src="client/widgets/Image.lua"/>
+	<script type="client" src="client/widgets/Input.lua"/>
 
 	<script type="client" src="client/widgets/DpPanel.lua"/>
 	<script type="client" src="client/widgets/DpButton.lua"/>

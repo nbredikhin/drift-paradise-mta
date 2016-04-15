@@ -26,4 +26,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	Speedometer.start()
 	Radar.start()
 	addEventHandler("onClientPreRender", root, updateRotations)
+
+	Radar.setVisible(false)
+	Speedometer.setVisible(false)
 end)

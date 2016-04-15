@@ -5,7 +5,8 @@ local backgroundScale = screenHeight / 720
 local backgroundWidth, backgroundHeight = 1280 * backgroundScale, 720 * backgroundScale
 local animationProgress = 0
 local ANIMATION_SPEED = 0.01
-local loginPanel
+local loginPanel = {}
+local registerPanel = {}
 
 local function draw()
 	animationProgress = math.min(1, animationProgress + ANIMATION_SPEED)
@@ -18,7 +19,10 @@ function setVisible(visible)
 		showChat(not visible)
 	end
 	exports.dpHUD:setVisible(not visible)
-	UI:setVisible(loginPanel, visible)
+
+	UI:setVisible(loginPanel.panel, visible)
+	UI:setVisible(registerPanel.panel, false)
+
 	if visible then
 		addEventHandler("onClientRender", root, draw)
 		animationProgress = 0
@@ -28,7 +32,7 @@ function setVisible(visible)
 	showCursor(visible)
 end
 
-addEventHandler("onClientResourceStart", resourceRoot, function ()
+local function createLoginPanel()
 	local panelWidth = 550
 	local panelHeight = 260
 	local panel = UI:createDpPanel({
@@ -76,7 +80,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		width = 450,
 		height = 50,
 		type = "dark",
-		text = "Имя пользователя"
+		placeholder = "Имя пользователя"
 	})
 	UI:addChild(panel, usernameInput)
 
@@ -86,10 +90,96 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		width = 450,
 		height = 50,
 		type = "dark",
-		text = "Пароль"
+		placeholder = "Пароль",
+		masked = true
 	})
 	UI:addChild(panel, passwordInput)	
-	loginPanel = panel
-	setVisible(false)
+	UI:setVisible(panel, false)
+		
+	loginPanel.registerButton = registerButton
+	loginPanel.panel = panel
+end
+
+local function createRegisterPanel()
+	local panelWidth = 550
+	local panelHeight = 340
+	local panel = UI:createDpPanel({
+		x = (screenWidth - panelWidth) / 2, 
+		y = (screenHeight - panelHeight) / 2,
+		width = panelWidth, height = panelHeight,
+		type = "dark"
+	})
+	UI:addChild(panel)
+
+	local logoTexture = exports.dpAssets:createTexture("logo.png")
+	local textureWidth, textureHeight = dxGetMaterialSize(logoTexture)
+	local logoWidth = 415
+	local logoHeight = textureHeight * 415 / textureWidth
+	local logoImage = UI:createImage({
+		x = (panelWidth - logoWidth) / 2,
+		y = -logoHeight - 25,
+		width = logoWidth, 
+		height = logoHeight,
+		texture = logoTexture
+	})
+	UI:addChild(panel, logoImage)
+
+	local usernameInput = UI:createDpInput({
+		x = 50,
+		y = 120,
+		width = 450,
+		height = 50,
+		type = "dark",
+		placeholder = "Имя пользователя"
+	})
+	UI:addChild(panel, usernameInput)
+
+	local passwordInput = UI:createDpInput({
+		x = 50,
+		y = 190,
+		width = 450,
+		height = 50,
+		type = "dark",
+		placeholder = "Пароль",
+		masked = true
+	})
+	UI:addChild(panel, passwordInput)	
+
+	local backButton = UI:createDpButton({
+		x = 0, 
+		y = panelHeight - 55,
+		width = panelWidth / 2,
+		height = 55,
+		type = "default_dark",
+		text = "Назад"
+	})
+	UI:addChild(panel, backButton)
+
+	local registerButton = UI:createDpButton({
+		x = panelWidth / 2, 
+		y = panelHeight - 55,
+		width = panelWidth / 2,
+		height = 55,
+		type = "primary",
+		text = "Зарегистрироваться"
+	})
+	UI:addChild(panel, registerButton)	
+
+	UI:setVisible(panel, false)
+	registerPanel.panel = panel
+end
+
+addEventHandler("onClientResourceStart", resourceRoot, function ()
+	createLoginPanel()
+	createRegisterPanel()
+	setVisible(true)
 	showCursor(true)
+end)
+
+addEvent("dpUI.click", false)
+addEventHandler("dpUI.click", resourceRoot, function(widget)
+	if widget == loginPanel.registerButton then
+		UI:setVisible(loginPanel.panel, false)
+		UI:setVisible(registerPanel.panel, true)
+	end
 end)

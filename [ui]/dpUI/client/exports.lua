@@ -41,6 +41,7 @@ local widgetsList = {
 	"Button",
 	"Image",
 	"TextField",
+	"Input",
 	"DpButton",
 	"DpPanel",
 	"DpInput"

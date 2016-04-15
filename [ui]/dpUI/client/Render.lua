@@ -1,5 +1,8 @@
 Render = {}
 Render.resources = {}
+Render.clickedWidget = false
+Render.mouseClick = false
+local oldMouseState = false
 
 local function draw()
 	-- Сброс цвета
@@ -8,9 +11,27 @@ local function draw()
 	Drawing.origin()
 
 	local mouseX, mouseY = getMousePosition()
+	Render.clickedWidget = false
+	-- Проверка нажатия мыши
+	local newMouseState = getKeyState("mouse1")
+	if not Render.mouseClick and newMouseState and not oldMouseState then
+		Render.mouseClick = true
+	end
+	oldMouseState = newMouseState
+
 	for resourceRoot, resourceInfo in pairs(Render.resources) do
 		Widget.draw(resourceInfo.rootWidget, mouseX, mouseY)
 	end
+	if Render.clickedWidget then
+		triggerEvent("dpUI.click", Render.clickedWidget.resourceRoot, Render.clickedWidget.id)
+		if type(Render.clickedWidget.click) == "function" then
+			Render.clickedWidget:click(mouseX, mouseY)
+		end
+	end
+	if Render.mouseClick then
+		triggerEvent("_dpUI.clickInternal", resourceRoot)
+	end
+	Render.mouseClick = false
 end
 
 function Render.start()
@@ -33,6 +54,7 @@ function Render.exportWidget(widget, resourceRoot)
 	Render.setupResource(resourceRoot)
 	table.insert(Render.resources[resourceRoot].widgets, widget)
 	widget.id = #Render.resources[resourceRoot].widgets
+	widget.resourceRoot = resourceRoot
 	return widget.id
 end
 

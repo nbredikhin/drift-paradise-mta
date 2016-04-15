@@ -14,18 +14,30 @@ function Widget.create(properties)
 	widget.children = {}
 	widget.color = exports.dpUtils:defaultValue(properties.color, Colors.color("white"))
 	widget.visible = exports.dpUtils:defaultValue(properties.visible, true)
+	widget.text = exports.dpUtils:defaultValue(properties.text, "")
 	return widget
 end
 
 function Widget.draw(widget, mouseX, mouseY)
+	if not widget then
+		return
+	end
 	if not widget.visible then
 		return
 	end
 	mouseX = mouseX - widget.x
 	mouseY = mouseY - widget.y
-	if widget.draw then
-		widget.mouseX = mouseX
-		widget.mouseY = mouseY		
+	widget.mouseX = mouseX
+	widget.mouseY = mouseY	
+	if isPointInRect(mouseX, mouseY, 0, 0, widget.width, widget.height) then
+		widget.mouseHover = true
+		if Render.mouseClick then
+			Render.clickedWidget = widget
+		end
+	else
+		widget.mouseHover = false
+	end
+	if widget.draw then		
 		Drawing.setColor(widget.color)
 		Drawing.setFont(widget.font)
 		widget:draw()

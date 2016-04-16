@@ -1,6 +1,6 @@
 addEventHandler("onClientResourceStart", resourceRoot, function ()
 	fadeCamera(false, 0)
 	setTimer(function ()
-		exports.dpLoginScreen:setVisible(true)
+		exports.dpLoginPanel:setVisible(true)
 	end, 500, 1)
 end)

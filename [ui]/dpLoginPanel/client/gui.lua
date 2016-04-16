@@ -1,5 +1,5 @@
 local UI = exports.dpUI
-local HIDE_CHAT = false
+local HIDE_CHAT = true
 local screenWidth, screenHeight = exports.dpUI:getScreenSize()
 local backgroundScale = screenHeight / 720
 local backgroundWidth, backgroundHeight = 1280 * backgroundScale, 720 * backgroundScale
@@ -11,6 +11,7 @@ local registerPanel = {}
 local function draw()
 	animationProgress = math.min(1, animationProgress + ANIMATION_SPEED)
 	dxDrawImage(0, 0, backgroundWidth, backgroundHeight, "assets/background.jpg", 0, 0, 0, tocolor(255, 255, 255, 255 * animationProgress))
+	dxDrawText("Drift Paradise 2.0 Development Version", 3, screenHeight - 14, 3, screenHeight - 14, tocolor(255, 255, 255, 100 * animationProgress))
 end
 
 function setVisible(visible)
@@ -238,6 +239,15 @@ addEventHandler("dpUI.click", resourceRoot, function(widget)
 		startGameClick(UI:getText(loginPanel.username), UI:getText(loginPanel.password))
 	-- Кнопка регистрации
 	elseif widget == registerPanel.registerButton then
+		registerClick(UI:getText(registerPanel.username), UI:getText(registerPanel.password))
+	end
+end)
+
+addEvent("dpUI.inputEnter", false)
+addEventHandler("dpUI.inputEnter", resourceRoot, function(widget)
+	if widget == loginPanel.username or widget == loginPanel.password then
+		startGameClick(UI:getText(loginPanel.username), UI:getText(loginPanel.password))
+	elseif widget == registerPanel.username or widget == registerPanel.password then
 		registerClick(UI:getText(registerPanel.username), UI:getText(registerPanel.password))
 	end
 end)

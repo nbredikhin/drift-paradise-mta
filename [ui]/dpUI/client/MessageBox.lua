@@ -120,3 +120,9 @@ end
 function MessageBox.isActive()
 	return isActive
 end
+
+addEventHandler("onClientKey", root, function (key, state)
+	if key == "enter" and state then
+		MessageBox.hide()
+	end
+end)

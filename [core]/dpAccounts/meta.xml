@@ -19,6 +19,8 @@
 	<script type="server" src="server/users/Sessions.lua"/>
 	<script type="server" src="server/users/Users.lua"/>
 	<script type="server" src="server/users/PlayerData.lua"/>
+	<!-- Автомобили -->
+	<script type="server" src="server/vehicles/Vehicles.lua"/>
 	<!-- Основной файл -->
 	<script type="server" src="server/main.lua"/>
 	<!-- Функции для работы с базой данных -->

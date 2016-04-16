@@ -1,5 +1,7 @@
 -- Модуль для работы с таблицами в базе данных
 DatabaseTable = {}
+DatabaseTable.ID_COLUMN_NAME = "id"
+DatabaseTable.ID_COLUMN_TYPE = "int"
 
 local function createQueryCallback(callback)
 	return function(queryHandle, ...)
@@ -19,12 +21,17 @@ end
 -- Создание таблицы
 -- string tableName, table columns, [...]
 -- Columns: {name="string", type="varchar", size=255, options="NOT NULL PRIMARY"}
-function DatabaseTable.create(tableName, columns, callback, ...)
+function DatabaseTable.create(tableName, columns, options, callback, ...)
 	if 	not exports.dpUtils:argcheck(tableName, "string") or 
 		not exports.dpUtils:argcheck(columns, "table")
 	then
 		exports.dpLog:error("DatabaseTable.create: bad arguments")
 		return false
+	end
+	if type(options) ~= "string" then
+		options = ""
+	else
+		options = ", " .. options 
 	end
 	local connection = Database.getConnection()
 	if not connection then
@@ -49,7 +56,7 @@ function DatabaseTable.create(tableName, columns, callback, ...)
 		table.insert(columnsQueries, columnQuery)
 	end
 	local queryString = connection:prepareString(
-		"CREATE TABLE `??` (" .. table.concat(columnsQueries, ", ") .. ");", 
+		"CREATE TABLE `??` (" .. table.concat(columnsQueries, ", ") .. " " .. options .. ");", 
 		tableName
 	)
 	return connection:query(createQueryCallback(callback), queryString, ...)

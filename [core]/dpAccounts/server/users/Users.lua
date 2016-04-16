@@ -1,9 +1,9 @@
 Users = {}
-local DB_TABLE_NAME = "users"
-local DB_PASSWORD_SECRET = "test"
+local USERS_TABLE_NAME = "users"
+local PASSWORD_SECRET = "s9abBUIg090j21aASGzc90avj1l"
 
 function Users.setup()
-	DatabaseTable.create(DB_TABLE_NAME, {
+	DatabaseTable.create(USERS_TABLE_NAME, {
 		{ name="username", type="varchar", size=25, options="UNIQUE NOT NULL" },
 		{ name="password", type="varchar", size=255, options="NOT NULL" },
 		{ name="online", type="bool", options="DEFAULT 0" },
@@ -11,10 +11,12 @@ function Users.setup()
 		{ name="skin", type="smallint", options="UNSIGNED NOT NULL DEFAULT 0" },
 		{ name="lastseen", type="timestamp", options="NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP" }
 	}, function (result)
-		outputDebugString("Users table already exists")
+		if not result then
+			outputDebugString("Users table already exists")
+		end
 	end)
 	-- Очистка информации о входе
-	DatabaseTable.update(DB_TABLE_NAME, {online=0}, {})
+	DatabaseTable.update(USERS_TABLE_NAME, {online=0}, {})
 	-- Очистка даты
 	for i, player in ipairs(getElementsByType("player")) do
 		PlayerData.clear(player)
@@ -23,7 +25,7 @@ end
 
 -- Функция хэширования паролей пользователей
 local function hashUserPassword(username, password)
-	return sha256(password .. tostring(username) .. tostring(string.len(username)) .. tostring(DB_PASSWORD_SECRET))
+	return sha256(password .. tostring(username) .. tostring(string.len(username)) .. tostring(PASSWORD_SECRET))
 end
 
 -- Проверка пароля, повторного входа и т. д.
@@ -66,7 +68,7 @@ function Users.registerPlayer(player, username, password, callback)
 	-- Хэширование пароля
 	password = hashUserPassword(username, password)
 	-- Добавление пользователя в базу
-	DatabaseTable.insert(DB_TABLE_NAME, {
+	DatabaseTable.insert(USERS_TABLE_NAME, {
 		username = username,
 		password = password
 	}, callback)
@@ -87,7 +89,7 @@ function Users.loginPlayer(player, username, password, callback)
 		return false, "already_logged_in"
 	end
 	-- Получение пользователя из базы
-	return DatabaseTable.select(DB_TABLE_NAME, nil, function(result)
+	return DatabaseTable.select(USERS_TABLE_NAME, nil, function(result)
 		local success, errorType = not not result, "user_not_found"
 		local account
 		-- Проверка пароля и т. д.
@@ -99,7 +101,7 @@ function Users.loginPlayer(player, username, password, callback)
 			-- Запустить сессию
 			success = Sessions.start(player)
 			if success then					
-				DatabaseTable.update(DB_TABLE_NAME, {online=1}, {username=username})
+				DatabaseTable.update(USERS_TABLE_NAME, {online=1}, {username=username})
 				PlayerData.set(player, account)
 			else
 				errorType = "already_logged_in"
@@ -123,7 +125,7 @@ function Users.logoutPlayer(player, callback)
 	Sessions.stop(player)
 
 	local username = player:getData("username")
-	return DatabaseTable.update(DB_TABLE_NAME, {online=0}, {username=username}, function(result)
+	return DatabaseTable.update(USERS_TABLE_NAME, {online=0}, {username=username}, function(result)
 		if type(callback) == "function" then
 			callback(not not result)
 		end
@@ -139,7 +141,7 @@ function Users.saveAccount(player)
 	end
 	local username = player:getData("username")
 	local fields = PlayerData.get(player)
-	DatabaseTable.update(DB_TABLE_NAME, fields, {username=username})
+	DatabaseTable.update(USERS_TABLE_NAME, fields, {username=username})
 	return true
 end
 

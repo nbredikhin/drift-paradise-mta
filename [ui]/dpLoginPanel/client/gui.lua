@@ -14,6 +14,11 @@ local function draw()
 	dxDrawText("Drift Paradise 2.0 Development Version", 3, screenHeight - 14, 3, screenHeight - 14, tocolor(255, 255, 255, 100 * animationProgress))
 end
 
+function gotoLoginPanel()
+	UI:setVisible(loginPanel.panel, true)
+	UI:setVisible(registerPanel.panel, false)
+end
+
 function setVisible(visible)
 	visible = not not visible
 	if HIDE_CHAT then
@@ -27,6 +32,9 @@ function setVisible(visible)
 	if visible then
 		addEventHandler("onClientRender", root, draw)
 		animationProgress = 0
+		local username, password = Autologin.load()
+		UI:setText(loginPanel.username, username)
+		UI:setText(loginPanel.password, password)
 	else
 		removeEventHandler("onClientRender", root, draw)
 	end

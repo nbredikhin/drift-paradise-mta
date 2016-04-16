@@ -1,3 +1,5 @@
+local currentUsername, currentPassword
+
 function startGameClick(username, password)
 	if not username or string.len(username) < 1 then		
 		exports.dpUI:showMessageBox(
@@ -20,6 +22,8 @@ function startGameClick(username, password)
 		)
 		return
 	end
+	currentUsername = username
+	currentPassword = password
 end
 
 addEvent("dpAccounts.loginResponse", true)
@@ -38,6 +42,7 @@ addEventHandler("dpAccounts.loginResponse", root, function (success, err)
 		return
 	end
 	setVisible(false)
+	Autologin.remember(currentUsername, currentPassword)
 	outputChatBox(exports.dpLang:getString("chat_message_login_success"), 0, 255, 0)
 end)
 
@@ -73,7 +78,7 @@ addEventHandler("dpAccounts.registerResponse", root, function (success, err)
 		exports.dpUI:showMessageBox(exports.dpLang:getString("login_panel_register_error"), errorText)
 		return
 	end
-	exports.dpUI:showScreen("login")
+	gotoLoginPanel()
 	exports.dpUI:showMessageBox("Drift Paradise", "Вы успешно зарегистрировались!")
 end)
 

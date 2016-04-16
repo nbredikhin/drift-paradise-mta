@@ -60,10 +60,11 @@ function Users.registerPlayer(player, username, password, callback)
 		exports.dpLog:error("Users.registerPlayer: bad arguments")
 		return false
 	end
+	username = string.lower(username)
 	-- Проверка имени пользователя и пароля
 	if not checkUsername(username) or not checkPassword(password) then
 		exports.dpLog:error("Users.registerPlayer: bad username or password")
-		return false
+		return false, "bad_password"
 	end
 	-- Хэширование пароля
 	password = hashUserPassword(username, password)
@@ -83,6 +84,8 @@ function Users.loginPlayer(player, username, password, callback)
 		exports.dpLog:error("Users.registerPlayer: bad arguments")
 		return false
 	end
+	username = string.lower(username)
+
 	-- Если игрок уже залогинен
 	if Sessions.isActive(player) then
 		exports.dpLog:error("Users.loginPlayer: User already logged in")
@@ -148,14 +151,18 @@ end
 addEvent("dpAccounts.registerRequest", true)
 addEventHandler("dpAccounts.registerRequest", resourceRoot, function(username, password)
 	local player = client
-	local success = Users.registerPlayer(player, username, password, function(result)
+	local success, errorType = Users.registerPlayer(player, username, password, function(result)
 		result = not not result
-		triggerClientEvent(player, "dpAccounts.registerResponse", resourceRoot, result)
-		triggerEvent("dpAccounts.register", player, result)
+		local errorType = ""
+		if not result then
+			errorType = "username_taken"
+		end
+		triggerClientEvent(player, "dpAccounts.registerResponse", resourceRoot, result, errorType)
+		triggerEvent("dpAccounts.register", player, result, errorType)
 	end)
 	if not success then
 		triggerClientEvent(player, "dpAccounts.registerResponse", resourceRoot, false)
-		triggerEvent("dpAccounts.register", player, false)
+		triggerEvent("dpAccounts.register", player, false, errorType)
 	end
 end)
 

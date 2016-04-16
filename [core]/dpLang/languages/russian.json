@@ -22,6 +22,7 @@
 	"login_panel_err_bad_password": "Неверный пароль",
 	"login_panel_err_user_not_found": "Пользователь не найден",
 	"login_panel_err_account_in_use": "Этот аккаунт уже используется",
+	"login_panel_err_username_taken": "Данное имя уже используется",
 
 	// Chat message
 	"chat_message_login_success": "Вы успешно вошли"	

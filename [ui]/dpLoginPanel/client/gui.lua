@@ -1,7 +1,9 @@
 local UI = exports.dpUI
 local HIDE_CHAT = true
 local screenWidth, screenHeight = exports.dpUI:getScreenSize()
-local backgroundScale = screenHeight / 720
+
+local _, realScreenHeight = guiGetScreenSize()
+local backgroundScale = realScreenHeight / 720
 local backgroundWidth, backgroundHeight = 1280 * backgroundScale, 720 * backgroundScale
 local animationProgress = 0
 local ANIMATION_SPEED = 0.01

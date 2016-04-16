@@ -75,6 +75,9 @@ addEventHandler("dpAccounts.registerResponse", root, function (success, err)
 	if not success then
 		outputDebugString("Error: " .. tostring(err))
 		local errorText = exports.dpLang:getString("login_panel_err_register_unknown")
+		if err == "username_taken" then
+			errorText = exports.dpLang:getString("login_panel_err_username_taken")
+		end
 		exports.dpUI:showMessageBox(exports.dpLang:getString("login_panel_register_error"), errorText)
 		return
 	end

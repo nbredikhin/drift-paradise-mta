@@ -1,12 +1,21 @@
 VehicleSelect = {}
 local isActive = false
 local positions = {
-	Vector3 { x = -1945.861, y = 257.595, z = 40.774 },
-	Vector3 { x = -1950.861, y = 257.595, z = 40.774 },
-	Vector3 { x = -1955.859, y = 257.595, z = 40.774 }
+	Vector3 { x = 2916.601, y = -3170.575, z = 2535.244 },
+	Vector3 { x = 2913.580, y = -3178.015, z = 2535.244 },
+	Vector3 { x = 2915.438, y = -3186.282, z = 2535.244 }
 }
-local CAMERA_POSITION = Vector3 { x = -1950.861, y = 266.595, z = 42.774 }
 
+local rotations = {137, 217, 270}
+local CAMERA_POSITION = Vector3  { x = 2915.162, y = -3175.603, z = 2536.517 }
+local cameraPositions = {
+	Vector3 { x = 2915.381, y = -3177.743, z = 2536.517 },
+	Vector3 { x = 2915.142, y = -3185.672, z = 2537.119 },
+	Vector3 { x = 2921.819, y = -3181.869, z = 2536.942 }
+}
+
+local targetPosition = cameraPositions[1]
+local currentPosition = targetPosition
 local targetLookPosition = positions[1]
 local currentLookPosition = targetLookPosition
 
@@ -16,13 +25,17 @@ local vehicles = {}
 local isSelected = false
 
 local function update(dt)
-	local shakeX = math.sin(getTickCount() / 740) * (math.sin(getTickCount() / 300) + 1) * 0.01
-	local shakeZ = math.sin(getTickCount() / 430) * (math.cos(getTickCount() / 600) + 1) * 0.01
-	local offset = Vector3(shakeX, 0, shakeZ)
+	local shakeX = math.sin(getTickCount() / 740) * (math.sin(getTickCount() / 300) + 1) * 0.005
+	local shakeY = math.cos(getTickCount() / 250) * (math.sin(getTickCount() / 300) + 1) * 0.001
+	local shakeZ = math.sin(getTickCount() / 430) * (math.cos(getTickCount() / 600) + 1) * 0.005
+	local offset = Vector3(shakeX, shakeY, shakeZ)
 	local deltaTime = dt / 1000
-	currentLookPosition = currentLookPosition + (targetLookPosition - currentLookPosition) * 2 * deltaTime
-	currentLookPosition = currentLookPosition + offset / 5
-	Camera.setMatrix(CAMERA_POSITION - offset / 2, currentLookPosition + Vector3(0, 0, 0.3), 0, 45)
+	currentLookPosition = currentLookPosition + (targetLookPosition - currentLookPosition) * 1 * deltaTime
+	currentLookPosition = currentLookPosition + offset / 8
+
+	currentPosition = currentPosition + (targetPosition - currentPosition) * 1.5 * deltaTime
+	currentPosition = currentPosition - offset / 6
+	Camera.setMatrix(currentPosition, currentLookPosition + Vector3(0, 0, 0), 0, 50)
 end
 
 local function onKey(key, state)
@@ -49,6 +62,7 @@ local function onKey(key, state)
 	currentVehicle = math.min(#positions, currentVehicle)
 	currentVehicle = math.max(1, currentVehicle)
 
+	targetPosition = cameraPositions[currentVehicle]
 	targetLookPosition = positions[currentVehicle]
 end
 
@@ -61,7 +75,7 @@ function VehicleSelect.enter(models)
 	end
 	for i, pos in ipairs(positions) do
 		vehicles[i] = Vehicle(models[i], pos)
-		vehicles[i].rotation = Vector3(0, 0, 30 * (i - 2))
+		vehicles[i].rotation = Vector3(0, 0, rotations[i])
 	end
 	addEventHandler("onClientPreRender", root, update)
 	addEventHandler("onClientKey", root, onKey)

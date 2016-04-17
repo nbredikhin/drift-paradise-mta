@@ -18,7 +18,10 @@ local startupResources = {
 	"dpTuning",
 	"dpCarShop",
 	"dpSkinSelect",
-	"dpVehicleSelect"
+	"dpVehicleSelect",
+
+	"dpMap",
+	"dpWelcomeGarage"
 }
 
 local function processResourceByName(resourceName, start)

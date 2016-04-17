@@ -7,6 +7,15 @@ function setLanguage(...)
 	end
 end
 
+function getLanguage(...)
+	success, result = pcall(Language.getLanguage, ...)
+	if success then 
+		return result
+	else
+		return false
+	end
+end
+
 function getString(...)
 	success, result = pcall(Language.getString, ...)
 	if success then 

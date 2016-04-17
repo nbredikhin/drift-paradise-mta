@@ -9,6 +9,7 @@
 	<!-- Exports -->
 	<export type="client" function="getString"/>
 	<export type="client" function="setLanguage"/>
+	<export type="client" function="getLanguage"/>
 	<export type="client" function="chatMessage"/>
 	<export type="client" function="getAllStrings"/>
 

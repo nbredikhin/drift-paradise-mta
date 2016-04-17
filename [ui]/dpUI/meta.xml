@@ -5,6 +5,8 @@
 	<include resource="dpAssets"/>
 	<include resource="dpLang"/>
 
+	<!-- CLIENT -->
+	<!-- Основной код UI -->
 	<script type="client" src="client/utils.lua"/>
 	<script type="client" src="client/Colors.lua"/>
 	<script type="client" src="client/Fonts.lua"/>
@@ -14,21 +16,21 @@
 	<script type="client" src="client/RenderTarget3D.lua"/>
 	<script type="client" src="client/main.lua"/>
 	<script type="client" src="client/exports.lua"/>
-
+	<!-- Базовые виджеты -->
 	<script type="client" src="client/widgets/Widget.lua"/>
 	<script type="client" src="client/widgets/Rectangle.lua"/>
 	<script type="client" src="client/widgets/TextField.lua"/>
 	<script type="client" src="client/widgets/Button.lua"/>
 	<script type="client" src="client/widgets/Image.lua"/>
 	<script type="client" src="client/widgets/Input.lua"/>
-
+	<!-- Стилизованные виджеты -->
 	<script type="client" src="client/widgets/DpPanel.lua"/>
 	<script type="client" src="client/widgets/DpButton.lua"/>
 	<script type="client" src="client/widgets/DpInput.lua"/>
 	<script type="client" src="client/widgets/DpLabel.lua"/>
 	<script type="client" src="client/widgets/DpImageButton.lua"/>
 
-	<!-- Generated exports -->
+	<!-- Сгенерированный список экспортов -->
 	<export type="client" function="getScreenSize"/>
 	<export type="client" function="showMessageBox"/>
 	<export type="client" function="getRootWidget"/>

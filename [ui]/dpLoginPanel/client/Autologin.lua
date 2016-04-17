@@ -1,6 +1,6 @@
 Autologin = {}
 
-function Autologin.remember(username, password)
+function Autologin.remember(username, password, language)
 	local f
 	if not fileExists("@autologin") then
 		f = fileCreate("@autologin")
@@ -11,13 +11,11 @@ function Autologin.remember(username, password)
 		return
 	end
 
-	local fields = {}
-	if username then
-		fields.username = username
-	end
-	if password then
-		fields.password = password
-	end
+	local fields = {
+		username = username,
+		password = password,
+		language = language
+	}
 
 	local jsonData = toJSON(fields)
 	if not jsonData then
@@ -45,5 +43,5 @@ function Autologin.load()
 	if not fields then
 		return
 	end
-	return tostring(fields.username), tostring(fields.password)
+	return fields
 end

@@ -1,6 +1,6 @@
 PlayerData = {}
 local loadFields = {
-	"username", "skin", "money", "lastseen"
+	"_id", "username", "skin", "money", "lastseen"
 }
 local saveFields = {
 	"skin", "money"

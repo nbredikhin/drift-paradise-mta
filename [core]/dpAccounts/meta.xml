@@ -3,11 +3,15 @@
 	<include resource="dpLog"/>
 	<include resource="dpUtils"/>
 
+	<!-- SHARED -->
+	
 	<!-- Основной конфиг -->
 	<script type="shared" src="shared/AccountsConfig.lua"/>
 	<!-- Функция для проверки имени пользователя -->
 	<script type="shared" src="shared/usercheck.lua"/>
 	<export type="shared" function="checkUsername"/>
+
+	<!-- SERVER -->
 
 	<!-- Модули для работы с базой данных -->
 	<script type="server" src="server/database/DatabaseUtils.lua"/>
@@ -19,8 +23,10 @@
 	<script type="server" src="server/users/Sessions.lua"/>
 	<script type="server" src="server/users/Users.lua"/>
 	<script type="server" src="server/users/PlayerData.lua"/>
+	<script type="server" src="server/users/exports.lua"/>
 	<!-- Автомобили -->
 	<script type="server" src="server/vehicles/Vehicles.lua"/>
+	<script type="server" src="server/vehicles/exports.lua"/>
 	<!-- Основной файл -->
 	<script type="server" src="server/main.lua"/>
 	<!-- Функции для работы с базой данных -->
@@ -29,6 +35,15 @@
 	<export type="server" function="update"/>
 	<export type="server" function="select"/>
 	<export type="server" function="delete"/>
+	<!-- Функции для работы с пользователями -->
+	<export type="server" function="isPlayerLoggedIn"/>
+	<!-- Функции для работы с автомобилями -->
+	<export type="server" function="addPlayerVehicle"/>
+	<export type="server" function="getVehicleData"/>
+	<export type="server" function="getPlayerVehicles"/>
+	<export type="server" function="removeVehicle"/>
+
+	<!-- CLIENT -->
 
 	<script type="client" src="client/users.lua"/>
 	<!-- Функции для авторизации -->

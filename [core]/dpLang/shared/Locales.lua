@@ -42,6 +42,9 @@ end
 
 function Locales.getString(lang, name)
 	if not locales[lang] then
+		if DEBUG then
+			return name
+		end
 		return false
 	end
 

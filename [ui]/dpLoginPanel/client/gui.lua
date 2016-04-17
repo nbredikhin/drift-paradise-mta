@@ -10,15 +10,21 @@ local ANIMATION_SPEED = 0.01
 local loginPanel = {}
 local registerPanel = {}
 
+local USERNAME_REGEXP = "^[A-Za-z0-9_]$"
+
 local function draw()
 	animationProgress = math.min(1, animationProgress + ANIMATION_SPEED)
 	dxDrawImage(0, 0, backgroundWidth, backgroundHeight, "assets/background.jpg", 0, 0, 0, tocolor(255, 255, 255, 255 * animationProgress))
 	dxDrawText("Drift Paradise 2.0 Development Version", 3, screenHeight - 14, 3, screenHeight - 14, tocolor(255, 255, 255, 100 * animationProgress))
 end
 
-function gotoLoginPanel()
+function gotoLoginPanel(username, password)
 	UI:setVisible(loginPanel.panel, true)
 	UI:setVisible(registerPanel.panel, false)
+	if username and password then
+		UI:setText(loginPanel.username, username)
+		UI:setText(loginPanel.password, password)
+	end
 end
 
 function setVisible(visible)
@@ -34,9 +40,10 @@ function setVisible(visible)
 	if visible then
 		addEventHandler("onClientRender", root, draw)
 		animationProgress = 0
-		local username, password = Autologin.load()
-		UI:setText(loginPanel.username, username)
-		UI:setText(loginPanel.password, password)
+		local fields = Autologin.load()
+		UI:setText(loginPanel.username, fields.username)
+		UI:setText(loginPanel.password, fields.password)
+		exports.dpLang:setLanguage(fields.language)
 	else
 		removeEventHandler("onClientRender", root, draw)
 	end
@@ -72,7 +79,6 @@ local function createLoginPanel()
 		width = panelWidth / 2,
 		height = 55,
 		type = "default_dark",
-		text = "Начать игру",
 		locale = "login_panel_start_game_button"
 	})
 	UI:addChild(panel, startGameButton)
@@ -82,7 +88,6 @@ local function createLoginPanel()
 		width = panelWidth / 2,
 		height = 55,
 		type = "primary",
-		text = "Регистрация",
 		locale = "login_panel_register_button_toggle"
 	})
 	UI:addChild(panel, registerButton)	
@@ -93,7 +98,8 @@ local function createLoginPanel()
 		width = 450,
 		height = 50,
 		type = "dark",
-		placeholder = "Имя пользователя",
+		regexp = USERNAME_REGEXP,
+		forceRegister = "lower",
 		locale = "login_panel_username_label"
 	})
 	UI:addChild(panel, usernameInput)
@@ -176,6 +182,8 @@ local function createRegisterPanel()
 		width = 450,
 		height = 50,
 		type = "dark",
+		regexp = USERNAME_REGEXP,
+		forceRegister = "lower",
 		locale = "login_panel_username_label"
 	})
 	UI:addChild(panel, usernameInput)

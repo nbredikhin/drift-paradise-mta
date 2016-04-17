@@ -10,3 +10,9 @@ end
 function capitalizeString(str)
     return (str:gsub("^%l", string.upper))
 end
+
+function clearChat(...)
+	for i = 1, 30 do
+		outputChatBox(" ", ...)
+	end
+end

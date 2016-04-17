@@ -15,6 +15,7 @@
 	// Message box
 	"login_panel_auth_error": "Ошибка авторизации",
 	"login_panel_register_error": "Ошибка регистрации",
+
 	"login_panel_err_enter_username": "Введите имя пользователя",
 	"login_panel_err_enter_password": "Введите пароль",
 	"login_panel_err_login_unknown": "Не удалось войти",
@@ -23,6 +24,13 @@
 	"login_panel_err_user_not_found": "Пользователь не найден",
 	"login_panel_err_account_in_use": "Этот аккаунт уже используется",
 	"login_panel_err_username_taken": "Данное имя уже используется",
+	"login_panel_register_success": "Вы успешно зарегистрировались!",
+
+	"login_panel_err_username_too_short": "Слишком короткое имя",
+	"login_panel_err_username_too_long": "Слишком длинное имя",
+	"login_panel_err_password_too_short": "Слишком короткий пароль",
+	"login_panel_err_password_too_long": "Слишком длинный пароль",
+	"login_panel_err_username_invalid": "Недопустимое имя пользователя",
 
 	// Chat message
 	"chat_message_login_success": "Вы успешно вошли"	

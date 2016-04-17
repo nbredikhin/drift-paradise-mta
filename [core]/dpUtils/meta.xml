@@ -6,7 +6,10 @@
 	<script type="shared" src="shared/geom.lua"/>
 	<script type="shared" src="shared/table.lua"/>
 	<script type="shared" src="shared/other.lua"/>
+	<script type="shared" src="shared/vehicles.lua"/>
 
+	<export type="shared" function="isValidVehicleModel"/>
+	<export type="shared" function="clearChat"/>
 	<export type="shared" function="tableCopy"/>
 	<export type="shared" function="argcheck"/>
 	<export type="shared" function="defaultValue"/>

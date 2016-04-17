@@ -13,8 +13,10 @@ function Input.create(properties)
 	local widget = Rectangle.create(properties)
 	widget._type = "Input"
 	widget.placeholder = exports.dpUtils:defaultValue(properties.placeholder, "")
+	widget.forceRegister = exports.dpUtils:defaultValue(properties.forceRegister, false)
 	widget.masked = exports.dpUtils:defaultValue(properties.masked, false)
 	widget.font = Fonts.lightSmall
+	widget.regexp = exports.dpUtils:defaultValue(properties.regexp, false)
 	local textOffsetX = 10
 	function widget:draw()
 		if activeInput == self then
@@ -129,6 +131,18 @@ end)
 
 addEventHandler("onClientCharacter", root, function (character)
 	if activeInput and not MessageBox.isActive() then
+		if activeInput.forceRegister then
+			if activeInput.forceRegister == "lower" then
+				character = string.lower(character)
+			elseif activeInput.forceRegister == "upper" then
+				character = string.upper(character)
+			end
+		end
+		if activeInput.regexp then
+			if not pregFind(character, activeInput.regexp) then
+				return 
+			end
+		end
 		activeInput.text = activeInput.text .. tostring(character)
 	end
 end)

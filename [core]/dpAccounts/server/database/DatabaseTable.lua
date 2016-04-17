@@ -1,6 +1,6 @@
 -- Модуль для работы с таблицами в базе данных
 DatabaseTable = {}
-DatabaseTable.ID_COLUMN_NAME = "id"
+DatabaseTable.ID_COLUMN_NAME = "_id"
 DatabaseTable.ID_COLUMN_TYPE = "int"
 
 local function createQueryCallback(callback)
@@ -39,7 +39,7 @@ function DatabaseTable.create(tableName, columns, options, callback, ...)
 		return false
 	end
 	-- Автоматическое создание поля с id
-	table.insert(columns, {name = "id", type = "int", options = "NOT NULL PRIMARY KEY AUTO_INCREMENT"})
+	table.insert(columns, {name = DatabaseTable.ID_COLUMN_NAME, type = DatabaseTable.ID_COLUMN_TYPE, options = "NOT NULL PRIMARY KEY AUTO_INCREMENT"})
 	-- Строка запроса для каждого столбца таблицы
 	local columnsQueries = {}
 	for i, column in ipairs(columns) do
@@ -59,7 +59,7 @@ function DatabaseTable.create(tableName, columns, options, callback, ...)
 		"CREATE TABLE `??` (" .. table.concat(columnsQueries, ", ") .. " " .. options .. ");", 
 		tableName
 	)
-	return connection:query(createQueryCallback(callback), queryString, ...)
+	return not not connection:query(createQueryCallback(callback), queryString, ...)
 end
 
 -- Вставка в таблицу
@@ -86,7 +86,7 @@ function DatabaseTable.insert(tableName, insertValues, callback, ...)
 		valuesCount = valuesCount + 1
 	end
 	if valuesCount == 0 then
-		return connection:query(createQueryCallback(callback), connection:prepareString("INSERT INTO `??`;"), ...)
+		return not not connection:query(createQueryCallback(callback), connection:prepareString("INSERT INTO `??`;", tableName), ...)
 	end
 	local columnsQuery = connection:prepareString("(" .. table.concat(columnsQueries, ",") .. ")")
 	local valuesQuery = connection:prepareString("(" .. table.concat(valuesQueries, ",") .. ")")
@@ -94,7 +94,7 @@ function DatabaseTable.insert(tableName, insertValues, callback, ...)
 		"INSERT INTO `??` " .. columnsQuery .. " VALUES " .. valuesQuery .. ";", 
 		tableName
 	)
-	return connection:query(createQueryCallback(callback), queryString, ...)
+	return not not connection:query(createQueryCallback(callback), queryString, ...)
 end
 
 -- Обновление записей в таблице
@@ -128,15 +128,16 @@ function DatabaseTable.update(tableName, setFields, whereFields, callback, ...)
 		queryString = queryString .. connection:prepareString(" WHERE " .. table.concat(whereQueries, ", "))
 	end
 	queryString = queryString .. ";"
-	return connection:query(createQueryCallback(callback), queryString, ...)
+	return not not connection:query(createQueryCallback(callback), queryString, ...)
 end
 
 -- Получение записей из таблицы
 -- string tableName, [table columns, ...]
 -- columns: Массив {"column1", "column2", ...}
 -- Если не указаны columns, делается SELECT *
-function DatabaseTable.select(tableName, columns, callback, ...)
+function DatabaseTable.select(tableName, columns, whereFields, callback, ...)
 	if not exports.dpUtils:argcheck(tableName, "string") then
+		exports.dpLog:error("DatabaseTable.select: bad arguments")
 		exports.dpLog:error("DatabaseTable.select: bad arguments")
 		return false
 	end
@@ -145,19 +146,32 @@ function DatabaseTable.select(tableName, columns, callback, ...)
 		exports.dpLog:error("DatabaseTable.select: no database connection")
 		return false
 	end
+	-- WHERE
+	local whereQueries = {}
+	for column, value in pairs(whereFields) do
+		table.insert(whereQueries, connection:prepareString("`??`=?", column, value))
+	end
+	local whereQueryString = ""
+	if #whereQueries > 0 then
+		whereQueryString = " WHERE " .. table.concat(whereQueries, ", ")
+	end
+
+	-- COLUMNS
+	-- SELECT *
 	if not columns or type(columns) ~= "table" or #columns == 0 then
-		return connection:query(createQueryCallback(callback), connection:prepareString("SELECT * FROM `??`;", tableName), ...)
+		return not not connection:query(createQueryCallback(callback), connection:prepareString("SELECT * FROM `??` " .. whereQueryString ..";", tableName), ...)
 	end
 	local selectColumns = {}
 	for column, value in ipairs(columns) do
 		table.insert(selectColumns, connection:prepareString("`??`", column))
 	end
-	outputDebugString(queryString)
+	
+	-- SELECT COLUMNS
 	local queryString = connection:prepareString(
-		"SELECT " .. table.concat(selectColumns, ",") .." FROM `??`;", 
+		"SELECT " .. table.concat(selectColumns, ",") .." FROM `??` " .. whereQueryString ..";", 
 		tableName
 	)
-	return connection:query(createQueryCallback(callback), queryString, ...)
+	return not not connection:query(createQueryCallback(callback), queryString, ...)
 end
 
 -- TODO

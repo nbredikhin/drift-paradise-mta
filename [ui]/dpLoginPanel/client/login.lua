@@ -42,7 +42,8 @@ addEventHandler("dpAccounts.loginResponse", root, function (success, err)
 		return
 	end
 	setVisible(false)
-	Autologin.remember(currentUsername, currentPassword)
+	Autologin.remember(currentUsername, currentPassword, exports.dpLang:getLanguage())
+	exports.dpUtils:clearChat()
 	outputChatBox(exports.dpLang:getString("chat_message_login_success"), 0, 255, 0)
 end)
 
@@ -61,13 +62,28 @@ function registerClick(username, password)
 		)
 		return
 	end	
-	if not exports.dpAccounts:register(username, password) then
+	local success, errorType = exports.dpAccounts:register(username, password) 
+	if not success then
+		local errorText = exports.dpLang:getString("login_panel_err_register_unknown")
+		if errorType == "username_too_short" then
+			errorText = exports.dpLang:getString("login_panel_err_username_too_short")
+		elseif errorType == "username_too_long" then
+			errorText = exports.dpLang:getString("login_panel_err_username_too_long")			
+		elseif errorType == "invalid_username" then
+			errorText = exports.dpLang:getString("login_panel_err_username_invalid")
+		elseif errorType == "password_too_short" then
+			errorText = exports.dpLang:getString("login_panel_err_password_too_short")
+		elseif errorType == "password_too_long" then
+			errorText = exports.dpLang:getString("login_panel_err_password_too_long")
+		end
 		exports.dpUI:showMessageBox(
 			exports.dpLang:getString("login_panel_register_error"),
-			exports.dpLang:getString("login_panel_err_register_unknown")
+			errorText
 		)
 		return
 	end
+	currentUsername = username
+	currentPassword = password	
 end
 
 addEvent("dpAccounts.registerResponse", true)
@@ -81,8 +97,8 @@ addEventHandler("dpAccounts.registerResponse", root, function (success, err)
 		exports.dpUI:showMessageBox(exports.dpLang:getString("login_panel_register_error"), errorText)
 		return
 	end
-	gotoLoginPanel()
-	exports.dpUI:showMessageBox("Drift Paradise", "Вы успешно зарегистрировались!")
+	gotoLoginPanel(currentUsername, currentPassword)
+	exports.dpUI:showMessageBox("Drift Paradise", exports.dpLang:getString("login_panel_register_success"))
 end)
 
 -- Смена языка

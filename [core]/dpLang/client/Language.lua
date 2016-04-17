@@ -3,12 +3,19 @@ local DEFAULT_LANGUAGE = Locales.languages[1]
 local currentLanguage = DEFAULT_LANGUAGE
 
 function Language.setLanguage(lang)
+	if not lang then
+		return false
+	end
 	if currentLanguage then
 		Locales.unload(currentLanguage)
 	end
 	Locales.load(lang)
 	currentLanguage = lang
 	triggerEvent("dpLang.languageChanged", root, currentLanguage)
+end
+
+function Language.getLanguage()
+	return currentLanguage
 end
 
 function Language.getString(name)

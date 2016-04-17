@@ -15,6 +15,7 @@
 	// Message box
 	"login_panel_auth_error": "Authorization error",
 	"login_panel_register_error": "Registration error",
+
 	"login_panel_err_enter_username": "Enter your username",
 	"login_panel_err_enter_password": "Enter your password",
 	"login_panel_err_login_unknown": "Failed to login",
@@ -23,7 +24,14 @@
 	"login_panel_err_user_not_found": "User not found",
 	"login_panel_err_account_in_use": "This account is already in use",
 	"login_panel_err_username_taken": "This username is already taken",
+	"login_panel_register_success": "Registration successfull!",
+
+	"login_panel_err_username_too_short": "Username is too short",
+	"login_panel_err_username_too_long": "Username is too long",
+	"login_panel_err_password_too_short": "Password is too short",
+	"login_panel_err_password_too_long": "Password is too long",
+	"login_panel_err_username_invalid": "Username contains illegal characters",
 
 	// Chat message
-	"chat_message_login_success": "You successfully logged in"
+	"chat_message_login_success": "You have successfully logged in"
 }

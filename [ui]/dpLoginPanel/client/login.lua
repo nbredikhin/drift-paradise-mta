@@ -15,7 +15,7 @@ function startGameClick(username, password)
 		)
 		return
 	end	
-	if not exports.dpAccounts:login(username, password) then
+	if not exports.dpCore:login(username, password) then
 		exports.dpUI:showMessageBox(
 			exports.dpLang:getString("login_panel_auth_error"), 
 			exports.dpLang:getString("login_panel_err_login_unknown")
@@ -26,8 +26,8 @@ function startGameClick(username, password)
 	currentPassword = password
 end
 
-addEvent("dpAccounts.loginResponse", true)
-addEventHandler("dpAccounts.loginResponse", root, function (success, err)
+addEvent("dpCore.loginResponse", true)
+addEventHandler("dpCore.loginResponse", root, function (success, err)
 	if not success then
 		outputDebugString("Error: " .. tostring(err))
 		local errorText = exports.dpLang:getString("login_panel_err_login_unknown")
@@ -62,7 +62,7 @@ function registerClick(username, password)
 		)
 		return
 	end	
-	local success, errorType = exports.dpAccounts:register(username, password) 
+	local success, errorType = exports.dpCore:register(username, password) 
 	if not success then
 		local errorText = exports.dpLang:getString("login_panel_err_register_unknown")
 		if errorType == "username_too_short" then
@@ -86,8 +86,8 @@ function registerClick(username, password)
 	currentPassword = password	
 end
 
-addEvent("dpAccounts.registerResponse", true)
-addEventHandler("dpAccounts.registerResponse", root, function (success, err)
+addEvent("dpCore.registerResponse", true)
+addEventHandler("dpCore.registerResponse", root, function (success, err)
 	if not success then
 		outputDebugString("Error: " .. tostring(err))
 		local errorText = exports.dpLang:getString("login_panel_err_register_unknown")

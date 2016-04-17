@@ -236,6 +236,11 @@ end
 addEventHandler("onClientResourceStart", resourceRoot, function ()
 	createLoginPanel()
 	createRegisterPanel()
+
+	if not localPlayer:getData("username") then
+		fadeCamera(false, 0)
+		setVisible(true)
+	end
 end)
 
 addEvent("dpUI.click", false)

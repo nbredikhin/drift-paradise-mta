@@ -1,10 +1,10 @@
 <meta>
 	<oop>true</oop>
-	<include resource="dpLog"/>
 	<include resource="dpUtils"/>
 
 	<!-- SHARED -->
 	
+	<script type="shared" src="shared/utils.lua"/>
 	<!-- Основной конфиг -->
 	<script type="shared" src="shared/AccountsConfig.lua"/>
 	<!-- Функция для проверки имени пользователя -->
@@ -18,30 +18,24 @@
 	<script type="server" src="server/database/DatabaseConfig.lua"/>
 	<script type="server" src="server/database/Database.lua"/>
 	<script type="server" src="server/database/DatabaseTable.lua"/>
-	<script type="server" src="server/database/exports.lua"/>
-	<!-- Пользователи -->
+	<!-- Аккаунты пользователей -->
 	<script type="server" src="server/users/Sessions.lua"/>
 	<script type="server" src="server/users/Users.lua"/>
 	<script type="server" src="server/users/PlayerData.lua"/>
 	<script type="server" src="server/users/exports.lua"/>
 	<!-- Автомобили -->
-	<script type="server" src="server/vehicles/Vehicles.lua"/>
+	<script type="server" src="server/vehicles/UserVehicles.lua"/>
+	<script type="server" src="server/vehicles/VehicleSpawn.lua"/>
 	<script type="server" src="server/vehicles/exports.lua"/>
-	<!-- Основной файл -->
+	<!-- Gameplay -->
+	<script type="server" src="server/gameplay/PlayerSpawn.lua"/>	
+	<!-- Основной скрипт -->
 	<script type="server" src="server/main.lua"/>
-	<!-- Функции для работы с базой данных -->
-	<export type="server" function="createTable"/>
-	<export type="server" function="insert"/>
-	<export type="server" function="update"/>
-	<export type="server" function="select"/>
-	<export type="server" function="delete"/>
-	<!-- Функции для работы с пользователями -->
+
+	<!-- Функции для работы с игроками -->
 	<export type="server" function="isPlayerLoggedIn"/>
 	<!-- Функции для работы с автомобилями -->
-	<export type="server" function="addPlayerVehicle"/>
-	<export type="server" function="getVehicleData"/>
-	<export type="server" function="getPlayerVehicles"/>
-	<export type="server" function="removeVehicle"/>
+	<export type="server" function="spawnVehicle"/>
 
 	<!-- CLIENT -->
 
@@ -49,5 +43,5 @@
 	<!-- Функции для авторизации -->
 	<export type="client" function="register"/>
 	<export type="client" function="login"/>
-	<export type="client" function="logout"/>	
+	<export type="client" function="logout"/>
 </meta>

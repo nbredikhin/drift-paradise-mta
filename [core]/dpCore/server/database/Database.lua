@@ -4,7 +4,7 @@ local dbConnection
 
 function Database.connect()
 	if isElement(dbConnection) then
-		exports.dpLog:warning("Database.connect: connection already exists")
+		outputDebugString("WARNING: Database.connect: connection already exists")
 		return false
 	end
 
@@ -22,7 +22,7 @@ function Database.connect()
 		options
 	)
 	if not dbConnection then
-		exports.dpLog:error("Database.connect: failed to connect")
+		outputDebugString("ERROR: Database.connect: failed to connect")
 		return false
 	end
 	return true
@@ -37,7 +37,7 @@ end
 
 function Database.disconnect()
 	if not isElement(dbConnection) then
-		exports.dpLog:warning("Database.disconnect: no connection")
+		outputDebugString("WARNING: Database.disconnect: no connection")
 		return false
 	end
 	dbConnection:destroy()

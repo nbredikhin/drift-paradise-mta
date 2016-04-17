@@ -1,8 +1,0 @@
-<meta>
-	<oop>true</oop>
-
-	<script type="shared" src="shared/messages.lua"/>
-
-	<export type="shared" function="warning"/>
-	<export type="shared" function="error"/>
-</meta>

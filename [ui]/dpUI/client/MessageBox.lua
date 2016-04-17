@@ -10,14 +10,16 @@ local headerHeight = 40
 local maskShader
 local renderTarget
 local font
+local animationProgress = 0
+local ANIMATION_SPEED = 0.03
 
 local function draw()
 	if not isActive then
 		return
 	end	
-
+	animationProgress = math.min(1, animationProgress + ANIMATION_SPEED)
 	if FADE_SCREEN then
-		dxDrawRectangle(0, 0, screenWidth, screenHeight, tocolor(0, 0, 0, 200))
+		dxDrawRectangle(0, 0, screenWidth, screenHeight, tocolor(0, 0, 0, 200 * animationProgress))
 	end
 	if maskShader then
 		local mouseX, mouseY = getMousePosition()
@@ -90,9 +92,7 @@ function MessageBox.start()
 end
 
 function MessageBox.show(header, text)
-	if 	not exports.dpUtils:argcheck(header, "string") or 
-		not exports.dpUtils:argcheck(text, "string") 
-	then
+	if type(header) ~= "string" or type(text) ~= "string" then
 		return false
 	end
 	if isActive then
@@ -102,6 +102,7 @@ function MessageBox.show(header, text)
 	isActive = true
 	headerText = header
 	messageText = text
+	animationProgress = 0
 	MessageBox.redraw()
 	addEventHandler("onClientRender", root, draw, true, "low-10")
 	return true

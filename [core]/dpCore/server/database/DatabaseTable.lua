@@ -8,13 +8,7 @@ local function createQueryCallback(callback)
 		local result = queryHandle:poll(0)
 		outputDebugString("Database query result: " .. tostring(result))
 		triggerEvent("dpDatabase.queryResult", root, queryHandle, result, ...)
-
-		if callback and type(callback) == "function" then
-			local success, err = pcall(callback, result, ...)
-			if not success then
-				outputDebugString("Error in callback: " .. tostring(err))
-			end
-		end
+		executeCallback(callback, result, ...)
 	end
 end
 
@@ -22,10 +16,8 @@ end
 -- string tableName, table columns, [...]
 -- Columns: {name="string", type="varchar", size=255, options="NOT NULL PRIMARY"}
 function DatabaseTable.create(tableName, columns, options, callback, ...)
-	if 	not exports.dpUtils:argcheck(tableName, "string") or 
-		not exports.dpUtils:argcheck(columns, "table")
-	then
-		exports.dpLog:error("DatabaseTable.create: bad arguments")
+	if type(tableName) ~= "string" or type(columns) ~= "table" then
+		outputDebugString("ERROR: DatabaseTable.create: bad arguments")
 		return false
 	end
 	if type(options) ~= "string" then
@@ -35,7 +27,7 @@ function DatabaseTable.create(tableName, columns, options, callback, ...)
 	end
 	local connection = Database.getConnection()
 	if not connection then
-		exports.dpLog:error("DatabaseTable.create: no database connection")
+		outputDebugString("ERROR: DatabaseTable.create: no database connection")
 		return false
 	end
 	-- Автоматическое создание поля с id
@@ -66,15 +58,13 @@ end
 -- string tableName, table insertValues, [...]
 -- insertValues: Таблица {ключ=значение}
 function DatabaseTable.insert(tableName, insertValues, callback, ...)
-	if 	not exports.dpUtils:argcheck(tableName, "string") or 
-		not exports.dpUtils:argcheck(insertValues, "table", {notEmpty = true})
-	then
-		exports.dpLog:error("DatabaseTable.insert: bad arguments")
+	if type(tableName) ~= "string" or type(insertValues) ~= "table" or #insertValues == 0 then
+		outputDebugString("ERROR: DatabaseTable.insert: bad arguments")
 		return false
 	end
 	local connection = Database.getConnection()
 	if not connection then
-		exports.dpLog:error("DatabaseTable.insert: no database connection")
+		outputDebugString("ERROR: DatabaseTable.insert: no database connection")
 		return false
 	end
 	local columnsQueries = {}
@@ -102,16 +92,13 @@ end
 -- setFields: {key=value}
 -- whereFields: {key=value}
 function DatabaseTable.update(tableName, setFields, whereFields, callback, ...)
-	if 	not exports.dpUtils:argcheck(tableName, "string") or 
-		not exports.dpUtils:argcheck(setFields, "table", {notEmpty = true}) or
-		not exports.dpUtils:argcheck(whereFields, "table", {notEmpty = false})
-	then
-		exports.dpLog:error("DatabaseTable.update: bad arguments")
+	if type(tableName) ~= "string" or type(setFields) ~= "table" or #setFields == 0 or type(whereFields) ~= "table" then
+		outputDebugString("ERROR: DatabaseTable.update: bad arguments")
 		return false
 	end
 	local connection = Database.getConnection()
 	if not connection then
-		exports.dpLog:error("DatabaseTable.update: no database connection")
+		outputDebugString("ERROR: DatabaseTable.update: no database connection")
 		return false
 	end
 
@@ -136,14 +123,13 @@ end
 -- columns: Массив {"column1", "column2", ...}
 -- Если не указаны columns, делается SELECT *
 function DatabaseTable.select(tableName, columns, whereFields, callback, ...)
-	if not exports.dpUtils:argcheck(tableName, "string") then
-		exports.dpLog:error("DatabaseTable.select: bad arguments")
-		exports.dpLog:error("DatabaseTable.select: bad arguments")
+	if type(tableName) ~= "string" then
+		outputDebugString("ERROR: DatabaseTable.select: bad arguments")
 		return false
 	end
 	local connection = Database.getConnection()
 	if not connection then
-		exports.dpLog:error("DatabaseTable.select: no database connection")
+		outputDebugString("ERROR: DatabaseTable.select: no database connection")
 		return false
 	end
 	-- WHERE
@@ -162,8 +148,8 @@ function DatabaseTable.select(tableName, columns, whereFields, callback, ...)
 		return not not connection:query(createQueryCallback(callback), connection:prepareString("SELECT * FROM `??` " .. whereQueryString ..";", tableName), ...)
 	end
 	local selectColumns = {}
-	for column, value in ipairs(columns) do
-		table.insert(selectColumns, connection:prepareString("`??`", column))
+	for i, name in ipairs(columns) do
+		table.insert(selectColumns, connection:prepareString("`??`", name))
 	end
 	
 	-- SELECT COLUMNS

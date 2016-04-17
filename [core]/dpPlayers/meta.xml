@@ -1,8 +1,0 @@
-<meta>
-	<oop>true</oop>
-
-	<script type="server" src="server/Spawn.lua"/>
-	<script type="server" src="server/exports.lua"/>
-
-	<export type="server" function="spawnPlayer"/>
-</meta>

@@ -6,7 +6,7 @@ addEventHandler("onResourceStart", resourceRoot, function ()
 	outputDebugString("Database connection success")
 	outputDebugString("Creating and setting up tables...")
 	Users.setup()
-	Vehicles.setup()
+	UserVehicles.setup()
 end)
 
 addEventHandler("onPlayerQuit", root, function ()

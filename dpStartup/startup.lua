@@ -4,11 +4,8 @@ local KICK_PLAYERS = false
 local startupResources = {
 	-- Core
 	"dpUtils",
-	"dpAccounts",
-	"dpLog",
 	"dpLang",
-	"dpPlayers",
-	"dpVehicles",
+	"dpCore",
 
 	-- UI
 	"dpUI",
@@ -19,8 +16,7 @@ local startupResources = {
 	-- Gameplay
 	"dpGarage",
 	"dpTuning",
-	"dpCarShop",
-	"dpGameplay"
+	"dpCarShop"
 }
 
 local function processResourceByName(resourceName, start)

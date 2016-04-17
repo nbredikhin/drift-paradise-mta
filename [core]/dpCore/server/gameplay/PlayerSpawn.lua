@@ -1,4 +1,4 @@
-Spawn = {}
+PlayerSpawn = {}
 local DEBUG_ALWAYS_SPAWN_AT_HOTEL = true
 
 local hotelsPositions = {
@@ -23,7 +23,7 @@ local function getPlayerSpawnLocation(player)
 	return {interior = 0, position = position}
 end
 
-function Spawn.spawnPlayer(player)
+function PlayerSpawn.spawn(player)
 	if not isElement(player) then
 		return false
 	end
@@ -33,3 +33,14 @@ function Spawn.spawnPlayer(player)
 	player:fadeCamera(true, 5)
 	return true
 end
+
+-- Вход игрока на сервер
+addEvent("dpCore.login", false)
+addEventHandler("dpCore.login", root, function (success)
+	if not success then
+		return
+	end
+	
+	-- Если не выбран персонаж - перекинуть на экран выбора персонажа
+	PlayerSpawn.spawn(source)
+end)

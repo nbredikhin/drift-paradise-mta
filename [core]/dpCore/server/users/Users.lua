@@ -30,40 +30,37 @@ end
 
 -- Проверка пароля, повторного входа и т. д.
 local function verifyLogin(player, username, password, account)
-	if	not exports.dpUtils:argcheck(player, "player") or
-		not exports.dpUtils:argcheck(username, "string") or
-		not exports.dpUtils:argcheck(password, "string") or
-		not exports.dpUtils:argcheck(account, "table")
+	if 	type(player) 	~= "userdata" or 
+		type(username) 	~= "string" or 
+		type(password) 	~= "string" or 
+		type(account) 	~= "table" 
 	then
-		exports.dpLog:error("verifyLogin: User not found")
+		outputDebugString("ERROR: verifyLogin: User not found")
 		return false, "user_not_found"
 	end
-	-- Проверка двойного входа
+	-- Проверка повторного входа
 	if tonumber(account.online) == 1 then
-		exports.dpLog:error("verifyLogin: User already logged in")
+		outputDebugString("ERROR: verifyLogin: User already logged in")
 		return false, "already_logged_in"
 	end
 	-- Проверка правильности пароля
 	password = hashUserPassword(username, password)
 	if password ~= account.password then
-		exports.dpLog:error("verifyLogin: Incorrect password")
+		outputDebugString("ERROR: verifyLogin: Incorrect password")
 		return false, "incorrect_password"
 	end
 	return true
 end
 
 function Users.registerPlayer(player, username, password, callback)
-	if 	not exports.dpUtils:argcheck(player, "player") or
-		not exports.dpUtils:argcheck(username, "string") or 
-		not exports.dpUtils:argcheck(password, "string")
-	then	
-		exports.dpLog:error("Users.registerPlayer: bad arguments")
+	if not isElement(player) or type(username) ~= "string" or type(password) ~= "string" then	
+		outputDebugString("ERROR: Users.registerPlayer: bad arguments")
 		return false
 	end
 	username = string.lower(username)
 	-- Проверка имени пользователя и пароля
 	if not checkUsername(username) or not checkPassword(password) then
-		exports.dpLog:error("Users.registerPlayer: bad username or password")
+		outputDebugString("ERROR: Users.registerPlayer: bad username or password")
 		return false, "bad_password"
 	end
 	-- Хэширование пароля
@@ -77,18 +74,15 @@ function Users.registerPlayer(player, username, password, callback)
 end
 
 function Users.loginPlayer(player, username, password, callback)
-	if 	not exports.dpUtils:argcheck(player, "player") or
-		not exports.dpUtils:argcheck(username, "string") or 
-		not exports.dpUtils:argcheck(password, "string")
-	then	
-		exports.dpLog:error("Users.registerPlayer: bad arguments")
+	if not isElement(player) or type(username) ~= "string" or type(password) ~= "string" then
+		outputDebugString("ERROR: Users.registerPlayer: bad arguments")
 		return false
 	end
 	username = string.lower(username)
 
 	-- Если игрок уже залогинен
 	if Sessions.isActive(player) then
-		exports.dpLog:error("Users.loginPlayer: User already logged in")
+		outputDebugString("ERROR: Users.loginPlayer: User already logged in")
 		return false, "already_logged_in"
 	end
 	-- Получение пользователя из базы
@@ -111,10 +105,34 @@ function Users.loginPlayer(player, username, password, callback)
 			end
 		end
 		-- Вызывать callback
-		if callback and type(callback) == "function" then
+		if type(callback) == "function" then
 			callback(success, errorType)
 		end
 	end)
+end
+
+function Users.get(userId, fields, callback)
+	if type(userId) ~= "number" or type(fields) ~= "table" then
+		executeCallback(callback, false)
+		return false
+	end
+
+	outputChatBox("----")
+	for i, v in ipairs(fields) do
+		outputChatBox(v)
+	end
+	local success = DatabaseTable.select(USERS_TABLE_NAME, fields, { _id = userId }, function(result)
+		if result then
+			executeCallback(callback, result[1])
+		else
+			executeCallback(callback, false)
+		end
+	end)
+	if not success then
+		executeCallback(callback, false)
+		return false
+	end
+	return true
 end
 
 function Users.isPlayerLoggedIn(player)
@@ -152,8 +170,8 @@ function Users.saveAccount(player)
 	return true
 end
 
-addEvent("dpAccounts.registerRequest", true)
-addEventHandler("dpAccounts.registerRequest", resourceRoot, function(username, password)
+addEvent("dpCore.registerRequest", true)
+addEventHandler("dpCore.registerRequest", resourceRoot, function(username, password)
 	local player = client
 	local success, errorType = Users.registerPlayer(player, username, password, function(result)
 		result = not not result
@@ -161,37 +179,37 @@ addEventHandler("dpAccounts.registerRequest", resourceRoot, function(username, p
 		if not result then
 			errorType = "username_taken"
 		end
-		triggerClientEvent(player, "dpAccounts.registerResponse", resourceRoot, result, errorType)
-		triggerEvent("dpAccounts.register", player, result, errorType)
+		triggerClientEvent(player, "dpCore.registerResponse", resourceRoot, result, errorType)
+		triggerEvent("dpCore.register", player, result, errorType)
 	end)
 	if not success then
-		triggerClientEvent(player, "dpAccounts.registerResponse", resourceRoot, false)
-		triggerEvent("dpAccounts.register", player, false, errorType)
+		triggerClientEvent(player, "dpCore.registerResponse", resourceRoot, false)
+		triggerEvent("dpCore.register", player, false, errorType)
 	end
 end)
 
-addEvent("dpAccounts.loginRequest", true)
-addEventHandler("dpAccounts.loginRequest", resourceRoot, function(username, password)
+addEvent("dpCore.loginRequest", true)
+addEventHandler("dpCore.loginRequest", resourceRoot, function(username, password)
 	local player = client
 	local success, errorType = Users.loginPlayer(player, username, password, function(result, errorType)
-		triggerClientEvent(player, "dpAccounts.loginResponse", resourceRoot, result, errorType)
-		triggerEvent("dpAccounts.login", player, result, errorType)
+		triggerClientEvent(player, "dpCore.loginResponse", resourceRoot, result, errorType)
+		triggerEvent("dpCore.login", player, result, errorType)
 	end)
 	if not success then
-		triggerClientEvent(player, "dpAccounts.loginResponse", resourceRoot, false, errorType)
-		triggerEvent("dpAccounts.login", player, false, errorType)
+		triggerClientEvent(player, "dpCore.loginResponse", resourceRoot, false, errorType)
+		triggerEvent("dpCore.login", player, false, errorType)
 	end
 end)
 
-addEvent("dpAccounts.logoutRequest", true)
-addEventHandler("dpAccounts.logoutRequest", resourceRoot, function(username, password)
+addEvent("dpCore.logoutRequest", true)
+addEventHandler("dpCore.logoutRequest", resourceRoot, function(username, password)
 	local player = client
 	local success = Users.logoutPlayer(player, function(result)
-		triggerClientEvent(player, "dpAccounts.logoutResponse", resourceRoot, result)
-		triggerEvent("dpAccounts.logout", player, result)
+		triggerClientEvent(player, "dpCore.logoutResponse", resourceRoot, result)
+		triggerEvent("dpCore.logout", player, result)
 	end)
 	if not success then
-		triggerClientEvent(player, "dpAccounts.logoutResponse", resourceRoot, false)
-		triggerEvent("dpAccounts.logout", player, false)
+		triggerClientEvent(player, "dpCore.logoutResponse", resourceRoot, false)
+		triggerEvent("dpCore.logout", player, false)
 	end
 end)

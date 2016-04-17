@@ -16,7 +16,9 @@ local startupResources = {
 	-- Gameplay
 	"dpGarage",
 	"dpTuning",
-	"dpCarShop"
+	"dpCarShop",
+	"dpSkinSelect",
+	"dpVehicleSelect"
 }
 
 local function processResourceByName(resourceName, start)

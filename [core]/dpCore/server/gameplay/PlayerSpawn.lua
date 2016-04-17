@@ -31,16 +31,6 @@ function PlayerSpawn.spawn(player)
 	player:spawn(location.position)
 	player:setCameraTarget()
 	player:fadeCamera(true, 5)
+	player.model = player:getData("skin")
 	return true
 end
-
--- Вход игрока на сервер
-addEvent("dpCore.login", false)
-addEventHandler("dpCore.login", root, function (success)
-	if not success then
-		return
-	end
-	
-	-- Если не выбран персонаж - перекинуть на экран выбора персонажа
-	PlayerSpawn.spawn(source)
-end)

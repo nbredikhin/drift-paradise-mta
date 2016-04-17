@@ -1,4 +1,5 @@
 VehicleSpawn = {}
+local EXPLODED_VEHICLE_DESTROY_TIMEOUT = 5000
 local dataFields = {
 	"_id", "spoiler", "bodykit", "wheels", "owner_id", "mileage"
 }
@@ -56,4 +57,13 @@ addEventHandler("onElementDataChange", root, function(dataName, oldValue)
 			end
 		end
 	end
+end)
+
+addEventHandler("onVehicleExplode", root, function()
+	local vehicle = source
+	setTimer(function ()
+		if isElement(vehicle) then
+			destroyElement(vehicle)
+		end
+	end, EXPLODED_VEHICLE_DESTROY_TIMEOUT, 1)
 end)

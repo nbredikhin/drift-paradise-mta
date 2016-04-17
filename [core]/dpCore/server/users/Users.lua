@@ -116,11 +116,7 @@ function Users.get(userId, fields, callback)
 		executeCallback(callback, false)
 		return false
 	end
-
-	outputChatBox("----")
-	for i, v in ipairs(fields) do
-		outputChatBox(v)
-	end
+	
 	local success = DatabaseTable.select(USERS_TABLE_NAME, fields, { _id = userId }, function(result)
 		if result then
 			executeCallback(callback, result[1])
@@ -166,7 +162,8 @@ function Users.saveAccount(player)
 	end
 	local username = player:getData("username")
 	local fields = PlayerData.get(player)
-	DatabaseTable.update(USERS_TABLE_NAME, fields, {username=username})
+	outputDebugString(tostring(fields))
+	DatabaseTable.update(USERS_TABLE_NAME, fields, {username = username})
 	return true
 end
 
@@ -211,5 +208,15 @@ addEventHandler("dpCore.logoutRequest", resourceRoot, function(username, passwor
 	if not success then
 		triggerClientEvent(player, "dpCore.logoutResponse", resourceRoot, false)
 		triggerEvent("dpCore.logout", player, false)
+	end
+end)
+
+addEventHandler("onPlayerQuit", root, function ()
+	Users.logoutPlayer(source)
+end)
+
+addEventHandler("onResourceStop", resourceRoot, function ()
+	for i, player in ipairs(getElementsByType("player")) do
+		Users.logoutPlayer(player)
 	end
 end)

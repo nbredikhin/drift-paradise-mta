@@ -29,11 +29,13 @@
 	<script type="server" src="server/vehicles/exports.lua"/>
 	<!-- Gameplay -->
 	<script type="server" src="server/gameplay/PlayerSpawn.lua"/>	
+	<script type="server" src="server/gameplay/player_join.lua"/>	
 	<!-- Основной скрипт -->
 	<script type="server" src="server/main.lua"/>
 
 	<!-- Функции для работы с игроками -->
 	<export type="server" function="isPlayerLoggedIn"/>
+	<export type="server" function="saveAccount"/>
 	<!-- Функции для работы с автомобилями -->
 	<export type="server" function="spawnVehicle"/>
 

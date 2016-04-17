@@ -58,7 +58,7 @@ end
 -- string tableName, table insertValues, [...]
 -- insertValues: Таблица {ключ=значение}
 function DatabaseTable.insert(tableName, insertValues, callback, ...)
-	if type(tableName) ~= "string" or type(insertValues) ~= "table" or #insertValues == 0 then
+	if type(tableName) ~= "string" or type(insertValues) ~= "table" or not next(insertValues) then
 		outputDebugString("ERROR: DatabaseTable.insert: bad arguments")
 		return false
 	end
@@ -92,7 +92,7 @@ end
 -- setFields: {key=value}
 -- whereFields: {key=value}
 function DatabaseTable.update(tableName, setFields, whereFields, callback, ...)
-	if type(tableName) ~= "string" or type(setFields) ~= "table" or #setFields == 0 or type(whereFields) ~= "table" then
+	if type(tableName) ~= "string" or type(setFields) ~= "table" or not next(setFields) or type(whereFields) ~= "table" then
 		outputDebugString("ERROR: DatabaseTable.update: bad arguments")
 		return false
 	end

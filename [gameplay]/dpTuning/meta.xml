@@ -1,3 +1,9 @@
 <meta>
 	<oop>true</oop>
+	<script type="server" src="server/tuning_enter_exit.lua"/>
+	<script type="client" src="client/Tuning.lua"/>
+	<script type="client" src="client/TuningGarage.lua"/>
+	<script type="client" src="client/TuningUI.lua"/>
+
+	<export type="server" function="forcePlayerExitTuning"/>
 </meta>

@@ -4,9 +4,9 @@ function setVisible(...)
 end
 
 function setRadarVisible(...)
-	Radar.setVisible(...)
+	return Radar.setVisible(...)
 end
 
 function setSpeedometerVisible(...)
-	Speedometer.setVisible(...)
+	return Speedometer.setVisible(...)
 end

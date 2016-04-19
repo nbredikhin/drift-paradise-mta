@@ -1,3 +1,10 @@
 <meta>
 	<oop>true</oop>
+	<script type="server" src="server/enter_exit.lua"/>
+	<script type="client" src="client/Garage.lua"/>
+	<script type="client" src="client/GarageVehicle.lua"/>
+	<script type="client" src="client/GarageUI.lua"/>
+
+	<export type="server" function="forcePlayerEnterGarage"/>
+	<export type="server" function="forcePlayerExitGarage"/>
 </meta>

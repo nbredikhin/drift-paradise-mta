@@ -81,6 +81,9 @@ local function drawSpeedometer(x, y, width, height)
 end
 
 addEventHandler("onClientRender", root, function ()
+	if not Speedometer.visible then
+		return
+	end
 	if not localPlayer.vehicle then
 		return
 	end	

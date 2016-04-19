@@ -23,6 +23,8 @@ local currentVehicle = 1
 
 local vehicles = {}
 local isSelected = false
+local textures = {}
+local imageSize = 1.5
 
 local function update(dt)
 	local shakeX = math.sin(getTickCount() / 740) * (math.sin(getTickCount() / 300) + 1) * 0.005
@@ -31,11 +33,27 @@ local function update(dt)
 	local offset = Vector3(shakeX, shakeY, shakeZ)
 	local deltaTime = dt / 1000
 	currentLookPosition = currentLookPosition + (targetLookPosition - currentLookPosition) * 1 * deltaTime
-	currentLookPosition = currentLookPosition + offset / 8
+	currentLookPosition = currentLookPosition + offset / 4
 
 	currentPosition = currentPosition + (targetPosition - currentPosition) * 1.5 * deltaTime
 	currentPosition = currentPosition - offset / 6
 	Camera.setMatrix(currentPosition, currentLookPosition + Vector3(0, 0, 0), 0, 50)
+end
+
+local function drawTexture3D(position, texture)
+	dxDrawMaterialLine3D(
+		position + Vector3(0, 0, imageSize / 2), 
+		position - Vector3(0, 0, imageSize / 2),
+		texture,
+		imageSize,
+		tocolor(255, 255, 255, 220)
+	)
+end
+
+local function draw()
+	drawTexture3D(positions[1] + Vector3(1.5, -1.5, 0.2), textures[1])
+	drawTexture3D(positions[2] + Vector3(-1.5, -1.5, 0.2), textures[1])
+	drawTexture3D(positions[3] + Vector3(0, 2, 0.2), textures[1])
 end
 
 local function onKey(key, state)
@@ -55,9 +73,9 @@ local function onKey(key, state)
 		return
 	end
 	if key == "arrow_r" then
-		currentVehicle = currentVehicle + 1
-	elseif key == "arrow_l" then
 		currentVehicle = currentVehicle - 1
+	elseif key == "arrow_l" then
+		currentVehicle = currentVehicle + 1
 	end
 	currentVehicle = math.min(#positions, currentVehicle)
 	currentVehicle = math.max(1, currentVehicle)
@@ -76,13 +94,17 @@ function VehicleSelect.enter(models)
 	for i, pos in ipairs(positions) do
 		vehicles[i] = Vehicle(models[i], pos)
 		vehicles[i].rotation = Vector3(0, 0, rotations[i])
+		vehicles[i].frozen = true
 	end
 	addEventHandler("onClientPreRender", root, update)
+	addEventHandler("onClientRender", root, draw)
 	addEventHandler("onClientKey", root, onKey)
 	exports.dpHUD:setVisible(false)
 	isActive = true
 	isSelected = false
 	fadeCamera(true, 1)
+	showChat(false)
+	textures[1] = dxCreateTexture("assets/test.png")
 end
 
 function VehicleSelect.exit()
@@ -93,7 +115,13 @@ function VehicleSelect.exit()
 	exports.dpHUD:setVisible(true)
 	removeEventHandler("onClientPreRender", root, update)
 	removeEventHandler("onClientKey", root, onKey)
+	removeEventHandler("onClientRender", root, draw)
 	fadeCamera(false, 1)
+	for i, v in ipairs(textures) do
+		destroyElement(v)
+	end
+	textures = {}
+	showChat(true)
 end
 
 addEvent("dpVehicleSelect.start", true)

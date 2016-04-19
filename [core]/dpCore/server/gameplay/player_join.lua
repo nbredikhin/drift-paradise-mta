@@ -22,7 +22,7 @@ addEventHandler("dpSkinSelect.selected", root, function (skin)
 	if not client or client:getData("state") ~= "skinSelect" then
 		return false
 	end	
-	client:setData("state", "")
+	client:setData("state", false)
 	if not skin then
 		skin = 1
 	end
@@ -46,7 +46,7 @@ addEventHandler("dpVehicleSelect.selected", root, function (selectedVehicle)
 	if not client or client:getData("state") ~= "vehicleSelect" then
 		return false
 	end
-	client:setData("state", "")
+	client:setData("state", false)
 	if type(selectedVehicle) ~= "number" then
 		selectedVehicle = 1
 	end

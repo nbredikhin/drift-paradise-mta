@@ -6,7 +6,7 @@ local function enterGarage()
 		return false
 	end
 	Garage.active = true
-	-- Вход в тюнинг
+	-- Вход в гараж
 	GarageVehicle.start()
 	GarageUI.start()
 	fadeCamera(true)
@@ -19,7 +19,7 @@ local function exitGarage()
 		return false
 	end
 	Garage.active = false
-	-- Выход из тюнинга
+	-- Выход из гаража
 	GarageVehicle.stop()
 	GarageUI.stop()
 	fadeCamera(true)

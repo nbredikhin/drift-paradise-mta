@@ -55,7 +55,7 @@ local function draw()
 end
 
 local function drawButton(x, y, w, h, text)
-	dxDrawRectangle(x, y, w, h, tocolor(213, 0, 40), Drawing.POST_GUI)
+	dxDrawRectangle(x, y, w, h, Colors.color("primary"), Drawing.POST_GUI)
 	dxDrawText(text, x, y, x+w, y+h, tocolor(255, 255, 255), 1, font, "center", "center", true, false, Drawing.POST_GUI)
 end
 

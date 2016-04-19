@@ -7,9 +7,15 @@ function DpLabel.create(properties)
 	
 	local widget = TextField.create(properties)
 	widget.font = Fonts.defaultSmall
-	widget.color = Colors.color("white")
-	if properties.type == "primary" then
-		widget.color = Colors.color("primary")
+	widget.color = properties.color or Colors.color("white")
+	if properties.fontType == "default" then
+		widget.font = Fonts.default
 	end
+	function widget:updateTheme()
+		if properties.type == "primary" then
+			self.color = Colors.color("primary")
+		end
+	end
+	widget:updateTheme()
 	return widget
 end

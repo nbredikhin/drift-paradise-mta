@@ -18,7 +18,6 @@ function DpImageButton.create(properties)
 					self.texture
 				)
 			else
-				Drawing.setColor(tocolor(255, 255, 255, 150))
 				Drawing.image(self.x, self.y, self.width, self.height, self.texture)
 			end
 		end

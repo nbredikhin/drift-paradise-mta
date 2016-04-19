@@ -30,9 +30,16 @@
 	<script type="client" src="client/widgets/DpLabel.lua"/>
 	<script type="client" src="client/widgets/DpImageButton.lua"/>
 
+	<!-- Темы -->
+	<file src="themes/blue.json"/>
+	<file src="themes/red.json"/>
+	<file src="themes/purple.json"/>
+
 	<!-- Сгенерированный список экспортов -->
 	<export type="client" function="getScreenSize"/>
+	<export type="client" function="setTheme"/>
 	<export type="client" function="showMessageBox"/>
+	<export type="client" function="hideMessageBox"/>
 	<export type="client" function="getRootWidget"/>
 	<export type="client" function="addChild"/>
 	<export type="client" function="removeChild"/>

@@ -2,7 +2,7 @@ local UI = exports.dpUI
 local HIDE_CHAT = true
 local screenWidth, screenHeight = exports.dpUI:getScreenSize()
 
-local _, realScreenHeight = guiGetScreenSize()
+local realSceenWidth, realScreenHeight = guiGetScreenSize()
 local backgroundScale = realScreenHeight / 720
 local backgroundWidth, backgroundHeight = 1280 * backgroundScale, 720 * backgroundScale
 local animationProgress = 0
@@ -114,9 +114,30 @@ local function createLoginPanel()
 		masked = true,
 		locale = "login_panel_password_label"
 	})
-	UI:addChild(panel, passwordInput)	
+	UI:addChild(panel, passwordInput)
+
+	-- local quoteImage = UI:createImage({
+	-- 	x = 0,
+	-- 	y = panelHeight + 40,
+	-- 	width = 20,
+	-- 	height = 18,
+	-- 	texture = dxCreateTexture("assets/quote.png"),
+	-- 	color = tocolor(255, 255, 255, 180)
+	-- })
+	-- UI:addChild(panel, quoteImage)
+
+	-- local quoteLabel = UI:createDpLabel({
+	-- 	x = 22,
+	-- 	y = panelHeight + 40 + 15,
+	-- 	width = panelWidth - 44,
+	-- 	height = 20,
+	-- 	text = "Пиздатая цитатка про дрифт",
+	-- 	fontType = "default",
+	-- 	color = tocolor(255, 255, 255, 220)
+	-- })
+	-- UI:addChild(panel, quoteLabel)
+
 	UI:setVisible(panel, false)
-		
 	loginPanel.registerButton = registerButton
 	loginPanel.startGameButton = startGameButton
 	loginPanel.password = passwordInput
@@ -176,6 +197,50 @@ local function createRegisterPanel()
 	})
 	UI:addChild(panel, languageRu)	
 
+	local circleTexture = dxCreateTexture("assets/circle.png", "argb", false, "clamp") 
+	local colorPurple = UI:createDpImageButton({
+		x = panelWidth - 50 - 27,
+		y = 40,
+		width = 27, height = 27,
+		color = tocolor(150, 0, 255),
+		texture = circleTexture
+	})
+	UI:addChild(panel, colorPurple)	
+	outputDebugString(colorPurple)
+
+	local colorBlue = UI:createDpImageButton({
+		x = panelWidth - 50 - 27 - 7 - 27,
+		y = 40,
+		width = 27, height = 27,
+		color = tocolor(16, 160, 207),
+		texture = circleTexture
+	})
+	UI:addChild(panel, colorBlue)	
+	outputDebugString(colorBlue)
+
+	local colorRed = UI:createDpImageButton({
+		x = panelWidth - 50 - 27 - 7 - 27 - 7 - 27,
+		y = 40,
+		width = 27, height = 27,
+		color = tocolor(212, 0, 40),
+		texture = circleTexture
+	})
+	UI:addChild(panel, colorRed)
+
+	local colorLabelWidth = 50
+	local colorLabel = UI:createDpLabel({
+		x = panelWidth - colorLabelWidth - 30 - (37 * 3),
+		y = 40,
+		width = colorLabelWidth,
+		wordBreak = false,
+		clip = true,
+		height = 50,
+		alignX = "left",
+		alignY = "top",
+		locale = "login_panel_color"
+	})
+	UI:addChild(panel, colorLabel)		
+
 	local usernameInput = UI:createDpInput({
 		x = 50,
 		y = 120,
@@ -231,6 +296,12 @@ local function createRegisterPanel()
 		en = languageEn,
 		ru = languageRu
 	}
+
+	registerPanel.colorButtons = {
+		red = colorRed,
+		purple = colorPurple,
+		blue = colorBlue
+	}
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
@@ -263,6 +334,12 @@ addEventHandler("dpUI.click", resourceRoot, function(widget)
 	-- Кнопка регистрации
 	elseif widget == registerPanel.registerButton then
 		registerClick(UI:getText(registerPanel.username), UI:getText(registerPanel.password))
+	elseif widget == registerPanel.colorButtons.red then
+		UI:setTheme("red")
+	elseif widget == registerPanel.colorButtons.purple then
+		UI:setTheme("purple")		
+	elseif widget == registerPanel.colorButtons.blue then
+		UI:setTheme("blue")
 	end
 end)
 

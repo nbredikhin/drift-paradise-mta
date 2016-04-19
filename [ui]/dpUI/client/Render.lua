@@ -123,3 +123,13 @@ addEventHandler("dpLang.languageChanged", root, function (newLanguage)
 		end
 	end
 end)
+
+function Render.updateTheme()
+	for resourceRoot, resourceInfo in pairs(Render.resources) do
+		for i, widget in ipairs(resourceInfo.widgets) do
+			if type(widget.updateTheme) == "function" then
+				widget:updateTheme()
+			end
+		end
+	end
+end

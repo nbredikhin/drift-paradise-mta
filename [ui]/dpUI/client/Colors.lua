@@ -1,6 +1,6 @@
 Colors = {}
-
-local colorScheme = {
+local currentTheme = "red"
+local colorSchemeDefault = {
 	white			= {255, 255, 255},
 
 	gray_darker 	= {29, 29, 29},
@@ -16,6 +16,7 @@ local colorScheme = {
 	warning			= {240, 173, 78},
 	danger			= {217, 83, 79}
 }
+local colorScheme = {}
 
 function Colors.color(name, alpha)
 	if not name then
@@ -28,8 +29,17 @@ function Colors.color(name, alpha)
 	return tocolor(color[1], color[2], color[3], alpha)
 end
 
+local function clampColor(color)
+	if color > 255 then
+		color = 255
+	elseif color < 0 then
+		color = 0
+	end
+	return color
+end
+
 local function colorMul(color, mul)
-	return color[1] * mul, color[2] * mul, color[3] * mul
+	return clampColor(color[1] * mul), clampColor(color[2] * mul), clampColor(color[3] * mul)
 end
 
 function Colors.darken(name, amount, alpha)
@@ -49,3 +59,35 @@ function Colors.lighten(name, amount, alpha)
 	local r, g, b = colorMul(color, 1 + amount / 100)
 	return tocolor(r, g, b, alpha)
 end
+
+function Colors.setTheme(name)
+	if type(name) ~= "string" then
+		return false
+	end
+	local file = fileOpen("themes/" .. name .. ".json")
+	local themeJSON = file:read(file.size)
+	file:close()
+
+	local theme = fromJSON(themeJSON)
+	if not theme then
+		return false
+	end
+
+	colorScheme = {}
+	for colorName, defaultColor in pairs(colorSchemeDefault) do
+		if theme[colorName] then
+			colorScheme[colorName] = theme[colorName]
+		else
+			colorScheme[colorName] = {unpack(colorSchemeDefault[colorName])}
+		end
+	end
+	currentTheme = name
+	Render.updateTheme()
+	return true
+end
+
+addEventHandler("onClientResourceStart", resourceRoot, function ()
+	colorScheme = exports.dpUtils:tableCopy(colorSchemeDefault)
+
+	Colors.setTheme("red")
+end)

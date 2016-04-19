@@ -10,10 +10,20 @@ function getScreenSize()
 end
 printMetaExport("getScreenSize")
 
+function setTheme(...)
+	return Colors.setTheme(...)
+end
+printMetaExport("setTheme")
+
 function showMessageBox(...)
 	return MessageBox.show(...)
 end
 printMetaExport("showMessageBox")
+
+function hideMessageBox(...)
+	return MessageBox.hide(...)
+end
+printMetaExport("hideMessageBox")
 
 function getRootWidget()
 	Render.setupResource(sourceResourceRoot)

@@ -9,6 +9,7 @@ function UserVehicles.setup()
 		{ name="mileage", type="bigint", options="UNSIGNED NOT NULL DEFAULT 0"},
 		-- Тюнинг
 		{ name="color", type="int", options="NOT NULL DEFAULT 16755200" },
+		{ name="bodykit", type="int", options="NOT NULL DEFAULT 1" },
 		{ name="spoiler", type="smallint", options="UNSIGNED NOT NULL DEFAULT 0" },
 		{ name="wheels", type="smallint", options="UNSIGNED NOT NULL DEFAULT 0" },
 		{ name="stickers", type="MEDIUMTEXT" }

@@ -14,6 +14,7 @@
 	<file src="assets/shaders/include/texture.fx"/>
 	<file src="assets/shaders/mask3d.fx"/>
 	<file src="assets/shaders/texture3d.fx"/>
+	<file src="assets/shaders/texture_replace.fx"/>
 
 	<file src="assets/fonts/Roboto-Regular.ttf"/>
 	<file src="assets/fonts/Roboto-Light.ttf"/>

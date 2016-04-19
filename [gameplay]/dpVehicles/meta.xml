@@ -3,4 +3,5 @@
 
 	<script type="client" src="client/damage.lua"/>
 	<script type="client" src="client/upgrades.lua"/>
+	<script type="client" src="client/textures.lua"/>
 </meta>

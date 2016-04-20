@@ -1,0 +1,14 @@
+<meta>
+	<include resource="ajax"/>
+	<oop>true</oop>
+
+	<html src="web/index.html" default="true"/>
+	<html src="web/bootstrap.min.css" raw="true"/>
+	<html src="web/jquery.js" raw="true"/>
+	<html src="web/img.jpg" raw="true"/>
+
+	<script type="server" src="methods.lua"/>
+	<script type="client" src="client.lua"/>
+
+	<export http="true" function="getPlayers"/>
+</meta>

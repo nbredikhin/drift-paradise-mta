@@ -5,13 +5,17 @@ local function draw()
 end
 
 function TuningUI.start()
-	exports.dpHUD:setVisible(false)
+	if exports.dpUtils:isResourceRunning("dpHUD") then
+		exports.dpHUD:setVisible(false)
+	end
 
 	addEventHandler("onClientRender", root, draw)
 end
 
 function TuningUI.stop()
-	exports.dpHUD:setVisible(true)
+	if exports.dpUtils:isResourceRunning("dpHUD") then
+		exports.dpHUD:setVisible(true)
+	end
 
 	removeEventHandler("onClientRender", root, draw)
 end

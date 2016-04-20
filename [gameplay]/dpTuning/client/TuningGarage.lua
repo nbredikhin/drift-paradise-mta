@@ -8,6 +8,8 @@ end
 
 function TuningGarage.stop()
 	localPlayer.alpha = 255
-	localPlayer.vehicle.frozen = false
+	if localPlayer.vehicle then
+		localPlayer.vehicle.frozen = false
+	end
 	toggleAllControls(true)
 end

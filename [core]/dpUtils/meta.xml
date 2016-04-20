@@ -8,7 +8,10 @@
 	<script type="shared" src="shared/vehicles.lua"/>
 
 	<export type="shared" function="isValidVehicleModel"/>
+	<export type="shared" function="getVehicleOccupantsCount"/>
+	
 	<export type="shared" function="clearChat"/>
+	<export type="shared" function="isResourceRunning"/>
 	<export type="shared" function="tableCopy"/>
 	<export type="shared" function="defaultValue"/>
 	<export type="shared" function="capitalizeString"/>

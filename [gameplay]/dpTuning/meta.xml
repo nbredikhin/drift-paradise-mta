@@ -1,9 +1,14 @@
 <meta>
 	<oop>true</oop>
+	<include resource="dpUtils"/>
+	<include resource="dpLang"/>
+
 	<script type="server" src="server/tuning_enter_exit.lua"/>
+	
 	<script type="client" src="client/Tuning.lua"/>
 	<script type="client" src="client/TuningGarage.lua"/>
 	<script type="client" src="client/TuningUI.lua"/>
+	<script type="client" src="client/TuningCamera.lua"/>
 
 	<export type="server" function="forcePlayerExitTuning"/>
 </meta>

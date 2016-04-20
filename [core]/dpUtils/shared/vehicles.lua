@@ -27,3 +27,14 @@ function isValidVehicleModel(model)
 	end
 	return not not validVehicleModels[model]
 end
+
+function getVehicleOccupantsCount(vehicle)
+	if not isElement(vehicle) then
+		return 0
+	end
+	local counter = 0
+	for slot, player in pairs(vehicle.occupants) do
+		counter = counter + 1
+	end
+	return counter
+end

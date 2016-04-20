@@ -16,3 +16,11 @@ function clearChat(...)
 		outputChatBox(" ", ...)
 	end
 end
+
+function isResourceRunning(name)
+	local resource = Resource.getFromName(name)
+	if not resource then
+		return false
+	end
+	return resource.state == "running"
+end

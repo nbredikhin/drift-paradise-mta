@@ -33,5 +33,13 @@
 	"login_panel_err_username_invalid": "Username contains illegal characters",
 
 	// Chat message
-	"chat_message_login_success": "You have successfully logged in"
+	"chat_message_login_success": "You have successfully logged in",
+
+	// Tuning
+	"tuning_no_vehicle_error": "You must be in a car to enter tuning",
+	"tuning_not_driver": "You must be driving this car to enter tuning",
+	"tuning_has_occupants": "You must be the only car occupant to enter tuning",
+	"tuning_not_owner": "You must car owner to enter tuning",
+	"tuning_not_logged_in": "You must be logged in to enter tuning",
+	"tuning_enter_failed": "Failed to enter tuning",
 }

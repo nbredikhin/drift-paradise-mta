@@ -33,5 +33,13 @@
 	"login_panel_err_username_invalid": "Недопустимое имя пользователя",
 
 	// Chat message
-	"chat_message_login_success": "Вы успешно вошли"	
+	"chat_message_login_success": "Вы успешно вошли",
+
+	// Tuning
+	"tuning_no_vehicle_error": "Вы должны находиться в машине, чтобы войти в тюнинг",
+	"tuning_not_driver": "Вы должны быть водителем автомобиля, чтобы войти в тюнинг",
+	"tuning_has_occupants": "В тюнинг нельзя войти с пассажирами",
+	"tuning_not_owner": "Вы должны быть владельцем автомобиля, чтобы войти в тюнинг",
+	"tuning_not_logged_in": "Вы должны быть залогинены, чтобы войти в тюнинг",
+	"tuning_enter_failed": "Не удалось войти в тюнинг",
 }

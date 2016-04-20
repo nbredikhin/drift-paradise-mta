@@ -9,6 +9,9 @@ local function applyVehicleTexture(vehicle)
 	if not isElementStreamedIn(vehicle) then
 		return false
 	end
+	if not vehicle:getData("stickers") then
+		return false
+	end
 	-- Если для машины не создан шейдер, создать его
 	if not isElement(vehicleShaders[vehicle]) then
 		-- TODO: Создание шейдера

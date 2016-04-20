@@ -23,11 +23,11 @@ local function update(deltaTime)
 
 	-- Плавное движение камеры в заданную точку
 	currentCameraPosition = currentCameraPosition + 
-		(targetCameraPosition - currentCameraPosition) * cameraMovingSpeed
+		(targetCameraPosition - currentCameraPosition) * cameraMovingSpeed * deltaTime
 	currentCameraLookPosition = currentCameraLookPosition + 
-		(targetCameraLookPosition - currentCameraLookPosition) * cameraLookMovingSpeed
-	currentCameraFOV = currentCameraFOV + (targetCameraFOV - currentCameraFOV) * cameraFOVSpeed
-	currentCameraRoll = currentCameraRoll + (targetCameraRoll - currentCameraRoll) * cameraRollSpeed
+		(targetCameraLookPosition - currentCameraLookPosition) * cameraLookMovingSpeed * deltaTime
+	currentCameraFOV = currentCameraFOV + (targetCameraFOV - currentCameraFOV) * cameraFOVSpeed * deltaTime
+	currentCameraRoll = currentCameraRoll + (targetCameraRoll - currentCameraRoll) * cameraRollSpeed * deltaTime
 
 	-- Реалистичная тряска камеры
 	local shakeX = math.sin(getTickCount() / 740) * (math.sin(getTickCount() / 300) + 1) * 0.01

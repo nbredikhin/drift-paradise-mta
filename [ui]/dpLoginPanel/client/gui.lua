@@ -205,8 +205,7 @@ local function createRegisterPanel()
 		color = tocolor(150, 0, 255),
 		texture = circleTexture
 	})
-	UI:addChild(panel, colorPurple)	
-	outputDebugString(colorPurple)
+	UI:addChild(panel, colorPurple)
 
 	local colorBlue = UI:createDpImageButton({
 		x = panelWidth - 50 - 27 - 7 - 27,
@@ -215,8 +214,7 @@ local function createRegisterPanel()
 		color = tocolor(16, 160, 207),
 		texture = circleTexture
 	})
-	UI:addChild(panel, colorBlue)	
-	outputDebugString(colorBlue)
+	UI:addChild(panel, colorBlue)
 
 	local colorRed = UI:createDpImageButton({
 		x = panelWidth - 50 - 27 - 7 - 27 - 7 - 27,

@@ -1,4 +1,8 @@
+local DEBUG_AUTOSTART = false
+
 VehicleSelect = {}
+local screenWidth, screenHeight = guiGetScreenSize()
+
 local isActive = false
 local positions = {
 	Vector3 { x = 2916.601, y = -3170.575, z = 2535.244 },
@@ -51,9 +55,10 @@ local function drawTexture3D(position, texture)
 end
 
 local function draw()
-	drawTexture3D(positions[1] + Vector3(1.5, -1.5, 0.2), textures[1])
-	drawTexture3D(positions[2] + Vector3(-1.5, -1.5, 0.2), textures[1])
-	drawTexture3D(positions[3] + Vector3(0, 2, 0.2), textures[1])
+	drawTexture3D(positions[1] + Vector3(1.5, -1.5, 0.2), textures.car1)
+	drawTexture3D(positions[2] + Vector3(-1.5, -1.5, 0.2), textures.car1)
+	drawTexture3D(positions[3] + Vector3(0, 2, 0.2), textures.car1)
+	dxDrawImage(0, 0, screenWidth, screenHeight, textures.shadow)
 end
 
 local function onKey(key, state)
@@ -94,7 +99,9 @@ function VehicleSelect.enter(models)
 	for i, pos in ipairs(positions) do
 		vehicles[i] = Vehicle(models[i], pos)
 		vehicles[i].rotation = Vector3(0, 0, rotations[i])
-		vehicles[i].frozen = true
+		vehicles[i]:setData("bodykit", 1)
+		vehicles[i]:setData("wheels", 3)
+		--vehicles[i].frozen = true
 	end
 	addEventHandler("onClientPreRender", root, update)
 	addEventHandler("onClientRender", root, draw)
@@ -104,7 +111,9 @@ function VehicleSelect.enter(models)
 	isSelected = false
 	fadeCamera(true, 1)
 	showChat(false)
-	textures[1] = dxCreateTexture("assets/test.png")
+	textures.car1 = dxCreateTexture("assets/test.png")
+	textures.shadow = exports.dpAssets:createTexture("screen_shadow.png")
+	setTime(12, 12)
 end
 
 function VehicleSelect.exit()
@@ -117,7 +126,7 @@ function VehicleSelect.exit()
 	removeEventHandler("onClientKey", root, onKey)
 	removeEventHandler("onClientRender", root, draw)
 	fadeCamera(false, 1)
-	for i, v in ipairs(textures) do
+	for k, v in pairs(textures) do
 		destroyElement(v)
 	end
 	textures = {}
@@ -131,3 +140,9 @@ addEventHandler("dpVehicleSelect.start", root, function(models)
 	end
 	VehicleSelect.enter(models)
 end)
+
+if DEBUG_AUTOSTART then
+	addEventHandler("onClientResourceStart", resourceRoot, function ()
+		VehicleSelect.enter({411, 562, 411})
+	end)
+end

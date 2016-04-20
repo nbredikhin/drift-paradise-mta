@@ -21,4 +21,5 @@
 	<file src="assets/fonts/Roboto-Italic.ttf"/>
 
 	<file src="assets/textures/logo.png"/>
+	<file src="assets/textures/screen_shadow.png"/>
 </meta>

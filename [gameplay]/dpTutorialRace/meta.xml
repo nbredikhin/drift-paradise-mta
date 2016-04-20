@@ -1,7 +1,0 @@
-<meta>
-	<oop>true</oop>
-	<min_mta_version client="1.3.0-9.04482" />
-
-	<script type="client" src="client/Checkpoints.lua"/>
-	<script type="client" src="client/TutorialRace.lua"/>
-</meta>

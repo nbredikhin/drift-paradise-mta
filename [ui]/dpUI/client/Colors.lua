@@ -2,6 +2,7 @@ Colors = {}
 local currentTheme = "red"
 local colorSchemeDefault = {
 	white			= {255, 255, 255},
+	black			= {0, 0, 0},
 
 	gray_darker 	= {29, 29, 29},
 	gray_dark 		= {42, 40, 41},
@@ -9,7 +10,7 @@ local colorSchemeDefault = {
 	gray_light 		= {196, 203, 209},
 	gray_lighter 	= {222, 230, 233},
 
-	default 		= {238, 238, 238},
+	default 		= {228, 228, 228},
 	primary			= {212, 0, 40},
 	success			= {92, 184, 92},
 	info			= {91, 192, 222},

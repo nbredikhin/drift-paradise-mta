@@ -1,5 +1,11 @@
 local dataToComponents = {
-	["bodykit"] = "kit"
+	["RearBump"] = true,
+	["SideSkirts"] = true,
+	["Bonnets"] = true,
+	["FrontBump"] = true,
+	["RearLights"] = true,
+	["FrontFends"] = true,
+	["RearFends"] = true
 }
 local dataToUpgrades = {
 	["spoiler"] = { 
@@ -13,14 +19,15 @@ local dataToUpgrades = {
 }
 
 function reloadVehicleUpgrades(vehicle)
-	for dataName, componentName in pairs(dataToComponents) do
-		for i = 1, 100 do
+	for componentName, _ in pairs(dataToComponents) do
+		for i = 0, 100 do
 			vehicle:setComponentVisible(componentName .. tostring(i), false)
 		end
-		local currentValue = vehicle:getData(dataName)
-		if currentValue then
-			vehicle:setComponentVisible(componentName .. vehicle:getData(dataName), true)
+		local currentValue = vehicle:getData(componentName)
+		if not currentValue then
+			currentValue = 0
 		end
+		vehicle:setComponentVisible(componentName .. currentValue, true)
 	end
 
 	for i = 1000, 1193 do
@@ -43,8 +50,8 @@ addEventHandler("onClientElementDataChange", root, function (dataName, oldValue)
 	if not newValue then
 		newValue = 0
 	end
-	local componentName = dataToComponents[dataName]
-	if componentName then
+	local componentName = dataName
+	if dataToComponents[componentName] then
 		-- Если был старый компонент, скрыть его
 		if oldValue then
 			vehicle:setComponentVisible(componentName .. tostring(oldValue), false)

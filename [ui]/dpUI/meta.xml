@@ -79,4 +79,6 @@
 	<export type="client" function="setColorCoded"/>
 	<export type="client" function="getColors"/>
 	<export type="client" function="setColors"/>
+	<export type="client" function="setType"/>
+	<export type="client" function="getType"/>
 </meta>

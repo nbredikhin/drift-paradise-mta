@@ -13,16 +13,27 @@ function DpButton.create(properties)
 
 	local widget = Button.create(properties)
 	widget.type = exports.dpUtils:defaultValue(properties.type, "default")
-	local color = exports.dpUtils:defaultValue(buttonColors[widget.type], "default")
 	widget.font = Fonts.default
-
+	if properties.fontType and Fonts[properties.fontType] then
+		widget.font = Fonts[properties.fontType]
+	end	
 	function widget:updateTheme()
 		self.colors = {
-			normal = Colors.color(color),
-			hover = Colors.lighten(color, 15),
-			down = Colors.darken(color, 5)
+			normal = Colors.color(self.colorName),
+			hover = Colors.darken(self.colorName, 15),
+			down = Colors.darken(self.colorName, 5)
 		}
+		if self.colorName == "default" then
+			self.textColor = tocolor(50, 50, 50)
+		end
 	end
+	widget.colorName = exports.dpUtils:defaultValue(buttonColors[widget.type], "default")
 	widget:updateTheme()
+
+	function widget:setType(newType)
+		self.colorName = exports.dpUtils:defaultValue(buttonColors[newType], "default")
+		self:updateTheme()
+		return newType
+	end
 	return widget
 end

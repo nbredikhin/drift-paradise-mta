@@ -2,7 +2,8 @@ DpPanel = {}
 
 local panelColors = {
 	light = "gray_lighter",
-	dark = "gray_dark"
+	dark = "gray_dark",
+	transparent = "transparent"
 }
 
 function DpPanel.create(properties)
@@ -11,6 +12,10 @@ function DpPanel.create(properties)
 	end
 	
 	local widget = Rectangle.create(properties)
-	widget.color = Colors.color(panelColors[exports.dpUtils:defaultValue(properties.type, "light")])
+	if properties.color == "transparent" then
+		widget.color = tocolor(0, 0, 0, 0)
+	else
+		widget.color = Colors.color(panelColors[exports.dpUtils:defaultValue(properties.type, "light")])
+	end
 	return widget
 end

@@ -99,8 +99,8 @@ local publicPropertiesList = {
 	"x", "y", "width", "height", "color", "visible", "text",
 	-- TextField
 	"alignX", "alignY", "clip", "wordBreak", "colorCoded",
-	-- Button
-	"colors"
+	-- Dp
+	"colors", "type"
 }
 
 for i, name in ipairs(publicPropertiesList) do
@@ -121,7 +121,11 @@ for i, name in ipairs(publicPropertiesList) do
 		if value == nil then
 			return false
 		end
-		widget[name] = value
+		if type(widget["set" .. capitalizedName]) == "function" then
+			widget[name] = widget["set" .. capitalizedName](widget, value)
+		else
+			widget[name] = value
+		end
 		return true
 	end	
 	printMetaExport("set" .. capitalizedName)

@@ -17,6 +17,7 @@ function Button.create(properties)
 		hover = properties.colors.hover or tocolor(150, 150, 150),
 		down = properties.colors.down or tocolor(255, 255, 255),
 	}
+	widget.textColor = Colors.color("white")
 
 	function widget:draw()
 		if isPointInRect(self.mouseX, self.mouseY, 0, 0, self.width, self.height) then
@@ -30,7 +31,7 @@ function Button.create(properties)
 		end
 
 		Drawing.rectangle(self.x, self.y, self.width, self.height)
-		Drawing.setColor()
+		Drawing.setColor(self.textColor)
 		Drawing.text(self.x, self.y, self.width, self.height, self.text, self.alignX, self.alignY, true, false)		
 	end
 	return widget

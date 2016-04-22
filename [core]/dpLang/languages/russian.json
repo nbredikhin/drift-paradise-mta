@@ -42,4 +42,17 @@
 	"tuning_not_owner": "Вы должны быть владельцем автомобиля, чтобы войти в тюнинг",
 	"tuning_not_logged_in": "Вы должны быть залогинены, чтобы войти в тюнинг",
 	"tuning_enter_failed": "Не удалось войти в тюнинг",
+
+	// Main panel
+	"main_panel_tab_account": "Аккаунт",
+	"main_panel_tab_teleport": "Телепорт",
+	"main_panel_tab_settings": "Настройки",
+	"main_panel_tab_garage": "Гараж",
+	"main_panel_tab_map": "Карта",	
+	"main_panel_account_donat": "Донат",	
+	"main_panel_account_more": "Дополнительно",	
+	"main_panel_account_money": "Деньги",	
+	"main_panel_account_admin": "Администратор",	
+	"main_panel_account_player": "Игрок",		
+	"main_panel_account_level": "Прогресс уровня",		
 }

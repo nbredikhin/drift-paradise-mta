@@ -10,7 +10,9 @@ function forcePlayerEnterGarage(player)
 		return false
 	end
 	player:setData("state", "garage")
-	player.dimension = (player:getData("_id") or math.random(0, 1000)) + 5000
+	local dimension = (player:getData("_id") or math.random(0, 1000)) + 5000
+	player.dimension = dimension
+	player.vehicle.dimension = dimension
 	triggerClientEvent(player, "dpGarage.serverEnter", resourceRoot, true)
 	return true
 end
@@ -24,6 +26,7 @@ function forcePlayerExitGarage(player)
 	end
 	player:setData("state", false)
 	player.dimension = 0
+	player.vehicle.dimension = 0
 	triggerClientEvent(player, "dpGarage.serverExit", resourceRoot)
 	return true
 end

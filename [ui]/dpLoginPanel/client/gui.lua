@@ -41,9 +41,11 @@ function setVisible(visible)
 		addEventHandler("onClientRender", root, draw)
 		animationProgress = 0
 		local fields = Autologin.load()
-		UI:setText(loginPanel.username, fields.username)
-		UI:setText(loginPanel.password, fields.password)
-		exports.dpLang:setLanguage(fields.language)
+		if fields then
+			UI:setText(loginPanel.username, fields.username)
+			UI:setText(loginPanel.password, fields.password)
+			exports.dpLang:setLanguage(fields.language)
+		end
 	else
 		removeEventHandler("onClientRender", root, draw)
 	end

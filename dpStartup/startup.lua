@@ -15,6 +15,7 @@ local startupResources = {
 	"dpMainPanel",
 
 	-- Gameplay
+	"dpVehicles",
 	"dpGarage",
 	"dpTuning",
 	"dpCarShop",

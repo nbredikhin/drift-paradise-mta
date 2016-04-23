@@ -1,5 +1,6 @@
 <meta>
 	<oop>true</oop>
+	<min_mta_version server="1.5.2"/>
 	<include resource="dpUtils"/>
 
 	<!-- SHARED -->

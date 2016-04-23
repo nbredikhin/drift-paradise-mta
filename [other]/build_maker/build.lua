@@ -38,9 +38,9 @@ local function writeCompiledScript(data, err, path)
 	end
 	saveFile(path, data)
 	compileScriptsCurrent = compileScriptsCurrent + 1
-	outputChatBox("Compiling scripts: " .. compileScriptsCurrent .."/" .. compileScriptsTotal)
+	outputServerLog("Compiling scripts: " .. compileScriptsCurrent .."/" .. compileScriptsTotal)
 	if compileScriptsCurrent >= compileScriptsTotal then
-		outputChatBox("FINISHED COMPILING SCRIPTS")
+		outputServerLog("FINISHED COMPILING SCRIPTS")
 	end 
 end
 
@@ -145,7 +145,7 @@ end
 addCommandHandler("makebuild", function ()
 	compileScriptsCurrent = 0
 	compileScriptsTotal = 0
-	outputChatBox("Building server...")
+	outputServerLog("Building server...")
 	build()
-	outputChatBox("Build " .. tostring(buildInfo.id) .. " was successfully created")
+	outputServerLog("Build " .. tostring(buildInfo.id) .. " was successfully created")
 end)

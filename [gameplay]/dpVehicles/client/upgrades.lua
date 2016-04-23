@@ -5,7 +5,8 @@ local dataToComponents = {
 	["FrontBump"] = true,
 	["RearLights"] = true,
 	["FrontFends"] = true,
-	["RearFends"] = true
+	["RearFends"] = true,
+	["Exhaust"] = true
 }
 local dataToUpgrades = {
 	["spoiler"] = { 

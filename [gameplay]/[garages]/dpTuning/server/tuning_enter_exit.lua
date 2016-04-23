@@ -37,7 +37,9 @@ function forcePlayerEnterTuning(player)
 	end
 	-- Вход в тюнинг
 	player:setData("state", "tuning")
-	player.dimension = (player:getData("_id") or math.random(0, 1000)) + 5000
+	local dimension = (player:getData("_id") or math.random(0, 1000)) + 6000
+	player.dimension = dimension
+	player.vehicle.dimension = dimension
 	triggerClientEvent(player, "dpTuning.serverEnter", resourceRoot, true)
 	return true
 end
@@ -51,6 +53,7 @@ function forcePlayerExitTuning(player)
 	end
 	player:setData("state", false)
 	player.dimension = 0
+	player.vehicle.dimension = 0
 	triggerClientEvent(player, "dpTuning.serverExit", resourceRoot)
 	return true
 end

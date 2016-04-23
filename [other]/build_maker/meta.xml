@@ -1,0 +1,4 @@
+<meta>
+	<oop>true</oop>
+	<script type="server" src="build.lua"/>
+</meta>

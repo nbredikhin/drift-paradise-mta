@@ -76,7 +76,7 @@ end
 function MessageBox.start()
 	maskShader = exports.dpAssets:createShader("texture3d.fx")
 	renderTarget = dxCreateRenderTarget(width, height, false)
-	font = dxCreateFont("html/screens/fonts/RobotoCondensed-Regular.ttf", 12)
+	font = exports.dpAssets:createFont("Roboto-Regular.ttf", 12)
 
 	addEventHandler("onClientClick", root, function (button, state)
 		-- govnokod

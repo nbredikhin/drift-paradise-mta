@@ -84,8 +84,14 @@ function Panel.setVisible(visible)
 	if not panel then
 		return false
 	end
+	if not not visible then
+		if not localPlayer:getData("username") or localPlayer:getData("state") then
+			return false
+		end
+	end
 	UI:setVisible(panel, not not visible)
 	exports.dpHUD:setVisible(not visible)
+	UIDataBinder.setActive(visible)
 	showCursor(not not visible)
 end
 

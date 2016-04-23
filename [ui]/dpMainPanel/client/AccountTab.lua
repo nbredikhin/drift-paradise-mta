@@ -6,16 +6,17 @@ function AccountTab.create()
 	local width = UI:getWidth(panel)
 	local height = UI:getHeight(panel)
 
-	local username = localPlayer:getData("username") or ""
-	local money = localPlayer:getData("money") or ""
 	local usernameLabel = UI:createDpLabel {
 		x = 20, y = 15,
 		width = width / 3, height = 50,
-		text = string.upper(username),
+		text = "---",
 		type = "primary",
 		fontType = "defaultLarger"
 	}
 	UI:addChild(panel, usernameLabel)
+	UIDataBinder.bind(usernameLabel, "username", function (value)
+		return string.upper(tostring(value))
+	end)
 	-- Подпись
 	local moneyLabelText = UI:createDpLabel {
 		x = 20 , y = 55,
@@ -26,11 +27,14 @@ function AccountTab.create()
 		locale = "main_panel_account_admin"
 	}
 	UI:addChild(panel, moneyLabelText)	
+	UIDataBinder.bind(moneyLabelText, "money", function (value)
+		return "$" .. tostring(value)
+	end)
 
 	local moneyLabel = UI:createDpLabel {
 		x = width - width / 3 - 20 , y = 15,
 		width = width / 3, height = 50,
-		text = "$" .. tostring(money),
+		text = "$0",
 		type = "primary",
 		fontType = "defaultLarger",
 		alignX = "right"

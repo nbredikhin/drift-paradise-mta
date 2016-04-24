@@ -21,6 +21,7 @@ local startupResources = {
 	"dpCarShop",
 	"dpSkinSelect",
 	"dpVehicleSelect",
+	"dpCameraViews",
 	-- World
 	"dpMap",
 	"dpWelcomeGarage",

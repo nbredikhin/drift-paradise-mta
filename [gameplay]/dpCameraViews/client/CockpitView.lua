@@ -9,11 +9,13 @@ local CAMERA_ROTATION_SPEED = 5
 local SIDE_LOOK_ANGLE = 60
 local MIN_DRIFT_SPEED = 0.17
 
+
 local positionOffset = Vector3()
 local lookOffset =  Vector3()
-local previousPosition = Vector3()
+
 local targetLookOffset = Vector3()
 local currentLookOffset = Vector3()
+
 local startCameraAngle = 0
 
 local function differenceBetweenAngles(firstAngle, secondAngle)
@@ -50,22 +52,30 @@ local function update(deltaTime)
 	deltaTime = deltaTime / 1000
 
 	local sideLookAngle = 0
-	if LOOK_BACK_ENABLED and getKeyState("q") and getKeyState("e") then
+	local lookLeftState = getControlState("vehicle_look_left")
+	local lookRightState = getControlState("vehicle_look_right")
+	if LOOK_BACK_ENABLED and lookLeftState and lookRightState then
 		sideLookAngle = 180
-	elseif getKeyState("q") then 
+	elseif lookLeftState then 
 		sideLookAngle = -SIDE_LOOK_ANGLE
-	elseif getKeyState("e") then
+	elseif lookRightState then
 		sideLookAngle = SIDE_LOOK_ANGLE
 	end
 	-- Следование камеры за дрифтом
-	local velocity = localPlayer.vehicle.velocity
-	local speedSquared = velocity:getSquaredLength()
-	local angleMul = math.min(1, speedSquared / MIN_DRIFT_SPEED)
-	local velocityAngle = localPlayer.vehicle.rotation.z
-	if speedSquared > 0.00001 then
-		velocityAngle = math.deg(getVectorAngle(velocity)) + 270
+	local driftAngle = 0 
+	if localPlayer.vehicle.onGround then
+		local velocity = localPlayer.vehicle.velocity
+		local speedSquared = velocity:getSquaredLength()
+		local angleMul = math.min(1, speedSquared / MIN_DRIFT_SPEED)
+		local velocityAngle = localPlayer.vehicle.rotation.z
+		if speedSquared > 0.00001 then
+			velocityAngle = math.deg(getVectorAngle(velocity)) + 270
+		end
+		local angleDifference = -differenceBetweenAngles(localPlayer.vehicle.rotation.z, velocityAngle)
+		if math.abs(angleDifference) < 120 then
+			driftAngle = angleDifference * angleMul
+		end
 	end
-	local driftAngle = -differenceBetweenAngles(localPlayer.vehicle.rotation.z, velocityAngle) * angleMul
 
 	-- Поворот камеры
 	local currentCameraAngle = math.rad(startCameraAngle + driftAngle + sideLookAngle)
@@ -82,6 +92,10 @@ local function update(deltaTime)
 end
 
 function CockpitView.start()
+	if isActive then
+		return false
+	end
+	isActive = true
 	local offsets = cockpitOffsets[localPlayer.vehicle.model]
 	if not offsets then
 		return false
@@ -90,9 +104,6 @@ function CockpitView.start()
 	positionOffset = Vector3(offsets.bx, offsets.by, offsets.bz)
 	lookOffset = (Vector3(offsets.ax, offsets.ay, offsets.az) - positionOffset):getNormalized()
 	startCameraAngle = getVectorAngle(lookOffset)
-	outputChatBox("CURRENT POS: " .. tostring(positionOffset))
-	outputChatBox("CURRENT LOOK: " .. tostring(Vector3(offsets.ax, offsets.ay, offsets.az)))
-	outputChatBox("CURRENT ANGLE: " .. tostring(startCameraAngle / math.pi * 180))
 	localPlayer.alpha = 0
 
 	addEventHandler("onClientPreRender", root, update)
@@ -100,9 +111,11 @@ function CockpitView.start()
 end
 
 function CockpitView.stop()
+	if not isActive then
+		return false
+	end
+	isActive = false
 	localPlayer.alpha = 255
 	Camera.setTarget(localPlayer)
 	removeEventHandler("onClientPreRender", root, update)
 end
-
-CockpitView.start()

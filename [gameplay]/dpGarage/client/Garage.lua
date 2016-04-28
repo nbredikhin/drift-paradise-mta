@@ -6,7 +6,9 @@ function Garage.start()
 		return false
 	end
 	isActive = true
-	outputChatBox("Garage.start()")
+	localPlayer.dimension = 0
+	GarageCar.start()
+	CameraManager.start()
 end
 
 function Garage.stop()
@@ -14,7 +16,8 @@ function Garage.stop()
 		return false
 	end
 	isActive = false
-	outputChatBox("Garage.stop()")
+	CameraManager.stop()
+	GarageCar.stop()
 end
 
 function Garage.isActive()

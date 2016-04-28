@@ -17,6 +17,13 @@ local targetLookOffset = Vector3()
 local currentLookOffset = Vector3()
 
 local startCameraAngle = 0
+local prevTurnVelocity = 0
+
+-- Тряска
+local SHAKE_AMOUNT = 0.012
+local cameraShakeZ = 0
+local cameraShakeX = 0
+local cameraShakeMul = 0.9
 
 local function differenceBetweenAngles(firstAngle, secondAngle)
 	local difference = secondAngle - firstAngle
@@ -51,6 +58,10 @@ local function update(deltaTime)
 	end
 	deltaTime = deltaTime / 1000
 
+	cameraShakeX = cameraShakeX * cameraShakeMul
+	cameraShakeZ = cameraShakeZ * cameraShakeMul
+	cameraShake = Vector3(cameraShakeX * (math.random() * 2 - 1), 0, cameraShakeZ * (math.random() * 2 - 1))
+
 	local sideLookAngle = 0
 	local lookLeftState = getControlState("vehicle_look_left")
 	local lookRightState = getControlState("vehicle_look_right")
@@ -75,12 +86,17 @@ local function update(deltaTime)
 		if math.abs(angleDifference) < 120 then
 			driftAngle = angleDifference * angleMul
 		end
+
+		-- Тряска от скорости
+		cameraShakeX = cameraShakeX + math.random() / 4000 * speedSquared
+		cameraShakeZ = cameraShakeZ + math.random() / 6000 * speedSquared
 	end
 
 	-- Поворот камеры
 	local currentCameraAngle = math.rad(startCameraAngle + driftAngle + sideLookAngle)
 	targetLookOffset = Vector3(math.sin(currentCameraAngle), math.cos(currentCameraAngle), lookOffset.z)
 	currentLookOffset = currentLookOffset + (targetLookOffset - currentLookOffset) * deltaTime * CAMERA_ROTATION_SPEED
+	currentLookOffset = currentLookOffset + cameraShake
 
 	-- Положение камеры в машине
 	local cameraPos = localPlayer.vehicle.matrix:transformPosition(positionOffset)
@@ -88,7 +104,16 @@ local function update(deltaTime)
 	local cameraRoll = -localPlayer.vehicle.rotation.y
 	
 	-- Обновление камеры
-	Camera.setMatrix(cameraPos, cameraLook, cameraRoll)
+	Camera.setMatrix(cameraPos, cameraLook, cameraRoll - cameraShake.x * 50)
+end
+
+local function updateShake(collider, force)
+	if force < 50 then
+		return false
+	end
+	local mul = math.max(math.min(10, force / 50), 0) 
+	cameraShakeX = cameraShakeX + SHAKE_AMOUNT * mul * 0.9
+	cameraShakeZ = cameraShakeZ + SHAKE_AMOUNT * mul * 0.2
 end
 
 function CockpitView.start()
@@ -107,6 +132,7 @@ function CockpitView.start()
 	localPlayer.alpha = 0
 
 	addEventHandler("onClientPreRender", root, update)
+	addEventHandler("onClientVehicleCollision", localPlayer.vehicle, updateShake)
 	return true
 end
 
@@ -118,4 +144,5 @@ function CockpitView.stop()
 	localPlayer.alpha = 255
 	Camera.setTarget(localPlayer)
 	removeEventHandler("onClientPreRender", root, update)
+	removeEventHandler("onClientVehicleCollision", localPlayer.vehicle, updateShake)
 end

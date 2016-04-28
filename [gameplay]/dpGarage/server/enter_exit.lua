@@ -55,6 +55,7 @@ addEventHandler("onResourceStart", resourceRoot, function ()
 		-- Сбросить state всех игроков при перезапуске ресурса
 		if player:getData("state") == "garage" then
 			player:setData("state", false)
+			player.dimension = 0
 		end
 	end
 end)

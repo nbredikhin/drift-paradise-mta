@@ -53,6 +53,6 @@ end)
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
 	if localPlayer.vehicle then
-		startCameraView(cameraViews[1])
+		startCameraView(cameraViews[currentCameraViewIndex])
 	end
 end)

@@ -144,3 +144,15 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		reloadVehicleUpgrades(vehicle)
 	end
 end)
+
+addCommandHandler("tunshow", function (cmd, name, id)
+	if not name or not id then
+		outputChatBox("Чота ни так")
+	end
+	id = tonumber(id)
+	if not id then
+		outputChatBox("Ну ты чо епта")
+		return 
+	end
+	localPlayer.vehicle:setData(name, id)
+end)

@@ -6,4 +6,6 @@
 	<script type="server" src="server/enter_exit.lua"/>
 	<script type="client" src="client/enter_exit.lua"/>
 	<script type="client" src="client/Garage.lua"/>
+	<script type="client" src="client/GarageCar.lua"/>
+	<script type="client" src="client/CameraManager.lua"/>
 </meta>

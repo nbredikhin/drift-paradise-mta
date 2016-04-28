@@ -6,7 +6,7 @@ DatabaseTable.ID_COLUMN_TYPE = "int"
 local function createQueryCallback(callback)
 	return function(queryHandle, ...)
 		local result = queryHandle:poll(0)
-		outputDebugString("Database query result: " .. tostring(result))
+		--outputDebugString("Database query result: " .. tostring(result))
 		triggerEvent("dpDatabase.queryResult", root, queryHandle, result, ...)
 		executeCallback(callback, result, ...)
 	end

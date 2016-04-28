@@ -35,13 +35,13 @@
 	// Chat message
 	"chat_message_login_success": "You have successfully logged in",
 
-	// Tuning
-	"tuning_no_vehicle_error": "You must be in a car to enter tuning",
-	"tuning_not_driver": "You must be driving this car to enter tuning",
-	"tuning_has_occupants": "You must be the only car occupant to enter tuning",
-	"tuning_not_owner": "You must car owner to enter tuning",
-	"tuning_not_logged_in": "You must be logged in to enter tuning",
-	"tuning_enter_failed": "Failed to enter tuning",
+	// Garage
+	"garage_no_vehicle_error": "You must be in a car to enter garage",
+	"garage_not_driver": "You must be driving this car to enter garage",
+	"garage_has_occupants": "You must be the only car occupant to enter garage",
+	"garage_not_owner": "You must car owner to enter garage",
+	"garage_not_logged_in": "You must be logged in to enter garage",
+	"garage_enter_failed": "Failed to enter garage",
 
 	// Main panel
 	"main_panel_tab_account": "Account",

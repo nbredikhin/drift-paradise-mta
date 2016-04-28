@@ -39,6 +39,7 @@
 	<export type="server" function="saveAccount"/>
 	<!-- Функции для работы с автомобилями -->
 	<export type="server" function="spawnVehicle"/>
+	<export type="server" function="vehicleToGarage"/>
 
 	<!-- CLIENT -->
 

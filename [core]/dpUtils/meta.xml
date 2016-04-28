@@ -1,6 +1,7 @@
 <meta>
 	<oop>true</oop>
-	
+	<download_priority_group>10</download_priority_group>
+
 	<script type="shared" src="shared/time.lua"/>
 	<script type="shared" src="shared/geom.lua"/>
 	<script type="shared" src="shared/table.lua"/>

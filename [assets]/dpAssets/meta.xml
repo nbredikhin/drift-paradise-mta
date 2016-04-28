@@ -1,6 +1,7 @@
 <meta>
 	<oop>true</oop>
-
+	<download_priority_group>2</download_priority_group>
+	
 	<script type="client" src="client/exports.lua"/>
 
 	<export type="client" function="createShader"/>

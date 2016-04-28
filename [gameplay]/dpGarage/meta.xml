@@ -1,0 +1,9 @@
+<meta>
+	<oop>true</oop>
+	<include resource="dpUtils"/>
+	<include resource="dpLang"/>
+
+	<script type="server" src="server/enter_exit.lua"/>
+	<script type="client" src="client/enter_exit.lua"/>
+	<script type="client" src="client/Garage.lua"/>
+</meta>

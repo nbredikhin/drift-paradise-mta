@@ -4,6 +4,7 @@ local BUILD_FILE_NAME = "build.json"
 local RESOURCE_PREFIX = "dp"
 local SECRET_KEY = "mda_xex_memasiki_podkatili"
 local SCRIPTS_PATH = md5("scripts")
+local BUILD_CMD = "build"
 local buildInfo = {}
 
 local compileScriptsTotal = 0
@@ -142,7 +143,7 @@ local function build()
 	return true
 end
 
-addCommandHandler("makebuild", function ()
+addCommandHandler(BUILD_CMD, function ()
 	compileScriptsCurrent = 0
 	compileScriptsTotal = 0
 	outputServerLog("Building server...")

@@ -3,9 +3,23 @@
 	<include resource="dpUtils"/>
 	<include resource="dpLang"/>
 
+	<script type="shared" src="shared/lib/yaci.lua"/>
 	<script type="server" src="server/enter_exit.lua"/>
+
+	<!-- Интерфейс -->
+	<script type="client" src="client/ui/Drawable.lua"/>
+	<script type="client" src="client/ui/Clickable.lua"/>
+	<script type="client" src="client/ui/CircleButton3D.lua"/>
+	<!-- Экраны -->
+	<script type="client" src="client/ui/screens/Screen.lua"/>
+	<script type="client" src="client/ui/screens/CarSelectScreen.lua"/>
+	<script type="client" src="client/ui/ScreenManager.lua"/>
+	<!-- Основное -->
 	<script type="client" src="client/enter_exit.lua"/>
 	<script type="client" src="client/Garage.lua"/>
 	<script type="client" src="client/GarageCar.lua"/>
+	<script type="client" src="client/GarageUI.lua"/>
 	<script type="client" src="client/CameraManager.lua"/>
+
+	<file src="assets/images/circle_button.png"/>
 </meta>

@@ -9,6 +9,8 @@ function Garage.start()
 	localPlayer.dimension = 0
 	GarageCar.start()
 	CameraManager.start()
+	GarageUI.start()
+	showCursor(true)
 end
 
 function Garage.stop()
@@ -16,8 +18,10 @@ function Garage.stop()
 		return false
 	end
 	isActive = false
+	GarageUI.stop()
 	CameraManager.stop()
 	GarageCar.stop()
+	showCursor(false)
 end
 
 function Garage.isActive()

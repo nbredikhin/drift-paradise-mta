@@ -12,7 +12,7 @@ local targetCamera = {}
 
 local cameraPresets = {}
 cameraPresets.vehicleSelect = {
-	targetPosition = Vector3(0, 0.5, 0),
+	targetPosition = Vector3(0, 1, 0),
 	rotationHorizontal = 30,
 	rotationVertical = 0,
 	distance = 6.5,
@@ -58,10 +58,8 @@ cameraPresets.rearBump = {
 local function update(deltaTime)
 	deltaTime = deltaTime / 1000
 
-	for k, v in pairs(camera) do
-		if targetCamera[k] then
-			camera[k] = camera[k] + (targetCamera[k] - camera[k]) * deltaTime * ANIMATION_SPEED
-		end
+	for k, v in pairs(targetCamera) do
+		camera[k] = camera[k] + (targetCamera[k] - camera[k]) * deltaTime * ANIMATION_SPEED
 	end
 
 	local shakeX = math.sin(getTickCount() / 740) * (math.sin(getTickCount() / 300) + 1) * 0.002
@@ -110,9 +108,6 @@ end
 
 function CameraManager.start()
 	CameraManager.setState("vehicleSelect", true)
-	-- setTimer(function ()
-	-- 	CameraManager.setState("test")
-	-- end, 3000, 1)
 	addEventHandler("onClientPreRender", root, update)
 end
 

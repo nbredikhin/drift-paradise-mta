@@ -15,13 +15,30 @@ local itemHeight = 110
 local currentItem = 1
 local highlightItem = 0
 local itemFontSize = 36
-local menuItems = {
-	"Выехать в город",
-	"Кастомизация",
-	"Настройки",
-	"Продажа авто",
-	"Выход"
+
+local menus = {}
+menus.main = {
+	{locale="garage_menu_go_city"},
+	{locale="garage_menu_customize", show="customize"},
+	{locale="garage_menu_settings", show="settings"},
+	{locale="garage_menu_sell"},
+	{locale="garage_menu_exit"},
 }
+menus.customize = {
+	{locale="garage_menu_customize_components"},
+	{locale="garage_menu_customize_paint"},
+	{locale="garage_menu_customize_stickers"},
+	{locale="garage_menu_customize_config"},
+	{locale="garage_menu_back", show="main"}
+}
+menus.settings = {
+	{locale="garage_menu_settings_bumper"},
+	{locale="garage_menu_back", show="main"}
+}
+
+local currentMenu
+local menuItems = {}
+
 
 local function drawMenu()
 	dxSetRenderTarget(renderTarget, true)
@@ -49,8 +66,25 @@ local function menuMove(_, _, step)
 	elseif currentItem > #menuItems then
 		currentItem = 1
 	end
+end
 
-	drawMenu()
+local function openMenu(name)
+	if not menus[name] then
+		error("No such menu: " .. tostring(name))
+	end
+	currentMenu = menus[name]
+	currentItem = 1
+	highlightItem = 0
+	menuItems = {}
+	for i, item in ipairs(currentMenu) do
+		table.insert(menuItems, exports.dpLang:getString(item.locale))
+	end
+end
+
+local function menuSelect()
+	if currentMenu[currentItem] and currentMenu[currentItem].show then
+		openMenu( currentMenu[currentItem].show)
+	end
 end
 
 function MainMenu.start()
@@ -63,8 +97,8 @@ function MainMenu.start()
 
 	bindKey("arrow_u", "down", menuMove, -1)
 	bindKey("arrow_d", "down", menuMove, 1)
-
-	drawMenu()
+	bindKey("enter", "down", menuSelect)
+	openMenu("main")
 end
 
 function MainMenu.stop()
@@ -75,6 +109,7 @@ function MainMenu.stop()
 
 	unbindKey("arrow_u", "down", menuMove)
 	unbindKey("arrow_d", "down", menuMove)	
+	unbindKey("enter", "down", menuSelect)
 end
 
 function MainMenu.draw()

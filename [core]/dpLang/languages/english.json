@@ -43,6 +43,21 @@
 	"garage_not_logged_in": "You must be logged in to enter garage",
 	"garage_enter_failed": "Failed to enter garage",
 
+	// Garage UI
+	"garage_menu_go_city": "Select car",
+	"garage_menu_customize": "Customize",
+	"garage_menu_settings": "Settings",
+	"garage_menu_sell": "Sell car",
+	"garage_menu_exit": "Exit garage",
+
+	"garage_menu_customize_components": "Components",
+	"garage_menu_customize_paint": "Paint",
+	"garage_menu_customize_stickers": "Vinyls",
+	"garage_menu_customize_config": "Configuration",
+	
+	"garage_menu_settings_bumper": "Remove rear bumper",
+	"garage_menu_back": "Back",
+
 	// Main panel
 	"main_panel_tab_account": "Account",
 	"main_panel_tab_teleport": "Teleport",

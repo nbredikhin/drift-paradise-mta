@@ -43,6 +43,21 @@
 	"garage_not_logged_in": "Вы должны быть залогинены, чтобы войти в гараж",
 	"garage_enter_failed": "Не удалось войти в гараж",
 
+	// Интерфейс гаража
+	"garage_menu_go_city": "Выбрать машину",
+	"garage_menu_customize": "Кастомизация",
+	"garage_menu_settings": "Настройки",
+	"garage_menu_sell": "Продать машину",
+	"garage_menu_exit": "Выход",
+
+	"garage_menu_customize_components": "Компоненты",
+	"garage_menu_customize_paint": "Покраска",
+	"garage_menu_customize_stickers": "Винилы",
+	"garage_menu_customize_config": "Конфигурация",
+	
+	"garage_menu_settings_bumper": "Снять задний бампер",
+	"garage_menu_back": "Назад",	
+
 	// Main panel
 	"main_panel_tab_account": "Аккаунт",
 	"main_panel_tab_teleport": "Телепорт",

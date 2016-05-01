@@ -14,7 +14,7 @@ end
 
 function GarageUI.start()
 	shadowTexture = exports.dpAssets:createTexture("screen_shadow.png")
-	ScreenManager.show(CarSelectScreen:new())
+	ScreenManager.show(CarSelectScreen)
 	addEventHandler("onClientRender", root, draw)
 	addEventHandler("onClientPreRender", root, update)
 end

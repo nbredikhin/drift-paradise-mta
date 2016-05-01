@@ -6,8 +6,8 @@ local SPEED_SECTORS_COUNT = 134
 
 local screenWidth, screenHeight = guiGetScreenSize()
 local originalSize = 400
-local width, height = Utils.sceenScale(250), Utils.sceenScale(250)
-local screenOffset = Utils.sceenScale(20)
+local width, height = Utils.screenScale(250), Utils.screenScale(250)
+local screenOffset = Utils.screenScale(20)
 
 local fallbackTo2d = false
 

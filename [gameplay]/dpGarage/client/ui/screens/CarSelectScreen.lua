@@ -1,11 +1,13 @@
-CarSelectScreen = Screen:subclass "CarSelectScreen"
+CarSelectScreen = {}
 
-function CarSelectScreen:init()
-	self.super:init()
-	self.btn = CircleButton3D:new("select")
-	self:addChild(self.btn)
+function CarSelectScreen.start()
+	MainMenu.start()
 end
 
-function CarSelectScreen:onShow()
-	self.btn:setOffset(Vector3(0, 0, 1))
+function CarSelectScreen.draw()
+	MainMenu.draw()
+end
+
+function CarSelectScreen.stop()
+	MainMenu.stop()
 end

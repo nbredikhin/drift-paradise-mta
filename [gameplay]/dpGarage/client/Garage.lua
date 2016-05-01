@@ -11,6 +11,8 @@ function Garage.start()
 	CameraManager.start()
 	GarageUI.start()
 	showCursor(true)
+	showChat(false)
+	exports.dpHUD:setVisible(false)
 end
 
 function Garage.stop()
@@ -22,6 +24,8 @@ function Garage.stop()
 	CameraManager.stop()
 	GarageCar.stop()
 	showCursor(false)
+	showChat(true)
+	exports.dpHUD:setVisible(true)
 end
 
 function Garage.isActive()

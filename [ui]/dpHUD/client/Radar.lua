@@ -3,8 +3,8 @@ Radar.visible = true
 local DRAW_POST_GUI = false
 local screenWidth, screenHeight = guiGetScreenSize()
 
-local width, height = Utils.sceenScale(250), Utils.sceenScale(250)
-local screenOffset = Utils.sceenScale(20)
+local width, height = Utils.screenScale(250), Utils.screenScale(250)
+local screenOffset = Utils.screenScale(20)
 local WORLD_SIZE = 3072
 local CHUNK_SIZE = 256
 local CHUNKS_COUNT = 12

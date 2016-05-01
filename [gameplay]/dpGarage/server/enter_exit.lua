@@ -44,7 +44,7 @@ addEventHandler("dpGarage.exit", resourceRoot, function ()
 	end
 	for k, v in pairs(playerState) do
 		client[k] = v
-		outputChatBox(k .. " = " .. tostring(v))
+		--outputChatBox(k .. " = " .. tostring(v))
 	end
 	client.frozen = false
 	triggerClientEvent(client, "dpGarage.exit", resourceRoot, true)

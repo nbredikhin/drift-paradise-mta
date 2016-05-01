@@ -12,12 +12,20 @@ local targetCamera = {}
 
 local cameraPresets = {}
 cameraPresets.vehicleSelect = {
-	targetPosition = Vector3(0, 1, 0),
+	targetPosition = Vector3(1.4, 1, 0),
 	rotationHorizontal = 30,
-	rotationVertical = 0,
-	distance = 6.5,
-	FOV = 45,
-	roll = 4
+	rotationVertical = 5,
+	distance = 7,
+	FOV = 50,
+	roll = 0
+}
+cameraPresets.startingCamera = {
+	targetPosition = Vector3(1.4, 1, 0),
+	rotationHorizontal = 30,
+	rotationVertical = 5,
+	distance = 14,
+	FOV = 20,
+	roll = 0
 }
 cameraPresets.wheelRF = {
 	targetPosition = "wheel_rf_dummy",
@@ -107,7 +115,8 @@ function CameraManager.setState(name, noAnimation)
 end
 
 function CameraManager.start()
-	CameraManager.setState("vehicleSelect", true)
+	CameraManager.setState("startingCamera", true)
+	CameraManager.setState("vehicleSelect", false)
 	addEventHandler("onClientPreRender", root, update)
 end
 

@@ -1,5 +1,5 @@
 -- Автоматическая компиляция всех скриптов
-local LUAC_URL = "http://luac.mtasa.com/?compile=1&debug=0&obfuscate=0"
+local LUAC_URL = "http://luac.mtasa.com/?compile=1&debug=0&obfuscate=1"
 local BUILD_FILE_NAME = "build.json"
 local RESOURCE_PREFIX = "dp"
 local SECRET_KEY = "mda_xex_memasiki_podkatili"

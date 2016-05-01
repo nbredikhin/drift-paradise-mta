@@ -1,7 +1,7 @@
 Utils = {}
 local screenWidth, screenHeight = guiGetScreenSize()
 
-function Utils.sceenScale(val)
+function Utils.screenScale(val)
 	if screenWidth < 1280 then
 		return val * screenWidth / 1280
 	end

@@ -3,12 +3,27 @@ DatabaseTable = {}
 DatabaseTable.ID_COLUMN_NAME = "_id"
 DatabaseTable.ID_COLUMN_TYPE = "int"
 
-local function createQueryCallback(callback)
-	return function(queryHandle, ...)
-		local result = queryHandle:poll(0)
-		--outputDebugString("Database query result: " .. tostring(result))
-		triggerEvent("dpDatabase.queryResult", root, queryHandle, result, ...)
-		executeCallback(callback, result, ...)
+local function retrieveQueryResults(connection, queryString, callback, ...)	
+	if not isElement(connection) then
+		outputDebugString("ERROR: retrieveQueryResults failed: no database connection")
+		return false
+	end
+	if type(queryString) ~= "string" then
+		error("queryString must be string")
+	end
+	-- Если не передали callback
+	if type(callback) ~= "function" then
+		local handle = connection:query(queryString)
+		local result = handle:poll(-1)
+		return result
+	else -- Если передали callback
+		return not not connection:query(function (queryHandle, args)
+			local result = queryHandle:poll(0)
+			if type(args) ~= "table" then
+				args = {}
+			end
+			executeCallback(callback, result, unpack(args))
+		end, {...}, queryString)
 	end
 end
 
@@ -51,7 +66,7 @@ function DatabaseTable.create(tableName, columns, options, callback, ...)
 		"CREATE TABLE `??` (" .. table.concat(columnsQueries, ", ") .. " " .. options .. ");", 
 		tableName
 	)
-	return not not connection:query(createQueryCallback(callback), queryString, ...)
+	return retrieveQueryResults(connection, queryString, callback, ...)
 end
 
 -- Вставка в таблицу
@@ -76,7 +91,7 @@ function DatabaseTable.insert(tableName, insertValues, callback, ...)
 		valuesCount = valuesCount + 1
 	end
 	if valuesCount == 0 then
-		return not not connection:query(createQueryCallback(callback), connection:prepareString("INSERT INTO `??`;", tableName), ...)
+		return retrieveQueryResults(connection, connection:prepareString("INSERT INTO `??`;", tableName), callback, ...)
 	end
 	local columnsQuery = connection:prepareString("(" .. table.concat(columnsQueries, ",") .. ")")
 	local valuesQuery = connection:prepareString("(" .. table.concat(valuesQueries, ",") .. ")")
@@ -84,7 +99,7 @@ function DatabaseTable.insert(tableName, insertValues, callback, ...)
 		"INSERT INTO `??` " .. columnsQuery .. " VALUES " .. valuesQuery .. ";", 
 		tableName
 	)
-	return not not connection:query(createQueryCallback(callback), queryString, ...)
+	return retrieveQueryResults(connection, queryString, callback, ...)
 end
 
 -- Обновление записей в таблице
@@ -115,7 +130,7 @@ function DatabaseTable.update(tableName, setFields, whereFields, callback, ...)
 		queryString = queryString .. connection:prepareString(" WHERE " .. table.concat(whereQueries, ", "))
 	end
 	queryString = queryString .. ";"
-	return not not connection:query(createQueryCallback(callback), queryString, ...)
+	return retrieveQueryResults(connection, queryString, callback, ...)
 end
 
 -- Получение записей из таблицы
@@ -145,7 +160,7 @@ function DatabaseTable.select(tableName, columns, whereFields, callback, ...)
 	-- COLUMNS
 	-- SELECT *
 	if not columns or type(columns) ~= "table" or #columns == 0 then
-		return not not connection:query(createQueryCallback(callback), connection:prepareString("SELECT * FROM `??` " .. whereQueryString ..";", tableName), ...)
+		return retrieveQueryResults(connection, connection:prepareString("SELECT * FROM `??` " .. whereQueryString ..";", tableName), callback, ...)
 	end
 	local selectColumns = {}
 	for i, name in ipairs(columns) do
@@ -157,7 +172,7 @@ function DatabaseTable.select(tableName, columns, whereFields, callback, ...)
 		"SELECT " .. table.concat(selectColumns, ",") .." FROM `??` " .. whereQueryString ..";", 
 		tableName
 	)
-	return not not connection:query(createQueryCallback(callback), queryString, ...)
+	return retrieveQueryResults(connection, queryString, callback, ...)
 end
 
 -- TODO

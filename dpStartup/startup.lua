@@ -17,7 +17,6 @@ local startupResources = {
 	-- Gameplay
 	"dpVehicles",
 	"dpGarage",
-	"dpTuning",
 	"dpCarShop",
 	"dpSkinSelect",
 	"dpVehicleSelect",

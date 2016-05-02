@@ -23,4 +23,6 @@
 
 	<file src="assets/textures/logo.png"/>
 	<file src="assets/textures/screen_shadow.png"/>
+	<file src="assets/textures/arrow.png"/>
+	<file src="assets/textures/logo_square_simple.png"/>
 </meta>

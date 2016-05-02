@@ -6,9 +6,11 @@
 
 	<script type="shared" src="shared/lib/yaci.lua"/>
 	<script type="server" src="server/enter_exit.lua"/>
+	<script type="client" src="client/Assets.lua"/>
 	<script type="client" src="client/ui/screens/CarSelectScreen.lua"/>
 	<script type="client" src="client/ui/ScreenManager.lua"/>
 	<script type="client" src="client/ui/MainMenu.lua"/>
+	<script type="client" src="client/ui/VehicleArrows.lua"/>
 	<script type="client" src="client/enter_exit.lua"/>
 	<script type="client" src="client/Garage.lua"/>
 	<script type="client" src="client/GarageCar.lua"/>

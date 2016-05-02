@@ -1,18 +1,23 @@
 Garage = {}
 local isActive = false
 
-function Garage.start()
+function Garage.start(vehicles)
 	if isActive then
 		return false
 	end
 	isActive = true
 	localPlayer.dimension = 0
-	GarageCar.start()
+	Assets.start()
+	GarageCar.start(vehicles)
 	CameraManager.start()
 	GarageUI.start()
 	showCursor(true)
 	showChat(false)
 	exports.dpHUD:setVisible(false)
+
+	setTimer(function () 
+		triggerEvent("dpGarage.loaded", resourceRoot)
+	end, 500, 1)
 end
 
 function Garage.stop()
@@ -23,6 +28,7 @@ function Garage.stop()
 	GarageUI.stop()
 	CameraManager.stop()
 	GarageCar.stop()
+	Assets.stop()
 	showCursor(false)
 	showChat(true)
 	exports.dpHUD:setVisible(true)

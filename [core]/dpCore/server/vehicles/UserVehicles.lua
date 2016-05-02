@@ -25,20 +25,21 @@ end
 function UserVehicles.addVehicle(ownerId, model, callback)
 	if 	type(ownerId) ~= "number" or type(model) ~= "number" then
 		executeCallback(callback, false)
+		outputDebugString("Invalid vehicle model")
 		return false
 	end
 	-- Проверка модели
 	if not exports.dpUtils:isValidVehicleModel(model) then
 		executeCallback(callback, false)
+		outputDebugString("UserVehicles.addVehicle: Invalid vehicle model: " .. tostring(model))
 		return false
 	end
 	-- Обращение к бд
 	local success = DatabaseTable.insert(VEHICLES_TABLE_NAME, { owner_id = ownerId, model = model}, callback)
-
 	if not success then
 		executeCallback(callback, false)
 	end
-	return success
+	return not not success
 end
 
 -- Информация об автомобиле
@@ -89,22 +90,7 @@ function UserVehicles.getVehicles(ownerId, callback)
 		executeCallback(callback, false)
 		return false
 	end
-	local success = DatabaseTable.select(VEHICLES_TABLE_NAME, {}, {owner_id = ownerId}, 
-	function (result)
-		if result then
-			if type(result) ~= "table" or #result == 0 then
-				executeCallback(callback, false)
-			else
-				executeCallback(callback, result)
-			end		
-		else
-			executeCallback(callback, false)
-		end
-	end)
-	if not success then
-		executeCallback(callback, false)
-	end
-	return success
+	return DatabaseTable.select(VEHICLES_TABLE_NAME, {}, {owner_id = ownerId}, callback)
 end
 
 -- Список id автомобилей игрока
@@ -113,22 +99,7 @@ function UserVehicles.getVehiclesIds(ownerId, callback)
 		executeCallback(callback, false)
 		return false
 	end
-	local success = DatabaseTable.select(VEHICLES_TABLE_NAME, {"_id"}, {owner_id = ownerId}, 
-	function (result)
-		if result then
-			if type(result) ~= "table" or #result == 0 then
-				executeCallback(callback, false)
-			else
-				executeCallback(callback, result)
-			end		
-		else
-			executeCallback(callback, false)
-		end
-	end)
-	if not success then
-		executeCallback(callback, false)
-	end
-	return success
+	return DatabaseTable.select(VEHICLES_TABLE_NAME, {"_id"}, {owner_id = ownerId}, callback)
 end
 
 function UserVehicles.changeOwner(vehicleId, newOwnerId, callback)

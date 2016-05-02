@@ -1,6 +1,13 @@
+addEvent("dpCore.playerVehiclesList", true)
+
 addEvent("dpGarage.enter", true)
 addEventHandler("dpGarage.enter", resourceRoot, function ()
 	if client:getData("state") then
+		triggerClientEvent(client, "dpGarage.enter", resourceRoot, false, "garage_enter_failed")
+		return
+	end
+	local playerVehicles = exports.dpCore:getPlayerVehicles(client)
+	if type(playerVehicles) ~= "table" or #playerVehicles == 0 then
 		triggerClientEvent(client, "dpGarage.enter", resourceRoot, false, "garage_enter_failed")
 		return
 	end
@@ -24,7 +31,7 @@ addEventHandler("dpGarage.enter", resourceRoot, function ()
 	-- Перенос игрока в уникальный dimension
 	client.dimension = tonumber(client:getData("_id")) or (math.random(1000, 9999) + 5000) + 4000
 	client.frozen = true
-	triggerClientEvent(client, "dpGarage.enter", resourceRoot, true)
+	triggerClientEvent(client, "dpGarage.enter", resourceRoot, playerVehicles)
 end)
 
 addEvent("dpGarage.exit", true)

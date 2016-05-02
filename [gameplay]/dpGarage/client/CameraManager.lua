@@ -1,5 +1,8 @@
 CameraManager = {}
+
 local ANIMATION_SPEED = 2
+local currentAnimationSpeed = ANIMATION_SPEED
+
 local camera = {
 	rotationHorizontal = 0,
 	rotationVertical = 0,
@@ -21,7 +24,7 @@ cameraPresets.vehicleSelect = {
 }
 cameraPresets.startingCamera = {
 	targetPosition = Vector3(1.4, 1, 0),
-	rotationHorizontal = 30,
+	rotationHorizontal = 20,
 	rotationVertical = 5,
 	distance = 14,
 	FOV = 20,
@@ -67,7 +70,7 @@ local function update(deltaTime)
 	deltaTime = deltaTime / 1000
 
 	for k, v in pairs(targetCamera) do
-		camera[k] = camera[k] + (targetCamera[k] - camera[k]) * deltaTime * ANIMATION_SPEED
+		camera[k] = camera[k] + (targetCamera[k] - camera[k]) * deltaTime * currentAnimationSpeed
 	end
 
 	local shakeX = math.sin(getTickCount() / 740) * (math.sin(getTickCount() / 300) + 1) * 0.002
@@ -87,7 +90,12 @@ local function update(deltaTime)
 	)
 end
 
-function CameraManager.setState(name, noAnimation)
+function CameraManager.setState(name, noAnimation, animationSpeed)
+	if not noAnimation and type(animationSpeed) == "number" then
+		currentAnimationSpeed = animationSpeed
+	else
+		currentAnimationSpeed = ANIMATION_SPEED
+	end
 	for k, v in pairs(cameraPresets[name]) do
 		if k == "targetPosition" then
 			if type(v) == "string" then
@@ -116,7 +124,7 @@ end
 
 function CameraManager.start()
 	CameraManager.setState("startingCamera", true)
-	CameraManager.setState("vehicleSelect", false)
+	CameraManager.setState("vehicleSelect", false, 1.2)
 	addEventHandler("onClientPreRender", root, update)
 end
 

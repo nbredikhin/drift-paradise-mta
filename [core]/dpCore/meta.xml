@@ -40,6 +40,8 @@
 	<!-- Функции для работы с автомобилями -->
 	<export type="server" function="spawnVehicle"/>
 	<export type="server" function="vehicleToGarage"/>
+	<export type="server" function="getPlayerVehicles"/>
+	<export type="server" function="addPlayerVehicle"/>
 
 	<!-- CLIENT -->
 

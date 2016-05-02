@@ -30,7 +30,7 @@ function PlayerSpawn.spawn(player)
 	local location = getPlayerSpawnLocation(player)
 	player:spawn(location.position)
 	player:setCameraTarget()
-	player:fadeCamera(true, 5)
+	player:fadeCamera(true, 3)
 	player.model = player:getData("skin")
 	return true
 end

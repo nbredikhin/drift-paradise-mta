@@ -1,28 +1,32 @@
 MainMenu = {}
+local navigationDisabled = false
 local screenSize = Vector2(guiGetScreenSize())
 local position = Vector3 { x = 2918.205, y = -3188.340, z = 2535.517 }
 local worldSize = Vector2(1.5, 2)
-local renderSize = Vector2(600, 800)
+local renderSize = Vector2(375, 500)
 local renderTarget
+
 local menuColor = tocolor(255, 255, 255, 230)
 local highlightedColor = tocolor(29, 29, 29)
 local selectedColor = tocolor(212, 0, 40)
-local menuFont
-local logoTexture
+
 local camera
 
-local itemHeight = 110
+local itemHeight = renderSize.y * 0.12
 local currentItem = 1
 local highlightItem = 0
-local itemFontSize = 36
 
 local menus = {}
 menus.main = {
 	{locale="garage_menu_go_city"},
 	{locale="garage_menu_customize", show="customize"},
 	{locale="garage_menu_settings", show="settings"},
-	{locale="garage_menu_sell"},
-	{locale="garage_menu_exit"},
+	{locale="garage_menu_sell", action=function() 
+	end},
+	{locale="garage_menu_exit", action=function() 
+		exitGarage()
+		navigationDisabled = true
+	end},
 }
 menus.customize = {
 	{locale="garage_menu_customize_components"},
@@ -43,23 +47,36 @@ local menuItems = {}
 local function drawMenu()
 	dxSetRenderTarget(renderTarget, true)
 	local y = 0
-	dxDrawImage(0, 0, renderSize.x, renderSize.x * 0.3375, logoTexture)
-	y = y + renderSize.x * 0.3375	
+	local logoHeight = renderSize.x * 0.3375
+	dxDrawImage(0, -120, renderSize.x, renderSize.x, Assets.textures.logo)
+	
+	local arrowSize = renderSize.x / 4
+	dxDrawImage((renderSize.x - arrowSize) / 2, logoHeight - 35 - math.sin(getTickCount() / 200) * 5, arrowSize, arrowSize, Assets.textures.arrow, -90, 0, 0)
+	y = y + logoHeight + 30
 	for i, text in ipairs(menuItems) do
+		local textAlpha = 200
 		if i == currentItem then
 			dxDrawRectangle(0, y, renderSize.x, itemHeight, selectedColor)
+			if i == highlightItem then
+				textAlpha = 255
+			end
 		elseif i == highlightItem then
 			dxDrawRectangle(0, y, renderSize.x, itemHeight, highlightedColor)
+			textAlpha = 255
 		else
 			dxDrawRectangle(0, y, renderSize.x, itemHeight, tocolor(42, 40, 41))
 		end
-		dxDrawText(text, 0, y, renderSize.x, y + itemHeight, tocolor(255, 255, 255), 1, menuFont, "center", "center")
+		dxDrawText(text, 0, y, renderSize.x, y + itemHeight, tocolor(textAlpha, textAlpha, textAlpha), 1, Assets.fonts.menu, "center", "center")
 		y = y + itemHeight
 	end
+	dxDrawImage((renderSize.x - arrowSize) / 2, y - itemHeight + 32 + math.sin(getTickCount() / 200) * 5, arrowSize, arrowSize, Assets.textures.arrow, 90, 0, 0)
 	dxSetRenderTarget()
 end
 
 local function menuMove(_, _, step)
+	if navigationDisabled then
+		return
+	end
 	currentItem = currentItem + step
 	if currentItem < 1 then
 		currentItem = #menuItems 
@@ -82,34 +99,45 @@ local function openMenu(name)
 end
 
 local function menuSelect()
-	if currentMenu[currentItem] and currentMenu[currentItem].show then
-		openMenu( currentMenu[currentItem].show)
+	if navigationDisabled then
+		return
 	end
+	if currentMenu[currentItem] then
+		if currentMenu[currentItem].show then
+			openMenu( currentMenu[currentItem].show)
+		end
+		if type(currentMenu[currentItem].action) == "function" then
+			currentMenu[currentItem].action()
+		end
+	end
+end
+
+local function menuBack()
+	openMenu("main")
 end
 
 function MainMenu.start()
 	if not isElement(renderTarget) then 
 		renderTarget = dxCreateRenderTarget(renderSize.x, renderSize.y, true)
 	end
-	logoTexture = exports.dpAssets:createTexture("logo.png")
-	menuFont = exports.dpAssets:createFont("Roboto-Regular.ttf", itemFontSize)
+	navigationDisabled = false
 	camera = getCamera()
 
 	bindKey("arrow_u", "down", menuMove, -1)
 	bindKey("arrow_d", "down", menuMove, 1)
 	bindKey("enter", "down", menuSelect)
+	bindKey("backspace", "down", menuBack)
 	openMenu("main")
 end
 
 function MainMenu.stop()
 	if isElement(renderTarget) then destroyElement(renderTarget) end
 	renderTarget = nil
-	if isElement(logoTexture) then destroyElement(logoTexture) end
-	if isElement(menuFont) then destroyElement(menuFont) end
 
 	unbindKey("arrow_u", "down", menuMove)
 	unbindKey("arrow_d", "down", menuMove)	
 	unbindKey("enter", "down", menuSelect)
+	unbindKey("backspace", "down", menuBack)
 end
 
 function MainMenu.draw()

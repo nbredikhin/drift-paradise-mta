@@ -7,13 +7,10 @@ local currentCameraViewIndex = 1
 local currentCameraView
 
 local function startCameraView(cameraView)
-	if localPlayer.vehicle.controller ~= localPlayer then
-		return false
-	end
 	if currentCameraView then
 		currentCameraView.stop()
 	end
-	if cameraView then
+	if cameraView and localPlayer.vehicle.controller == localPlayer then
 		cameraView.start()
 		currentCameraView = cameraView
 	else

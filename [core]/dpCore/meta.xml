@@ -26,6 +26,7 @@
 	<script type="server" src="server/users/exports.lua"/>
 	<!-- Автомобили -->
 	<script type="server" src="server/vehicles/UserVehicles.lua"/>
+	<script type="server" src="server/vehicles/VehicleTuning.lua"/>
 	<script type="server" src="server/vehicles/VehicleSpawn.lua"/>
 	<script type="server" src="server/vehicles/exports.lua"/>
 	<!-- Gameplay -->
@@ -39,6 +40,7 @@
 	<export type="server" function="saveAccount"/>
 	<!-- Функции для работы с автомобилями -->
 	<export type="server" function="spawnVehicle"/>
+	<export type="server" function="updateVehicle"/>
 	<export type="server" function="isPlayerOwningVehicle"/>
 	<export type="server" function="returnVehicleToGarage"/>
 	<export type="server" function="getPlayerVehicles"/>

@@ -10,11 +10,7 @@ function Users.setup()
 		{ name="money", type="bigint", options="UNSIGNED NOT NULL DEFAULT 0" },
 		{ name="skin", type="smallint", options="UNSIGNED NOT NULL DEFAULT 0" },
 		{ name="lastseen", type="timestamp", options="NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP" }
-	}, function (result)
-		if not result then
-			outputDebugString("Users table already exists")
-		end
-	end)
+	})
 	-- Очистка информации о входе
 	DatabaseTable.update(USERS_TABLE_NAME, {online=0}, {})
 	-- Очистка даты

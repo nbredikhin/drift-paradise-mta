@@ -6,7 +6,14 @@ local EXPLODED_VEHICLE_DESTROY_TIMEOUT = 5000
 local userSpawnedVehicles = {}
 -- data, находящаяся в автомобиле
 local dataFields = {
-	"_id", "spoiler", "bodykit", "wheels", "owner_id", "mileage"
+	"_id", "owner_id", "mileage", "tuning", "stickers"
+}
+local autosaveFields = {
+	"mileage"
+}
+-- Поля, которые можно менять на клиенте
+local allowedFields = {
+	mileage = true
 }
 
 function VehicleSpawn.getPlayerSpawnedVehicles(player)
@@ -45,6 +52,42 @@ function VehicleSpawn.isPlayerOwningVehicle(player, vehicle)
 	return playerId == ownerId
 end
 
+function VehicleSpawn.autosaveVehicle(vehicle, saveTuning, saveStickers)
+	if not isElement(vehicle) then
+		return false
+	end
+	local vehicleId = vehicle:getData("_id")
+	if not vehicleId then
+		return false
+	end
+	local tuningTable
+	if saveTuning then
+		tuningTable = {}
+		for k in pairs(VehicleTuning.defaultTuningTable) do
+			tuningTable[k] = vehicle:getData(k)
+			if not tuningTable[k] then 
+				tuningTable[k] = nil
+			end 
+		end
+	end
+	local stickersTable
+	if saveStickers then
+		stickersTable = vehicle:getData("stickers")
+		if not stickersTable then
+			stickersTable = {}
+		end
+	end
+	VehicleTuning.updateVehicleTuning(vehicleId, tuningTable, stickersTable)
+
+	local fields = {}
+	for i, name in ipairs(autosaveFields) do
+		fields[name] = vehicle:getData(name)
+		outputDebugString(name .. " " .. tostring(vehicle:getData(name)))
+	end
+	UserVehicles.updateVehicle(vehicleId, fields)
+	return true
+end
+
 function VehicleSpawn.returnToGarage(vehicle)
 	if not isElement(vehicle) then
 		return false
@@ -57,6 +100,7 @@ function VehicleSpawn.returnToGarage(vehicle)
 		return false
 	end
 	userSpawnedVehicles[playerId][vehicle] = nil
+	VehicleSpawn.autosaveVehicle(vehicle)
 	destroyElement(vehicle)
 end
 
@@ -99,6 +143,7 @@ function VehicleSpawn.spawn(vehicleId, position, rotation)
 		userSpawnedVehicles[vehicleInfo.owner_id] = {}
 	end
 	userSpawnedVehicles[vehicleInfo.owner_id][vehicle] = true
+	VehicleTuning.applyToVehicle(vehicle, vehicleInfo.tuning, vehicleInfo.stickers)
 	return vehicle
 end
 
@@ -108,11 +153,8 @@ addEventHandler("onElementDataChange", root, function(dataName, oldValue)
 		return
 	end
 	if source.type == "vehicle" then
-		for i, name in ipairs(dataFields) do
-			if dataName == name then
-				source:setData(dataName, oldValue)
-				return 
-			end
+		if not allowedFields[dataName] then
+			source:setData(dataName, oldValue)
 		end
 	end
 end)
@@ -121,7 +163,7 @@ addEventHandler("onVehicleExplode", root, function()
 	local vehicle = source
 	setTimer(function ()
 		if isElement(vehicle) then
-			destroyElement(vehicle)
+			VehicleSpawn.returnToGarage(vehicle)
 		end
 	end, EXPLODED_VEHICLE_DESTROY_TIMEOUT, 1)
 end)

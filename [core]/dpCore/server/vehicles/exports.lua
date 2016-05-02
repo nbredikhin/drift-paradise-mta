@@ -10,6 +10,10 @@ function isPlayerOwningVehicle(...)
 	return VehicleSpawn.isPlayerOwningVehicle(...)
 end
 
+function updateVehicle(...)
+	return UserVehicles.updateVehicle(...)
+end
+
 function getPlayerVehicles(player)
 	if not isElement(player) then
 		return false

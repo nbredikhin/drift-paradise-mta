@@ -5,4 +5,5 @@
 	<script type="client" src="client/damage.lua"/>
 	<script type="client" src="client/upgrades.lua"/>
 	<script type="client" src="client/textures.lua"/>
+	<script type="client" src="client/mileage.lua"/>
 </meta>

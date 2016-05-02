@@ -30,7 +30,7 @@ end
 -- Создание таблицы
 -- string tableName, table columns, [...]
 -- Columns: {name="string", type="varchar", size=255, options="NOT NULL PRIMARY"}
-function DatabaseTable.create(tableName, columns, options, callback, ...)
+function DatabaseTable.create(tableName, columns, options)
 	if type(tableName) ~= "string" or type(columns) ~= "table" then
 		outputDebugString("ERROR: DatabaseTable.create: bad arguments")
 		return false
@@ -63,10 +63,10 @@ function DatabaseTable.create(tableName, columns, options, callback, ...)
 		table.insert(columnsQueries, columnQuery)
 	end
 	local queryString = connection:prepareString(
-		"CREATE TABLE `??` (" .. table.concat(columnsQueries, ", ") .. " " .. options .. ");", 
+		"CREATE TABLE IF NOT EXISTS `??` (" .. table.concat(columnsQueries, ", ") .. " " .. options .. ");", 
 		tableName
 	)
-	return retrieveQueryResults(connection, queryString, callback, ...)
+	return connection:exec(queryString)
 end
 
 -- Вставка в таблицу

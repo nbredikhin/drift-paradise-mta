@@ -37,3 +37,7 @@ end
 function Garage.isActive()
 	return isActive
 end
+
+function Garage.selectCarAndExit()
+	exitGarage(GarageCar.getId())
+end

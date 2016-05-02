@@ -42,6 +42,7 @@
 	<export type="server" function="vehicleToGarage"/>
 	<export type="server" function="getPlayerVehicles"/>
 	<export type="server" function="addPlayerVehicle"/>
+	<export type="server" function="getVehicleById"/>
 
 	<!-- CLIENT -->
 

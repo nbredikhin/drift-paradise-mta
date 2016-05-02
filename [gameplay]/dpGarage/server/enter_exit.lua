@@ -35,7 +35,7 @@ addEventHandler("dpGarage.enter", resourceRoot, function ()
 end)
 
 addEvent("dpGarage.exit", true)
-addEventHandler("dpGarage.exit", resourceRoot, function ()
+addEventHandler("dpGarage.exit", resourceRoot, function (selectedCarId)
 	if client:getData("state") ~= "garage" then
 		triggerClientEvent(client, "dpGarage.exit", resourceRoot, false)
 		return
@@ -54,6 +54,12 @@ addEventHandler("dpGarage.exit", resourceRoot, function ()
 		--outputChatBox(k .. " = " .. tostring(v))
 	end
 	client.frozen = false
+
+	-- Выбранная машина
+	if selectedCarId then
+		local vehicle = exports.dpCore:spawnVehicle(selectedCarId, client.position)
+		warpPedIntoVehicle(client, vehicle)
+	end
 	triggerClientEvent(client, "dpGarage.exit", resourceRoot, true)
 end)
 

@@ -117,18 +117,7 @@ function Users.get(userId, fields, callback)
 		return false
 	end
 	
-	local success = DatabaseTable.select(USERS_TABLE_NAME, fields, { _id = userId }, function(result)
-		if result then
-			executeCallback(callback, result[1])
-		else
-			executeCallback(callback, false)
-		end
-	end)
-	if not success then
-		executeCallback(callback, false)
-		return false
-	end
-	return true
+	return DatabaseTable.select(USERS_TABLE_NAME, fields, { _id = userId }, callback)
 end
 
 function Users.isPlayerLoggedIn(player)

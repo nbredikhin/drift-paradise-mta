@@ -18,7 +18,10 @@ local highlightItem = 0
 
 local menus = {}
 menus.main = {
-	{locale="garage_menu_go_city"},
+	{locale="garage_menu_go_city", action = function ()
+		Garage.selectCarAndExit()
+		navigationDisabled = true
+	end},
 	{locale="garage_menu_customize", show="customize"},
 	{locale="garage_menu_settings", show="settings"},
 	{locale="garage_menu_sell", action=function() 
@@ -103,12 +106,12 @@ local function menuSelect()
 		return
 	end
 	if currentMenu[currentItem] then
-		if currentMenu[currentItem].show then
-			openMenu( currentMenu[currentItem].show)
-		end
 		if type(currentMenu[currentItem].action) == "function" then
 			currentMenu[currentItem].action()
 		end
+		if currentMenu[currentItem].show then
+			openMenu( currentMenu[currentItem].show)
+		end		
 	end
 end
 

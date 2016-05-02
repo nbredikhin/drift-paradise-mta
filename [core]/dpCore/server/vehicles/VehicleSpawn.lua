@@ -4,44 +4,32 @@ local dataFields = {
 	"_id", "spoiler", "bodykit", "wheels", "owner_id", "mileage"
 }
 
-function VehicleSpawn.spawn(vehicleId, position, rotation, callback)
+function VehicleSpawn.spawn(vehicleId, position, rotation)
 	if type(vehicleId) ~= "number" or type(position) ~= "userdata" then
 		executeCallback(callback, false)
 		return false
 	end
 	if not rotation then rotation = Vector3() end
 
-	local success = UserVehicles.getVehicle(vehicleId, function (result)
-		if not result then
-			executeCallback(callback, false)
-			return false
-		end
-		local success = Users.get(result.owner_id, { "username" }, function (user)
-			if user then				
-				local vehicle = Vehicle(result.model, position, rotation)
-				vehicle:setColor(255, 0, 0)
-
-				for i, name in ipairs(dataFields) do
-					vehicle:setData(name, result[name])
-				end
-				vehicle:setData("owner_username", user.username)
-
-				executeCallback(callback, vehicle)		
-				return	
-			else
-				executeCallback(callback, false)
-				return
-			end
-		end)
-		if not success then
-			executeCallback(callback, false)
-		end
-	end)
-	if not success then
-		executeCallback(callback, false)
+	local vehicleInfo = UserVehicles.getVehicle(vehicleId)
+	if type(vehicleInfo) ~= "table" or #vehicleInfo == 0 then
 		return false
 	end
-	return true
+	vehicleInfo = vehicleInfo[1]
+	local user = Users.get(vehicleInfo.owner_id, { "username" })
+	if type(user) ~= "table" or #user == 0 then
+		return false
+	end
+	user = user[1]
+
+	local vehicle = Vehicle(vehicleInfo.model, position, rotation)
+	vehicle:setColor(255, 0, 0)
+
+	for i, name in ipairs(dataFields) do
+		vehicle:setData(name, vehicleInfo[name])
+	end
+	vehicle:setData("owner_username", user.username)
+	return vehicle
 end
 
 -- Защита даты 

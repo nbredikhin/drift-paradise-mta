@@ -26,7 +26,7 @@ addEventHandler("dpGarage.exit", resourceRoot, function (success)
 	fadeCamera(true)
 end)
 
-local function enterExitGarage(enter)
+local function enterExitGarage(enter, selectedCarId)
 	if isEnterExitInProcess then
 		return false
 	end
@@ -36,7 +36,7 @@ local function enterExitGarage(enter)
 		if enter then
 			triggerServerEvent("dpGarage.enter", resourceRoot)
 		else
-			triggerServerEvent("dpGarage.exit", resourceRoot)
+			triggerServerEvent("dpGarage.exit", resourceRoot, selectedCarId)
 		end
 	end, 1000, 1)
 	return true
@@ -47,8 +47,8 @@ function enterGarage()
 	enterExitGarage(true)
 end
 
-function exitGarage()
-	enterExitGarage(false)
+function exitGarage(selectedCarId)
+	enterExitGarage(false, selectedCarId)
 end
 
 if ENABLE_GARAGE_CMD then

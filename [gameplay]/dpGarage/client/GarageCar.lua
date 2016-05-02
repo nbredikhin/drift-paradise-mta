@@ -17,13 +17,17 @@ local function updateVehicle()
 	end
 
 	vehicle.model = vehiclesList[currentVehicle].model
-
+	vehicle:setColor(212, 0, 40, 255, 255, 255)
 	-- Разморозка машины на 1 сек
 	vehicle.frozen = false
 	if isTimer(unfreezeTimer) then killTimer(unfreezeTimer) end
 	unfreezeTimer = setTimer(function ()
 		vehicle.frozen = true
 	end, VEHICLE_UNFREEZE_TIME, 1)
+end
+
+function GarageCar.getId()
+	return vehiclesList[currentVehicle]._id
 end
 
 function GarageCar.start(vehicles)

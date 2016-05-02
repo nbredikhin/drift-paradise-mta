@@ -49,22 +49,7 @@ function UserVehicles.getVehicle(vehicleId, callback)
 		return false
 	end
 
-	local success = DatabaseTable.select(VEHICLES_TABLE_NAME, {}, {_id = vehicleId}, 
-	function (result)
-		if result then
-			if type(result) ~= "table" or #result == 0 then
-				executeCallback(callback, false)
-			else
-				executeCallback(callback, result[1])
-			end		
-		else
-			executeCallback(callback, false)
-		end
-	end)
-	if not success then
-		executeCallback(callback, false)
-	end
-	return success
+	return DatabaseTable.select(VEHICLES_TABLE_NAME, {}, {_id = vehicleId}, callback)
 end
 
 -- Информация об автомобиле

@@ -1,8 +1,64 @@
 VehicleSpawn = {}
+-- Время, через которое удаляется взорвавшийся автомобиль
 local EXPLODED_VEHICLE_DESTROY_TIMEOUT = 5000
+-- Автомобили, заспавненные игроком
+-- ключ - владелец
+local userSpawnedVehicles = {}
+-- data, находящаяся в автомобиле
 local dataFields = {
 	"_id", "spoiler", "bodykit", "wheels", "owner_id", "mileage"
 }
+
+function VehicleSpawn.getPlayerSpawnedVehicles(player)
+	if not isElement(player) then
+		return false
+	end
+	local playerId = player:getData("_id")
+	if not userSpawnedVehicles[playerId] then
+		return false
+	end
+	local spawnedVehicles = {}
+	for vehicle in pairs(userSpawnedVehicles[playerId]) do
+		table.insert(spawnedVehicles, vehicle)
+	end
+	return spawnedVehicles
+end
+
+function VehicleSpawn.getSpawnedVehicle(vehicleId)
+	return getElementByID(tostring(vehicleId))
+end
+
+function VehicleSpawn.getVehicleOwnerPlayer(vehicle)
+	if not isElement(vehicle) then
+		return false
+	end
+	local ownerId = vehicle:getData("owner_id")
+	return Users.getPlayerById(ownerId)
+end
+
+function VehicleSpawn.isPlayerOwningVehicle(player, vehicle)
+	if not isElement(player) or not isElement(vehicle) then
+		return false
+	end
+	local playerId = player:getData("_id")
+	local ownerId = vehicle:getData("owner_id")
+	return playerId == ownerId
+end
+
+function VehicleSpawn.returnToGarage(vehicle)
+	if not isElement(vehicle) then
+		return false
+	end
+	local playerId = vehicle:getData("owner_id")
+	if not playerId then
+		return false
+	end
+	if type(userSpawnedVehicles[playerId]) ~= "table" then
+		return false
+	end
+	userSpawnedVehicles[playerId][vehicle] = nil
+	destroyElement(vehicle)
+end
 
 function VehicleSpawn.spawn(vehicleId, position, rotation)
 	if type(vehicleId) ~= "number" or type(position) ~= "userdata" then
@@ -16,6 +72,14 @@ function VehicleSpawn.spawn(vehicleId, position, rotation)
 		return false
 	end
 	vehicleInfo = vehicleInfo[1]
+	if not vehicleInfo.owner_id then
+		return false
+	end	
+	local previouslySpawendVehicle = VehicleSpawn.getSpawnedVehicle(vehicleInfo._id)
+	if isElement(previouslySpawendVehicle) then
+		VehicleSpawn.returnToGarage(previouslySpawendVehicle)
+	end
+
 	local user = Users.get(vehicleInfo.owner_id, { "username" })
 	if type(user) ~= "table" or #user == 0 then
 		return false
@@ -29,6 +93,12 @@ function VehicleSpawn.spawn(vehicleId, position, rotation)
 		vehicle:setData(name, vehicleInfo[name])
 	end
 	vehicle:setData("owner_username", user.username)
+	vehicle.id = tostring(vehicleInfo._id)
+
+	if not userSpawnedVehicles[vehicleInfo.owner_id] then
+		userSpawnedVehicles[vehicleInfo.owner_id] = {}
+	end
+	userSpawnedVehicles[vehicleInfo.owner_id][vehicle] = true
 	return vehicle
 end
 

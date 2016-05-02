@@ -2,6 +2,14 @@ function spawnVehicle(...)
 	return VehicleSpawn.spawn(...)
 end
 
+function returnVehicleToGarage(vehicle)
+	return VehicleSpawn.returnToGarage(vehicle)
+end
+
+function isPlayerOwningVehicle(...)
+	return VehicleSpawn.isPlayerOwningVehicle(...)
+end
+
 function getPlayerVehicles(player)
 	if not isElement(player) then
 		return false

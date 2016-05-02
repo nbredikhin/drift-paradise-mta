@@ -22,9 +22,8 @@ addEventHandler("dpGarage.enter", resourceRoot, function ()
 	-- Выкинуть игрока из машины
 	if client.vehicle then
 		-- Отправить машину игрока в гараж, если игрок является водителем и владельцем
-		if client.vehicle.controller == client and client.vehicle:getData("owner_id") == client:getData("_id") then
-			-- TODO: Отправить машину в гараж
-			-- exports.dpCore:vehicleToGarage(client.vehicle)
+		if client.vehicle.controller == client and exports.dpCore:isPlayerOwningVehicle(client, client.vehicle) then
+			exports.dpCore:returnVehicleToGarage(client.vehicle)
 		end
 		client:removeFromVehicle()
 	end

@@ -156,6 +156,19 @@ function Users.saveAccount(player)
 	return true
 end
 
+function Users.getPlayerById(id)
+	if not id then
+		return false
+	end
+	for i, player in ipairs(getElementsByType("player")) do
+		local playerId = player:getData("_id") 
+		if playerId and playerId == id then
+			return player
+		end
+	end
+	return false
+end
+
 addEvent("dpCore.registerRequest", true)
 addEventHandler("dpCore.registerRequest", resourceRoot, function(username, password)
 	local player = client

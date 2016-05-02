@@ -35,6 +35,6 @@ function VehicleArrows.draw()
 
 	local size = screenSize.y * arrowSize
 	local animationOffset = size * 0.05 * math.sin(getTickCount() / 200)
-	dxDrawImage(x1 - size / 2 + animationOffset, y - size / 2, size, size, Assets.textures.arrow, 180, 0, 0, arrowColor)
-	dxDrawImage(x2 - size / 2 - animationOffset, y - size / 2, size, size, Assets.textures.arrow, 0, 0, 0, arrowColor)
+	dxDrawImage(x1 - size / 2 - animationOffset, y - size / 2, size, size, Assets.textures.arrow, 180, 0, 0, arrowColor)
+	dxDrawImage(x2 - size / 2 + animationOffset, y - size / 2, size, size, Assets.textures.arrow, 0, 0, 0, arrowColor)
 end

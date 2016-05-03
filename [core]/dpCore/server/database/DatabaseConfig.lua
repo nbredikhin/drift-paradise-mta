@@ -2,13 +2,13 @@ DatabaseConfig = {
 	dbType = "mysql",
 
 	-- Connection
-	host = "37.139.15.11",
+	host = "127.0.0.1",
 	port = 3306,
 	dbName = "mta_server_dev",
 
 	-- Auth
 	username = "root",
-	password = "mtadev",
+	password = "",
 
 	options = {
 		autoreconnect = 1		

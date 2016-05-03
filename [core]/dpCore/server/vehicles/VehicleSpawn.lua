@@ -60,6 +60,8 @@ function VehicleSpawn.autosaveVehicle(vehicle, saveTuning, saveStickers)
 	if not vehicleId then
 		return false
 	end
+
+	-- Сохранение тюнинга и наклеек
 	local tuningTable
 	if saveTuning then
 		tuningTable = {}
@@ -77,8 +79,11 @@ function VehicleSpawn.autosaveVehicle(vehicle, saveTuning, saveStickers)
 			stickersTable = {}
 		end
 	end
-	VehicleTuning.updateVehicleTuning(vehicleId, tuningTable, stickersTable)
+	if saveTuning or saveStickers then
+		VehicleTuning.updateVehicleTuning(vehicleId, tuningTable, stickersTable)
+	end
 
+	-- Сохранение даты
 	local fields = {}
 	for i, name in ipairs(autosaveFields) do
 		fields[name] = vehicle:getData(name)

@@ -14,6 +14,9 @@ setTimer(function ()
 	previousPosition = localPlayer.position
 	if distanceCounter >= 1000 then
 		local currentMileage = localPlayer.vehicle:getData("mileage")
+		if not currentMileage then
+			return
+		end
 		localPlayer.vehicle:setData("mileage", currentMileage + 1)
 		distanceCounter = 0
 	end

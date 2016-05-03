@@ -50,6 +50,7 @@
 	<!-- CLIENT -->
 
 	<script type="client" src="client/users.lua"/>
+	<script type="client" src="client/join.lua"/>
 	<!-- Функции для авторизации -->
 	<export type="client" function="register"/>
 	<export type="client" function="login"/>

@@ -130,6 +130,12 @@ function VehicleSelect.exit()
 		destroyElement(v)
 	end
 	textures = {}
+
+	-- Удаление автомобилей
+	for i, vehicle in ipairs(vehicles) do
+		destroyElement(vehicle)
+	end
+	vehicles = {}	
 	showChat(true)
 end
 

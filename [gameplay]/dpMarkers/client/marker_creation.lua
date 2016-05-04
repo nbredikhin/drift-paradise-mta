@@ -1,4 +1,4 @@
-local MARKER_COLLISION_RADIUS = 6
+local MARKER_COLLISION_RADIUS = 5
 
 function createMarker(markerType, position, direction)
 	if type(markerType) ~= "string" or not position then

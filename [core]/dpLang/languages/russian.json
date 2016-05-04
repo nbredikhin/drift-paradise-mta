@@ -44,7 +44,7 @@
 	"garage_enter_failed": "Не удалось войти в гараж",
 
 	// Интерфейс гаража
-	"garage_menu_go_city": "Выбрать машину",
+	"garage_menu_go_city": "Спавн автомобиля",
 	"garage_menu_customize": "Кастомизация",
 	"garage_menu_settings": "Настройки",
 	"garage_menu_sell": "Продать машину",

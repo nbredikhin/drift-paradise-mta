@@ -44,7 +44,7 @@
 	"garage_enter_failed": "Failed to enter garage",
 
 	// Garage UI
-	"garage_menu_go_city": "Select car",
+	"garage_menu_go_city": "Spawn car",
 	"garage_menu_customize": "Customize",
 	"garage_menu_settings": "Settings",
 	"garage_menu_sell": "Sell car",

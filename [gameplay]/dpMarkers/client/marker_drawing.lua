@@ -160,5 +160,5 @@ bindKey(markerKey, "down", function ()
 		(localPlayer.vehicle and localPlayer.vehicle:isWithinMarker(currentMarker))
 	then
 		triggerEvent("dpMarkers.enter", currentMarker)
-	end	
+	end
 end)

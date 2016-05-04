@@ -17,7 +17,7 @@ function Garage.start(vehicles)
 
 	setTimer(function () 
 		triggerEvent("dpGarage.loaded", resourceRoot)
-	end, 500, 1)
+	end, 1000, 1)
 end
 
 function Garage.stop()

@@ -69,5 +69,8 @@
 	"main_panel_account_money": "Money",	
 	"main_panel_account_admin": "Admin",	
 	"main_panel_account_player": "Player",	
-	"main_panel_account_level": "Level progress",	
+	"main_panel_account_level": "Level progress",
+
+	// Markers
+	"markers_garage_text": "Press %q to enter garage"
 }

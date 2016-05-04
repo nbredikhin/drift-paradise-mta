@@ -85,7 +85,7 @@ function Panel.setVisible(visible)
 		return false
 	end
 	if not not visible then
-		if not localPlayer:getData("username") or localPlayer:getData("state") then
+		if not localPlayer:getData("username") or localPlayer:getData("dpCore.state") then
 			return false
 		end
 	end

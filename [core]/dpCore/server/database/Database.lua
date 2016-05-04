@@ -23,8 +23,10 @@ function Database.connect()
 	)
 	if not dbConnection then
 		outputDebugString("ERROR: Database.connect: failed to connect")
+		root:setData("dbConnected", false)
 		return false
 	end
+	root:setData("dbConnected", true)
 	return true
 end
 

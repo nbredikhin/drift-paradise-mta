@@ -70,4 +70,7 @@
 	"main_panel_account_admin": "Администратор",	
 	"main_panel_account_player": "Игрок",		
 	"main_panel_account_level": "Прогресс уровня",		
+
+	// Markers
+	"markers_garage_text": "Нажмите %q чтобы войти в гараж"
 }

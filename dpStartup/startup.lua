@@ -2,6 +2,9 @@ local SHOW_MESSAGE = true
 local KICK_PLAYERS = false
 
 local startupResources = {
+	-- Assets
+	"dpAssets",
+	
 	-- Core
 	"dpUtils",
 	"dpLang",
@@ -16,6 +19,8 @@ local startupResources = {
 
 	-- Gameplay
 	"dpVehicles",
+	"dpMarkers",
+	"dpHouses",
 	"dpGarage",
 	"dpCarShop",
 	"dpSkinSelect",

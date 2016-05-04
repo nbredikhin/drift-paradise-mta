@@ -2,7 +2,7 @@ addEvent("dpCore.playerVehiclesList", true)
 
 addEvent("dpGarage.enter", true)
 addEventHandler("dpGarage.enter", resourceRoot, function ()
-	if client:getData("state") then
+	if client:getData("dpCore.state") then
 		triggerClientEvent(client, "dpGarage.enter", resourceRoot, false, "garage_enter_failed")
 		return
 	end
@@ -11,14 +11,8 @@ addEventHandler("dpGarage.enter", resourceRoot, function ()
 		triggerClientEvent(client, "dpGarage.enter", resourceRoot, false, "garage_enter_failed")
 		return
 	end
-	client:setData("state", "garage")
-	-- Сохранение состояния игрка на момент входа в гараж
-	local playerState = {}
-	playerState.position = client.position
-	playerState.rotation = client.rotation
-	playerState.interior = client.interior
-	playerState.dimension = client.dimension
-	client:setData("dpGarage.enterState", playerState)
+	client:setData("dpCore.state", "garage")
+
 	-- Выкинуть игрока из машины
 	if client.vehicle then
 		-- Отправить машину игрока в гараж, если игрок является водителем и владельцем
@@ -27,7 +21,9 @@ addEventHandler("dpGarage.enter", resourceRoot, function ()
 		end
 		client:removeFromVehicle()
 	end
+
 	-- Перенос игрока в уникальный dimension
+	client.position = Vector3(0, 0, 0)
 	client.dimension = tonumber(client:getData("_id")) or (math.random(1000, 9999) + 5000) + 4000
 	client.frozen = true
 	triggerClientEvent(client, "dpGarage.enter", resourceRoot, playerVehicles)
@@ -35,28 +31,28 @@ end)
 
 addEvent("dpGarage.exit", true)
 addEventHandler("dpGarage.exit", resourceRoot, function (selectedCarId)
-	if client:getData("state") ~= "garage" then
+	if client:getData("dpCore.state") ~= "garage" then
 		triggerClientEvent(client, "dpGarage.exit", resourceRoot, false)
 		return
 	end
-	client:setData("state", false)
-	-- Восстановление состояния игркоа
-	local playerState = client:getData("dpGarage.enterState")
-	if type(playerState) ~= "table" then
-		playerState = {
-			dimension = 0,
-			interior = 0
-		}
+	client:setData("dpCore.state", false)
+
+	-- Координаты дома
+	local houseId = exports.dpHouses:getPlayerHouseId(client)
+	if type(houseId) ~= "number" then
+		houseId = 0
 	end
-	for k, v in pairs(playerState) do
-		client[k] = v
-		--outputChatBox(k .. " = " .. tostring(v))
+	local houseLocation = exports.dpHouses:getHouseLocation(houseId)
+	if type(houseLocation) ~= "table" or type(houseLocation.garage) ~= "table" then
+		client.position = Vector3(0, 0, 10)
+	else
+		client.position = houseLocation.garage.position
+		client.rotation = houseLocation.garage.rotation + Vector3(0, 0, 180)
 	end
 	client.frozen = false
-
-	-- Выбранная машина
+	-- Если игрок выбрал машину в гараже
 	if selectedCarId then
-		local vehicle = exports.dpCore:spawnVehicle(selectedCarId, client.position)
+		local vehicle = exports.dpCore:spawnVehicle(selectedCarId, client.position, client.rotation)
 		warpPedIntoVehicle(client, vehicle)
 	end
 	triggerClientEvent(client, "dpGarage.exit", resourceRoot, true)
@@ -65,8 +61,8 @@ end)
 addEventHandler("onResourceStart", resourceRoot, function ()
 	for i, player in ipairs(getElementsByType("player")) do
 		-- Сбросить state всех игроков при перезапуске ресурса
-		if player:getData("state") == "garage" then
-			player:setData("state", false)
+		if player:getData("dpCore.state") == "garage" then
+			player:setData("dpCore.state", false)
 			player.dimension = 0
 		end
 	end

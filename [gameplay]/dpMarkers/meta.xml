@@ -1,0 +1,12 @@
+<meta>
+	<oop>true</oop>
+	<download_priority_group>1</download_priority_group>
+
+	<script type="client" src="client/marker_drawing.lua"/>
+	<script type="client" src="client/marker_creation.lua"/>
+
+	<export type="client" function="createMarker"/>
+
+	<file src="assets/garage_icon.png"/>
+	<file src="assets/garage_text.png"/>
+</meta>

@@ -11,7 +11,7 @@ addEventHandler("dpCore.login", root, function (success)
 	-- Если не выбран персонаж - перекинуть на экран выбора персонажа
 	if source:getData("skin") == 0 then
 		triggerClientEvent(source, "dpSkinSelect.start", resourceRoot, START_SKINS)
-		source:setData("state", "skinSelect")
+		source:setData("dpCore.state", "skinSelect")
 	else
 		PlayerSpawn.spawn(source)
 	end
@@ -19,10 +19,10 @@ end)
 
 addEvent("dpSkinSelect.selected", true)
 addEventHandler("dpSkinSelect.selected", root, function (skin)
-	if not client or client:getData("state") ~= "skinSelect" then
+	if not client or client:getData("dpCore.state") ~= "skinSelect" then
 		return false
 	end	
-	client:setData("state", false)
+	client:setData("dpCore.state", false)
 	if not skin then
 		skin = 1
 	end
@@ -36,17 +36,17 @@ addEventHandler("dpSkinSelect.selected", root, function (skin)
 			PlayerSpawn.spawn(player)
 		else
 			triggerClientEvent(player, "dpVehicleSelect.start", resourceRoot, START_VEHICLES)
-			player:setData("state", "vehicleSelect")
+			player:setData("dpCore.state", "vehicleSelect")
 		end
 	end)
 end)
 
 addEvent("dpVehicleSelect.selected", true)
 addEventHandler("dpVehicleSelect.selected", root, function (selectedVehicle)
-	if not client or client:getData("state") ~= "vehicleSelect" then
+	if not client or client:getData("dpCore.state") ~= "vehicleSelect" then
 		return false
 	end
-	client:setData("state", false)
+	client:setData("dpCore.state", false)
 	if type(selectedVehicle) ~= "number" then
 		selectedVehicle = 1
 	end
@@ -54,4 +54,11 @@ addEventHandler("dpVehicleSelect.selected", root, function (selectedVehicle)
 	UserVehicles.addVehicle(client:getData("_id"), START_VEHICLES[selectedVehicle], function(success)
 		PlayerSpawn.spawn(player)
 	end)
+end)
+
+addEvent("dpCore.selfKick", true)
+addEventHandler("dpCore.selfKick", root, function ()
+	if client.type == "player" then
+		client:kick("You have been disconnected")
+	end
 end)

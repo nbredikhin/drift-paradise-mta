@@ -1,0 +1,11 @@
+<meta>
+	<oop>true</oop>
+
+	<script type="shared" src="shared/houses_table.lua"/>
+	<script type="shared" src="shared/houses.lua"/>
+
+	<script type="client" src="client/garage_markers.lua"/>
+	
+	<export type="shared" function="getPlayerHouseId"/>
+	<export type="shared" function="getHouseLocation"/>
+</meta>

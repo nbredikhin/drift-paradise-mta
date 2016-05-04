@@ -16,6 +16,10 @@
 	<script type="client" src="client/GarageCar.lua"/>
 	<script type="client" src="client/GarageUI.lua"/>
 	<script type="client" src="client/CameraManager.lua"/>
+	<script type="client" src="client/garage_entering.lua"/>
+
+	<export type="client" function="enterGarage"/>
+	<export type="client" function="enterGarageAnimated"/>
 
 	<file src="assets/images/circle_button.png"/>
 </meta>

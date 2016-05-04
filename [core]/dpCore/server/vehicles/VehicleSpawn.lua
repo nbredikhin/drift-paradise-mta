@@ -87,7 +87,6 @@ function VehicleSpawn.autosaveVehicle(vehicle, saveTuning, saveStickers)
 	local fields = {}
 	for i, name in ipairs(autosaveFields) do
 		fields[name] = vehicle:getData(name)
-		outputDebugString(name .. " " .. tostring(vehicle:getData(name)))
 	end
 	UserVehicles.updateVehicle(vehicleId, fields)
 	return true

@@ -16,6 +16,34 @@ local function draw()
 	animationProgress = math.min(1, animationProgress + ANIMATION_SPEED)
 	dxDrawImage(0, 0, backgroundWidth, backgroundHeight, "assets/background.jpg", 0, 0, 0, tocolor(255, 255, 255, 255 * animationProgress))
 	dxDrawText("Drift Paradise 2.0 Development Version", 3, screenHeight - 14, 3, screenHeight - 14, tocolor(255, 255, 255, 100 * animationProgress))
+	if not root:getData("dbConnected") then
+		dxDrawText("The server is currently not available.\nСервер на данный момент недоступен.", 
+			0, 
+			0, 
+			screenWidth, 
+			screenHeight * 0.5, tocolor(212, 0, 40, 220 * animationProgress), 2, "default", "center", "center")
+
+		local buttonSize = Vector2(200, 40)
+		local buttonPos = Vector2(screenWidth - buttonSize.x, screenHeight - buttonSize.y) / 2
+		local buttonAlpha = 200
+		local buttonColor = tocolor(212, 0, 40, buttonAlpha)
+		local mousePos = Vector2(getCursorPosition())
+		mousePos.x = mousePos.x * screenWidth
+		mousePos.y = mousePos.y * screenHeight
+		if 	mousePos.x >= buttonPos.x and mousePos.x <= buttonPos.x + buttonSize.x and
+			mousePos.y >= buttonPos.y and mousePos.y <= buttonPos.y + buttonSize.y
+		then
+			buttonAlpha = 255
+			buttonColor = tocolor(222, 10, 50, buttonAlpha)
+
+			if getKeyState("mouse1") then
+				triggerServerEvent("dpCore.selfKick", root)
+				setVisible(false)
+			end
+		end
+		dxDrawRectangle(buttonPos, buttonSize, buttonColor)
+		dxDrawText("Disconnect", buttonPos, buttonPos + buttonSize, tocolor(255, 255, 255, buttonAlpha), 1.7, "default", "center", "center")
+	end
 end
 
 function gotoLoginPanel(username, password)
@@ -38,6 +66,13 @@ function setVisible(visible)
 	UI:setVisible(registerPanel.panel, false)
 
 	if visible then
+		if not root:getData("dbConnected") then
+			UI:setVisible(loginPanel.panel, false)
+			exports.dpUI:showMessageBox(
+				exports.dpLang:getString("login_panel_server_error"), 
+				exports.dpLang:getString("login_panel_server_not_available")
+			)
+		end
 		addEventHandler("onClientRender", root, draw)
 		animationProgress = 0
 		local fields = Autologin.load()

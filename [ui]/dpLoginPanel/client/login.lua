@@ -110,6 +110,7 @@ addEventHandler("dpUI.login.languageClick", root, function(language)
 		language = "english"
 	end
 	exports.dpLang:setLanguage(language)
+	localPlayer:setData("language", language)
 	setVisible(false)
 	setVisible(true)
 end)

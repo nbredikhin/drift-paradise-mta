@@ -53,3 +53,9 @@ addEvent("dpLang.chatMessageServer", true)
 addEventHandler("dpLang.chatMessageServer", resourceRoot, function (name, ...)
 	Language.chatMessage(name, ...)
 end)
+
+addEventHandler("onClientResourceStart", resourceRoot, function ()
+	if localPlayer:getData("language") then
+		Language.setLanguage(localPlayer:getData("language"))
+	end
+end)

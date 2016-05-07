@@ -6,7 +6,6 @@ local isEnterExitInProcess = false 	-- Входит (выходит) ли в д�
 addEvent("dpGarage.enter", true)
 addEventHandler("dpGarage.enter", resourceRoot, function (vehicles, errorType)
 	isEnterExitInProcess = false
-	fadeCamera(true)
 	
 	if vehicles then
 		Garage.start(vehicles)

@@ -171,3 +171,10 @@ addEventHandler("onVehicleExplode", root, function()
 		end
 	end, EXPLODED_VEHICLE_DESTROY_TIMEOUT, 1)
 end)
+
+addEventHandler("onPlayerQuit", root, function ()
+	local vehicles = VehicleSpawn.getPlayerSpawnedVehicles(source)
+	for i, vehicle in ipairs(vehicles) do
+		VehicleSpawn.returnToGarage(vehicle)
+	end
+end)

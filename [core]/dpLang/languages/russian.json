@@ -69,7 +69,9 @@
 	"main_panel_account_money": "Деньги",	
 	"main_panel_account_admin": "Администратор",	
 	"main_panel_account_player": "Игрок",		
-	"main_panel_account_level": "Прогресс уровня",		
+	"main_panel_account_level": "Прогресс уровня",
+	"main_panel_account_regtime": "Дата регистрации",
+	"main_panel_account_playtime": "Часов в игре",
 
 	// Markers
 	"markers_garage_text": "Нажмите %q чтобы войти в гараж"

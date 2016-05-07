@@ -8,6 +8,7 @@ local TABS_HEIGHT = 50
 local tabsNames = {"account", "teleport", "settings", "garage", "map"}
 local tabsButtons = {}
 local tabs = {}
+local tabsHandlers = {}
 local currentTab
 
 function Panel.create()
@@ -69,6 +70,9 @@ end
 
 function Panel.showTab(name)
 	if not tabs[name] then
+		if tabsHandlers[name] then
+			tabsHandlers[name]()
+		end
 		return
 	end
 	if currentTab then
@@ -108,3 +112,9 @@ addEventHandler("dpUI.click", resourceRoot, function (widget)
 		end
 	end 
 end)
+
+tabsHandlers.garage = function ()
+	exports.dpGarage:enterGarage()
+	localPlayer:setData("dpCore.state", "some_shiet", false)
+	Panel.setVisible(false)
+end

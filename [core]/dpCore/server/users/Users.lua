@@ -1,4 +1,6 @@
 Users = {}
+-- Время автосохранения в минутах
+local AUTOSAVE_INTERVAL = 3 
 local USERS_TABLE_NAME = "users"
 local PASSWORD_SECRET = "s9abBUIg090j21aASGzc90avj1l"
 
@@ -6,9 +8,17 @@ function Users.setup()
 	DatabaseTable.create(USERS_TABLE_NAME, {
 		{ name="username", type="varchar", size=25, options="UNIQUE NOT NULL" },
 		{ name="password", type="varchar", size=255, options="NOT NULL" },
+		-- Онлайн ли игрок
 		{ name="online", type="bool", options="DEFAULT 0" },
+		-- Деньги
 		{ name="money", type="bigint", options="UNSIGNED NOT NULL DEFAULT 0" },
+		-- Количество минут, проведённых в игре
+		{ name="playtime", type="int", options="UNSIGNED NOT NULL DEFAULT 0" },
+		-- Скин
 		{ name="skin", type="smallint", options="UNSIGNED NOT NULL DEFAULT 0" },
+		-- Дата регистрации
+		{ name="register_time", type="timestamp", options="DEFAULT CURRENT_TIMESTAMP" },
+		-- Дата последней активности
 		{ name="lastseen", type="timestamp", options="NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP" }
 	})
 	-- Очистка информации о входе
@@ -147,9 +157,7 @@ function Users.saveAccount(player)
 	end
 	local username = player:getData("username")
 	local fields = PlayerData.get(player)
-	outputDebugString(tostring(fields))
-	DatabaseTable.update(USERS_TABLE_NAME, fields, {username = username})
-	return true
+	return DatabaseTable.update(USERS_TABLE_NAME, fields, {username = username})
 end
 
 function Users.getPlayerById(id)
@@ -218,3 +226,10 @@ addEventHandler("onResourceStop", resourceRoot, function ()
 		Users.logoutPlayer(player)
 	end
 end)
+
+setTimer(function ()
+	for i, player in ipairs(getElementsByType("player")) do
+		Users.saveAccount(player)
+	end
+	outputDebugString("dbCore.Autosave")
+end, AUTOSAVE_INTERVAL * 60 * 1000, 0)

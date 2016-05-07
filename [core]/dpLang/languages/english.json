@@ -70,6 +70,8 @@
 	"main_panel_account_admin": "Admin",	
 	"main_panel_account_player": "Player",	
 	"main_panel_account_level": "Level progress",
+	"main_panel_account_regtime": "Registration date",
+	"main_panel_account_playtime": "Hours in-game",	
 
 	// Markers
 	"markers_garage_text": "Press %q to enter garage"

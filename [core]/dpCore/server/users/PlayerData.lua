@@ -1,9 +1,9 @@
 PlayerData = {}
 local loadFields = {
-	"_id", "username", "skin", "money", "lastseen"
+	"_id", "username", "skin", "money", "lastseen", "playtime", "register_time"
 }
 local saveFields = {
-	"skin", "money"
+	"skin", "money", "playtime"
 }
 
 local function filterData(dataName, value)
@@ -47,3 +47,10 @@ addEventHandler("onElementDataChange", root, function(dataName, oldValue)
 		end
 	end
 end)
+
+setTimer(function()
+	for i, player in ipairs(getElementsByType("player")) do
+		local currentPlaytime = tonumber(player:getData("playtime"))
+		player:setData("playtime", currentPlaytime + 1)
+	end
+end, 60000, 0)

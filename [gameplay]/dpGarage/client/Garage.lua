@@ -8,16 +8,20 @@ function Garage.start(vehicles)
 	isActive = true
 	localPlayer.dimension = 0
 	Assets.start()
-	GarageCar.start(vehicles)
-	CameraManager.start()
-	GarageUI.start()
+
 	showCursor(true)
 	showChat(false)
 	exports.dpHUD:setVisible(false)
 
 	setTimer(function () 
-		triggerEvent("dpGarage.loaded", resourceRoot)
-	end, 1000, 1)
+		GarageCar.start(vehicles)
+		CameraManager.start()
+		GarageUI.start()		
+		setTimer(function () 
+			triggerEvent("dpGarage.loaded", resourceRoot)
+			fadeCamera(true)
+		end, 500, 1)
+	end, 500, 1)
 end
 
 function Garage.stop()

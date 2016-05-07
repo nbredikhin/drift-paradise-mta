@@ -50,6 +50,7 @@ addEventHandler("dpGarage.exit", resourceRoot, function (selectedCarId)
 		client.rotation = houseLocation.garage.rotation + Vector3(0, 0, 180)
 	end
 	client.frozen = false
+	client.dimension = 0
 	-- Если игрок выбрал машину в гараже
 	if selectedCarId then
 		local vehicle = exports.dpCore:spawnVehicle(selectedCarId, client.position, client.rotation)

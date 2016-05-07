@@ -1,6 +1,8 @@
 -- Выбор автомобиля
-
 GarageCar = {}
+
+addEvent("dpGarage.loaded", false)
+
 local CAR_POSITION = Vector3 { x = 2915.438, y = -3186.282, z = 2535.244 }
 local vehicle
 local vehiclesList = {}
@@ -17,7 +19,7 @@ local function updateVehicle()
 	end
 
 	vehicle.model = vehiclesList[currentVehicle].model
-	vehicle:setColor(212, 0, 40, 255, 255, 255)
+	vehicle:setColor(255, 0, 0, 255, 255, 255)
 	-- Разморозка машины на 1 сек
 	vehicle.frozen = false
 	if isTimer(unfreezeTimer) then killTimer(unfreezeTimer) end
@@ -39,13 +41,14 @@ function GarageCar.start(vehicles)
 	end, VEHICLE_UNFREEZE_TIME, 1)
 	vehicle.rotation = Vector3(0, 0, -90)
 
-	updateVehicle()
+	addEventHandler("dpGarage.loaded", resourceRoot, updateVehicle)
 end
 
 function GarageCar.stop()
 	if isElement(vehicle) then
 		destroyElement(vehicle)
 	end
+	removeEventHandler("dpGarage.loaded", resourceRoot, updateVehicle)
 end
 
 function GarageCar.getVehicle()

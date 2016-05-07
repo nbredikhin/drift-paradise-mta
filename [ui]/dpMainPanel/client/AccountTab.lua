@@ -108,7 +108,7 @@ function AccountTab.create()
 		fontType = "defaultSmall",
 		type = "dark",
 	}
-	UI:addChild(panel, carsCountLabel)	
+	UI:addChild(panel, carsCountLabel)
 	local hasHouseLabel = UI:createDpLabel {
 		x = 20, y = 210,
 		width = width / 3, height = 50,
@@ -125,15 +125,28 @@ function AccountTab.create()
 		type = "dark",
 	}
 	UI:addChild(panel, registerDateLabel)	
-	local hasHouseLabel = UI:createDpLabel {
+	UIDataBinder.bind(registerDateLabel, "register_time", function (value)
+		if type(value) ~= "string" then
+			return ""
+		end
+		local timeString = tostring(value:sub(1, string.find(value, " ")))
+		return exports.dpLang:getString("main_panel_account_regtime") .. ": " .. timeString
+	end)	
+	local playtimeLabel = UI:createDpLabel {
 		x = width / 2, y = 210,
 		width = width / 3, height = 50,
-		text = "Часов в игре: 2000",
 		fontType = "defaultSmall",
 		type = "dark",
 	}
-	UI:addChild(panel, hasHouseLabel)		
-
+	UI:addChild(panel, playtimeLabel)		
+	UIDataBinder.bind(playtimeLabel, "playtime", function (value)
+		value = tonumber(value)
+		if not value then
+			value = 0
+		end
+		value = math.floor(value / 60)
+		return exports.dpLang:getString("main_panel_account_playtime") .. ": " .. tostring(value)
+	end)
 
 	-- Нижние кнопки
 	local bottomButtonsHeight = 70

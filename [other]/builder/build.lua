@@ -100,8 +100,8 @@ local function buildResource(resource)
 			newChild.value = child.value
 		end
 	end
+	copyFile("README.txt", buildPath .. "/README.txt")
 	if createReadme then
-		copyFile("README.txt", buildPath .. "/README.txt")
 		local readmeChild = newMeta:createChild("file")
 		readmeChild:setAttribute("src", "README.txt")
 	end

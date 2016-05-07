@@ -144,5 +144,7 @@ function CockpitView.stop()
 	localPlayer.alpha = 255
 	Camera.setTarget(localPlayer)
 	removeEventHandler("onClientPreRender", root, update)
-	removeEventHandler("onClientVehicleCollision", localPlayer.vehicle, updateShake)
+	if isElement(localPlayer.vehicle) then
+		removeEventHandler("onClientVehicleCollision", localPlayer.vehicle, updateShake)
+	end
 end

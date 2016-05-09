@@ -120,6 +120,9 @@ function addMarkerToDraw(marker)
 end
 
 addEventHandler("onClientRender", root, function ()
+	if localPlayer:getData("dpCore.state") then
+		return
+	end
 	for marker in pairs(markersToDraw) do
 		drawMarker(marker)
 	end
@@ -156,6 +159,9 @@ bindKey(markerKey, "down", function ()
 	if not currentMarker then
 		return
 	end
+	if localPlayer:getData("dpCore.state") then
+		return
+	end	
 	if localPlayer:isWithinMarker(currentMarker) or 
 		(localPlayer.vehicle and localPlayer.vehicle:isWithinMarker(currentMarker))
 	then

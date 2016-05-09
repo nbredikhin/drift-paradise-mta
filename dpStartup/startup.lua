@@ -13,6 +13,7 @@ local startupResources = {
 	-- UI
 	"dpUI",
 	"dpHUD",
+	"dpWorldMap",
 
 	"dpLoginPanel",
 	"dpMainPanel",

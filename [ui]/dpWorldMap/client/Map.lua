@@ -8,11 +8,12 @@ function Map.start()
 end
 
 function Map.draw()
-	MapWorld.draw()
+
 end
 
 function Map.update(dt)
 	dt = dt / 1000
+	MapWorld.update(dt)
 	MapCamera.update(dt)
 	MapControls.update(dt)
 end

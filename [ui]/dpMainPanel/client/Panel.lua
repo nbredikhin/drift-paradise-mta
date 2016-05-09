@@ -118,3 +118,8 @@ tabsHandlers.garage = function ()
 	localPlayer:setData("dpCore.state", "some_shiet", false)
 	Panel.setVisible(false)
 end
+
+tabsHandlers.map = function ()
+	exports.dpWorldMap:setVisible(true)
+	Panel.setVisible(false)
+end

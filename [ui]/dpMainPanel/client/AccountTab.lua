@@ -5,7 +5,7 @@ function AccountTab.create()
 	panel = Panel.addTab("account")
 	local width = UI:getWidth(panel)
 	local height = UI:getHeight(panel)
-
+	
 	local usernameLabel = UI:createDpLabel {
 		x = 20, y = 15,
 		width = width / 3, height = 50,

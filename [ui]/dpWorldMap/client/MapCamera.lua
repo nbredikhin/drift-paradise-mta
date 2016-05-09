@@ -12,7 +12,7 @@ local targetCameraHeight
 local targetCameraPosition
 
 function MapCamera.start()
-	cameraPosition = Vector2()
+	cameraPosition = Vector2(MapWorld.getMapFromWorldPosition(localPlayer.position))
 	cameraHeight = CAMERA_MIN_HEIGHT
 
 	targetCameraHeight = cameraHeight

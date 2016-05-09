@@ -14,6 +14,10 @@ function MapWorld.stop()
 
 end
 
+function MapWorld.getMapFromWorldPosition(position)
+	return position / 6000 * MAP_SIZE
+end
+
 local _dxDrawMaterialLine3D = dxDrawMaterialLine3D
 local function dxDrawMaterialLine3D(x1, y1, z1, x2, y2, z2, material, width, color, lx, ly, lz)	
 	_dxDrawMaterialLine3D(

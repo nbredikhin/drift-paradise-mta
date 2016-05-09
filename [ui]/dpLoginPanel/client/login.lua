@@ -28,6 +28,7 @@ end
 
 addEvent("dpCore.loginResponse", true)
 addEventHandler("dpCore.loginResponse", root, function (success, err)
+	isAuthInProgress = false
 	if not success then
 		outputDebugString("Error: " .. tostring(err))
 		local errorText = exports.dpLang:getString("login_panel_err_login_unknown")
@@ -88,6 +89,7 @@ end
 
 addEvent("dpCore.registerResponse", true)
 addEventHandler("dpCore.registerResponse", root, function (success, err)
+	isAuthInProgress = false
 	if not success then
 		outputDebugString("Error: " .. tostring(err))
 		local errorText = exports.dpLang:getString("login_panel_err_register_unknown")

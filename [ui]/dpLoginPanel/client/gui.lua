@@ -1,3 +1,4 @@
+isAuthInProgress = false
 local UI = exports.dpUI
 local HIDE_CHAT = true
 local screenWidth, screenHeight = exports.dpUI:getScreenSize()
@@ -364,10 +365,12 @@ addEventHandler("dpUI.click", resourceRoot, function(widget)
 	elseif widget == registerPanel.langButtons.ru then
 		exports.dpLang:setLanguage("russian")
 	-- Кнопка входа
-	elseif widget == loginPanel.startGameButton then
+	elseif widget == loginPanel.startGameButton and not isAuthInProgress then
+		isAuthInProgress = true
 		startGameClick(UI:getText(loginPanel.username), UI:getText(loginPanel.password))
 	-- Кнопка регистрации
-	elseif widget == registerPanel.registerButton then
+	elseif widget == registerPanel.registerButton and not isAuthInProgress then
+		isAuthInProgress = true
 		registerClick(UI:getText(registerPanel.username), UI:getText(registerPanel.password))
 	elseif widget == registerPanel.colorButtons.red then
 		UI:setTheme("red")

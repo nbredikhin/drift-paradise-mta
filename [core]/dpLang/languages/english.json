@@ -72,6 +72,7 @@
 	"main_panel_account_level": "Level progress",
 	"main_panel_account_regtime": "Registration date",
 	"main_panel_account_playtime": "Hours in-game",	
+	"main_panel_account_cars_count": "Cars in garage",
 
 	// Markers
 	"markers_garage_text": "Press %q to enter garage"

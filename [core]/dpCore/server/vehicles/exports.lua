@@ -33,5 +33,12 @@ function addPlayerVehicle(player, model)
 	if not isElement(player) then
 		return false
 	end	
-	return UserVehicles.addVehicle(player:getData("_id"), model)
+	local result = UserVehicles.addVehicle(player:getData("_id"), model)
+	-- Количество автомобилей игрока
+	UserVehicles.getVehiclesIds(player:getData("_id"), function (result)
+		if type(result) == "table" then
+			player:setData("garage_cars_count", #result)
+		end
+	end)
+	return result
 end

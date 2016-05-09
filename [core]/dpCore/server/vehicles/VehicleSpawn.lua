@@ -22,7 +22,7 @@ function VehicleSpawn.getPlayerSpawnedVehicles(player)
 	end
 	local playerId = player:getData("_id")
 	if not userSpawnedVehicles[playerId] then
-		return false
+		return {}
 	end
 	local spawnedVehicles = {}
 	for vehicle in pairs(userSpawnedVehicles[playerId]) do

@@ -18,18 +18,15 @@ function AccountTab.create()
 		return string.upper(tostring(value))
 	end)
 	-- Подпись
-	local moneyLabelText = UI:createDpLabel {
+	local usernameLabelText = UI:createDpLabel {
 		x = 20 , y = 55,
 		width = width / 3, height = 50,
 		text = "Admin",
 		color = tocolor(0, 0, 0, 100),
 		fontType = "defaultSmall",
-		locale = "main_panel_account_admin"
+		locale = "main_panel_account_player"
 	}
-	UI:addChild(panel, moneyLabelText)	
-	UIDataBinder.bind(moneyLabelText, "money", function (value)
-		return "$" .. tostring(value)
-	end)
+	UI:addChild(panel, usernameLabelText)
 
 	local moneyLabel = UI:createDpLabel {
 		x = width - width / 3 - 20 , y = 15,
@@ -40,6 +37,9 @@ function AccountTab.create()
 		alignX = "right"
 	}
 	UI:addChild(panel, moneyLabel)
+	UIDataBinder.bind(moneyLabelText, "money", function (value)
+		return "$" .. tostring(value)
+	end)	
 	-- Подпись
 	local moneyLabelText = UI:createDpLabel {
 		x = width - width / 3 - 20 , y = 55,
@@ -100,7 +100,8 @@ function AccountTab.create()
 	}
 	UI:addChild(panel, levelLabel)	
 
-	-- Статистика
+	---------------- Статистика -------------------
+	-- Количество автомобилей в гараже
 	local carsCountLabel = UI:createDpLabel {
 		x = 20, y = 180,
 		width = width / 3, height = 50,
@@ -109,6 +110,14 @@ function AccountTab.create()
 		type = "dark",
 	}
 	UI:addChild(panel, carsCountLabel)
+	UIDataBinder.bind(carsCountLabel, "garage_cars_count", function (value)
+		if not value then
+			value = 0
+		end
+		return exports.dpLang:getString("main_panel_account_cars_count") .. ": " .. tostring(value)
+	end)
+
+	-- Наличие у игрока дома (TODO)
 	local hasHouseLabel = UI:createDpLabel {
 		x = 20, y = 210,
 		width = width / 3, height = 50,
@@ -117,6 +126,8 @@ function AccountTab.create()
 		type = "dark",
 	}
 	UI:addChild(panel, hasHouseLabel)
+
+	-- Дата регистрации
 	local registerDateLabel = UI:createDpLabel {
 		x = width / 2, y = 180,
 		width = width / 3, height = 50,
@@ -132,6 +143,8 @@ function AccountTab.create()
 		local timeString = tostring(value:sub(1, string.find(value, " ")))
 		return exports.dpLang:getString("main_panel_account_regtime") .. ": " .. timeString
 	end)	
+
+	-- Время, проведенное на сервере
 	local playtimeLabel = UI:createDpLabel {
 		x = width / 2, y = 210,
 		width = width / 3, height = 50,
@@ -148,7 +161,8 @@ function AccountTab.create()
 		return exports.dpLang:getString("main_panel_account_playtime") .. ": " .. tostring(value)
 	end)
 
-	-- Нижние кнопки
+	-------------------------- Нижние кнопки ------------------------------
+	-- Кнопка доната
 	local bottomButtonsHeight = 70
 	local donatButton = UI:createDpButton {
 		x = 0, 
@@ -160,6 +174,7 @@ function AccountTab.create()
 	}
 	UI:addChild(panel, donatButton)
 
+	-- Кнопка "Дополнительно"
 	local moreButton = UI:createDpButton {
 		x = width / 2, 
 		y = height - bottomButtonsHeight,

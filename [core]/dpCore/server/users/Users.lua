@@ -107,6 +107,13 @@ function Users.loginPlayer(player, username, password, callback)
 			if success then					
 				DatabaseTable.update(USERS_TABLE_NAME, {online=1}, {username=username})
 				PlayerData.set(player, account)
+
+				-- Количество автомобилей игрока
+				UserVehicles.getVehiclesIds(account._id, function (result)
+					if type(result) == "table" then
+						player:setData("garage_cars_count", #result)
+					end
+				end)
 			else
 				errorType = "already_logged_in"
 			end

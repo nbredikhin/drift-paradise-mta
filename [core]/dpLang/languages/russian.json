@@ -72,6 +72,7 @@
 	"main_panel_account_level": "Прогресс уровня",
 	"main_panel_account_regtime": "Дата регистрации",
 	"main_panel_account_playtime": "Часов в игре",
+	"main_panel_account_cars_count": "Количество машин",
 
 	// Markers
 	"markers_garage_text": "Нажмите %q чтобы войти в гараж"

@@ -103,7 +103,8 @@ local function drawMarker(marker)
 	)
 
 	local sizeOffset = Vector3(0, 0, textSize) / 2
-	local positionOffset = MARKER_TEXT_OFFSET + Vector3(0, 0, math.sin(t * MARKER_ANIMATION_SPEED) * MARKER_TEXT_ANIMATION_SIZE)
+	local positionOffset = MARKER_TEXT_OFFSET
+	positionOffset.z = positionOffset.z + math.sin(t * MARKER_ANIMATION_SPEED) * MARKER_TEXT_ANIMATION_SIZE
 	dxDrawMaterialLine3D(
 		marker.position + sizeOffset + positionOffset,
 		marker.position - sizeOffset + positionOffset,

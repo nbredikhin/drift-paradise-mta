@@ -157,7 +157,7 @@ function AccountTab.create()
 		if not value then
 			value = 0
 		end
-		value = math.floor(value / 60)
+		value = math.floor(value / 60 * 10) / 10		
 		return exports.dpLang:getString("main_panel_account_playtime") .. ": " .. tostring(value)
 	end)
 

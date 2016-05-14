@@ -4,17 +4,29 @@
 	<include resource="dpUtils"/>
 	<include resource="dpLang"/>
 
+	<!-- Общие -->
 	<script type="shared" src="shared/lib/yaci.lua"/>
+	<script type="shared" src="shared/lib/check.lua"/>
+
+	<!-- Сервер -->
 	<script type="server" src="server/enter_exit.lua"/>
+	
+	<!-- Клиент -->
 	<script type="client" src="client/Assets.lua"/>
-	<script type="client" src="client/ui/screens/CarSelectScreen.lua"/>
-	<script type="client" src="client/ui/ScreenManager.lua"/>
-	<script type="client" src="client/ui/MainMenu.lua"/>
+	<!-- Интерфейс -->
+	<script type="client" src="client/ui/screens/Screen.lua"/>
+	<script type="client" src="client/ui/screens/MainScreen.lua"/>
+	<script type="client" src="client/ui/screens/TuningScreen.lua"/>
+	<script type="client" src="client/ui/screens/ScreenManager.lua"/>
+	<script type="client" src="client/ui/TuningMenu.lua"/>
+	<script type="client" src="client/ui/ItemsMenu.lua"/>
 	<script type="client" src="client/ui/VehicleArrows.lua"/>
+	<script type="client" src="client/ui/GarageUI.lua"/>
+	
 	<script type="client" src="client/enter_exit.lua"/>
 	<script type="client" src="client/Garage.lua"/>
 	<script type="client" src="client/GarageCar.lua"/>
-	<script type="client" src="client/GarageUI.lua"/>
+	<script type="client" src="client/camera_presets.lua"/>
 	<script type="client" src="client/CameraManager.lua"/>
 	<script type="client" src="client/garage_entering.lua"/>
 

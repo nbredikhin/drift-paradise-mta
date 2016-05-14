@@ -9,7 +9,6 @@ function Garage.start(vehicles)
 	localPlayer.dimension = 0
 	Assets.start()
 
-	showCursor(true)
 	showChat(false)
 	exports.dpHUD:setVisible(false)
 
@@ -24,6 +23,8 @@ function Garage.start(vehicles)
 	end, 500, 1)
 end
 
+Garage.start({{model=411}})
+
 function Garage.stop()
 	if not isActive then
 		return false
@@ -33,7 +34,6 @@ function Garage.stop()
 	CameraManager.stop()
 	GarageCar.stop()
 	Assets.stop()
-	showCursor(false)
 	showChat(true)
 	exports.dpHUD:setVisible(true)
 end

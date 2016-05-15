@@ -12,3 +12,7 @@ end)
 bindKey("F1", "down", function ()
 	Panel.setVisible(not Panel.isVisible())
 end)
+
+bindKey("backspace", "down", function ()
+	Panel.setVisible(false)
+end)

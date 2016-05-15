@@ -39,7 +39,7 @@ function ComponentsScreen:showComponent()
 	if not self.componentPosition[1] then
 		self.componentPosition = {0, 0, 0}
 	end
-	CameraManager.setState(self.currentComponent.camera, false)
+	CameraManager.setState(self.currentComponent.camera, false, 4)
 	self.t = 0
 end
 

@@ -5,7 +5,6 @@ local MARKER_ANIMATION_SPEED = 0.008
 -- Иконка на земле
 local MARKER_ICON_SIZE = 6
 local MARKER_ANIMATION_SIZE = 0.3
-local MARKER_ICON_OFFSET = Vector3(0, 0, 0)
 
 local MARKER_TEXT_SIZE = 5
 local MARKER_TEXT_ANIMATION_SIZE = 0.1
@@ -91,24 +90,33 @@ local function drawMarker(marker)
 	end	
 
 	-- Иконка на земле
-	local positionOffset = MARKER_ICON_OFFSET
 	local direction = marker:getData("dpMarkers.direction")
-	local sizeOffset = Vector3(math.cos(direction) * iconSize, math.sin(direction) * iconSize, 0) / 2
+	local ox = math.cos(direction) * iconSize / 2
+	local oy =  math.sin(direction) * iconSize / 2
 	dxDrawMaterialLine3D(
-		marker.position + sizeOffset + positionOffset, 
-		marker.position - sizeOffset + positionOffset, 
+		marker.position.x + ox,
+		marker.position.y + oy,
+		marker.position.z,
+		marker.position.x - ox,
+		marker.position.y - oy,
+		marker.position.z,
 		markerProperties.icon, 
 		iconSize,
 		tocolor(255, 255, 255, color[4]),
-		marker.position + positionOffset + Vector3(0, 0, 1)
+		marker.position.x,
+		marker.position.y,
+		marker.position.z + 1
 	)
 
 	-- Вертикальная картинка
-	local sizeOffset = Vector3(0, 0, textSize) / 2
-	local positionOffset = MARKER_TEXT_OFFSET + Vector3(0, 0, math.sin(t * MARKER_ANIMATION_SPEED) * MARKER_TEXT_ANIMATION_SIZE)
+	local textAnimationOffset = math.sin(t * MARKER_ANIMATION_SPEED) * MARKER_TEXT_ANIMATION_SIZE
 	dxDrawMaterialLine3D(
-		marker.position + sizeOffset + positionOffset,
-		marker.position - sizeOffset + positionOffset,
+		marker.position.x, 
+		marker.position.y,
+		marker.position.z + textSize / 2 + MARKER_TEXT_OFFSET.z + textAnimationOffset,
+		marker.position.x,
+		marker.position.y,
+		marker.position.z - textSize / 2 + MARKER_TEXT_OFFSET.z + textAnimationOffset,
 		markerProperties.text,
 		textSize,
 		tocolor(unpack(color))

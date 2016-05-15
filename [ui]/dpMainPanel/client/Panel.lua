@@ -85,6 +85,9 @@ function Panel.showTab(name)
 end
 
 function Panel.setVisible(visible)
+	if UI:getVisible(panel) == not not visible then
+		return
+	end
 	if not panel then
 		return false
 	end

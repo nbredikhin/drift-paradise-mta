@@ -239,5 +239,4 @@ setTimer(function ()
 	for i, player in ipairs(getElementsByType("player")) do
 		Users.saveAccount(player)
 	end
-	outputDebugString("dbCore.Autosave")
 end, AUTOSAVE_INTERVAL * 60 * 1000, 0)

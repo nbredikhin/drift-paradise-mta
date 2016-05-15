@@ -14,15 +14,21 @@
 	<!-- Клиент -->
 	<script type="client" src="client/Assets.lua"/>
 	<!-- Интерфейс -->
+	<!-- Менеджер экранов -->
 	<script type="client" src="client/ui/screens/Screen.lua"/>
+	<script type="client" src="client/ui/screens/ScreenManager.lua"/>
+	<!-- Экраны -->
 	<script type="client" src="client/ui/screens/MainScreen.lua"/>
 	<script type="client" src="client/ui/screens/TuningScreen.lua"/>
 	<script type="client" src="client/ui/screens/ComponentsScreen.lua"/>
-	<script type="client" src="client/ui/screens/ScreenManager.lua"/>
+	<script type="client" src="client/ui/screens/ComponentScreen.lua"/>
+	<!-- Элементы интерфейса -->
 	<script type="client" src="client/ui/TuningMenu.lua"/>
 	<script type="client" src="client/ui/ItemsMenu.lua"/>
+	<script type="client" src="client/ui/ComponentsMenu.lua"/>
+
 	<script type="client" src="client/ui/GarageUI.lua"/>
-	
+	<!-- Основное -->
 	<script type="client" src="client/enter_exit.lua"/>
 	<script type="client" src="client/Garage.lua"/>
 	<script type="client" src="client/GarageCar.lua"/>
@@ -30,6 +36,7 @@
 	<script type="client" src="client/CameraManager.lua"/>
 	<script type="client" src="client/garage_entering.lua"/>
 
+	<!-- Функции -->
 	<export type="client" function="enterGarage"/>
 	<export type="client" function="enterGarageAnimated"/>
 

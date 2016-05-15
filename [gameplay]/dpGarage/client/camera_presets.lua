@@ -34,10 +34,21 @@ cameraPresets.wheelLF = {
 	roll = 0
 }
 
+-- Передний бампер
 cameraPresets.frontBump = {
 	targetPosition = Vector3(0, 1, 0),
 	rotationHorizontal = 10,
 	rotationVertical = 20,
+	distance = 6,
+	FOV = 50,
+	roll = 0
+}
+
+-- Передний бампер при покупке
+cameraPresets.frontBumpPreview = {
+	targetPosition = Vector3(1, 1, 0),
+	rotationHorizontal = 10,
+	rotationVertical = 10,
 	distance = 6,
 	FOV = 50,
 	roll = 0

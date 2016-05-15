@@ -89,5 +89,9 @@ function ComponentsScreen:onKey(key)
 		self:resetComponent()
 		self.animationEnabled = false
 		self.screenManager:showScreen(TuningScreen())
+	elseif key == "enter" then
+		self:resetComponent()
+		self.animationEnabled = false
+		self.screenManager:showScreen(ComponentScreen(self.currentComponent.name))
 	end
 end

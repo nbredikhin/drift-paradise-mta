@@ -51,6 +51,8 @@ end)
 setTimer(function()
 	for i, player in ipairs(getElementsByType("player")) do
 		local currentPlaytime = tonumber(player:getData("playtime"))
-		player:setData("playtime", currentPlaytime + 1)
+		if currentPlaytime then
+			player:setData("playtime", currentPlaytime + 1)
+		end
 	end
 end, 60000, 0)

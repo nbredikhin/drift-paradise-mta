@@ -16,6 +16,8 @@ function ItemsMenu:init(items, position, rotation)
 	self.selectionOffset = 0.3
 	self.selectionColor = tocolor(212, 0, 40)
 
+	self.hideLogo = false
+
 	self:redrawSelection()
 end
 
@@ -63,13 +65,14 @@ function ItemsMenu:draw(fadeProgress)
 	self.super:draw(fadeProgress)
 
 	dxSetRenderTarget(self.renderTarget, true)
-	local y = -130
 
 	-- Логотип
+	y = -130
 	local logoSize = self.resolution.x
-	dxDrawImage(0, y, logoSize, logoSize, Assets.textures.logo)
+	if not self.hideLogo then
+		dxDrawImage(0, y, logoSize, logoSize, Assets.textures.logo)
+	end
 	y = y + logoSize / 2 + 10
-
 	-- Стрелка вверх
 	local arrowSize = self.resolution.x / 4
 	local arrowsX = (self.resolution.x - arrowSize) / 2

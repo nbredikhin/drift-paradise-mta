@@ -24,38 +24,48 @@ cameraPresets.startingCamera = {
 	FOV = 20,
 	roll = 0
 }
-cameraPresets.wheelRF = {
-	targetPosition = "wheel_rf_dummy",
-	rotationHorizontal = -70,
-	rotationVertical = 10,
-	distance = 3.5,
-	FOV = 30,
-	roll = 0
-}
 
 cameraPresets.wheelLF = {
 	targetPosition = "wheel_lf_dummy",
-	rotationHorizontal = -70 + 180,
+	rotationHorizontal = 45,
 	rotationVertical = 10,
-	distance = 3.5,
-	FOV = 30,
+	distance = 4,
+	FOV = 40,
 	roll = 0
 }
 
 cameraPresets.frontBump = {
-	targetPosition = Vector3(1.4, 1, 0),
-	rotationHorizontal = 30,
-	rotationVertical = 5,
-	distance = 7,
+	targetPosition = Vector3(0, 1, 0),
+	rotationHorizontal = 10,
+	rotationVertical = 20,
+	distance = 6,
 	FOV = 50,
 	roll = 0
 }
 
 cameraPresets.rearBump = {
-	targetPosition = Vector3(-1, -1, 0),
-	rotationHorizontal = 190,
+	targetPosition = Vector3(0, -1, 0),
+	rotationHorizontal = 150,
 	rotationVertical = 5,
-	distance = 7,
+	distance = 6,
 	FOV = 45,
+	roll = 0
+}
+
+cameraPresets.spoiler = {
+	targetPosition = Vector3(0, -1, 0),
+	rotationHorizontal = 220,
+	rotationVertical = 20,
+	distance = 5,
+	FOV = 50,
+	roll = 0
+}
+
+cameraPresets.skirts = {
+	targetPosition = Vector3(0, 0, -0.2),
+	rotationHorizontal = -50,
+	rotationVertical = 0,
+	distance = 5,
+	FOV = 50,
 	roll = 0
 }

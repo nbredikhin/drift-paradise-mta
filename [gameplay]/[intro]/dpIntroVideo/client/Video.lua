@@ -25,7 +25,7 @@ local function draw()
 end
 
 local function setupBrowser()
-	loadBrowserURL(browser, "https://www.youtube.com/embed/e1cHm9NjIe0?autoplay=1")
+	loadBrowserURL(browser, "https://www.youtube.com/embed/oq7saCsnOfI?autoplay=1")
 	setTimer(function ()
 		isBrowserVisible = true
 		setTimer(function ()

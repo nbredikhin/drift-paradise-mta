@@ -69,6 +69,9 @@ function ScreenManager:update(deltaTime)
 end
 
 function ScreenManager:onKey(...)
+	if self.isChangingInProgress then
+		return
+	end
 	if self.activeScreen then
 		self.activeScreen:onKey(...)
 	end

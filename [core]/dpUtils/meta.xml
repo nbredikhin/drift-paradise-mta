@@ -20,4 +20,7 @@
 	<export type="shared" function="isLeapYear"/>
 	<export type="shared" function="getTimestamp"/>
 	<export type="shared" function="convertTimestampToSeconds"/>
+	<!-- Геометри -->
+	<export type="shared" function="wrapAngle"/>
+	<export type="shared" function="differenceBetweenAngles"/>
 </meta>

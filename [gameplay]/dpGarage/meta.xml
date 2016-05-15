@@ -17,10 +17,10 @@
 	<script type="client" src="client/ui/screens/Screen.lua"/>
 	<script type="client" src="client/ui/screens/MainScreen.lua"/>
 	<script type="client" src="client/ui/screens/TuningScreen.lua"/>
+	<script type="client" src="client/ui/screens/ComponentsScreen.lua"/>
 	<script type="client" src="client/ui/screens/ScreenManager.lua"/>
 	<script type="client" src="client/ui/TuningMenu.lua"/>
 	<script type="client" src="client/ui/ItemsMenu.lua"/>
-	<script type="client" src="client/ui/VehicleArrows.lua"/>
 	<script type="client" src="client/ui/GarageUI.lua"/>
 	
 	<script type="client" src="client/enter_exit.lua"/>

@@ -32,8 +32,11 @@ function GarageUI.start()
 	-- Создание менеджера экранов
 	screenManager = ScreenManager()
 	-- Переход на начальный экран
-	screenManager:showScreen(MainScreen())
-
+	local screen = MainScreen()
+	screenManager:showScreen(screen)
+	-- setTimer(function ()
+	-- 	screenManager:showScreen(ComponentsScreen())
+	-- end, 700, 1)
 	addEventHandler("onClientRender", root, draw)
 	addEventHandler("onClientPreRender", root, update)
 	addEventHandler("onClientKey", root, onKey)

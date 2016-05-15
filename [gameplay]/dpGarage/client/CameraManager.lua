@@ -18,7 +18,12 @@ local function update(deltaTime)
 	deltaTime = deltaTime / 1000
 
 	for k, v in pairs(targetCamera) do
-		camera[k] = camera[k] + (targetCamera[k] - camera[k]) * deltaTime * currentAnimationSpeed
+		if k == "rotationHorizontal" then
+			local diff = exports.dpUtils:differenceBetweenAngles(camera[k], targetCamera[k])
+			camera[k] = camera[k] + diff * deltaTime * currentAnimationSpeed
+		else
+			camera[k] = camera[k] + (targetCamera[k] - camera[k]) * deltaTime * currentAnimationSpeed
+		end
 	end
 
 	local shakeX = math.sin(getTickCount() / 740) * (math.sin(getTickCount() / 300) + 1) * 0.002
@@ -62,6 +67,9 @@ function CameraManager.setState(name, noAnimation, animationSpeed)
 				camera.targetPosition = Vector3(targetCamera.targetPosition)
 			end
 		else
+			if k == "rotationHorizontal" then
+				v = exports.dpUtils:wrapAngle(v)
+			end
 			targetCamera[k] = v
 			if noAnimation then
 				camera[k] = v

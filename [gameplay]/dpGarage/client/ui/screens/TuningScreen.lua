@@ -2,7 +2,7 @@ TuningScreen = Screen:subclass "TuningScreen"
 
 function TuningScreen:init()
 	self.super:init()
-	CameraManager.setState("vehicleTuning", false, 1.2)
+	CameraManager.setState("vehicleTuning", false, 2)
 end
 
 function TuningScreen:show()

@@ -2,7 +2,7 @@ MainScreen = Screen:subclass "MainScreen"
 
 function MainScreen:init()
 	self.super:init()
-	CameraManager.setState("vehicleSelect", false, 1.2)
+	CameraManager.setState("vehicleSelect", false, 2)
 end
 
 function MainScreen:show()

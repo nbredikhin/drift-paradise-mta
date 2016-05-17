@@ -30,6 +30,7 @@
 	<script type="client" src="client/widgets/DpInput.lua"/>
 	<script type="client" src="client/widgets/DpLabel.lua"/>
 	<script type="client" src="client/widgets/DpImageButton.lua"/>
+	<script type="client" src="client/widgets/DpCheckbox.lua"/>
 
 	<!-- Темы -->
 	<file src="themes/blue.json"/>
@@ -54,6 +55,7 @@
 	<export type="client" function="createDpInput"/>
 	<export type="client" function="createDpLabel"/>
 	<export type="client" function="createDpImageButton"/>
+	<export type="client" function="createDpCheckbox"/>
 	<export type="client" function="getX"/>
 	<export type="client" function="setX"/>
 	<export type="client" function="getY"/>

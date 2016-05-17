@@ -44,8 +44,8 @@
 	"garage_enter_failed": "Failed to enter garage",
 
 	// Garage UI
-	"garage_menu_go_city": "Spawn car",
-	"garage_menu_customize": "Customize",
+	"garage_menu_go_city": "Take car",
+	"garage_menu_customize": "Tuning",
 	"garage_menu_settings": "Settings",
 	"garage_menu_sell": "Sell car",
 	"garage_menu_exit": "Exit garage",
@@ -60,7 +60,7 @@
 
 	// Main panel
 	"main_panel_tab_account": "Account",
-	"main_panel_tab_teleport": "Teleport",
+	"main_panel_tab_teleport": "Teleports",
 	"main_panel_tab_settings": "Settings",
 	"main_panel_tab_garage": "Garage",
 	"main_panel_tab_map": "Map",

@@ -1,20 +1,26 @@
+-- Экран переключения между компонентами
 ComponentsScreen = Screen:subclass "ComponentsScreen"
 
+-- Список компонентов для тюнинга
 local componentsList = {
-	{name = "FrontBump", offset = {0, 0.1, 0}, camera = "frontBump", num = true},
-	{name = "wheel_lf_dummy", offset = {-0.1, 0, 0}, camera = "wheelLF", num = false},
-	{name = "RearBump", offset = {0, -0.1, 0}, camera = "rearBump", num = true},
-	{name = "Spoilers", offset = {0, -0.1, 0}, camera = "spoiler", num = true},
-	{name = "SideSkirts", offset = {0.1, 0, 0}, camera = "skirts", num = true},
+	-- Название компонента 		Оффсет для анимции 		Название камеры 		Есть ли номер 	Название даты
+	{name = "FrontBump", 		offset = {0, 0.1, 0}, 	camera = "frontBump", 	num = true, 	data="FrontBump"},
+	{name = "wheel_lf_dummy", 	offset = {-0.1, 0, 0}, 	camera = "wheelLF", 	num = false, 	data="Wheels"},
+	{name = "RearBump", 		offset = {0, -0.1, 0}, 	camera = "rearBump", 	num = true, 	data="RearBump"},
+	{name = "Spoilers", 		offset = {0, -0.1, 0}, 	camera = "spoiler", 	num = true, 	data="Spoilers"},
+	{name = "SideSkirts", 		offset = {0.1, 0, 0}, 	camera = "skirts", 		num = true, 	data="SideSkirts"},
 }
 
-function ComponentsScreen:init()
+function ComponentsScreen:init(forceIndex)
 	self.super:init()
 	self.vehicle = GarageCar.getVehicle()
 	self.t = 0
 	self.animationEnabled = true
 
-	self.currentComponentIndex = 1
+	self.currentComponentIndex = 4
+	if type(forceIndex) == "number" then
+		self.currentComponentIndex = forceIndex
+	end
 	self:showComponent()
 end
 
@@ -24,6 +30,7 @@ function ComponentsScreen:resetComponent()
 	end
 end
 
+-- Переключить вид на компонент с индексом currentComponentIndex
 function ComponentsScreen:showComponent()
 	self.currentComponent = componentsList[self.currentComponentIndex]
 	self.componentName = self.currentComponent.name
@@ -53,6 +60,7 @@ end
 
 function ComponentsScreen:draw()
 	self.super:draw()
+	-- TODO: Кружочки
 end
 
 function ComponentsScreen:update(deltaTime)
@@ -92,6 +100,6 @@ function ComponentsScreen:onKey(key)
 	elseif key == "enter" then
 		self:resetComponent()
 		self.animationEnabled = false
-		self.screenManager:showScreen(ComponentScreen(self.currentComponent.name))
+		self.screenManager:showScreen(ComponentScreen(self.currentComponent.data, self.currentComponentIndex))
 	end
 end

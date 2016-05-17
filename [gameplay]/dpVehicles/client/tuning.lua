@@ -56,6 +56,10 @@ local function updateVehicleTuningUpgrade(vehicle, upgradeName)
 		return false 
 	end
 
+	if upgradeName == "Spoilers" then
+		updateVehicleTuningComponent(vehicle, upgradeName, -1)
+	end
+
 	for i, id in ipairs(upgradesFromData[upgradeName]) do
 		vehicle:removeUpgrade(id)
 	end
@@ -64,13 +68,15 @@ local function updateVehicleTuningUpgrade(vehicle, upgradeName)
 	if not index then
 		return false
 	end
-	if upgradeName == "Spoilers" and index > #upgradesFromData[upgradeName] then
-		return updateVehicleTuningComponent(vehicle, upgradeName, index - #upgradesFromData[upgradeName])
-	else
-		updateVehicleTuningComponent(vehicle, upgradeName, -1)
-		local id = upgradesFromData[upgradeName][index]
-		if id then
-			return vehicle:addUpgrade(id)
+	if upgradeName == "Spoilers" then
+		if index > #upgradesFromData[upgradeName] then
+			return updateVehicleTuningComponent(vehicle, upgradeName, index - #upgradesFromData[upgradeName])
+		else
+			updateVehicleTuningComponent(vehicle, upgradeName, -1)
+			local id = upgradesFromData[upgradeName][index]
+			if id then
+				return vehicle:addUpgrade(id)
+			end
 		end
 	end
 end

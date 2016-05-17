@@ -8,7 +8,7 @@ function ItemsMenu:init(items, position, rotation)
 	})	
 	self.items = items
 	self.selectedItem = 1
-	self.super:init(position, rotation, Vector2(1.4, 0.48 + 0.3 * #self.items + 0.15))
+	self.super:init(position, rotation, Vector2(1.4, 0.5 + 0.3 * #self.items + 0.15))
 
 	self.itemRenderTarget = dxCreateRenderTarget(self.resolution.x, 70, false)
 	self.selectionProgress = 0
@@ -46,7 +46,7 @@ function ItemsMenu:getItem()
 end
 
 function ItemsMenu:drawSelectedItem(fadeProgress)
-	local position = self.position + Vector3(0, 0, self.size.y / 2 - 0.50 - 0.28 * self.selectedItem)
+	local position = self.position + Vector3(0, 0, self.size.y / 2 - 0.52 - 0.28 * self.selectedItem)
 	local rad = math.rad(self.rotation)
 	local lookOffset = Vector3(math.cos(rad), math.sin(rad), 0)
 	local animMul = math.sin(getTickCount() / 300)
@@ -72,7 +72,7 @@ function ItemsMenu:draw(fadeProgress)
 	if not self.hideLogo then
 		dxDrawImage(0, y, logoSize, logoSize, Assets.textures.logo)
 	end
-	y = y + logoSize / 2 + 10
+	y = y + logoSize / 2 + 15
 	-- Стрелка вверх
 	local arrowSize = self.resolution.x / 4
 	local arrowsX = (self.resolution.x - arrowSize) / 2

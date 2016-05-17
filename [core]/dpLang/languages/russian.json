@@ -44,8 +44,8 @@
 	"garage_enter_failed": "Не удалось войти в гараж",
 
 	// Интерфейс гаража
-	"garage_menu_go_city": "Спавн автомобиля",
-	"garage_menu_customize": "Кастомизация",
+	"garage_menu_go_city": "Выбрать машину",
+	"garage_menu_customize": "Тюнинг",
 	"garage_menu_settings": "Настройки",
 	"garage_menu_sell": "Продать машину",
 	"garage_menu_exit": "Выход",
@@ -60,7 +60,7 @@
 
 	// Main panel
 	"main_panel_tab_account": "Аккаунт",
-	"main_panel_tab_teleport": "Телепорт",
+	"main_panel_tab_teleport": "Телепорты",
 	"main_panel_tab_settings": "Настройки",
 	"main_panel_tab_garage": "Гараж",
 	"main_panel_tab_map": "Карта",	

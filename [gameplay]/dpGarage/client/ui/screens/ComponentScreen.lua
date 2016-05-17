@@ -2,14 +2,24 @@
 
 ComponentScreen = Screen:subclass "ComponentScreen"
 
-function ComponentScreen:init()
+-- Расположение 3D меню для разных компонентов
+local menuLocations = {}
+menuLocations["FrontBump"] 	= {position = Vector3(2917, -3188.3, 2535.6), angle = 30}
+menuLocations["Spoilers"] 	= {position = Vector3(2914.6, -3188.3, 2535.8), angle = 185}
+menuLocations["RearBump"] 	= {position = Vector3(2915, -3184.2, 2535.6), angle = 190}
+menuLocations["Wheels"] 	= {position = Vector3(2914, -3184.2, 2535.3), angle = 25}
+menuLocations["SideSkirts"] = {position = Vector3(2914.3, -3188.6, 2535.3), angle = 10}
+
+function ComponentScreen:init(name, componentIndex)
 	self.super:init()
+	local menuLocation = menuLocations[name]
 	self.menu = ComponentsMenu(
-		Vector3(2917, -3188.3, 2535.6), 
-		30,
-		Vector2(1.1, 1.1)
+		menuLocation.position, 
+		menuLocation.angle,
+		name
 	)
-	CameraManager.setState("frontBumpPreview", false, 1.2)
+	CameraManager.setState("preview" .. name, false, 3)
+	self.componentIndex = componentIndex
 end
 
 function ComponentScreen:show()
@@ -34,6 +44,6 @@ end
 function ComponentScreen:onKey(key)
 	self.super:onKey(key)
 	if key == "backspace" then
-		self.screenManager:showScreen(ComponentsScreen())
+		self.screenManager:showScreen(ComponentsScreen(self.componentIndex))
 	end
 end

@@ -100,7 +100,7 @@ local publicPropertiesList = {
 	-- TextField
 	"alignX", "alignY", "clip", "wordBreak", "colorCoded",
 	-- Dp
-	"colors", "type"
+	"colors", "type", "state"
 }
 
 for i, name in ipairs(publicPropertiesList) do

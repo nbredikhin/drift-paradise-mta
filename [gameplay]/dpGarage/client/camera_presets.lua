@@ -127,8 +127,8 @@ cameraPresets.wheelLF = {
 
 -- Колёса при покупке
 cameraPresets.previewWheels = {
-	targetPosition = Vector3(-1, -0.4, -0.05),
-	rotationHorizontal = 45,
+	targetPosition = Vector3(-1, -0.3, -0.05),
+	rotationHorizontal = 35,
 	rotationVertical = 5,
 	distance = 5,
 	FOV = 50,

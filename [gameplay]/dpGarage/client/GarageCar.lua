@@ -70,3 +70,7 @@ function GarageCar.showPreviousCar()
 	end
 	updateVehicle()
 end
+
+function GarageCar.previewComponent(name, id)
+	vehicle:setData(name, id)
+end

@@ -73,12 +73,12 @@ local function updateVehicleTuningUpgrade(vehicle, upgradeName)
 			return updateVehicleTuningComponent(vehicle, upgradeName, index - #upgradesFromData[upgradeName])
 		else
 			updateVehicleTuningComponent(vehicle, upgradeName, -1)
-			local id = upgradesFromData[upgradeName][index]
-			if id then
-				return vehicle:addUpgrade(id)
-			end
 		end
 	end
+	local id = upgradesFromData[upgradeName][index]			
+	if id then
+		return vehicle:addUpgrade(id)
+	end	
 end
 
 -- Полностью обновить тюнинг на автомобиле

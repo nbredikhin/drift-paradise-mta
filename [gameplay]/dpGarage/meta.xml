@@ -7,6 +7,8 @@
 	<!-- Общие -->
 	<script type="shared" src="shared/lib/yaci.lua"/>
 	<script type="shared" src="shared/lib/check.lua"/>
+	<!-- Основной файл настроек цен и уровней тюнинга -->
+	<script type="shared" src="shared/tuning_config.lua"/>
 
 	<!-- Сервер -->
 	<script type="server" src="server/enter_exit.lua"/>

@@ -19,6 +19,15 @@ function TuningConfig.getComponentConfig(model, name, id)
 	if name == "Wheels" then
 		componentsList = tuningConfig.Wheels
 	end
+	if name == "Spoilers" then
+		componentsList = {}
+		for i, v in ipairs(tuningConfig.Spoilers) do
+			table.insert(componentsList, v)
+		end
+		for i, v in ipairs(conf.components[name]) do
+			table.insert(componentsList, v)
+		end
+	end
 	return {price = componentsList[id], level = 0}
 end
 
@@ -34,6 +43,15 @@ function TuningConfig.getComponentsCount(model, name)
 	if name == "Wheels" then
 		componentsList = tuningConfig.Wheels
 	end
+	if name == "Spoilers" then
+		componentsList = {}
+		for i, v in ipairs(tuningConfig.Spoilers) do
+			table.insert(componentsList, v)
+		end
+		for i, v in ipairs(conf.components[name]) do
+			table.insert(componentsList, v)
+		end
+	end	
 	return #componentsList
 end
 

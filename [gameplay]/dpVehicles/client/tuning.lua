@@ -114,3 +114,15 @@ addEventHandler("onClientElementStreamIn", root, function ()
 		updateVehicleTuning(source)
 	end
 end)
+
+-- Список названий компонентов
+function getComponentsNames()
+	local l = {}
+	for name in pairs(componentsFromData) do
+		table.insert(l, name)
+	end
+	for name in pairs(upgradesFromData) do
+		table.insert(l, name)
+	end
+	return l
+end

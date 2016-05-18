@@ -23,7 +23,7 @@ function Garage.start(vehicles)
 	end, 500, 1)
 end
 
-Garage.start({{model=562}, {model=411}})
+-- Garage.start({{model=562}, {model=411}})
 
 function Garage.stop()
 	if not isActive then

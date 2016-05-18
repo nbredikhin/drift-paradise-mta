@@ -6,6 +6,7 @@ VehicleTuning.defaultTuningTable = {
 	WheelsColor 	= {255, 255, 255},	-- Цвет дисков
 	BodyTexture 	= false,			-- Текстура кузова
 	NeonColor 		= false,			-- Цвет неона
+	SpoilerColor	= false,			-- Цвет спойлера
 	Numberplate 	= "DRIFT", 			-- Текст номерного знака
 	Nitro 			= 0, -- Уровень нитро
 	Windows			= 0, -- Тонировка окон	

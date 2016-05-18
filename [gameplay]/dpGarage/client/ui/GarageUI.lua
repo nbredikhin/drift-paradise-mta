@@ -34,9 +34,9 @@ function GarageUI.start()
 	-- Переход на начальный экран
 	local screen = MainScreen()
 	screenManager:showScreen(screen)
-	setTimer(function ()
-		screenManager:showScreen(ComponentsScreen())
-	end, 700, 1)
+	-- setTimer(function ()
+	-- 	screenManager:showScreen(ComponentsScreen())
+	-- end, 700, 1)
 	addEventHandler("onClientRender", root, draw)
 	addEventHandler("onClientPreRender", root, update)
 	addEventHandler("onClientKey", root, onKey)
@@ -52,4 +52,8 @@ function GarageUI.stop()
 	if isElement(shadowTexture) then
 		destroyElement(shadowTexture)
 	end	
+end
+
+function GarageUI.showSaving()
+	
 end

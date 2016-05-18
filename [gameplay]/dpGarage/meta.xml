@@ -12,6 +12,7 @@
 
 	<!-- Сервер -->
 	<script type="server" src="server/enter_exit.lua"/>
+	<script type="server" src="server/tuning_server.lua"/>
 	
 	<!-- Клиент -->
 	<script type="client" src="client/Assets.lua"/>

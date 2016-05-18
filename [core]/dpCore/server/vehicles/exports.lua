@@ -14,6 +14,10 @@ function updateVehicle(...)
 	return UserVehicles.updateVehicle(...)
 end
 
+function updateVehicleTuning(...)
+	return VehicleTuning.updateVehicleTuning(...)
+end
+
 function getPlayerVehicles(player)
 	if not isElement(player) then
 		return false

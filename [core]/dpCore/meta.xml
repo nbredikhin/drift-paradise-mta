@@ -41,6 +41,7 @@
 	<!-- Функции для работы с автомобилями -->
 	<export type="server" function="spawnVehicle"/>
 	<export type="server" function="updateVehicle"/>
+	<export type="server" function="updateVehicleTuning"/>
 	<export type="server" function="isPlayerOwningVehicle"/>
 	<export type="server" function="returnVehicleToGarage"/>
 	<export type="server" function="getPlayerVehicles"/>

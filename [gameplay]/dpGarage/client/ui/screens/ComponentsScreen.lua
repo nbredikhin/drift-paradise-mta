@@ -99,6 +99,8 @@ function ComponentsScreen:onKey(key)
 		self:resetComponent()
 		self.animationEnabled = false
 		self.screenManager:showScreen(TuningScreen())
+		GarageUI.showSaving()
+		GarageCar.save()
 	elseif key == "enter" then
 		self:resetComponent()
 		self.animationEnabled = false

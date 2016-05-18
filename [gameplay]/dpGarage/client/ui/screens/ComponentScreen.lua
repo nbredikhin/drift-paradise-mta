@@ -70,6 +70,7 @@ end
 function ComponentScreen:onKey(key)
 	self.super:onKey(key)
 	if key == "backspace" then
+		GarageCar.resetTuning()
 		self.screenManager:showScreen(ComponentsScreen(self.componentIndex))
 	elseif key == "arrow_u" then
 		self.menu:showPrevious()
@@ -78,6 +79,7 @@ function ComponentScreen:onKey(key)
 		self.menu:showNext()
 		self:onItemChanged()
 	elseif key == "enter" then
-
+		GarageCar.applyComponent(self.componentName, self.menu:getComponent())
+		self.screenManager:showScreen(ComponentsScreen(self.componentIndex))
 	end
 end

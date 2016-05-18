@@ -7,6 +7,7 @@ local CAR_POSITION = Vector3 { x = 2915.438, y = -3186.282, z = 2535.244 }
 local vehicle
 local vehiclesList = {}
 local currentVehicle = 1
+local currentTuningTable = {}
 
 -- Время, на которое размораживается машина при смене модели
 local VEHICLE_UNFREEZE_TIME = 500
@@ -19,6 +20,7 @@ local function updateVehicle()
 	end
 
 	vehicle.model = vehiclesList[currentVehicle].model
+
 	vehicle:setColor(255, 0, 0, 255, 255, 255)
 	-- Разморозка машины на 1 сек
 	vehicle.frozen = false
@@ -26,6 +28,13 @@ local function updateVehicle()
 	unfreezeTimer = setTimer(function ()
 		vehicle.frozen = true
 	end, VEHICLE_UNFREEZE_TIME, 1)
+
+
+	currentTuningTable = {}
+	if type(vehiclesList[currentVehicle].tuning) == "string" then
+		currentTuningTable = fromJSON(vehiclesList[currentVehicle].tuning)
+	end
+	GarageCar.resetTuning()
 end
 
 function GarageCar.getId()
@@ -73,4 +82,54 @@ end
 
 function GarageCar.previewComponent(name, id)
 	vehicle:setData(name, id)
+end
+
+function GarageCar.applyComponent(name, id)
+	vehicle:setData(name, id)
+	currentTuningTable[name] = id
+end
+
+function GarageCar.resetTuning()
+	-- Сброс компонентов
+	local componentNames = exports.dpVehicles:getComponentsNames()
+
+	for i, name in ipairs(componentNames) do
+		vehicle:setData(name, currentTuningTable[name])
+	end
+end
+
+function GarageCar.getTuningTable()
+	local componentNames = exports.dpVehicles:getComponentsNames()
+	local tuningTable = {}
+	for i, name in ipairs(componentNames) do
+		tuningTable[name] = vehicle:getData(name, id)
+	end
+
+	-- Цвета
+	tuningTable.BodyColor = {255, 255, 255}
+	tuningTable.WheelsColor = {255, 255, 255}
+
+	-- TODO:
+	-- BodyColor 		= {255, 0, 0}
+	-- WheelsColor 	= {255, 255, 255}
+	-- BodyTexture 	= false
+	-- NeonColor 		= false
+	-- Numberplate 	= "DRIFT"
+	-- Nitro 			= 0
+	-- Windows			= 0
+	-- WheelsAngleF 	= 0
+	-- WheelsAngleR 	= 0
+	-- WheelsOffsetF	= 0
+	-- WheelsOffsetR	= 0
+	return tuningTable
+end
+
+function GarageCar.save()
+	local tuningTable = GarageCar.getTuningTable()
+	vehiclesList[currentVehicle].tuning = toJSON(tuningTable)
+	triggerServerEvent("dpGarage.saveCar", resourceRoot,
+		currentVehicle, 
+		tuningTable
+		-- TODO: Наклейки
+	)
 end

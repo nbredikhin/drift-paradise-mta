@@ -14,10 +14,12 @@ local componentsList = {
 function ComponentsScreen:init(forceIndex)
 	self.super:init()
 	self.vehicle = GarageCar.getVehicle()
+	-- Время (для анимации)
 	self.t = 0
+	-- Включена ли анимация выделенного компонента
 	self.animationEnabled = true
 
-	self.currentComponentIndex = 4
+	self.currentComponentIndex = 1
 	if type(forceIndex) == "number" then
 		self.currentComponentIndex = forceIndex
 	end

@@ -58,6 +58,20 @@
 	"garage_menu_settings_bumper": "Remove rear bumper",
 	"garage_menu_back": "Back",
 
+	// Garage tuning
+	"garage_tuning_component_front_bump": "Front bumper",
+	"garage_tuning_component_rear_bump": "Rear bumper",
+	"garage_tuning_component_side_skirts": "Side skirts",
+	"garage_tuning_component_wheels": "Wheels",
+	"garage_tuning_component_spoilers": "Spoiler",
+
+	"garage_tuning_item_bumper": "Bumper",
+	"garage_tuning_item_spoiler": "Spoiler",
+	"garage_tuning_item_wheel": "Wheels",
+	"garage_tuning_item_skirt": "Skirts",
+
+	"garage_tuning_buy_button": "Buy",
+
 	// Main panel
 	"main_panel_tab_account": "Account",
 	"main_panel_tab_teleport": "Teleports",

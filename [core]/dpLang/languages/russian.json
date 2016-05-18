@@ -58,6 +58,20 @@
 	"garage_menu_settings_bumper": "Снять задний бампер",
 	"garage_menu_back": "Назад",	
 
+	// Тюнинг в гараже
+	"garage_tuning_component_front_bump": "Передний бампер",
+	"garage_tuning_component_rear_bump": "Задний бампер",
+	"garage_tuning_component_side_skirts": "Боковые юбки",
+	"garage_tuning_component_wheels": "Колёса",
+	"garage_tuning_component_spoilers": "Спойлер",
+
+	"garage_tuning_item_bumper": "Бампер",
+	"garage_tuning_item_spoiler": "Спойлер",
+	"garage_tuning_item_wheel": "Колёса",
+	"garage_tuning_item_skirt": "Юбки",
+
+	"garage_tuning_buy_button": "Купить",
+
 	// Main panel
 	"main_panel_tab_account": "Аккаунт",
 	"main_panel_tab_teleport": "Телепорты",

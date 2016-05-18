@@ -7,7 +7,7 @@ local menuLocations = {}
 menuLocations["FrontBump"] 	= {position = Vector3(2917, -3188.3, 2535.6), 	angle = 30}
 menuLocations["Spoilers"] 	= {position = Vector3(2914.6, -3188.3, 2535.8), angle = 185}
 menuLocations["RearBump"] 	= {position = Vector3(2915, -3184.2, 2535.6), 	angle = 190}
-menuLocations["Wheels"] 	= {position = Vector3(2914, -3184.2, 2535.3), 	angle = 25}
+menuLocations["Wheels"] 	= {position = Vector3(2914.5, -3184.5, 2535.3), 	angle = 30}
 menuLocations["SideSkirts"] = {position = Vector3(2914.3, -3188.6, 2535.3), angle = 10}
 
 function ComponentScreen:init(name, componentIndex)
@@ -45,5 +45,11 @@ function ComponentScreen:onKey(key)
 	self.super:onKey(key)
 	if key == "backspace" then
 		self.screenManager:showScreen(ComponentsScreen(self.componentIndex))
+	elseif key == "arrow_u" then
+		self.menu:showPrevious()
+	elseif key == "arrow_d" then
+		self.menu:showNext()
+	elseif key == "enter" then
+
 	end
 end

@@ -19,7 +19,13 @@ function ComponentsMenu:init(position, rotation, name)
 	self.itemName = exports.dpLang:getString(locale.item)
 	self.headerText = exports.dpLang:getString(locale.title)
 	self.buyText = exports.dpLang:getString("garage_tuning_buy_button")
-	self.price = 10000
+	self.price = 99999
+	self.currentComponent = 1
+	self.componentsCount = 5
+end
+
+function ComponentsMenu:getComponent()
+	return self.currentComponent
 end
 
 function ComponentsMenu:draw(fadeProgress)
@@ -35,17 +41,34 @@ function ComponentsMenu:draw(fadeProgress)
 	local y = 70
 	local itemHeight = (self.resolution.y - 70 * 2) / 3 
 	for i = 1, 3 do
-		local color = tocolor(255, 255, 255, 150)
-		local scale = 0.8
-		if i == 2 then
-			dxDrawRectangle(0, y, self.resolution.x, itemHeight, tocolor(255, 255, 255, 50))
-			color = tocolor(255, 255, 255)
-			scale = 1
+		local index = self.currentComponent + i - 2
+		if index > 0 and index <= self.componentsCount then
+			local color = tocolor(255, 255, 255, 150)
+			local scale = 0.8
+			if i == 2 then
+				dxDrawRectangle(0, y, self.resolution.x, itemHeight, tocolor(255, 255, 255, 50))
+				color = tocolor(255, 255, 255)
+				scale = 1
+			end
+			dxDrawText(self.itemName .. " " .. index, 0, y, self.resolution.x, y + itemHeight, color, scale, Assets.fonts.menu, "center", "center")
 		end
-		dxDrawText(self.itemName .. " " .. i, 0, y, self.resolution.x, y + itemHeight, color, scale, Assets.fonts.menu, "center", "center")
 		y = y + itemHeight
 	end
 	dxSetRenderTarget()
+end
+
+function ComponentsMenu:showNext()
+	self.currentComponent = self.currentComponent + 1
+	if self.currentComponent > self.componentsCount then
+		self.currentComponent = self.componentsCount
+	end
+end
+
+function ComponentsMenu:showPrevious()
+	self.currentComponent = self.currentComponent - 1
+	if self.currentComponent < 1 then
+		self.currentComponent = 1
+	end
 end
 
 function ComponentsMenu:update(deltaTime)

@@ -1,5 +1,5 @@
 Speedometer = {}
-Speedometer.visible = true
+Speedometer.visible = false
 local DRAW_POST_GUI = false
 local MAX_SPEED = 50
 local SPEED_SECTORS_COUNT = 134
@@ -20,6 +20,8 @@ local imageIndexPrev = 0
 
 local font
 local circleTargetColor = {213, 0, 40}
+
+local assetsTextures = {}
 
 local function getVehicleSpeed()
 	if not localPlayer.vehicle then
@@ -44,13 +46,8 @@ end
 
 local function drawSpeedometer(x, y, width, height)
 	-- Круг скорости
-	dxDrawImage(x, y, width, height, "assets/textures/speedometer/circle.png", 0, 0, 0, tocolor(255, 255, 255, 200))
+	dxDrawImage(x, y, width, height, assetsTextures.circle, 0, 0, 0, tocolor(255, 255, 255, 200))
 	local speed = getVehicleSpeed()
-	--[[local sectorsCount = math.min(SPEED_SECTORS_COUNT, speed / MAX_SPEED * SPEED_SECTORS_COUNT)
-	for i = 1, sectorsCount do
-		local rotation = (i - 1) * 2
-		dxDrawImage(x, y, width, height, "assets/textures/speedometer/circle2.png", rotation)
-	end]]
 	local angle = math.max(-270, -speed * 2)
 	local imageIndex = math.min(math.floor(-angle / 90) + 1, 3)
 	angle = angle + 90 * (imageIndex - 1)
@@ -66,17 +63,17 @@ local function drawSpeedometer(x, y, width, height)
 		255 - (255 - circleTargetColor[3]) * mul
 	)
 	dxDrawImage(x, y, width, height, maskShader, 0, 0, 0, circleColor)
-	dxDrawImage(x, y, width, height, "assets/textures/speedometer/numbers.png")
+	dxDrawImage(x, y, width, height, assetsTextures.numbers)
 
 	-- Скорость
 	local gear = getVehicleCurrentGear(localPlayer.vehicle)
 	if gear == 0 then
-		gear = "R"
+		gear = "r"
 	end
 	if speed == 0 then
-		gear = "N"
+		gear = "n"
 	end
-	dxDrawImage(x, y, width, height, "assets/textures/speedometer/" .. gear ..".png")
+	dxDrawImage(x, y, width, height, assetsTextures["gear_" .. gear])
 	dxDrawText(getVehicleSpeedString(), x, y, x + width, y + height, tocolor(255, 255, 255, 255), 1, font, "center", "bottom")
 end
 
@@ -129,6 +126,15 @@ function Speedometer.start()
 		outputDebugString("Speedometer: Fallback to 2d")
 		return
 	end
+
+	assetsTextures = {}
+	assetsTextures.circle = dxCreateTexture("assets/textures/speedometer/circle.png")
+	assetsTextures.numbers = dxCreateTexture("assets/textures/speedometer/numbers.png")
+	for i = 1, 5 do
+		assetsTextures["gear_"..i] = dxCreateTexture("assets/textures/speedometer/" .. i ..".png")
+	end
+	assetsTextures["gear_r"] = dxCreateTexture("assets/textures/speedometer/r.png")
+	assetsTextures["gear_n"] = dxCreateTexture("assets/textures/speedometer/n.png")
 end
 
 function Speedometer.setRotation(x, y, z)

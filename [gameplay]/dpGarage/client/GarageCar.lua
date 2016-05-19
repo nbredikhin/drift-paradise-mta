@@ -84,9 +84,18 @@ function GarageCar.previewComponent(name, id)
 	vehicle:setData(name, id)
 end
 
+function GarageCar.previewConfiguration(name, value)
+	vehicle:setData(name, value)
+end
+
 function GarageCar.applyComponent(name, id)
 	vehicle:setData(name, id)
 	currentTuningTable[name] = id
+end
+
+function GarageCar.applyConfiguration(name, value)
+	vehicle:setData(name, value)
+	currentTuningTable[name] = value
 end
 
 function GarageCar.resetTuning()
@@ -95,6 +104,16 @@ function GarageCar.resetTuning()
 
 	for i, name in ipairs(componentNames) do
 		vehicle:setData(name, currentTuningTable[name])
+	end
+
+	local configurationData = {"WheelsOffsetF", "WheelsOffsetR"}
+	for i, name in ipairs(configurationData) do
+		local value = currentTuningTable[name]
+		if type(value) == "number" then
+			vehicle:setData(name, value)
+		else
+			vehicle:setData(name, 0)
+		end
 	end
 end
 
@@ -105,6 +124,15 @@ function GarageCar.getTuningTable()
 		tuningTable[name] = vehicle:getData(name, id)
 	end
 
+	tuningTable["WheelsOffsetF"] = vehicle:getData("WheelsOffsetF")
+	if type(tuningTable["WheelsOffsetF"]) == "number" then
+		tuningTable["WheelsOffsetF"] = math.floor(tuningTable["WheelsOffsetF"] * 100) / 100
+	end
+	tuningTable["WheelsOffsetR"] = vehicle:getData("WheelsOffsetR")
+	if type(tuningTable["WheelsOffsetR"]) == "number" then
+		tuningTable["WheelsOffsetR"] = math.floor(tuningTable["WheelsOffsetR"] * 100) / 100
+	end
+	
 	-- Цвета
 	tuningTable.BodyColor = {255, 255, 255}
 	tuningTable.WheelsColor = {255, 255, 255}

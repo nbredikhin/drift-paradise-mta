@@ -3,11 +3,15 @@ Assets = {}
 function Assets.start()
 	Assets.textures = {
 		logo = exports.dpAssets:createTexture("logo_square_simple.png"),
-		arrow = exports.dpAssets:createTexture("arrow.png")
+		arrow = exports.dpAssets:createTexture("arrow.png"),
+		circle = DxTexture("assets/images/circle_button.png"),
+		slider = DxTexture("assets/images/slider.png"),
+		sliderCircle = DxTexture("assets/images/slider_circle.png")
 	}
 
 	Assets.fonts = {
-		menu = exports.dpAssets:createFont("Roboto-Regular.ttf", 22)
+		menu = exports.dpAssets:createFont("Roboto-Regular.ttf", 22),
+		componentName = exports.dpAssets:createFont("Roboto-Regular.ttf", 25)
 	}
 end
 

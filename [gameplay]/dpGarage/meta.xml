@@ -25,10 +25,13 @@
 	<script type="client" src="client/ui/screens/TuningScreen.lua"/>
 	<script type="client" src="client/ui/screens/ComponentsScreen.lua"/>
 	<script type="client" src="client/ui/screens/ComponentScreen.lua"/>
+	<script type="client" src="client/ui/screens/ConfigurationsScreen.lua"/>
+	<script type="client" src="client/ui/screens/ConfigurationScreen.lua"/>
 	<!-- Элементы интерфейса -->
 	<script type="client" src="client/ui/TuningMenu.lua"/>
 	<script type="client" src="client/ui/ItemsMenu.lua"/>
 	<script type="client" src="client/ui/ComponentsMenu.lua"/>
+	<script type="client" src="client/ui/ConfigurationMenu.lua"/>
 
 	<script type="client" src="client/ui/GarageUI.lua"/>
 	<!-- Основное -->
@@ -44,4 +47,6 @@
 	<export type="client" function="enterGarageAnimated"/>
 
 	<file src="assets/images/circle_button.png"/>
+	<file src="assets/images/slider.png"/>
+	<file src="assets/images/slider_circle.png"/>
 </meta>

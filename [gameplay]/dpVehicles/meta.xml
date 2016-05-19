@@ -3,7 +3,8 @@
 	<include resource="dpAssets"/>
 	
 	<script type="client" src="client/damage.lua"/>
-	<script type="client" src="client/tuning.lua"/>
+	<script type="client" src="client/components.lua"/>
+	<script type="client" src="client/configuration.lua"/>
 	<script type="client" src="client/textures.lua"/>
 	<script type="client" src="client/mileage.lua"/>
 

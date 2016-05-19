@@ -1,5 +1,5 @@
 Radar = {}
-Radar.visible = true
+Radar.visible = false
 local DRAW_POST_GUI = false
 local screenWidth, screenHeight = guiGetScreenSize()
 
@@ -14,6 +14,8 @@ local maskShader
 local renderTarget
 local maskTexture
 local mapTexture
+
+local arrowTexture
 
 local zoom = CHUNK_SIZE / width * 10
 local fallbackTo2d = true
@@ -53,22 +55,13 @@ local function drawRadar()
 
 	local sectionX = x
 	local sectionY = y
-	--[[dxDrawImageSection(
-		0, 0, 
-		width, height, 
-		sectionX, sectionY, 
-		sectionWidth, sectionHeight, 
-		mapTexture, 
-		camera.rotation.z, 0, 0, 
-		tocolor(255, 255, 255, 255)
-	)]]
 	drawRadarSection(sectionX, sectionY)
 	dxDrawImage(
 		(width - arrowSize) / 2, 
 		(height - arrowSize) / 2, 
 		arrowSize, 
 		arrowSize,
-		"assets/textures/radar/arrow.png",
+		arrowTexture,
 		-localPlayer.rotation.z
 	)
 end
@@ -123,6 +116,7 @@ function Radar.start()
 		chunksTextures[i] = dxCreateTexture("assets/textures/radar/map/radar" .. i .. ".png", "argb", true, "clamp")
 	end
 	camera = getCamera()
+	arrowTexture = DxTexture("assets/textures/radar/arrow.png")
 end
 
 function Radar.setRotation(x, y, z)

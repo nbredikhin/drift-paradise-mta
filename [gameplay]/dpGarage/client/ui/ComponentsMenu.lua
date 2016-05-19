@@ -8,6 +8,11 @@ locales["RearBump"] = {title = "garage_tuning_component_rear_bump",  	item = "ga
 locales["Spoilers"] = {title = "garage_tuning_component_spoilers",		item = "garage_tuning_item_spoiler"}
 locales["Wheels"] = {title = "garage_tuning_component_wheels",			item = "garage_tuning_item_wheel"}
 locales["SideSkirts"] = {title = "garage_tuning_component_side_skirts",	item = "garage_tuning_item_skirt"}
+locales["RearFends"] = {title = "garage_tuning_component_rear_fends",	item = "garage_tuning_item_fender"}
+locales["FrontFends"] = {title = "garage_tuning_component_front_fends",	item = "garage_tuning_item_fender"}
+locales["Bonnets"] = {title = "garage_tuning_component_bonnet",			item = "garage_tuning_item_bonnet"}
+locales["Exhaust"] = {title = "garage_tuning_component_exhaust",		item = "garage_tuning_item_exhaust"}
+locales["RearLights"] = {title = "garage_tuning_component_rear_lights",	item = "garage_tuning_item_lights"}
 
 function ComponentsMenu:init(position, rotation, name, count)
 	self.super:init(position, rotation, Vector3(1.2, 1.4))
@@ -19,7 +24,7 @@ function ComponentsMenu:init(position, rotation, name, count)
 	self.itemName = exports.dpLang:getString(locale.item)
 	self.headerText = exports.dpLang:getString(locale.title)
 	self.buyText = exports.dpLang:getString("garage_tuning_buy_button")
-	self.price = 99999
+	self.price = 0
 	self.currentComponent = 1
 	self.componentsCount = count + 1
 	if type(count) ~= "number" then

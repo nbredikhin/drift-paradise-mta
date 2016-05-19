@@ -1,6 +1,6 @@
 ItemsMenu = TuningMenu:subclass "ItemsMenu"
 
-function ItemsMenu:init(items, position, rotation)
+function ItemsMenu:init(items, position, rotation, forceItem)
 	check("ItemsMenu:new", {
 		{items, "table"},
 		{position, "userdata"},
@@ -18,6 +18,9 @@ function ItemsMenu:init(items, position, rotation)
 
 	self.hideLogo = false
 
+	if type(forceItem) == "number" then
+		self.selectedItem = forceItem
+	end
 	self:redrawSelection()
 end
 
@@ -46,7 +49,7 @@ function ItemsMenu:getItem()
 end
 
 function ItemsMenu:drawSelectedItem(fadeProgress)
-	local position = self.position + Vector3(0, 0, self.size.y / 2 - 0.52 - 0.28 * self.selectedItem)
+	local position = self.position + Vector3(0, 0, self.size.y / 2 - 0.53 - 0.28 * self.selectedItem)
 	local rad = math.rad(self.rotation)
 	local lookOffset = Vector3(math.cos(rad), math.sin(rad), 0)
 	local animMul = math.sin(getTickCount() / 300)

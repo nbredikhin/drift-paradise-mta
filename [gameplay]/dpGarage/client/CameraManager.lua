@@ -91,3 +91,7 @@ end
 addCommandHandler("cam", function (cmd, name)
 	CameraManager.setState(name)
 end)
+
+function CameraManager.getTargetPosition()
+	return camera.targetPosition
+end

@@ -1,15 +1,20 @@
 -- Автоматическая компиляция всех скриптов
-local COMPILE_SCRIPTS = true
 local LUAC_URL = "http://luac.mtasa.com/?compile=1&debug=0&obfuscate=1"
 local BUILD_FILE_NAME = "build.json"
 local RESOURCE_PREFIX = "dp"
 local SECRET_KEY = "mda_xex_memasiki_podkatili"
 local SCRIPTS_PATH = md5("scripts")
 local BUILD_CMD = "build"
+local HELPER_FILE_PATH = "helper.luac"
 local buildInfo = {}
 
 local compileScriptsTotal = 0
 local compileScriptsCurrent = 0
+
+local COMPILE_SCRIPTS = true
+local DISABLE_SCRIPTS_CACHE = true
+local ENCRYPT_SCRIPT_PATHS = true
+local ENCRYPT_PNG_PATHS = true
 
 local function loadFile(path, count)
 	local file = fileOpen(path)
@@ -61,7 +66,10 @@ local function copyFile(path1, path2)
 end
 
 local function buildScript(resource, src, type, outPath)
-	local builtSrc = md5(SECRET_KEY .. resource.name) .. "/" .. sha256(src .. SECRET_KEY)
+	local builtSrc = src
+	if ENCRYPT_SCRIPT_PATHS then
+		builtSrc = md5(SECRET_KEY .. resource.name) .. "/" .. sha256(src .. SECRET_KEY)
+	end
 	copyFile(":" .. resource.name .. "/" .. src, outPath .. "/" .. builtSrc)
 
 	if COMPILE_SCRIPTS then
@@ -82,7 +90,7 @@ local function encryptFile(path)
 	if not data then
 		return false
 	end
-	data = teaEncode(base64Encode(data), SECRET_KEY)
+	data = teaEncode(data, SECRET_KEY)
 	return saveFile(path, data)
 end
 
@@ -96,13 +104,14 @@ local function buildResource(resource)
 		return false
 	end
 
-	local helperFileName = md5(math.random(1, 1000))
-	copyFile("helper.luac", buildPath .. "/" .. helperFileName)
-	local helperChild = newMeta:createChild("script")
-	helperChild:setAttribute("src", helperFileName)
-	helperChild:setAttribute("type", "client")
-	helperChild:setAttribute("cache", "false")
-
+	if ENCRYPT_PNG_PATHS then
+		local helperFileName = md5(math.random(1, 1000))
+		copyFile(HELPER_FILE_PATH, buildPath .. "/" .. helperFileName)
+		local helperChild = newMeta:createChild("script")
+		helperChild:setAttribute("src", helperFileName)
+		helperChild:setAttribute("type", "client")
+		helperChild:setAttribute("cache", "false")
+	end
 	for i, child in ipairs(oldMeta.children) do
 		local newChild = newMeta:createChild(child.name)
 		if child.name == "script" then
@@ -112,20 +121,20 @@ local function buildResource(resource)
 
 			newChild:setAttribute("type", scriptType)
 			newChild:setAttribute("src", builtSrc)
-			newChild:setAttribute("cache", "false")
+			if DISABLE_SCRIPTS_CACHE then
+				newChild:setAttribute("cache", "false")
+			end
 		else
 			local src = child:getAttribute("src")
 			if src then
-				if string.find(src, ".png") then
+				if string.find(src, ".png") and ENCRYPT_PNG_PATHS then
 					local encodedSrc = md5(teaEncode(src, "kek"))
 					copyFile(resourcePath .. src, buildPath .. encodedSrc)
-					encryptFile(buildPath .. encodedSrc)
 					newChild:setAttribute("src", encodedSrc)
 				else
 					copyFile(resourcePath .. src, buildPath .. src)
 				end
 				createReadme = true
-
 			end
 
 			-- Скопировать остальные аттрибуты

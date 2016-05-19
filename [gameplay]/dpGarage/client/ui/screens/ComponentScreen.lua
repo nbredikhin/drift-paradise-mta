@@ -5,10 +5,15 @@ ComponentScreen = Screen:subclass "ComponentScreen"
 -- Расположение 3D меню для разных компонентов
 local menuLocations = {}
 menuLocations["FrontBump"] 	= {position = Vector3(2917, -3188.3, 2535.6), 	angle = 30}
-menuLocations["Spoilers"] 	= {position = Vector3(2915, -3188.3, 2535.8), angle = 185}
+menuLocations["Spoilers"] 	= {position = Vector3(2915, -3188.3, 2535.8), 	angle = 185}
 menuLocations["RearBump"] 	= {position = Vector3(2915, -3184.2, 2535.6), 	angle = 190}
-menuLocations["Wheels"] 	= {position = Vector3(2913.8, -3184.3, 2535.3), 	angle = 15}
+menuLocations["Wheels"] 	= {position = Vector3(2913.8, -3184.3, 2535.3), angle = 15}
 menuLocations["SideSkirts"] = {position = Vector3(2914.3, -3188.6, 2535.3), angle = 10}
+menuLocations["RearFends"] 	= {position = Vector3(2916.5, -3188.3, 2535.3), angle = 210}
+menuLocations["FrontFends"] = {position = Vector3(2915, -3188.3, 2535.3), 	angle = 0}
+menuLocations["Bonnets"] 	= {position = Vector3(2917, -3188.4, 2535.6), 	angle = 20}
+menuLocations["Exhaust"] 	= {position = Vector3(2915, -3184.2, 2535.4), 	angle = 190}
+menuLocations["RearLights"] = {position = Vector3(2915, -3184.2, 2535.6), 	angle = 190}
 
 function ComponentScreen:init(name, componentIndex)
 	self.super:init()

@@ -2,7 +2,7 @@
 	<oop>true</oop>
 	<min_mta_version client="1.3.0-9.04431" />
 	<include resource="dpAssets"/>
-	<download_priority_group>-1</download_priority_group>
+	<download_priority_group>-2</download_priority_group>
 
 	<script type="client" src="client/Utils.lua"/>
 	<script type="client" src="client/main.lua"/>

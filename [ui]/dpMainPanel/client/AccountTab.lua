@@ -121,7 +121,7 @@ function AccountTab.create()
 	local hasHouseLabel = UI:createDpLabel {
 		x = 20, y = 210,
 		width = width / 3, height = 50,
-		text = "Дом: нет",
+		text = "House: none",
 		fontType = "defaultSmall",
 		type = "dark",
 	}

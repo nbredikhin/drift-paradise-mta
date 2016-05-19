@@ -1,13 +1,7 @@
 TuningScreen = Screen:subclass "TuningScreen"
 
-function TuningScreen:init()
+function TuningScreen:init(forceItem)
 	self.super:init()
-	CameraManager.setState("vehicleTuning", false, 2)
-end
-
-function TuningScreen:show()
-	self.super:show()
-
 	self.menu = ItemsMenu(
 		{
 			"garage_menu_customize_components",
@@ -17,8 +11,14 @@ function TuningScreen:show()
 			"garage_menu_back"
 		},
 		Vector3(2917.5, -3183.7, 2535.6), 
-		-10
-	)
+		-10,
+		forceItem
+	)	
+	CameraManager.setState("vehicleTuning", false, 2)
+end
+
+function TuningScreen:show()
+	self.super:show()
 end
 
 function TuningScreen:hide()
@@ -46,6 +46,7 @@ function TuningScreen:onKey(key)
 		elseif self.menu:getItem() == "garage_menu_customize_paint" then
 		elseif self.menu:getItem() == "garage_menu_customize_stickers" then
 		elseif self.menu:getItem() == "garage_menu_customize_config" then
+			self.screenManager:showScreen(ConfigurationsScreen())
 		elseif self.menu:getItem() == "garage_menu_back" then
 			self.screenManager:showScreen(MainScreen())
 		end		

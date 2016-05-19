@@ -15,7 +15,7 @@ local USERNAME_REGEXP = "^[A-Za-z0-9_]$"
 
 local function draw()
 	animationProgress = math.min(1, animationProgress + ANIMATION_SPEED)
-	dxDrawImage(0, 0, backgroundWidth, backgroundHeight, "assets/background.jpg", 0, 0, 0, tocolor(255, 255, 255, 255 * animationProgress))
+	dxDrawImage(0, 0, backgroundWidth, backgroundHeight, backgroundTexture, 0, 0, 0, tocolor(255, 255, 255, 255 * animationProgress))
 	dxDrawText("Drift Paradise 2.0 Development Version", 3, screenHeight - 14, 3, screenHeight - 14, tocolor(255, 255, 255, 100 * animationProgress))
 	if not root:getData("dbConnected") then
 		dxDrawText("The server is currently not available.\nСервер на данный момент недоступен.", 
@@ -74,6 +74,7 @@ function setVisible(visible)
 				exports.dpLang:getString("login_panel_server_not_available")
 			)
 		end
+
 		addEventHandler("onClientRender", root, draw)
 		animationProgress = 0
 		local fields = Autologin.load()
@@ -82,6 +83,7 @@ function setVisible(visible)
 			UI:setText(loginPanel.password, fields.password)
 			exports.dpLang:setLanguage(fields.language)
 		end
+		backgroundTexture = DxTexture("assets/background.jpg")
 	else
 		removeEventHandler("onClientRender", root, draw)
 	end

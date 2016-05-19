@@ -14,6 +14,7 @@ VehicleTuning.defaultTuningTable = {
 	WheelsAngleR 	= 0, -- Развал задних колёс
 	WheelsOffsetF	= 0, -- Вынос передних колёс
 	WheelsOffsetR	= 0, -- Вынос задних колёс
+	Suspension 		= 0, -- Высота подвески
 
 	Wheels 			= 0, -- Колёса
 	Spoilers 		= 0, -- Спойлер	

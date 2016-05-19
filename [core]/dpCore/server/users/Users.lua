@@ -19,7 +19,7 @@ function Users.setup()
 		-- Дата регистрации
 		{ name="register_time", type="timestamp", options="DEFAULT CURRENT_TIMESTAMP" },
 		-- Дата последней активности
-		{ name="lastseen", type="timestamp", options="NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP" }
+		{ name="lastseen", type="timestamp", options="DEFAULT 0" }
 	})
 	-- Очистка информации о входе
 	DatabaseTable.update(USERS_TABLE_NAME, {online=0}, {})

@@ -31,6 +31,20 @@ function VehicleSpawn.getPlayerSpawnedVehicles(player)
 	return spawnedVehicles
 end
 
+function VehicleSpawn.getUserSpawnedVehicles(userId)
+	if type(userId) ~= "string" then
+		return false
+	end
+	if not userSpawnedVehicles[userId] then
+		return {}
+	end
+	local spawnedVehicles = {}
+	for vehicle in pairs(userSpawnedVehicles[userId]) do
+		table.insert(spawnedVehicles, vehicle)
+	end
+	return spawnedVehicles
+end
+
 function VehicleSpawn.getSpawnedVehicle(vehicleId)
 	return getElementByID(tostring(vehicleId))
 end
@@ -123,9 +137,11 @@ function VehicleSpawn.spawn(vehicleId, position, rotation)
 	if not vehicleInfo.owner_id then
 		return false
 	end	
-	local previouslySpawendVehicle = VehicleSpawn.getSpawnedVehicle(vehicleInfo._id)
-	if isElement(previouslySpawendVehicle) then
-		VehicleSpawn.returnToGarage(previouslySpawendVehicle)
+	local previouslySpawendVehicles = VehicleSpawn.getUserSpawnedVehicles(vehicleInfo.owner_id)
+	if type(previouslySpawendVehicles) == "table" and #previouslySpawendVehicles > 0 then
+		for i, vehicle in ipairs(previouslySpawendVehicles) do
+			VehicleSpawn.returnToGarage(vehicle)
+		end
 	end
 
 	local user = Users.get(vehicleInfo.owner_id, { "username" })

@@ -24,12 +24,23 @@ local function updateVehicleConfiguration(vehicle)
 	end
 end
 
+-- Костыль ибаный
+local function updateConfigurationWithTimer(vehicle)
+	local updateTimer = setTimer(function()
+		if isElement(vehicle) then
+			updateVehicleConfiguration(vehicle)
+		elseif isTimer(updateTimer) then
+			killTimer(updateTimer)
+		end
+	end, 100, 15)
+end
+
 addEventHandler("onClientElementDataChange", root, function (name, oldVaue)
 	if source.type ~= "vehicle" then
 		return
 	end
 	if name == "WheelsOffsetR" or name == "WheelsOffsetF" then
-		updateVehicleConfiguration(source)
+		updateConfigurationWithTimer(source)
 	end
 end)
 
@@ -41,6 +52,6 @@ end)
 
 addEventHandler("onClientElementStreamIn", root, function ()
 	if source.type == "vehicle" then
-		updateVehicleConfiguration(source)
+		updateConfigurationWithTimer(source)
 	end
 end)

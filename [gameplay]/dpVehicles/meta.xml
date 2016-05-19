@@ -7,6 +7,7 @@
 	<script type="client" src="client/configuration.lua"/>
 	<script type="client" src="client/textures.lua"/>
 	<script type="client" src="client/mileage.lua"/>
+	<script type="server" src="server_test.lua"/>
 
 	<export type="client" function="getComponentsNames"/>
 </meta>

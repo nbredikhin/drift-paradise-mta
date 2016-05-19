@@ -29,8 +29,7 @@ addEventHandler("onClientElementDataChange", root, function (name, oldVaue)
 		return
 	end
 	if name == "WheelsOffsetR" or name == "WheelsOffsetF" then
-		local v = source
-		setTimer(function () updateVehicleConfiguration(v) end, 1000, 1) 
+		updateVehicleConfiguration(source)
 	end
 end)
 

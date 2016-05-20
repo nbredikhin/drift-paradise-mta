@@ -1,7 +1,7 @@
 local frontWheels = {"wheel_lf_dummy", "wheel_rf_dummy"}
 local rearWheels = {"wheel_lb_dummy", "wheel_rb_dummy"}
 
-local function updateVehicleConfiguration(vehicle)
+local function updateVehicleWheelsOffset(vehicle)
 	-- Вынос передних колёс
 	local offsetFront = vehicle:getData("WheelsOffsetF")
 	if type(offsetFront) == "number" then
@@ -24,11 +24,27 @@ local function updateVehicleConfiguration(vehicle)
 	end
 end
 
+local function updateVehicleConfiguration(vehicle)
+	-- Обновить вынос
+	updateVehicleWheelsOffset(vehicle)
+	-- Обновить подвеску
+	-- TODO:
+	-- Обновить развал
+	-- TODO:
+	-- Обновить размер колёс
+	-- TODO:
+end
+
 -- Костыль ибаный
 local function updateConfigurationWithTimer(vehicle)
+	-- Обновить конфигурацию
+	updateVehicleConfiguration(vehicle)
+
+	-- Обновить колёса по таймеру
 	local updateTimer = setTimer(function()
 		if isElement(vehicle) then
-			updateVehicleConfiguration(vehicle)
+			-- Вынос
+			updateVehicleWheelsOffset(vehicle)
 		elseif isTimer(updateTimer) then
 			killTimer(updateTimer)
 		end

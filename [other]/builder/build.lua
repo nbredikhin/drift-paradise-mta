@@ -11,10 +11,16 @@ local buildInfo = {}
 local compileScriptsTotal = 0
 local compileScriptsCurrent = 0
 
+-- Скомпилировать скрипты через luac.mtasa.com
 local COMPILE_SCRIPTS = true
+-- cache="false" для всех скриптов
 local DISABLE_SCRIPTS_CACHE = true
+-- Шифровать пути к скриптам
 local ENCRYPT_SCRIPT_PATHS = true
+-- Шифровать пути к .png
 local ENCRYPT_PNG_PATHS = true
+-- Объединить все скрипты в один файл
+local SCRIPTS_SINGLE_FILE = true
 
 local function loadFile(path, count)
 	local file = fileOpen(path)
@@ -103,7 +109,7 @@ local function buildResource(resource)
 	if not oldMeta then
 		return false
 	end
-
+	
 	if ENCRYPT_PNG_PATHS then
 		local helperFileName = md5(math.random(1, 1000))
 		copyFile(HELPER_FILE_PATH, buildPath .. "/" .. helperFileName)

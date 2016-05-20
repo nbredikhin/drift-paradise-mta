@@ -2,7 +2,7 @@ VehicleSpawn = {}
 -- Время, через которое удаляется взорвавшийся автомобиль
 local EXPLODED_VEHICLE_DESTROY_TIMEOUT = 5000
 -- Автомобили, заспавненные игроком
--- ключ - владелец
+-- ключ - userId владельца (string)
 local userSpawnedVehicles = {}
 -- data, находящаяся в автомобиле
 local dataFields = {
@@ -16,39 +16,78 @@ local allowedFields = {
 	mileage = true
 }
 
+local function getUserSpawnedVehiclesTable(userId)
+	if type(userId) ~= "number" then
+		if type(userId) == "string" then
+			userId = tonumber(userId)
+		else
+			return
+		end
+	end
+
+	return userSpawnedVehicles[userId]
+end
+
+local function addUserSpawnedVehicle(userId, vehicle)
+	if type(userId) ~= "number" then
+		if type(userId) == "string" then
+			userId = tonumber(userId)
+		else
+			return
+		end
+	end
+
+	if not userSpawnedVehicles[userId] then
+		userSpawnedVehicles[userId] = {}
+	end
+	userSpawnedVehicles[userId][vehicle] = true
+end
+
+local function removeUserSpawnedVehicle(userId, vehicle)
+	if type(userId) ~= "number" then
+		if type(userId) == "string" then
+			userId = tonumber(userId)
+		else
+			return
+		end
+	end
+
+	if not userSpawnedVehicles[userId] then
+		userSpawnedVehicles[userId] = {}
+	end
+	userSpawnedVehicles[userId][vehicle] = nil	
+end
+
+-- Возвращает массив автомобилей, принадлежащих пользователю с userId
+function VehicleSpawn.getUserSpawnedVehicles(userId)
+	if not userId then
+		return false
+	end
+	if not getUserSpawnedVehiclesTable(userId) then
+		return {}
+	end
+	local spawnedVehicles = {}
+	for vehicle in pairs(getUserSpawnedVehiclesTable(userId)) do
+		table.insert(spawnedVehicles, vehicle)
+	end
+	return spawnedVehicles
+end
+
+-- Возвращает массив автомобилей, заспавненных игроком
 function VehicleSpawn.getPlayerSpawnedVehicles(player)
 	if not isElement(player) then
 		return false
 	end
-	local playerId = player:getData("_id")
-	if not userSpawnedVehicles[playerId] then
-		return {}
-	end
-	local spawnedVehicles = {}
-	for vehicle in pairs(userSpawnedVehicles[playerId]) do
-		table.insert(spawnedVehicles, vehicle)
-	end
-	return spawnedVehicles
+	local userId = player:getData("_id")
+	return VehicleSpawn.getUserSpawnedVehicles(userId)
 end
 
-function VehicleSpawn.getUserSpawnedVehicles(userId)
-	if type(userId) ~= "string" then
-		return false
-	end
-	if not userSpawnedVehicles[userId] then
-		return {}
-	end
-	local spawnedVehicles = {}
-	for vehicle in pairs(userSpawnedVehicles[userId]) do
-		table.insert(spawnedVehicles, vehicle)
-	end
-	return spawnedVehicles
-end
-
+-- Возвращает элемент заспавненного автомобиля по его _id в базе данных
 function VehicleSpawn.getSpawnedVehicle(vehicleId)
 	return getElementByID(tostring(vehicleId))
 end
 
+-- Возвращает игрока, который является владельцем автомобиля
 function VehicleSpawn.getVehicleOwnerPlayer(vehicle)
 	if not isElement(vehicle) then
 		return false
@@ -57,6 +96,7 @@ function VehicleSpawn.getVehicleOwnerPlayer(vehicle)
 	return Users.getPlayerById(ownerId)
 end
 
+-- Возвращает, является ли игрок владельцем автомобиля
 function VehicleSpawn.isPlayerOwningVehicle(player, vehicle)
 	if not isElement(player) or not isElement(vehicle) then
 		return false
@@ -66,7 +106,8 @@ function VehicleSpawn.isPlayerOwningVehicle(player, vehicle)
 	return playerId == ownerId
 end
 
-function VehicleSpawn.autosaveVehicle(vehicle, saveTuning, saveStickers)
+-- Автосохранение
+local function autosaveVehicle(vehicle, saveTuning, saveStickers)
 	if not isElement(vehicle) then
 		return false
 	end
@@ -106,6 +147,7 @@ function VehicleSpawn.autosaveVehicle(vehicle, saveTuning, saveStickers)
 	return true
 end
 
+-- Удаляет заспавненный автомобиль
 function VehicleSpawn.returnToGarage(vehicle)
 	if not isElement(vehicle) then
 		return false
@@ -114,14 +156,28 @@ function VehicleSpawn.returnToGarage(vehicle)
 	if not playerId then
 		return false
 	end
-	if type(userSpawnedVehicles[playerId]) ~= "table" then
+	if type(getUserSpawnedVehiclesTable(playerId)) ~= "table" then
 		return false
 	end
-	userSpawnedVehicles[playerId][vehicle] = nil
-	VehicleSpawn.autosaveVehicle(vehicle)
+	removeUserSpawnedVehicle(playerId, vehicle)
+	autosaveVehicle(vehicle)
 	destroyElement(vehicle)
+	return true
 end
 
+-- Возвращает все автомобили, принадленащие пользователю userId в гараж
+function VehicleSpawn.returnUserVehiclesToGarage(userId)
+	local vehicles = VehicleSpawn.getUserSpawnedVehicles(userId)
+	if type(vehicles) ~= "table" then
+		return false
+	end
+	for i, vehicle in ipairs(vehicles) do
+		VehicleSpawn.returnToGarage(vehicle)
+	end
+	return true
+end
+
+-- Спавн автомобиля из гаража по _id
 function VehicleSpawn.spawn(vehicleId, position, rotation)
 	if type(vehicleId) ~= "number" or type(position) ~= "userdata" then
 		executeCallback(callback, false)
@@ -137,12 +193,6 @@ function VehicleSpawn.spawn(vehicleId, position, rotation)
 	if not vehicleInfo.owner_id then
 		return false
 	end	
-	local previouslySpawendVehicles = VehicleSpawn.getUserSpawnedVehicles(vehicleInfo.owner_id)
-	if type(previouslySpawendVehicles) == "table" and #previouslySpawendVehicles > 0 then
-		for i, vehicle in ipairs(previouslySpawendVehicles) do
-			VehicleSpawn.returnToGarage(vehicle)
-		end
-	end
 
 	local user = Users.get(vehicleInfo.owner_id, { "username" })
 	if type(user) ~= "table" or #user == 0 then
@@ -150,6 +200,10 @@ function VehicleSpawn.spawn(vehicleId, position, rotation)
 	end
 	user = user[1]
 
+	-- Вернуть все автомобили игрока в гараж
+	VehicleSpawn.returnUserVehiclesToGarage(vehicleInfo.owner_id)
+
+	-- Создание автомобиля
 	local vehicle = Vehicle(vehicleInfo.model, position, rotation)
 	vehicle:setColor(255, 0, 0)
 
@@ -159,10 +213,7 @@ function VehicleSpawn.spawn(vehicleId, position, rotation)
 	vehicle:setData("owner_username", user.username)
 	vehicle.id = tostring(vehicleInfo._id)
 
-	if not userSpawnedVehicles[vehicleInfo.owner_id] then
-		userSpawnedVehicles[vehicleInfo.owner_id] = {}
-	end
-	userSpawnedVehicles[vehicleInfo.owner_id][vehicle] = true
+	addUserSpawnedVehicle(vehicleInfo.owner_id, vehicle)
 	VehicleTuning.applyToVehicle(vehicle, vehicleInfo.tuning, vehicleInfo.stickers)
 	return vehicle
 end

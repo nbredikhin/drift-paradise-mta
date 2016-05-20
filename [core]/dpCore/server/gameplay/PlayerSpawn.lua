@@ -34,3 +34,13 @@ function PlayerSpawn.spawn(player)
 	player.model = player:getData("skin")
 	return true
 end
+
+addEventHandler("onPlayerWasted", root, function ()
+	local player = source
+	player:fadeCamera(false, 3)
+	setTimer(function ()
+		if isElement(player) then
+			PlayerSpawn.spawn(player)
+		end
+	end, 3000, 1)
+end)

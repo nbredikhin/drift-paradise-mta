@@ -2,11 +2,10 @@
 
 addEventHandler("onClientVehicleDamage", root, function ()
 	cancelEvent()
-	if source == localPlayer.vehicle then
-		localPlayer.vehicle:fix()
-	end
+	source:fix()
 end)
 
+-- Переворот автомобиля на колёса
 setTimer(function ()
 	if not localPlayer.vehicle then
 		return

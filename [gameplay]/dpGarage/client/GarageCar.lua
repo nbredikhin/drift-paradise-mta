@@ -115,6 +115,10 @@ function GarageCar.resetTuning()
 			vehicle:setData(name, 0)
 		end
 	end
+
+	-- Цвета
+	vehicle:setData("BodyColor", currentTuningTable["BodyColor"])
+	vehicle:setData("WheelsColor", currentTuningTable["WheelsColor"])
 end
 
 function GarageCar.getTuningTable()
@@ -134,12 +138,10 @@ function GarageCar.getTuningTable()
 	end
 	
 	-- Цвета
-	tuningTable.BodyColor = {255, 255, 255}
-	tuningTable.WheelsColor = {255, 255, 255}
+	tuningTable.BodyColor = vehicle:getData("BodyColor")
+	tuningTable.WheelsColor = vehicle:getData("WheelsColor")
 
 	-- TODO:
-	-- BodyColor 		= {255, 0, 0}
-	-- WheelsColor 	= {255, 255, 255}
 	-- BodyTexture 	= false
 	-- NeonColor 		= false
 	-- Numberplate 	= "DRIFT"

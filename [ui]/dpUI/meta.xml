@@ -40,6 +40,8 @@
 	<!-- Сгенерированный список экспортов -->
 	<export type="client" function="getScreenSize"/>
 	<export type="client" function="setTheme"/>
+	<export type="client" function="getThemeColor"/>
+	<export type="client" function="getThemeName"/>
 	<export type="client" function="showMessageBox"/>
 	<export type="client" function="hideMessageBox"/>
 	<export type="client" function="getRootWidget"/>

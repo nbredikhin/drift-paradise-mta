@@ -1,5 +1,5 @@
 Colors = {}
-local currentTheme = "red"
+local currentThemeName = "red"
 local colorSchemeDefault = {
 	white			= {255, 255, 255},
 	black			= {0, 0, 0},
@@ -82,9 +82,17 @@ function Colors.setTheme(name)
 			colorScheme[colorName] = {unpack(colorSchemeDefault[colorName])}
 		end
 	end
-	currentTheme = name
+	currentThemeName = name
 	Render.updateTheme()
 	return true
+end
+
+function Colors.getThemeColor()
+	return unpack(colorScheme["primary"])
+end
+
+function Colors.getThemeName()
+	return currentThemeName
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()

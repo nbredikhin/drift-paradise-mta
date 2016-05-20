@@ -53,7 +53,7 @@ function ComponentsMenu:draw(fadeProgress)
 	dxDrawRectangle(0, 0, self.resolution.x, self.resolution.y, tocolor(42, 40, 41))
 	dxDrawRectangle(0, 0, self.resolution.x, self.headerHeight, tocolor(32, 30, 31))
 	dxDrawText(self.headerText, 0, 0, self.resolution.x, self.headerHeight, tocolor(255, 255, 255), 1, Assets.fonts.menu, "center", "center")
-	dxDrawRectangle(0, self.resolution.y - self.headerHeight, self.resolution.x, self.headerHeight, tocolor(212, 0, 40))
+	dxDrawRectangle(0, self.resolution.y - self.headerHeight, self.resolution.x, self.headerHeight, tocolor(unpack(Garage.themePrimaryColor)))
 	local buyText = self.buyText .. " $" .. self.price
 	if self.price == 0 then
 		buyText = exports.dpLang:getString("garage_tuning_install_button")

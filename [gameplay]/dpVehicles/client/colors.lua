@@ -30,7 +30,6 @@ local function updateVehicleWheelsColor(vehicle)
 	local currentColor = {vehicle:getColor(true)}
 	for i = 1, 3 do
 		currentColor[3 + i] = newColor[i]
-		outputChatBox(newColor[i])
 	end
 	vehicle:setColor(unpack(currentColor))
 end

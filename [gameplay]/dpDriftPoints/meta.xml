@@ -1,0 +1,5 @@
+<meta>
+	<oop>true</oop>
+	<info author="MOTH3RS_BL3ND3R" description="Resource for managing drift points" />
+	<script src="dpDriftPoints.lua" type="client" />
+</meta>

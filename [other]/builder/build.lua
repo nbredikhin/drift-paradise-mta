@@ -22,6 +22,8 @@ local ENCRYPT_PNG_PATHS = true
 -- Объединить все скрипты в один файл
 local SCRIPTS_SINGLE_FILE = true
 
+local RESOURCES_TO_BUILD = false--{dpVehicles = true}
+
 local function loadFile(path, count)
 	local file = fileOpen(path)
 	if not file then
@@ -160,12 +162,20 @@ local function buildResource(resource)
 	oldMeta:unload()
 	newMeta:saveFile()
 	newMeta:unload()
-
-	
 end
 
 local function buildResources()
-	for i, resource in ipairs(getResources()) do
+	local resourcesList = getResources()
+	if RESOURCES_TO_BUILD then
+		local res = {}
+		for i, resource in ipairs(resourcesList) do
+			if RESOURCES_TO_BUILD[resource.name] then
+				table.insert(res, resource)
+			end
+		end
+		resourcesList = res
+	end
+	for i, resource in ipairs(resourcesList) do
 		if string.sub(resource.name, 1, string.len(RESOURCE_PREFIX)) == RESOURCE_PREFIX then
 			buildResource(resource)
 		end

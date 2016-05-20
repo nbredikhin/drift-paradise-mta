@@ -36,3 +36,7 @@ bindKey("backspace", "down", function() setVisible(false) end)
 if localPlayer:getData("dpCore.state") == "map" then
 	localPlayer:setData("dpCore.state", false)
 end
+
+addEventHandler("onClientResourceStart", resourceRoot, function()
+	toggleControl("radar", false)
+end)

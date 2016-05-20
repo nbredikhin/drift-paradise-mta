@@ -82,6 +82,9 @@ function setVisible(visible)
 			UI:setText(loginPanel.username, fields.username)
 			UI:setText(loginPanel.password, fields.password)
 			exports.dpLang:setLanguage(fields.language)
+			if fields.color then
+				exports.dpUI:setTheme(fields.color)
+			end
 		end
 		backgroundTexture = DxTexture("assets/background.jpg")
 	else

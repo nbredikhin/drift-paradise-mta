@@ -64,7 +64,6 @@ end
 function Render.start()
 	renderTarget3D = RenderTarget3D.create(screenWidthLimited, screenHeightLimited)
 	Drawing.POST_GUI = not not renderTarget3D.fallback
-	outputDebugString("Created RenderTarget3D: " .. tostring(renderTarget3D))
 	addEventHandler("onClientRender", root, draw)
 end
 

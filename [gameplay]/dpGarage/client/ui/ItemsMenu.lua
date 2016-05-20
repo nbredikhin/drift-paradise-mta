@@ -14,7 +14,7 @@ function ItemsMenu:init(items, position, rotation, forceItem)
 	self.selectionProgress = 0
 	self.selectionSpeed = 4
 	self.selectionOffset = 0.3
-	self.selectionColor = tocolor(212, 0, 40)
+	self.selectionColor = tocolor(unpack(Garage.themePrimaryColor))
 
 	self.hideLogo = false
 

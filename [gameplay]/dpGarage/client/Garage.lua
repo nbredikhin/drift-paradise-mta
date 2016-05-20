@@ -1,4 +1,5 @@
 Garage = {}
+Garage.themePrimaryColor = {}
 local isActive = false
 
 function Garage.start(vehicles)
@@ -6,6 +7,8 @@ function Garage.start(vehicles)
 		return false
 	end
 	isActive = true
+
+	Garage.themePrimaryColor = {exports.dpUI:getThemeColor()}
 	localPlayer.dimension = 0
 	Assets.start()
 

@@ -1,7 +1,7 @@
 <meta>
 	<oop>true</oop>
 	<include resource="dpUI"/>
-	<download_priority_group>-1</download_priority_group>
+	<download_priority_group>-100</download_priority_group>
 
 	<script type="client" src="client/login.lua"/>
 	<script type="client" src="client/gui.lua"/>

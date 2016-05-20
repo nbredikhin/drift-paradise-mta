@@ -169,6 +169,9 @@ end)
 
 addEventHandler("onClientKey", root, function (key, state)
 	if key == markerKey and state then
+		if isMTAWindowActive() then
+			return false
+		end
 		if not currentMarker then
 			return
 		end

@@ -84,6 +84,9 @@ addEventHandler("onClientRender", root, function ()
 	if not localPlayer.vehicle then
 		return
 	end	
+	if localPlayer.vehicle.controller ~= localPlayer then
+		return
+	end
 	if fallbackTo2d then
 		drawSpeedometer(screenWidth - width - screenOffset, screenHeight - height - screenOffset, width, height)
 	else

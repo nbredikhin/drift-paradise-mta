@@ -15,6 +15,16 @@ function setTheme(...)
 end
 printMetaExport("setTheme")
 
+function getThemeColor(...)
+	return Colors.getThemeColor(...)
+end
+printMetaExport("getThemeColor")
+
+function getThemeName(...)
+	return Colors.getThemeName(...)
+end
+printMetaExport("getThemeName")
+
 function showMessageBox(...)
 	return MessageBox.show(...)
 end

@@ -4,11 +4,11 @@ local ENABLE_GARAGE_CMD = true		-- Команда /garage для входа в �
 local isEnterExitInProcess = false 	-- Входит (выходит) ли в данный момент игрок в гараж
 
 addEvent("dpGarage.enter", true)
-addEventHandler("dpGarage.enter", resourceRoot, function (vehicles, errorType)
+addEventHandler("dpGarage.enter", resourceRoot, function (success, vehiclesList, enteredVehicleId)
 	isEnterExitInProcess = false
 	
-	if vehicles then
-		Garage.start(vehicles)
+	if success then
+		Garage.start(vehiclesList, enteredVehicleId)
 	else
 		if errorType then
 			local errorText = exports.dpLang:getString(errorType)

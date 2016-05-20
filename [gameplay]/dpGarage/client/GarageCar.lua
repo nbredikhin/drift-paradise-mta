@@ -80,6 +80,17 @@ function GarageCar.showPreviousCar()
 	updateVehicle()
 end
 
+function GarageCar.showCarById(id)
+	for i, vehicle in ipairs(vehiclesList) do
+		if vehicle._id == id then
+			currentVehicle = i
+			updateVehicle()
+			return true
+		end
+	end
+	return false
+end
+
 function GarageCar.previewComponent(name, id)
 	vehicle:setData(name, id)
 end

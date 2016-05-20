@@ -30,10 +30,20 @@ local driftRestrictedTimer = 0
 -- Time drift is restricted after collision
 local DRIFT_RESTRICT_TIME = 1000
 
--- local function isDriftingClose()
--- 	local pos = localPlayer.position
--- 	dxDrawLine(pos.x, pos.y, pos.z, pos.x + 2, pos.y, pos.z)
--- end
+local function isDriftingClose()
+	local pos = localPlayer.vehicle.position
+	local driftAngleRad = math.rad(driftAngle)
+
+	local forwardDir = localPlayer.vehicle.matrix.forward 
+	
+	dxDrawLine3D(pos.x, pos.y, pos.z, pos.x + 5 * forwardDir.x * math.cos(driftAngleRad), pos.y + 5 * forwardDir.y * math.sin(driftAngleRad), pos.z, 0xffff0000)
+	dxDrawLine3D(pos.x, pos.y, pos.z, pos.x - 5 * forwardDir.x * math.cos(driftAngleRad), pos.y - 5 * forwardDir.y * math.sin(driftAngleRad), pos.z, 0xff00ff00)
+	
+	local resForward = isLineOfSightClear(pos.x, pos.y, pos.z, pos.x + 5 * forwardDir.x * math.cos(driftAngleRad), pos.y + 5 * forwardDir.y * math.sin(driftAngleRad), pos.z, true, false, false)
+	local resBackward = isLineOfSightClear(pos.x, pos.y, pos.z, pos.x - 5 * forwardDir.x * math.cos(driftAngleRad), pos.y - 5 * forwardDir.y * math.sin(driftAngleRad), pos.z, true, false, false)
+	
+	return (not (resForward and resBackward))
+end
 
 local function detectDrift()
 	local velocity = localPlayer.vehicle.velocity
@@ -43,11 +53,11 @@ local function detectDrift()
 		return 0, false
 	end
 	velocity = velocity:getNormalized()
-	local angle = math.deg(math.acos(velocity:dot(direction) / (velocity.length * direction.length)))
-	if math.abs(angle) > MIN_DRIFT_ANGLE and math.abs(angle) < 90 then
-		return math.abs(angle), true
+	local angle = math.abs(math.deg(math.acos(velocity:dot(direction) / (velocity.length * direction.length))))
+	if angle > MIN_DRIFT_ANGLE and angle < 90 then
+		return angle, true
 	else
-		return math.abs(angle), false
+		return angle, false
 	end
 end
 
@@ -59,7 +69,6 @@ local function update(dt)
 	if not localPlayer.vehicle:isOnGround() then
 		return
 	end
-	isDriftingClose()
 	if driftRestrictedTimer > 0 then
 		driftRestrictedTimer = driftRestrictedTimer - dt
 		dxDrawLine("DRIFT IS RESTRICTED, TIME LEFT: " .. math.floor(driftRestrictedTimer) .. "ms", 500, 500, 500, 500)
@@ -85,6 +94,9 @@ local function update(dt)
 		return
 	end
 
+	if isDriftingClose() then
+		dxDrawText("NEAR DAMN WALL", 300, 100, 500, 500, 0xffff0000, 2, "pricedown")
+	end
 	-- If drifting lasts long enough, then we add multiplier
 	if driftTimer > LONG_DRIFT_TIME then
 		driftTimer = 0

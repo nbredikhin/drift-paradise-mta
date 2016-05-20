@@ -2,7 +2,7 @@ Garage = {}
 Garage.themePrimaryColor = {}
 local isActive = false
 
-function Garage.start(vehicles)
+function Garage.start(vehicles, enteredVehicleId)
 	if isActive then
 		return false
 	end
@@ -17,6 +17,7 @@ function Garage.start(vehicles)
 
 	setTimer(function () 
 		GarageCar.start(vehicles)
+		GarageCar.showCarById(enteredVehicleId)
 		CameraManager.start()
 		GarageUI.start()		
 		setTimer(function () 

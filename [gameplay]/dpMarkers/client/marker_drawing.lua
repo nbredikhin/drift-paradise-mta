@@ -167,16 +167,19 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	screenTextFont = exports.dpAssets:createFont("Roboto-Regular.ttf", 30)
 end)
 
-bindKey(markerKey, "down", function ()
-	if not currentMarker then
-		return
-	end
-	if localPlayer:getData("dpCore.state") then
-		return
-	end	
-	if localPlayer:isWithinMarker(currentMarker) or 
-		(localPlayer.vehicle and localPlayer.vehicle:isWithinMarker(currentMarker))
-	then
-		triggerEvent("dpMarkers.enter", currentMarker)
+addEventHandler("onClientKey", root, function (key, state)
+	if key == markerKey and state then
+		if not currentMarker then
+			return
+		end
+		if localPlayer:getData("dpCore.state") then
+			return
+		end	
+		if localPlayer:isWithinMarker(currentMarker) or 
+			(localPlayer.vehicle and localPlayer.vehicle:isWithinMarker(currentMarker))
+		then
+			triggerEvent("dpMarkers.enter", currentMarker)
+			cancelEvent()
+		end		
 	end
 end)

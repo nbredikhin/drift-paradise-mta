@@ -6,6 +6,9 @@ local function updateVehicleWheelsOffset(vehicle)
 	local offsetFront = vehicle:getData("WheelsOffsetF")
 	if type(offsetFront) == "number" then
 		for i, name in ipairs(frontWheels) do
+			if not vehicle:getComponentPosition(name) then
+				return false
+			end
 			vehicle:resetComponentPosition(name)
 			local x, y, z = vehicle:getComponentPosition(name)
 			local offsetMul = 1 + offsetFront
@@ -16,12 +19,16 @@ local function updateVehicleWheelsOffset(vehicle)
 	local offsetRear = vehicle:getData("WheelsOffsetR")
 	if type(offsetRear) == "number" then
 		for i, name in ipairs(rearWheels) do
+			if not vehicle:getComponentPosition(name) then
+				return false
+			end			
 			vehicle:resetComponentPosition(name)
 			local x, y, z = vehicle:getComponentPosition(name)
 			local offsetMul = 1 + offsetRear
 			vehicle:setComponentPosition(name, x * offsetMul, y, z)
 		end
 	end
+	return true
 end
 
 local function updateVehicleConfiguration(vehicle)
@@ -38,17 +45,22 @@ end
 -- Костыль ибаный
 local function updateConfigurationWithTimer(vehicle)
 	-- Обновить конфигурацию
-	updateVehicleConfiguration(vehicle)
+	local status = updateVehicleConfiguration(vehicle)
 
-	-- Обновить колёса по таймеру
-	local updateTimer = setTimer(function()
-		if isElement(vehicle) then
-			-- Вынос
-			updateVehicleWheelsOffset(vehicle)
-		elseif isTimer(updateTimer) then
-			killTimer(updateTimer)
-		end
-	end, 100, 15)
+	if not status then
+		-- Обновить колёса по таймеру
+		local updateTimer = setTimer(function()
+			if isElement(vehicle) then
+				-- Вынос
+				local status = updateVehicleWheelsOffset(vehicle)
+				if status and isTimer(updateTimer) then				
+					killTimer(updateTimer)
+				end
+			elseif isTimer(updateTimer) then
+				killTimer(updateTimer)
+			end
+		end, 300, 0)
+	end
 end
 
 addEventHandler("onClientElementDataChange", root, function (name, oldVaue)

@@ -1,3 +1,5 @@
+-- Отрисовка маркеров
+
 local screenSize = Vector2(guiGetScreenSize())
 
 local MARKER_ANIMATION_SPEED = 0.008

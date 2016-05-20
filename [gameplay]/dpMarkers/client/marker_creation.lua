@@ -1,3 +1,5 @@
+-- Создание (и автоматическое удаление) маркеров
+
 local MARKER_COLLISION_RADIUS = 5
 local markersByResource = {}
 
@@ -22,6 +24,7 @@ function createMarker(markerType, position, direction)
 end
 
 addEventHandler("onClientResourceStop", root, function ()
+	-- Удаление маркеров, созданных ресурсом после его остановки
 	if markersByResource[source] then
 		for marker in pairs(markersByResource[source]) do
 			if isElement(marker) then

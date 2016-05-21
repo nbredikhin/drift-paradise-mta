@@ -91,20 +91,11 @@ function GarageCar.showCarById(id)
 	return false
 end
 
-function GarageCar.previewComponent(name, id)
-	vehicle:setData(name, id)
-end
-
-function GarageCar.previewConfiguration(name, value)
+function GarageCar.previewTuning(name, value)
 	vehicle:setData(name, value)
 end
 
-function GarageCar.applyComponent(name, id)
-	vehicle:setData(name, id)
-	currentTuningTable[name] = id
-end
-
-function GarageCar.applyConfiguration(name, value)
+function GarageCar.applyTuning(name, value)
 	vehicle:setData(name, value)
 	currentTuningTable[name] = value
 end
@@ -128,8 +119,15 @@ function GarageCar.resetTuning()
 	end
 
 	-- Цвета
-	vehicle:setData("BodyColor", currentTuningTable["BodyColor"])
-	vehicle:setData("WheelsColor", currentTuningTable["WheelsColor"])
+	local colorsData = {"BodyColor", "WheelsColor", "SpoilerColor"}
+	for i, name in ipairs(colorsData) do
+		outputDebugString("Reset color: " .. name)
+		if currentTuningTable[name] then
+			vehicle:setData(name, currentTuningTable[name])
+		else
+			vehicle:setData(name, {255, 255, 255})
+		end
+	end
 end
 
 function GarageCar.getTuningTable()

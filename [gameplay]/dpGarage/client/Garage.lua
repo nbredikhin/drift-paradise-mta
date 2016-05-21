@@ -10,6 +10,7 @@ function Garage.start(vehicles, enteredVehicleId)
 
 	Garage.themePrimaryColor = {exports.dpUI:getThemeColor()}
 	localPlayer.dimension = 0
+	exports.dpGameTime:forceTime(12, 0)
 	Assets.start()
 
 	showChat(false)
@@ -38,6 +39,7 @@ function Garage.stop()
 	CameraManager.stop()
 	GarageCar.stop()
 	Assets.stop()
+	exports.dpGameTime:restoreTime()
 	showChat(true)
 	exports.dpHUD:setVisible(true)
 end

@@ -71,6 +71,14 @@
 	"garage_tuning_component_front_lights": "Fronts lights",
 	"garage_tuning_component_exhaust": "Exhaust",
 
+	"garage_tuning_paint_body": "Body color",
+	"garage_tuning_paint_wheels": "Rims color",
+	"garage_tuning_paint_spoiler": "Spoiler color",
+
+	"garage_tuning_paint_hue": "Hue",
+	"garage_tuning_paint_saturation": "Saturation",
+	"garage_tuning_paint_brightness": "Brightness",
+
 	"garage_tuning_item_bumper": "Bumper",
 	"garage_tuning_item_spoiler": "Spoiler",
 	"garage_tuning_item_wheel": "Wheels",

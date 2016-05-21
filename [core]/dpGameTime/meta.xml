@@ -1,0 +1,9 @@
+<meta>
+	<oop>true</oop>
+
+	<script type="server" src="server/main.lua"/>
+	<script type="client" src="client/main.lua"/>
+
+	<export type="client" function="forceTime"/>
+	<export type="client" function="restoreTime"/>
+</meta>

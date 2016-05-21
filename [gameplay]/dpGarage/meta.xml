@@ -15,6 +15,7 @@
 	<script type="server" src="server/tuning_server.lua"/>
 	
 	<!-- Клиент -->
+	<script type="client" src="client/colors_utils.lua"/>
 	<script type="client" src="client/Assets.lua"/>
 	<!-- Интерфейс -->
 	<!-- Менеджер экранов -->
@@ -27,6 +28,8 @@
 	<script type="client" src="client/ui/screens/ComponentScreen.lua"/>
 	<script type="client" src="client/ui/screens/ConfigurationsScreen.lua"/>
 	<script type="client" src="client/ui/screens/ConfigurationScreen.lua"/>
+	<script type="client" src="client/ui/screens/ColorsScreen.lua"/>
+	<script type="client" src="client/ui/screens/ColorScreen.lua"/>
 	<!-- Элементы интерфейса -->
 	<script type="client" src="client/ui/ComponentNameText.lua"/>
 	<script type="client" src="client/ui/ComponentSelection.lua"/>
@@ -34,6 +37,7 @@
 	<script type="client" src="client/ui/ItemsMenu.lua"/>
 	<script type="client" src="client/ui/ComponentsMenu.lua"/>
 	<script type="client" src="client/ui/ConfigurationMenu.lua"/>
+	<script type="client" src="client/ui/ColorMenu.lua"/>
 
 	<script type="client" src="client/ui/GarageUI.lua"/>
 	<!-- Основное -->
@@ -51,4 +55,8 @@
 	<file src="assets/images/circle_button.png"/>
 	<file src="assets/images/slider.png"/>
 	<file src="assets/images/slider_circle.png"/>
+
+	<file src="assets/images/hue.png"/>
+	<file src="assets/images/saturation.png"/>
+	<file src="assets/images/brightness.png"/>
 </meta>

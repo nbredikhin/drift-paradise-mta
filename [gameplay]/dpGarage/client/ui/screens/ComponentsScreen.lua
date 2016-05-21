@@ -11,7 +11,7 @@ function ComponentsScreen:init(componentName)
 		{name="RearBump", 	camera="rearBump", 		locale="garage_tuning_component_rear_bump",	 animate={component="RearBump%u", 		offset=Vector3(0, -0.1, 0)}},
 		{name="Exhaust", 	camera="exhaust", 		locale="garage_tuning_component_exhaust",	 animate={component="Exhaust%u", 		offset=Vector3(0, 0.05, 0)}},
 		{name="RearLights", camera="rearLights", 	locale="garage_tuning_component_rear_lights"},
-		{name="Spoilers", 	camera="spoiler", 		locale="garage_tuning_component_spoilers", 	 animate={component="Spoilers%u", 		offset=Vector3(0.1, 0, 0.1)}},
+		{name="Spoilers", 	camera="spoiler", 		locale="garage_tuning_component_spoilers"},
 		{name="RearFends", 	camera="rearFends", 	locale="garage_tuning_component_rear_fends", animate={component="RearFends%u", 		offset=Vector3(0.05, 0, 0)}},
 		{name="SideSkirts", camera="skirts", 		locale="garage_tuning_component_side_skirts",animate={component="SideSkirts%u", 	offset=Vector3(0.1, 0, 0)}},
 		{name="FrontFends", camera="frontFends", 	locale="garage_tuning_component_front_fends",animate={component="FrontFends%u", 	offset=Vector3(0.05, 0, 0)}},

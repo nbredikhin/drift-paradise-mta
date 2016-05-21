@@ -280,3 +280,45 @@ cameraPresets.wheelsOffsetRear = {
 	FOV = 40,
 	roll = 0	
 }
+
+----------------------------------------------------------
+----------------------------------------------------------
+--						 ЦВЕТА 
+----------------------------------------------------------
+----------------------------------------------------------
+
+cameraPresets.bodyColor = {
+	targetPosition = Vector3(0, 1, 0),
+	rotationHorizontal = -30,
+	rotationVertical = 10,
+	distance = 6,
+	FOV = 50,
+	roll = 0
+}
+
+cameraPresets.selectingBodyColor = {
+	targetPosition = Vector3(1, 1, 0.4),
+	rotationHorizontal = -20,
+	rotationVertical = 5,
+	distance = 6,
+	FOV = 50,
+	roll = 0	
+}
+----------------------------------------------------------
+cameraPresets.selectingWheelsColor = {
+	targetPosition = Vector3(-1, -0.3, -0.05),
+	rotationHorizontal = 35,
+	rotationVertical = 5,
+	distance = 5,
+	FOV = 50,
+	roll = 0
+}
+----------------------------------------------------------
+cameraPresets.selectingSpoilerColor = {
+	targetPosition = Vector3(0.6, -1, 0.4),
+	rotationHorizontal = 200,
+	rotationVertical = 10,
+	distance = 5.5,
+	FOV = 50,
+	roll = 0
+}

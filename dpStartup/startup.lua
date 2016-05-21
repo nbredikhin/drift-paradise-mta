@@ -9,6 +9,7 @@ local startupResources = {
 	"dpUtils",
 	"dpLang",
 	"dpCore",
+	"dpGameTime",
 
 	-- UI
 	"dpUI",

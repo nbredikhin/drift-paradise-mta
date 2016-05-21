@@ -67,7 +67,7 @@ function ComponentScreen:onItemChanged()
 	-- TODO: Уровень
 	
 	-- Показать компонент
-	GarageCar.previewComponent(self.componentName, currentComponentIndex)
+	GarageCar.previewTuning(self.componentName, currentComponentIndex)
 end
 
 function ComponentScreen:onKey(key)
@@ -83,7 +83,7 @@ function ComponentScreen:onKey(key)
 		self:onItemChanged()
 	elseif key == "enter" then
 		if self.menu:canBuyCurrentComponent() then
-			GarageCar.applyComponent(self.componentName, self.menu:getComponent())
+			GarageCar.applyTuning(self.componentName, self.menu:getComponent())
 			self.screenManager:showScreen(ComponentsScreen(self.componentName))
 		end
 	end

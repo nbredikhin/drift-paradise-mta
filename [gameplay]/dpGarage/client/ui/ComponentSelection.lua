@@ -135,10 +135,12 @@ function ComponentSelection:update(deltaTime)
 				local componentName = string.format(component.animateComponent, dataValue)
 				self.vehicle:resetComponentPosition(componentName)
 				local x, y, z = self.vehicle:getComponentPosition(componentName)
-				x = x + component.animationOffset.x * animationMul
-				y = y + component.animationOffset.y * animationMul
-				z = z + component.animationOffset.z * animationMul
-				self.vehicle:setComponentPosition(componentName, x, y, z)
+				if x then			
+					x = x + component.animationOffset.x * animationMul
+					y = y + component.animationOffset.y * animationMul
+					z = z + component.animationOffset.z * animationMul
+					self.vehicle:setComponentPosition(componentName, x, y, z)
+				end
 			end
 		end
 		self.animationProgress = self.animationProgress + (self.animationTarget - self.animationProgress) * deltaTime * ANIMATION_PROGRESS_SPEED

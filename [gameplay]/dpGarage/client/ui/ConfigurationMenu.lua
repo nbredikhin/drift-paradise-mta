@@ -1,3 +1,5 @@
+-- Меню настройки конфигурации
+
 ConfigurationMenu = newclass "ConfigurationMenu"
 local screenSize = Vector2(guiGetScreenSize())
 

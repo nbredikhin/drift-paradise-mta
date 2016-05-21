@@ -71,6 +71,14 @@
 	"garage_tuning_component_front_lights": "Передние фары",
 	"garage_tuning_component_exhaust": "Выхлоп",	
 
+	"garage_tuning_paint_body": "Цвет кузова",
+	"garage_tuning_paint_wheels": "Цвет дисков",
+	"garage_tuning_paint_spoiler": "Цвет спойлера",	
+
+	"garage_tuning_paint_hue": "Оттенок",
+	"garage_tuning_paint_saturation": "Насыщенность",
+	"garage_tuning_paint_brightness": "Яркость",	
+
 	"garage_tuning_item_bumper": "Бампер",
 	"garage_tuning_item_spoiler": "Спойлер",
 	"garage_tuning_item_wheel": "Колёса",

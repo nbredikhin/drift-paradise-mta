@@ -19,7 +19,7 @@ end
 function ConfigurationScreen:update(deltaTime)
 	self.super:update(deltaTime)
 	if self.dataName then
-		GarageCar.previewConfiguration(self.dataName, self.menu.currentValue / 3)
+		GarageCar.previewTuning(self.dataName, self.menu.currentValue / 3)
 	end
 end
 
@@ -35,7 +35,7 @@ function ConfigurationScreen:onKey(key)
 		self.dataName = nil
 		self.screenManager:showScreen(ConfigurationsScreen(self.dataName))
 	elseif key == "enter" then
-		GarageCar.applyConfiguration(self.dataName, self.menu.value / 3)
+		GarageCar.applyTuning(self.dataName, self.menu.value / 3)
 		self.screenManager:showScreen(ConfigurationsScreen(self.dataName))
 	end
 end

@@ -7,11 +7,11 @@ function ColorsScreen:init(componentName)
 	})
 	local vehicle = GarageCar.getVehicle()
 	-- Если на машине установлены диски
-	if vehicle:getData("Wheels") > 0 then
+	if vehicle:getData("Wheels") and vehicle:getData("Wheels") > 0 then
 		self.componentsSelection:addComponent("WheelsColor", "wheelLF", "garage_tuning_paint_wheels")
 	end
 	-- Если на машине установлен спойлер
-	if vehicle:getData("Spoilers") > 0 then
+	if vehicle:getData("Spoilers") and vehicle:getData("Spoilers") > 0 then
 		self.componentsSelection:addComponent("SpoilerColor", "spoiler", "garage_tuning_paint_spoiler")
 	end
 

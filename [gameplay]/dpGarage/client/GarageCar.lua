@@ -121,7 +121,6 @@ function GarageCar.resetTuning()
 	-- Цвета
 	local colorsData = {"BodyColor", "WheelsColor", "SpoilerColor"}
 	for i, name in ipairs(colorsData) do
-		outputDebugString("Reset color: " .. name)
 		if currentTuningTable[name] then
 			vehicle:setData(name, currentTuningTable[name])
 		else

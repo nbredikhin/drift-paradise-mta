@@ -18,9 +18,11 @@ menuLocations["RearLights"] = {position = Vector3(2915, -3184.2, 2535.6), 	angle
 function ComponentScreen:init(name, componentIndex)
 	self.super:init()
 	self.vehicle = GarageCar.getVehicle()
+	-- Название компонента, который будет выбираться
 	self.componentName = name
 
 	local menuLocation = menuLocations[name]
+	-- 3D меню
 	self.menu = ComponentsMenu(
 		menuLocation.position, 
 		menuLocation.angle,

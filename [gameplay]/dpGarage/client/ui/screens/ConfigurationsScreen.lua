@@ -2,52 +2,26 @@
 ConfigurationsScreen = Screen:subclass "ConfigurationsScreen"
 local screenSize = Vector2(guiGetScreenSize())
 
-local configurationsList = {
-	{
-		locale = "garage_tuning_config_suspension",
-		offset = {0.1, 0, 0},
-		data = "Suspension",
-		camera = "suspension"
-	},
-	{
-		locale = "garage_tuning_config_front_wheels_offset",
-		offset = {0.1, 0, 0},
-		data = "WheelsOffsetF",
-		camera = "wheelsOffsetFront"
-	},
-	{
-		locale = "garage_tuning_config_rear_wheels_offset",
-		offset = {0.1, 0, 0},
-		data = "WheelsOffsetR",
-		camera = "wheelsOffsetRear"
-	},	
-}
-
-function ConfigurationsScreen:showConfiguration()
-	self.currentConfiguration = configurationsList[self.currentConfigurationIndex]
-	self.configurationName = exports.dpLang:getString(self.currentConfiguration.locale)
-	CameraManager.setState(self.currentConfiguration.camera, false, 4)
-	self.componentNameText:changeText(self.configurationName)
-end
-
-function ConfigurationsScreen:init(forceIndex)
+function ConfigurationsScreen:init(componentName)
 	self.super:init()
-	self.currentConfigurationIndex = 1
-	if type(forceIndex) == "number" then
-		self.currentConfigurationIndex = forceIndex
+	self.componentsSelection = ComponentSelection({
+		{name="Suspension", 	camera="suspension", 		locale="garage_tuning_config_suspension"},
+		{name="WheelsOffsetF", 	camera="wheelsOffsetFront", locale="garage_tuning_config_front_wheels_offset"},
+		{name="WheelsOffsetR", 	camera="wheelsOffsetRear", 	locale="garage_tuning_config_rear_wheels_offset"},
+	})
+	if componentName then
+		self.componentsSelection:showComponentByName(componentName)
 	end
-	self.componentNameText = ComponentNameText()
-	self:showConfiguration()
 end
 
 function ConfigurationsScreen:draw()
 	self.super:draw()
-	self.componentNameText:draw(self.fadeProgress)
+	self.componentsSelection:draw(self.fadeProgress)
 end
 
 function ConfigurationsScreen:update(deltaTime)
 	self.super:update(deltaTime)
-	self.componentNameText:update(deltaTime)
+	self.componentsSelection:update(deltaTime)
 end
 
 function ConfigurationsScreen:onKey(key)
@@ -55,25 +29,20 @@ function ConfigurationsScreen:onKey(key)
 
 	if key == "arrow_r" then
 		-- Перейти к следующему компоненту
-		self.currentConfigurationIndex = self.currentConfigurationIndex + 1
-		if self.currentConfigurationIndex > #configurationsList then
-			self.currentConfigurationIndex = 1
-		end
-		self:showConfiguration()
+		self.componentsSelection:showNextComponent()
 	elseif key == "arrow_l" then
 		-- Перейти к предыдущему компоненту
-		self.currentConfigurationIndex = self.currentConfigurationIndex - 1
-		if self.currentConfigurationIndex < 1 then
-			self.currentConfigurationIndex = #configurationsList
-		end
-		self:showConfiguration()
+		self.componentsSelection:showPreviousComponent()
 	elseif key == "backspace" then
+		self.componentsSelection:stop()
 		-- Вернуться на предыдущий экран
 		self.screenManager:showScreen(TuningScreen(4))
 		GarageUI.showSaving()
 		GarageCar.save()
 	elseif key == "enter" then
 		-- Отобразить экран настройки конфигурации
-		self.screenManager:showScreen(ConfigurationScreen(self.currentConfiguration.data, self.currentConfigurationIndex))
+		self.componentsSelection:stop()
+		local componentName = self.componentsSelection:getSelectedComponentName()
+		self.screenManager:showScreen(ConfigurationScreen(componentName))
 	end	
 end

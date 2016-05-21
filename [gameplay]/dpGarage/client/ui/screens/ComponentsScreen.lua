@@ -2,111 +2,52 @@
 ComponentsScreen = Screen:subclass "ComponentsScreen"
 local screenSize = Vector2(guiGetScreenSize())
 
--- Список компонентов для тюнинга
-local componentsList = {
-	-- Название компонента 		Оффсет для анимции 		Название камеры 		Есть ли номер 	Название даты
-	{name = "FrontBump", 		offset = {0, 0.1, 0}, 	camera = "frontBump", 	num = true, 	data="FrontBump",	locale="garage_tuning_component_front_bump"},
-	{name = "wheel_lf_dummy", 	offset = {-0.1, 0, 0}, 	camera = "wheelLF", 	num = false, 	data="Wheels",		locale="garage_tuning_component_wheels"},
-	{name = "RearBump", 		offset = {0, -0.1, 0}, 	camera = "rearBump", 	num = true, 	data="RearBump",	locale="garage_tuning_component_rear_bump"},
-	{name = "Exhaust", 			offset = {0, 0.05, 0}, 	camera = "exhaust", 	num = true, 	data="Exhaust",		locale="garage_tuning_component_exhaust"},
-	{name = "RearLights", 		offset = {0, 0, 0}, 	camera = "rearLights", 	num = true, 	data="RearLights",	locale="garage_tuning_component_rear_lights"},
-	{name = "Spoilers", 		offset = {0.1, 0, 0.1}, camera = "spoiler", 	num = true, 	data="Spoilers",	locale="garage_tuning_component_spoilers"},
-	{name = "RearFends", 		offset = {0.05, 0, 0}, 	camera = "rearFends", 	num = true, 	data="RearFends",	locale="garage_tuning_component_rear_fends"},
-	{name = "SideSkirts", 		offset = {0.1, 0, 0}, 	camera = "skirts", 		num = true, 	data="SideSkirts",	locale="garage_tuning_component_side_skirts"},
-	{name = "FrontFends", 		offset = {0.05, 0, 0}, 	camera = "frontFends", 	num = true, 	data="FrontFends",	locale="garage_tuning_component_front_fends"},
-	{name = "Bonnets", 			offset = {0, 0, 0.05}, 	camera = "bonnet", 		num = true, 	data="Bonnets",		locale="garage_tuning_component_bonnet"},
-}
-
-function ComponentsScreen:init(forceIndex)
+-- componentName - название компонента, который нужно отобразить при переходе на экран
+function ComponentsScreen:init(componentName)
 	self.super:init()
-	self.vehicle = GarageCar.getVehicle()
-	-- Время (для анимации)
-	self.t = 0
-	-- Включена ли анимация выделенного компонента
-	self.animationEnabled = true
-
-	self.currentComponentIndex = 1
-	if type(forceIndex) == "number" then
-		self.currentComponentIndex = forceIndex
+	self.componentsSelection = ComponentSelection({
+		{name="FrontBump", 	camera="frontBump", 	locale="garage_tuning_component_front_bump", animate={component="FrontBump%u", 		offset=Vector3(0, 0.1, 0)}},
+		{name="Wheels", 	camera="wheelLF", 		locale="garage_tuning_component_wheels",	 animate={component="wheel_lf_dummy", 	offset=Vector3(-0.1, 0, 0)}},
+		{name="RearBump", 	camera="rearBump", 		locale="garage_tuning_component_rear_bump",	 animate={component="RearBump%u", 		offset=Vector3(0, -0.1, 0)}},
+		{name="Exhaust", 	camera="exhaust", 		locale="garage_tuning_component_exhaust",	 animate={component="Exhaust%u", 		offset=Vector3(0, 0.05, 0)}},
+		{name="RearLights", camera="rearLights", 	locale="garage_tuning_component_rear_lights"},
+		{name="Spoilers", 	camera="spoiler", 		locale="garage_tuning_component_spoilers", 	 animate={component="Spoilers%u", 		offset=Vector3(0.1, 0, 0.1)}},
+		{name="RearFends", 	camera="rearFends", 	locale="garage_tuning_component_rear_fends", animate={component="RearFends%u", 		offset=Vector3(0.05, 0, 0)}},
+		{name="SideSkirts", camera="skirts", 		locale="garage_tuning_component_side_skirts",animate={component="SideSkirts%u", 	offset=Vector3(0.1, 0, 0)}},
+		{name="FrontFends", camera="frontFends", 	locale="garage_tuning_component_front_fends",animate={component="FrontFends%u", 	offset=Vector3(0.05, 0, 0)}},
+		{name="Bonnets", 	camera="bonnet", 		locale="garage_tuning_component_bonnet",	 animate={component="Bonnets%u", 		offset=Vector3(0, 0, 0.05)}},
+	})
+	-- Если возвращаемся, показать компонент, с которого возвращаемся
+	if componentName then
+		self.componentsSelection:showComponentByName(componentName)
 	end
-
-	self.componentNameText = ComponentNameText()
-	self:showComponent()
-end
-
-function ComponentsScreen:resetComponent()
-	if self.componentName and self.componentPosition then
-		self.vehicle:resetComponentPosition(self.componentName)
-	end
-end
-
--- Переключить вид на компонент с индексом currentComponentIndex
-function ComponentsScreen:showComponent()
-	self.currentComponent = componentsList[self.currentComponentIndex]
-	self.componentName = self.currentComponent.name
-	self.localizedComponentName = exports.dpLang:getString(self.currentComponent.locale)
-	if self.currentComponent.num then
-		local id = self.vehicle:getData(self.componentName)
-		if not id then
-			id = 0
-		end
-		self.componentName = self.componentName .. tostring(id)
-	end
-
-	self.componentPosition = {self.vehicle:getComponentPosition(self.componentName)}
-	if not self.componentPosition[1] then
-		self.componentPosition = {0, 0, 0}
-	end
-	CameraManager.setState(self.currentComponent.camera, false, 4)
-	self.t = 0
-	self.componentNameText:changeText(self.localizedComponentName)
 end
 
 function ComponentsScreen:draw()
 	self.super:draw()
-	self.componentNameText:draw(self.fadeProgress)
+	self.componentsSelection:draw(self.fadeProgress)
 end
 
 function ComponentsScreen:update(deltaTime)
 	self.super:update(deltaTime)
-	self.t = self.t + deltaTime
-	if self.currentComponent and self.animationEnabled then
-		local offsetMul = math.cos(self.t * 5)
-		local x, y, z = unpack(self.componentPosition)
-		x = x + self.currentComponent.offset[1] - self.currentComponent.offset[1] * offsetMul / 2
-		y = y + self.currentComponent.offset[2] - self.currentComponent.offset[2] * offsetMul / 2
-		z = z + self.currentComponent.offset[3] - self.currentComponent.offset[3] * offsetMul / 2
-		self.vehicle:setComponentPosition(self.componentName, x, y, z)
-	end
-	self.componentNameText:update(deltaTime)
+	self.componentsSelection:update(deltaTime)
 end
 
 function ComponentsScreen:onKey(key)
 	self.super:onKey(key)
 
 	if key == "arrow_r" then
-		self:resetComponent()
-		self.currentComponentIndex = self.currentComponentIndex + 1
-		if self.currentComponentIndex > #componentsList then
-			self.currentComponentIndex = 1
-		end
-		self:showComponent()
+		self.componentsSelection:showNextComponent()
 	elseif key == "arrow_l" then
-		self:resetComponent()
-		self.currentComponentIndex = self.currentComponentIndex - 1
-		if self.currentComponentIndex < 1 then
-			self.currentComponentIndex = #componentsList
-		end
-		self:showComponent()
+		self.componentsSelection:showPreviousComponent()
 	elseif key == "backspace" then
-		self:resetComponent()
-		self.animationEnabled = false
+		self.componentsSelection:stop()
 		self.screenManager:showScreen(TuningScreen())
 		GarageUI.showSaving()
 		GarageCar.save()
 	elseif key == "enter" then
-		self:resetComponent()
-		self.animationEnabled = false
-		self.screenManager:showScreen(ComponentScreen(self.currentComponent.data, self.currentComponentIndex))
+		self.componentsSelection:stop()
+		local componentName = self.componentsSelection:getSelectedComponentName()
+		self.screenManager:showScreen(ComponentScreen(componentName))
 	end
 end

@@ -15,7 +15,7 @@ menuLocations["Bonnets"] 	= {position = Vector3(2917, -3188.4, 2535.6), 	angle =
 menuLocations["Exhaust"] 	= {position = Vector3(2915, -3184.2, 2535.4), 	angle = 190}
 menuLocations["RearLights"] = {position = Vector3(2915, -3184.2, 2535.6), 	angle = 190}
 
-function ComponentScreen:init(name, componentIndex)
+function ComponentScreen:init(name)
 	self.super:init()
 	self.vehicle = GarageCar.getVehicle()
 	-- Название компонента, который будет выбираться
@@ -31,7 +31,6 @@ function ComponentScreen:init(name, componentIndex)
 		self.vehicle:getData(name)
 	)
 	CameraManager.setState("preview" .. name, false, 3)
-	self.componentIndex = componentIndex
 
 	self:onItemChanged()
 end
@@ -75,7 +74,7 @@ function ComponentScreen:onKey(key)
 	self.super:onKey(key)
 	if key == "backspace" then
 		GarageCar.resetTuning()
-		self.screenManager:showScreen(ComponentsScreen(self.componentIndex))
+		self.screenManager:showScreen(ComponentsScreen(self.componentName))
 	elseif key == "arrow_u" then
 		self.menu:showPrevious()
 		self:onItemChanged()
@@ -85,7 +84,7 @@ function ComponentScreen:onKey(key)
 	elseif key == "enter" then
 		if self.menu:canBuyCurrentComponent() then
 			GarageCar.applyComponent(self.componentName, self.menu:getComponent())
-			self.screenManager:showScreen(ComponentsScreen(self.componentIndex))
+			self.screenManager:showScreen(ComponentsScreen(self.componentName))
 		end
 	end
 end

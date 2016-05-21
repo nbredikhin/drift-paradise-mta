@@ -29,6 +29,7 @@
 	<script type="client" src="client/ui/screens/ConfigurationScreen.lua"/>
 	<!-- Элементы интерфейса -->
 	<script type="client" src="client/ui/ComponentNameText.lua"/>
+	<script type="client" src="client/ui/ComponentSelection.lua"/>
 	<script type="client" src="client/ui/TuningMenu.lua"/>
 	<script type="client" src="client/ui/ItemsMenu.lua"/>
 	<script type="client" src="client/ui/ComponentsMenu.lua"/>

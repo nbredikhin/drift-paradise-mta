@@ -2,7 +2,7 @@
 ConfigurationScreen = Screen:subclass "ConfigurationScreen"
 local screenSize = Vector2(guiGetScreenSize())
 
-function ConfigurationScreen:init(dataName, configurationIndex)
+function ConfigurationScreen:init(dataName)
 	self.super:init()
 
 	self.menu = ConfigurationMenu()
@@ -33,9 +33,9 @@ function ConfigurationScreen:onKey(key)
 	elseif key == "backspace" then
 		GarageCar.resetTuning()
 		self.dataName = nil
-		self.screenManager:showScreen(ConfigurationsScreen(self.configurationIndex))
+		self.screenManager:showScreen(ConfigurationsScreen(self.dataName))
 	elseif key == "enter" then
 		GarageCar.applyConfiguration(self.dataName, self.menu.value / 3)
-		self.screenManager:showScreen(ConfigurationsScreen(self.configurationIndex))
+		self.screenManager:showScreen(ConfigurationsScreen(self.dataName))
 	end
 end

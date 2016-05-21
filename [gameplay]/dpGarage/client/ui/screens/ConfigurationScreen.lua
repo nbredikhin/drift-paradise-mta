@@ -11,14 +11,6 @@ function ConfigurationScreen:init(dataName, configurationIndex)
 	self.configurationIndex = configurationIndex
 end
 
-function ConfigurationScreen:show()
-	self.super:show()
-end
-
-function ConfigurationScreen:hide()
-	self.super:hide()
-end
-
 function ConfigurationScreen:draw()
 	self.super:draw()
 	self.menu:draw(self.fadeProgress)

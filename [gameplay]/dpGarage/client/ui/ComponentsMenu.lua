@@ -1,4 +1,4 @@
--- Экран выбора компонента
+-- Меню выбора компонента
 
 ComponentsMenu = TuningMenu:subclass "ComponentsMenu"
 
@@ -14,7 +14,7 @@ locales["Bonnets"] = {title = "garage_tuning_component_bonnet",			item = "garage
 locales["Exhaust"] = {title = "garage_tuning_component_exhaust",		item = "garage_tuning_item_exhaust"}
 locales["RearLights"] = {title = "garage_tuning_component_rear_lights",	item = "garage_tuning_item_lights"}
 
-function ComponentsMenu:init(position, rotation, name, count)
+function ComponentsMenu:init(position, rotation, name, count, current)
 	self.super:init(position, rotation, Vector3(1.2, 1.4))
 
 	local locale = locales[name]
@@ -26,11 +26,15 @@ function ComponentsMenu:init(position, rotation, name, count)
 	self.buyText = exports.dpLang:getString("garage_tuning_buy_button")
 	self.price = 0
 	self.currentComponent = 1
+	self.activeComponent = 1
 	self.componentsCount = count + 1
 	if type(count) ~= "number" then
 		self.componentsCount = 0
 	end
 	self.headerHeight = 65
+	if current then
+		self:setActiveComponent(current)
+	end
 end
 
 function ComponentsMenu:setPrice(price)
@@ -40,6 +44,10 @@ function ComponentsMenu:setPrice(price)
 		self.price = 0
 	end
 	return true
+end
+
+function ComponentsMenu:canBuyCurrentComponent()
+	return self.activeComponent ~= self.currentComponent
 end
 
 function ComponentsMenu:getComponent()
@@ -55,10 +63,14 @@ function ComponentsMenu:draw(fadeProgress)
 	dxDrawText(self.headerText, 0, 0, self.resolution.x, self.headerHeight, tocolor(255, 255, 255), 1, Assets.fonts.menu, "center", "center")
 	dxDrawRectangle(0, self.resolution.y - self.headerHeight, self.resolution.x, self.headerHeight, tocolor(unpack(Garage.themePrimaryColor)))
 	local buyText = self.buyText .. " $" .. self.price
+	local buyTextColor = tocolor(255, 255, 255)
 	if self.price == 0 then
 		buyText = exports.dpLang:getString("garage_tuning_install_button")
 	end
-	dxDrawText(buyText, 0, self.resolution.y - self.headerHeight, self.resolution.x, self.resolution.y, tocolor(255, 255, 255), 1, Assets.fonts.menu, "center", "center")
+	if self.activeComponent == self.currentComponent then
+		buyTextColor = tocolor(200, 200, 200, 200)
+	end
+	dxDrawText(buyText, 0, self.resolution.y - self.headerHeight, self.resolution.x, self.resolution.y, buyTextColor, 1, Assets.fonts.menu, "center", "center")
 	
 	local y = 80
 	-- Стрелка вверх
@@ -85,6 +97,9 @@ function ComponentsMenu:draw(fadeProgress)
 			if index == 1 then
 				text = exports.dpLang:getString("garage_tuning_stock_text")
 			end
+			if index == self.activeComponent then
+				text = "> " .. text .. " <"
+			end
 			dxDrawText(text, 0, y, self.resolution.x, y + itemHeight, color, scale, Assets.fonts.menu, "center", "center")
 		end
 		y = y + itemHeight
@@ -103,13 +118,18 @@ function ComponentsMenu:showNext()
 	end
 end
 
+function ComponentsMenu:setActiveComponent(index)
+	if type(index) ~= "number" then
+		return false
+	end
+	index = math.max(1, math.min(self.componentsCount, index + 1))
+	self.currentComponent = index
+	self.activeComponent = index
+end
+
 function ComponentsMenu:showPrevious()
 	self.currentComponent = self.currentComponent - 1
 	if self.currentComponent < 1 then
 		self.currentComponent = 1
 	end
-end
-
-function ComponentsMenu:update(deltaTime)
-	self.super:update(deltaTime)
 end

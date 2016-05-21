@@ -26,7 +26,6 @@ function Users.setup()
 	-- Очистка даты
 	for i, player in ipairs(getElementsByType("player")) do
 		PlayerData.clear(player)
-		player:removeData("dpCore.state")
 	end
 end
 

@@ -25,16 +25,13 @@ function ComponentScreen:init(name, componentIndex)
 		menuLocation.position, 
 		menuLocation.angle,
 		name,
-		TuningConfig.getComponentsCount(self.vehicle.model, self.componentName)
+		TuningConfig.getComponentsCount(self.vehicle.model, self.componentName),
+		self.vehicle:getData(name)
 	)
 	CameraManager.setState("preview" .. name, false, 3)
 	self.componentIndex = componentIndex
 
 	self:onItemChanged()
-end
-
-function ComponentScreen:show()
-	self.super:show()
 end
 
 function ComponentScreen:hide()
@@ -84,7 +81,9 @@ function ComponentScreen:onKey(key)
 		self.menu:showNext()
 		self:onItemChanged()
 	elseif key == "enter" then
-		GarageCar.applyComponent(self.componentName, self.menu:getComponent())
-		self.screenManager:showScreen(ComponentsScreen(self.componentIndex))
+		if self.menu:canBuyCurrentComponent() then
+			GarageCar.applyComponent(self.componentName, self.menu:getComponent())
+			self.screenManager:showScreen(ComponentsScreen(self.componentIndex))
+		end
 	end
 end

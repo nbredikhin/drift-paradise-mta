@@ -11,7 +11,7 @@ function Assets.start()
 
 	Assets.fonts = {
 		menu = exports.dpAssets:createFont("Roboto-Regular.ttf", 22),
-		componentName = exports.dpAssets:createFont("Roboto-Regular.ttf", 25)
+		componentName = exports.dpAssets:createFont("Roboto-Regular.ttf", 30)
 	}
 end
 

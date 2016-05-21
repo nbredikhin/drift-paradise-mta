@@ -31,6 +31,7 @@ function PlayerData.clear(player)
 	for i, name in ipairs(loadFields) do
 		player:setData(name, nil)
 	end
+	player:setData("dpCore.state", nil)
 end
 
 -- Защита даты 

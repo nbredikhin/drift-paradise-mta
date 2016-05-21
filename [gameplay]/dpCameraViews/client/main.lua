@@ -53,3 +53,9 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		startCameraView(cameraViews[currentCameraViewIndex])
 	end
 end)
+
+addEventHandler("onClientResourceStop", resourceRoot, function ()
+	if currentCameraView then
+		currentCameraView.stop()
+	end
+end)

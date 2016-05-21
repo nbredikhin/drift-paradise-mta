@@ -29,10 +29,9 @@ function ComponentsScreen:init(forceIndex)
 	if type(forceIndex) == "number" then
 		self.currentComponentIndex = forceIndex
 	end
-	self:showComponent()
 
-	self.targetAnim = 0
-	self.currentAnim = 0
+	self.componentNameText = ComponentNameText()
+	self:showComponent()
 end
 
 function ComponentsScreen:resetComponent()
@@ -60,20 +59,12 @@ function ComponentsScreen:showComponent()
 	end
 	CameraManager.setState(self.currentComponent.camera, false, 4)
 	self.t = 0
-end
-
-function ComponentsScreen:show()
-	self.super:show()
-end
-
-function ComponentsScreen:hide()
-	self.super:hide()
+	self.componentNameText:changeText(self.localizedComponentName)
 end
 
 function ComponentsScreen:draw()
 	self.super:draw()
-	local color = tocolor(255, 255, 255, math.max(0, self.currentAnim * 255 - 55) * self.fadeProgress)
-	dxDrawText(self.localizedComponentName, screenSize.x / 2, screenSize.y - 100, screenSize.x / 2, screenSize.y, color, 1, Assets.fonts.componentName, "center", "center")
+	self.componentNameText:draw(self.fadeProgress)
 end
 
 function ComponentsScreen:update(deltaTime)
@@ -87,11 +78,7 @@ function ComponentsScreen:update(deltaTime)
 		z = z + self.currentComponent.offset[3] - self.currentComponent.offset[3] * offsetMul / 2
 		self.vehicle:setComponentPosition(self.componentName, x, y, z)
 	end
-
-	self.currentAnim = self.currentAnim + (self.targetAnim - self.currentAnim) * deltaTime * 2
-	if self.targetAnim == 0 and self.currentAnim < 0.1 then
-		self.targetAnim = 1
-	end
+	self.componentNameText:update(deltaTime)
 end
 
 function ComponentsScreen:onKey(key)
@@ -104,8 +91,6 @@ function ComponentsScreen:onKey(key)
 			self.currentComponentIndex = 1
 		end
 		self:showComponent()
-		self.targetAnim = 0
-		self.currentAnim = 0
 	elseif key == "arrow_l" then
 		self:resetComponent()
 		self.currentComponentIndex = self.currentComponentIndex - 1
@@ -113,8 +98,6 @@ function ComponentsScreen:onKey(key)
 			self.currentComponentIndex = #componentsList
 		end
 		self:showComponent()
-		self.targetAnim = 0
-		self.currentAnim = 0
 	elseif key == "backspace" then
 		self:resetComponent()
 		self.animationEnabled = false

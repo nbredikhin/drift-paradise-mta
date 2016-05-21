@@ -26,71 +26,54 @@ local configurationsList = {
 function ConfigurationsScreen:showConfiguration()
 	self.currentConfiguration = configurationsList[self.currentConfigurationIndex]
 	self.configurationName = exports.dpLang:getString(self.currentConfiguration.locale)
-
-	-- if self.currentComponent.num then
-	-- 	local id = self.vehicle:getData(self.componentName)
-	-- 	if not id then
-	-- 		id = 0
-	-- 	end
-	-- 	self.componentName = self.componentName .. tostring(id)
-	-- end
-
-	-- self.componentPosition = {self.vehicle:getComponentPosition(self.componentName)}
-	-- if not self.componentPosition[1] then
-	-- 	self.componentPosition = {0, 0, 0}
-	-- end
 	CameraManager.setState(self.currentConfiguration.camera, false, 4)
-	self.t = 0
+	self.componentNameText:changeText(self.configurationName)
 end
 
 function ConfigurationsScreen:init(forceIndex)
 	self.super:init()
-	self.t = 0
 	self.currentConfigurationIndex = 1
 	if type(forceIndex) == "number" then
 		self.currentConfigurationIndex = forceIndex
 	end
+	self.componentNameText = ComponentNameText()
 	self:showConfiguration()
-end
-
-function ConfigurationsScreen:show()
-	self.super:show()
-end
-
-function ConfigurationsScreen:hide()
-	self.super:hide()
 end
 
 function ConfigurationsScreen:draw()
 	self.super:draw()
-	local color = tocolor(255, 255, 255, 255 * self.fadeProgress)--, math.max(0, self.currentAnim * 255 - 55) * self.fadeProgress)
-	dxDrawText(self.configurationName, screenSize.x / 2, screenSize.y - 100, screenSize.x / 2, screenSize.y, color, 1, Assets.fonts.componentName, "center", "center")	
+	self.componentNameText:draw(self.fadeProgress)
 end
 
 function ConfigurationsScreen:update(deltaTime)
 	self.super:update(deltaTime)
+	self.componentNameText:update(deltaTime)
 end
 
 function ConfigurationsScreen:onKey(key)
 	self.super:onKey(key)
 
 	if key == "arrow_r" then
+		-- Перейти к следующему компоненту
 		self.currentConfigurationIndex = self.currentConfigurationIndex + 1
 		if self.currentConfigurationIndex > #configurationsList then
 			self.currentConfigurationIndex = 1
 		end
 		self:showConfiguration()
 	elseif key == "arrow_l" then
+		-- Перейти к предыдущему компоненту
 		self.currentConfigurationIndex = self.currentConfigurationIndex - 1
 		if self.currentConfigurationIndex < 1 then
 			self.currentConfigurationIndex = #configurationsList
 		end
 		self:showConfiguration()
 	elseif key == "backspace" then
+		-- Вернуться на предыдущий экран
 		self.screenManager:showScreen(TuningScreen(4))
 		GarageUI.showSaving()
 		GarageCar.save()
 	elseif key == "enter" then
+		-- Отобразить экран настройки конфигурации
 		self.screenManager:showScreen(ConfigurationScreen(self.currentConfiguration.data, self.currentConfigurationIndex))
 	end	
 end

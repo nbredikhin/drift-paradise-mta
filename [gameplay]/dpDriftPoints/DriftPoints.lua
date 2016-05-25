@@ -1,5 +1,8 @@
+DriftPoints = {}
+
 -- If player is drifting
 local isDrifting = false
+local isPreventedByCollision = false
 -- Drift points total
 local driftPoints = 0
 -- How many time player is drifting
@@ -36,8 +39,8 @@ local function isDriftingClose()
 
 	local forwardDir = localPlayer.vehicle.matrix.forward 
 	
-	dxDrawLine3D(pos.x, pos.y, pos.z, pos.x + 5 * forwardDir.x * math.cos(driftAngleRad), pos.y + 5 * forwardDir.y * math.sin(driftAngleRad), pos.z, 0xffff0000)
-	dxDrawLine3D(pos.x, pos.y, pos.z, pos.x - 5 * forwardDir.x * math.cos(driftAngleRad), pos.y - 5 * forwardDir.y * math.sin(driftAngleRad), pos.z, 0xff00ff00)
+	-- dxDrawLine3D(pos.x, pos.y, pos.z, pos.x + 5 * forwardDir.x * math.cos(driftAngleRad), pos.y + 5 * forwardDir.y * math.sin(driftAngleRad), pos.z, 0xffff0000)
+	-- dxDrawLine3D(pos.x, pos.y, pos.z, pos.x - 5 * forwardDir.x * math.cos(driftAngleRad), pos.y - 5 * forwardDir.y * math.sin(driftAngleRad), pos.z, 0xff00ff00)
 	
 	local resForward = isLineOfSightClear(pos.x, pos.y, pos.z, pos.x + 5 * forwardDir.x * math.cos(driftAngleRad), pos.y + 5 * forwardDir.y * math.sin(driftAngleRad), pos.z, true, false, false)
 	local resBackward = isLineOfSightClear(pos.x, pos.y, pos.z, pos.x - 5 * forwardDir.x * math.cos(driftAngleRad), pos.y - 5 * forwardDir.y * math.sin(driftAngleRad), pos.z, true, false, false)
@@ -55,6 +58,7 @@ local function detectDrift()
 	velocity = velocity:getNormalized()
 	local angle = math.abs(math.deg(math.acos(velocity:dot(direction) / (velocity.length * direction.length))))
 	if angle > MIN_DRIFT_ANGLE and angle < 90 then
+		isPreventedByCollision = false
 		return angle, true
 	else
 		return angle, false
@@ -71,7 +75,7 @@ local function update(dt)
 	end
 	if driftRestrictedTimer > 0 then
 		driftRestrictedTimer = driftRestrictedTimer - dt
-		dxDrawLine("DRIFT IS RESTRICTED, TIME LEFT: " .. math.floor(driftRestrictedTimer) .. "ms", 500, 500, 500, 500)
+		PointsDrawing.draw(driftPoints, pointsMultiplier)
 		return
 	end
 
@@ -86,16 +90,18 @@ local function update(dt)
 		nonDriftTimer = nonDriftTimer + dt
 		if nonDriftTimer > MAX_NON_DRIFT_TIME then
 			-- Reset multipliers
+			driftPoints = 0
 			driftTimer = 0
-			pointsMultiplier = 1 
+			pointsMultiplier = 1
 			return
 		end
-		dxDrawText("Points: " .. driftPoints .. " MULT: x" .. pointsMultiplier, 300, 10, 500, 500, 0xffb57900, 2, "pricedown")
+		--dxDrawText("Points: " .. driftPoints .. " MULT: x" .. pointsMultiplier, 300, 10, 500, 500, 0xffb57900, 2, "pricedown")
+		PointsDrawing.draw(driftPoints, pointsMultiplier)
 		return
 	end
 
 	if isDriftingClose() then
-		dxDrawText("NEAR DAMN WALL", 300, 100, 500, 500, 0xffff0000, 2, "pricedown")
+		--dxDrawText("NEAR DAMN WALL", 300, 100, 500, 500, 0xffff0000, 2, "pricedown")
 	end
 	-- If drifting lasts long enough, then we add multiplier
 	if driftTimer > LONG_DRIFT_TIME then
@@ -106,13 +112,14 @@ local function update(dt)
 			pointsMultiplier = MAX_MULTIPLIER
 		end
 	end
-	dxDrawText("Points: " .. driftPoints .. ". MULT: x" .. pointsMultiplier, 300, 10, 500, 500, 0xffb57900, 2, "pricedown")
+	PointsDrawing.draw(driftPoints, pointsMultiplier)
 end
 
 local function onCollision()
 	-- outputChatBox("LOOOOOL")
 	-- If we collided, we reset all drift multipliers
 	isDrifting = false
+	isPreventedByCollision = true
 	driftTimer = 0
 	pointsMultiplier = 1
 	nonDriftTimer = MAX_NON_DRIFT_TIME
@@ -122,3 +129,15 @@ end
 
 addEventHandler("onClientPreRender", root, update)
 addEventHandler("onClientVehicleCollision", root, onCollision)
+
+function DriftPoints.isDrifting()
+	return isDrifting
+end
+
+function DriftPoints.isPreventedByCollision()
+	return isPreventedByCollision
+end
+
+function DriftPoints.isDriftingClose()
+	return isDriftingClose()
+end

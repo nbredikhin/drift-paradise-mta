@@ -13,6 +13,7 @@ locales["FrontFends"] = {title = "garage_tuning_component_front_fends",	item = "
 locales["Bonnets"] = {title = "garage_tuning_component_bonnet",			item = "garage_tuning_item_bonnet"}
 locales["Exhaust"] = {title = "garage_tuning_component_exhaust",		item = "garage_tuning_item_exhaust"}
 locales["RearLights"] = {title = "garage_tuning_component_rear_lights",	item = "garage_tuning_item_lights"}
+locales["FrontLights"] = {title = "garage_tuning_component_front_lights",	item = "garage_tuning_item_lights"}
 
 function ComponentsMenu:init(position, rotation, name, count, current)
 	self.super:init(position, rotation, Vector3(1.2, 1.4))

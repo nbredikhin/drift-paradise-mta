@@ -48,6 +48,7 @@
 	<export type="client" function="addChild"/>
 	<export type="client" function="removeChild"/>
 	<export type="client" function="createRectangle"/>
+	<export type="client" function="createDpList"/>
 	<export type="client" function="createButton"/>
 	<export type="client" function="createImage"/>
 	<export type="client" function="createTextField"/>

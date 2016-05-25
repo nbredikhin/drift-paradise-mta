@@ -14,6 +14,7 @@ menuLocations["FrontFends"] = {position = Vector3(2915, -3188.3, 2535.3), 	angle
 menuLocations["Bonnets"] 	= {position = Vector3(2917, -3188.4, 2535.6), 	angle = 20}
 menuLocations["Exhaust"] 	= {position = Vector3(2915, -3184.2, 2535.4), 	angle = 190}
 menuLocations["RearLights"] = {position = Vector3(2915, -3184.2, 2535.6), 	angle = 190}
+menuLocations["FrontLights"] = {position = Vector3(2917, -3188.3, 2535.6), 	angle = 20}
 
 function ComponentScreen:init(name)
 	self.super:init()

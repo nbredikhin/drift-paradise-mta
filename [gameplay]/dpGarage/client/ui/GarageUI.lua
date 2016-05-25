@@ -2,15 +2,22 @@ GarageUI = {}
 local screenWidth, screenHeight = guiGetScreenSize()
 local shadowTexture
 local screenManager
+local isVisible = true
 
 local function draw()
 	dxDrawImage(0, 0, screenWidth, screenHeight, shadowTexture, 0, 0, 0, tocolor(0, 0, 0, 200))
+	if not isVisible then
+		return
+	end	
 	if screenManager then
 		screenManager:draw()
 	end
 end
 
 local function update(deltaTime)
+	if not isVisible then
+		return
+	end	
 	if screenManager then
 		deltaTime = deltaTime / 1000
 		screenManager:update(deltaTime)
@@ -27,6 +34,7 @@ local function onKey(button, isDown)
 end
 
 function GarageUI.start()
+	isVisible = true
 	shadowTexture = exports.dpAssets:createTexture("screen_shadow.png")
 
 	-- Создание менеджера экранов
@@ -56,4 +64,8 @@ end
 
 function GarageUI.showSaving()
 	
+end
+
+function GarageUI.setVisible(visible)
+	isVisible = not not visible
 end

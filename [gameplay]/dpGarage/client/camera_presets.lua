@@ -8,6 +8,7 @@ cameraPresets.vehicleSelect = {
 	FOV = 50,
 	roll = 0
 }
+
 cameraPresets.vehicleTuning = {
 	targetPosition = Vector3(-1.3, 1, 0.5),
 	rotationHorizontal = 0,
@@ -16,12 +17,22 @@ cameraPresets.vehicleTuning = {
 	FOV = 50,
 	roll = 0
 }
+
 cameraPresets.startingCamera = {
 	targetPosition = Vector3(1.4, 1, 0),
 	rotationHorizontal = 20,
 	rotationVertical = 5,
 	distance = 14,
 	FOV = 20,
+	roll = 0
+}
+
+cameraPresets.freeLookCamera = {
+	targetPosition = Vector3(0, 0.1, 0),
+	rotationHorizontal = 30,
+	rotationVertical = 5,
+	distance = 7,
+	FOV = 45,
 	roll = 0
 }
 
@@ -240,6 +251,28 @@ cameraPresets.previewRearLights = {
 	targetPosition = Vector3(-0.8, -1, 0),
 	rotationHorizontal = 180,
 	rotationVertical = 5.5,
+	distance = 6,
+	FOV = 45,
+	roll = 0
+}
+
+----------------------------------------------------------
+
+-- Передние фары
+cameraPresets.frontLights = {
+	targetPosition = Vector3(0, 1, -0.1),
+	rotationHorizontal = 0,
+	rotationVertical = 10,
+	distance = 5,
+	FOV = 40,
+	roll = 0
+}
+
+-- Передние фары при покупке
+cameraPresets.previewFrontLights = {
+	targetPosition = Vector3(0.7, 1, 0.2),
+	rotationHorizontal = 0,
+	rotationVertical = 10,
 	distance = 6,
 	FOV = 45,
 	roll = 0

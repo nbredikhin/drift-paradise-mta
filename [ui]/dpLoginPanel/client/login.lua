@@ -2,6 +2,7 @@ local currentUsername, currentPassword
 
 function startGameClick(username, password)
 	if not username or string.len(username) < 1 then		
+		isAuthInProgress = false
 		exports.dpUI:showMessageBox(
 			exports.dpLang:getString("login_panel_auth_error"), 
 			exports.dpLang:getString("login_panel_err_enter_username")
@@ -9,6 +10,7 @@ function startGameClick(username, password)
 		return
 	end
 	if not password or string.len(password) < 1 then
+		isAuthInProgress = false
 		exports.dpUI:showMessageBox(
 			exports.dpLang:getString("login_panel_auth_error"), 
 			exports.dpLang:getString("login_panel_err_enter_password")
@@ -16,6 +18,7 @@ function startGameClick(username, password)
 		return
 	end	
 	if not exports.dpCore:login(username, password) then
+		isAuthInProgress = false
 		exports.dpUI:showMessageBox(
 			exports.dpLang:getString("login_panel_auth_error"), 
 			exports.dpLang:getString("login_panel_err_login_unknown")
@@ -50,6 +53,7 @@ end)
 
 function registerClick(username, password)
 	if not username or string.len(username) < 1 then
+		isAuthInProgress = false
 		exports.dpUI:showMessageBox(
 			exports.dpLang:getString("login_panel_register_error"), 
 			exports.dpLang:getString("login_panel_err_enter_username")
@@ -57,6 +61,7 @@ function registerClick(username, password)
 		return
 	end
 	if not password or string.len(password) < 1 then
+		isAuthInProgress = false
 		exports.dpUI:showMessageBox(
 			exports.dpLang:getString("login_panel_register_error"), 
 			exports.dpLang:getString("login_panel_err_enter_password")
@@ -65,6 +70,7 @@ function registerClick(username, password)
 	end	
 	local success, errorType = exports.dpCore:register(username, password) 
 	if not success then
+		isAuthInProgress = false
 		local errorText = exports.dpLang:getString("login_panel_err_register_unknown")
 		if errorType == "username_too_short" then
 			errorText = exports.dpLang:getString("login_panel_err_username_too_short")

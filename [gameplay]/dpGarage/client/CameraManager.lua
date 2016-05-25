@@ -2,7 +2,11 @@ CameraManager = {}
 
 local ANIMATION_SPEED = 2
 local currentAnimationSpeed = ANIMATION_SPEED
-local MOUSE_LOOK_OFFSET = 0.1
+local currentCameraState
+local MOUSE_LOOK_SPEED = 50
+local mouseLookEnabled = false
+local MOUSE_LOOK_VERTICAL_MAX = 33
+local MOUSE_LOOK_VERTICAL_MIN = -3
 
 local camera = {
 	rotationHorizontal = 0,
@@ -13,6 +17,7 @@ local camera = {
 	roll = 0
 }
 local targetCamera = {}
+local oldCameraState 
 
 local function update(deltaTime)
 	deltaTime = deltaTime / 1000
@@ -76,15 +81,63 @@ function CameraManager.setState(name, noAnimation, animationSpeed)
 			end
 		end
 	end
+	currentCameraState = name
+end
+
+local function mouseMove(x, y)
+	if not mouseLookEnabled then
+		return
+	end
+	local mx = x - 0.5
+	local my = y - 0.5
+	targetCamera.rotationHorizontal = targetCamera.rotationHorizontal - mx * MOUSE_LOOK_SPEED
+	targetCamera.rotationVertical = targetCamera.rotationVertical + my * MOUSE_LOOK_SPEED
+	
+	if targetCamera.rotationVertical > MOUSE_LOOK_VERTICAL_MAX then
+		targetCamera.rotationVertical = MOUSE_LOOK_VERTICAL_MAX 
+	elseif targetCamera.rotationVertical < MOUSE_LOOK_VERTICAL_MIN then
+		targetCamera.rotationVertical = MOUSE_LOOK_VERTICAL_MIN
+	end
+end
+
+local function startMouseLook()
+	if mouseLookEnabled then
+		return
+	end
+	mouseLookEnabled = true
+	oldCameraState = currentCameraState
+	local rotationHorizontal = camera.rotationHorizontal
+	local rotationVertical = camera.rotationVertical	
+	CameraManager.setState("freeLookCamera", false, 5)
+	camera.rotationHorizontal = rotationHorizontal
+	camera.rotationVertical = rotationVertical
+	targetCamera.rotationHorizontal = rotationHorizontal
+	targetCamera.rotationVertical = rotationVertical		
+	GarageUI.setVisible(false)
+end
+
+local function stopMouseLook()
+	if not mouseLookEnabled then
+		return
+	end
+	mouseLookEnabled = false
+	CameraManager.setState(oldCameraState, false, 5)
+	GarageUI.setVisible(true)
 end
 
 function CameraManager.start()
 	CameraManager.setState("startingCamera", true)
 	addEventHandler("onClientPreRender", root, update)
+	addEventHandler("onClientCursorMove", root, mouseMove)
+	bindKey("mouse1", "down", startMouseLook)
+	bindKey("mouse1", "up", stopMouseLook)
 end
 
 function CameraManager.stop()
 	removeEventHandler("onClientPreRender", root, update)
+	removeEventHandler("onClientCursorMove", root, mouseMove)
+	unbindKey("mouse1", "down", startMouseLook)
+	unbindKey("mouse1", "up", stopMouseLook)
 	Camera.setTarget(localPlayer)
 end
 

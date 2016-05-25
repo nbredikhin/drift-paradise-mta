@@ -3,9 +3,9 @@ dpPhotoModeOptions = {}
 dpPhotoModeOptions.CAMERA_MOVE_SPEED = 0.01
 dpPhotoModeOptions.CAMERA_ROLL_SPEED = 0.02
 dpPhotoModeOptions.MAX_CAMERA_FOV = 100
-dpPhotoModeOptions.MIN_CAMERA_FOV = 45
+dpPhotoModeOptions.MIN_CAMERA_FOV = 30
 dpPhotoModeOptions.MOUSE_SENSITIVITY = 0.2
-dpPhotoModeOptions.MAX_DISTANCE_FROM_PLAYER = 10
+dpPhotoModeOptions.MAX_DISTANCE_FROM_PLAYER = 20
 -- Free look controls
 dpPhotoModeOptions.controls = {}
 dpPhotoModeOptions.controls.ROLL_RIGHT = "e"

@@ -1,10 +1,8 @@
-Button = {}
-
-function Button.create(properties)
+function DpList.create(properties)
 	if type(properties) ~= "table" then
 		properties = {}
 	end
-
+	
 	local widget = Widget.create(properties)
 	widget.text = exports.dpUtils:defaultValue(properties.text, "")
 	widget.alignX = exports.dpUtils:defaultValue(properties.alignX, "center")

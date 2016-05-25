@@ -1,0 +1,5 @@
+<meta>
+	<oop>true</oop>
+	<info author="MOTH3RS_BL3ND3R" description="Resource for handling photo mode" />
+	<script src="dpPhotoMode.lua" type="client" />
+</meta>

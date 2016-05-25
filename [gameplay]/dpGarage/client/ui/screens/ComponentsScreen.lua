@@ -5,7 +5,7 @@ local screenSize = Vector2(guiGetScreenSize())
 -- componentName - название компонента, который нужно отобразить при переходе на экран
 function ComponentsScreen:init(componentName)
 	self.super:init()
-	self.componentsSelection = ComponentSelection({
+	local componentsList = {
 		{name="FrontBump", 	camera="frontBump", 	locale="garage_tuning_component_front_bump", animate={component="FrontBump%u", 		offset=Vector3(0, 0.1, 0)}},
 		{name="Wheels", 	camera="wheelLF", 		locale="garage_tuning_component_wheels",	 animate={component="wheel_lf_dummy", 	offset=Vector3(-0.1, 0, 0)}},
 		{name="RearBump", 	camera="rearBump", 		locale="garage_tuning_component_rear_bump",	 animate={component="RearBump%u", 		offset=Vector3(0, -0.1, 0)}},
@@ -17,7 +17,16 @@ function ComponentsScreen:init(componentName)
 		{name="FrontFends", camera="frontFends", 	locale="garage_tuning_component_front_fends",animate={component="FrontFends%u", 	offset=Vector3(0.05, 0, 0)}},
 		{name="Bonnets", 	camera="bonnet", 		locale="garage_tuning_component_bonnet",	 animate={component="Bonnets%u", 		offset=Vector3(0, 0, 0.05)}},
 		{name="FrontLights",camera="frontLights", 	locale="garage_tuning_component_front_lights"},
-	})
+	}
+	local vehicle = GarageCar.getVehicle()
+	for i, component in ipairs(componentsList) do
+		if TuningConfig.getComponentsCount(vehicle.model, component.name) <= 0 then
+			table.remove(componentsList, i)
+		end
+	end
+	outputDebugString(#componentsList)
+	self.componentsSelection = ComponentSelection(componentsList)
+
 	-- Если возвращаемся, показать компонент, с которого возвращаемся
 	if componentName then
 		self.componentsSelection:showComponentByName(componentName)

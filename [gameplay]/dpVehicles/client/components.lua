@@ -71,6 +71,8 @@ local function updateVehicleTuningUpgrade(vehicle, upgradeName)
 	if upgradeName == "Spoilers" then
 		if index > #upgradesFromData[upgradeName] then
 			return updateVehicleTuningComponent(vehicle, upgradeName, index - #upgradesFromData[upgradeName])
+		elseif index == 0 then
+			return updateVehicleTuningComponent(vehicle, upgradeName, 0)
 		else
 			updateVehicleTuningComponent(vehicle, upgradeName, -1)
 		end

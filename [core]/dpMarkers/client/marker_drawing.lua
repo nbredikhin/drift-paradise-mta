@@ -172,7 +172,7 @@ addEventHandler("onClientKey", root, function (key, state)
 		if isMTAWindowActive() then
 			return false
 		end
-		if not currentMarker then
+		if not isElement(currentMarker) then
 			return
 		end
 		if localPlayer:getData("dpCore.state") then

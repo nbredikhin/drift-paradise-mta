@@ -2,7 +2,7 @@ ColorScreen = Screen:subclass "ColorScreen"
 
 local colorMenus = {
 	["BodyColor"]    = {locale="garage_tuning_paint_body",    position = Vector3(2916, -3188.8, 2535.6),   angle = 10},
-	["WheelsColor"]  = {locale="garage_tuning_paint_wheels",  position = Vector3(2913.8, -3184.3, 2535.3), angle = 15},
+	["WheelsColor"]  = {locale="garage_tuning_paint_wheels",  position = Vector3(2913.8, -3184.3, 2535.4), angle = 15},
 	["SpoilerColor"] = {locale="garage_tuning_paint_spoiler", position = Vector3(2915, -3188.3, 2535.8),   angle = 185}
 }
 

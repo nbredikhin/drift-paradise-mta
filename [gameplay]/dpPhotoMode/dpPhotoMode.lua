@@ -3,9 +3,9 @@ dpPhotoModeOptions = {}
 dpPhotoModeOptions.CAMERA_MOVE_SPEED = 0.01
 dpPhotoModeOptions.CAMERA_ROLL_SPEED = 0.02
 dpPhotoModeOptions.MAX_CAMERA_FOV = 100
-dpPhotoModeOptions.MIN_CAMERA_FOV = 30
+dpPhotoModeOptions.MIN_CAMERA_FOV = 45
 dpPhotoModeOptions.MOUSE_SENSITIVITY = 0.2
-dpPhotoModeOptions.MAX_DISTANCE_FROM_PLAYER = 20
+dpPhotoModeOptions.MAX_DISTANCE_FROM_PLAYER = 10
 -- Free look controls
 dpPhotoModeOptions.controls = {}
 dpPhotoModeOptions.controls.ROLL_RIGHT = "e"
@@ -16,6 +16,11 @@ dpPhotoModeOptions.controls.STRAFE_RIGHT = "d"
 dpPhotoModeOptions.controls.STRAFE_LEFT = "a"
 dpPhotoModeOptions.controls.ZOOM_OUT = "x" 	-- "mouse_wheel_down"
 dpPhotoModeOptions.controls.ZOOM_IN = "z" 	-- "mouse_wheel_up"
+dpPhotoModeOptions.controls.SPEED_MODYFIER = "lalt"
+dpPhotoModeOptions.controls.MOVE_UP = "space"
+dpPhotoModeOptions.controls.MOVE_DOWN = "lctrl"
+
+dpPhotoModeOptions.CONTROL_LIST = {"vehicle_left", "vehicle_right", "handbrake"}
 
 -- Freecam position
 local cameraPosition = Vector3(0, 0, 0)
@@ -115,8 +120,17 @@ local function update(dt)
 	elseif getKeyState(dpPhotoModeOptions.controls.STRAFE_LEFT) then
 		cameraSpeed = cameraSpeed - cameraRight
 	end
-	
+
+	if getKeyState(dpPhotoModeOptions.controls.MOVE_UP) then 
+		cameraSpeed = cameraSpeed + Vector3(0, 0, 0.1)
+	elseif getKeyState(dpPhotoModeOptions.controls.MOVE_DOWN) then
+		cameraSpeed = cameraSpeed - Vector3(0, 0, 0.1)
+	end
+
 	cameraSpeed = dpPhotoModeOptions.CAMERA_MOVE_SPEED * cameraSpeed:getNormalized()
+	if getKeyState(dpPhotoModeOptions.controls.SPEED_MODYFIER) then
+		cameraSpeed = cameraSpeed * 0.1
+	end
 	cameraPosition = cameraPosition + dt * cameraSpeed
 
 	local distance = cameraPosition - localPlayer.position
@@ -176,9 +190,10 @@ end
 -- PUBLIC FUNCTIONS --
 
 function enablePhotoMode()
-	if photoModeEnabled then
+	if photoModeEnabled or localPlayer:getData("dpCore.state") then 
 		return
 	end
+
 	photoModeEnabled = true
 	initializeScriptVars()
 
@@ -192,13 +207,16 @@ function enablePhotoMode()
 	end
 
 	-- Hide HUD
-	setPlayerHudComponentVisible("all", false)
+	exports.dpHUD:setVisible(false)
 	showChat(false)
-	toggleAllControls(false)
 
+	for i, name in ipairs(dpPhotoModeOptions.CONTROL_LIST) do
+		setControlState(name, getControlState(name))
+	end
+
+	toggleAllControls(false)
 	addEventHandler("onClientPreRender", root, update)
 	addEventHandler("onClientCursorMove", root, onCursorMove)
-	addEventHandler("onClientMouseWheel", root, adjustFOV)
 end
 
 function disablePhotoMode()
@@ -210,13 +228,16 @@ function disablePhotoMode()
 	setCameraTarget(localPlayer)
 	
 	-- Show HUD
-	setPlayerHudComponentVisible("all", true)
+	exports.dpHUD:setVisible(true)
 	showChat(true)
+
+	for i, name in ipairs(dpPhotoModeOptions.CONTROL_LIST) do
+		setControlState(name, false)
+	end
 	toggleAllControls(true)
 
 	removeEventHandler("onClientPreRender", root, update)
 	removeEventHandler("onClientCursorMove", root, onCursorMove)
-	-- removeEventHandler("onClientMouseWheel", root, adjustFOV)
 end
 
 -- For debug purposes

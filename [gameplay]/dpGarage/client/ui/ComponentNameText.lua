@@ -3,7 +3,7 @@ local screenSize = Vector2(guiGetScreenSize())
 
 function ComponentNameText:init()
 	self.x = screenSize.x / 2
-	self.y = screenSize.y - 100
+	self.y = screenSize.y - 130
 	self.width = 0
 	self.height = 100
 	

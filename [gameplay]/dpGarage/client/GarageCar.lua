@@ -24,6 +24,7 @@ local function updateVehicle()
 	vehicle:setColor(255, 0, 0, 255, 255, 255)
 	-- Разморозка машины на 1 сек
 	vehicle.frozen = false
+	vehicle.velocity = Vector3(0, 0, -0.01)
 	if isTimer(unfreezeTimer) then killTimer(unfreezeTimer) end
 	unfreezeTimer = setTimer(function ()
 		vehicle.frozen = true

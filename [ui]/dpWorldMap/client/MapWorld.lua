@@ -14,8 +14,17 @@ function MapWorld.stop()
 
 end
 
-function MapWorld.getMapFromWorldPosition(position)
-	return position / 6000 * MAP_SIZE
+function MapWorld.getMapFromWorldPosition(position, y, z)
+	if type(position) == "number" and y and z then
+		local x = position
+		return x / 6000 * MAP_SIZE, y / 6000 * MAP_SIZE, z / 6000 * MAP_SIZE
+	else
+		return position / 6000 * MAP_SIZE
+	end
+end
+
+function MapWorld.convertPositionToMap(x, y, z)
+	return MapWorld.position.x + x / 6000 * MAP_SIZE, MapWorld.position.y + y / 6000 * MAP_SIZE, MapWorld.position.z + z / 6000 * MAP_SIZE
 end
 
 local _dxDrawMaterialLine3D = dxDrawMaterialLine3D
@@ -136,3 +145,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	textures.building = DxTexture("assets/building.png")
 	textures.top = DxTexture("assets/top.png")
 end)
+
+MapWorld.drawHorizontalPlane = drawHorizontalPlane
+MapWorld.drawMaterialLine3D = dxDrawMaterialLine3D
+MapWorld.drawVerticalPlane = drawVerticalPlane

@@ -5,10 +5,11 @@ function Map.start()
 	MapWorld.start()
 	MapCamera.start()
 	MapControls.start()
+	MapIcons.start()
 end
 
 function Map.draw()
-
+	MapIcons.draw()
 end
 
 function Map.update(dt)
@@ -23,4 +24,5 @@ function Map.stop()
 	MapWorld.stop()
 	MapCamera.stop()
 	MapControls.stop()
+	MapIcons.stop()
 end

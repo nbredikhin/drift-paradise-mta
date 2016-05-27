@@ -3,12 +3,23 @@ local screenWidth, screenHeight = guiGetScreenSize()
 local shadowTexture
 local screenManager
 local isVisible = true
+local helpText = "..."
 
 local function draw()
 	dxDrawImage(0, 0, screenWidth, screenHeight, shadowTexture, 0, 0, 0, tocolor(0, 0, 0, 200))
 	if not isVisible then
 		return
-	end	
+	end
+	dxDrawText(
+		helpText, 
+		0, screenHeight - 50, 
+		screenWidth, screenHeight, 
+		tocolor(255, 255, 255, 150), 
+		1, 
+		Assets.fonts.helpText,
+		"center",
+		"center"
+	)
 	if screenManager then
 		screenManager:draw()
 	end
@@ -36,7 +47,13 @@ end
 function GarageUI.start()
 	isVisible = true
 	shadowTexture = exports.dpAssets:createTexture("screen_shadow.png")
-
+	helpText = string.format(
+		exports.dpLang:getString("garage_help_text"), 
+		exports.dpLang:getString("controls_arrows"), 
+		"ENTER", 
+		"BACKSPACE",
+		exports.dpLang:getString("controls_mouse")
+	)
 	-- Создание менеджера экранов
 	screenManager = ScreenManager()
 	-- Переход на начальный экран

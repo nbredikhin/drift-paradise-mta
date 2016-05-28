@@ -9,4 +9,6 @@
 	<script type="client" src="client/TeleportTab.lua"/>
 	<script type="client" src="client/SettingsTab.lua"/>
 	<script type="client" src="client/main.lua"/>
+
+	<export type="client" function="isVisible"/>
 </meta>

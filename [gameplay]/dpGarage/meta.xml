@@ -30,6 +30,7 @@
 	<script type="client" src="client/ui/screens/ConfigurationScreen.lua"/>
 	<script type="client" src="client/ui/screens/ColorsScreen.lua"/>
 	<script type="client" src="client/ui/screens/ColorScreen.lua"/>
+	<script type="client" src="client/ui/screens/StickersSideScreen.lua"/>
 	<!-- Элементы интерфейса -->
 	<script type="client" src="client/ui/ComponentNameText.lua"/>
 	<script type="client" src="client/ui/ComponentSelection.lua"/>
@@ -44,6 +45,7 @@
 	<script type="client" src="client/enter_exit.lua"/>
 	<script type="client" src="client/Garage.lua"/>
 	<script type="client" src="client/GarageCar.lua"/>
+	<script type="client" src="client/CarTexture.lua"/>
 	<script type="client" src="client/camera_presets.lua"/>
 	<script type="client" src="client/CameraManager.lua"/>
 	<script type="client" src="client/garage_entering.lua"/>

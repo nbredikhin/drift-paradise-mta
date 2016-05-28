@@ -36,7 +36,7 @@ local function update(deltaTime)
 end
 
 local function onKey(button, isDown)
-	if not isDown then
+	if not isDown or CameraManager.isMouseLookEnabled() then
 		return
 	end
 	if screenManager then

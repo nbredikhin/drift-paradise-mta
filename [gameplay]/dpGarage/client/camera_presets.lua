@@ -355,3 +355,53 @@ cameraPresets.selectingSpoilerColor = {
 	FOV = 50,
 	roll = 0
 }
+
+----------------------------------------------------------
+----------------------------------------------------------
+--					НАКЛЕЙКИ (СТОРОНЫ)
+----------------------------------------------------------
+----------------------------------------------------------
+cameraPresets.sideFront = {
+	targetPosition = Vector3(0, 1, 0),
+	rotationHorizontal = 0,
+	rotationVertical = 30,
+	distance = 6,
+	FOV = 50,
+	roll = 0
+}
+
+cameraPresets.sideLeft = {
+	targetPosition = Vector3(0, 0, 0),
+	rotationHorizontal = 90,
+	rotationVertical = 5,
+	distance = 7,
+	FOV = 50,
+	roll = 0
+}
+
+cameraPresets.sideBack = {
+	targetPosition = Vector3(0, -1, 0),
+	rotationHorizontal = 180,
+	rotationVertical = 30,
+	distance = 6,
+	FOV = 50,
+	roll = 0
+}
+
+cameraPresets.sideRight = {
+	targetPosition = Vector3(0, 0, 0),
+	rotationHorizontal = 270,
+	rotationVertical = 5,
+	distance = 7,
+	FOV = 50,
+	roll = 0
+}
+
+cameraPresets.sideTop = {
+	targetPosition = Vector3(0, -0.5, 0),
+	rotationHorizontal = 180,
+	rotationVertical = 80,
+	distance = 5,
+	FOV = 50,
+	roll = 0
+}

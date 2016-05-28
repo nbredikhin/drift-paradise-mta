@@ -3,6 +3,7 @@
 	"message_box_close": "Закрыть",
 	"controls_arrows": "Стрелки",
 	"controls_mouse": "Мышь",
+	"controls_mouse_wheel": "Колесо мыши",
 	
 	// UI
 	"login_panel_username_label": "Имя пользователя",
@@ -13,6 +14,9 @@
 	"login_panel_language": "Выберите язык",
 	"login_panel_color": "Цвет",
 	"login_panel_back": "Назад",
+
+	// World map
+	"world_map_help_text": "%s - управление камерой, %s - приблизить/отдалить, %s - выход",
 
 	// Message box
 	"login_panel_auth_error": "Ошибка авторизации",
@@ -89,6 +93,12 @@
 	"garage_tuning_item_bonnet": "Капот",
 	"garage_tuning_item_exhaust": "Выхлоп",
 	"garage_tuning_item_lights": "Фары",
+
+	"garage_tuning_side_top": "Крыша",
+	"garage_tuning_side_right": "Правая сторона",
+	"garage_tuning_side_left": "Левая сторона",
+	"garage_tuning_side_front": "Передняя сторона",
+	"garage_tuning_side_back": "Задняя сторона",
 
 	"garage_tuning_config_front_wheels_offset": "Вынос передних колёс",
 	"garage_tuning_config_rear_wheels_offset": "Вынос задних колёс",	

@@ -46,6 +46,7 @@ function TuningScreen:onKey(key)
 		elseif self.menu:getItem() == "garage_menu_customize_paint" then
 			self.screenManager:showScreen(ColorsScreen())
 		elseif self.menu:getItem() == "garage_menu_customize_stickers" then
+			self.screenManager:showScreen(StickersSideScreen())
 		elseif self.menu:getItem() == "garage_menu_customize_config" then
 			self.screenManager:showScreen(ConfigurationsScreen())
 		elseif self.menu:getItem() == "garage_menu_back" then

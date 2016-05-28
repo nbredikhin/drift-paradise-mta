@@ -6,10 +6,12 @@ function Map.start()
 	MapCamera.start()
 	MapControls.start()
 	MapIcons.start()
+	MapUI.start()
 end
 
 function Map.draw()
 	MapIcons.draw()
+	MapUI.draw()
 end
 
 function Map.update(dt)
@@ -25,4 +27,5 @@ function Map.stop()
 	MapCamera.stop()
 	MapControls.stop()
 	MapIcons.stop()
+	MapUI.stop()
 end

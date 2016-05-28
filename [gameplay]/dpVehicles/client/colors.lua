@@ -5,17 +5,9 @@
 local function updateVehicleBodyColor(vehicle)
 	if not isElement(vehicle) then
 		return
-	end	
-	local newColor = vehicle:getData("BodyColor")
-	if type(newColor) ~= "table" or #newColor < 3 then
-		return
 	end
-
-	local currentColor = {vehicle:getColor(true)}
-	for i = 1, 3 do
-		currentColor[i] = newColor[i]
-	end
-	vehicle:setColor(unpack(currentColor))
+	-- Красим машину в белый, т. к. цвет определяется текстурой
+	vehicle:setColor(255, 255, 255)
 end
 
 local function updateVehicleWheelsColor(vehicle)

@@ -36,6 +36,7 @@ local function updateVehicle()
 		currentTuningTable = fromJSON(vehiclesList[currentVehicle].tuning)
 	end
 	GarageCar.resetTuning()
+	CarTexture.reset()
 end
 
 function GarageCar.getId()

@@ -5,10 +5,19 @@ local function printMetaExport(name)
 	end
 end
 
+function fadeScreen(...)
+	return Render.fadeScreen(...)
+end
+
 function getScreenSize()
 	return getLimitedScreenSize()
 end
 printMetaExport("getScreenSize")
+
+function getRenderTarget()
+	return Render.getRenderTarget()
+end
+printMetaExport("getRenderTarget")
 
 function setTheme(...)
 	return Colors.setTheme(...)

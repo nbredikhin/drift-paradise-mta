@@ -6,6 +6,7 @@
 	<script type="client" src="client/MapCamera.lua"/>
 	<script type="client" src="client/MapControls.lua"/>
 	<script type="client" src="client/MapIcons.lua"/>
+	<script type="client" src="client/MapUI.lua"/>
 	<script type="client" src="client/Map.lua"/>
 	<script type="client" src="client/main.lua"/>
 	<!-- <script type="client" src="client/building_creator.lua"/> -->

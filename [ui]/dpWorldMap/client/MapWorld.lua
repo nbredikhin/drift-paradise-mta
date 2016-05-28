@@ -127,7 +127,7 @@ local function drawBuilding(building)
 end
 
 function MapWorld.update()
-	drawHorizontalPlane(0, 0, -0.1, MAP_SIZE * 1.5, MAP_SIZE * 1.5, 0, textures.fill, tocolor(50, 50, 50, 255))
+	drawHorizontalPlane(0, 0, -0.1, MAP_SIZE * 2, MAP_SIZE * 2, 0, textures.fill, tocolor(50, 50, 50, 255))
 	drawHorizontalPlane(0, 0, 0, MAP_SIZE, MAP_SIZE, 90, textures.map, tocolor(255, 255, 255))
 
 	if MapCamera.getHeight() < 12 then

@@ -11,6 +11,8 @@ local CAMERA_HORIZONTAL_SPEED = 8
 local targetCameraHeight
 local targetCameraPosition
 
+local CAMERA_MAX_POSITION = 20
+
 function MapCamera.start()
 	cameraPosition = Vector2(MapWorld.getMapFromWorldPosition(localPlayer.position))
 	cameraHeight = CAMERA_MIN_HEIGHT
@@ -29,10 +31,13 @@ function MapCamera.update(dt)
 		cameraDistance = (cameraHeight - CAMERA_DISTANCE_HEIGHT - CAMERA_MIN_HEIGHT) / (CAMERA_DISTANCE_HEIGHT - CAMERA_MIN_HEIGHT) * 2
 	end
 	local offset = Vector3(0, cameraDistance, cameraHeight)
+
 	local position = Vector3(cameraPosition.x, cameraPosition.y, 0)
 	setCameraMatrix(position + offset + MapWorld.position, position + MapWorld.position)
 
 	cameraHeight = cameraHeight + (targetCameraHeight - cameraHeight) * dt * CAMERA_VERTICAL_SPEED
+	targetCameraPosition.x = math.max(-CAMERA_MAX_POSITION, math.min(CAMERA_MAX_POSITION, targetCameraPosition.x))
+	targetCameraPosition.y = math.max(-CAMERA_MAX_POSITION, math.min(CAMERA_MAX_POSITION, targetCameraPosition.y))	
 	cameraPosition = cameraPosition + (targetCameraPosition - cameraPosition) * dt * CAMERA_HORIZONTAL_SPEED
 
 	targetCameraHeight = math.min(CAMERA_MAX_HEIGHT, math.max(targetCameraHeight, CAMERA_MIN_HEIGHT))

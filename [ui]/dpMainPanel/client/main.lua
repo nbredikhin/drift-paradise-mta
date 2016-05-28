@@ -9,6 +9,10 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	Panel.setVisible(false)
 end)
 
+function isVisible()
+	return Panel.isVisible()
+end
+
 bindKey("F1", "down", function ()
 	Panel.setVisible(not Panel.isVisible())
 end)

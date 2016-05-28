@@ -7,10 +7,16 @@ local MAX_TRANSORM_ANGLE = 20
 local screenWidth, screenHeight = guiGetScreenSize()
 local screenWidthLimited, screenHeightLimited = getLimitedScreenSize()
 local oldMouseState = false
+local renderTarget3D 
+
+local targetFadeVal = 0
+local currentFadeVal = 0
+local fadeSpeed = 10
 
 -- Отрисовка в 3D
 
 local function draw()
+	dxDrawRectangle(0, 0, screenWidth, screenHeight, tocolor(0, 0, 0, 200 * currentFadeVal))
 	-- Сброс цвета
 	Drawing.setColor()
 	-- Сброс системы координат
@@ -61,10 +67,16 @@ local function draw()
 	end
 end
 
+local function update(dt)
+	dt = dt / 1000
+	currentFadeVal = currentFadeVal + (targetFadeVal - currentFadeVal) * fadeSpeed * dt
+end
+
 function Render.start()
 	renderTarget3D = RenderTarget3D.create(screenWidthLimited, screenHeightLimited)
 	Drawing.POST_GUI = not not renderTarget3D.fallback
 	addEventHandler("onClientRender", root, draw)
+	addEventHandler("onClientPreRender", root, update)
 end
 
 function Render.setupResource(resourceRoot)
@@ -130,5 +142,18 @@ function Render.updateTheme()
 				widget:updateTheme()
 			end
 		end
+	end
+end
+
+function Render.getRenderTarget()
+	return renderTarget3D.renderTarget
+end
+
+function Render.fadeScreen(fade)
+	fade = not not fade
+	if fade then
+		targetFadeVal = 1 
+	else
+		targetFadeVal = 0
 	end
 end

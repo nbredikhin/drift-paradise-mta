@@ -100,6 +100,7 @@ function Panel.setVisible(visible)
 	exports.dpHUD:setVisible(not visible)
 	UIDataBinder.setActive(visible)
 	showCursor(not not visible)
+	exports.dpUI:fadeScreen(visible)
 end
 
 function Panel.isVisible()

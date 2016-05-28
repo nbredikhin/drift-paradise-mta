@@ -24,7 +24,6 @@ function ComponentsScreen:init(componentName)
 			table.remove(componentsList, i)
 		end
 	end
-	outputDebugString(#componentsList)
 	self.componentsSelection = ComponentSelection(componentsList)
 
 	-- Если возвращаемся, показать компонент, с которого возвращаемся
@@ -53,7 +52,6 @@ function ComponentsScreen:onKey(key)
 	elseif key == "backspace" then
 		self.componentsSelection:stop()
 		self.screenManager:showScreen(TuningScreen())
-		GarageUI.showSaving()
 		GarageCar.save()
 	elseif key == "enter" then
 		self.componentsSelection:stop()

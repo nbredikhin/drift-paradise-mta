@@ -1,14 +1,21 @@
 <meta>
 	<oop>true</oop>
+	<min_mta_version client="1.5.2" server="1.5.2" />
 	<include resource="dpAssets"/>
 	
+	<script type="client" src="client/VehicleShaders.lua"/>
 	<script type="client" src="client/damage.lua"/>
 	<script type="client" src="client/components.lua"/>
 	<script type="client" src="client/colors.lua"/>
 	<script type="client" src="client/configuration.lua"/>
-	<script type="client" src="client/textures.lua"/>
+	<script type="client" src="client/body_texture.lua"/>
 	<script type="client" src="client/mileage.lua"/>
+	<script type="client" src="client/neon.lua"/>
 	<script type="server" src="server_test.lua"/>
 
 	<export type="client" function="getComponentsNames"/>
+	<export type="client" function="redrawBodyRenderTarget"/>
+	<export type="client" function="createVehicleRenderTarget"/>
+
+	<file src="assets/light.png"/>
 </meta>

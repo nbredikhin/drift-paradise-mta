@@ -39,7 +39,8 @@ function ColorScreen:update(deltaTime)
 		self.colorMenu:decrease(deltaTime)
 	end
 	if self.colorPreviewEnabled then
-		GarageCar.previewTuning(self.componentName, {self.colorMenu:getColor()})
+		CarTexture.previewBodyColor(self.colorMenu:getColor())
+		--GarageCar.previewTuning(self.componentName, {self.colorMenu:getColor()})
 	end
 end
 
@@ -53,10 +54,12 @@ function ColorScreen:onKey(key)
 	elseif key == "backspace" then
 		self.colorPreviewEnabled = false
 		GarageCar.resetTuning()
+		CarTexture.reset()
 		self.screenManager:showScreen(ColorsScreen(self.componentName))
 	elseif key == "enter" then
 		self.colorPreviewEnabled = false
 		GarageCar.applyTuning(self.componentName, {self.colorMenu:getColor()})
+		CarTexture.reset()
 		self.screenManager:showScreen(ColorsScreen(self.componentName))
 	end
 end

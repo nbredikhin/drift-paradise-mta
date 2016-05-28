@@ -148,3 +148,7 @@ end)
 function CameraManager.getTargetPosition()
 	return camera.targetPosition
 end
+
+function CameraManager.isMouseLookEnabled()
+	return not not mouseLookEnabled
+end

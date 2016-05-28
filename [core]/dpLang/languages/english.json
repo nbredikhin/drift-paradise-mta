@@ -3,6 +3,7 @@
 	"message_box_close": "Close",
 	"controls_arrows": "Arrows",
 	"controls_mouse": "Mouse",
+	"controls_mouse_wheel": "Mouse wheel",
 
 	// UI
 	"login_panel_username_label": "Username",
@@ -13,6 +14,9 @@
 	"login_panel_language": "Select language",
 	"login_panel_color": "Color",
 	"login_panel_back": "Back",
+
+	// World map
+	"world_map_help_text": "%s - move camera, %s - zoom in/out, %s - exit",
 
 	// Message box
 	"login_panel_auth_error": "Authorization error",
@@ -89,6 +93,12 @@
 	"garage_tuning_item_bonnet": "Bonnet",
 	"garage_tuning_item_exhaust": "Exhaust",
 	"garage_tuning_item_lights": "Lights",
+
+	"garage_tuning_side_top": "Top side",
+	"garage_tuning_side_right": "Right side",
+	"garage_tuning_side_left": "Left side",
+	"garage_tuning_side_front": "Front side",
+	"garage_tuning_side_back": "Rear side",	
 
 	"garage_tuning_config_front_wheels_offset": "Front wheels offset",
 	"garage_tuning_config_rear_wheels_offset": "Rear wheels offset",

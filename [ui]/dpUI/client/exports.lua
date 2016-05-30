@@ -85,7 +85,8 @@ local widgetsList = {
 	"DpPanel",
 	"DpInput",
 	"DpLabel",
-	"DpImageButton"
+	"DpImageButton",
+	"DpList"
 }
 
 local function createWidgetProxy(name, resourceRoot, ...)
@@ -119,7 +120,7 @@ local publicPropertiesList = {
 	-- TextField
 	"alignX", "alignY", "clip", "wordBreak", "colorCoded",
 	-- Dp
-	"colors", "type", "state"
+	"colors", "type", "state", "activeItem", "items"
 }
 
 for i, name in ipairs(publicPropertiesList) do

@@ -24,8 +24,10 @@ function TuningConfig.getComponentConfig(model, name, id)
 		for i, v in ipairs(tuningConfig.Spoilers) do
 			table.insert(componentsList, v)
 		end
-		for i, v in ipairs(conf.components[name]) do
-			table.insert(componentsList, v)
+		if conf.components[name] then
+			for i, v in ipairs(conf.components[name]) do
+				table.insert(componentsList, v)
+			end
 		end
 	end
 	return {price = componentsList[id], level = 0}
@@ -48,8 +50,10 @@ function TuningConfig.getComponentsCount(model, name)
 		for i, v in ipairs(tuningConfig.Spoilers) do
 			table.insert(componentsList, v)
 		end
-		for i, v in ipairs(conf.components[name]) do
-			table.insert(componentsList, v)
+		if conf.components[name] then
+			for i, v in ipairs(conf.components[name]) do
+				table.insert(componentsList, v)
+			end
 		end
 	end	
 	return #componentsList
@@ -141,6 +145,22 @@ tuningConfig[429] = {
 		FrontFends 	= {2000, 3000},
 		RearFends 	= {2000, 3000, 4000},
 		--Bonnets		= {3000},
+		RearLights 	= {800},
+		FrontLight 	= {800},
+		Exhaust 	= {2000, 4000},
+		Access 		= {5000}	
+	}
+}
+
+tuningConfig[541] = {
+	components = {
+		FrontBump 	= {5000, 7500, 10000},
+		RearBump 	= {5000, 7500, 10000},
+		SideSkirts 	= {2500, 5000, 7500},
+		Spoilers 	= {5000, 15000, 20000, 50000},
+		FrontFends 	= {2000, 3000},
+		RearFends 	= {2000, 3000, 4000},
+		Bonnets		= {3000},
 		RearLights 	= {800},
 		FrontLight 	= {800},
 		Exhaust 	= {2000, 4000},

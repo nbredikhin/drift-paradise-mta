@@ -9,7 +9,7 @@ function redrawBodyRenderTarget(renderTarget, bodyColor, bodyTexture, stickers)
 	if not isElement(renderTarget) then
 		return
 	end
-	dxSetRenderTarget(renderTarget, false)
+	dxSetRenderTarget(renderTarget, true)
 	if bodyColor then
 		dxDrawRectangle(0, 0, TEXTURE_SIZE, TEXTURE_SIZE, tocolor(bodyColor[1], bodyColor[2], bodyColor[3]))
 	end
@@ -23,6 +23,9 @@ function redrawBodyRenderTarget(renderTarget, bodyColor, bodyTexture, stickers)
 end
 
 function createVehicleRenderTarget(vehicle)
+	if not isElement(vehicle) then
+		return
+	end
 	local renderTarget = dxCreateRenderTarget(TEXTURE_SIZE, TEXTURE_SIZE)
 	VehicleShaders.replaceTexture(vehicle, BODY_TEXTURE_NAME, renderTarget)
 	return renderTarget

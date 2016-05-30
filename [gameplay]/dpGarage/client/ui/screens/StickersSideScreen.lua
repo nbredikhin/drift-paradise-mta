@@ -1,3 +1,5 @@
+-- Экран выбора стороны для наклейки
+
 StickersSideScreen = Screen:subclass "StickersSideScreen"
 
 -- componentName - название компонента, который нужно отобразить при переходе на экран
@@ -41,6 +43,6 @@ function StickersSideScreen:onKey(key)
 	elseif key == "enter" then
 		self.componentsSelection:stop()
 		local componentName = self.componentsSelection:getSelectedComponentName()
-		--self.screenManager:showScreen(ComponentScreen(componentName))
+		self.screenManager:showScreen(StickerEditorScreen(componentName))
 	end
 end

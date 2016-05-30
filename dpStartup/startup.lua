@@ -18,6 +18,7 @@ local startupResources = {
 
 	"dpLoginPanel",
 	"dpMainPanel",
+	"dpTabPanel",
 
 	-- Gameplay
 	"dpVehicles",

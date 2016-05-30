@@ -31,6 +31,7 @@
 	<script type="client" src="client/widgets/DpLabel.lua"/>
 	<script type="client" src="client/widgets/DpImageButton.lua"/>
 	<script type="client" src="client/widgets/DpCheckbox.lua"/>
+	<script type="client" src="client/widgets/DpList.lua"/>
 
 	<!-- Темы -->
 	<file src="themes/blue.json"/>
@@ -89,4 +90,8 @@
 	<export type="client" function="setColors"/>
 	<export type="client" function="setType"/>
 	<export type="client" function="getType"/>
+	<export type="client" function="setActiveItem"/>
+	<export type="client" function="getActiveItem"/>
+	<export type="client" function="setItems"/>
+	<export type="client" function="getItems"/>
 </meta>

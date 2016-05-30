@@ -31,6 +31,8 @@
 	<script type="client" src="client/ui/screens/ColorsScreen.lua"/>
 	<script type="client" src="client/ui/screens/ColorScreen.lua"/>
 	<script type="client" src="client/ui/screens/StickersSideScreen.lua"/>
+	<script type="client" src="client/ui/screens/StickerEditorScreen.lua"/>
+	<script type="client" src="client/ui/screens/StickerSelectionScreen.lua"/>
 	<!-- Элементы интерфейса -->
 	<script type="client" src="client/ui/ComponentNameText.lua"/>
 	<script type="client" src="client/ui/ComponentSelection.lua"/>
@@ -39,6 +41,7 @@
 	<script type="client" src="client/ui/ComponentsMenu.lua"/>
 	<script type="client" src="client/ui/ConfigurationMenu.lua"/>
 	<script type="client" src="client/ui/ColorMenu.lua"/>
+	<script type="client" src="client/ui/StickersControlsMenu.lua"/>
 
 	<script type="client" src="client/ui/GarageUI.lua"/>
 	<!-- Основное -->
@@ -61,4 +64,11 @@
 	<file src="assets/images/hue.png"/>
 	<file src="assets/images/saturation.png"/>
 	<file src="assets/images/brightness.png"/>
+
+	<file src="assets/images/icons/move.png"/>
+	<file src="assets/images/icons/rotate.png"/>
+	<file src="assets/images/icons/scale.png"/>
+	<file src="assets/images/icons/color.png"/>
+
+	<file src="assets/music/background_music.mp3"/>
 </meta>

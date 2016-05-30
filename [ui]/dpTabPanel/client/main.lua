@@ -29,3 +29,9 @@ end
 
 bindKey("tab", "down", show)
 bindKey("tab", "up", hide)
+
+--show()
+
+function isVisible()
+	return isActive
+end

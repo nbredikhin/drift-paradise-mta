@@ -9,6 +9,7 @@ local componentsFromData = {
 	["SideSkirts"]	= true, 	-- Юбки
 	["Bonnets"]		= true, 	-- Капот
 	["RearLights"] 	= true, 	-- Задние фары
+	["FrontLights"] = true, 	-- Передние фары
 	["FrontFends"]	= true, 	-- Передние фендеры
 	["RearFends"]	= true, 	-- Задние фендеры
 	["Exhaust"]		= true, 	-- Глушитель

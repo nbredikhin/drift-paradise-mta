@@ -13,4 +13,6 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	
 	Fonts.light = exports.dpAssets:createFont("Roboto-Light.ttf", SIZE_NORMAL)
 	Fonts.lightSmall = exports.dpAssets:createFont("Roboto-Light.ttf", SIZE_SMALL)
+
+	Fonts.listItemText = exports.dpAssets:createFont("Roboto-Regular.ttf", 13)
 end)

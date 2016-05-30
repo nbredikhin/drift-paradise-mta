@@ -101,7 +101,7 @@ local function mouseMove(x, y)
 end
 
 local function startMouseLook()
-	if mouseLookEnabled then
+	if mouseLookEnabled or isMTAWindowActive() then
 		return
 	end
 	mouseLookEnabled = true

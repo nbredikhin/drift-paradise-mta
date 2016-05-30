@@ -1,6 +1,7 @@
 Garage = {}
 Garage.themePrimaryColor = {}
 local isActive = false
+local sound
 
 function Garage.start(vehicles, enteredVehicleId)
 	if isActive then
@@ -15,6 +16,14 @@ function Garage.start(vehicles, enteredVehicleId)
 
 	showChat(false)
 	exports.dpHUD:setVisible(false)
+
+	sound = playSound("assets/music/background_music.mp3"--[[, 2900, -3200.2, 2550]], true)
+	if isElement(sound) then
+		sound:setEffectEnabled("reverb", true)
+		sound.volume = 0.08
+		sound.maxDistance = 50
+		sound.playbackPosition = math.random(0, sound.length)
+	end
 
 	setTimer(function () 
 		GarageCar.start(vehicles)
@@ -45,6 +54,9 @@ function Garage.stop()
 	exports.dpGameTime:restoreTime()
 	showChat(true)
 	exports.dpHUD:setVisible(true)
+	if isElement(sound) then
+		destroyElement(sound)
+	end
 end
 
 function Garage.isActive()

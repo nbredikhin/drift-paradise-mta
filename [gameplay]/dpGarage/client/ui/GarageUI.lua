@@ -10,18 +10,23 @@ local function draw()
 	if not isVisible then
 		return
 	end
-	dxDrawText(
-		helpText, 
-		0, screenHeight - 50, 
-		screenWidth, screenHeight, 
-		tocolor(255, 255, 255, 150), 
-		1, 
-		Assets.fonts.helpText,
-		"center",
-		"center"
-	)
 	if screenManager then
 		screenManager:draw()
+
+		local helpTextAlpha = 150
+		if screenManager.activeScreen then
+			helpTextAlpha = helpTextAlpha * screenManager.activeScreen.fadeProgress
+		end
+		dxDrawText(
+			helpText, 
+			0, screenHeight - 50, 
+			screenWidth, screenHeight, 
+			tocolor(255, 255, 255, helpTextAlpha), 
+			1, 
+			Assets.fonts.helpText,
+			"center",
+			"center"
+		)		
 	end
 end
 
@@ -47,20 +52,14 @@ end
 function GarageUI.start()
 	isVisible = true
 	shadowTexture = exports.dpAssets:createTexture("screen_shadow.png")
-	helpText = string.format(
-		exports.dpLang:getString("garage_help_text"), 
-		exports.dpLang:getString("controls_arrows"), 
-		"ENTER", 
-		"BACKSPACE",
-		exports.dpLang:getString("controls_mouse")
-	)
+	GarageUI.resetHelpText()
 	-- Создание менеджера экранов
 	screenManager = ScreenManager()
 	-- Переход на начальный экран
 	local screen = MainScreen()
 	screenManager:showScreen(screen)
 	-- setTimer(function ()
-	-- 	screenManager:showScreen(ConfigurationsScreen())
+	-- 	screenManager:showScreen(StickerEditorScreen("Right"))
 	-- end, 700, 1)
 	addEventHandler("onClientRender", root, draw)
 	addEventHandler("onClientPreRender", root, update)
@@ -85,4 +84,18 @@ end
 
 function GarageUI.setVisible(visible)
 	isVisible = not not visible
+end
+
+function GarageUI.setHelpText(text)
+	helpText = text
+end
+
+function GarageUI.resetHelpText()
+	helpText = string.format(
+		exports.dpLang:getString("garage_help_text"), 
+		exports.dpLang:getString("controls_arrows"), 
+		"ENTER", 
+		"BACKSPACE",
+		exports.dpLang:getString("controls_mouse")
+	)
 end

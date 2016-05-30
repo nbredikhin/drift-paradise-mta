@@ -11,13 +11,20 @@ function Assets.start()
 		colorsHue = DxTexture("assets/images/hue.png"),
 		colorsSaturation = DxTexture("assets/images/saturation.png"),
 		colorsBrightness = DxTexture("assets/images/brightness.png"),
+
+		stickersColorIcon = DxTexture("assets/images/icons/color.png"),
+		stickersMoveIcon = DxTexture("assets/images/icons/move.png"),
+		stickersRotateIcon = DxTexture("assets/images/icons/rotate.png"),
+		stickersScaleIcon = DxTexture("assets/images/icons/scale.png"),
 	}
 
 	Assets.fonts = {
 		menu = exports.dpAssets:createFont("Roboto-Regular.ttf", 22),
 		componentName = exports.dpAssets:createFont("Roboto-Regular.ttf", 30),
 		menuLabel = exports.dpAssets:createFont("Roboto-Regular.ttf", 18),
-		helpText = exports.dpAssets:createFont("Roboto-Regular.ttf", 16)
+		helpText = exports.dpAssets:createFont("Roboto-Regular.ttf", 16),
+		controlIconButton = exports.dpAssets:createFont("Roboto-Regular.ttf", 18),
+		stickersSelectionSection = exports.dpAssets:createFont("Roboto-Regular.ttf", 20),
 	}
 end
 

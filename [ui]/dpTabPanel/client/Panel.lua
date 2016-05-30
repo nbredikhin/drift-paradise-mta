@@ -18,25 +18,12 @@ local logoWidth, logoHeight
 
 local columns = {
 	{ name = "#", size = 0.1, data = "id"},
-	{ name = "Nickname", size = 0.5, data = "username"},
+	{ name = "Nickname", size = 0.5, data = "name"},
 	{ name = "Money", size = 0.25, data = "money"},
 	{ name = "Level", size = 0.15, data = "level"},
 }
-
 local playersList = {}
-for i = 1, 300 do
-	local p = {}
-	local d = {
-		username = "Игрок#" .. tostring(math.random(1, 300)),
-		id = i + 100,
-		money = math.random(10000, 1000000000),
-		level = math.random(1, 100)
-	}
-	function p:getData(name)
-		return d[name]
-	end
-	table.insert(playersList, p)
-end
+local scrollOffset = 0
 
 local function draw()
 	dxSetRenderTarget(renderTarget)
@@ -53,17 +40,18 @@ local function draw()
 		x = x + width
 	end
 	y = y + headerHeight
-	local players = playersList--getElementsByType("player")
-	for i = 1, math.min(itemsCount) do
-		local player = players[i]
+	local itemY = y
+	dxDrawRectangle(screenWidth / 2 - panelWidth / 2, y, panelWidth, itemsCount * itemHeight, itemColor)
+	for i = scrollOffset + 1, math.min(itemsCount + scrollOffset, #playersList) do
+		local player = playersList[i]
 		local color = itemColor
-		if i == 4 then
+		if i == 1 then
 			color = highlightedColor
 		end
-		dxDrawRectangle(screenWidth / 2 - panelWidth / 2, y, panelWidth, itemHeight, color)
 		x = panelX
+		dxDrawRectangle(x, y, panelWidth, itemHeight, color)
 		for j, column in ipairs(columns) do
-			local text = player:getData(column.data)
+			local text = player[column.data]
 			local width = panelWidth * column.size
 			dxDrawText(text, x, y, x + width, y + headerHeight * 0.8, tocolor(255, 255, 255), 1, itemFont, "center", "center", true)
 			x = x + width
@@ -71,8 +59,23 @@ local function draw()
 		y = y + itemHeight
 	end
 	x = panelX
-	dxDrawText("Players online: 999", x, y, x + panelWidth, y + headerHeight, tocolor(255, 255, 255), 1, headerFont, "center", "center")
+	y = itemY + itemsCount * itemHeight
+	dxDrawText("Players online: " .. tostring(#playersList), x, y, x + panelWidth, y + headerHeight, tocolor(255, 255, 255), 1, headerFont, "center", "center")
 	dxSetRenderTarget()
+end
+
+local function mouseDown()
+	scrollOffset = scrollOffset + 1
+	if scrollOffset > #playersList - itemsCount then
+		scrollOffset = #playersList - itemsCount + 1
+	end
+end
+
+local function mouseUp()
+	scrollOffset = scrollOffset - 1
+	if scrollOffset < 0 then
+		scrollOffset = 0
+	end
 end
 
 function Panel.start()
@@ -86,6 +89,38 @@ function Panel.start()
 	logoWidth = 415
 	logoHeight = textureHeight * 415 / textureWidth	
 	highlightedColor = tocolor(exports.dpUI:getThemeColor())
+
+	playersList = {}
+	-- local fakePlayers = {}
+	-- for i = 1, math.random(30, 50) do
+	-- 	local fakePlayer = {}
+	-- 	fakePlayer.name = "Kama#" .. tostring(math.random(1, 100))
+	-- 	local data = {
+	-- 		money = math.random(100, 999999)
+	-- 	}
+	-- 	function fakePlayer:getData(name) 
+	-- 		return data[name]
+	-- 	end
+	-- 	table.insert(fakePlayers, fakePlayer)
+	-- end
+
+	local function addPlayerToList(player)
+		table.insert(playersList, {
+			id = math.random(1, 100),
+			name = player.name,
+			money = player:getData("money") or 0,
+			level = 1
+		})
+	end
+	addPlayerToList(localPlayer)
+	for i, player in ipairs(getElementsByType("player")) do
+		if player ~= localPlayer then
+			addPlayerToList(player)
+		end
+	end
+
+	bindKey("mouse_wheel_up", "down", mouseUp)
+	bindKey("mouse_wheel_down", "down", mouseDown)	
 end
 
 function Panel.stop()
@@ -93,4 +128,7 @@ function Panel.stop()
 	destroyElement(headerFont)
 	destroyElement(itemFont)
 	destroyElement(logoTexture)
+
+	unbindKey("mouse_wheel_up", "down", mouseUp)
+	unbindKey("mouse_wheel_down", "down", mouseDown)		
 end

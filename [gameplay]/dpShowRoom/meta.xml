@@ -1,0 +1,9 @@
+<meta>
+	<oop>true</oop>
+	<script type="client" src="dpShowRoom.lua"/>
+	<script type="client" src="dpCameraManager.lua"/>
+	<file src="object.dff" />
+	<file src="object.txd" />
+	<file src="object2.dff" />
+	<file src="object2.col" />
+</meta>	

@@ -51,7 +51,7 @@ addEventHandler("dpCore.loginResponse", root, function (success, err)
 	outputChatBox(exports.dpLang:getString("chat_message_login_success"), 0, 255, 0)
 end)
 
-function registerClick(username, password)
+function registerClick(username, password, passwordConfirm, ...)
 	if not username or string.len(username) < 1 then
 		isAuthInProgress = false
 		exports.dpUI:showMessageBox(
@@ -68,7 +68,23 @@ function registerClick(username, password)
 		)
 		return
 	end	
-	local success, errorType = exports.dpCore:register(username, password) 
+	if not passwordConfirm or string.len(passwordConfirm) < 1 then
+		isAuthInProgress = false
+		exports.dpUI:showMessageBox(
+			exports.dpLang:getString("login_panel_register_error"), 
+			exports.dpLang:getString("login_panel_err_enter_password_confirm")
+		)
+		return
+	end
+	if passwordConfirm ~= password then
+		isAuthInProgress = false
+		exports.dpUI:showMessageBox(
+			exports.dpLang:getString("login_panel_register_error"), 
+			exports.dpLang:getString("login_panel_err_passwords_do_not_match")
+		)
+		return
+	end		
+	local success, errorType = exports.dpCore:register(username, password, ...)
 	if not success then
 		isAuthInProgress = false
 		local errorText = exports.dpLang:getString("login_panel_err_register_unknown")
@@ -82,6 +98,8 @@ function registerClick(username, password)
 			errorText = exports.dpLang:getString("login_panel_err_password_too_short")
 		elseif errorType == "password_too_long" then
 			errorText = exports.dpLang:getString("login_panel_err_password_too_long")
+		elseif errorType == "beta_key_invalid" then
+			errorText = exports.dpLang:getString("login_panel_err_beta_key_invalid")
 		end
 		exports.dpUI:showMessageBox(
 			exports.dpLang:getString("login_panel_register_error"),
@@ -101,6 +119,8 @@ addEventHandler("dpCore.registerResponse", root, function (success, err)
 		local errorText = exports.dpLang:getString("login_panel_err_register_unknown")
 		if err == "username_taken" then
 			errorText = exports.dpLang:getString("login_panel_err_username_taken")
+		elseif err == "beta_key_invalid" then
+			errorText = exports.dpLang:getString("login_panel_err_beta_key_invalid")
 		end
 		exports.dpUI:showMessageBox(exports.dpLang:getString("login_panel_register_error"), errorText)
 		return

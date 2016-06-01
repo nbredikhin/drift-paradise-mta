@@ -8,6 +8,8 @@
 	// UI
 	"login_panel_username_label": "Username",
 	"login_panel_password_label": "Password",
+	"login_panel_password_confirm_label": "Confirm password",
+	"login_panel_beta_key_label": "Beta test access key",
 	"login_panel_start_game_button": "Start game",
 	"login_panel_register_button_toggle": "Register",
 	"login_panel_register_button": "Register",
@@ -37,6 +39,9 @@
 	"login_panel_err_password_too_short": "Password is too short",
 	"login_panel_err_password_too_long": "Password is too long",
 	"login_panel_err_username_invalid": "Username contains illegal characters",
+	"login_panel_err_enter_password_confirm": "Enter password confirmation",
+	"login_panel_err_passwords_do_not_match": "Your passwords do not match!",
+	"login_panel_err_beta_key_invalid": "Your beta key is invalid",	
 
 	// Chat message
 	"chat_message_login_success": "You have successfully logged in",

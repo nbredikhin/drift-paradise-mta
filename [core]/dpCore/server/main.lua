@@ -3,6 +3,8 @@ addEventHandler("onResourceStart", resourceRoot, function ()
 		outputDebugString("ERROR: Database connection failed")
 		return 
 	end
+	BetaKeys.start()
+
 	outputDebugString("Database connection success")
 	outputDebugString("Creating and setting up tables...")
 	Users.setup()

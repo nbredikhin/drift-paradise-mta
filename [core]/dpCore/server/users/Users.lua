@@ -3,6 +3,7 @@ Users = {}
 local AUTOSAVE_INTERVAL = 3 
 local USERS_TABLE_NAME = "users"
 local PASSWORD_SECRET = "s9abBUIg090j21aASGzc90avj1l"
+local BETA_KEY_CHECK_ENABLED = true
 
 function Users.setup()
 	DatabaseTable.create(USERS_TABLE_NAME, {
@@ -181,13 +182,27 @@ function Users.getPlayerById(id)
 end
 
 addEvent("dpCore.registerRequest", true)
-addEventHandler("dpCore.registerRequest", resourceRoot, function(username, password)
+addEventHandler("dpCore.registerRequest", resourceRoot, function(username, password, betaKey)
 	local player = client
+
+	-- Проверка ключа
+	if BETA_KEY_CHECK_ENABLED then
+		if not BetaKeys.isKeyValid(betaKey) then
+			triggerClientEvent(player, "dpCore.registerResponse", resourceRoot, false, "beta_key_invalid")
+			triggerEvent("dpCore.register", player, false, "beta_key_invalid")
+			return		
+		end
+	end
+
 	local success, errorType = Users.registerPlayer(player, username, password, function(result)
 		result = not not result
 		local errorType = ""
 		if not result then
 			errorType = "username_taken"
+		else
+			if BETA_KEY_CHECK_ENABLED then
+				BetaKeys.activateKey(betaKey)
+			end
 		end
 		triggerClientEvent(player, "dpCore.registerResponse", resourceRoot, result, errorType)
 		triggerEvent("dpCore.register", player, result, errorType)

@@ -1,6 +1,6 @@
 -- Result event:
 -- dpCore.registerResponse
-function register(username, password)
+function register(username, password, ...)
 	if type(username) ~= "string" or type(password) ~= "string" then
 		return false
 	end	
@@ -15,7 +15,7 @@ function register(username, password)
 	if AccountsConfig.HASH_PASSWORDS_CLIENTSIDE then
 		password = sha256(password)
 	end
-	triggerServerEvent("dpCore.registerRequest", resourceRoot, username, password)
+	triggerServerEvent("dpCore.registerRequest", resourceRoot, username, password, ...)
 	return true
 end
 

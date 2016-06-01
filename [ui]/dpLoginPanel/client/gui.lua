@@ -190,10 +190,10 @@ end
 
 local function createRegisterPanel()
 	local panelWidth = 550
-	local panelHeight = 340
+	local panelHeight = 450
 	local panel = UI:createDpPanel({
 		x = (screenWidth - panelWidth) / 2, 
-		y = (screenHeight - panelHeight) / 1.7,
+		y = (screenHeight - panelHeight) / 1.3,
 		width = panelWidth, height = panelHeight,
 		type = "dark"
 	})
@@ -201,8 +201,9 @@ local function createRegisterPanel()
 
 	local logoTexture = exports.dpAssets:createTexture("logo.png")
 	local textureWidth, textureHeight = dxGetMaterialSize(logoTexture)
-	local logoWidth = 415
-	local logoHeight = textureHeight * 415 / textureWidth
+	local logoScale = 1
+	local logoWidth = 415 * logoScale
+	local logoHeight = textureHeight * 415 / textureWidth * logoScale
 	local logoImage = UI:createImage({
 		x = (panelWidth - logoWidth) / 2,
 		y = -logoHeight - 25,
@@ -282,9 +283,24 @@ local function createRegisterPanel()
 	})
 	UI:addChild(panel, colorLabel)		
 
+	local y = 100
+
+	local betaKeyInput = UI:createDpInput({
+		x = 50,
+		y = y,
+		width = 450,
+		height = 50,
+		type = "dark",
+		masked = false,
+		forceRegister = "upper",
+		locale = "login_panel_beta_key_label"
+	})
+	UI:addChild(panel, betaKeyInput)
+
+	y = y + 70
 	local usernameInput = UI:createDpInput({
 		x = 50,
-		y = 120,
+		y = y,
 		width = 450,
 		height = 50,
 		type = "dark",
@@ -294,16 +310,29 @@ local function createRegisterPanel()
 	})
 	UI:addChild(panel, usernameInput)
 
+	y = y + 70
 	local passwordInput = UI:createDpInput({
 		x = 50,
-		y = 190,
+		y = y,
 		width = 450,
 		height = 50,
 		type = "dark",
 		masked = true,
 		locale = "login_panel_password_label"
 	})
-	UI:addChild(panel, passwordInput)	
+	UI:addChild(panel, passwordInput)
+
+	y = y + 70
+	local passwordConfirmInput = UI:createDpInput({
+		x = 50,
+		y = y,
+		width = 450,
+		height = 50,
+		type = "dark",
+		masked = true,
+		locale = "login_panel_password_confirm_label"
+	})
+	UI:addChild(panel, passwordConfirmInput)	
 
 	local backButton = UI:createDpButton({
 		x = 0, 
@@ -332,7 +361,9 @@ local function createRegisterPanel()
 	registerPanel.registerButton = registerButton
 	registerPanel.backButton = backButton
 	registerPanel.password = passwordInput
+	registerPanel.passwordConfirm = passwordConfirmInput
 	registerPanel.username = usernameInput	
+	registerPanel.betaKey = betaKeyInput
 	registerPanel.langButtons = {
 		en = languageEn,
 		ru = languageRu
@@ -376,7 +407,12 @@ addEventHandler("dpUI.click", resourceRoot, function(widget)
 	-- Кнопка регистрации
 	elseif widget == registerPanel.registerButton and not isAuthInProgress then
 		isAuthInProgress = true
-		registerClick(UI:getText(registerPanel.username), UI:getText(registerPanel.password))
+		registerClick(
+			UI:getText(registerPanel.username), 
+			UI:getText(registerPanel.password),
+			UI:getText(registerPanel.passwordConfirm),
+			UI:getText(registerPanel.betaKey)
+		)
 	elseif widget == registerPanel.colorButtons.red then
 		UI:setTheme("red")
 	elseif widget == registerPanel.colorButtons.purple then

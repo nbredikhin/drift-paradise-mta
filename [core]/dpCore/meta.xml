@@ -24,6 +24,7 @@
 	<script type="server" src="server/users/Users.lua"/>
 	<script type="server" src="server/users/PlayerData.lua"/>
 	<script type="server" src="server/users/exports.lua"/>
+	<script type="server" src="server/users/BetaKeys.lua"/>
 	<!-- Автомобили -->
 	<script type="server" src="server/vehicles/UserVehicles.lua"/>
 	<script type="server" src="server/vehicles/VehicleTuning.lua"/>

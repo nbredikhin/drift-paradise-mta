@@ -16,6 +16,8 @@
 	"login_panel_language": "Выберите язык",
 	"login_panel_color": "Цвет",
 	"login_panel_back": "Назад",
+	"login_panel_server_not_available": "Сервер Drift Paradise в данный момент недоступен",
+	"login_panel_server_error": "Ошибка сервера",	
 
 	// World map
 	"world_map_help_text": "%s - управление камерой, %s - приблизить/отдалить, %s - выход",

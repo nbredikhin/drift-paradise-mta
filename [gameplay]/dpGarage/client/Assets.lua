@@ -16,6 +16,11 @@ function Assets.start()
 		stickersMoveIcon = DxTexture("assets/images/icons/move.png"),
 		stickersRotateIcon = DxTexture("assets/images/icons/rotate.png"),
 		stickersScaleIcon = DxTexture("assets/images/icons/scale.png"),
+
+		tuningComponentsIcon = DxTexture("assets/images/icons/components.png"),
+		tuningColorIcon = DxTexture("assets/images/icons/color.png"),
+		tuningVinylsIcon = DxTexture("assets/images/icons/vinyls.png"),
+		tuningSettingsIcon = DxTexture("assets/images/icons/settings.png"),
 	}
 
 	Assets.fonts = {
@@ -25,6 +30,10 @@ function Assets.start()
 		helpText = exports.dpAssets:createFont("Roboto-Regular.ttf", 16),
 		controlIconButton = exports.dpAssets:createFont("Roboto-Regular.ttf", 18),
 		stickersSelectionSection = exports.dpAssets:createFont("Roboto-Regular.ttf", 20),
+
+		tuningPanelText = exports.dpAssets:createFont("Roboto-Regular.ttf", 14),
+		componentItem = exports.dpAssets:createFont("Roboto-Regular.ttf", 16),
+		componentItemInfo = exports.dpAssets:createFont("Roboto-Regular.ttf", 13),
 	}
 end
 

@@ -2,7 +2,7 @@ ColorMenu = TuningMenu:subclass "ColorMenu"
 local COLOR_CHANGE_SPEED = 1
 
 function ColorMenu:init(headerText, position, rotation)
-	self.super:init(position, rotation, Vector2(1.4, 1.7))
+	self.super:init(position, rotation, Vector2(1.4, 1.4))
 	self.headerHeight = 70
 	self.headerText = headerText
 
@@ -44,8 +44,6 @@ function ColorMenu:draw(fadeProgress)
 	dxDrawRectangle(0, 0, self.resolution.x, self.resolution.y, tocolor(42, 40, 41))
 	dxDrawRectangle(0, 0, self.resolution.x, self.headerHeight, tocolor(32, 30, 31))
 	dxDrawText(self.headerText, 0, 0, self.resolution.x, self.headerHeight, tocolor(255, 255, 255), 1, Assets.fonts.menu, "center", "center")
-	dxDrawRectangle(0, self.resolution.y - self.headerHeight, self.resolution.x, self.headerHeight, tocolor(unpack(Garage.themePrimaryColor)))
-	dxDrawText(self.labels.buy, 0, self.resolution.y - self.headerHeight, self.resolution.x, self.resolution.y, buyTextColor, 1, Assets.fonts.menu, "center", "center")
 
 	local y = self.headerHeight
 	local barWidth = self.resolution.x - self.barOffset * 2

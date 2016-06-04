@@ -10,7 +10,7 @@ function TuningMenu:init(position, rotation, size)
 	self.position = position
 	self.rotation = rotation
 	self.size = size
-	-- Разрешения рендеринга
+	-- Разрешение рендеринга
 	self.resolution = self.size * 250
 
 	self.renderTarget = dxCreateRenderTarget(self.resolution.x, self.resolution.y, true)
@@ -31,7 +31,6 @@ function TuningMenu:draw(fadeProgress)
 end
 
 function TuningMenu:update(deltaTime)
-
 end
 
 function TuningMenu:destroy()

@@ -10,8 +10,8 @@ cameraPresets.vehicleSelect = {
 }
 
 cameraPresets.vehicleTuning = {
-	targetPosition = Vector3(-1.3, 1, 0.5),
-	rotationHorizontal = 0,
+	targetPosition = Vector3(0, 0, 0.3),
+	rotationHorizontal = 30,
 	rotationVertical = 0,
 	distance = 7,
 	FOV = 50,

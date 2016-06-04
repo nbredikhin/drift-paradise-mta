@@ -13,6 +13,8 @@ local targetFadeVal = 0
 local currentFadeVal = 0
 local fadeSpeed = 10
 
+local forceRotationX, forceRotationY = 0, 0
+
 -- Отрисовка в 3D
 
 local function draw()
@@ -60,6 +62,9 @@ local function draw()
 		RenderTarget3D.draw(renderTarget3D, 0, 0, screenWidth, screenHeight)
 
 		local mouseX, mouseY = getMousePosition()
+		if not isCursorShowing() then
+			mouseX, mouseY = forceRotationX * screenWidth, forceRotationY * screenHeight
+		end
 		local rotationX = -(mouseX - screenWidth / 2) / screenWidth * MAX_TRANSORM_ANGLE
 		local rotationY = (mouseY - screenHeight / 2) / screenHeight * MAX_TRANSORM_ANGLE	
 
@@ -155,5 +160,12 @@ function Render.fadeScreen(fade)
 		targetFadeVal = 1 
 	else
 		targetFadeVal = 0
+	end
+end
+
+function Render.forceRotation(x, y)
+	if type(x) == "number" and type(y) == "number" then
+		forceRotationX = x
+		forceRotationY = y
 	end
 end

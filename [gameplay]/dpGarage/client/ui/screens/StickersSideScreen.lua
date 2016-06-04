@@ -6,11 +6,11 @@ StickersSideScreen = Screen:subclass "StickersSideScreen"
 function StickersSideScreen:init(componentName)
 	self.super:init()
 	self.componentsSelection = ComponentSelection({
-		{name="Front", 	camera="sideFront", locale="garage_tuning_side_front"},
 		{name="Left", 	camera="sideLeft", 	locale="garage_tuning_side_left"},
 		{name="Back", 	camera="sideBack", 	locale="garage_tuning_side_back"},
 		{name="Top", 	camera="sideTop", 	locale="garage_tuning_side_top"},
 		{name="Right", 	camera="sideRight", locale="garage_tuning_side_right"},
+		{name="Front", 	camera="sideFront", locale="garage_tuning_side_front"},		
 	})
 
 	-- Если возвращаемся, показать компонент, с которого возвращаемся

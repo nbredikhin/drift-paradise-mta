@@ -8,6 +8,12 @@ end
 function fadeScreen(...)
 	return Render.fadeScreen(...)
 end
+printMetaExport("fadeScreen")
+
+function forceRotation(...)
+	return Render.forceRotation(...)
+end
+printMetaExport("forceRotation")
 
 function getScreenSize()
 	return getLimitedScreenSize()

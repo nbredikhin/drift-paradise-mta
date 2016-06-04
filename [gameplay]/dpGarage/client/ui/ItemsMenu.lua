@@ -1,5 +1,7 @@
 ItemsMenu = TuningMenu:subclass "ItemsMenu"
 
+local BACKGROUND_COLOR = tocolor(42, 40, 41)
+
 function ItemsMenu:init(items, position, rotation, forceItem)
 	check("ItemsMenu:new", {
 		{items, "table"},
@@ -90,7 +92,7 @@ function ItemsMenu:draw(fadeProgress)
 		if i == self.selectedItem then
 			self:drawSelectedItem(fadeProgress)
 		else
-			dxDrawRectangle(0, y, itemWidth, itemHeight, tocolor(42, 40, 41))
+			dxDrawRectangle(0, y, itemWidth, itemHeight, BACKGROUND_COLOR)
 			dxDrawText(exports.dpLang:getString(item), 0, y, itemWidth, y + itemHeight, tocolor(255, 255, 255), 1, Assets.fonts.menu, "center", "center")
 		end
 		y = y + itemHeight

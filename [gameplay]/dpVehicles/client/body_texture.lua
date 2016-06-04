@@ -4,6 +4,21 @@ local vehicleShaders = {}
 local TEXTURE_SIZE = 1024
 local STICKER_SIZE = 300
 local mainRenderTarget = dxCreateRenderTarget(TEXTURE_SIZE, TEXTURE_SIZE, true)
+local vehicleRenderTarget
+
+local function drawSticker(sticker)
+	local x, y, width, height, stickerId, rotation, color = unpack(sticker)
+	if  type(x) ~= "number" or 
+		type(y) ~= "number" or 
+		type(width) ~= "number" or 
+		type(height) ~= "number" or
+		type(stickerId) ~= "number"
+	then
+		return
+	end
+	local texture = dxCreateTexture(1, 1) -- TODO: Load sticker
+	dxDrawImage(x, y, width, height, texture, rotation, 0, 0, color)
+end
 
 function redrawBodyRenderTarget(renderTarget, bodyColor, bodyTexture, stickers)
 	if not isElement(renderTarget) then
@@ -16,8 +31,10 @@ function redrawBodyRenderTarget(renderTarget, bodyColor, bodyTexture, stickers)
 	if bodyTexture then
 
 	end
-	if stickers then
-
+	if type(stickers) == "table" then
+		for i, sticker in ipairs(stickers) do
+			drawSticker(sticker)
+		end
 	end
 	dxSetRenderTarget()
 end
@@ -26,9 +43,12 @@ function createVehicleRenderTarget(vehicle)
 	if not isElement(vehicle) then
 		return
 	end
-	local renderTarget = dxCreateRenderTarget(TEXTURE_SIZE, TEXTURE_SIZE)
-	VehicleShaders.replaceTexture(vehicle, BODY_TEXTURE_NAME, renderTarget)
-	return renderTarget
+	if isElement(vehicleRenderTarget) then
+		destroyElement(vehicleRenderTarget)
+	end
+	vehicleRenderTarget = dxCreateRenderTarget(TEXTURE_SIZE, TEXTURE_SIZE)
+	VehicleShaders.replaceTexture(vehicle, BODY_TEXTURE_NAME, vehicleRenderTarget)
+	return vehicleRenderTarget
 end
 
 local function setupVehicleTexture(vehicle)

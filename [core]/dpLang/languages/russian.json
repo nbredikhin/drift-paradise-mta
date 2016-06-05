@@ -123,6 +123,13 @@
 	"garage_tuning_install_button": "Установить",
 
 	"garage_help_text": "%s - выбор, %s - принять, %s - назад, %s - обзор",
+	"garage_help_sticker_selection": "%s - выбор, %s - купить, %s - отмена",
+	"garage_help_sticker_editor": "%s - управление, %s, %s, %s, %s - выбор режима, %s/%s - добавить/удалить наклейку, %s - назад",
+
+	"garage_sticker_editor_move": "Перемещение",
+	"garage_sticker_editor_scale": "Масштаб",
+	"garage_sticker_editor_rotate": "Вращение",
+	"garage_sticker_editor_color": "Выбор цвета",
 
 	// Main panel
 	"main_panel_tab_account": "Аккаунт",

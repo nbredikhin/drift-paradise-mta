@@ -8,10 +8,10 @@ function StickerEditorScreen:init(sideName)
 
 	--CameraManager.setState("sideRight", true)
 	self.panel = TuningPanel({
-		{icon = Assets.textures.stickersMoveIcon, text = "Перемещение"},
-		{icon = Assets.textures.stickersScaleIcon, text = "Масштаб"},
-		{icon = Assets.textures.stickersRotateIcon, text = "Вращение"},
-		{icon = Assets.textures.stickersColorIcon, text = "Цвет"},
+		{icon = Assets.textures.stickersMoveIcon, text = exports.dpLang:getString("garage_sticker_editor_move")},
+		{icon = Assets.textures.stickersScaleIcon, text = exports.dpLang:getString("garage_sticker_editor_scale")},
+		{icon = Assets.textures.stickersRotateIcon, text = exports.dpLang:getString("garage_sticker_editor_rotate")},
+		{icon = Assets.textures.stickersColorIcon, text = exports.dpLang:getString("garage_sticker_editor_color")},
 	})
 end
 
@@ -33,7 +33,13 @@ function StickerEditorScreen:show()
 	self.super:show()
 
 	-- TODO: Локализация подсказок
-	GarageUI.setHelpText("Стрелки - управление, Q,W,E,R - выбор режима, A - добавить наклейку, D - удалить, BACKSPACE - назад")
+	GarageUI.setHelpText(string.format(
+		exports.dpLang:getString("garage_help_sticker_editor"), 
+		exports.dpLang:getString("controls_arrows"), 
+		"Q", "W", "E", "R", 
+		"A", "D",
+		"BACKSPACE"
+	))	
 end
 
 function StickerEditorScreen:hide()

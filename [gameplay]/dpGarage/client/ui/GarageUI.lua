@@ -1,5 +1,7 @@
 GarageUI = {}
 local screenWidth, screenHeight = guiGetScreenSize()
+local screenSize = Vector2()
+local renderTarget
 local shadowTexture
 local screenManager
 local isVisible = true
@@ -13,20 +15,22 @@ local function draw()
 	if screenManager then
 		screenManager:draw()
 
-		local helpTextAlpha = 150
+		local helpTextAlpha = 255
 		if screenManager.activeScreen then
 			helpTextAlpha = helpTextAlpha * screenManager.activeScreen.fadeProgress
 		end
+		dxSetRenderTarget(renderTarget)
 		dxDrawText(
 			helpText, 
-			0, screenHeight - 50, 
-			screenWidth, screenHeight, 
+			0, screenSize.y - 50, 
+			screenSize.x, screenSize.y, 
 			tocolor(255, 255, 255, helpTextAlpha), 
 			1, 
 			Assets.fonts.helpText,
 			"center",
 			"center"
-		)		
+		)	
+		dxSetRenderTarget()
 	end
 end
 
@@ -51,6 +55,9 @@ end
 
 function GarageUI.start()
 	isVisible = true
+	screenSize = Vector2(exports.dpUI:getScreenSize())
+	renderTarget = exports.dpUI:getRenderTarget()
+
 	shadowTexture = exports.dpAssets:createTexture("screen_shadow.png")
 	GarageUI.resetHelpText()
 	-- Создание менеджера экранов

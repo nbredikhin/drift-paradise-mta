@@ -7,13 +7,11 @@ end
 
 function StickerSelectionScreen:show()
 	self.super:show()
-	"Стрелки - выбор, ENTER - купить, BACKSPACE - отмена")
 	GarageUI.setHelpText(string.format(
-		exports.dpLang:getString("garage_help_text"), 
+		exports.dpLang:getString("garage_help_sticker_selection"), 
 		exports.dpLang:getString("controls_arrows"), 
 		"ENTER", 
-		"BACKSPACE",
-		exports.dpLang:getString("controls_mouse")
+		"BACKSPACE"
 	))
 end
 

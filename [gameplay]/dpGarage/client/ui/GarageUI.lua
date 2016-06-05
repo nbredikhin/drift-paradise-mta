@@ -41,7 +41,7 @@ local function update(deltaTime)
 end
 
 local function onKey(button, isDown)
-	if not isDown or CameraManager.isMouseLookEnabled() then
+	if not isDown or CameraManager.isMouseLookEnabled() or isMTAWindowActive() then
 		return
 	end
 	if screenManager then
@@ -59,7 +59,7 @@ function GarageUI.start()
 	local screen = MainScreen()
 	screenManager:showScreen(screen)
 	setTimer(function ()
-		screenManager:showScreen(ComponentsScreen())
+		screenManager:showScreen(StickerSelectionScreen())
 	end, 700, 1)
 	addEventHandler("onClientRender", root, draw)
 	addEventHandler("onClientPreRender", root, update)

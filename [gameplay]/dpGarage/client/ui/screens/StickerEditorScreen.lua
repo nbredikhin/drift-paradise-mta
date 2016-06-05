@@ -25,6 +25,10 @@ function StickerEditorScreen:update(deltaTime)
 	self.panel:update(deltaTime)
 end
 
+function StickerEditorScreen:addSticker(id)
+	outputDebugString("Add sticker: " .. tostring(id))
+end
+
 function StickerEditorScreen:show()
 	self.super:show()
 

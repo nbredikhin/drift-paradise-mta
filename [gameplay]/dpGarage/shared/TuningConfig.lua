@@ -110,60 +110,58 @@ tuningConfig.default = {
 tuningConfig[562] = {
 	-- Цены на компоненты
 	components = {
-		FrontBump 	= {5000, 7500, 10000},
-		RearBump 	= {5000, 7500, 10000},
-		SideSkirts 	= {2500, 5000, 7500},
-		Spoilers 	= {5000, 15000},
-		FrontFends 	= {2000},
-		RearFends 	= {2000},
-		Bonnets		= {3000},
-		RearLights 	= {800, 1600},
-		Exhaust 	= {2000, 4000},
+		FrontBump 	= {0, 0, 0},
+		RearBump 	= {0, 0, 0},
+		SideSkirts 	= {0, 0, 0},
+		Spoilers 	= {0, 0},
+		FrontFends 	= {0},
+		RearFends 	= {0},
+		Bonnets		= {0},
+		RearLights 	= {0, 0},
+		Exhaust 	= {0, 0},
 	}
 }
 
 tuningConfig[411] = {
 	components = {
-		FrontBump 	= {5000, 7500, 10000},
-		RearBump 	= {5000, 7500, 10000},
-		SideSkirts 	= {2500, 5000, 7500},
-		Spoilers 	= {5000, 15000, 20000, 50000},
-		FrontFends 	= {2000, 3000},
-		RearFends 	= {2000, 3000, 4000},
-		--Bonnets		= {3000},
-		RearLights 	= {800},
-		Exhaust 	= {2000, 4000},
+		FrontBump 	= {0, 0, 0},
+		RearBump 	= {0, 0, 0},
+		SideSkirts 	= {0, 0, 0},
+		Spoilers 	= {0, 0, 0, 0},
+		FrontFends 	= {0, 0},
+		RearFends 	= {0, 0, 0},
+		RearLights 	= {0},
+		Exhaust 	= {0, 0},
 	}
 }
 
 tuningConfig[429] = {
 	components = {
-		FrontBump 	= {5000, 7500, 10000},
-		RearBump 	= {5000, 7500, 10000},
-		SideSkirts 	= {2500, 5000, 7500},
-		Spoilers 	= {5000, 15000, 20000, 50000},
-		FrontFends 	= {2000, 3000},
-		RearFends 	= {2000, 3000, 4000},
-		--Bonnets		= {3000},
-		RearLights 	= {800},
-		FrontLight 	= {800},
-		Exhaust 	= {2000, 4000},
-		Access 		= {5000}	
+		FrontBump 	= {0, 0, 0},
+		RearBump 	= {0, 0, 0},
+		SideSkirts 	= {0, 0, 0},
+		Spoilers 	= {0, 0, 0, 0},
+		FrontFends 	= {0, 0},
+		RearFends 	= {0, 0, 0},
+		RearLights 	= {0},
+		FrontLight 	= {0},
+		Exhaust 	= {0, 0},
+		Access 		= {0}	
 	}
 }
 
 tuningConfig[541] = {
 	components = {
-		FrontBump 	= {5000, 7500, 10000},
-		RearBump 	= {5000, 7500, 10000},
-		SideSkirts 	= {2500, 5000, 7500},
-		Spoilers 	= {5000, 15000, 20000, 50000},
-		FrontFends 	= {2000, 3000},
-		RearFends 	= {2000, 3000, 4000},
-		Bonnets		= {3000},
-		RearLights 	= {800},
-		FrontLight 	= {800},
-		Exhaust 	= {2000, 4000},
-		Access 		= {5000}	
+		FrontBump 	= {0, 0, 0},
+		RearBump 	= {0, 0, 0},
+		SideSkirts 	= {0, 0, 0},
+		Spoilers 	= {0, 0, 0, 0},
+		FrontFends 	= {0, 0},
+		RearFends 	= {0, 0, 0},
+		Bonnets		= {0},
+		RearLights 	= {0},
+		FrontLight 	= {0},
+		Exhaust 	= {0, 0},
+		Access 		= {0}	
 	}
 }

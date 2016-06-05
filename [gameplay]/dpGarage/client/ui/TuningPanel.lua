@@ -1,10 +1,8 @@
 TuningPanel = newclass "TuningPanel"
 
 -- Цвета и прозрачность
-local BACKGROUND_COLOR = {42, 40, 41}
-local BACKGROUND_ALPHA = 230
+local BACKGROUND_COLOR = {29, 29, 29}
 local TEXT_BACKGROUND_COLOR = {255, 255, 255}
-local TEXT_BACKGROUDN_ALPHA = 30
 -- Размеры и расположение
 local PADDING_X = 12
 local PADDING_Y = 8
@@ -16,23 +14,26 @@ function TuningPanel:init(items, draw3d)
 	for i, item in ipairs(items) do
 		table.insert(self.items, {icon = item.icon, text = item.text})
 	end
+	self.draw3d = not not draw3d
+	self.screenSize = Vector2(guiGetScreenSize())
+
 	self.activeItem = 1
 
 	-- Подсчёт размеров
 	local itemsCount = #self.items
 	self.width = PADDING_X * 2 + ICON_SIZE * itemsCount + ICON_SPACE * (itemsCount - 1)
 	self.height = PADDING_Y * 2 + ICON_SIZE
-	self.x = 0
-	self.y = 0
+	self.x = self.screenSize.x / 2 - self.width / 2 - self.width * 0.2
+	self.y = 40
 	self.textBoxWidth = 0
 	self.textBoxWidthTarget = 0
 	--
 	self.font = Assets.fonts.tuningPanelText
 	self.activeItemColor = Garage.themePrimaryColor
 	self:updateTextBox() 
-
-	self.draw3d = not not draw3d
-	self.screenSize = Vector2(guiGetScreenSize())
+	self.textBackgroundAlpha = 30
+	self.backgroundAlpha = 230
+	self.highlightSelection = false
 end
 
 function TuningPanel:getActiveItem()
@@ -82,9 +83,6 @@ function TuningPanel:update(dt)
 			self.x = x - self.width / 2 - self.width * 0.2
 			self.y = y - self.height * 2
 		end
-	else
-		self.x = self.screenSize.x / 2 - self.width / 2 - self.width * 0.2
-		self.y = 40
 	end
 
 	self.textBoxWidth = self.textBoxWidth + (self.textBoxWidthTarget - self.textBoxWidth) * dt * 15
@@ -97,7 +95,7 @@ function TuningPanel:draw(fadeProgress)
 		self.y, 
 		self.width, 
 		self.height, 
-		tocolor(BACKGROUND_COLOR[1], BACKGROUND_COLOR[2], BACKGROUND_COLOR[3], BACKGROUND_ALPHA * fadeProgress)
+		tocolor(BACKGROUND_COLOR[1], BACKGROUND_COLOR[2], BACKGROUND_COLOR[3], self.backgroundAlpha * fadeProgress)
 	)
 	-- Отрисовка иконок
 	local x, y = self.x + PADDING_X, self.y + PADDING_Y
@@ -105,6 +103,9 @@ function TuningPanel:draw(fadeProgress)
 		local color = tocolor(255, 255, 255, 255 * fadeProgress)
 		if i == self.activeItem then
 			color = tocolor(self.activeItemColor[1], self.activeItemColor[2], self.activeItemColor[3], 255 * fadeProgress)
+			if self.highlightSelection then
+				dxDrawRectangle(x, y, ICON_SIZE, ICON_SIZE, tocolor(50, 50, 50, 255 * fadeProgress))
+			end			
 		end
 		dxDrawImage(x, y, ICON_SIZE, ICON_SIZE, item.icon, 0, 0, 0, color)
 		x = x + ICON_SIZE + ICON_SPACE
@@ -117,7 +118,7 @@ function TuningPanel:draw(fadeProgress)
 			self.y, 
 			self.textBoxWidth, 
 			self.height, 
-			tocolor(TEXT_BACKGROUND_COLOR[1], TEXT_BACKGROUND_COLOR[2], TEXT_BACKGROUND_COLOR[3], TEXT_BACKGROUDN_ALPHA * fadeProgress)
+			tocolor(TEXT_BACKGROUND_COLOR[1], TEXT_BACKGROUND_COLOR[2], TEXT_BACKGROUND_COLOR[3], self.textBackgroundAlpha * fadeProgress)
 		)
 		-- Отрисовка текста
 		dxDrawText(

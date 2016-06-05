@@ -4,6 +4,7 @@
 	"controls_arrows": "Arrows",
 	"controls_mouse": "Mouse",
 	"controls_mouse_wheel": "Mouse wheel",
+	"price_free": "Free",
 
 	// UI
 	"login_panel_username_label": "Username",
@@ -106,6 +107,12 @@
 	"garage_tuning_side_left": "Left side",
 	"garage_tuning_side_front": "Front side",
 	"garage_tuning_side_back": "Rear side",	
+
+	"garage_tuning_stickers_figures": "Figures",
+	"garage_tuning_stickers_letters": "Letters",
+	"garage_tuning_stickers_numbers": "Numbers",
+	"garage_tuning_stickers_brands": "Brands",
+	"garage_tuning_stickers_anime": "Anime",
 
 	"garage_tuning_config_front_wheels_offset": "Front wheels offset",
 	"garage_tuning_config_rear_wheels_offset": "Rear wheels offset",

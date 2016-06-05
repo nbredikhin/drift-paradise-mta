@@ -34,7 +34,7 @@ function ComponentScreen:init(name)
 		end
 		local name = itemName .. " " .. tostring(i - 1)
 		if i == 1 then
-			name = "Сток"
+			name = exports.dpLang:getString("garage_tuning_stock_text")
 		end
 		table.insert(items, {name = name, price = price})
 	end

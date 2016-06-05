@@ -4,6 +4,7 @@
 	"controls_arrows": "Стрелки",
 	"controls_mouse": "Мышь",
 	"controls_mouse_wheel": "Колесо мыши",
+	"price_free": "Бесплатно",
 	
 	// UI
 	"login_panel_username_label": "Имя пользователя",
@@ -106,6 +107,12 @@
 	"garage_tuning_side_left": "Левая сторона",
 	"garage_tuning_side_front": "Передняя сторона",
 	"garage_tuning_side_back": "Задняя сторона",
+
+	"garage_tuning_stickers_figures": "Фигуры",
+	"garage_tuning_stickers_letters": "Буквы",
+	"garage_tuning_stickers_numbers": "Цифры",
+	"garage_tuning_stickers_brands": "Бренды",
+	"garage_tuning_stickers_anime": "Аниме",	
 
 	"garage_tuning_config_front_wheels_offset": "Вынос передних колёс",
 	"garage_tuning_config_rear_wheels_offset": "Вынос задних колёс",	

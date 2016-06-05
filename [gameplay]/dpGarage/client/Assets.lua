@@ -21,15 +21,29 @@ function Assets.start()
 		tuningColorIcon = DxTexture("assets/images/icons/color.png"),
 		tuningVinylsIcon = DxTexture("assets/images/icons/vinyls.png"),
 		tuningSettingsIcon = DxTexture("assets/images/icons/settings.png"),
+
+		stickersSection1 = DxTexture("assets/images/icons/section1.png"),
+		stickersSection2 = DxTexture("assets/images/icons/section2.png"),
+		stickersSection3 = DxTexture("assets/images/icons/section3.png"),
+		stickersSection4 = DxTexture("assets/images/icons/section4.png"),
+		stickersSection5 = DxTexture("assets/images/icons/section5.png"),
 	}
+
+	for i, section in ipairs(TuningConfig.stickers) do
+		for i, sticker in ipairs(section) do
+			Assets.textures["sticker_" .. tostring(sticker.id)] = exports.dpAssets:createTexture("stickers/" .. sticker.id .. ".png")
+		end
+	end
 
 	Assets.fonts = {
 		menu = exports.dpAssets:createFont("Roboto-Regular.ttf", 22),
+		colorMenuHeader = exports.dpAssets:createFont("Roboto-Regular.ttf", 20),
+		colorMenuPrice = exports.dpAssets:createFont("Roboto-Regular.ttf", 18),
 		componentName = exports.dpAssets:createFont("Roboto-Regular.ttf", 30),
 		menuLabel = exports.dpAssets:createFont("Roboto-Regular.ttf", 18),
 		helpText = exports.dpAssets:createFont("Roboto-Regular.ttf", 16),
 		controlIconButton = exports.dpAssets:createFont("Roboto-Regular.ttf", 18),
-		stickersSelectionSection = exports.dpAssets:createFont("Roboto-Regular.ttf", 20),
+		stickersGridText = exports.dpAssets:createFont("Roboto-Regular.ttf", 12),
 
 		tuningPanelText = exports.dpAssets:createFont("Roboto-Regular.ttf", 14),
 		componentItem = exports.dpAssets:createFont("Roboto-Regular.ttf", 16),

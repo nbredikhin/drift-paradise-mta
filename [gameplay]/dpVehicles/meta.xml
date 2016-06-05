@@ -11,6 +11,7 @@
 	<script type="client" src="client/body_texture.lua"/>
 	<script type="client" src="client/mileage.lua"/>
 	<script type="client" src="client/neon.lua"/>
+
 	<script type="server" src="server_test.lua"/>
 
 	<export type="client" function="getComponentsNames"/>

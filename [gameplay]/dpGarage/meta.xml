@@ -7,8 +7,9 @@
 	<!-- Общие -->
 	<script type="shared" src="shared/lib/yaci.lua"/>
 	<script type="shared" src="shared/lib/check.lua"/>
-	<!-- Основной файл настроек цен и уровней тюнинга -->
-	<script type="shared" src="shared/tuning_config.lua"/>
+	<!-- Настройки цен и уровней тюнинга -->
+	<script type="shared" src="shared/TuningConfig.lua"/>
+	<script type="shared" src="shared/stickers_list.lua"/>
 
 	<!-- Сервер -->
 	<script type="server" src="server/enter_exit.lua"/>
@@ -43,6 +44,7 @@
 	<script type="client" src="client/ui/ConfigurationMenu.lua"/>
 	<script type="client" src="client/ui/ColorMenu.lua"/>
 	<script type="client" src="client/ui/StickersControlsMenu.lua"/>
+	<script type="client" src="client/ui/StickersGrid.lua"/>
 
 	<script type="client" src="client/ui/GarageUI.lua"/>
 	<!-- Основное -->
@@ -73,6 +75,12 @@
 	<file src="assets/images/icons/components.png"/>
 	<file src="assets/images/icons/vinyls.png"/>
 	<file src="assets/images/icons/settings.png"/>
+
+	<file src="assets/images/icons/section1.png"/>
+	<file src="assets/images/icons/section2.png"/>
+	<file src="assets/images/icons/section3.png"/>
+	<file src="assets/images/icons/section4.png"/>
+	<file src="assets/images/icons/section5.png"/>
 
 	<file src="assets/music/background_music.mp3"/>
 </meta>

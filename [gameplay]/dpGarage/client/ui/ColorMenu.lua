@@ -23,6 +23,7 @@ function ColorMenu:init(headerText, position, rotation)
 		{text = self.labels.brightness, value = 1, texture = Assets.textures.colorsBrightness},
 	}
 	self.activeBar = 1
+	self.price = 0
 end
 
 function ColorMenu:getColor()
@@ -43,7 +44,15 @@ function ColorMenu:draw(fadeProgress)
 	dxSetRenderTarget(self.renderTarget, true)
 	dxDrawRectangle(0, 0, self.resolution.x, self.resolution.y, tocolor(42, 40, 41))
 	dxDrawRectangle(0, 0, self.resolution.x, self.headerHeight, tocolor(32, 30, 31))
-	dxDrawText(self.headerText, 0, 0, self.resolution.x, self.headerHeight, tocolor(255, 255, 255), 1, Assets.fonts.menu, "center", "center")
+	dxDrawText(self.headerText, 20, 0, self.resolution.x, self.headerHeight, tocolor(255, 255, 255), 1, Assets.fonts.colorMenuHeader, "left", "center")
+	
+	local priceText = ""
+	if self.price > 0 then
+		priceText = "$" .. tostring(self.price)
+	else
+		priceText = exports.dpLang:getString("price_free")
+	end
+	dxDrawText(priceText, 0, 0, self.resolution.x - 20, self.headerHeight, tocolor(Garage.themePrimaryColor[1], Garage.themePrimaryColor[2], Garage.themePrimaryColor[3]), 1, Assets.fonts.colorMenuPrice, "right", "center")
 
 	local y = self.headerHeight
 	local barWidth = self.resolution.x - self.barOffset * 2

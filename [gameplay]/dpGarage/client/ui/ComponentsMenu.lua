@@ -29,7 +29,13 @@ function MenuItem:draw(fadeProgress)
 	dxDrawRectangle(0, 0, self.resolution.x, self.resolution.y, color)
 	dxDrawText(tostring(self.name), 0, 0, self.resolution.x * 0.6, self.resolution.y, tocolor(255, 255, 255, self.alpha), 1, Assets.fonts.componentItem, "center", "center")
 
-	dxDrawText("$" .. tostring(self.price), self.resolution.x * 0.6, 0, self.resolution.x, self.resolution.y, tocolor(Garage.themePrimaryColor[1], Garage.themePrimaryColor[2], Garage.themePrimaryColor[3], self.alpha), 1, Assets.fonts.componentItemInfo, "center", "center")
+	local priceText = ""
+	if self.price > 0 then
+		priceText = "$" .. tostring(self.price)
+	else
+		priceText = exports.dpLang:getString("price_free")
+	end
+	dxDrawText(priceText, self.resolution.x * 0.6, 0, self.resolution.x, self.resolution.y, tocolor(Garage.themePrimaryColor[1], Garage.themePrimaryColor[2], Garage.themePrimaryColor[3], self.alpha), 1, Assets.fonts.componentItemInfo, "center", "center")
 	dxSetRenderTarget()
 end
 

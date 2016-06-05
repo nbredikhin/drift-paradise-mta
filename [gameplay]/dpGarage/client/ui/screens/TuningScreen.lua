@@ -1,6 +1,6 @@
 TuningScreen = Screen:subclass "TuningScreen"
 
-function TuningScreen:init()
+function TuningScreen:init(item)
 	self.super:init()
 	self.panel = TuningPanel({
 		{icon = Assets.textures.tuningComponentsIcon, 	text = exports.dpLang:getString("garage_menu_customize_components")},
@@ -9,6 +9,9 @@ function TuningScreen:init()
 		{icon = Assets.textures.tuningSettingsIcon, 	text = exports.dpLang:getString("garage_menu_customize_config")},
 	}, true)
 	CameraManager.setState("vehicleTuning", false, 2)
+	if type(item) == "number" then
+		self.panel:setActiveItem(item)
+	end
 end
 
 function TuningScreen:draw()

@@ -3,6 +3,7 @@ StickerSelectionScreen = Screen:subclass "StickerSelectionScreen"
 function StickerSelectionScreen:init(sideName)
 	self.super:init()
 	self.stickersGrid = StickersGrid()
+	self.sideName = sideName
 end
 
 function StickerSelectionScreen:show()

@@ -5,9 +5,10 @@ local TEXTURE_SIZE = 1024
 local STICKER_SIZE = 300
 local mainRenderTarget = dxCreateRenderTarget(TEXTURE_SIZE, TEXTURE_SIZE, true)
 local vehicleRenderTarget
+local stickersTextures = {}
 
 local function drawSticker(sticker)
-	local x, y, width, height, stickerId, rotation, color = unpack(sticker)
+	local x, y, width, height, stickerId, rotation, color, mirror = unpack(sticker)
 	if  type(x) ~= "number" or 
 		type(y) ~= "number" or 
 		type(width) ~= "number" or 
@@ -16,8 +17,13 @@ local function drawSticker(sticker)
 	then
 		return
 	end
-	local texture = dxCreateTexture(1, 1) -- TODO: Load sticker
-	dxDrawImage(x, y, width, height, texture, rotation, 0, 0, color)
+	local texture = stickersTextures[stickerId]
+	if not isElement(texture) then
+		stickersTextures[stickerId] = exports.dpAssets:createTexture("stickers/" .. tostring(stickerId) .. ".png")
+		texture = stickersTextures[stickerId]
+	end
+	--dxDrawRectangle(x - width / 2, y - height / 2, width, height, tocolor(255, 255, 255))
+	dxDrawImage(x - width / 2, y - height / 2, width, height, texture, rotation, 0, 0, color)
 end
 
 function redrawBodyRenderTarget(renderTarget, bodyColor, bodyTexture, stickers)

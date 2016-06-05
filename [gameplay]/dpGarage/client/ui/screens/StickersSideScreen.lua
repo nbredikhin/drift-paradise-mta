@@ -38,7 +38,7 @@ function StickersSideScreen:onKey(key)
 		self.componentsSelection:showPreviousComponent()
 	elseif key == "backspace" then
 		self.componentsSelection:stop()
-		self.screenManager:showScreen(TuningScreen())
+		self.screenManager:showScreen(TuningScreen(3))
 		GarageCar.save()
 	elseif key == "enter" then
 		self.componentsSelection:stop()

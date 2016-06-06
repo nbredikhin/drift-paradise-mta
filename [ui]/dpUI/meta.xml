@@ -40,6 +40,7 @@
 
 	<!-- Сгенерированный список экспортов -->
 	<export type="client" function="getScreenSize"/>
+	<export type="client" function="forceRotation"/>
 	<export type="client" function="getRenderTarget"/>
 	<export type="client" function="setTheme"/>
 	<export type="client" function="fadeScreen"/>

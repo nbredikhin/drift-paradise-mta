@@ -35,6 +35,12 @@ local function updateVehicle()
 	if type(vehiclesList[currentVehicle].tuning) == "string" then
 		currentTuningTable = fromJSON(vehiclesList[currentVehicle].tuning)
 	end
+
+
+	-- Наклейки
+	if vehiclesList[currentVehicle].stickers then
+		vehicle:setData("stickers", fromJSON(vehiclesList[currentVehicle].stickers))	
+	end
 	GarageCar.resetTuning()
 	CarTexture.reset()
 end
@@ -169,7 +175,7 @@ function GarageCar.save()
 	vehiclesList[currentVehicle].tuning = toJSON(tuningTable)
 	triggerServerEvent("dpGarage.saveCar", resourceRoot,
 		currentVehicle, 
-		tuningTable
-		-- TODO: Наклейки
+		tuningTable,
+		vehicle:getData("stickers")
 	)
 end

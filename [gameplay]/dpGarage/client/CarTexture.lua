@@ -3,6 +3,8 @@ local renderTarget
 local vehicle
 local bodyColor = {0, 0, 0}
 local editorStickers = {}
+local DEFAULT_STICKER_SIZE = 300
+local selectedSticker = 1
 
 function CarTexture.start()
 	vehicle = GarageCar.getVehicle()
@@ -29,17 +31,110 @@ function CarTexture.previewBodyColor(r, g, b)
 	CarTexture.redraw()
 end
 
+function CarTexture.save()
+	if editorStickers then
+		vehicle:setData("stickers", editorStickers)
+	end
+end
+
 function CarTexture.reset()
 	if not isElement(vehicle) then
 		return
 	end
 	bodyColor = vehicle:getData("BodyColor")
 	editorStickers = vehicle:getData("stickers")
+	if not editorStickers then
+		editorStickers = {}
+	end
+	CarTexture.redraw()
+end
+
+function CarTexture.moveSticker(x, y)
+	if not selectedSticker then
+		return
+	end
+	if not x then return end
+	if not y then return end
+	local sticker = editorStickers[selectedSticker]
+	if not sticker then
+		return false
+	end
+
+	sticker[1] = sticker[1] + x
+	sticker[2] = sticker[2] + y
+	CarTexture.redraw()
+end
+
+function CarTexture.resizeSticker(x, y)
+	if not selectedSticker then
+		return
+	end
+	if not x then return end
+	if not y then return end
+	local sticker = editorStickers[selectedSticker]
+	if not sticker then
+		return false
+	end
+
+	sticker[3] = sticker[3] + x
+	sticker[4] = sticker[4] + y
+	CarTexture.redraw()
+end
+
+function CarTexture.setStickerColor(color)
+	if not selectedSticker then
+		return
+	end
+	if type(color) ~= "number" then color = tocolor(255, 255, 255) end
+	local sticker = editorStickers[selectedSticker]
+	if not sticker then
+		return false
+	end
+
+	sticker[7] = color
+	CarTexture.redraw()
+end
+
+function CarTexture.getStickerColor()
+	if not selectedSticker then
+		return
+	end
+	local sticker = editorStickers[selectedSticker]
+	if not sticker then
+		return false
+	end
+	
+	return sticker[7]
+end
+
+function CarTexture.rotateSticker(r)
+	if not selectedSticker then
+		return
+	end
+	if not r then return end
+	local sticker = editorStickers[selectedSticker]
+	if not sticker then
+		return false
+	end
+
+	sticker[6] = sticker[6] + r
+	CarTexture.redraw()
+end
+
+function CarTexture.addSticker(id, x, y, rotation)
+	if type(id) ~= "number" then
+		return false
+	end
+	if not x then x = 0 end
+	if not y then y = 0 end
+	if not rotation then rotation = 0 end
+	local sticker = {x, y, DEFAULT_STICKER_SIZE, DEFAULT_STICKER_SIZE, id, rotation, tocolor(255, 255, 255), true}
+	table.insert(editorStickers, sticker)
+	selectedSticker = #editorStickers
 	CarTexture.redraw()
 end
 
 function CarTexture.redraw()	
 	local bodyTexture = false
-	editorStickers = {}
 	exports.dpVehicles:redrawBodyRenderTarget(renderTarget, bodyColor, bodyTexture, editorStickers)
 end

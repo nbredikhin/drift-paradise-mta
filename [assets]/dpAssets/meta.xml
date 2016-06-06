@@ -3,6 +3,7 @@
 	<download_priority_group>2</download_priority_group>
 	
 	<script type="client" src="client/exports.lua"/>
+	<script type="server" src="script.lua"/>
 
 	<export type="client" function="createShader"/>
 	<export type="client" function="createTexture"/>
@@ -27,6 +28,8 @@
 	<file src="assets/textures/arrow.png"/>
 	<file src="assets/textures/logo_square_simple.png"/>
 
+	<!-- Stickers -->
+	<file src="assets/textures/stickers/0.png"/>
 	<file src="assets/textures/stickers/1.png"/>
 	<file src="assets/textures/stickers/2.png"/>
 	<file src="assets/textures/stickers/4.png"/>
@@ -115,7 +118,7 @@
 	<file src="assets/textures/stickers/89.png"/>
 	<file src="assets/textures/stickers/90.png"/>
 	<file src="assets/textures/stickers/91.png"/>
-	<file src="assets/textures/stickers/92.png"/>	
+	<file src="assets/textures/stickers/92.png"/>
 	<file src="assets/textures/stickers/93.png"/>
 	<file src="assets/textures/stickers/94.png"/>
 	<file src="assets/textures/stickers/95.png"/>
@@ -204,5 +207,6 @@
 	<file src="assets/textures/stickers/196.png"/>
 	<file src="assets/textures/stickers/197.png"/>
 	<file src="assets/textures/stickers/198.png"/>
-	<file src="assets/textures/stickers/199.png"/>		
+	<file src="assets/textures/stickers/199.png"/>
+
 </meta>

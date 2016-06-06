@@ -1,57 +1,45 @@
 TuningScreen = Screen:subclass "TuningScreen"
 
-function TuningScreen:init(forceItem)
+function TuningScreen:init(item)
 	self.super:init()
-	self.menu = ItemsMenu(
-		{
-			"garage_menu_customize_components",
-			"garage_menu_customize_paint",
-			"garage_menu_customize_stickers",
-			"garage_menu_customize_config",
-			"garage_menu_back"
-		},
-		Vector3(2917.5, -3183.7, 2535.6), 
-		-10,
-		forceItem
-	)	
+	self.panel = TuningPanel({
+		{icon = Assets.textures.tuningComponentsIcon, 	text = exports.dpLang:getString("garage_menu_customize_components")},
+		{icon = Assets.textures.tuningColorIcon, 		text = exports.dpLang:getString("garage_menu_customize_paint")},
+		{icon = Assets.textures.tuningVinylsIcon, 		text = exports.dpLang:getString("garage_menu_customize_stickers")},
+		{icon = Assets.textures.tuningSettingsIcon, 	text = exports.dpLang:getString("garage_menu_customize_config")},
+	}, true)
 	CameraManager.setState("vehicleTuning", false, 2)
-end
-
-function TuningScreen:show()
-	self.super:show()
-end
-
-function TuningScreen:hide()
-	self.super:hide()
-	self.menu:destroy()
+	if type(item) == "number" then
+		self.panel:setActiveItem(item)
+	end
 end
 
 function TuningScreen:draw()
 	self.super:draw()
-	self.menu:draw(self.fadeProgress)
+	self.panel:draw(self.fadeProgress)
 end
 
-function TuningScreen:update(deltaTime)
-	self.super:update(deltaTime)
-	self.menu:update(deltaTime)
+function TuningScreen:update(dt)
+	self.super:update(dt)
+	self.panel:update(dt)
 end
 
 function TuningScreen:onKey(key)
 	self.super:onKey(key)
-	self.menu:onKey(key)
-
-	if key == "enter" then
-		if self.menu:getItem() == "garage_menu_customize_components" then
+	if key == "arrow_l" then
+		self.panel:selectPrevious()
+	elseif key == "arrow_r" then
+		self.panel:selectNext()
+	elseif key == "enter" then
+		if self.panel:getActiveItem() == 1 then
 			self.screenManager:showScreen(ComponentsScreen())
-		elseif self.menu:getItem() == "garage_menu_customize_paint" then
+		elseif self.panel:getActiveItem() == 2 then
 			self.screenManager:showScreen(ColorsScreen())
-		elseif self.menu:getItem() == "garage_menu_customize_stickers" then
+		elseif self.panel:getActiveItem() == 3 then
 			self.screenManager:showScreen(StickersSideScreen())
-		elseif self.menu:getItem() == "garage_menu_customize_config" then
+		elseif self.panel:getActiveItem() == 4 then
 			self.screenManager:showScreen(ConfigurationsScreen())
-		elseif self.menu:getItem() == "garage_menu_back" then
-			self.screenManager:showScreen(MainScreen())
-		end		
+		end
 	elseif key == "backspace" then
 		self.screenManager:showScreen(MainScreen())
 	end

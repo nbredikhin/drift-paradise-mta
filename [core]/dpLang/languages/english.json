@@ -4,6 +4,7 @@
 	"controls_arrows": "Arrows",
 	"controls_mouse": "Mouse",
 	"controls_mouse_wheel": "Mouse wheel",
+	"price_free": "Free",
 
 	// UI
 	"login_panel_username_label": "Username",
@@ -16,6 +17,8 @@
 	"login_panel_language": "Select language",
 	"login_panel_color": "Color",
 	"login_panel_back": "Back",
+	"login_panel_server_not_available": "Drift Paradise server is currently not available",
+	"login_panel_server_error": "Server error",
 
 	// World map
 	"world_map_help_text": "%s - move camera, %s - zoom in/out, %s - exit",
@@ -105,6 +108,12 @@
 	"garage_tuning_side_front": "Front side",
 	"garage_tuning_side_back": "Rear side",	
 
+	"garage_tuning_stickers_figures": "Figures",
+	"garage_tuning_stickers_letters": "Letters",
+	"garage_tuning_stickers_numbers": "Numbers",
+	"garage_tuning_stickers_brands": "Brands",
+	"garage_tuning_stickers_anime": "Anime",
+
 	"garage_tuning_config_front_wheels_offset": "Front wheels offset",
 	"garage_tuning_config_rear_wheels_offset": "Rear wheels offset",
 	"garage_tuning_config_suspension": "Suspension",
@@ -114,7 +123,13 @@
 	"garage_tuning_install_button": "Apply",
 
 	"garage_help_text": "%s - change, %s - select, %s - back, %s - free look",
+	"garage_help_sticker_selection": "%s - change, %s - buy, %s - cancel",
+	"garage_help_sticker_editor": "%s - control, %s, %s, %s, %s - change mode, %s/%s - add/remove sticker, %s - back",
 
+	"garage_sticker_editor_move": "Move",
+	"garage_sticker_editor_rotate": "Scale",
+	"garage_sticker_editor_scale": "Rotate",
+	"garage_sticker_editor_color": "Change color",	
 
 	// Main panel
 	"main_panel_tab_account": "Account",

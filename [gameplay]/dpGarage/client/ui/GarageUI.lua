@@ -1,5 +1,7 @@
 GarageUI = {}
 local screenWidth, screenHeight = guiGetScreenSize()
+local screenSize = Vector2()
+local renderTarget
 local shadowTexture
 local screenManager
 local isVisible = true
@@ -13,20 +15,22 @@ local function draw()
 	if screenManager then
 		screenManager:draw()
 
-		local helpTextAlpha = 150
+		local helpTextAlpha = 255
 		if screenManager.activeScreen then
 			helpTextAlpha = helpTextAlpha * screenManager.activeScreen.fadeProgress
 		end
+		dxSetRenderTarget(renderTarget)
 		dxDrawText(
 			helpText, 
-			0, screenHeight - 50, 
-			screenWidth, screenHeight, 
+			0, screenSize.y - 50, 
+			screenSize.x, screenSize.y, 
 			tocolor(255, 255, 255, helpTextAlpha), 
 			1, 
 			Assets.fonts.helpText,
 			"center",
 			"center"
-		)		
+		)	
+		dxSetRenderTarget()
 	end
 end
 
@@ -41,7 +45,7 @@ local function update(deltaTime)
 end
 
 local function onKey(button, isDown)
-	if not isDown or CameraManager.isMouseLookEnabled() then
+	if not isDown or CameraManager.isMouseLookEnabled() or isMTAWindowActive() then
 		return
 	end
 	if screenManager then
@@ -51,6 +55,9 @@ end
 
 function GarageUI.start()
 	isVisible = true
+	screenSize = Vector2(exports.dpUI:getScreenSize())
+	renderTarget = exports.dpUI:getRenderTarget()
+
 	shadowTexture = exports.dpAssets:createTexture("screen_shadow.png")
 	GarageUI.resetHelpText()
 	-- Создание менеджера экранов
@@ -58,9 +65,10 @@ function GarageUI.start()
 	-- Переход на начальный экран
 	local screen = MainScreen()
 	screenManager:showScreen(screen)
-	-- setTimer(function ()
-	-- 	screenManager:showScreen(StickerEditorScreen("Right"))
-	-- end, 700, 1)
+	setTimer(function ()
+		screenManager:showScreen(StickerEditorScreen("left"))
+	end, 700, 1)
+	exports.dpUI:forceRotation(0.5, 0.5)
 	addEventHandler("onClientRender", root, draw)
 	addEventHandler("onClientPreRender", root, update)
 	addEventHandler("onClientKey", root, onKey)

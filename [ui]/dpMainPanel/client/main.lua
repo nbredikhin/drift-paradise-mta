@@ -20,3 +20,7 @@ end)
 bindKey("backspace", "down", function ()
 	Panel.setVisible(false)
 end)
+
+function setVisible(visible)
+	Panel.setVisible(visible)
+end

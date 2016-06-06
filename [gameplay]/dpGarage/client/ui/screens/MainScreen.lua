@@ -44,7 +44,7 @@ function MainScreen:onKey(key)
 		elseif self.mainMenu:getItem() == "garage_menu_sell" then
 
 		elseif self.mainMenu:getItem() == "garage_menu_customize" then
-			self.screenManager:showScreen(TuningScreen())
+			self.screenManager:showScreen(TuningScreen(true))
 		elseif self.mainMenu:getItem() == "garage_menu_exit" then
 			self.screenManager:hideScreen()
 			exitGarage()

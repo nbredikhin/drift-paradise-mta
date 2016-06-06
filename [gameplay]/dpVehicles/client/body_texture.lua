@@ -4,6 +4,27 @@ local vehicleShaders = {}
 local TEXTURE_SIZE = 1024
 local STICKER_SIZE = 300
 local mainRenderTarget = dxCreateRenderTarget(TEXTURE_SIZE, TEXTURE_SIZE, true)
+local vehicleRenderTarget
+local stickersTextures = {}
+
+local function drawSticker(sticker)
+	local x, y, width, height, stickerId, rotation, color, mirror = unpack(sticker)
+	if  type(x) ~= "number" or 
+		type(y) ~= "number" or 
+		type(width) ~= "number" or 
+		type(height) ~= "number" or
+		type(stickerId) ~= "number"
+	then
+		return
+	end
+	local texture = stickersTextures[stickerId]
+	if not isElement(texture) then
+		stickersTextures[stickerId] = exports.dpAssets:createTexture("stickers/" .. tostring(stickerId) .. ".png")
+		texture = stickersTextures[stickerId]
+	end
+	--dxDrawRectangle(x - width / 2, y - height / 2, width, height, tocolor(255, 255, 255))
+	dxDrawImage(x - width / 2, y - height / 2, width, height, texture, rotation, 0, 0, color)
+end
 
 function redrawBodyRenderTarget(renderTarget, bodyColor, bodyTexture, stickers)
 	if not isElement(renderTarget) then
@@ -16,8 +37,10 @@ function redrawBodyRenderTarget(renderTarget, bodyColor, bodyTexture, stickers)
 	if bodyTexture then
 
 	end
-	if stickers then
-
+	if type(stickers) == "table" then
+		for i, sticker in ipairs(stickers) do
+			drawSticker(sticker)
+		end
 	end
 	dxSetRenderTarget()
 end
@@ -26,9 +49,12 @@ function createVehicleRenderTarget(vehicle)
 	if not isElement(vehicle) then
 		return
 	end
-	local renderTarget = dxCreateRenderTarget(TEXTURE_SIZE, TEXTURE_SIZE)
-	VehicleShaders.replaceTexture(vehicle, BODY_TEXTURE_NAME, renderTarget)
-	return renderTarget
+	if isElement(vehicleRenderTarget) then
+		destroyElement(vehicleRenderTarget)
+	end
+	vehicleRenderTarget = dxCreateRenderTarget(TEXTURE_SIZE, TEXTURE_SIZE)
+	VehicleShaders.replaceTexture(vehicle, BODY_TEXTURE_NAME, vehicleRenderTarget)
+	return vehicleRenderTarget
 end
 
 local function setupVehicleTexture(vehicle)

@@ -27,7 +27,7 @@ function RenderTarget3D.draw(rt, x, y, width, height)
 		return
 	end
 	dxSetShaderValue(rt.maskShader, "sPicTexture", rt.renderTarget)
-	dxDrawImage(x, y, width, height, rt.maskShader, 0, 0, 0, tocolor(255, 255, 255, 235), true)
+	dxDrawImage(x, y, width, height, rt.maskShader, 0, 0, 0, tocolor(255, 255, 255, 245), true)
 end
 
 function RenderTarget3D.setTransform(rt, rotationX, rotationY, offset)

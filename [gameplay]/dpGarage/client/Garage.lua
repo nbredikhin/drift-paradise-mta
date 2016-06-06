@@ -15,6 +15,10 @@ function Garage.start(vehicles, enteredVehicleId)
 	Assets.start()
 
 	showChat(false)
+
+	exports.dpMainPanel:setVisible(false)
+	exports.dpTabPanel:setVisible(false)
+	exports.dpWorldMap:setVisible(false)	
 	exports.dpHUD:setVisible(false)
 
 	sound = playSound("assets/music/background_music.mp3"--[[, 2900, -3200.2, 2550]], true)

@@ -9,7 +9,6 @@ function StickersGrid:init()
 	self.height = 500
 	self.x = screenSize.x / 2 - self.width / 2
 	self.y = screenSize.y / 2 - self.height / 2 
-	exports.dpUI:forceRotation(0.5, 0.5)
 
 	self.panel = TuningPanel({
 		{icon = Assets.textures.stickersSection1, 	text = exports.dpLang:getString("garage_tuning_stickers_figures")},

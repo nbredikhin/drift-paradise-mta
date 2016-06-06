@@ -22,6 +22,7 @@ function ScreenManager:showScreen(screen)
 		self.isChangingInProgress = true
 		self.changingScreenTo = screen
 	else
+		exports.dpUI:forceRotation(0.5, 0.5)
 		self.activeScreen = screen
 		self.activeScreen.screenManager = self
 		self.activeScreen:show()

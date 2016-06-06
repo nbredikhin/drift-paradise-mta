@@ -53,8 +53,8 @@ function CarTexture.moveSticker(x, y)
 	if not selectedSticker then
 		return
 	end
-	if not x then x = 0 end
-	if not y then y = 0 end
+	if not x then return end
+	if not y then return end
 	local sticker = editorStickers[selectedSticker]
 	if not sticker then
 		return false
@@ -69,8 +69,8 @@ function CarTexture.resizeSticker(x, y)
 	if not selectedSticker then
 		return
 	end
-	if not x then x = 0 end
-	if not y then y = 0 end
+	if not x then return end
+	if not y then return end
 	local sticker = editorStickers[selectedSticker]
 	if not sticker then
 		return false
@@ -81,12 +81,37 @@ function CarTexture.resizeSticker(x, y)
 	CarTexture.redraw()
 end
 
+function CarTexture.setStickerColor(color)
+	if not selectedSticker then
+		return
+	end
+	if type(color) ~= "number" then color = tocolor(255, 255, 255) end
+	local sticker = editorStickers[selectedSticker]
+	if not sticker then
+		return false
+	end
+
+	sticker[7] = color
+	CarTexture.redraw()
+end
+
+function CarTexture.getStickerColor()
+	if not selectedSticker then
+		return
+	end
+	local sticker = editorStickers[selectedSticker]
+	if not sticker then
+		return false
+	end
+	
+	return sticker[7]
+end
+
 function CarTexture.rotateSticker(r)
 	if not selectedSticker then
 		return
 	end
-	if not x then x = 0 end
-	if not y then y = 0 end
+	if not r then return end
 	local sticker = editorStickers[selectedSticker]
 	if not sticker then
 		return false

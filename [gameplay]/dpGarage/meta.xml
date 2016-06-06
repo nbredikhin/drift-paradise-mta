@@ -43,6 +43,7 @@
 	<script type="client" src="client/ui/ComponentsMenu.lua"/>
 	<script type="client" src="client/ui/ConfigurationMenu.lua"/>
 	<script type="client" src="client/ui/ColorMenu.lua"/>
+	<script type="client" src="client/ui/ColorPanel.lua"/>
 	<script type="client" src="client/ui/StickersControlsMenu.lua"/>
 	<script type="client" src="client/ui/StickersGrid.lua"/>
 

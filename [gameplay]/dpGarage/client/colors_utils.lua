@@ -56,3 +56,10 @@ function hsvToRgb(h, s, v, a)
 
   return r * 255, g * 255, b * 255, a * 255
 end
+
+function fromColor(c)
+  local r = bitAnd(bitRShift(c, 16), 255)
+  local g = bitAnd(bitRShift(c, 8), 255)
+  local b = bitAnd(255)
+  return r, g, b
+end

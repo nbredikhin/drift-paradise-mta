@@ -9,10 +9,15 @@ local stickerControlKeys = {
 local bodySides = {
 	["left"] = {reverse = true, ox = 1, oy = -1, px = 890, py = 512, rot = -90},
 	["right"] = {reverse = true, ox = -1, oy = 1, px = 110, py = 512, rot = 90},
+	["top"] = {reverse = false, ox = 1, oy = 1, px = 512, py = 512, rot = 0},
+	["front"] = {reverse = false, ox = 1, oy = 1, px = 512, py = 830, rot = 0},
+	["back"] = {reverse = false, ox = -1, oy = -1, px = 512, py = 150, rot = 180},
 }
 local STICKER_MOVE_SPEED = 200
 local STICKER_SCALE_SPEED = 150
 local STICKER_ROTATE_SPEED = 90
+local SLOW_SPEED_MUL = 0.2
+local FAST_SPEED_MUL = 2
 
 function StickerEditorScreen:init(sideName)
 	self.super:init()
@@ -27,16 +32,29 @@ function StickerEditorScreen:init(sideName)
 	})
 
 	self.mode = "move"
+
+	local screenSize = Vector2(exports.dpUI:getScreenSize())
+	self.colorPanel = ColorPanel("Цвет наклейки")
+	self.colorPanel.x = -self.colorPanel.resolution.x
+	self.colorPanel.y = screenSize.y / 2 - self.colorPanel.resolution.y / 2
+	self.colorPanel.showPrice = false
+	self.colorPanel.resolution = Vector2(300, 350)
+	self.colorPanelX = -self.colorPanel.resolution.x
+	self.renderTarget = exports.dpUI:getRenderTarget()
 end
 
 function StickerEditorScreen:draw()
 	self.super:draw()
 	self.panel:draw(self.fadeProgress)
+	dxSetRenderTarget(self.renderTarget)
+	self.colorPanel:draw(self.fadeProgress)
+	dxSetRenderTarget()
 end
 
 function StickerEditorScreen:update(deltaTime)
 	self.super:update(deltaTime)
 	self.panel:update(deltaTime)
+	self.colorPanel.x = self.colorPanel.x + (self.colorPanelX - self.colorPanel.x) * deltaTime * 20
 
 	if not isMTAWindowActive() then
 		local transformX = 0
@@ -50,6 +68,15 @@ function StickerEditorScreen:update(deltaTime)
 			transformY = -1
 		elseif getKeyState("arrow_d") then 
 			transformY = 1
+		end
+
+		-- Ускорение/замедление движения наклейки
+		if getKeyState("lalt") then
+			transformX = transformX * SLOW_SPEED_MUL
+			transformY = transformY * SLOW_SPEED_MUL
+		elseif getKeyState("lshift") then
+			transformX = transformX * FAST_SPEED_MUL
+			transformY = transformY * FAST_SPEED_MUL
 		end
 
 		if self.mode == "move" then
@@ -78,6 +105,14 @@ function StickerEditorScreen:update(deltaTime)
 			CarTexture.rotateSticker(
 				transformX * STICKER_ROTATE_SPEED * deltaTime
 			)
+		elseif self.mode == "color" then
+			if transformX > 0 then
+				self.colorPanel:increase(deltaTime)
+				CarTexture.setStickerColor(tocolor(self.colorPanel:getColor()))
+			elseif transformX < 0 then
+				self.colorPanel:decrease(deltaTime)
+				CarTexture.setStickerColor(tocolor(self.colorPanel:getColor()))
+			end
 		end
 	end
 end
@@ -121,8 +156,23 @@ function StickerEditorScreen:onKey(key)
 			if key == name then
 				self.panel:setActiveItem(v.panelItem)
 				self.mode = v.mode
-			end
 
+				if self.mode == "color" then
+					self.colorPanelX = 20
+					local r, g, b = fromColor(CarTexture.getStickerColor())
+					self.colorPanel:setColor(r, g, b)
+				else
+					self.colorPanelX = -self.colorPanel.resolution.x - 20
+				end
+			end
+		end
+	end
+
+	if self.mode == "color" then
+		if key == "arrow_u" then
+			self.colorPanel:selectPreviousBar()
+		elseif key == "arrow_d" then
+			self.colorPanel:selectNextBar()
 		end
 	end
 end

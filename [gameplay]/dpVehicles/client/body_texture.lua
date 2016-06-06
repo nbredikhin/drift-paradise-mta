@@ -6,8 +6,9 @@ local STICKER_SIZE = 300
 local mainRenderTarget = dxCreateRenderTarget(TEXTURE_SIZE, TEXTURE_SIZE, true)
 local vehicleRenderTarget
 local stickersTextures = {}
+local selectionTexture
 
-local function drawSticker(sticker)
+local function drawSticker(sticker, selected)
 	local x, y, width, height, stickerId, rotation, color, mirror = unpack(sticker)
 	if  type(x) ~= "number" or 
 		type(y) ~= "number" or 
@@ -22,13 +23,18 @@ local function drawSticker(sticker)
 		stickersTextures[stickerId] = exports.dpAssets:createTexture("stickers/" .. tostring(stickerId) .. ".png")
 		texture = stickersTextures[stickerId]
 	end
-	--dxDrawRectangle(x - width / 2, y - height / 2, width, height, tocolor(255, 255, 255))
+	if selected then
+		dxDrawImage(x - width / 2, y - height / 2, width, height, selectionTexture, rotation)
+	end
 	dxDrawImage(x - width / 2, y - height / 2, width, height, texture, rotation, 0, 0, color)
 end
 
-function redrawBodyRenderTarget(renderTarget, bodyColor, bodyTexture, stickers)
+function redrawBodyRenderTarget(renderTarget, bodyColor, bodyTexture, stickers, selected)
 	if not isElement(renderTarget) then
 		return
+	end
+	if not selected then
+		selected = 0
 	end
 	dxSetRenderTarget(renderTarget, true)
 	if bodyColor then
@@ -39,7 +45,7 @@ function redrawBodyRenderTarget(renderTarget, bodyColor, bodyTexture, stickers)
 	end
 	if type(stickers) == "table" then
 		for i, sticker in ipairs(stickers) do
-			drawSticker(sticker)
+			drawSticker(sticker, selected == i)
 		end
 	end
 	dxSetRenderTarget()
@@ -81,6 +87,7 @@ end
 
 -- Обновить текстуры всех видимых машин при запуске скрипта
 addEventHandler("onClientResourceStart", resourceRoot, function()
+	selectionTexture = dxCreateTexture("assets/selection.png")
 	for i, vehicle in ipairs(getElementsByType("vehicle")) do
 		setupVehicleTexture(vehicle)
 	end

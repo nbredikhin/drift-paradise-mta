@@ -60,6 +60,6 @@ end
 function fromColor(c)
   local r = bitAnd(bitRShift(c, 16), 255)
   local g = bitAnd(bitRShift(c, 8), 255)
-  local b = bitAnd(255)
+  local b = bitAnd(c, 255)
   return r, g, b
 end

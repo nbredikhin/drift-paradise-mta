@@ -131,6 +131,10 @@
 	"garage_sticker_editor_rotate": "Вращение",
 	"garage_sticker_editor_color": "Выбор цвета",
 
+	"garage_tuning_sticker_color": "Цвет наклейки",
+	"garage_tuning_sticker_prev": "%s - следующая",
+	"garage_tuning_sticker_next": "%s - предыдущая",	
+
 	// Main panel
 	"main_panel_tab_account": "Аккаунт",
 	"main_panel_tab_teleport": "Телепорты",

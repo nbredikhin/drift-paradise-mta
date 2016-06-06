@@ -48,6 +48,7 @@ function Assets.start()
 		tuningPanelText = exports.dpAssets:createFont("Roboto-Regular.ttf", 14),
 		componentItem = exports.dpAssets:createFont("Roboto-Regular.ttf", 16),
 		componentItemInfo = exports.dpAssets:createFont("Roboto-Regular.ttf", 13),
+		stickerPreviewHelp = exports.dpAssets:createFont("Roboto-Regular.ttf", 12),
 	}
 end
 

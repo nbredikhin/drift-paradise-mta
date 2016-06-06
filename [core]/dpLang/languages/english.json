@@ -131,6 +131,10 @@
 	"garage_sticker_editor_scale": "Rotate",
 	"garage_sticker_editor_color": "Change color",	
 
+	"garage_tuning_sticker_color": "Sticker color",
+	"garage_tuning_sticker_prev": "%s - previous",
+	"garage_tuning_sticker_next": "%s - next",
+
 	// Main panel
 	"main_panel_tab_account": "Account",
 	"main_panel_tab_teleport": "Teleports",

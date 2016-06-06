@@ -78,7 +78,7 @@ end
 
 function TuningPanel:update(dt)
 	if self.draw3d then
-		local x, y = getScreenFromWorldPosition(GarageCar.getVehicle().position + Vector3(0, 0, 0.7))
+		local x, y = getScreenFromWorldPosition(GarageCar.getVehicle().position + Vector3(0, 0, 0.9))
 		if x then
 			self.x = x - self.width / 2 - self.width * 0.2
 			self.y = y - self.height * 2

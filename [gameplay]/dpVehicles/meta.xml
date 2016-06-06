@@ -19,4 +19,5 @@
 	<export type="client" function="createVehicleRenderTarget"/>
 
 	<file src="assets/light.png"/>
+	<file src="assets/selection.png"/>
 </meta>

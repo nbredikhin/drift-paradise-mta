@@ -25,6 +25,8 @@ local function updateVehicle()
 	-- Разморозка машины на 1 сек
 	vehicle.frozen = false
 	vehicle.velocity = Vector3(0, 0, -0.01)
+	vehicle.velocity = Vector3(0, 0, 0.02)
+	vehicle.position = CAR_POSITION
 	if isTimer(unfreezeTimer) then killTimer(unfreezeTimer) end
 	unfreezeTimer = setTimer(function ()
 		vehicle.frozen = true
@@ -38,8 +40,15 @@ local function updateVehicle()
 
 
 	-- Наклейки
-	if vehiclesList[currentVehicle].stickers then
-		vehicle:setData("stickers", fromJSON(vehiclesList[currentVehicle].stickers))	
+	local stickersJSON = vehiclesList[currentVehicle].stickers
+	if stickersJSON then
+		local stickers = fromJSON(stickersJSON)
+		if type(stickers) ~= "table" then
+			stickers = {}
+		end
+		vehicle:setData("stickers", stickers)	
+	else
+		vehicle:setData("stickers", {})
 	end
 	GarageCar.resetTuning()
 	CarTexture.reset()

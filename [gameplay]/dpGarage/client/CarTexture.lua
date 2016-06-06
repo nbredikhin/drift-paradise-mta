@@ -4,7 +4,7 @@ local vehicle
 local bodyColor = {0, 0, 0}
 local editorStickers = {}
 local DEFAULT_STICKER_SIZE = 300
-local selectedSticker = 1
+local selectedSticker = false
 
 function CarTexture.start()
 	vehicle = GarageCar.getVehicle()
@@ -42,6 +42,7 @@ function CarTexture.reset()
 		return
 	end
 	bodyColor = vehicle:getData("BodyColor")
+	editorStickers = {}
 	editorStickers = vehicle:getData("stickers")
 	if not editorStickers then
 		editorStickers = {}
@@ -79,6 +80,13 @@ function CarTexture.resizeSticker(x, y)
 	sticker[3] = sticker[3] + x
 	sticker[4] = sticker[4] + y
 	CarTexture.redraw()
+end
+
+function CarTexture.getSelectedSticker()
+	if not selectedSticker then
+		return false
+	end
+	return editorStickers[selectedSticker]
 end
 
 function CarTexture.setStickerColor(color)
@@ -134,7 +142,53 @@ function CarTexture.addSticker(id, x, y, rotation)
 	CarTexture.redraw()
 end
 
+function CarTexture.removeSticker()
+	if not selectedSticker then
+		return
+	end
+	local sticker = editorStickers[selectedSticker]
+	if not sticker then
+		return false
+	end
+	table.remove(editorStickers, selectedSticker)
+	CarTexture.redraw()
+	CarTexture.selectNextSticker()
+end
+
 function CarTexture.redraw()	
 	local bodyTexture = false
-	exports.dpVehicles:redrawBodyRenderTarget(renderTarget, bodyColor, bodyTexture, editorStickers)
+	exports.dpVehicles:redrawBodyRenderTarget(renderTarget, bodyColor, bodyTexture, editorStickers, selectedSticker)
+end
+
+function CarTexture.selectPreviousSticker()
+	if not selectedSticker then
+		selectedSticker = 1
+	end	
+	if not selectedSticker or not editorStickers  or #editorStickers == 0 then
+		return false
+	end
+	selectedSticker = selectedSticker - 1
+	if selectedSticker < 1 then
+		selectedSticker = #editorStickers
+	end
+	CarTexture.redraw()	
+end
+
+function CarTexture.selectNextSticker()
+	if not selectedSticker then
+		selectedSticker = 1
+	end
+	if not selectedSticker or not editorStickers  or #editorStickers == 0 then
+		return false
+	end
+	selectedSticker = selectedSticker + 1
+	if selectedSticker > #editorStickers then
+		selectedSticker = 1
+	end
+	CarTexture.redraw()	
+end
+
+function CarTexture.unselectSticker()
+	selectedSticker = false
+	CarTexture.redraw()	
 end

@@ -46,6 +46,7 @@
 	<script type="client" src="client/ui/ColorPanel.lua"/>
 	<script type="client" src="client/ui/StickersControlsMenu.lua"/>
 	<script type="client" src="client/ui/StickersGrid.lua"/>
+	<script type="client" src="client/ui/StickerPreview.lua"/>
 
 	<script type="client" src="client/ui/GarageUI.lua"/>
 	<!-- Основное -->

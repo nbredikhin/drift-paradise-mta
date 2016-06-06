@@ -7,23 +7,21 @@ local stickerControlKeys = {
 	["r"] = {mode = "color", 	panelItem = 4}
 }
 local bodySides = {
-	["left"] = {reverse = true, ox = 1, oy = -1, px = 890, py = 512, rot = -90},
-	["right"] = {reverse = true, ox = -1, oy = 1, px = 110, py = 512, rot = 90},
-	["top"] = {reverse = false, ox = 1, oy = 1, px = 512, py = 512, rot = 0},
-	["front"] = {reverse = false, ox = 1, oy = 1, px = 512, py = 830, rot = 0},
-	["back"] = {reverse = false, ox = -1, oy = -1, px = 512, py = 150, rot = 180},
+	["Left"] = {reverse = true, ox = 1, oy = -1, px = 890, py = 512, rot = -90},
+	["Right"] = {reverse = true, ox = -1, oy = 1, px = 110, py = 512, rot = 90},
+	["Top"] = {reverse = false, ox = 1, oy = 1, px = 512, py = 512, rot = 0},
+	["Front"] = {reverse = false, ox = 1, oy = 1, px = 512, py = 830, rot = 0},
+	["Back"] = {reverse = false, ox = -1, oy = -1, px = 512, py = 150, rot = 180},
 }
 local STICKER_MOVE_SPEED = 200
 local STICKER_SCALE_SPEED = 150
 local STICKER_ROTATE_SPEED = 90
 local SLOW_SPEED_MUL = 0.2
-local FAST_SPEED_MUL = 2
+local FAST_SPEED_MUL = 3
 
 function StickerEditorScreen:init(sideName)
 	self.super:init()
-	self.sideName = string.lower(sideName)
-	outputDebugString("sideName: " .. tostring(sideName))
-	--CameraManager.setState("sideRight", true)
+	self.sideName = sideName
 	self.panel = TuningPanel({
 		{icon = Assets.textures.stickersMoveIcon, text = exports.dpLang:getString("garage_sticker_editor_move")},
 		{icon = Assets.textures.stickersScaleIcon, text = exports.dpLang:getString("garage_sticker_editor_scale")},
@@ -34,13 +32,19 @@ function StickerEditorScreen:init(sideName)
 	self.mode = "move"
 
 	local screenSize = Vector2(exports.dpUI:getScreenSize())
-	self.colorPanel = ColorPanel("Цвет наклейки")
+	self.colorPanel = ColorPanel(exports.dpLang:getString("garage_tuning_sticker_color"))
 	self.colorPanel.x = -self.colorPanel.resolution.x
 	self.colorPanel.y = screenSize.y / 2 - self.colorPanel.resolution.y / 2
 	self.colorPanel.showPrice = false
 	self.colorPanel.resolution = Vector2(300, 350)
 	self.colorPanelX = -self.colorPanel.resolution.x
 	self.renderTarget = exports.dpUI:getRenderTarget()
+
+	CarTexture.unselectSticker()
+	self.stickerPreview = StickerPreview()
+	self:updateSelectedSticker()
+
+	CameraManager.setState("side" .. tostring(sideName), false, 2)
 end
 
 function StickerEditorScreen:draw()
@@ -49,6 +53,8 @@ function StickerEditorScreen:draw()
 	dxSetRenderTarget(self.renderTarget)
 	self.colorPanel:draw(self.fadeProgress)
 	dxSetRenderTarget()
+
+	self.stickerPreview:draw(self.fadeProgress)
 end
 
 function StickerEditorScreen:update(deltaTime)
@@ -108,10 +114,14 @@ function StickerEditorScreen:update(deltaTime)
 		elseif self.mode == "color" then
 			if transformX > 0 then
 				self.colorPanel:increase(deltaTime)
-				CarTexture.setStickerColor(tocolor(self.colorPanel:getColor()))
+				local color = tocolor(self.colorPanel:getColor())
+				CarTexture.setStickerColor(color)
+				self.stickerPreview:setStickerColor(color)
 			elseif transformX < 0 then
 				self.colorPanel:decrease(deltaTime)
-				CarTexture.setStickerColor(tocolor(self.colorPanel:getColor()))
+				local color = tocolor(self.colorPanel:getColor())
+				CarTexture.setStickerColor(color)
+				self.stickerPreview:setStickerColor(color)
 			end
 		end
 	end
@@ -119,6 +129,7 @@ end
 
 function StickerEditorScreen:addSticker(id)
 	CarTexture.addSticker(id, bodySides[self.sideName].px, bodySides[self.sideName].py, bodySides[self.sideName].rot)
+	self:updateSelectedSticker()
 end
 
 function StickerEditorScreen:show()
@@ -138,19 +149,55 @@ function StickerEditorScreen:hide()
 	self.super:hide()
 
 	GarageUI.resetHelpText()
+	CarTexture.unselectSticker()
+end
+
+function StickerEditorScreen:updateSelectedSticker()
+	local sticker = CarTexture.getSelectedSticker()
+
+	if sticker then
+		self.stickerPreview:showSticker(sticker[5])
+		self.stickerPreview:setStickerColor(CarTexture.getStickerColor())
+		local x, y = sticker[1], sticker[2]
+		local minDistance = 2048
+		local minSide = "Left"
+		for name, side in pairs(bodySides) do
+			local distance = getDistanceBetweenPoints2D(side.px, side.py, x, y)
+			if distance < minDistance then
+				minDistance = distance
+				minSide = name
+			end
+		end
+		self.sideName = minSide
+		CameraManager.setState("side" .. tostring(self.sideName), false, 4)
+		local r, g, b = fromColor(CarTexture.getStickerColor())
+		self.colorPanel:setColor(r, g, b)		
+	else
+		self.stickerPreview:hideSticker()
+	end
 end
 
 function StickerEditorScreen:onKey(key)
 	self.super:onKey(key)
 
-	if key == "backspace" or key == "enter" then
+	if key == "backspace" then
 		CarTexture.save()
 		CarTexture.reset()
 		self.screenManager:showScreen(StickersSideScreen(self.sideName))
+	elseif key == "enter" then
+		CarTexture.unselectSticker()
+		self:updateSelectedSticker()
 	elseif key == "a" then
 		self.screenManager:showScreen(StickerSelectionScreen(self.sideName))
 	elseif key == "d" then
-		-- Удаление наклейки		
+		CarTexture.removeSticker()
+		self:updateSelectedSticker()
+	elseif key == "k" then
+		CarTexture.selectPreviousSticker()
+		self:updateSelectedSticker()
+	elseif key == "l" then
+		CarTexture.selectNextSticker()
+		self:updateSelectedSticker()
 	else
 		for name, v in pairs(stickerControlKeys) do
 			if key == name then

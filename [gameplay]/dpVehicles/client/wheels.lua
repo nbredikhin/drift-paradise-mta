@@ -73,7 +73,7 @@ local function updateVehicleWheels(vehicle)
 		if type(wheelId) == "number" and wheelId > 0 then
 			-- Получение параметров колеса из даты
 			local wheelSize = vehicle:getData("WheelsSize") or 0.7
-			wheelSize = math.max(0.63, wheelSize)
+			wheelSize = math.max(0.1, wheelSize)
 			local wheelRazval = -10
 			local wheelWidth = 0.15
 			local wheelColor = {255, 255, 255}

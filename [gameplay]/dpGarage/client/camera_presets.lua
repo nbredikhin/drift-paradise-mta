@@ -439,9 +439,9 @@ cameraPresets.sideRight = {
 
 cameraPresets.sideTop = {
 	targetPosition = Vector3(0, -0.5, 0),
-	rotationHorizontal = 180,
-	rotationVertical = 80,
-	distance = 5,
+	rotationHorizontal = 0,
+	rotationVertical = 70,
+	distance = 5.5,
 	FOV = 50,
 	roll = 0
 }

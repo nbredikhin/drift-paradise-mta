@@ -50,9 +50,11 @@ end
 function StickerEditorScreen:draw()
 	self.super:draw()
 	self.panel:draw(self.fadeProgress)
-	dxSetRenderTarget(self.renderTarget)
-	self.colorPanel:draw(self.fadeProgress)
-	dxSetRenderTarget()
+	if CarTexture.getSelectedSticker() then
+		dxSetRenderTarget(self.renderTarget)
+		self.colorPanel:draw(self.fadeProgress)
+		dxSetRenderTarget()
+	end
 
 	self.stickerPreview:draw(self.fadeProgress)
 end
@@ -130,7 +132,7 @@ end
 function StickerEditorScreen:addSticker(id)
 	CarTexture.addSticker(id, bodySides[self.sideName].px, bodySides[self.sideName].py, bodySides[self.sideName].rot)
 	self:updateSelectedSticker()
-	--CarTexture.save()
+	GarageCar.save()
 end
 
 function StickerEditorScreen:show()
@@ -151,6 +153,7 @@ function StickerEditorScreen:hide()
 
 	GarageUI.resetHelpText()
 	CarTexture.unselectSticker()
+	CarTexture.save()
 end
 
 function StickerEditorScreen:updateSelectedSticker()
@@ -184,7 +187,7 @@ function StickerEditorScreen:onKey(key)
 	self.super:onKey(key)
 
 	if key == "backspace" then
-		CarTexture.save()
+		GarageCar.save()
 		CarTexture.reset()
 		self.screenManager:showScreen(StickersSideScreen(self.sideName))
 	elseif key == "1" then
@@ -199,6 +202,7 @@ function StickerEditorScreen:onKey(key)
 	elseif key == "d" or key == "delete" then
 		CarTexture.removeSticker()
 		self:updateSelectedSticker()
+		GarageCar.save()
 	elseif key == "k" then
 		CarTexture.selectPreviousSticker()
 		self:updateSelectedSticker()

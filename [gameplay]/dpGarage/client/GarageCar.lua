@@ -13,7 +13,7 @@ local currentTuningTable = {}
 local VEHICLE_UNFREEZE_TIME = 500
 local unfreezeTimer
 
-local configurationData = {"WheelsOffsetF", "WheelsOffsetR", "WheelsWidthF", "WheelsWidthR", "WheelsAngleF", "WheelsAngleR"}
+local configurationData = {"WheelsOffsetF", "WheelsOffsetR", "WheelsWidthF", "WheelsWidthR", "WheelsAngleF", "WheelsAngleR", "WheelsSize"}
 local colorsData = {"BodyColor", "WheelsColorR", "WheelsColorF", "SpoilerColor"}
 
 local function updateVehicle()
@@ -176,14 +176,11 @@ function GarageCar.getTuningTable()
 	-- Numberplate 	= "DRIFT"
 	-- Nitro 			= 0
 	-- Windows			= 0
-	-- WheelsAngleF 	= 0
-	-- WheelsAngleR 	= 0
-	-- WheelsOffsetF	= 0
-	-- WheelsOffsetR	= 0
 	return tuningTable
 end
 
 function GarageCar.save()
+	CarTexture.save()
 	local tuningTable = GarageCar.getTuningTable()
 	vehiclesList[currentVehicle].tuning = toJSON(tuningTable)
 	vehiclesList[currentVehicle].stickers = toJSON(vehicle:getData("stickers"))

@@ -32,7 +32,7 @@ function Garage.start(vehicles, enteredVehicleId)
 	exports.dpWorldMap:setVisible(false)	
 	exports.dpHUD:setVisible(false)
 
-	sound = playSound(musicURLs[math.random(1, #musicURLs)]--[[, 2900, -3200.2, 2550]], true)
+	sound = playSound(musicURLs[math.random(1, #musicURLs)]--[[, 2900, -3200.2, 2550]], false)
 	if isElement(sound) then
 		sound:setEffectEnabled("reverb", true)
 		sound.volume = 0.08
@@ -90,5 +90,5 @@ function Garage.playRandomMusic(reason)
 	if isElement(sound) then
 		destroyElement(sound)
 	end
-	sound = playSound(musicURLs[math.random(1, #musicURLs)], true)
+	sound = playSound(musicURLs[math.random(1, #musicURLs)], false)
 end

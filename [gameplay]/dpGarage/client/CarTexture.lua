@@ -149,6 +149,21 @@ function CarTexture.addSticker(id, x, y, rotation)
 	CarTexture.redraw()
 end
 
+function CarTexture.cloneSticker()
+	if not selectedSticker then
+		return
+	end
+	local sticker = editorStickers[selectedSticker]
+	if not sticker then
+		return false
+	end
+	local clonedSticker = {unpack(sticker)}
+	table.insert(editorStickers, clonedSticker)
+	selectedSticker = #editorStickers
+
+	CarTexture.redraw()
+end
+
 function CarTexture.removeSticker()
 	if not selectedSticker then
 		return

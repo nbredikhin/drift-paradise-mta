@@ -209,6 +209,9 @@ function StickerEditorScreen:onKey(key)
 	elseif key == "l" then
 		CarTexture.selectNextSticker()
 		self:updateSelectedSticker()
+	elseif key == "f" then
+		CarTexture.cloneSticker()
+		self:updateSelectedSticker()
 	else
 		for name, v in pairs(stickerControlKeys) do
 			if key == name then

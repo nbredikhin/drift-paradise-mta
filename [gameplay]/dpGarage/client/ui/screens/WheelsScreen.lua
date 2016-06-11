@@ -1,0 +1,93 @@
+WheelsScreen = Screen:subclass "WheelsScreen"
+
+local menuInfos = {}
+menuInfos["FrontWheels"] = {position = Vector3(2914, -3184.3, 2535.3), angle = 15, header="garage_tuning_config_front_wheels"}
+menuInfos["RearWheels"] = {position = Vector3(2912.3, -3184.3, 2535.3), angle = 15, header="garage_tuning_config_rear_wheels"}
+
+function WheelsScreen:init(wheelsSide)
+	self.wheelsSide = wheelsSide
+	local menuInfo = menuInfos[wheelsSide]
+	self.menu = WheelsMenu(
+		exports.dpLang:getString(menuInfo.header),
+		menuInfo.position,
+		menuInfo.angle
+	)
+
+	-- Камера
+	if wheelsSide == "RearWheels" then
+		CameraManager.setState("previewRearWheels", false, 3)
+	else
+		CameraManager.setState("previewWheels", false, 3)
+	end
+
+	-- Дата
+	self.dataNames = {
+		"WheelsOffset",
+		"WheelsAngle",
+		"WheelsWidth"
+	}
+	local c = "R"
+	if wheelsSide == "FrontWheels" then
+		c = "F"
+	end
+	for i, name in ipairs(self.dataNames) do
+		self.dataNames[i] = name .. c
+	end
+
+	local vehicle = GarageCar.getVehicle()
+	self.menu.bars[1].value = vehicle:getData(self.dataNames[1]) * 3
+	self.menu.bars[2].value = vehicle:getData(self.dataNames[2]) / (-20)
+	self.menu.bars[3].value = vehicle:getData(self.dataNames[3]) * 10
+
+	self.super:init()
+end
+
+function WheelsScreen:draw()
+	self.super:draw()
+	self.menu:draw(self.fadeProgress)
+end
+
+function WheelsScreen:update(deltaTime)
+	self.super:update(deltaTime)
+	self.menu:update(deltaTime)
+
+	if getKeyState("arrow_r") then
+		self.menu:increase(deltaTime)
+		self:updatePreview()
+	elseif getKeyState("arrow_l") then
+		self.menu:decrease(deltaTime)
+		self:updatePreview()
+	end
+end
+
+function WheelsScreen:updatePreview()
+	local bar, value = self.menu:getBarValue()
+	local dataName = self.dataNames[bar]
+	if string.find(dataName, "WheelsOffset") then
+		value = value / 3
+	elseif string.find(dataName, "WheelsAngle") then
+		value = value * -20
+	elseif string.find(dataName, "WheelsWidth") then
+		value = value / 10
+	end
+	GarageCar.previewTuning(dataName, value)
+end
+
+function WheelsScreen:onKey(key)
+	self.super:onKey(key)
+
+	if key == "enter" then
+		for i = 1, 3 do
+			GarageCar.applyTuningFromData(self.dataNames[i])
+		end	
+		GarageCar.resetTuning()
+		self.screenManager:showScreen(ConfigurationsScreen(self.wheelsSide))
+	elseif key == "backspace" then
+		GarageCar.resetTuning()
+		self.screenManager:showScreen(ConfigurationsScreen(self.wheelsSide))
+	elseif key == "arrow_u" then
+		self.menu:selectPreviousBar()
+	elseif key == "arrow_d" then
+		self.menu:selectNextBar()
+	end
+end

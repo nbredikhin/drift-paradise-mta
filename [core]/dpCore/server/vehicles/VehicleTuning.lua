@@ -2,21 +2,31 @@ VehicleTuning = {}
 local REMOVE_ZERO_FIELDS = true
 
 VehicleTuning.defaultTuningTable = {
+	-- Цвета
 	BodyColor 		= {255, 0, 0},		-- Цвет кузова
 	WheelsColor 	= {255, 255, 255},	-- Цвет дисков
 	BodyTexture 	= false,			-- Текстура кузова
 	NeonColor 		= false,			-- Цвет неона
 	SpoilerColor	= false,			-- Цвет спойлера
-	Numberplate 	= "DRIFT", 			-- Текст номерного знака
+
+	-- Дополнительно
+	Numberplate 	= "DRIFT", 	-- Текст номерного знака
 	Nitro 			= 0, -- Уровень нитро
 	Windows			= 0, -- Тонировка окон	
+
+	-- Колёса
 	WheelsAngleF 	= 0, -- Развал передних колёс
 	WheelsAngleR 	= 0, -- Развал задних колёс
+	WheelsSize		= 0.72, -- Размер 
+	WheelsWidthF 	= 0, -- Толщина передних колёс
+	WheelsWidthR	= 0, -- Толщина задних колёс
 	WheelsOffsetF	= 0, -- Вынос передних колёс
 	WheelsOffsetR	= 0, -- Вынос задних колёс
-	Suspension 		= 0, -- Высота подвески
+	WheelsF 		= 0, -- Передние диски
+	WheelsR 		= 0, -- Задние диски
+	Wheels 			= 0, -- Shiet
 
-	Wheels 			= 0, -- Колёса
+	-- Компоненты
 	Spoilers 		= 0, -- Спойлер	
 	FrontBump		= 0, -- Задний бампер
 	RearBump		= 0, -- Передний бампер
@@ -27,6 +37,9 @@ VehicleTuning.defaultTuningTable = {
 	RearFends		= 0, -- Задние фендеры
 	Exhaust			= 0, -- Глушитель
 	Acces			= 0, -- Аксессуары
+
+	-- Настройки
+	Suspension 		= 0, -- Высота подвески
 }
 
 function VehicleTuning.applyToVehicle(vehicle, tuningJSON, stickersJSON)

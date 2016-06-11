@@ -34,6 +34,7 @@
 	<script type="client" src="client/ui/screens/StickersSideScreen.lua"/>
 	<script type="client" src="client/ui/screens/StickerEditorScreen.lua"/>
 	<script type="client" src="client/ui/screens/StickerSelectionScreen.lua"/>
+	<script type="client" src="client/ui/screens/WheelsScreen.lua"/>
 	<!-- Элементы интерфейса -->
 	<script type="client" src="client/ui/ComponentNameText.lua"/>
 	<script type="client" src="client/ui/ComponentSelection.lua"/>
@@ -47,6 +48,7 @@
 	<script type="client" src="client/ui/StickersControlsMenu.lua"/>
 	<script type="client" src="client/ui/StickersGrid.lua"/>
 	<script type="client" src="client/ui/StickerPreview.lua"/>
+	<script type="client" src="client/ui/WheelsMenu.lua"/>
 
 	<script type="client" src="client/ui/GarageUI.lua"/>
 	<!-- Основное -->

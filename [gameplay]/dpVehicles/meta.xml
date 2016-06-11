@@ -11,6 +11,7 @@
 	<script type="client" src="client/body_texture.lua"/>
 	<script type="client" src="client/mileage.lua"/>
 	<script type="client" src="client/neon.lua"/>
+	<script type="client" src="client/wheels.lua"/>
 
 	<script type="server" src="server_test.lua"/>
 
@@ -20,4 +21,7 @@
 
 	<file src="assets/light.png"/>
 	<file src="assets/selection.png"/>
+
+	<file src="assets/shaders/mta-helper.fx"/>
+	<file src="assets/shaders/wheel.fx"/>
 </meta>

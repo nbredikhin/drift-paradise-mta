@@ -114,9 +114,13 @@
 	"garage_tuning_stickers_brands": "Brands",
 	"garage_tuning_stickers_anime": "Anime",
 
-	"garage_tuning_config_front_wheels_offset": "Front wheels offset",
-	"garage_tuning_config_rear_wheels_offset": "Rear wheels offset",
+	"garage_tuning_config_front_wheels": "Front wheels",
+	"garage_tuning_config_rear_wheels": "Rear wheels",
 	"garage_tuning_config_suspension": "Suspension",
+
+	"garage_tuning_config_wheels_offset": "Offset",
+	"garage_tuning_config_wheels_angle": "Angle",
+	"garage_tuning_config_wheels_width": "Width",
 
 	"garage_tuning_buy_button": "Buy",
 	"garage_tuning_stock_text": "Default",

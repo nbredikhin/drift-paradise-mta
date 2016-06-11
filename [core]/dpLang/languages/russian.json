@@ -114,9 +114,13 @@
 	"garage_tuning_stickers_brands": "Бренды",
 	"garage_tuning_stickers_anime": "Аниме",	
 
-	"garage_tuning_config_front_wheels_offset": "Вынос передних колёс",
-	"garage_tuning_config_rear_wheels_offset": "Вынос задних колёс",	
+	"garage_tuning_config_front_wheels_offset": "Передние колёса",
+	"garage_tuning_config_rear_wheels_offset": "Задние колёса",	
 	"garage_tuning_config_suspension": "Подвеска",
+
+	"garage_tuning_config_wheels_offset": "Вынос",
+	"garage_tuning_config_wheels_angle": "Развал",
+	"garage_tuning_config_wheels_width": "Толщина",
 
 	"garage_tuning_buy_button": "Купить",
 	"garage_tuning_stock_text": "Сток",

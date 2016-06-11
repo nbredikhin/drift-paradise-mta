@@ -6,8 +6,8 @@ function ConfigurationsScreen:init(componentName)
 	self.super:init()
 	self.componentsSelection = ComponentSelection({
 		{name="Suspension", 	camera="suspension", 		locale="garage_tuning_config_suspension"},
-		{name="WheelsOffsetF", 	camera="wheelsOffsetFront", locale="garage_tuning_config_front_wheels_offset"},
-		{name="WheelsOffsetR", 	camera="wheelsOffsetRear", 	locale="garage_tuning_config_rear_wheels_offset"},
+		{name="FrontWheels", 	camera="wheelsOffsetFront", locale="garage_tuning_config_front_wheels"},
+		{name="RearWheels", 	camera="wheelsOffsetRear", 	locale="garage_tuning_config_rear_wheels"},
 	})
 	if componentName then
 		self.componentsSelection:showComponentByName(componentName)
@@ -43,6 +43,10 @@ function ConfigurationsScreen:onKey(key)
 		-- Отобразить экран настройки конфигурации
 		self.componentsSelection:stop()
 		local componentName = self.componentsSelection:getSelectedComponentName()
-		self.screenManager:showScreen(ConfigurationScreen(componentName))
+		local screenClass = ConfigurationScreen
+		if componentName == "FrontWheels" or componentName == "RearWheels" then
+			screenClass = WheelsScreen
+		end
+		self.screenManager:showScreen(screenClass(componentName))
 	end	
 end

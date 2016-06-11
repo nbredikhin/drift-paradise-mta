@@ -13,6 +13,9 @@ local currentTuningTable = {}
 local VEHICLE_UNFREEZE_TIME = 500
 local unfreezeTimer
 
+local configurationData = {"WheelsOffsetF", "WheelsOffsetR", "WheelsWidthF", "WheelsWidthR", "WheelsAngleF", "WheelsAngleR"}
+local colorsData = {"BodyColor", "WheelsColor", "SpoilerColor"}
+
 local function updateVehicle()
 	if not vehiclesList[currentVehicle] then
 		outputDebugString("Could not load vehicle: " .. tostring(currentVehicle))
@@ -117,6 +120,10 @@ function GarageCar.applyTuning(name, value)
 	currentTuningTable[name] = value
 end
 
+function GarageCar.applyTuningFromData(name)
+	currentTuningTable[name] = vehicle:getData(name)
+end
+
 function GarageCar.resetTuning()
 	-- Сброс компонентов
 	local componentNames = exports.dpVehicles:getComponentsNames()
@@ -125,7 +132,6 @@ function GarageCar.resetTuning()
 		vehicle:setData(name, currentTuningTable[name])
 	end
 
-	local configurationData = {"WheelsOffsetF", "WheelsOffsetR"}
 	for i, name in ipairs(configurationData) do
 		local value = currentTuningTable[name]
 		if type(value) == "number" then
@@ -136,7 +142,6 @@ function GarageCar.resetTuning()
 	end
 
 	-- Цвета
-	local colorsData = {"BodyColor", "WheelsColor", "SpoilerColor"}
 	for i, name in ipairs(colorsData) do
 		if currentTuningTable[name] then
 			vehicle:setData(name, currentTuningTable[name])
@@ -153,15 +158,13 @@ function GarageCar.getTuningTable()
 		tuningTable[name] = vehicle:getData(name, id)
 	end
 
-	tuningTable["WheelsOffsetF"] = vehicle:getData("WheelsOffsetF")
-	if type(tuningTable["WheelsOffsetF"]) == "number" then
-		tuningTable["WheelsOffsetF"] = math.floor(tuningTable["WheelsOffsetF"] * 100) / 100
-	end
-	tuningTable["WheelsOffsetR"] = vehicle:getData("WheelsOffsetR")
-	if type(tuningTable["WheelsOffsetR"]) == "number" then
-		tuningTable["WheelsOffsetR"] = math.floor(tuningTable["WheelsOffsetR"] * 100) / 100
-	end
-	
+	for i, name in ipairs(configurationData) do
+		tuningTable[name] = vehicle:getData(name)
+		if type(tuningTable[name]) == "number" then
+			tuningTable[name] = math.floor(tuningTable[name] * 100) / 100
+		end
+	end	
+
 	-- Цвета
 	tuningTable.BodyColor = vehicle:getData("BodyColor")
 	tuningTable.WheelsColor = vehicle:getData("WheelsColor")

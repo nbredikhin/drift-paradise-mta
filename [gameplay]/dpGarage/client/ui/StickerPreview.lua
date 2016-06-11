@@ -6,6 +6,7 @@ function StickerPreview:init()
 	self.width = 160
 	self.height = 160
 	self.headerHeight = 35
+	self.labelHeight = 30
 	self.x = screenSize.x  - self.width - 20
 	self.y = screenSize.y / 2 - self.height / 2
 
@@ -15,9 +16,6 @@ function StickerPreview:init()
 end
 
 function StickerPreview:draw(fadeProgress)
-	if not self.texture then 
-		return
-	end
 	dxSetRenderTarget(self.renderTarget)
 	dxDrawRectangle(self.x, self.y - self.headerHeight, self.width, self.headerHeight, tocolor(32, 30, 31, 255 * fadeProgress))
 	dxDrawText(
@@ -44,9 +42,47 @@ function StickerPreview:draw(fadeProgress)
 		Assets.fonts.stickerPreviewHelp,
 		"center", "center"
 	)
+
+	local y = self.y + self.height + self.headerHeight
+	local c = 100
+	local isMirroringEnabled = CarTexture.isMirroringEnabled()
+	if isMirroringEnabled then
+		c = 255
+	end
+	dxDrawText(
+		string.format(exports.dpLang:getString("garage_tuning_sticker_mirror"), "1"),
+		self.x, 
+		y, 
+		self.x + self.width, 
+		y + self.labelHeight,
+		tocolor(c, c, c, 255 * fadeProgress),
+		1,
+		Assets.fonts.stickerPreviewHelp,
+		"left", "center"
+	)
+	y = y + self.labelHeight
+
+	c = 100
+	if isMirroringEnabled and CarTexture.isTextMirroringEnabled() then
+		c = 255
+	end	
+	dxDrawText(
+		string.format(exports.dpLang:getString("garage_tuning_sticker_mirror_text"), "2"),
+		self.x, 
+		y, 
+		self.x + self.width, 
+		y + self.labelHeight,
+		tocolor(c, c, c, 255 * fadeProgress),
+		1,
+		Assets.fonts.stickerPreviewHelp,
+		"left", "center"
+	)
+
 	local x = self.x + self.width * (1 - self.stickerScale) / 2
 	local y = self.y + self.height * (1 - self.stickerScale) / 2
-	dxDrawImage(x, y, self.width * self.stickerScale, self.height * self.stickerScale, self.texture, 0, 0, 0, self.stickerColor)
+	if self.texture then
+		dxDrawImage(x, y, self.width * self.stickerScale, self.height * self.stickerScale, self.texture, 0, 0, 0, self.stickerColor)
+	end
 	dxSetRenderTarget()
 end
 

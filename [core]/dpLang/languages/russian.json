@@ -143,6 +143,8 @@
 	"garage_tuning_sticker_color": "Цвет наклейки",
 	"garage_tuning_sticker_prev": "%s - следующая",
 	"garage_tuning_sticker_next": "%s - предыдущая",	
+	"garage_tuning_sticker_mirror": "%s - отзеркаливание",
+	"garage_tuning_sticker_mirror_text": "%s - отзеркаливание текста",	
 
 	// Main panel
 	"main_panel_tab_account": "Аккаунт",

@@ -9,7 +9,7 @@ local stickersTextures = {}
 local selectionTexture
 
 local function drawSticker(sticker, selected)
-	local x, y, width, height, stickerId, rotation, color, mirror = unpack(sticker)
+	local x, y, width, height, stickerId, rotation, color, mirror, mirrorText = unpack(sticker)
 	if  type(x) ~= "number" or 
 		type(y) ~= "number" or 
 		type(width) ~= "number" or 
@@ -27,6 +27,14 @@ local function drawSticker(sticker, selected)
 		dxDrawImage(x - width / 2, y - height / 2, width, height, selectionTexture, rotation)
 	end
 	dxDrawImage(x - width / 2, y - height / 2, width, height, texture, rotation, 0, 0, color)
+	-- Отраженная наклейка
+	if mirror then
+		if mirrorText then
+			dxDrawImage(TEXTURE_SIZE - x - width / 2 + width, y - height / 2 + height, -width, -height, texture, 180-rotation, 0, 0, color)
+		else
+			dxDrawImage(TEXTURE_SIZE - x - width / 2, y - height / 2, width, height, texture, 180-rotation, 0, 0, color)
+		end
+	end
 end
 
 function redrawBodyRenderTarget(renderTarget, bodyColor, bodyTexture, stickers, selected)
@@ -93,6 +101,11 @@ addEventHandler("onClientResourceStart", resourceRoot, function()
 	end
 end)
 
+addEventHandler("onClientRestore", root, function ()
+	for i, vehicle in ipairs(getElementsByType("vehicle")) do
+		--setupVehicleTexture(vehicle)
+	end
+end)
 
 addEventHandler("onClientElementStreamIn", root, function()
 	if source.type == "vehicle" then

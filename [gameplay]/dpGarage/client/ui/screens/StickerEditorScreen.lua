@@ -130,6 +130,7 @@ end
 function StickerEditorScreen:addSticker(id)
 	CarTexture.addSticker(id, bodySides[self.sideName].px, bodySides[self.sideName].py, bodySides[self.sideName].rot)
 	self:updateSelectedSticker()
+	--CarTexture.save()
 end
 
 function StickerEditorScreen:show()
@@ -171,7 +172,9 @@ function StickerEditorScreen:updateSelectedSticker()
 		self.sideName = minSide
 		CameraManager.setState("side" .. tostring(self.sideName), false, 4)
 		local r, g, b = fromColor(CarTexture.getStickerColor())
-		self.colorPanel:setColor(r, g, b)		
+		if r then
+			self.colorPanel:setColor(r, g, b)		
+		end
 	else
 		self.stickerPreview:hideSticker()
 	end
@@ -184,12 +187,16 @@ function StickerEditorScreen:onKey(key)
 		CarTexture.save()
 		CarTexture.reset()
 		self.screenManager:showScreen(StickersSideScreen(self.sideName))
+	elseif key == "1" then
+		CarTexture.toggleStickerMirroring()
+	elseif key == "2" then
+		CarTexture.toggleTextMirroring()
 	elseif key == "enter" then
 		CarTexture.unselectSticker()
 		self:updateSelectedSticker()
 	elseif key == "a" then
 		self.screenManager:showScreen(StickerSelectionScreen(self.sideName))
-	elseif key == "d" then
+	elseif key == "d" or key == "delete" then
 		CarTexture.removeSticker()
 		self:updateSelectedSticker()
 	elseif key == "k" then

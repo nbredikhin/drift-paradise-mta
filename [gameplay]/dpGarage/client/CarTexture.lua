@@ -5,6 +5,7 @@ local bodyColor = {0, 0, 0}
 local editorStickers = {}
 local DEFAULT_STICKER_SIZE = 300
 local selectedSticker = false
+local stickerMirroringEnabled = true
 
 function CarTexture.start()
 	vehicle = GarageCar.getVehicle()
@@ -17,12 +18,17 @@ function CarTexture.start()
 	end
 	CarTexture.reset()
 	CarTexture.redraw()
+
+	addEventHandler("onClientRestore", root, CarTexture.handleRestore)
+	stickerMirroringEnabled = true
 end
 
 function CarTexture.stop()
 	if isElement(renderTarget) then
 		destroyElement(renderTarget)
 	end
+
+	removeEventHandler("onClientRestore", root, CarTexture.handleRestore)
 end
 
 function CarTexture.previewBodyColor(r, g, b)
@@ -137,7 +143,7 @@ function CarTexture.addSticker(id, x, y, rotation)
 	if not x then x = 0 end
 	if not y then y = 0 end
 	if not rotation then rotation = 0 end
-	local sticker = {x, y, DEFAULT_STICKER_SIZE, DEFAULT_STICKER_SIZE, id, rotation, tocolor(255, 255, 255), true}
+	local sticker = {x, y, DEFAULT_STICKER_SIZE, DEFAULT_STICKER_SIZE, id, rotation, tocolor(255, 255, 255), stickerMirroringEnabled, false}
 	table.insert(editorStickers, sticker)
 	selectedSticker = #editorStickers
 	CarTexture.redraw()
@@ -153,7 +159,7 @@ function CarTexture.removeSticker()
 	end
 	table.remove(editorStickers, selectedSticker)
 	CarTexture.redraw()
-	CarTexture.selectNextSticker()
+	CarTexture.unselectSticker()
 end
 
 function CarTexture.redraw()	
@@ -175,6 +181,54 @@ function CarTexture.selectPreviousSticker()
 	CarTexture.redraw()	
 end
 
+function CarTexture.toggleStickerMirroring()
+	if not selectedSticker then
+		return
+	end
+	local sticker = editorStickers[selectedSticker]
+	if not sticker then
+		return false
+	end
+
+	stickerMirroringEnabled = not stickerMirroringEnabled
+	sticker[8] = stickerMirroringEnabled
+end
+
+function CarTexture.isMirroringEnabled()
+	if not selectedSticker then
+		return
+	end
+	local sticker = editorStickers[selectedSticker]
+	if not sticker then
+		return false
+	end
+
+	return not not sticker[8]
+end
+
+function CarTexture.toggleTextMirroring()
+	if not selectedSticker then
+		return
+	end
+	local sticker = editorStickers[selectedSticker]
+	if not sticker then
+		return false
+	end
+	sticker[9] = not sticker[9]
+	CarTexture.redraw()
+end
+
+function CarTexture.isTextMirroringEnabled()
+	if not selectedSticker then
+		return
+	end
+	local sticker = editorStickers[selectedSticker]
+	if not sticker then
+		return false
+	end
+	return not not sticker[9]
+end
+
 function CarTexture.selectNextSticker()
 	if not selectedSticker then
 		selectedSticker = 1
@@ -192,4 +246,10 @@ end
 function CarTexture.unselectSticker()
 	selectedSticker = false
 	CarTexture.redraw()	
+end
+
+function CarTexture.handleRestore(didClearRenderTargets)
+	if didClearRenderTargets then
+		CarTexture.redraw()
+	end
 end

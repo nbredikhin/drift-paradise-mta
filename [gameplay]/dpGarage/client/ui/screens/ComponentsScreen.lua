@@ -7,7 +7,8 @@ function ComponentsScreen:init(componentName)
 	self.super:init()
 	local componentsList = {
 		{name="FrontBump", 	camera="frontBump", 	locale="garage_tuning_component_front_bump", animate={component="FrontBump%u", 		offset=Vector3(0, 0.1, 0)}},
-		{name="Wheels", 	camera="wheelLF", 		locale="garage_tuning_component_wheels",	 animate={component="wheel_lf_dummy", 	offset=Vector3(-0.1, 0, 0)}},
+		{name="WheelsF", 	camera="wheelLF", 		locale="garage_tuning_component_wheels_front"},
+		{name="WheelsR", 	camera="wheelLB", 		locale="garage_tuning_component_wheels_rear"},
 		{name="RearBump", 	camera="rearBump", 		locale="garage_tuning_component_rear_bump",	 animate={component="RearBump%u", 		offset=Vector3(0, -0.1, 0)}},
 		{name="Exhaust", 	camera="exhaust", 		locale="garage_tuning_component_exhaust",	 animate={component="Exhaust%u", 		offset=Vector3(0, 0.05, 0)}},
 		{name="RearLights", camera="rearLights", 	locale="garage_tuning_component_rear_lights"},

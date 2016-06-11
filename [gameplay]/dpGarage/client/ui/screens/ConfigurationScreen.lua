@@ -19,18 +19,19 @@ end
 function ConfigurationScreen:update(deltaTime)
 	self.super:update(deltaTime)
 	if self.dataName then
-		GarageCar.previewTuning(self.dataName, self.menu.currentValue / 3)
+		GarageCar.previewTuning(self.dataName, 0.6 + self.menu.currentValue * 0.16)
+	end
+	if getKeyState("arrow_r") then
+		self.menu:increase(deltaTime)
+	elseif getKeyState("arrow_l") then
+		self.menu:decrease(deltaTime)	
 	end
 end
 
 function ConfigurationScreen:onKey(key)
 	self.super:onKey(key)
-
-	if key == "arrow_r" then
-		self.menu:increase()
-	elseif key == "arrow_l" then
-		self.menu:decrease()
-	elseif key == "backspace" then
+	
+	if key == "backspace" then
 		GarageCar.resetTuning()
 		self.dataName = nil
 		self.screenManager:showScreen(ConfigurationsScreen(self.dataName))

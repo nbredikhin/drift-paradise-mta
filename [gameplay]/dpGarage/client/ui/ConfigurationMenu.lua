@@ -7,7 +7,7 @@ function ConfigurationMenu:init()
 	self.width = 600
 	self.height = 17
 	self.x = (screenSize.x - self.width) / 2
-	self.y = screenSize.y - self.height * 3
+	self.y = screenSize.y - self.height * 3 - 20
 
 	self.value = 0
 	self.currentValue = 0
@@ -21,15 +21,15 @@ function ConfigurationMenu:draw(fadeProgress)
 	dxDrawImage(self.x - 8 + x, self.y - 8, 32, 32, Assets.textures.sliderCircle, 0, 0, 0, tocolor(255, 255, 255, 255 * fadeProgress))
 end
 
-function ConfigurationMenu:increase()
-	self.value = self.value + 0.05
+function ConfigurationMenu:increase(deltaTime)
+	self.value = self.value + 1 * deltaTime
 	if self.value > 1 then
 		self.value = 1
 	end
 end
 
-function ConfigurationMenu:decrease()
-	self.value = self.value - 0.05
+function ConfigurationMenu:decrease(deltaTime)
+	self.value = self.value - 1 * deltaTime
 	if self.value < 0 then
 		self.value = 0
 	end

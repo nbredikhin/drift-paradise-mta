@@ -14,7 +14,7 @@ local VEHICLE_UNFREEZE_TIME = 500
 local unfreezeTimer
 
 local configurationData = {"WheelsOffsetF", "WheelsOffsetR", "WheelsWidthF", "WheelsWidthR", "WheelsAngleF", "WheelsAngleR"}
-local colorsData = {"BodyColor", "WheelsColor", "SpoilerColor"}
+local colorsData = {"BodyColor", "WheelsColorR", "WheelsColorF", "SpoilerColor"}
 
 local function updateVehicle()
 	if not vehiclesList[currentVehicle] then
@@ -167,7 +167,8 @@ function GarageCar.getTuningTable()
 
 	-- Цвета
 	tuningTable.BodyColor = vehicle:getData("BodyColor")
-	tuningTable.WheelsColor = vehicle:getData("WheelsColor")
+	tuningTable.WheelsColorR = vehicle:getData("WheelsColorR")
+	tuningTable.WheelsColorF = vehicle:getData("WheelsColorF")
 
 	-- TODO:
 	-- BodyTexture 	= false

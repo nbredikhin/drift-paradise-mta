@@ -76,6 +76,8 @@
 	"garage_tuning_component_front_bump": "Передний бампер",
 	"garage_tuning_component_rear_bump": "Задний бампер",
 	"garage_tuning_component_side_skirts": "Боковые юбки",
+	"garage_tuning_component_wheels_front": "Передние колёса",
+	"garage_tuning_component_wheels_rear": "Задние колёса",	
 	"garage_tuning_component_wheels": "Колёса",
 	"garage_tuning_component_spoilers": "Спойлер",
 	"garage_tuning_component_rear_fends": "Задние Фендеры",
@@ -86,6 +88,8 @@
 	"garage_tuning_component_exhaust": "Выхлоп",	
 
 	"garage_tuning_paint_body": "Цвет кузова",
+	"garage_tuning_paint_wheels_front": "Цвет передних дисков",
+	"garage_tuning_paint_wheels_rear": "Цвет задних дисков",
 	"garage_tuning_paint_wheels": "Цвет дисков",
 	"garage_tuning_paint_spoiler": "Цвет спойлера",	
 
@@ -114,9 +118,10 @@
 	"garage_tuning_stickers_brands": "Бренды",
 	"garage_tuning_stickers_anime": "Аниме",	
 
-	"garage_tuning_config_front_wheels_offset": "Передние колёса",
-	"garage_tuning_config_rear_wheels_offset": "Задние колёса",	
+	"garage_tuning_config_front_wheels": "Передние колёса",
+	"garage_tuning_config_rear_wheels": "Задние колёса",
 	"garage_tuning_config_suspension": "Подвеска",
+	"garage_tuning_config_wheels_size": "Радиус колёс",
 
 	"garage_tuning_config_wheels_offset": "Вынос",
 	"garage_tuning_config_wheels_angle": "Развал",

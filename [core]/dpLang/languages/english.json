@@ -76,6 +76,8 @@
 	"garage_tuning_component_front_bump": "Front bumper",
 	"garage_tuning_component_rear_bump": "Rear bumper",
 	"garage_tuning_component_side_skirts": "Side skirts",
+	"garage_tuning_component_wheels_front": "Front wheels",
+	"garage_tuning_component_wheels_rear": "Rear wheels",
 	"garage_tuning_component_wheels": "Wheels",
 	"garage_tuning_component_spoilers": "Spoiler",
 	"garage_tuning_component_rear_fends": "Rear Fenders",
@@ -86,6 +88,8 @@
 	"garage_tuning_component_exhaust": "Exhaust",
 
 	"garage_tuning_paint_body": "Body color",
+	"garage_tuning_paint_wheels_front": "Front rims color",
+	"garage_tuning_paint_wheels_rear": "Rear rims color",
 	"garage_tuning_paint_wheels": "Rims color",
 	"garage_tuning_paint_spoiler": "Spoiler color",
 
@@ -117,7 +121,8 @@
 	"garage_tuning_config_front_wheels": "Front wheels",
 	"garage_tuning_config_rear_wheels": "Rear wheels",
 	"garage_tuning_config_suspension": "Suspension",
-
+	"garage_tuning_config_wheels_size": "Wheels radius",
+	
 	"garage_tuning_config_wheels_offset": "Offset",
 	"garage_tuning_config_wheels_angle": "Angle",
 	"garage_tuning_config_wheels_width": "Width",

@@ -18,7 +18,6 @@ local componentsFromData = {
 
 -- Апгрейды, которые нужно обновлять из даты
 local upgradesFromData = {
-	["Wheels"] = {1025, 1073, 1074, 1075, 1076, 1077, 1078, 1079, 1080, 1081, 1082, 1083, 1084, 1085, 1096, 1097, 1098},
 	["Spoilers"] = {1000, 1001, 1002, 1003, 1014, 1015, 1016, 1023, 1049, 1050, 1058, 1060, 1138, 1139, 1146, 1147, 1158, 1162, 1163, 1164}
 }
 
@@ -127,5 +126,7 @@ function getComponentsNames()
 	for name in pairs(upgradesFromData) do
 		table.insert(l, name)
 	end
+	table.insert(l, "WheelsF")
+	table.insert(l, "WheelsR")
 	return l
 end

@@ -16,7 +16,7 @@ function TuningConfig.getComponentConfig(model, name, id)
 	if not componentsList then
 		componentsList = {}
 	end
-	if name == "Wheels" then
+	if name == "WheelsR" or name == "WheelsF" then
 		componentsList = tuningConfig.Wheels
 	end
 	if name == "Spoilers" then
@@ -42,7 +42,7 @@ function TuningConfig.getComponentsCount(model, name)
 	if not componentsList then
 		componentsList = {}
 	end
-	if name == "Wheels" then
+	if name == "WheelsR" or name == "WheelsF" then
 		componentsList = tuningConfig.Wheels
 	end
 	if name == "Spoilers" then

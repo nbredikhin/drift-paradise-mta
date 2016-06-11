@@ -10,22 +10,6 @@ local function updateVehicleBodyColor(vehicle)
 	vehicle:setColor(255, 255, 255)
 end
 
-local function updateVehicleWheelsColor(vehicle)
-	if not isElement(vehicle) then
-		return
-	end	
-	local newColor = vehicle:getData("WheelsColor")
-	if type(newColor) ~= "table" or #newColor < 3 then
-		return
-	end
-
-	local currentColor = {vehicle:getColor(true)}
-	for i = 1, 3 do
-		currentColor[3 + i] = newColor[i]
-	end
-	vehicle:setColor(unpack(currentColor))
-end
-
 local function updateVehicleSpoilerColor(vehicle)
 	-- TODO
 end
@@ -36,7 +20,6 @@ local function updateAllVehicleColors(vehicle)
 		return
 	end
 	updateVehicleBodyColor(vehicle)
-	updateVehicleWheelsColor(vehicle)
 	updateVehicleSpoilerColor(vehicle)
 end
 
@@ -46,8 +29,6 @@ addEventHandler("onClientElementDataChange", root, function (name, oldVaue)
 	end
 	if name == "BodyColor" then
 		updateVehicleBodyColor(source)
-	elseif name == "WheelsColor" then
-		updateVehicleWheelsColor(source)
 	elseif name == "SpoilerColor" then
 		updateVehicleSpoilerColor(source)
 	end

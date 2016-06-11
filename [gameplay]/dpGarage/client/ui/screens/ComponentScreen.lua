@@ -7,7 +7,8 @@ local menuInfos = {}
 menuInfos["FrontBump"] 	= {position = Vector3(2917, -3188.3, 2535.6), 	angle = 30, item_locale="garage_tuning_item_bumper"}
 menuInfos["Spoilers"] 	= {position = Vector3(2915, -3188.3, 2535.8), 	angle = 185,item_locale="garage_tuning_item_spoiler"}
 menuInfos["RearBump"] 	= {position = Vector3(2915, -3184.2, 2535.6), 	angle = 190,item_locale="garage_tuning_item_bumper"}
-menuInfos["Wheels"] 	= {position = Vector3(2913.8, -3184.3, 2535.3), angle = 15, item_locale="garage_tuning_item_wheel"}
+menuInfos["WheelsF"] 	= {position = Vector3(2913.8, -3184.3, 2535.3), angle = 15, item_locale="garage_tuning_item_wheel"}
+menuInfos["WheelsR"] 	= {position = Vector3(2912.3, -3184.3, 2535.3), angle = 15, item_locale="garage_tuning_item_wheel"}
 menuInfos["SideSkirts"] = {position = Vector3(2914.3, -3188.6, 2535.3), angle = 10, item_locale="garage_tuning_item_skirt"}
 menuInfos["RearFends"] 	= {position = Vector3(2916.5, -3188.3, 2535.3), angle = 210,item_locale="garage_tuning_item_fender"}
 menuInfos["FrontFends"] = {position = Vector3(2915, -3188.3, 2535.3), 	angle = 0, 	item_locale="garage_tuning_item_fender"}

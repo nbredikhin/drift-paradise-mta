@@ -4,7 +4,8 @@ local REMOVE_ZERO_FIELDS = true
 VehicleTuning.defaultTuningTable = {
 	-- Цвета
 	BodyColor 		= {255, 0, 0},		-- Цвет кузова
-	WheelsColor 	= {255, 255, 255},	-- Цвет дисков
+	WheelsColorR 	= {255, 255, 255},	-- Цвет задних дисков
+	WheelsColorF 	= {255, 255, 255},	-- Цвет передних дисков
 	BodyTexture 	= false,			-- Текстура кузова
 	NeonColor 		= false,			-- Цвет неона
 	SpoilerColor	= false,			-- Цвет спойлера
@@ -24,7 +25,6 @@ VehicleTuning.defaultTuningTable = {
 	WheelsOffsetR	= 0, -- Вынос задних колёс
 	WheelsF 		= 0, -- Передние диски
 	WheelsR 		= 0, -- Задние диски
-	Wheels 			= 0, -- Shiet
 
 	-- Компоненты
 	Spoilers 		= 0, -- Спойлер	

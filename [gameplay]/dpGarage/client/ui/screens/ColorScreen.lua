@@ -2,7 +2,8 @@ ColorScreen = Screen:subclass "ColorScreen"
 
 local colorMenus = {
 	["BodyColor"]    = {locale="garage_tuning_paint_body",    position = Vector3(2916, -3188.8, 2535.6),   angle = 10},
-	["WheelsColor"]  = {locale="garage_tuning_paint_wheels",  position = Vector3(2913.8, -3184.3, 2535.4), angle = 15},
+	["WheelsColorF"]  = {locale="garage_tuning_paint_wheels",  position = Vector3(2913.8, -3184.3, 2535.4), angle = 15},
+	["WheelsColorR"]  = {locale="garage_tuning_paint_wheels",  position = Vector3(2912.3, -3184.3, 2535.3), angle = 15},
 	["SpoilerColor"] = {locale="garage_tuning_paint_spoiler", position = Vector3(2915, -3188.3, 2535.8),   angle = 185}
 }
 
@@ -39,7 +40,11 @@ function ColorScreen:update(deltaTime)
 		self.colorMenu:decrease(deltaTime)
 	end
 	if self.colorPreviewEnabled then
-		CarTexture.previewBodyColor(self.colorMenu:getColor())
+		if self.componentName == "BodyColor" then
+			CarTexture.previewBodyColor(self.colorMenu:getColor())
+		else
+			GarageCar.previewTuning(self.componentName, {self.colorMenu:getColor()})
+		end
 		--GarageCar.previewTuning(self.componentName, {self.colorMenu:getColor()})
 	end
 end

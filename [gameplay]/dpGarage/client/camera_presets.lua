@@ -136,8 +136,18 @@ cameraPresets.wheelLF = {
 	roll = 0
 }
 
+-- Колесо
+cameraPresets.wheelLB = {
+	targetPosition = "wheel_lb_dummy",
+	rotationHorizontal = 45,
+	rotationVertical = 10,
+	distance = 4,
+	FOV = 40,
+	roll = 0
+}
+
 -- Колёса при покупке
-cameraPresets.previewWheels = {
+cameraPresets.previewWheelsF = {
 	targetPosition = Vector3(-1, 0, -0.05),
 	rotationHorizontal = 35,
 	rotationVertical = 5,
@@ -147,7 +157,7 @@ cameraPresets.previewWheels = {
 }
 
 -- Задние колёса при покупке
-cameraPresets.previewRearWheels = {
+cameraPresets.previewWheelsR = {
 	targetPosition = Vector3(-1, -2, -0.05),
 	rotationHorizontal = 35,
 	rotationVertical = 5,
@@ -155,6 +165,17 @@ cameraPresets.previewRearWheels = {
 	FOV = 50,
 	roll = 0
 }
+
+-- Размер колёс
+cameraPresets.wheelsSize = {
+	targetPosition = Vector3(0, 0, -0.3),
+	rotationHorizontal = 60,
+	rotationVertical = 5,
+	distance = 5,
+	FOV = 55,
+	roll = 0	
+}
+
 
 ----------------------------------------------------------
 
@@ -348,13 +369,22 @@ cameraPresets.selectingBodyColor = {
 	roll = 0	
 }
 ----------------------------------------------------------
-cameraPresets.selectingWheelsColor = {
-	targetPosition = Vector3(-1, -0.3, -0.05),
+cameraPresets.selectingWheelsColorF = {
+	targetPosition = Vector3(-1, 0, -0.05),
 	rotationHorizontal = 35,
 	rotationVertical = 5,
 	distance = 5,
 	FOV = 50,
 	roll = 0
+}
+
+cameraPresets.selectingWheelsColorR = {
+	targetPosition = Vector3(-1, -2, -0.05),
+	rotationHorizontal = 35,
+	rotationVertical = 5,
+	distance = 5,
+	FOV = 50,
+	roll = 0	
 }
 ----------------------------------------------------------
 cameraPresets.selectingSpoilerColor = {

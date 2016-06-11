@@ -12,6 +12,7 @@ float sWidth = 0.2;
 float sRotationX = 0;
 float sRotationZ = 0;
 float3 sAxis = float3(0, 0, 0);
+float4 sColor = float4(2, 2, 2, 1);
 
 
 //---------------------------------------------------------------------
@@ -85,27 +86,52 @@ float3 rotate_vertex_position(float3 position, float3 axis, float angle)
 //  2. Process
 //  3. Write to PS structure
 //------------------------------------------------------------------------------------------
+
+
+float4 CalcWheelsDiffuse( float3 WorldNormal, float4 InDiffuse )
+{
+    // Calculate diffuse color by doing what D3D usually does
+    float4 ambient  = gMaterialAmbient;
+    float4 diffuse  = InDiffuse;
+    float4 emissive = gMaterialEmissive;
+
+    float4 TotalAmbient = ambient * ( gGlobalAmbient + gLightAmbient );
+
+    // Add the strongest light
+    float DirectionFactor = max(0,dot(WorldNormal, float3(0.0, 0.05, 0.2) ));
+    float4 TotalDiffuse = ( diffuse * DirectionFactor + float4(1,1,1,1)*0.025);
+
+    float4 OutDiffuse = saturate(TotalDiffuse + TotalAmbient + emissive);
+    //OutDiffuse.a *= diffuse.a;
+
+    return OutDiffuse;
+}
+
 PSInput VertexShaderFunction(VSInput VS)
 {
     PSInput PS = (PSInput)0;    
     //float3 worldNormal = mul(VS.Normal, (float3x3)gWorld);
-    VS.Position += VS.Normal * float3(sWidth, 0, 0);
+    VS.Position *= float3(1 + sWidth, 1, 1);
 
     VS.Position = rotate_vertex_position(VS.Position, float3(1, 0, 0), float3(sRotationX, 0, 0));
     VS.Position = rotate_vertex_position(VS.Position, float3(0, 1, 0), float3(sRazval, 0, 0));
     VS.Position = rotate_vertex_position(VS.Position, float3(0, 0, 1), float3(sRotationZ, 0, 0));
-    // Calculate screen pos of vertex
-    PS.Position = MTACalcScreenPosition ( VS.Position );
+    // Рассчитать позицию вершины на экране
+    PS.Position = MTACalcScreenPosition(VS.Position);
 
-    // Pass through tex coords
+    // Передать tex coords
     PS.TexCoord = VS.TexCoord;
-    
+
     VS.Normal = rotate_vertex_position(VS.Normal, float3(1, 0, 0), float3(sRotationX, 0, 0));
     VS.Normal = rotate_vertex_position(VS.Normal, float3(0, 1, 0), float3(sRazval, 0, 0));
     VS.Normal = rotate_vertex_position(VS.Normal, float3(0, 0, 1), float3(sRotationZ, 0, 0));
     float3 worldNormal = mul(VS.Normal, (float3x3)gWorld);
-    // Calc GTA lighting for peds
-    PS.Diffuse = MTACalcGTAVehicleDiffuse(worldNormal, VS.Diffuse );
+    // Освещение
+    PS.Diffuse = MTACalcGTAVehicleDiffuse(worldNormal, VS.Diffuse);
+    float4 delta = PS.Diffuse - float4(0, 0, 0, 1);
+    if (dot(delta,delta) < 0.01) {
+      PS.Diffuse = CalcWheelsDiffuse(worldNormal, sColor);
+    }
 
     return PS;
 }

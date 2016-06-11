@@ -35,6 +35,7 @@ function CarTexture.save()
 	if editorStickers then
 		vehicle:setData("stickers", editorStickers)
 	end
+	editorStickers = {}
 end
 
 function CarTexture.reset()

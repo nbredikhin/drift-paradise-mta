@@ -185,6 +185,7 @@ end
 function GarageCar.save()
 	local tuningTable = GarageCar.getTuningTable()
 	vehiclesList[currentVehicle].tuning = toJSON(tuningTable)
+	vehiclesList[currentVehicle].stickers = toJSON(vehicle:getData("stickers"))
 	triggerServerEvent("dpGarage.saveCar", resourceRoot,
 		currentVehicle, 
 		tuningTable,

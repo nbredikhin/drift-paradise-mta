@@ -1,6 +1,5 @@
 BODY_TEXTURE_NAME = "body"
 
-local vehicleShaders = {}
 local TEXTURE_SIZE = 1024
 local STICKER_SIZE = 300
 local mainRenderTarget = dxCreateRenderTarget(TEXTURE_SIZE, TEXTURE_SIZE, true)
@@ -90,7 +89,7 @@ local function setupVehicleTexture(vehicle)
 	VehicleShaders.replaceTexture(vehicle, BODY_TEXTURE_NAME, texture)
 	destroyElement(texture)
 	texture = nil
-	pixel = nil
+	pixels = nil
 end
 
 -- Обновить текстуры всех видимых машин при запуске скрипта
@@ -103,7 +102,7 @@ end)
 
 addEventHandler("onClientRestore", root, function ()
 	for i, vehicle in ipairs(getElementsByType("vehicle")) do
-		--setupVehicleTexture(vehicle)
+		setupVehicleTexture(vehicle)
 	end
 end)
 
@@ -113,18 +112,14 @@ addEventHandler("onClientElementStreamIn", root, function()
 	end
 end)
 
--- addEventHandler("onClientElementDataChange", root, function(dataName, oldValue)
--- 	if source.type == "vehicle" then
--- 		if dataName == "tuning_texture_preview" and oldValue == source:getData(dataName) then
--- 			return
--- 		end
--- 		if dataName == "stickers" or dataName == "BodyColor" or dataName == "BodyTexture" or dataName == "tuning_texture_preview" then
--- 			setupVehicleTexture(source)
--- 		end
--- 		-- if source:getData("tuning_texture_preview") and dataName == "tuning_texture_preview" then
--- 		-- 	setupVehicleTexture(source)
--- 		-- elseif dataName == "stickers" or dataName == "BodyColor" or dataName == "BodyTexture" then
--- 		-- 	setupVehicleTexture(source)
--- 		-- end
--- 	end
--- end)
+addEventHandler("onClientElementDataChange", root, function(dataName, oldValue)
+	if source.type ~= "vehicle" then
+		return
+	end
+	if isElement(vehicleRenderTarget) then
+		return
+	end
+	if dataName == "BodyColor" or dataName == "stickers" then
+		setupVehicleTexture(source)
+	end
+end)

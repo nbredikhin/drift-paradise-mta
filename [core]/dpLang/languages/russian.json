@@ -86,6 +86,7 @@
 	"garage_tuning_component_rear_lights": "Задние фары",
 	"garage_tuning_component_front_lights": "Передние фары",
 	"garage_tuning_component_exhaust": "Выхлоп",	
+	"garage_tuning_component_numberplate": "Номерной знак",
 
 	"garage_tuning_paint_body": "Цвет кузова",
 	"garage_tuning_paint_wheels_front": "Цвет передних дисков",
@@ -134,6 +135,7 @@
 	"garage_help_text": "%s - выбор, %s - принять, %s - назад, %s - обзор",
 	"garage_help_sticker_selection": "%s - выбор, %s - купить, %s - отмена",
 	"garage_help_sticker_editor": "%s - управление, %s, %s, %s, %s - выбор режима, %s/%s - добавить/удалить наклейку, %s - назад",
+	"garage_help_numberplate": "Ввод текста, %s - удалить символ, %s - сохранить, %s - отмена",
 
 	"garage_sticker_editor_move": "Перемещение",
 	"garage_sticker_editor_scale": "Масштаб",

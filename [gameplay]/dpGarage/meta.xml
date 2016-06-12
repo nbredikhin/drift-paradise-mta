@@ -35,6 +35,7 @@
 	<script type="client" src="client/ui/screens/StickerEditorScreen.lua"/>
 	<script type="client" src="client/ui/screens/StickerSelectionScreen.lua"/>
 	<script type="client" src="client/ui/screens/WheelsScreen.lua"/>
+	<script type="client" src="client/ui/screens/NumberplateScreen.lua"/>
 	<!-- Элементы интерфейса -->
 	<script type="client" src="client/ui/ComponentNameText.lua"/>
 	<script type="client" src="client/ui/ComponentSelection.lua"/>

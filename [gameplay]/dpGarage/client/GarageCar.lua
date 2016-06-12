@@ -13,8 +13,27 @@ local currentTuningTable = {}
 local VEHICLE_UNFREEZE_TIME = 500
 local unfreezeTimer
 
-local configurationData = {"WheelsOffsetF", "WheelsOffsetR", "WheelsWidthF", "WheelsWidthR", "WheelsAngleF", "WheelsAngleR", "WheelsSize"}
-local colorsData = {"BodyColor", "WheelsColorR", "WheelsColorF", "SpoilerColor"}
+-- Дата, которая округляется при сохранении
+local configurationData = {
+	"WheelsOffsetF", 
+	"WheelsOffsetR", 
+	"WheelsWidthF", 
+	"WheelsWidthR", 
+	"WheelsAngleF", 
+	"WheelsAngleR", 
+	"WheelsSize"
+}
+-- Цвета, которые выставляются белыми по умолчанию
+local colorsData = {
+	"BodyColor", 
+	"WheelsColorR", 
+	"WheelsColorF", 
+	"SpoilerColor"
+}
+-- Дата, которая копируется как есть
+local copyData = {
+	"Numberplate"
+}
 
 local function updateVehicle()
 	if not vehiclesList[currentVehicle] then
@@ -149,13 +168,18 @@ function GarageCar.resetTuning()
 			vehicle:setData(name, {255, 255, 255})
 		end
 	end
+
+	for i, name in ipairs(copyData) do
+		vehicle:setData(name, currentTuningTable[name])
+	end
+
 end
 
 function GarageCar.getTuningTable()
 	local componentNames = exports.dpVehicles:getComponentsNames()
 	local tuningTable = {}
 	for i, name in ipairs(componentNames) do
-		tuningTable[name] = vehicle:getData(name, id)
+		tuningTable[name] = vehicle:getData(name)
 	end
 
 	for i, name in ipairs(configurationData) do
@@ -165,15 +189,20 @@ function GarageCar.getTuningTable()
 		end
 	end	
 
-	-- Цвета
-	tuningTable.BodyColor = vehicle:getData("BodyColor")
-	tuningTable.WheelsColorR = vehicle:getData("WheelsColorR")
-	tuningTable.WheelsColorF = vehicle:getData("WheelsColorF")
+	for i, name in ipairs(colorsData) do
+		tuningTable[name] = vehicle:getData(name)
+		if not tuningTable[name] then
+			tuningTable[name] = {255, 255, 255}
+		end
+	end
+
+	for i, name in ipairs(copyData) do
+		tuningTable[name] = vehicle:getData(name)
+	end
 
 	-- TODO:
 	-- BodyTexture 	= false
 	-- NeonColor 		= false
-	-- Numberplate 	= "DRIFT"
 	-- Nitro 			= 0
 	-- Windows			= 0
 	return tuningTable

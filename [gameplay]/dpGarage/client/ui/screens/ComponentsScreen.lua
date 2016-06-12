@@ -18,6 +18,7 @@ function ComponentsScreen:init(componentName)
 		{name="FrontFends", camera="frontFends", 	locale="garage_tuning_component_front_fends",animate={component="FrontFends%u", 	offset=Vector3(0.05, 0, 0)}},
 		{name="Bonnets", 	camera="bonnet", 		locale="garage_tuning_component_bonnet",	 animate={component="Bonnets%u", 		offset=Vector3(0, 0, 0.05)}},
 		{name="FrontLights",camera="frontLights", 	locale="garage_tuning_component_front_lights"},
+		{name="Numberplate",camera="numberplate", 	locale="garage_tuning_component_numberplate"},
 	}
 	local vehicle = GarageCar.getVehicle()
 	for i, component in ipairs(componentsList) do
@@ -57,6 +58,10 @@ function ComponentsScreen:onKey(key)
 	elseif key == "enter" then
 		self.componentsSelection:stop()
 		local componentName = self.componentsSelection:getSelectedComponentName()
-		self.screenManager:showScreen(ComponentScreen(componentName))
+		if componentName == "Numberplate" then
+			self.screenManager:showScreen(NumberplateScreen())
+		else
+			self.screenManager:showScreen(ComponentScreen(componentName))
+		end
 	end
 end

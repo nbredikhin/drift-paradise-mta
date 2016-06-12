@@ -345,6 +345,29 @@ cameraPresets.wheelsOffsetRear = {
 	roll = 0	
 }
 
+------------------------------------------------------
+
+-- Номерной знак
+cameraPresets.numberplate = {
+	targetPosition = Vector3(0, 1, -0.2),
+	rotationHorizontal = 0,
+	rotationVertical = 0,
+	distance = 4,
+	FOV = 50,
+	roll = 0
+}
+
+-- Номерной знак при покупке
+cameraPresets.previewNumberplate = {
+	targetPosition = Vector3(0, 1, -0.2),
+	rotationHorizontal = 0,
+	rotationVertical = 0,
+	distance = 4,
+	FOV = 30,
+	roll = 0
+}
+
+
 ----------------------------------------------------------
 ----------------------------------------------------------
 --						 ЦВЕТА 

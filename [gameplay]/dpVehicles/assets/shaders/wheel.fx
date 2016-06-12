@@ -91,18 +91,16 @@ float3 rotate_vertex_position(float3 position, float3 axis, float angle)
 float4 CalcWheelsDiffuse( float3 WorldNormal, float4 InDiffuse )
 {
     // Calculate diffuse color by doing what D3D usually does
-    float4 ambient  = gMaterialAmbient;
-    float4 diffuse  = InDiffuse;
-    float4 emissive = gMaterialEmissive;
+    float4 ambient  = float4(1, 1, 1, 1) * 0.01;
+    float4 diffuse  = InDiffuse * 0.6 + float4(1, 1, 1, 1) * 0.1;
 
-    float4 TotalAmbient = ambient * ( gGlobalAmbient + gLightAmbient );
+    float4 TotalAmbient = ambient * ( gGlobalAmbient * 1.3 );
 
     // Add the strongest light
-    float DirectionFactor = max(0,dot(WorldNormal, float3(0.0, 0.05, 0.2) ));
-    float4 TotalDiffuse = ( diffuse * DirectionFactor + float4(1,1,1,1)*0.025);
+    float DirectionFactor = max(0.05,dot(WorldNormal, float3(0, 0, 0.5)));
+    float4 TotalDiffuse = ( diffuse * DirectionFactor );
 
-    float4 OutDiffuse = saturate(TotalDiffuse + TotalAmbient + emissive);
-    //OutDiffuse.a *= diffuse.a;
+    float4 OutDiffuse = TotalDiffuse + TotalAmbient;
 
     return OutDiffuse;
 }

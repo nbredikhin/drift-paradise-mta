@@ -18,7 +18,7 @@ VehicleTuning.defaultTuningTable = {
 	-- Колёса
 	WheelsAngleF 	= 0, -- Развал передних колёс
 	WheelsAngleR 	= 0, -- Развал задних колёс
-	WheelsSize		= 0.72, -- Размер 
+	WheelsSize		= 0.7, -- Размер 
 	WheelsWidthF 	= 0, -- Толщина передних колёс
 	WheelsWidthR	= 0, -- Толщина задних колёс
 	WheelsOffsetF	= 0, -- Вынос передних колёс

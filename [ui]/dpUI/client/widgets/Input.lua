@@ -38,12 +38,12 @@ function Input.create(properties)
 		-- Placeholder
 		local text = self.placeholder
 		Drawing.setColor(Colors.color("white", 80))
-		if string.len(self.text) > 0 then
+		if utf8.len(self.text) > 0 then
 			text = self.text
 			Drawing.setColor(Colors.color("white", 150))
 			if self.masked then
 				text = ""
-				for i = 1, string.len(self.text) do
+				for i = 1, utf8.len(self.text) do
 					text = text .. MASKED_CHAR
 				end
 			end
@@ -80,7 +80,7 @@ local function handleKey(key, repeatKey)
 		return 
 	end
 	if key == "backspace" then
-		activeInput.text = string.sub(activeInput.text, 1, -2)
+		activeInput.text = utf8.sub(activeInput.text, 1, -2)
 	elseif key == "tab" then
 		local inputs = {}
 		local currentIndex = 0
@@ -133,9 +133,9 @@ addEventHandler("onClientCharacter", root, function (character)
 	if activeInput and not MessageBox.isActive() then
 		if activeInput.forceRegister then
 			if activeInput.forceRegister == "lower" then
-				character = string.lower(character)
+				character = utf8.lower(character)
 			elseif activeInput.forceRegister == "upper" then
-				character = string.upper(character)
+				character = utf8.upper(character)
 			end
 		end
 		if activeInput.regexp then
@@ -143,6 +143,6 @@ addEventHandler("onClientCharacter", root, function (character)
 				return 
 			end
 		end
-		activeInput.text = activeInput.text .. tostring(character)
+		activeInput.text = utf8.insert(activeInput.text, tostring(character))
 	end
 end)

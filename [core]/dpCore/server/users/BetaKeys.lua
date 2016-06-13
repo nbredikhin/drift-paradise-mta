@@ -69,8 +69,8 @@ function BetaKeys.isKeyValid(key)
 end
 
 function BetaKeys.generateKey()
-	local str = base64Encode(tostring(getRealTime().timestamp + getTickCount() + math.random(1, 10)))
-	local key = string.sub(md5(teaEncode(str, "dp_beta")), 1, 8)
+	local str = base64Encode(tostring(getRealTime().timestamp) .. ";" .. tostring(math.random(1, 100)) .. ";" .. tostring(getTickCount()))
+	local key = string.sub(md5(teaEncode(str, "dp_beta")), 1, 5)
 	table.insert(keysList, key)
 	BetaKeys.save()
 	return key

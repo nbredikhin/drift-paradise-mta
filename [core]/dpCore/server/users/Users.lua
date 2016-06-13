@@ -64,7 +64,7 @@ function Users.registerPlayer(player, username, password, callback)
 		outputDebugString("ERROR: Users.registerPlayer: bad arguments")
 		return false
 	end
-	username = string.lower(username)
+	
 	-- Проверка имени пользователя и пароля
 	if not checkUsername(username) or not checkPassword(password) then
 		outputDebugString("ERROR: Users.registerPlayer: bad username or password")
@@ -85,7 +85,6 @@ function Users.loginPlayer(player, username, password, callback)
 		outputDebugString("ERROR: Users.registerPlayer: bad arguments")
 		return false
 	end
-	username = string.lower(username)
 
 	-- Если игрок уже залогинен
 	if Sessions.isActive(player) then

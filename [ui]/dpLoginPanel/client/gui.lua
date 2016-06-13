@@ -12,6 +12,7 @@ local loginPanel = {}
 local registerPanel = {}
 
 local USERNAME_REGEXP = "^[A-Za-z0-9_]$"
+local KEY_REGEXP = "^[A-Za-z0-9_]$"
 
 local function draw()
 	animationProgress = math.min(1, animationProgress + ANIMATION_SPEED)
@@ -19,10 +20,11 @@ local function draw()
 	dxDrawText("Drift Paradise 2.0 Development Version", 3, screenHeight - 14, 3, screenHeight - 14, tocolor(255, 255, 255, 100 * animationProgress))
 	if not root:getData("dbConnected") then
 		dxDrawText("The server is currently not available.\nСервер на данный момент недоступен.", 
-			0, 
-			0, 
-			screenWidth, 
-			screenHeight * 0.5, tocolor(212, 0, 40, 220 * animationProgress), 2, "default", "center", "center")
+			0,
+			0,
+			screenWidth,
+			screenHeight * 0.5, tocolor(212, 0, 40, 220 * animationProgress), 2, "default", "center", "center"
+		)
 
 		local buttonSize = Vector2(200, 40)
 		local buttonPos = Vector2(screenWidth - buttonSize.x, screenHeight - buttonSize.y) / 2
@@ -141,7 +143,6 @@ local function createLoginPanel()
 		width = 450,
 		height = 50,
 		type = "dark",
-		regexp = USERNAME_REGEXP,
 		forceRegister = "lower",
 		locale = "login_panel_username_label"
 	})
@@ -304,8 +305,6 @@ local function createRegisterPanel()
 		width = 450,
 		height = 50,
 		type = "dark",
-		regexp = USERNAME_REGEXP,
-		forceRegister = "lower",
 		locale = "login_panel_username_label"
 	})
 	UI:addChild(panel, usernameInput)

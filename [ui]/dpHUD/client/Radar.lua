@@ -29,13 +29,16 @@ local function drawRadarChunk(x, y, chunkX, chunkY)
 	if chunkID < 0 or chunkID > 143 or chunkX >= CHUNKS_COUNT or chunkY >= CHUNKS_COUNT or chunkX < 0 or chunkY < 0 then
 		return
 	end
-	local posX, posY = (x - (chunkX + 1) * CHUNK_SIZE) / CHUNK_SIZE * chunkRenderSize, (y - (chunkY + 1) * CHUNK_SIZE) / CHUNK_SIZE * chunkRenderSize
-	dxDrawImage(-posX, -posY, chunkRenderSize, chunkRenderSize, chunksTextures[chunkID])
+	
+	local posX, posY = ((x - (chunkX) * CHUNK_SIZE) / CHUNK_SIZE) * chunkRenderSize, 
+				       ((y - (chunkY) * CHUNK_SIZE) / CHUNK_SIZE) * chunkRenderSize 
+	dxDrawImage(width / 2 - posX, width / 2 - posY, chunkRenderSize, chunkRenderSize, chunksTextures[chunkID])
 end
 
 local function drawRadarSection(x, y)
 	local chunkX = math.floor(x / CHUNK_SIZE)
 	local chunkY = math.floor(y / CHUNK_SIZE)
+
 	drawRadarChunk(x, y, chunkX - 1, chunkY)
 	drawRadarChunk(x, y, chunkX, chunkY)
 	drawRadarChunk(x, y, chunkX + 1, chunkY)
@@ -64,6 +67,10 @@ local function drawRadar()
 		arrowTexture,
 		-localPlayer.rotation.z
 	)
+	-- Пример использования:
+	-- Radar.drawImageOnMap(700, 900, localPlayer.rotation.z, arrowTexture, 
+		-- arrowSize, arrowSize, 
+		-- tocolor(16, 160, 207))
 end
 
 addEventHandler("onClientRender", root, function ()
@@ -134,4 +141,20 @@ end
 
 function Radar.setVisible(visible)
 	Radar.visible = not not visible
+end
+
+function Radar.drawImageOnMap(globalX, globalY, rotationZ, image, imgWidth, imgHeight, color)
+	local relativeX, relativeY = localPlayer.position.x - globalX,
+								 localPlayer.position.y - globalY
+	local mapX, mapY = 	relativeX / 6000 * WORLD_SIZE, 
+						relativeY / 6000 * WORLD_SIZE
+
+	local distance =  math.sqrt(mapX * mapX + mapY * mapY)
+	-- Картинка слишком далеко от игрока, нет смысла рисовать
+	if distance > chunkRenderSize * 3 then
+		return
+	end
+	dxDrawImage((width -  imgWidth) / 2 - mapX, 
+				(height - imgHeight) / 2 + mapY, imgWidth, imgHeight, image,
+				 -rotationZ, 0, 0, color)
 end

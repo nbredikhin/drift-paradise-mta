@@ -23,6 +23,7 @@ end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
 	showPlayerHudComponent("all", false)
+
 	Speedometer.start()
 	Radar.start()
 	addEventHandler("onClientPreRender", root, updateRotations)

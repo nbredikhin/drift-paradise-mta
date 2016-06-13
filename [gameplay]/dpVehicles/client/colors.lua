@@ -1,6 +1,5 @@
----------------------------------------
--- 		Синхронизация цветов         --
----------------------------------------
+--- Синхронизация цветов автомобилей
+-- @script dpVehicles.colors
 
 local function updateVehicleBodyColor(vehicle)
 	if not isElement(vehicle) then

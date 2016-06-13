@@ -1,7 +1,13 @@
--- Основной модуль для работы с базой данных
+--- Основной модуль для работы с базой данных
+-- @module dpCore.Database
+-- @author Wherry
+
 Database = {}
 local dbConnection
 
+--- Выполняет подключение к базе данных.
+-- Для подключения используются параметры из DatabaseConfig
+-- @treturn bool удалось ли подключиться к БД
 function Database.connect()
 	if isElement(dbConnection) then
 		outputDebugString("WARNING: Database.connect: connection already exists")
@@ -30,6 +36,8 @@ function Database.connect()
 	return true
 end
 
+--- Возвращает MTA-элемент подключения к БД
+-- @treturn element подключение 
 function Database.getConnection()
 	if not isElement(dbConnection) then
 		dbConnection = nil
@@ -37,6 +45,8 @@ function Database.getConnection()
 	return dbConnection
 end
 
+--- Отключается от базы данных
+-- @treturn bool удалось ли отключиться от база данных
 function Database.disconnect()
 	if not isElement(dbConnection) then
 		outputDebugString("WARNING: Database.disconnect: no connection")

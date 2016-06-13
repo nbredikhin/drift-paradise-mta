@@ -22,7 +22,7 @@ local ENCRYPT_PNG_PATHS = true
 -- Объединить все скрипты в один файл
 local SCRIPTS_SINGLE_FILE = true
 
-local RESOURCES_TO_BUILD = false--{dpVehicles = true}
+local RESOURCES_TO_BUILD = {dpGarage = true}
 
 local function loadFile(path, count)
 	local file = fileOpen(path)

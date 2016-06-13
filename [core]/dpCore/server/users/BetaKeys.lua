@@ -1,3 +1,7 @@
+--- Система ключей для бета-теста
+-- @module dpCore.BetaKeys
+-- @author Wherry
+
 BetaKeys = {}
 local keysList = {}
 local KEYS_FILE_PATH = "beta_keys.json"

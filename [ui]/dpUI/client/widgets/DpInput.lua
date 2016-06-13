@@ -1,3 +1,7 @@
+--- Виджет поля ввода
+-- @module dpUI.DpInput
+
+
 DpInput = {}
 
 local inputColors = {

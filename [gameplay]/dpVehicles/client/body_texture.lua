@@ -1,3 +1,6 @@
+--- Синхронизация текстуры кузова (наклеек)
+-- @script dpVehicles.body_texture
+
 BODY_TEXTURE_NAME = "body"
 
 local TEXTURE_SIZE = 1024

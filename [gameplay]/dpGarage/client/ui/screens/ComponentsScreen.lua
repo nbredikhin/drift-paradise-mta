@@ -21,11 +21,20 @@ function ComponentsScreen:init(componentName)
 		{name="Numberplate",camera="numberplate", 	locale="garage_tuning_component_numberplate"},
 	}
 	local vehicle = GarageCar.getVehicle()
+	local toRemove = {}
 	for i, component in ipairs(componentsList) do
-		if TuningConfig.getComponentsCount(vehicle.model, component.name) <= 0 then
-			table.remove(componentsList, i)
+		local count = TuningConfig.getComponentsCount(vehicle.model, component.name)
+		if component.name == "Numberplate" then
+			count = 1
+		end
+		if count <= 0 then
+			table.insert(toRemove, i)
 		end
 	end
+	for i = #toRemove, 1, -1 do
+		table.remove(componentsList, toRemove[i])
+	end
+
 	self.componentsSelection = ComponentSelection(componentsList)
 
 	-- Если возвращаемся, показать компонент, с которого возвращаемся

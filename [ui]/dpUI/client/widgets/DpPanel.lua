@@ -1,3 +1,6 @@
+--- Панель
+-- @module dpUI.DpPanel
+
 DpPanel = {}
 
 local panelColors = {

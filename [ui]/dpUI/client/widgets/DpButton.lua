@@ -1,3 +1,6 @@
+--- Виджет кнопки
+-- @module dpUI.DpButton
+
 DpButton = {}
 
 local buttonColors = {
@@ -6,6 +9,9 @@ local buttonColors = {
 	primary = "primary"
 }
 
+--- Создать кнопку
+-- @function exports.dpUI:createDpButton
+-- @tparam table properties таблица параметров
 function DpButton.create(properties)
 	if type(properties) ~= "table" then
 		properties = {}

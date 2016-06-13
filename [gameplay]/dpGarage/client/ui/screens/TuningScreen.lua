@@ -41,6 +41,6 @@ function TuningScreen:onKey(key)
 			self.screenManager:showScreen(ConfigurationsScreen())
 		end
 	elseif key == "backspace" then
-		self.screenManager:showScreen(MainScreen())
+		self.screenManager:showScreen(MainScreen(3))
 	end
 end

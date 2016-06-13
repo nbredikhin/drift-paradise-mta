@@ -1,13 +1,7 @@
 MainScreen = Screen:subclass "MainScreen"
 
-function MainScreen:init()
+function MainScreen:init(item)
 	self.super:init()
-	CameraManager.setState("vehicleSelect", false, 2)
-end
-
-function MainScreen:show()
-	self.super:show()
-
 	self.mainMenu = ItemsMenu(
 		{
 			"garage_menu_go_city",
@@ -17,7 +11,12 @@ function MainScreen:show()
 		},
 		Vector3(2918.4, -3188.340, 2535.6), 
 		45
-	)
+	)	
+	CameraManager.setState("vehicleSelect", false, 2)
+
+	if type(item) == "number" then
+		self.mainMenu.selectedItem = item
+	end
 end
 
 function MainScreen:hide()

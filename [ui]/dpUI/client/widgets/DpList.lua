@@ -1,3 +1,6 @@
+--- Список
+-- @module dpUI.DpList
+
 DpList = {}
 
 local ITEM_HEIGHT = 45

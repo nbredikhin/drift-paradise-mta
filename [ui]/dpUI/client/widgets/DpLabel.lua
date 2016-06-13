@@ -1,3 +1,6 @@
+--- Виджет текстового поля
+-- @module dpUI.DpLabel
+
 DpLabel = {}
 
 function DpLabel.create(properties)

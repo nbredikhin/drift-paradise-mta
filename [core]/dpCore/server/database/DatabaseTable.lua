@@ -1,6 +1,13 @@
+--- Модуль для работы с таблицами в базе данных
+-- @module dpCore.DatabaseTable
+-- @author Wherry
+
+
 -- Модуль для работы с таблицами в базе данных
 DatabaseTable = {}
+--- Название столбца для ID записи
 DatabaseTable.ID_COLUMN_NAME = "_id"
+--- Тип столбца для ID записи
 DatabaseTable.ID_COLUMN_TYPE = "int"
 
 local function retrieveQueryResults(connection, queryString, callback, ...)	
@@ -27,9 +34,16 @@ local function retrieveQueryResults(connection, queryString, callback, ...)
 	end
 end
 
--- Создание таблицы
--- string tableName, table columns, [...]
--- Columns: {name="string", type="varchar", size=255, options="NOT NULL PRIMARY"}
+--- Создание таблицы
+-- @tparam string tableName название таблицы
+-- @tparam table columns столбцы. См. пример
+-- @tparam[opt] string options параметры таблицы
+-- @treturn bool удалось ли создать таблицу
+-- @usage DatabaseTable.create("users", {
+--	{ name="username", type="varchar", size=25, options="UNIQUE NOT NULL" },
+--	{ name="password", type="varchar", size=255, options="NOT NULL" },
+--	{ name="money", type="bigint", options="UNSIGNED NOT NULL DEFAULT 0" },
+--})
 function DatabaseTable.create(tableName, columns, options)
 	if type(tableName) ~= "string" or type(columns) ~= "table" then
 		outputDebugString("ERROR: DatabaseTable.create: bad arguments")
@@ -69,9 +83,13 @@ function DatabaseTable.create(tableName, columns, options)
 	return connection:exec(queryString)
 end
 
--- Вставка в таблицу
--- string tableName, table insertValues, [...]
--- insertValues: Таблица {ключ=значение}
+--- Вставка в таблицу
+-- @tparam string tableName название таблицы
+-- @tparam table insertValues значения полей {ключ=значение}
+-- @tparam[opt] function callback callback
+-- @treturn bool результат выполнения функции
+-- Если не указан callback, функция выполняется синхронно и результат запроса к БД будет передан в качестве возвращаемого значения.
+-- @usage DatabaseTable.insert("users", { name = "User1", password = "12345" })
 function DatabaseTable.insert(tableName, insertValues, callback, ...)
 	if type(tableName) ~= "string" or type(insertValues) ~= "table" or not next(insertValues) then
 		outputDebugString("ERROR: DatabaseTable.insert: bad arguments")
@@ -102,10 +120,14 @@ function DatabaseTable.insert(tableName, insertValues, callback, ...)
 	return retrieveQueryResults(connection, queryString, callback, ...)
 end
 
--- Обновление записей в таблице
--- string tableName, table setFields, table whereFields, [...]
--- setFields: {key=value}
--- whereFields: {key=value}
+--- Обновление записей в таблице
+-- @tparam string tableName название таблицы
+-- @tparam table setFields значения полей, которые нужно изменить {ключ=значение}
+-- @tparam[opt] table whereFields поля, по которым будут выбираться строки {ключ=значение}
+-- @tparam[opt] function callback callback
+-- @treturn bool результат выполнения функции.
+-- Если не указан callback, функция выполняется синхронно и результат запроса к БД будет передан в качестве возвращаемого значения.
+-- @usage DatabaseTable.update("users", { password = "789" }, { username = "user1" })
 function DatabaseTable.update(tableName, setFields, whereFields, callback, ...)
 	if type(tableName) ~= "string" or type(setFields) ~= "table" or not next(setFields) or type(whereFields) ~= "table" then
 		outputDebugString("ERROR: DatabaseTable.update: bad arguments")
@@ -122,6 +144,9 @@ function DatabaseTable.update(tableName, setFields, whereFields, callback, ...)
 		table.insert(setQueries, connection:prepareString("`??`=?", column, value))
 	end
 	local whereQueries = {}
+	if not whereFields then
+		whereFields = {}
+	end
 	for column, value in pairs(whereFields) do
 		table.insert(whereQueries, connection:prepareString("`??`=?", column, value))
 	end
@@ -133,10 +158,18 @@ function DatabaseTable.update(tableName, setFields, whereFields, callback, ...)
 	return retrieveQueryResults(connection, queryString, callback, ...)
 end
 
--- Получение записей из таблицы
 -- string tableName, [table columns, ...]
 -- columns: Массив {"column1", "column2", ...}
 -- Если не указаны columns, делается SELECT *
+
+--- Получение записей из таблицы
+-- @tparam string tableName название таблицы
+-- @tparam table columnst список столбцов, которые нужно получить
+-- @tparam[opt] table whereFields поля, по которым будут выбираться строки {ключ=значение}
+-- @tparam[opt] function callback callback
+-- @treturn bool результат выполнения функции. 
+-- Если не указан callback, функция выполняется синхронно и результат запроса к БД будет передан в качестве возвращаемого значения.
+-- @usage DatabaseTable.select("users", {"username", "password"}, { username = "user3" })
 function DatabaseTable.select(tableName, columns, whereFields, callback, ...)
 	if type(tableName) ~= "string" then
 		outputDebugString("ERROR: DatabaseTable.select: bad arguments")
@@ -149,6 +182,9 @@ function DatabaseTable.select(tableName, columns, whereFields, callback, ...)
 	end
 	-- WHERE
 	local whereQueries = {}
+	if not whereFields then
+		whereFields = {}
+	end
 	for column, value in pairs(whereFields) do
 		table.insert(whereQueries, connection:prepareString("`??`=?", column, value))
 	end
@@ -175,7 +211,8 @@ function DatabaseTable.select(tableName, columns, whereFields, callback, ...)
 	return retrieveQueryResults(connection, queryString, callback, ...)
 end
 
--- TODO
+--- Удаление записей из таблицы.
+-- Данный метод не реализован
 function DatabaseTable.delete()
 	local connection = Database.getConnection()
 	return true

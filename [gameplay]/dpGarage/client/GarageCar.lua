@@ -90,6 +90,8 @@ function GarageCar.start(vehicles)
 	vehicle.rotation = Vector3(0, 0, -90)
 
 	addEventHandler("dpGarage.loaded", resourceRoot, updateVehicle)
+
+	setVehicleOverrideLights(vehicle, 1)
 end
 
 function GarageCar.stop()

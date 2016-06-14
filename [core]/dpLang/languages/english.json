@@ -138,8 +138,8 @@
 	"garage_help_numberplate": "Enter text, %s - delete text, %s - save, %s - cancel",
 
 	"garage_sticker_editor_move": "Move",
-	"garage_sticker_editor_rotate": "Scale",
-	"garage_sticker_editor_scale": "Rotate",
+	"garage_sticker_editor_rotate": "Rotate",
+	"garage_sticker_editor_scale": "Scale",
 	"garage_sticker_editor_color": "Change color",	
 
 	"garage_tuning_sticker_color": "Sticker color",

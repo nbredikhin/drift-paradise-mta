@@ -54,9 +54,17 @@ function ComponentScreen:init(name)
 	--self:onItemChanged()
 end
 
+function ComponentScreen:show()
+	self.super:show()
+	if self.componentName == "FrontLights" or self.componentName == "RearLights" then
+		setVehicleOverrideLights(GarageCar.getVehicle(), 2)
+	end
+end
+
 function ComponentScreen:hide()
 	self.super:hide()
 	self.menu:destroy()
+	setVehicleOverrideLights(GarageCar.getVehicle(), 1)
 end
 
 function ComponentScreen:draw()

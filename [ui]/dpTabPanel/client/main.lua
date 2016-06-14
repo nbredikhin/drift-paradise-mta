@@ -2,6 +2,11 @@ local isActive = false
 
 function setVisible(visible)
 	visible = not not visible
+	if visible then
+		if not localPlayer:getData("username") or localPlayer:getData("dpCore.state") then
+			return false
+		end
+	end		
 	if localPlayer:getData("dpCore.state") or exports.dpMainPanel:isVisible() then
 		visible = false
 	end

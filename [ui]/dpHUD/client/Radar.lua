@@ -66,6 +66,8 @@ local function drawPlayers()
 				color = player.vehicle:getData("BodyColor")
 				if color then 
 					color = tocolor(unpack(color))
+				else
+				    color = tocolor(255, 255, 255, 255)
 				end
 			end
 			-- color = tocolor(123, 0, 123)
@@ -82,6 +84,15 @@ local function drawRadar()
 	local sectionX = x
 	local sectionY = y
 	drawRadarSection(sectionX, sectionY)
+	local color = tocolor(255, 255, 255)
+	if localPlayer.vehicle then 
+	    color = localPlayer.vehicle:getData("BodyColor")
+	    if color then 
+		color = tocolor(unpack(color))
+	    else
+		color = tocolor(255, 255, 255)
+	    end
+	end
 	dxDrawImage(
 		(width - arrowSize) / 2, 
 		(height - arrowSize) / 2, 

@@ -18,7 +18,7 @@ VehicleTuning.defaultTuningTable = {
 	-- Колёса
 	WheelsAngleF 	= 0, -- Развал передних колёс
 	WheelsAngleR 	= 0, -- Развал задних колёс
-	WheelsSize		= 0.7, -- Размер 
+	WheelsSize		= 0.69, -- Размер 
 	WheelsWidthF 	= 0, -- Толщина передних колёс
 	WheelsWidthR	= 0, -- Толщина задних колёс
 	WheelsOffsetF	= 0, -- Вынос передних колёс
@@ -55,6 +55,10 @@ function VehicleTuning.applyToVehicle(vehicle, tuningJSON, stickersJSON)
 		end
 		if not tuningTable then
 			tuningTable = {}
+		end
+		-- Размер колёс по-умолчанию
+		if not tuningTable["WheelsSize"] then
+			exports.dpVehicles:getModelDefaultWheelsSize(vehicle.model)
 		end
 		-- Выставление полей по-умолчанию
 		for k, v in pairs(VehicleTuning.defaultTuningTable) do

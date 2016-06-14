@@ -17,10 +17,10 @@ local logoTexture
 local logoWidth, logoHeight
 
 local columns = {
-	{ name = "#", size = 0.1, data = "id"},
-	{ name = "Nickname", size = 0.5, data = "name"},
-	{ name = "Money", size = 0.25, data = "money"},
-	{ name = "Level", size = 0.15, data = "level"},
+	{ name = "tab_panel_column_id", 		size = 0.1, 	data = "id"},
+	{ name = "tab_panel_column_nickname", 	size = 0.4, 	data = "name"},
+	{ name = "tab_panel_column_money", 		size = 0.25, 	data = "money"},
+	{ name = "tab_panel_column_level", 		size = 0.25, 	data = "level"},
 }
 local playersList = {}
 local scrollOffset = 0
@@ -36,7 +36,7 @@ local function draw()
 	local x = panelX
 	for i, column in ipairs(columns) do
 		local width = panelWidth * column.size
-		dxDrawText(column.name, x, y, x + width, y + headerHeight, tocolor(255, 255, 255), 1, headerFont, "center", "center")
+		dxDrawText(exports.dpLang:getString(column.name), x, y, x + width, y + headerHeight, tocolor(255, 255, 255), 1, headerFont, "center", "center")
 		x = x + width
 	end
 	y = y + headerHeight
@@ -106,8 +106,8 @@ function Panel.start()
 
 	local function addPlayerToList(player)
 		table.insert(playersList, {
-			id = math.random(1, 100),
-			name = player.name,
+			id = tostring(player.id),
+			name = exports.dpUtils:removeHexFromString(player.name),
 			money = player:getData("money") or 0,
 			level = 1
 		})

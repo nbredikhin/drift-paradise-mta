@@ -175,6 +175,14 @@ function GarageCar.resetTuning()
 		vehicle:setData(name, currentTuningTable[name])
 	end
 
+	-- Размер колёс по-умолчанию
+	if not currentTuningTable["WheelsSize"] then
+		local defaultWheelsSize = exports.dpVehicles:getModelDefaultWheelsSize(vehicle.model)
+		if not defaultWheelsSize then
+			defaultWheelsSize = 0.69
+		end
+		GarageCar.applyTuning("WheelsSize", defaultWheelsSize)
+	end
 end
 
 function GarageCar.getTuningTable()

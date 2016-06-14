@@ -24,3 +24,7 @@ function isResourceRunning(name)
 	end
 	return resource.state == "running"
 end
+
+function removeHexFromString(string)
+	return string.gsub(string, "#%x%x%x%x%x%x","")
+end

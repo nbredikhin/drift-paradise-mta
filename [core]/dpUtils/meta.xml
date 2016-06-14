@@ -16,6 +16,7 @@
 	<export type="shared" function="tableCopy"/>
 	<export type="shared" function="defaultValue"/>
 	<export type="shared" function="capitalizeString"/>
+	<export type="shared" function="removeHexFromString"/>
 	<!-- Работа со временем -->
 	<export type="shared" function="isLeapYear"/>
 	<export type="shared" function="getTimestamp"/>

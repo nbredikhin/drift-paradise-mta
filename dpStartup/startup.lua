@@ -23,6 +23,8 @@ local startupResources = {
 	-- Gameplay
 	"dpVehicles",
 	"dpMarkers",
+	"dpPhotoMode",
+	"dpDriftPoints",
 	"dpHouses",
 	"dpGarage",
 	"dpCarShop",

@@ -80,13 +80,17 @@ function BetaKeys.generateKey()
 	return key
 end
 
-addCommandHandler("bolwepidorov", function(player, cmd, count)
+addCommandHandler("genkeys", function(player, cmd, count)
+	if player then
+		return
+	end
 	count = tonumber(count)
 	if not count then
 		count = 1
 	end
 
 	for i = 1, count do
-		outputChatBox(tostring(BetaKeys.generateKey()), player)
+		local key = tostring(BetaKeys.generateKey())
+		outputServerLog(key)
 	end
 end)

@@ -23,6 +23,12 @@
 	// World map
 	"world_map_help_text": "%s - move camera, %s - zoom in/out, %s - exit",
 
+	// Tab panel
+	"tab_panel_column_id": "ID",
+	"tab_panel_column_nickname": "Nickname",
+	"tab_panel_column_money": "Money",
+	"tab_panel_column_level": "Level",
+
 	// Message box
 	"login_panel_auth_error": "Authorization error",
 	"login_panel_register_error": "Registration error",

@@ -8,7 +8,9 @@ local screenOffset = Utils.screenScale(20)
 local WORLD_SIZE = 3072
 local CHUNK_SIZE = 256
 local CHUNKS_COUNT = 12
+local SCALE_FACTOR = 2
 local arrowSize = 25
+local playerTextureSize = 25
 
 local maskShader
 local renderTarget
@@ -16,13 +18,16 @@ local maskTexture
 local mapTexture
 
 local arrowTexture
+local playerTexture
 
-local zoom = CHUNK_SIZE / width * 10
+local scale = 5
 local fallbackTo2d = true
 local camera
 
-local chunkRenderSize = WORLD_SIZE / CHUNK_SIZE * zoom
+local chunkRenderSize = CHUNK_SIZE * scale / SCALE_FACTOR
 local chunksTextures = {}
+
+local players = {}
 
 local function drawRadarChunk(x, y, chunkX, chunkY)
 	local chunkID = chunkX + chunkY * CHUNKS_COUNT
@@ -52,6 +57,24 @@ local function drawRadarSection(x, y)
 	drawRadarChunk(x, y, chunkX + 1, chunkY + 1)
 end
 
+local function drawPlayers()
+	for player in pairs(players) do
+		if player ~= localPlayer then
+
+			local color = tocolor(255, 255, 255, 255)
+			if player.vehicle then
+				color = player.vehicle:getData("BodyColor")
+				if color then 
+					color = tocolor(unpack(color))
+				end
+			end
+			-- color = tocolor(123, 0, 123)
+			Radar.drawImageOnMap(player.position.x, player.position.y, player.rotation.z, 
+				playerTexture, playerTextureSize, playerTextureSize, color)
+		end
+	end
+end
+
 local function drawRadar()
 	local x = (localPlayer.position.x + 3000) / 6000 * WORLD_SIZE
 	local y = (-localPlayer.position.y + 3000) / 6000 * WORLD_SIZE
@@ -68,9 +91,11 @@ local function drawRadar()
 		-localPlayer.rotation.z
 	)
 	-- Пример использования:
-	-- Radar.drawImageOnMap(700, 900, localPlayer.rotation.z, arrowTexture, 
+	-- Radar.drawImageOnMap(700, 900, 0, arrowTexture, 
 		-- arrowSize, arrowSize, 
 		-- tocolor(16, 160, 207))
+
+	drawPlayers()
 end
 
 addEventHandler("onClientRender", root, function ()
@@ -103,6 +128,18 @@ addEventHandler("onClientRender", root, function ()
 	end
 end)
 
+addEventHandler("onClientElementStreamIn", root, function()
+	if source.type == "player" then
+		players[source] = true
+	end 
+end)
+
+addEventHandler("onClientElementStreamOut", root, function()
+	if source.type == "player" then
+		players[source] = nil
+	end 
+end)
+
 function Radar.start()
 	if renderTarget then
 		return false
@@ -124,6 +161,13 @@ function Radar.start()
 	end
 	camera = getCamera()
 	arrowTexture = DxTexture("assets/textures/radar/arrow.png")
+	playerTexture = DxTexture("assets/textures/radar/arrow.png")
+	players = {}
+	for i,v in ipairs(getElementsByType("player")) do
+		if isElementStreamedIn(v) then 
+			players[v] = true
+		end
+	end
 end
 
 function Radar.setRotation(x, y, z)
@@ -146,12 +190,12 @@ end
 function Radar.drawImageOnMap(globalX, globalY, rotationZ, image, imgWidth, imgHeight, color)
 	local relativeX, relativeY = localPlayer.position.x - globalX,
 								 localPlayer.position.y - globalY
-	local mapX, mapY = 	relativeX / 6000 * WORLD_SIZE, 
-						relativeY / 6000 * WORLD_SIZE
-
-	local distance =  math.sqrt(mapX * mapX + mapY * mapY)
+	local mapX, mapY = 	relativeX / 6000 * WORLD_SIZE * scale / SCALE_FACTOR, 
+						relativeY / 6000 * WORLD_SIZE * scale / SCALE_FACTOR
+ 
+	local distance = mapX * mapX + mapY * mapY
 	-- Картинка слишком далеко от игрока, нет смысла рисовать
-	if distance > chunkRenderSize * 3 then
+	if distance > chunkRenderSize * chunkRenderSize * 9 then
 		return
 	end
 	dxDrawImage((width -  imgWidth) / 2 - mapX, 

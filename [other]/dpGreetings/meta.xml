@@ -1,0 +1,5 @@
+<meta>
+	<oop>true</oop>
+
+	<script type="client" src="client/Greetings.lua"/>
+</meta>

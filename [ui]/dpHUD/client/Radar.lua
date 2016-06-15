@@ -66,8 +66,6 @@ local function drawPlayers()
 				color = player.vehicle:getData("BodyColor")
 				if color then 
 					color = tocolor(unpack(color))
-				else
-				    color = tocolor(255, 255, 255, 255)
 				end
 			end
 			-- color = tocolor(123, 0, 123)
@@ -84,6 +82,7 @@ local function drawRadar()
 	local sectionX = x
 	local sectionY = y
 	drawRadarSection(sectionX, sectionY)
+	drawPlayers()
 	local color = tocolor(255, 255, 255)
 	if localPlayer.vehicle then 
 	    color = localPlayer.vehicle:getData("BodyColor")
@@ -99,7 +98,10 @@ local function drawRadar()
 		arrowSize, 
 		arrowSize,
 		arrowTexture,
-		-localPlayer.rotation.z
+		-localPlayer.rotation.z,
+		0,
+		0,
+		color
 	)
 	-- Пример использования:
 	-- Radar.drawImageOnMap(700, 900, 0, arrowTexture, 
@@ -149,6 +151,14 @@ addEventHandler("onClientElementStreamOut", root, function()
 	if source.type == "player" then
 		players[source] = nil
 	end 
+end)
+
+addEventHandler("onClientPlayerJoin", root, function()
+	players[source] = true
+end)
+
+addEventHandler("onClientPlayerQuit", root, function()
+	players[source] = nil
 end)
 
 function Radar.start()

@@ -1,5 +1,6 @@
 <meta>
 	<oop>true</oop>
 	<info author="MOTH3RS_BL3ND3R" description="Resource for handle drifting and points" />
+	<script src="PointsDrawing.lua" type="client" />
 	<script src="dpDriftPoints.lua" type="client" />
 </meta>

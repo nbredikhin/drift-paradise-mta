@@ -2,4 +2,5 @@
 	<oop>true</oop>
 
 	<script type="server" src="startup.lua"/>
+	<export function="getGamemodeInfo" http="true"/>
 </meta>

@@ -20,11 +20,13 @@ local mapTexture
 local arrowTexture
 local playerTexture
 
-local scale = 5
+local DEFAULT_SCALE = 5
+local MAX_SPEED_SCALE = 1.3
+
+local scale = DEFAULT_SCALE
 local fallbackTo2d = true
 local camera
-
-local chunkRenderSize = CHUNK_SIZE * scale / SCALE_FACTOR
+local chunkRenderSize -- Обновляется каждый кадр
 local chunksTextures = {}
 
 local players = {}
@@ -115,6 +117,15 @@ addEventHandler("onClientRender", root, function ()
 	if not Radar.visible then
 		return
 	end
+
+	scale = DEFAULT_SCALE
+	-- Отдаление радара при быстрой езде
+	if localPlayer.vehicle then
+		local speed = localPlayer.vehicle.velocity.length
+		scale = scale - math.min(MAX_SPEED_SCALE, speed * 1)
+	end
+	chunkRenderSize = CHUNK_SIZE * scale / SCALE_FACTOR
+
 	if not fallbackTo2d then	
 		-- Отрисовка радара в renderTarget
 		dxSetRenderTarget(renderTarget, true)

@@ -9,7 +9,6 @@ local function onPlayerConnect()
 end
 
 local function onPlayerQuit(reason)
-	source = localPlayer
 	local messageColor = exports.dpUtils:RGBToHex(exports.dpUI:getThemeColor())
 	local playerName = exports.dpUtils:removeHexFromString(source.name)
 	reason = exports.dpLang:getString("quit_reason_" .. string.lower(tostring(reason)))
@@ -19,8 +18,6 @@ local function onPlayerQuit(reason)
 		true
 	)
 end
-
-onPlayerQuit("Banned")
 
 addEventHandler("onClientPlayerJoin", getRootElement(), onPlayerConnect)
 addEventHandler("onClientPlayerQuit", getRootElement(), onPlayerQuit)

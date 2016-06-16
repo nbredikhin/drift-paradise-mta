@@ -67,6 +67,6 @@ function MapIcons.draw()
 	-- Иконки игроков
 	for i, player in ipairs(getElementsByType("player")) do
 		local pos = player.position
-		drawPlayerIcon(player.name, pos.x, pos.y, pos.z, player.rotation.z)
+		drawPlayerIcon(exports.dpUtils:removeHexFromString(player.name), pos.x, pos.y, pos.z, player.rotation.z)
 	end
 end

@@ -15,6 +15,7 @@ function setVisible(visible)
 	fadeCamera(false, 0.5)
 	setTimer(function ()
 		exports.dpHUD:setVisible(not visible)
+		exports.dpNametags:setVisible(not visible)
 		
 		if visible then
 			Map.start()

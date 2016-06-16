@@ -1,7 +1,7 @@
 Map = {}
 
 function Map.start()
-	localPlayer.interior = 1
+	localPlayer.interior = 16
 	MapWorld.start()
 	MapCamera.start()
 	MapControls.start()

@@ -7,7 +7,7 @@ local buildingAlpha = 0
 local textures = {}
 
 function MapWorld.start()
-	MapWorld.position = Vector3(localPlayer.position) + Vector3(0, 0, 5)
+	MapWorld.position = Vector3(localPlayer.position) + Vector3(0, 0, 100)
 end
 
 function MapWorld.stop()

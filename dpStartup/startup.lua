@@ -36,7 +36,11 @@ local startupResources = {
 	"dpWelcomeGarage",
 
 	-- Admin
-	"dpAdmin"
+	"dpAdmin",
+
+	-- Other
+	"dpGreetings",
+	"dpBeta",
 }
 
 local function processResourceByName(resourceName, start)

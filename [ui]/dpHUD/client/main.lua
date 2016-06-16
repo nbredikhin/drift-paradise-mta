@@ -18,7 +18,7 @@ local function updateRotations()
 	rotationY = defaultRotationY - mul * 20
 
 	Speedometer.setRotation(rotationX, rotationY)
-	Radar.setRotation(-rotationX, rotationY)
+	Radar.setRotation(-rotationX, rotationY - 20)
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()

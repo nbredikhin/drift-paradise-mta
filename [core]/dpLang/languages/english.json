@@ -6,6 +6,13 @@
 	"controls_mouse_wheel": "Mouse wheel",
 	"price_free": "Free",
 
+	"quit_reason_unknown": "disconnect",
+	"quit_reason_quit": "disconnect",
+	"quit_reason_kicked": "kicked",
+	"quit_reason_banned": "banned",
+	"quit_reason_bad connection": "bad connection",
+	"quit_reason_timed out": "timed out",
+
 	// UI
 	"login_panel_username_label": "Username",
 	"login_panel_password_label": "Password",
@@ -52,8 +59,10 @@
 	"login_panel_err_passwords_do_not_match": "Your passwords do not match!",
 	"login_panel_err_beta_key_invalid": "Your beta key is invalid",	
 
-	// Chat message
+	// Chat messages
 	"chat_message_login_success": "You have successfully logged in",
+	"chat_message_player_join": "Player %s has joined the server",
+	"chat_message_player_quit": "Player %s has left the server (%s)",
 
 	// Garage
 	"garage_no_vehicle_error": "You must be in a car to enter garage",

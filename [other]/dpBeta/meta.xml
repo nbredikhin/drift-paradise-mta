@@ -1,0 +1,6 @@
+<meta>
+	<oop>true</oop>
+	
+	<script type="client" src="client/screen_label.lua"/>
+	<file src="assets/label.png"/>
+</meta>

@@ -81,9 +81,6 @@ function BetaKeys.generateKey()
 end
 
 addCommandHandler("genkeys", function(player, cmd, count)
-	if player then
-		return
-	end
 	count = tonumber(count)
 	if not count then
 		count = 1
@@ -91,6 +88,6 @@ addCommandHandler("genkeys", function(player, cmd, count)
 
 	for i = 1, count do
 		local key = tostring(BetaKeys.generateKey())
-		outputServerLog(key)
+		outputChatBox(key)
 	end
 end)

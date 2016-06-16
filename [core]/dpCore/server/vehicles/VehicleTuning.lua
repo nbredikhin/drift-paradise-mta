@@ -3,7 +3,7 @@ local REMOVE_ZERO_FIELDS = true
 
 VehicleTuning.defaultTuningTable = {
 	-- Цвета
-	BodyColor 		= {255, 0, 0},		-- Цвет кузова
+	BodyColor 		= {255, 255, 255},	-- Цвет кузова
 	WheelsColorR 	= {255, 255, 255},	-- Цвет задних дисков
 	WheelsColorF 	= {255, 255, 255},	-- Цвет передних дисков
 	BodyTexture 	= false,			-- Текстура кузова

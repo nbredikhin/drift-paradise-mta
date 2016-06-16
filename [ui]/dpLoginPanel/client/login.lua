@@ -125,6 +125,7 @@ addEventHandler("dpCore.registerResponse", root, function (success, err)
 		exports.dpUI:showMessageBox(exports.dpLang:getString("login_panel_register_error"), errorText)
 		return
 	end
+	clearRegisterForm()
 	gotoLoginPanel(currentUsername, currentPassword)
 	exports.dpUI:showMessageBox("Drift Paradise", exports.dpLang:getString("login_panel_register_success"))
 end)

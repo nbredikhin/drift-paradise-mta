@@ -58,6 +58,13 @@ function gotoLoginPanel(username, password)
 	end
 end
 
+function clearRegisterForm()
+	UI:setText(registerPanel.username, "")
+	UI:setText(registerPanel.password, "")
+	UI:setText(registerPanel.passwordConfirm, "")
+	UI:setText(registerPanel.betaKey, "")	
+end
+
 function setVisible(visible)
 	visible = not not visible
 	if HIDE_CHAT then

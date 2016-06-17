@@ -1,7 +1,7 @@
 local NAMETAG_OFFSET = 1.1
 local NAMETAG_WIDTH = 100
 local NAMETAG_HEIGHT = 20
-local NAMETAG_MAX_DISTANCE = 10
+local NAMETAG_MAX_DISTANCE = 25
 local NAMETAG_SCALE = 3
 
 local HP_BAR_HEIGHT = 15
@@ -53,6 +53,7 @@ local function showPlayer(player)
 	if player == localPlayer then
 		return
 	end
+	player.nametagShowing = false
 	streamedPlayers[player] = {name = exports.dpUtils:removeHexFromString(player.name)}
 end
 

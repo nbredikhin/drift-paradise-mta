@@ -34,6 +34,8 @@ function setVisible(visible)
 end
 
 bindKey("backspace", "down", function() setVisible(false) end)
+bindKey("m", "down", function() setVisible(not isVisible) end)
+
 if localPlayer:getData("dpCore.state") == "map" then
 	localPlayer:setData("dpCore.state", false)
 end

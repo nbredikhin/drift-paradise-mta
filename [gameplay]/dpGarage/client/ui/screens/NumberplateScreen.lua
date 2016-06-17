@@ -2,7 +2,7 @@
 
 NumberplateScreen = Screen:subclass "NumberplateScreen"
 
-local MAX_NUMBERPLATE_TEXT_LENGTH = 11
+local MAX_NUMBERPLATE_TEXT_LENGTH = 10
 
 local allowedLetters = "abcdefghijklmnopqrstuvwxyz0123456789"
 

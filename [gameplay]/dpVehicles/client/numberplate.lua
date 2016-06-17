@@ -8,9 +8,9 @@ local backgroundTexture
 local textFont
 
 local textOffsetX = 10
-local textOffsetY = 10
+local textOffsetY = 17
 local textWidth = 229
-local textSize = 30
+local textSize = 36
 local textHeight = 128
 
 function drawNumberplate(renderTarget, text)

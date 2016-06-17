@@ -73,8 +73,8 @@ function BetaKeys.isKeyValid(key)
 end
 
 function BetaKeys.generateKey()
-	local str = base64Encode(tostring(getRealTime().timestamp) .. ";" .. tostring(math.random(1, 100)) .. ";" .. tostring(getTickCount()))
-	local key = string.sub(md5(teaEncode(str, "dp_beta")), 1, 5)
+	local str = base64Encode(tostring(getRealTime().timestamp) .. "_" .. tostring(math.random(1000, 9999)) .. "_" .. tostring(getTickCount()))
+	local key = string.sub(md5(teaEncode(str, "dp_beta")), 1, 6)
 	table.insert(keysList, key)
 	BetaKeys.save()
 	return key
@@ -96,4 +96,13 @@ addCommandHandler("genkeys", function(player, cmd, count)
 		local key = tostring(BetaKeys.generateKey())
 		outputChatBox(key, player, 255, 255, 255)
 	end
+end)
+
+addCommandHandler("keyscount", function(player, cmd)
+	if not exports.dpUtils:isPlayerAdmin(player) then
+		outputChatBox("Вы не являетесь администратором", player, 255, 0, 0)
+		return
+	end
+
+	outputChatBox("Доступно ключей: " .. tostring(#keysList), player, 0, 255, 0)
 end)

@@ -22,7 +22,7 @@ local function placeTargetPoint()
 
 	local x, y, z = getWorldFromScreenPosition(mx, my, 100)
 	--createVehicle(411, x, y, z)
-	outputDebugString(table.concat({x, y, z}, ", "))
+	--outputDebugString(table.concat({x, y, z}, ", "))
 end
 
 function MapControls.start()

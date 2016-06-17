@@ -81,13 +81,19 @@ function BetaKeys.generateKey()
 end
 
 addCommandHandler("genkeys", function(player, cmd, count)
+	if not exports.dpUtils:isPlayerAdmin(player) then
+		outputChatBox("Вы не являетесь администратором", player, 255, 0, 0)
+		return
+	end
+
 	count = tonumber(count)
 	if not count then
 		count = 1
 	end
 
+	outputChatBox("Сгенерировано ключей: " .. tostring(count), player, 0, 255, 0)
 	for i = 1, count do
 		local key = tostring(BetaKeys.generateKey())
-		outputChatBox(key)
+		outputChatBox(key, player, 255, 255, 255)
 	end
 end)

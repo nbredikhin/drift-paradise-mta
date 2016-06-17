@@ -8,6 +8,8 @@
 	<script type="shared" src="shared/other.lua"/>
 	<script type="shared" src="shared/vehicles.lua"/>
 
+	<script type="server" src="server/players.lua"/>
+
 	<export type="shared" function="isValidVehicleModel"/>
 	<export type="shared" function="getVehicleOccupantsCount"/>
 	
@@ -22,7 +24,9 @@
 	<export type="shared" function="isLeapYear"/>
 	<export type="shared" function="getTimestamp"/>
 	<export type="shared" function="convertTimestampToSeconds"/>
-	<!-- Геометри -->
+	<!-- Геометрия -->
 	<export type="shared" function="wrapAngle"/>
 	<export type="shared" function="differenceBetweenAngles"/>
+
+	<export type="server" function="isPlayerAdmin"/>
 </meta>

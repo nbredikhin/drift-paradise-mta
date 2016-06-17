@@ -3,9 +3,9 @@ dpPhotoModeOptions = {}
 dpPhotoModeOptions.CAMERA_MOVE_SPEED = 0.01
 dpPhotoModeOptions.CAMERA_ROLL_SPEED = 0.02
 dpPhotoModeOptions.MAX_CAMERA_FOV = 100
-dpPhotoModeOptions.MIN_CAMERA_FOV = 45
+dpPhotoModeOptions.MIN_CAMERA_FOV = 30
 dpPhotoModeOptions.MOUSE_SENSITIVITY = 0.2
-dpPhotoModeOptions.MAX_DISTANCE_FROM_PLAYER = 10
+dpPhotoModeOptions.MAX_DISTANCE_FROM_PLAYER = 20
 -- Free look controls
 dpPhotoModeOptions.controls = {}
 dpPhotoModeOptions.controls.ROLL_RIGHT = "e"
@@ -16,7 +16,7 @@ dpPhotoModeOptions.controls.STRAFE_RIGHT = "d"
 dpPhotoModeOptions.controls.STRAFE_LEFT = "a"
 dpPhotoModeOptions.controls.ZOOM_OUT = "x" 	-- "mouse_wheel_down"
 dpPhotoModeOptions.controls.ZOOM_IN = "z" 	-- "mouse_wheel_up"
-dpPhotoModeOptions.controls.SPEED_MODYFIER = "lalt"
+dpPhotoModeOptions.controls.SPEED_MODIFIER = "lalt"
 dpPhotoModeOptions.controls.MOVE_UP = "space"
 dpPhotoModeOptions.controls.MOVE_DOWN = "lctrl"
 
@@ -53,16 +53,6 @@ local function initializeScriptVars()
 	rotationX, rotationY = 0, 0
 
 	mouseFrameDelay, updateFramesDelay = 0, 0
-end
-
-local function onStartup()
-	photoModeEnabled = false
-end
-
-local function onShutdown()
-	if photoModeEnabled then
-		disablePhotoMode()
-	end
 end
 
 local function adjustFOV(wheelDir)
@@ -128,7 +118,7 @@ local function update(dt)
 	end
 
 	cameraSpeed = dpPhotoModeOptions.CAMERA_MOVE_SPEED * cameraSpeed:getNormalized()
-	if getKeyState(dpPhotoModeOptions.controls.SPEED_MODYFIER) then
+	if getKeyState(dpPhotoModeOptions.controls.SPEED_MODIFIER) then
 		cameraSpeed = cameraSpeed * 0.1
 	end
 	cameraPosition = cameraPosition + dt * cameraSpeed
@@ -193,6 +183,10 @@ function enablePhotoMode()
 	if photoModeEnabled or localPlayer:getData("dpCore.state") then 
 		return
 	end
+	if localPlayer:getData("activeUI") then
+		return false
+	end
+	localPlayer:setData("activeUI", "photoMode")
 
 	photoModeEnabled = true
 	initializeScriptVars()
@@ -208,6 +202,7 @@ function enablePhotoMode()
 
 	-- Hide HUD
 	exports.dpHUD:setVisible(false)
+	exports.dpNametags:setVisible(false)
 	showChat(false)
 
 	for i, name in ipairs(dpPhotoModeOptions.CONTROL_LIST) do
@@ -223,12 +218,14 @@ function disablePhotoMode()
 	if not photoModeEnabled then
 		return
 	end
+	localPlayer:setData("activeUI", false)	
 	photoModeEnabled = false
 	-- Return camera to player
 	setCameraTarget(localPlayer)
 	
 	-- Show HUD
 	exports.dpHUD:setVisible(true)
+	exports.dpNametags:setVisible(true)
 	showChat(true)
 
 	for i, name in ipairs(dpPhotoModeOptions.CONTROL_LIST) do
@@ -241,8 +238,19 @@ function disablePhotoMode()
 end
 
 -- For debug purposes
-addCommandHandler("e", enablePhotoMode)
-addCommandHandler("d", disablePhotoMode)
+bindKey("o", "down", function ()
+	if photoModeEnabled then
+		disablePhotoMode()
+	else
+		enablePhotoMode()
+	end
+end)
 
-addEventHandler("onClientResourceStart", root, onStartup)
-addEventHandler("onClientResourceStop", root, onShutdown)
+addEventHandler("onClientResourceStart", resourceRoot, function ()
+	photoModeEnabled = false
+end)
+addEventHandler("onClientResourceStop", resourceRoot, function ()
+	if photoModeEnabled then
+		disablePhotoMode()
+	end
+end)

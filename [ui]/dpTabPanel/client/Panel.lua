@@ -121,6 +121,7 @@ function Panel.start()
 
 	bindKey("mouse_wheel_up", "down", mouseUp)
 	bindKey("mouse_wheel_down", "down", mouseDown)	
+	localPlayer:setData("activeUI", "tabPanel")
 end
 
 function Panel.stop()
@@ -130,5 +131,7 @@ function Panel.stop()
 	destroyElement(logoTexture)
 
 	unbindKey("mouse_wheel_up", "down", mouseUp)
-	unbindKey("mouse_wheel_down", "down", mouseDown)		
+	unbindKey("mouse_wheel_down", "down", mouseDown)	
+
+	localPlayer:setData("activeUI", false)
 end

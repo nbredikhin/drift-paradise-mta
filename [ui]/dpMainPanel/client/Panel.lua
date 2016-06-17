@@ -85,21 +85,28 @@ function Panel.showTab(name)
 end
 
 function Panel.setVisible(visible)
-	if UI:getVisible(panel) == not not visible or exports.dpTabPanel:isVisible() then
+	visible = not not visible
+	if UI:getVisible(panel) == visible or exports.dpTabPanel:isVisible() then
 		return
 	end
 	if not panel then
 		return false
 	end
-	if not not visible then
+	if visible then
 		if not localPlayer:getData("username") or localPlayer:getData("dpCore.state") then
 			return false
 		end
+		if localPlayer:getData("activeUI") then
+			return false
+		end
+		localPlayer:setData("activeUI", "mainPanel")
+	else
+		localPlayer:setData("activeUI", false)
 	end
-	UI:setVisible(panel, not not visible)
+	UI:setVisible(panel, visible)
 	exports.dpHUD:setVisible(not visible)
 	UIDataBinder.setActive(visible)
-	showCursor(not not visible)
+	showCursor(visible)
 	exports.dpUI:fadeScreen(visible)
 end
 

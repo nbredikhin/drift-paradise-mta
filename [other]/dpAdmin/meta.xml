@@ -8,6 +8,7 @@
 	<html src="web/img.jpg" raw="true"/>
 
 	<script type="server" src="methods.lua"/>
+	<script type="server" src="server/slots.lua"/>
 	<script type="client" src="client.lua"/>
 
 	<export http="true" function="getPlayers"/>

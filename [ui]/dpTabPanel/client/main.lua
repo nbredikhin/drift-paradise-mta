@@ -10,6 +10,10 @@ function setVisible(visible)
 	if localPlayer:getData("dpCore.state") or exports.dpMainPanel:isVisible() then
 		visible = false
 	end
+	if localPlayer:getData("activeUI") then
+		visible = false
+	end
+
 	if isActive == visible then
 		return
 	end	

@@ -2,5 +2,8 @@
 	<oop>true</oop>
 	
 	<script type="client" src="client/screen_label.lua"/>
+	<script type="client" src="client/welcome_screen.lua"/>
 	<file src="assets/label.png"/>
+
+	<export type="client" function="showWelcomeScreen"/>
 </meta>

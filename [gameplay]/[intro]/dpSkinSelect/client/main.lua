@@ -46,6 +46,9 @@ local function update()
 end
 
 local function onKey(key, state)
+	if localPlayer:getData("activeUI") then
+		return
+	end
 	if not state then
 		return
 	end
@@ -112,6 +115,8 @@ function SkinSelect.enter()
 	addEventHandler("onClientKey", root, onKey)
 
 	localPlayer.dimension = DIMENSION
+
+	showChat(false)
 end
 
 function SkinSelect.exit()
@@ -127,6 +132,8 @@ function SkinSelect.exit()
 	removeEventHandler("onClientKey", root, onKey)
 
 	localPlayer.dimension = 0
+
+	showChat(true)
 end
 
 addEvent("dpSkinSelect.start", true)

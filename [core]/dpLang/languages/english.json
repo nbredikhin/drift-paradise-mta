@@ -13,6 +13,14 @@
 	"quit_reason_bad connection": "bad connection",
 	"quit_reason_timed out": "timed out",
 
+	// PhotoMode
+	"photo_mode_help_roll": "Roll left/right",
+	"photo_mode_help_move": "Move",
+	"photo_mode_help_look": "Look",
+	"photo_mode_help_zoom": "Zoom in/out",
+	"photo_mode_help_updown": "Move down/up",
+	"photo_mode_help_tips": "Toggle tips",
+
 	// UI
 	"login_panel_username_label": "Username",
 	"login_panel_password_label": "Password",

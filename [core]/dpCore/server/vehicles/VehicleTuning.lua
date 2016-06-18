@@ -58,7 +58,7 @@ function VehicleTuning.applyToVehicle(vehicle, tuningJSON, stickersJSON)
 		end
 		-- Размер колёс по-умолчанию
 		if not tuningTable["WheelsSize"] then
-			exports.dpVehicles:getModelDefaultWheelsSize(vehicle.model)
+			tuningTable["WheelsSize"] = exports.dpVehicles:getModelDefaultWheelsSize(vehicle.model)
 		end
 		-- Выставление полей по-умолчанию
 		for k, v in pairs(VehicleTuning.defaultTuningTable) do
@@ -89,27 +89,28 @@ function VehicleTuning.updateVehicleTuning(vehicleId, tuning, stickers)
 	if not vehicleId then
 		return false
 	end
-	if type(tuning) ~= "table" or type(stickers) ~= "table" then
-		return false
-	end
-
-	-- Удаление нулевых полей
-	if REMOVE_ZERO_FIELDS then
-		for k, v in pairs(tuning) do
-			if not v or tonumber(v) == 0 then
-				tuning[k] = nil
+	local update = {}
+	if tuning then
+		-- Удаление нулевых полей
+		if REMOVE_ZERO_FIELDS then
+			for k, v in pairs(tuning) do
+				if not v or tonumber(v) == 0 then
+					tuning[k] = nil
+				end
 			end
-		end
+		end		
+
+		local tuningJSON = toJSON(tuning)
+		if tuningJSON then
+			update.tuning = tuningJSON
+		end		
 	end
-	local tuningJSON = toJSON(tuning)
-	if not tuningJSON then
-		tuningJSON = nil
+	if stickers then
+		local stickersJSON = toJSON(stickers)
+		if stickersJSON then
+			update.stickers = stickersJSON
+		end			
 	end
 
-	local stickersJSON = toJSON(stickers)
-	if not stickersJSON then
-		stickersJSON = nil
-	end
-
-	return UserVehicles.updateVehicle(vehicleId, { tuning = tuningJSON, stickers = stickersJSON })
+	return UserVehicles.updateVehicle(vehicleId, update)
 end

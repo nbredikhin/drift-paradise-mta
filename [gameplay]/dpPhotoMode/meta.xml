@@ -2,4 +2,7 @@
 	<oop>true</oop>
 	<info author="MOTH3RS_BL3ND3R" description="Resource for handling photo mode" />
 	<script src="dpPhotoMode.lua" type="client" />
+	<script src="PhotoModeHelp.lua" type="client" />
+
+	<file src="sound.wav"/>
 </meta>

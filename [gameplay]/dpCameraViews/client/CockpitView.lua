@@ -9,7 +9,6 @@ local CAMERA_ROTATION_SPEED = 6
 local SIDE_LOOK_ANGLE = 60
 local MIN_DRIFT_SPEED = 0.17
 
-
 local positionOffset = Vector3()
 local lookOffset =  Vector3()
 
@@ -31,6 +30,9 @@ local mouseLookX = 0
 local mouseLookY = 0
 local mouseHorizontalLimit = 60
 local mouseVerticalLimit = 40
+
+-- Костыли
+local skipFrame = false -- Пропуск первого кадра, чтобы не было видно рук
 
 local function differenceBetweenAngles(firstAngle, secondAngle)
 	local difference = secondAngle - firstAngle
@@ -72,11 +74,18 @@ local function onCursorMove(x, y)
 	mouseLookY = math.max(-mouseVerticalLimit, math.min(mouseVerticalLimit, mouseLookY))
 end
 
-local function update(deltaTime)
+local function update(deltaTime)	
+	if skipFrame then
+		skipFrame = false
+		return
+	end
 	if not localPlayer.vehicle then
 		CockpitView.stop()
 		return 
 	end
+	if localPlayer:getData("activeUI") == "photoMode" then
+		return
+	end	
 	deltaTime = deltaTime / 1000
 
 	cameraShakeX = cameraShakeX * cameraShakeMul
@@ -167,6 +176,8 @@ function CockpitView.start()
 	addEventHandler("onClientPreRender", root, update)
 	addEventHandler("onClientVehicleCollision", localPlayer.vehicle, updateShake)
 	addEventHandler("onClientCursorMove", root, onCursorMove)
+
+	skipFrame = true
 	return true
 end
 

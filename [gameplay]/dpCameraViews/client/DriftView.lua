@@ -52,6 +52,9 @@ function differenceBetweenAngles(firstAngle, secondAngle)
 end
 
 local function update(deltaTime)
+	if localPlayer:getData("activeUI") == "photoMode" then
+		return
+	end	
 	deltaTime = deltaTime / 1000
 
 	local car = getPedOccupiedVehicle(localPlayer)

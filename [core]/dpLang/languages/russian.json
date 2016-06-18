@@ -13,6 +13,14 @@
 	"quit_reason_bad connection": "ошибка подключения",
 	"quit_reason_timed out": "ошибка подключения",
 
+	// PhotoMode
+	"photo_mode_help_roll": "Поворот влево/вправо",
+	"photo_mode_help_move": "Передвижение",
+	"photo_mode_help_look": "Вращение",
+	"photo_mode_help_zoom": "Приближение/отдаление",
+	"photo_mode_help_updown": "Движение вверх/вниз",
+	"photo_mode_help_tips": "Показать/скрыть подсказки",	
+
 	// UI
 	"login_panel_username_label": "Имя пользователя",
 	"login_panel_password_label": "Пароль",

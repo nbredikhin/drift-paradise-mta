@@ -241,7 +241,9 @@ end)
 
 addEventHandler("onPlayerQuit", root, function ()
 	local vehicles = VehicleSpawn.getPlayerSpawnedVehicles(source)
-	for i, vehicle in ipairs(vehicles) do
-		VehicleSpawn.returnToGarage(vehicle)
+	if type(vehicles) == "table" then
+		for i, vehicle in ipairs(vehicles) do
+			VehicleSpawn.returnToGarage(vehicle)
+		end
 	end
 end)

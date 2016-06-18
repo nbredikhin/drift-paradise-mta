@@ -41,6 +41,7 @@
 	<export type="server" function="isPlayerLoggedIn"/>
 	<export type="server" function="saveAccount"/>
 	<!-- Функции для работы с автомобилями -->
+	<export type="shared" function="generateDefaultNumberplate"/>
 	<export type="server" function="spawnVehicle"/>
 	<export type="server" function="updateVehicle"/>
 	<export type="server" function="updateVehicleTuning"/>

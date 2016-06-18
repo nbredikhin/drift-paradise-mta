@@ -39,3 +39,16 @@ function RGBToHex(red, green, blue, alpha)
 		return string.format("#%.2X%.2X%.2X", red,green,blue)
 	end
 end
+ 
+function generateString(len)
+    if tonumber(len) then
+        math.randomseed ( getTickCount () )
+ 
+        local str = ""
+        for i = 1, len do
+            str = str .. string.char ( math.random (65, 90 ) )
+        end
+        return str
+    end
+    return false
+end

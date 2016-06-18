@@ -2,7 +2,7 @@ local NAMETAG_OFFSET = 1.1
 local NAMETAG_WIDTH = 100
 local NAMETAG_HEIGHT = 20
 local NAMETAG_MAX_DISTANCE = 25
-local NAMETAG_SCALE = 3
+local NAMETAG_SCALE = 3.5
 
 local HP_BAR_HEIGHT = 15
 
@@ -50,11 +50,15 @@ addEventHandler("onClientRender", root, function ()
 end)
 
 local function showPlayer(player)
+	if not isElement(player) then
+		return false
+	end
+	setPlayerNametagShowing(player, false)
 	if player == localPlayer then
 		return
 	end
-	player.nametagShowing = false
 	streamedPlayers[player] = {name = exports.dpUtils:removeHexFromString(player.name)}
+	return true
 end
 
 addEventHandler("onClientElementStreamedIn", root, function ()
@@ -71,6 +75,10 @@ end)
 
 addEventHandler("onClientPlayerQuit", root, function ()
 	streamedPlayers[source] = false
+end)
+
+addEventHandler("onClientPlayerJoin", root, function ()
+	setPlayerNametagShowing(source, false)
 end)
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()

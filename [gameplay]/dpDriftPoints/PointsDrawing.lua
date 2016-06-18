@@ -12,9 +12,9 @@ local PULSE_MUL = 0.1
 
 function PointsDrawing.draw(driftPoints, pointsMultiplier)
 	local color = TEXT_COLOR
-	if DriftPoints.isDriftingClose() then
-		color = CLOSE_TEXT_COLOR 
-	end
+	-- if DriftPoints.isDriftingClose() then
+	-- 	color = CLOSE_TEXT_COLOR 
+	-- end
 	if DriftPoints.isPreventedByCollision() then
 		color = FUCKED_UP_TEXT_COLOR
 	end
@@ -29,14 +29,14 @@ function PointsDrawing.draw(driftPoints, pointsMultiplier)
 		SHADOW_OFFSET.x, 
 		SHADOW_OFFSET.y, 
 		screenSize.x + SHADOW_OFFSET.x, 
-		screenSize.y / 3 + SHADOW_OFFSET.y,
+		screenSize.y / 4 + SHADOW_OFFSET.y,
 		SHADOW_COLOR, 
 		scale, 
 		font,
 		"center", 
 		"center"
 	)
-	dxDrawText(tostring(driftPoints), 0, 0, screenSize.x, screenSize.y / 3, color, scale, font, "center", "center")
+	dxDrawText(tostring(driftPoints), 0, 0, screenSize.x, screenSize.y / 4, color, scale, font, "center", "center")
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()

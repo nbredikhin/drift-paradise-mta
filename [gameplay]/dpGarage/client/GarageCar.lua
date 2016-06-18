@@ -183,6 +183,10 @@ function GarageCar.resetTuning()
 		end
 		GarageCar.applyTuning("WheelsSize", defaultWheelsSize)
 	end
+
+	if not currentTuningTable["Numberplate"] then
+		GarageCar.applyTuning("Numberplate", "DRIFT")
+	end
 end
 
 function GarageCar.getTuningTable()

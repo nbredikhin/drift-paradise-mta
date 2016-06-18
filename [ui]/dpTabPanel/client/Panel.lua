@@ -6,6 +6,7 @@ local itemColor = tocolor(42, 40, 41)
 local highlightedColor = tocolor(255, 255, 255)
 
 local panelWidth = 500
+local panelHeight
 local headerHeight = 50
 local itemHeight = 40
 
@@ -28,7 +29,7 @@ local scrollOffset = 0
 local function draw()
 	dxSetRenderTarget(renderTarget)
 	local w, h = 500, 50
-	local y = 30
+	local y = screenHeight / 2 - panelHeight / 2
 	local panelX = screenWidth / 2 - panelWidth / 2
 	dxDrawImage(screenWidth / 2 - logoWidth / 2, y, logoWidth, logoHeight, logoTexture)
 	y = y + logoHeight + 10
@@ -65,6 +66,9 @@ local function draw()
 end
 
 local function mouseDown()
+	if #playersList <= itemsCount then
+		return
+	end
 	scrollOffset = scrollOffset + 1
 	if scrollOffset > #playersList - itemsCount then
 		scrollOffset = #playersList - itemsCount + 1
@@ -72,6 +76,9 @@ local function mouseDown()
 end
 
 local function mouseUp()
+	if #playersList <= itemsCount then
+		return
+	end	
 	scrollOffset = scrollOffset - 1
 	if scrollOffset < 0 then
 		scrollOffset = 0
@@ -88,6 +95,7 @@ function Panel.start()
 	local textureWidth, textureHeight = dxGetMaterialSize(logoTexture)
 	logoWidth = 415
 	logoHeight = textureHeight * 415 / textureWidth	
+	panelHeight = logoHeight + 10 + headerHeight * 2 + itemsCount * itemHeight
 	highlightedColor = tocolor(exports.dpUI:getThemeColor())
 
 	playersList = {}

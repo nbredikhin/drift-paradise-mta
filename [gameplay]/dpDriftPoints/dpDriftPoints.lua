@@ -100,9 +100,9 @@ local function update(dt)
 		return
 	end
 
-	if isDriftingClose() then
-		--dxDrawText("NEAR DAMN WALL", 300, 100, 500, 500, 0xffff0000, 2, "pricedown")
-	end
+	-- if isDriftingClose() then
+	-- 	--dxDrawText("NEAR DAMN WALL", 300, 100, 500, 500, 0xffff0000, 2, "pricedown")
+	-- end
 	-- If drifting lasts long enough, then we add multiplier
 	if driftTimer > LONG_DRIFT_TIME then
 		driftTimer = 0
@@ -139,5 +139,5 @@ function DriftPoints.isPreventedByCollision()
 end
 
 function DriftPoints.isDriftingClose()
-	return isDriftingClose()
+	return false--isDriftingClose()
 end

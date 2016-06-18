@@ -212,6 +212,11 @@ function enablePhotoMode()
 	toggleAllControls(false)
 	addEventHandler("onClientPreRender", root, update)
 	addEventHandler("onClientCursorMove", root, onCursorMove)
+
+	PhotoModeHelp.start()
+	addEventHandler("onClientRender", root, PhotoModeHelp.draw)
+
+	playSound("sound.wav")
 end
 
 function disablePhotoMode()
@@ -235,6 +240,9 @@ function disablePhotoMode()
 
 	removeEventHandler("onClientPreRender", root, update)
 	removeEventHandler("onClientCursorMove", root, onCursorMove)
+
+	PhotoModeHelp.stop()
+	removeEventHandler("onClientRender", root, PhotoModeHelp.draw)
 end
 
 -- For debug purposes

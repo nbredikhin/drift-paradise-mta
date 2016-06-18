@@ -78,6 +78,7 @@
 	"chat_message_login_success": "Вы успешно вошли",
 	"chat_message_player_join": "Игрок %s присоединился к серверу",
 	"chat_message_player_quit": "Игрок %s вышел с сервера (%s)",	
+	"chat_adminsay_admin": "Администратор",
 
 	// Гараж
 	"garage_no_vehicle_error": "Вы должны находиться в машине, чтобы войти в гараж",

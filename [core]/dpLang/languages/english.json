@@ -79,6 +79,7 @@
 	"chat_message_login_success": "You have successfully logged in",
 	"chat_message_player_join": "Player %s has joined the server",
 	"chat_message_player_quit": "Player %s has left the server (%s)",
+	"chat_adminsay_admin": "Admin",
 
 	// Garage
 	"garage_no_vehicle_error": "You must be in a car to enter garage",

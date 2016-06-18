@@ -21,6 +21,7 @@
 	<export type="shared" function="removeHexFromString"/>
 	<export type="shared" function="RGBToHex"/>
 	<export type="shared" function="generateString"/>
+	<export type="shared" function="getPlayersByPartOfName"/>
 	<!-- Работа со временем -->
 	<export type="shared" function="isLeapYear"/>
 	<export type="shared" function="getTimestamp"/>

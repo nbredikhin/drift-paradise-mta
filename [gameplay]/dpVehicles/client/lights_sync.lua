@@ -57,18 +57,22 @@ addEventHandler("onClientPreRender", root, function (deltaTime)
 	deltaTime = deltaTime / 1000
 
 	for vehicle, animation in pairs(animateVehicles) do
-		local rotation = vehicle:getComponentRotation(LIGHTS_COMPONENT_NAME)
-		rotation = rotation + animation.direction * LIGHTS_ROTATION_SPEED * deltaTime
-		if animation.direction > 0 and rotation >= ANGLE_OPENED then
-			rotation = ANGLE_OPENED
+		if not isElement(vehicle) then
 			animateVehicles[vehicle] = nil
-			setVehicleOverrideLights(vehicle, animation.stateId)
-		elseif animation.direction < 0 and rotation <= ANGLE_CLOSED then
-			rotation = ANGLE_CLOSED
-			animateVehicles[vehicle] = nil
-			setVehicleOverrideLights(vehicle, animation.stateId)
+		else
+			local rotation = vehicle:getComponentRotation(LIGHTS_COMPONENT_NAME)
+			rotation = rotation + animation.direction * LIGHTS_ROTATION_SPEED * deltaTime
+			if animation.direction > 0 and rotation >= ANGLE_OPENED then
+				rotation = ANGLE_OPENED
+				animateVehicles[vehicle] = nil
+				setVehicleOverrideLights(vehicle, animation.stateId)
+			elseif animation.direction < 0 and rotation <= ANGLE_CLOSED then
+				rotation = ANGLE_CLOSED
+				animateVehicles[vehicle] = nil
+				setVehicleOverrideLights(vehicle, animation.stateId)
+			end
+			vehicle:setComponentRotation(LIGHTS_COMPONENT_NAME, rotation, 0, 0)
 		end
-		vehicle:setComponentRotation(LIGHTS_COMPONENT_NAME, rotation, 0, 0)
 	end
 end)
 
@@ -77,10 +81,7 @@ addEventHandler("onClientElementDataChange", root, function (name, oldVaue)
 		return
 	end
 	if name == LIGHTS_STATE_DATA then
-		local value = source:getData(LIGHTS_STATE_DATA)
-		if value ~= oldVaue then
-			updateVehicleLightsState(source)
-		end
+		updateVehicleLightsState(source)
 	end
 end)
 
@@ -88,6 +89,13 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	for i, vehicle in ipairs(getElementsByType("vehicle")) do
 		updateVehicleLightsState(vehicle)
 	end
+end)
+
+addEventHandler("onClientElementStreamedIn", root, function ()
+	if source.type ~= "vehicle" then
+		return
+	end
+	updateVehicleLightsState(source)
 end)
 
 bindKey("1", "down", function ()

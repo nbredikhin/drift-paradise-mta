@@ -215,6 +215,9 @@ function VehicleSpawn.spawn(vehicleId, position, rotation)
 
 	addUserSpawnedVehicle(vehicleInfo.owner_id, vehicle)
 	VehicleTuning.applyToVehicle(vehicle, vehicleInfo.tuning, vehicleInfo.stickers)
+
+	-- Выключить фары
+	vehicle:setData("LightsState", false)
 	return vehicle
 end
 

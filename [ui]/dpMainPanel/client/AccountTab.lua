@@ -37,7 +37,7 @@ function AccountTab.create()
 		alignX = "right"
 	}
 	UI:addChild(panel, moneyLabel)
-	UIDataBinder.bind(moneyLabelText, "money", function (value)
+	UIDataBinder.bind(moneyLabel, "money", function (value)
 		return "$" .. tostring(value)
 	end)	
 	-- Подпись

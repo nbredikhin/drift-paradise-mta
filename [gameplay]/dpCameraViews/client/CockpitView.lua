@@ -1,4 +1,5 @@
 CockpitView = {}
+local speedometerState = false
 local isActive = false
 
 -- Возможность смотреть назад
@@ -150,10 +151,10 @@ local function update(deltaTime)
 end
 
 local function updateShake(collider, force)
-	if force < 50 then
+	if force < 60 then
 		return false
 	end
-	local mul = math.max(math.min(10, force / 50), 0) 
+	local mul = math.max(math.min(10, force / 60), 0) 
 	cameraShakeX = cameraShakeX + SHAKE_AMOUNT * mul * 0.9
 	cameraShakeZ = cameraShakeZ + SHAKE_AMOUNT * mul * 0.2
 end
@@ -176,7 +177,8 @@ function CockpitView.start()
 	addEventHandler("onClientPreRender", root, update)
 	addEventHandler("onClientVehicleCollision", localPlayer.vehicle, updateShake)
 	addEventHandler("onClientCursorMove", root, onCursorMove)
-
+	exports.dpHUD:setSpeedometerVisible(false)
+	--speedometerState = exports.dpHUD:isSpeedometerVisible()
 	skipFrame = true
 	return true
 end
@@ -193,4 +195,6 @@ function CockpitView.stop()
 	if isElement(localPlayer.vehicle) then
 		removeEventHandler("onClientVehicleCollision", localPlayer.vehicle, updateShake)
 	end
+
+	exports.dpHUD:setSpeedometerVisible(true)
 end

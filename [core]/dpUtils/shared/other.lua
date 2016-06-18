@@ -52,3 +52,24 @@ function generateString(len)
     end
     return false
 end
+
+function getPlayersByPartOfName(namePart, caseSensitive)
+	if not namePart then
+		return
+	end
+	local players = getElementsByType("player")
+	if not caseSensitive then
+		namePart = string.lower(namePart)
+	end
+	local matchingPlayers = {}
+	for i, player in ipairs(players) do
+		local playerName = getPlayerName(player)
+		if not caseSensitive then
+			playerName = string.lower(playerName)
+		end
+		if string.find(playerName, namePart) then
+			table.insert(matchingPlayers, player)
+		end
+	end
+	return matchingPlayers
+end

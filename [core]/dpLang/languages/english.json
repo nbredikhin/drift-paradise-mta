@@ -13,6 +13,14 @@
 	"quit_reason_bad connection": "bad connection",
 	"quit_reason_timed out": "timed out",
 
+	// Tutorial
+	"beta_tutorial_1": "Hello",
+	"beta_tutorial_2": "Добро пожаловать на Drift Paradise!",
+	"beta_tutorial_2": "Welcome to Drift Paradise server!",
+	"beta_tutorial_3": "This project is still in development",
+	"beta_tutorial_4": "It's not a final version",
+	"beta_tutorial_5": "Good luck and have fun!",	
+
 	// PhotoMode
 	"photo_mode_help_roll": "Roll left/right",
 	"photo_mode_help_move": "Move",

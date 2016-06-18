@@ -11,11 +11,11 @@ local targetBackgroundAlpha = 255
 local backgroundAlpha = 255
 
 local strings = {
-	"Привет",
-	"Добро пожаловать на Drift Paradise!",
-	"Данный проект является незаконченным",
-	"Не стоит оценивать сервер по текущей версии",
-	"Желаем вам приятной игры",
+	"beta_tutorial_1",
+	"beta_tutorial_2",
+	"beta_tutorial_3",
+	"beta_tutorial_4",
+	"beta_tutorial_5",
 }
 
 local function showNextString()
@@ -54,7 +54,7 @@ addEventHandler("onClientRender", root, function()
 		return
 	end 
 	dxDrawRectangle(0, 0, screenSize.x, screenSize.y, tocolor(212, 0, 40, backgroundAlpha))
-	dxDrawText(strings[activeString], 0, 0, screenSize.x, screenSize.y, tocolor(255, 255, 255, alpha), scale, font, "center", "center")
+	dxDrawText(exports.dpLang:getString(strings[activeString]), 0, 0, screenSize.x, screenSize.y, tocolor(255, 255, 255, alpha), scale, font, "center", "center")
 
 	backgroundAlpha = backgroundAlpha + (targetBackgroundAlpha - backgroundAlpha) * 0.05
 	alpha = alpha + (targetAlpha - alpha) * 0.05

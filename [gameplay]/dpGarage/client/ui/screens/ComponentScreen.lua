@@ -57,14 +57,14 @@ end
 function ComponentScreen:show()
 	self.super:show()
 	if self.componentName == "FrontLights" or self.componentName == "RearLights" then
-		setVehicleOverrideLights(GarageCar.getVehicle(), 2)
+		GarageCar.getVehicle():setData("LightsState", true, false)
 	end
 end
 
 function ComponentScreen:hide()
 	self.super:hide()
 	self.menu:destroy()
-	setVehicleOverrideLights(GarageCar.getVehicle(), 1)
+	GarageCar.getVehicle():setData("LightsState", false, false)
 end
 
 function ComponentScreen:draw()

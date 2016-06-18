@@ -91,7 +91,7 @@ function GarageCar.start(vehicles)
 
 	addEventHandler("dpGarage.loaded", resourceRoot, updateVehicle)
 
-	setVehicleOverrideLights(vehicle, 1)
+	vehicle:setData("LightsState", false, false)
 end
 
 function GarageCar.stop()

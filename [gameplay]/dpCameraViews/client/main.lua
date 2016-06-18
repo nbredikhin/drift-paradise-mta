@@ -64,6 +64,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	if localPlayer.vehicle then
 		startCameraView(cameraViews[currentCameraViewIndex])
 	end
+	toggleControl("change_camera", false)
 end)
 
 addEventHandler("onClientResourceStop", resourceRoot, function ()

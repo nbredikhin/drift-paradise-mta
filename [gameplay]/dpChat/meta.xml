@@ -1,0 +1,6 @@
+<meta>
+	<oop>true</oop>
+
+	<script src="server/adminsay.lua"/>
+	<script src="client/messages.lua"/>
+</meta>

@@ -3,7 +3,7 @@ local START_SKINS = {15, 46, 96, 124}
 local START_VEHICLES = {411, 429, 600}
 
 local IS_BETA_TEST = true
-local BETA_VEHICLES = {411, 562, 429}
+local BETA_VEHICLES = {411, 562, 558}
 
 -- Вход игрока на сервер
 addEvent("dpCore.login", false)

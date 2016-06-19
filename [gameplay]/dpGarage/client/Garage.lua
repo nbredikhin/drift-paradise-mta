@@ -5,13 +5,18 @@ local sound
 
 -- Фоновая музыка
 local musicURLs = {
-	"http://online-song.net/mp3/1-15v4/48d4fae76f6d99/p5/L.A.+Rush+OST+%96+Y+all+Know+Who.mp3",
-	"http://online-song.net/mp3/6180v4/044a8af489ae/u174825389/audios/L.A.+Rush+OST+%96+Tipsy.mp3",
-	"http://online-song.net/mp3/1-50v4/04682bcb443fe2/p16/Lil+Jon+and+The+Eastside+Boyz+%96+Get+Low+%28NFS+Underground+OST%29.mp3",
-	"http://online-song.net/mp3/1-17v4/29c1f413630141/p4/Tiesto+vs.+Diplo+%96+C+Mon+%28Original+Mix%29.mp3",
-	"http://online-song.net/mp3/4764v4/2a6764222eec/u40282349/audios/Ice+Cube+feat.+Das+EFX+%96+Check+Yo+Self+%281992%29.mp3",
-	"http://online-song.net/mp3/422131v4/ab75d84b5ad7/u289060294/audios/Above+%26+Beyond+Feat.+Gemma+Hayes+%96+Counting+Down+The+Days+%28WYOMI+Remix%29.mp3",
-	"http://online-song.net/mp3/536103v4/f47e1e7015b4/u216317445/audios/Snoop+Dogg+%96+Riders+On+The+Storm.mp3"
+	"http://online-song.net/mp3/1-21v4/aaabda7058058a/p30/Twista+%28L.A.+Rush+OST%29+%96+Get+Me+%282004%29.mp3",
+	"http://online-song.net/mp3/536411v4/7d9c10c44e2c/u174825389/audios/L.A.+Rush+OST+%96+Thinkin+About+Ya.mp3",
+	"http://online-song.net/mp3/1-16v4/a05623b8046772/p14/L.A.+Rush+OST+%96+The+Jump+Off.mp3",
+	"http://online-song.net/mp3/6180v4/cd8a0d02ff52/u174825389/audios/L.A.+Rush+OST+%96+Tipsy.mp3",
+	"http://online-song.net/mp3/1-15v4/83b09133c5a76b/p5/L.A.+Rush+OST+%96+Y+all+Know+Who.mp3",
+	"http://online-song.net/mp3/1-46v4/cbce0b5a4a55ee/p22/Depeche+Mode+%96+Enjoy+The+Silence+%28Offsuit+Remix%29.mp3",
+	"http://online-song.net/mp3/536103v4/c9fc44ab6723/u31030093/audios/Marlon+Roudette+%96+When+The+Beat+Drops+Out.mp3",
+	"http://online-song.net/mp3/1-51v4/a585e81174fd09/p21/Rootkit+%96+Do+It.mp3",
+	"http://online-song.net/mp3/4651v4/b70d21cdad5d/u12541798/audios/Deadmau5+ft.+Kaskade+%96+I+Remember.mp3",
+	"http://online-song.net/mp3/4592v4/e210cf48318d/u23464125/audios/Snoop+Dog+f…oors+%96+Rider+on+the+storm+%28OST+Need+For+Speed+Underground+2+OST%29.mp3",
+	"http://online-song.net/mp3/1-36v4/8f045191ae2b0e/p14/Lil+Jon+ft+Eastside+Boys+%96+Get+low%28full+version%29.mp3",
+	"http://online-song.net/mp3/1-46v4/23608cdf9d84c9/p23/Coolio+%96+Gangsta+s+Paradise.mp3"
 }
 
 function Garage.start(vehicles, enteredVehicleId)

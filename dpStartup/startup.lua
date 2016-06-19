@@ -37,8 +37,8 @@ local startupResources = {
 	"dpTeleports",
 
 	-- World
-	"dpMap",
 	"dpMapfiles",
+	"dpMap",
 	"dpWelcomeGarage",
 
 	-- Admin

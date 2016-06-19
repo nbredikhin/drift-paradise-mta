@@ -1,4 +1,5 @@
 <meta>
 	<oop>true</oop>
 	<script type="server" src="build.lua"/>
+	<script type="server" src="encrypter.lua"/>
 </meta>

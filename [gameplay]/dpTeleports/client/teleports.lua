@@ -1,10 +1,13 @@
 local cityPosition = Vector3(1481.931, -1762.219, 13.063)
 local cityTeleports = {
-	Vector3 { x = 1584.047, y = -1731.884, z = 12.899 }
+	Vector3 { x = 5806.767, y = -2136.201, z = 1105.473 }
+}
+local mapsTeleports = {
+	primring = Vector3({x = 5808.703, y = -2120.563, z = 1105.933})
 }
 local isTeleporting = false
 
-local function teleportToCity()
+local function teleportPlayer(position)
 	if isTeleporting then
 		return
 	end
@@ -15,13 +18,29 @@ local function teleportToCity()
 	fadeCamera(false)
 	setTimer(function()
 		if localPlayer.vehicle and localPlayer.vehicle.controller == localPlayer then
-			localPlayer.vehicle.position = cityPosition
+			localPlayer.vehicle.position = position
 		else
-			localPlayer.position = cityPosition
+			localPlayer.position = position
 		end
 		fadeCamera(true)
 		isTeleporting = false
 	end, 1000, 1)
+end
+
+function teleportToMap(name)
+	if not name then
+		return false
+	end
+	if not mapsTeleports[name] then
+		return
+	end
+	teleportPlayer(mapsTeleports[name])
+	localPlayer:setData("activeMap", name)
+end
+
+local function teleportToCity()
+	teleportPlayer(cityPosition)
+	localPlayer:setData("activeMap", false)
 end
 
 addEvent("dpMarkers.enter", false)

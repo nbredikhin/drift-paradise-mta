@@ -232,3 +232,24 @@ function GarageCar.save()
 		vehicle:getData("stickers")
 	)
 end
+
+function GarageCar.getComponentsCount(name)
+	if not name then
+		return 0
+	end
+	if 	name == "Spoilers" or 
+		name == "Numberplate" or
+		name == "WheelsF" or
+		name == "WheelsR"
+	then
+		return 1
+	end	
+	local count = 0
+	for i = 1, 50 do
+		if not vehicle:getComponentPosition(name .. tostring(i)) then
+			return count
+		end
+		count = count + 1
+	end
+	return count
+end

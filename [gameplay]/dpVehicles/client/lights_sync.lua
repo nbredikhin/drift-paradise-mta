@@ -1,10 +1,10 @@
-local LIGHTS_COMPONENT_NAME = "lightsOpen"
+local LIGHTS_COMPONENT_NAME = "LightsOpen"
 local LIGHTS_STATE_DATA = "LightsState"
 -- Угол поворота открытых/закрытых фар
 local ANGLE_OPENED = 60
 local ANGLE_CLOSED = 0
 local overrideAngleOpened = {
-	[602] = 40
+	[562] = 40
 }
 -- Скорость открывания/закрывания фар
 local LIGHTS_ROTATION_SPEED = 60
@@ -32,6 +32,7 @@ local function updateVehicleLightsState(vehicle)
 	end
 	local components = vehicle:getComponents()
 	local hasComponent = components[LIGHTS_COMPONENT_NAME]
+
 	-- Если автомобиль находится рядом, запустить анимацию фар
 	if hasComponent and isElementStreamedIn(vehicle) then
 		-- Направление

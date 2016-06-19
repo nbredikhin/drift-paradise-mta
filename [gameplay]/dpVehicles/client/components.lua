@@ -47,7 +47,8 @@ local function updateVehicleTuningComponent(vehicle, componentName, forceId)
 			id = 0
 		end
 	end
-	return vehicle:setComponentVisible(componentName .. tostring(id), true)
+	vehicle:setComponentVisible(componentName .. tostring(id), true)
+	vehicle:setComponentVisible(componentName .. "Glass" .. tostring(id), true)
 end
 
 local function updateVehicleTuningUpgrade(vehicle, upgradeName)

@@ -82,6 +82,9 @@ function Panel.showTab(name)
 	currentTab = name
 	UI:setVisible(tabs[currentTab], true)
 	UI:setType(tabsButtons[currentTab], "primary")
+	if tabsHandlers[name] then
+		tabsHandlers[name]()
+	end	
 end
 
 function Panel.setVisible(visible)
@@ -108,6 +111,7 @@ function Panel.setVisible(visible)
 	UIDataBinder.setActive(visible)
 	showCursor(visible)
 	exports.dpUI:fadeScreen(visible)
+	Panel.showTab("account")
 end
 
 function Panel.isVisible()
@@ -133,4 +137,8 @@ end
 tabsHandlers.map = function ()
 	exports.dpWorldMap:setVisible(true)
 	Panel.setVisible(false)
+end
+
+tabsHandlers.teleport = function ()
+	TeleportTab.refresh()
 end

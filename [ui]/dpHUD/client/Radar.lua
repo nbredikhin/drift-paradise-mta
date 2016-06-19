@@ -70,7 +70,7 @@ local function drawBlips()
 			local x, y, z = getElementPosition(blip)
 			Radar.drawImageOnMap(
 				x, y, camera.rotation.z,
-				blipTextures[i],
+				blipTextures[blip.icon],
 				blipTextureSize, 
 				blipTextureSize
 			)
@@ -256,6 +256,9 @@ function Radar.setVisible(visible)
 end
 
 function Radar.drawImageOnMap(globalX, globalY, rotationZ, image, imgWidth, imgHeight, color)
+	if not image then
+		return
+	end
 	if not color then
 		color = tocolor(255, 255, 255)
 	end

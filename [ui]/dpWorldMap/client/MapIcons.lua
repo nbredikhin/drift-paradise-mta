@@ -26,8 +26,8 @@ local function drawPlayer(player)
 		end		
 		dxDrawText(
 			playerName, 
-			textX + 2, textY + 2, 
-			textX + 2, textY + 2, 
+			textX + 1, textY + 1, 
+			textX + 1, textY + 1, 
 			tocolor(0, 0, 0, 200 * cameraHeightMul), 
 			PLAYER_NAME_SCALE, 
 			"default", "center", "center"

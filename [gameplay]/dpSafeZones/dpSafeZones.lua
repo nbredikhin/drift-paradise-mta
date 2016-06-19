@@ -1,6 +1,8 @@
 local safeZonesList = {
 	-- Hotel
-	{Vector2( { x = 1841.980, y = -1334.551} ), Vector2( { x = 1775.478, y = -1447.706 })}
+	{Vector2( { x = 1841.980, y = -1334.551} ), Vector2( { x = 1775.478, y = -1447.706 })},
+	-- Мерия
+	{Vector2( { x = 1554.707, y = -1744.444} ), Vector2( { x = 1402.353, y = -1776.95 })},
 }
 
 local function createSafeZone(pos1, pos2)

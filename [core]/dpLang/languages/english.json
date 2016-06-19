@@ -5,6 +5,7 @@
 	"controls_mouse": "Mouse",
 	"controls_mouse_wheel": "Mouse wheel",
 	"price_free": "Free",
+	"skin_select_text": "Select your character",
 
 	"quit_reason_unknown": "disconnect",
 	"quit_reason_quit": "disconnect",
@@ -199,5 +200,6 @@
 	"main_panel_account_cars_count": "Cars in garage",
 
 	// Markers
-	"markers_garage_text": "Press %q to enter garage"
+	"markers_garage_text": "Press %q to enter garage",
+	"markers_city_text": "Press %q to teleport back to the city",
 }

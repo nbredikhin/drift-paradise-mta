@@ -5,6 +5,7 @@
 	"controls_mouse": "Мышь",
 	"controls_mouse_wheel": "Колесо мыши",
 	"price_free": "Бесплатно",
+	"skin_select_text": "Выберите персонажа",
 	
 	"quit_reason_unknown": "выход",
 	"quit_reason_quit": "выход",
@@ -198,5 +199,6 @@
 	"main_panel_account_cars_count": "Количество машин",
 
 	// Markers
-	"markers_garage_text": "Нажмите %q чтобы войти в гараж"
+	"markers_garage_text": "Нажмите %q чтобы войти в гараж",
+	"markers_city_text": "Нажмите %q чтобы телепортироваться в город",
 }

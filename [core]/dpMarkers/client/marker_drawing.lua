@@ -30,6 +30,13 @@ markerTypes.garage = {
 	string = "markers_garage_text"
 }
 
+markerTypes.city = {
+	color = {212, 0, 40},
+	icon = "assets/city_icon.png",
+	text = "assets/city_text.png",
+	string = "markers_city_text"
+}
+
 local function drawScreenText(text)
 	text = string.format(exports.dpLang:getString(text), string.upper(markerKey))
 	local yOffset = math.sin(getTickCount() * MARKER_ANIMATION_SPEED) * 5

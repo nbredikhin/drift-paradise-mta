@@ -5,8 +5,8 @@ local oldX, oldY, oldZ
 local wasOnCar
 local drawing = true
 
-local height = 1.6 -- как высоко над машиной будет камера
-local backOffset = -7 -- на сколько далеко камера будет распологаться от машины
+local height = 1.4 -- как высоко над машиной будет камера
+local backOffset = -6 -- на сколько далеко камера будет распологаться от машины
 local lookAtOffset = 3 -- как далеко вперед будет смотреть камера (высота камеры)
 
 local targetRotation = 0

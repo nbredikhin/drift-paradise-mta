@@ -9,4 +9,7 @@
 
 	<file src="assets/garage_icon.png"/>
 	<file src="assets/garage_text.png"/>
+
+	<file src="assets/city_icon.png"/>
+	<file src="assets/city_text.png"/>	
 </meta>

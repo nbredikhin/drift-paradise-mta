@@ -5,10 +5,11 @@ local screenSize = Vector2(guiGetScreenSize())
 function ConfigurationsScreen:init(componentName)
 	self.super:init()
 	self.componentsSelection = ComponentSelection({
-		{name="Suspension", 	camera="suspension", 		locale="garage_tuning_config_suspension"},
+		--{name="Suspension", 	camera="suspension", 		locale="garage_tuning_config_suspension"},
+		{name="WheelsSize", 	camera="wheelsSize", 		locale="garage_tuning_config_wheels_size"},
 		{name="FrontWheels", 	camera="wheelsOffsetFront", locale="garage_tuning_config_front_wheels"},
 		{name="RearWheels", 	camera="wheelsOffsetRear", 	locale="garage_tuning_config_rear_wheels"},
-		{name="WheelsSize", 	camera="wheelsSize", 		locale="garage_tuning_config_wheels_size"},
+		
 	})
 	if componentName then
 		self.componentsSelection:showComponentByName(componentName)

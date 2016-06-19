@@ -34,6 +34,7 @@ local startupResources = {
 	"dpVehicleSelect",
 	"dpCameraViews",
 	"dpStripClub",
+	"dpTeleports",
 
 	-- World
 	"dpMap",

@@ -1,4 +1,5 @@
 SkinSelect = {}
+local screenSize = Vector2(guiGetScreenSize())
 local DIMENSION = 1000
 
 local skinsList = {
@@ -20,6 +21,9 @@ local targetRotation = 0
 local POSITION_LEFT = Vector3 { x = 1634.956, y = -1529.954, z = 13.615 }
 local POSITION_RIGHT = Vector3 { x = 1641.183, y = -1524.967, z = 13.582 }
 
+local font
+local screenText
+
 local function getAngleBetweenPoints(p1, p2)
 	local xDiff = p2.x - p1.x
 	local yDiff = p2.y - p1.y
@@ -30,7 +34,7 @@ local function update()
 	local shakeY = math.sin(getTickCount() / 740) * (math.sin(getTickCount() / 300) + 1) * 0.008
 	local shakeZ = math.sin(getTickCount() / 430) * (math.cos(getTickCount() / 600) + 1) * 0.01
 	local offset = Vector3(0, shakeY, shakeZ) 
-	Camera.setMatrix(CAMERA_POSITION - offset / 4, PED_POSITION + offset, 0, 35)
+	Camera.setMatrix(CAMERA_POSITION - offset / 4, PED_POSITION + offset + Vector3(0, 0, 0.2), 0, 37)
 
 	if currentState == "walk" and getDistanceBetweenPoints2D(pedLeft.position, PED_POSITION) < 0.05 then
 		pedLeft.position = PED_POSITION
@@ -89,15 +93,20 @@ local function onKey(key, state)
 	end
 end
 
+local function draw()
+	dxDrawText(screenText, 0, 0, screenSize.x, screenSize.y / 4, tocolor(255, 255, 255, alpha), 1, font, "center", "center")
+end
+
 function SkinSelect.enter()
 	if isElement(pedLeft) then
 		return
 	end	
 	vehicle = Vehicle(
-		411, 
+		558, 
 		Vector3 { x = 1636.110, y = -1525.063, z = 13.330 }, 
 		Vector3 { x = 0.160, y = 359.829, z = 143.062 }
 	)
+	vehicle:setData("BodyColor", {212, 0, 40})
 	vehicle.frozen = true
 	vehicle.dimension = DIMENSION
 	pedLeft = Ped(skinsList[2], POSITION_LEFT, PED_ROTATION + 90)
@@ -112,11 +121,14 @@ function SkinSelect.enter()
 	fadeCamera(true, 2)
 
 	addEventHandler("onClientPreRender", root, update)
+	addEventHandler("onClientRender", root, draw, true, "high+10")
 	addEventHandler("onClientKey", root, onKey)
 
 	localPlayer.dimension = DIMENSION
-
+	font = exports.dpAssets:createFont("Roboto-Regular.ttf", 36)
+	screenText = exports.dpLang:getString("skin_select_text")
 	showChat(false)
+	localPlayer:setData("activeUI", "skinSelect", false)
 end
 
 function SkinSelect.exit()
@@ -129,11 +141,13 @@ function SkinSelect.exit()
 
 	fadeCamera(false, 1)
 	removeEventHandler("onClientPreRender", root, update)
+	removeEventHandler("onClientRender", root, draw)
 	removeEventHandler("onClientKey", root, onKey)
 
 	localPlayer.dimension = 0
 
 	showChat(true)
+	localPlayer:setData("activeUI", "skinSelect", true)
 end
 
 addEvent("dpSkinSelect.start", true)

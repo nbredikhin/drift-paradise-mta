@@ -1,8 +1,11 @@
-local LIGHTS_COMPONENT_NAME = "misc_a"
+local LIGHTS_COMPONENT_NAME = "lightsOpen"
 local LIGHTS_STATE_DATA = "LightsState"
 -- Угол поворота открытых/закрытых фар
 local ANGLE_OPENED = 60
 local ANGLE_CLOSED = 0
+local overrideAngleOpened = {
+	[602] = 40
+}
 -- Скорость открывания/закрывания фар
 local LIGHTS_ROTATION_SPEED = 60
 -- Автомобили, которые должны быть анимированы
@@ -19,6 +22,9 @@ local function updateVehicleLightsState(vehicle)
 	local angle = ANGLE_CLOSED
 	if state then
 		angle = ANGLE_OPENED
+		if overrideAngleOpened[vehicle.model] then
+			angle = overrideAngleOpened[vehicle.model]
+		end
 	end	
 	local stateId = 1
 	if state then
@@ -62,12 +68,12 @@ addEventHandler("onClientPreRender", root, function (deltaTime)
 		else
 			local rotation = vehicle:getComponentRotation(LIGHTS_COMPONENT_NAME)
 			rotation = rotation + animation.direction * LIGHTS_ROTATION_SPEED * deltaTime
-			if animation.direction > 0 and rotation >= ANGLE_OPENED then
-				rotation = ANGLE_OPENED
+			if animation.direction > 0 and rotation >= animation.targetAngle then
+				rotation = animation.targetAngle
 				animateVehicles[vehicle] = nil
 				setVehicleOverrideLights(vehicle, animation.stateId)
-			elseif animation.direction < 0 and rotation <= ANGLE_CLOSED then
-				rotation = ANGLE_CLOSED
+			elseif animation.direction < 0 and rotation <= animation.targetAngle then
+				rotation = animation.targetAngle
 				animateVehicles[vehicle] = nil
 				setVehicleOverrideLights(vehicle, animation.stateId)
 			end
@@ -96,8 +102,4 @@ addEventHandler("onClientElementStreamedIn", root, function ()
 		return
 	end
 	updateVehicleLightsState(source)
-end)
-
-bindKey("1", "down", function ()
-	localPlayer.vehicle:setData("LightsState", not localPlayer.vehicle:getData("LightsState"), false)
 end)

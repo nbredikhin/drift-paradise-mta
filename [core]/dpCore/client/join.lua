@@ -8,3 +8,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	setTime(12, 0)
 	setMinuteDuration(60000 * 60 * 24)
 end)
+
+addEventHandler("onClientPlayerSpawn", localPlayer, function ()
+	exports.dpHUD:showAll()
+end)

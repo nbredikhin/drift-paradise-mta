@@ -47,7 +47,6 @@ local function updateVehicle()
 	-- Разморозка машины на 1 сек
 	vehicle.frozen = false
 	vehicle.velocity = Vector3(0, 0, -0.01)
-	vehicle.velocity = Vector3(0, 0, 0.02)
 	vehicle.position = CAR_POSITION
 	if isTimer(unfreezeTimer) then killTimer(unfreezeTimer) end
 	unfreezeTimer = setTimer(function ()

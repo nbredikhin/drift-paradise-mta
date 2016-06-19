@@ -11,6 +11,7 @@ local CHUNKS_COUNT = 12
 local SCALE_FACTOR = 2
 local arrowSize = 25
 local playerTextureSize = 25
+local blipTextureSize = 32
 
 local maskShader
 local renderTarget
@@ -30,6 +31,8 @@ local chunkRenderSize -- Обновляется каждый кадр
 local chunksTextures = {}
 
 local players = {}
+local blips = {}
+local allowedIcons = {[27] = true, [21] = true}
 
 local function drawRadarChunk(x, y, chunkX, chunkY)
 	local chunkID = chunkX + chunkY * CHUNKS_COUNT
@@ -57,6 +60,20 @@ local function drawRadarSection(x, y)
 	drawRadarChunk(x, y, chunkX - 1, chunkY + 1)
 	drawRadarChunk(x, y, chunkX, chunkY + 1)
 	drawRadarChunk(x, y, chunkX + 1, chunkY + 1)
+end
+
+local function drawBlips()
+	for i,blip in ipairs(getElementsByType("blip")) do
+		if allowedIcons[blip.icon] then
+			local x, y, z = getElementPosition(blip)
+			Radar.drawImageOnMap(
+				x, y, camera.rotation.z,
+				"assets/textures/radar/icons/" .. blip.icon .. ".png", 
+				blipTextureSize, 
+				blipTextureSize
+			)
+		end
+	end
 end
 
 local function drawPlayers()
@@ -94,6 +111,11 @@ local function drawRadar()
 		color = tocolor(255, 255, 255)
 	    end
 	end
+	-- Пример использования:
+	-- Radar.drawImageOnMap(700, 900, 0, arrowTexture, 
+		-- arrowSize, arrowSize, 
+		-- tocolor(16, 160, 207))
+
 	dxDrawImage(
 		(width - arrowSize) / 2, 
 		(height - arrowSize) / 2, 
@@ -104,13 +126,9 @@ local function drawRadar()
 		0,
 		0,
 		color
-	)
-	-- Пример использования:
-	-- Radar.drawImageOnMap(700, 900, 0, arrowTexture, 
-		-- arrowSize, arrowSize, 
-		-- tocolor(16, 160, 207))
+	)	
 
-	drawPlayers()
+	drawBlips()
 end
 
 addEventHandler("onClientRender", root, function ()
@@ -155,13 +173,17 @@ end)
 addEventHandler("onClientElementStreamIn", root, function()
 	if source.type == "player" then
 		players[source] = true
-	end 
+	elseif source.type == "blip" then
+		blips[source] = true
+	end
 end)
 
 addEventHandler("onClientElementStreamOut", root, function()
 	if source.type == "player" then
 		players[source] = nil
-	end 
+	elseif source.type == "blip" then
+		blips[source] = nil
+	end	
 end)
 
 addEventHandler("onClientPlayerJoin", root, function()
@@ -194,12 +216,20 @@ function Radar.start()
 	camera = getCamera()
 	arrowTexture = DxTexture("assets/textures/radar/arrow.png")
 	playerTexture = DxTexture("assets/textures/radar/arrow.png")
+
 	players = {}
 	for i,v in ipairs(getElementsByType("player")) do
 		if isElementStreamedIn(v) then 
 			players[v] = true
 		end
 	end
+
+	-- blips = {}
+	-- for i,v in ipairs(getElementsByType("blip")) do
+	-- 	if isElementStreamedIn(v) then 
+	-- 		blips[v] = true
+	-- 	end
+	-- end	
 end
 
 function Radar.setRotation(x, y, z)
@@ -220,6 +250,9 @@ function Radar.setVisible(visible)
 end
 
 function Radar.drawImageOnMap(globalX, globalY, rotationZ, image, imgWidth, imgHeight, color)
+	if not color then
+		color = tocolor(255, 255, 255)
+	end
 	local relativeX, relativeY = localPlayer.position.x - globalX,
 								 localPlayer.position.y - globalY
 	local mapX, mapY = 	relativeX / 6000 * WORLD_SIZE * scale / SCALE_FACTOR, 

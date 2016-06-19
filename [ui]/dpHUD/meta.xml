@@ -11,6 +11,7 @@
 	<script type="client" src="client/exports.lua"/>
 
 	<export type="client" function="setVisible"/>
+	<export type="client" function="showAll"/>
 	<export type="client" function="setRadarVisible"/>
 	<export type="client" function="setSpeedometerVisible"/>
 
@@ -31,6 +32,9 @@
 	<file src="assets/textures/radar/map.png"/>
 	<file src="assets/textures/radar/arrow.png"/>
 	<file src="assets/textures/radar/mask.png"/>
+
+	<file src="assets/textures/radar/icons/27.png"/>
+	<file src="assets/textures/radar/icons/21.png"/>
 
 	<file src="assets/textures/radar/map/radar0.png"/>
 	<file src="assets/textures/radar/map/radar1.png"/>

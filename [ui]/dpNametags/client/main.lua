@@ -61,24 +61,33 @@ local function showPlayer(player)
 	return true
 end
 
-addEventHandler("onClientElementStreamedIn", root, function ()
+addEventHandler("onClientElementStreamIn", root, function ()
 	if source.type == "player" then
 		showPlayer(source)
 	end
 end)
 
-addEventHandler("onClientElementStreamedOut", root, function ()
+addEventHandler("onClientElementStreamOut", root, function ()
 	if source.type == "player" then
-		streamedPlayers[source] = false
+		streamedPlayers[source] = nil
 	end
 end)
 
 addEventHandler("onClientPlayerQuit", root, function ()
-	streamedPlayers[source] = false
+	streamedPlayers[source] = nil
 end)
 
 addEventHandler("onClientPlayerJoin", root, function ()
+	if isElementStreamedIn(source) then
+		showPlayer(source)
+	end
 	setPlayerNametagShowing(source, false)
+end)
+
+addEventHandler("onClientPlayerSpawn", root, function ()
+	if isElementStreamedIn(source) then
+		showPlayer(source)
+	end
 end)
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
@@ -86,6 +95,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		if isElementStreamedIn(player) then
 			showPlayer(player)
 		end
+		setPlayerNametagShowing(player, false)
 	end
 
 	-- local ped = createPed(0, Vector3{ x = 1698.612, y = -1594.151, z = 13.377})

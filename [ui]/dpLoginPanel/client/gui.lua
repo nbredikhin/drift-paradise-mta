@@ -17,7 +17,7 @@ local KEY_REGEXP = "^[A-Za-z0-9_]$"
 local function draw()
 	animationProgress = math.min(1, animationProgress + ANIMATION_SPEED)
 	dxDrawImage(0, 0, backgroundWidth, backgroundHeight, backgroundTexture, 0, 0, 0, tocolor(255, 255, 255, 255 * animationProgress))
-	dxDrawText("Drift Paradise 2.0 Development Version", 3, screenHeight - 14, 3, screenHeight - 14, tocolor(255, 255, 255, 100 * animationProgress))
+	dxDrawText("Drift Paradise 2.0 Beta Version", 3, screenHeight - 14, 3, screenHeight - 14, tocolor(255, 255, 255, 100 * animationProgress))
 	if not root:getData("dbConnected") then
 		dxDrawText("The server is currently not available.\nСервер на данный момент недоступен.", 
 			0,
@@ -70,7 +70,7 @@ function setVisible(visible)
 	if HIDE_CHAT then
 		showChat(not visible)
 	end
-	exports.dpHUD:setVisible(not visible)
+	exports.dpHUD:setVisible(false)
 
 	UI:setVisible(loginPanel.panel, visible)
 	UI:setVisible(registerPanel.panel, false)

@@ -18,7 +18,7 @@ DatabaseConfig = {
 
 	-- Auth
 	username = "root",
-	password = "",
+	password = "ZcsQF72L7E9y2xnD",
 
 	options = {
 		autoreconnect = 1		

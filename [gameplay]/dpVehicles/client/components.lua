@@ -31,6 +31,7 @@ local function updateVehicleTuningComponent(vehicle, componentName, forceId)
 	while i <= 20 do
 		local name = componentName .. tostring(i)		
 		vehicle:setComponentVisible(name, false)
+		vehicle:setComponentVisible(componentName .. "Glass" .. tostring(i), false)
 		if i > 0 and not vehicle:getComponentPosition(name) then
 			break
 		end

@@ -1,5 +1,12 @@
 local states = {}
 
+function showAll()
+	Radar.setVisible(true)
+	Speedometer.setVisible(true)
+	states.radar = true
+	states.speedometer = true
+end
+
 function setVisible(visible)
 	if not visible then
 		states.radar = Radar.visible

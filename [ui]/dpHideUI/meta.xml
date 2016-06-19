@@ -1,0 +1,5 @@
+<meta>
+	<info name="Recording tool" description="Hides all elements on your screen" author="Speed" type="script" version="0.8.3" build="02Apr12"/>
+
+	<script src="main_c.lua" type="client"/>
+</meta>

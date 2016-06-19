@@ -68,7 +68,7 @@ function Garage.stop()
 	Assets.stop()
 	exports.dpGameTime:restoreTime()
 	showChat(true)
-	exports.dpHUD:setVisible(true)
+	exports.dpHUD:showAll()
 	if isElement(sound) then
 		removeEventHandler("onClientSoundStopped", resourceRoot, Garage.playRandomMusic)
 		destroyElement(sound)

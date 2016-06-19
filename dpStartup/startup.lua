@@ -16,6 +16,7 @@ local startupResources = {
 	"dpHUD",
 	"dpWorldMap",
 	"dpNametags",
+	"dpHideUI",
 
 	"dpLoginPanel",
 	"dpMainPanel",
@@ -26,13 +27,16 @@ local startupResources = {
 	"dpMarkers",
 	"dpPhotoMode",
 	"dpDriftPoints",
+	"dpSafeZones",
 	"dpHouses",
 	"dpGarage",
 	"dpSkinSelect",
 	"dpVehicleSelect",
 	"dpCameraViews",
+
 	-- World
 	"dpMap",
+	"dpMapfiles",
 	"dpWelcomeGarage",
 
 	-- Admin

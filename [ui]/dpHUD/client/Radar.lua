@@ -33,6 +33,8 @@ local chunksTextures = {}
 local players = {}
 local blips = {}
 local allowedIcons = {[27] = true, [21] = true}
+local blipTextures = {}
+
 
 local function drawRadarChunk(x, y, chunkX, chunkY)
 	local chunkID = chunkX + chunkY * CHUNKS_COUNT
@@ -68,7 +70,7 @@ local function drawBlips()
 			local x, y, z = getElementPosition(blip)
 			Radar.drawImageOnMap(
 				x, y, camera.rotation.z,
-				"assets/textures/radar/icons/" .. blip.icon .. ".png", 
+				blipTextures[i],
 				blipTextureSize, 
 				blipTextureSize
 			)
@@ -216,6 +218,10 @@ function Radar.start()
 	camera = getCamera()
 	arrowTexture = DxTexture("assets/textures/radar/arrow.png")
 	playerTexture = DxTexture("assets/textures/radar/arrow.png")
+
+	for k,v in pairs(allowedIcons) do
+		blipTextures[k] = dxCreateTexture("assets/textures/radar/icons/" .. k .. ".png")
+	end	
 
 	players = {}
 	for i,v in ipairs(getElementsByType("player")) do

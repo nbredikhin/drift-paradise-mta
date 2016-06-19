@@ -1,16 +1,29 @@
 MapIcons = {}
-local ICON_SIZE = 20
-local PLAYER_NAME_OFFSET = 10
-local PLAYER_NAME_SCALE = 1.8
+local PLAYER_ICON_SIZE = 17
+local PLAYER_NAME_OFFSET = 6
+local PLAYER_NAME_SCALE = 1.5
+
+local BLIP_SIZE = 20
+local BLIP_NAME_OFFSET = 10
+local BLIP_NAME_SCALE = 1.9
 local textures = {}
 local cameraHeightMul = 0
 local themePrimaryColor = {255, 255, 255}
 
-local function drawPlayerIcon(playerName, x, y, z, rotation)
+local function drawPlayer(player)
+	local x, y, z = getElementPosition(player)
 	x, y, z = MapWorld.convertPositionToMap(x, y, z)
 	x, y = getScreenFromWorldPosition(x, y, z)
 	if x then
-		local textX, textY = x, y - ICON_SIZE - PLAYER_NAME_OFFSET
+		local playerName = exports.dpUtils:removeHexFromString(player.name)
+		local textX, textY = x, y - PLAYER_ICON_SIZE - PLAYER_NAME_OFFSET
+		local r, g, b = themePrimaryColor[1], themePrimaryColor[2], themePrimaryColor[3]
+		if player.vehicle then
+			local color = player.vehicle:getData("BodyColor")
+			if color then 
+				r, g, b = unpack(color)
+			end
+		end		
 		dxDrawText(
 			playerName, 
 			textX + 2, textY + 2, 
@@ -23,27 +36,71 @@ local function drawPlayerIcon(playerName, x, y, z, rotation)
 			playerName, 
 			textX, textY, 
 			textX, textY, 
-			tocolor(themePrimaryColor[1], themePrimaryColor[2], themePrimaryColor[3], 255 * cameraHeightMul), 
+			tocolor(r, g, b, 255 * cameraHeightMul), 
 			PLAYER_NAME_SCALE, 
 			"default", "center", "center"
 		)
+		-- Стрелка
 		dxDrawImage(
-			x - ICON_SIZE / 2, 
-			y - ICON_SIZE / 2, 
-			ICON_SIZE, ICON_SIZE, 
+			x - PLAYER_ICON_SIZE / 2, 
+			y - PLAYER_ICON_SIZE / 2, 
+			PLAYER_ICON_SIZE, PLAYER_ICON_SIZE, 
 			textures.player, 
+			player.rotation.z, 0, 0,
+			tocolor(r, g, b, 255 - 255 * cameraHeightMul)
+		)
+		-- Круг
+		dxDrawImage(
+			x - PLAYER_ICON_SIZE / 2, 
+			y - PLAYER_ICON_SIZE / 2, 
+			PLAYER_ICON_SIZE, PLAYER_ICON_SIZE, 
+			textures.blip, 
 			0, 0, 0,
-			tocolor(themePrimaryColor[1], themePrimaryColor[2], themePrimaryColor[3])
+			tocolor(r, g, b, 255 * cameraHeightMul)
+		)		
+	end
+end
+
+local function drawBlip(blip)
+	local x, y, z = getElementPosition(blip)
+	x, y, z = MapWorld.convertPositionToMap(x, y, z)
+	x, y = getScreenFromWorldPosition(x, y, z)
+	if x then
+		local textX, textY = x, y - BLIP_SIZE - BLIP_NAME_OFFSET
+		local blipText = blip:getData("text")
+		if blipText then
+			blipText = exports.dpLang:getString(blipText)
+			dxDrawText(
+				blipText, 
+				textX + 1, textY + 1, 
+				textX + 1, textY + 1, 
+				tocolor(0, 0, 0, 200 * cameraHeightMul), 
+				BLIP_NAME_SCALE, 
+				"default", "center", "center"
+			)		
+			dxDrawText(
+				blipText, 
+				textX, textY, 
+				textX, textY, 
+				tocolor(255, 255, 255, 255 * cameraHeightMul), 
+				BLIP_NAME_SCALE, 
+				"default", "center", "center"
+			)
+		end
+		dxDrawImage(
+			x - BLIP_SIZE / 2, 
+			y - BLIP_SIZE / 2, 
+			BLIP_SIZE, BLIP_SIZE, 
+			textures.blip, 
+			0, 0, 0,
+			tocolor(255, 255, 255)
 		)
 	end
 end
 
-local function drawBlip()
-
-end
-
 function MapIcons.start()
 	textures.player = dxCreateTexture("assets/icons/player.png")
+	textures.blip = dxCreateTexture("assets/icons/blip.png")
 	themePrimaryColor = {exports.dpUI:getThemeColor()}
 end
 
@@ -67,6 +124,11 @@ function MapIcons.draw()
 	-- Иконки игроков
 	for i, player in ipairs(getElementsByType("player")) do
 		local pos = player.position
-		drawPlayerIcon(exports.dpUtils:removeHexFromString(player.name), pos.x, pos.y, pos.z, player.rotation.z)
+		drawPlayer(player)
+	end
+
+	-- Блипы
+	for i, blip in ipairs(getElementsByType("blip")) do
+		drawBlip(blip)
 	end
 end

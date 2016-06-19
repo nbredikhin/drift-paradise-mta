@@ -5,3 +5,4 @@ addEvent("dpMarkers.enter", false)
 addEventHandler("dpMarkers.enter", garageMarker, enterGarage)
 
 local garageBlip = createBlip(Vector3 { x = 1823.5, y = -1412, z = 12.6 }, 27)
+garageBlip:setData("text", "blip_garage")

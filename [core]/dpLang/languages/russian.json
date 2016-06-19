@@ -44,6 +44,8 @@
 
 	// World map
 	"world_map_help_text": "%s - управление камерой, %s - приблизить/отдалить, %s - выход",
+	"blip_garage": "Гараж",
+	"blip_strip_club": "Стрип клуб",
 
 	// Tab panel
 	"tab_panel_column_id": "ID",

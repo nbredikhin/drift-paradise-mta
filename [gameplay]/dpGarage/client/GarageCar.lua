@@ -10,7 +10,7 @@ local currentVehicle = 1
 local currentTuningTable = {}
 
 -- Время, на которое размораживается машина при смене модели
-local VEHICLE_UNFREEZE_TIME = 500
+local VEHICLE_UNFREEZE_TIME = 600
 local unfreezeTimer
 
 -- Дата, которая округляется при сохранении

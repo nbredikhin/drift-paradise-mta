@@ -45,6 +45,8 @@
 
 	// World map
 	"world_map_help_text": "%s - move camera, %s - zoom in/out, %s - exit",
+	"blip_garage": "Garage",
+	"blip_strip_club": "Strip club",
 
 	// Tab panel
 	"tab_panel_column_id": "ID",

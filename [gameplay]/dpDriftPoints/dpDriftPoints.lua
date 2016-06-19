@@ -69,6 +69,9 @@ local function update(dt)
 	if not isElement(localPlayer.vehicle) then
 		return
 	end
+	if localPlayer.vehicle.controller ~= localPlayer then
+		return
+	end
 
 	if not localPlayer.vehicle:isOnGround() then
 		return

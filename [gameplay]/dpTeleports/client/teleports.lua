@@ -1,4 +1,4 @@
-local cityPosition = Vector3(1481.931, -1762.219, 13.063)
+local cityPosition = Vector3(1467.486, -1749.974, 13.147)
 local cityTeleports = {
 	Vector3 { x = 5806.767, y = -2136.201, z = 1105.473 }
 }

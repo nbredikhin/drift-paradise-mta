@@ -147,7 +147,7 @@ function SkinSelect.exit()
 	localPlayer.dimension = 0
 
 	showChat(true)
-	localPlayer:setData("activeUI", "skinSelect", true)
+	localPlayer:setData("activeUI", false, true)
 end
 
 addEvent("dpSkinSelect.start", true)

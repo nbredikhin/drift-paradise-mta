@@ -96,4 +96,7 @@ function Garage.playRandomMusic(reason)
 		destroyElement(sound)
 	end
 	sound = playSound(musicURLs[math.random(1, #musicURLs)], false)
+	sound:setEffectEnabled("reverb", true)
+	sound.volume = 0.08
+	sound.maxDistance = 50	
 end

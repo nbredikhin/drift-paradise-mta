@@ -26,7 +26,7 @@ function ComponentScreen:init(name)
 	local menuInfo = menuInfos[name]
 	local items = {}
 	local itemName = exports.dpLang:getString(menuInfo.item_locale)
-	for i = 1, TuningConfig.getComponentsCount(self.vehicle.model, self.componentName) do
+	for i = 1, TuningConfig.getComponentsCount(self.vehicle.model, self.componentName) + 1 do
 		local componentConfig = TuningConfig.getComponentConfig(self.vehicle.model, self.componentName, i - 1)
 		-- Обновить цену
 		local price = componentConfig.price

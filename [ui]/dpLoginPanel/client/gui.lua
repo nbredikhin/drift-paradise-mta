@@ -150,7 +150,6 @@ local function createLoginPanel()
 		width = 450,
 		height = 50,
 		type = "dark",
-		forceRegister = "lower",
 		locale = "login_panel_username_label"
 	})
 	UI:addChild(panel, usernameInput)

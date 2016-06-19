@@ -6,11 +6,11 @@ addCommandHandler("unlockserver", function (player)
 	-- Снять пароль с сервера
 	setServerPassword(nil)
 
-	local slots = 5
+	local slots = 10
 	setMaxPlayers(slots)
 	setTimer(function()
 		slots = slots + 1
 		setMaxPlayers(slots)
-	end, 1000, 195)
+	end, 1000, 990)
 	outputChatBox("Запуск игроков на сервер...", root, 0, 255, 0)
 end)

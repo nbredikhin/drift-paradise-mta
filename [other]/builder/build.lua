@@ -22,7 +22,7 @@ local ENCRYPT_PNG_PATHS = true
 -- Объединить все скрипты в один файл
 local SCRIPTS_SINGLE_FILE = true
 
-local RESOURCES_TO_BUILD = {dpBeta = true}
+local RESOURCES_TO_BUILD = false--{dpCore = true}
 
 local function loadFile(path, count)
 	local file = fileOpen(path)

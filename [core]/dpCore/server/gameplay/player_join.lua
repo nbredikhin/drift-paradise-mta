@@ -1,9 +1,6 @@
 -- Начальные скины
 local START_SKINS = {15, 46, 96}
-local START_VEHICLES = {411, 429, 600}
-
-local IS_BETA_TEST = true
-local BETA_VEHICLES = {411, 602, 558}
+local START_VEHICLES = {411, 602, 558}
 
 -- Вход игрока на сервер
 addEvent("dpCore.login", false)
@@ -33,24 +30,16 @@ addEventHandler("dpSkinSelect.selected", root, function (skin)
 	client:setData("skin", START_SKINS[skin])
 	client.model = START_SKINS[skin]
 
-	if IS_BETA_TEST then
-		-- Дать игроку автомобили для збт
-		for i, model in ipairs(BETA_VEHICLES) do
-			UserVehicles.addVehicle(client:getData("_id"), model, function(success) end)
+	-- Переход к выбору автомобиля
+	local player = client
+	UserVehicles.getVehiclesIds(client:getData("_id"), function(vehicles)
+		if type(vehicles) == "table" and #vehicles > 0 then
+			PlayerSpawn.spawn(player)
+		else
+			triggerClientEvent(player, "dpVehicleSelect.start", resourceRoot, START_VEHICLES)
+			player:setData("dpCore.state", "vehicleSelect")
 		end
-		PlayerSpawn.spawn(client)
-	else
-		-- Переход к выбору автомобиля
-		local player = client
-		UserVehicles.getVehiclesIds(client:getData("_id"), function(vehicles)
-			if type(vehicles) == "table" and #vehicles > 0 then
-				PlayerSpawn.spawn(player)
-			else
-				triggerClientEvent(player, "dpVehicleSelect.start", resourceRoot, START_VEHICLES)
-				player:setData("dpCore.state", "vehicleSelect")
-			end
-		end)
-	end
+	end)
 end)
 
 -- Выбор стартового автомобиля

@@ -10,6 +10,7 @@ addEventHandler("onPlayerJoin", root, function ()
 		if not isElement(players[i]) then
 			players[i] = source
 			source.id = i
+			return
 		end 
 	end
  end)

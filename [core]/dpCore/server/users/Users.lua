@@ -3,7 +3,7 @@ Users = {}
 local AUTOSAVE_INTERVAL = 3 
 local USERS_TABLE_NAME = "users"
 local PASSWORD_SECRET = "s9abBUIg090j21aASGzc90avj1l"
-local BETA_KEY_CHECK_ENABLED = true
+local BETA_KEY_CHECK_ENABLED = false
 
 function Users.setup()
 	DatabaseTable.create(USERS_TABLE_NAME, {

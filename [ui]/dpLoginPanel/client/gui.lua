@@ -17,7 +17,7 @@ local KEY_REGEXP = "^[A-Za-z0-9_]$"
 local function draw()
 	animationProgress = math.min(1, animationProgress + ANIMATION_SPEED)
 	dxDrawImage(0, 0, backgroundWidth, backgroundHeight, backgroundTexture, 0, 0, 0, tocolor(255, 255, 255, 255 * animationProgress))
-	dxDrawText("Drift Paradise 2.0 Beta Version", 3, screenHeight - 14, 3, screenHeight - 14, tocolor(255, 255, 255, 100 * animationProgress))
+	dxDrawText("Drift Paradise 2.0 Development Version", 3, screenHeight - 14, 3, screenHeight - 14, tocolor(255, 255, 255, 100 * animationProgress))
 	if not root:getData("dbConnected") then
 		dxDrawText("The server is currently not available.\nСервер на данный момент недоступен.", 
 			0,
@@ -62,7 +62,6 @@ function clearRegisterForm()
 	UI:setText(registerPanel.username, "")
 	UI:setText(registerPanel.password, "")
 	UI:setText(registerPanel.passwordConfirm, "")
-	UI:setText(registerPanel.betaKey, "")	
 end
 
 function setVisible(visible)
@@ -103,20 +102,21 @@ function setVisible(visible)
 end
 
 local function createLoginPanel()
+	local logoTexture = exports.dpAssets:createTexture("logo.png")
+	local textureWidth, textureHeight = dxGetMaterialSize(logoTexture)
+	local logoWidth = 415
+	local logoHeight = textureHeight * 415 / textureWidth
+
 	local panelWidth = 550
 	local panelHeight = 260
 	local panel = UI:createDpPanel({
 		x = (screenWidth - panelWidth) / 2, 
-		y = (screenHeight - panelHeight) / 1.8,
+		y = (screenHeight - panelHeight + logoHeight) / 2,
 		width = panelWidth, height = panelHeight,
 		type = "dark"
 	})
 	UI:addChild(panel)
 
-	local logoTexture = exports.dpAssets:createTexture("logo.png")
-	local textureWidth, textureHeight = dxGetMaterialSize(logoTexture)
-	local logoWidth = 415
-	local logoHeight = textureHeight * 415 / textureWidth
 	local logoImage = UI:createImage({
 		x = (panelWidth - logoWidth) / 2,
 		y = -logoHeight - 25,
@@ -197,20 +197,24 @@ end
 
 local function createRegisterPanel()
 	local panelWidth = 550
-	local panelHeight = 450
-	local panel = UI:createDpPanel({
-		x = (screenWidth - panelWidth) / 2, 
-		y = (screenHeight - panelHeight) / 1.3,
-		width = panelWidth, height = panelHeight,
-		type = "dark"
-	})
-	UI:addChild(panel)
+	local panelHeight = 380
 
 	local logoTexture = exports.dpAssets:createTexture("logo.png")
 	local textureWidth, textureHeight = dxGetMaterialSize(logoTexture)
 	local logoScale = 1
 	local logoWidth = 415 * logoScale
 	local logoHeight = textureHeight * 415 / textureWidth * logoScale
+
+	local totalPanelHeight = panelHeight - logoHeight + 25
+
+	local panel = UI:createDpPanel({
+		x = (screenWidth - panelWidth) / 2, 
+		y = screenHeight / 2 - totalPanelHeight / 2,
+		width = panelWidth, height = panelHeight,
+		type = "dark"
+	})
+	UI:addChild(panel)
+
 	local logoImage = UI:createImage({
 		x = (panelWidth - logoWidth) / 2,
 		y = -logoHeight - 25,
@@ -291,20 +295,6 @@ local function createRegisterPanel()
 	UI:addChild(panel, colorLabel)		
 
 	local y = 100
-
-	local betaKeyInput = UI:createDpInput({
-		x = 50,
-		y = y,
-		width = 450,
-		height = 50,
-		type = "dark",
-		masked = false,
-		forceRegister = "upper",
-		locale = "login_panel_beta_key_label"
-	})
-	UI:addChild(panel, betaKeyInput)
-
-	y = y + 70
 	local usernameInput = UI:createDpInput({
 		x = 50,
 		y = y,
@@ -368,7 +358,6 @@ local function createRegisterPanel()
 	registerPanel.password = passwordInput
 	registerPanel.passwordConfirm = passwordConfirmInput
 	registerPanel.username = usernameInput	
-	registerPanel.betaKey = betaKeyInput
 	registerPanel.langButtons = {
 		en = languageEn,
 		ru = languageRu
@@ -415,8 +404,7 @@ addEventHandler("dpUI.click", resourceRoot, function(widget)
 		registerClick(
 			UI:getText(registerPanel.username), 
 			UI:getText(registerPanel.password),
-			UI:getText(registerPanel.passwordConfirm),
-			UI:getText(registerPanel.betaKey)
+			UI:getText(registerPanel.passwordConfirm)
 		)
 	elseif widget == registerPanel.colorButtons.red then
 		UI:setTheme("red")

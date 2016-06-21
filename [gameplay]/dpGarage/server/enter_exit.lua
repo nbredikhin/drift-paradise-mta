@@ -30,6 +30,7 @@ addEventHandler("dpGarage.enter", resourceRoot, function ()
 	client.dimension = tonumber(client:getData("_id")) or (math.random(1000, 9999) + 5000) + 4000
 	client.frozen = true
 	triggerClientEvent(client, "dpGarage.enter", resourceRoot, true, playerVehicles, enteredVehicleId)
+	client:setData("activeMap", false)
 end)
 
 addEvent("dpGarage.exit", true)

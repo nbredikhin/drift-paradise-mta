@@ -39,7 +39,6 @@ local startupResources = {
 	-- World
 	"dpMapfiles",
 	"dpMap",
-	"dpWelcomeGarage",
 
 	-- Admin
 	"dpAdmin",

@@ -5,6 +5,7 @@
 	<include resource="dpUtils"/>
 	<include resource="dpAssets"/>
 	<include resource="dpLang"/>
+	<include resource="blur_box"/>
 
 	<!-- CLIENT -->
 	<!-- Основной код UI -->

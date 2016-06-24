@@ -15,10 +15,14 @@ local fadeSpeed = 10
 
 local forceRotationX, forceRotationY = 0, 0
 
--- Отрисовка в 3D
+-- Размытие экрана при затемнении
+local BLUR_ENABLED = true
+local BLUR_INTERNSIVITY = 3
+local blurBox
 
+-- Отрисовка в 3D
 local function draw()
-	dxDrawRectangle(0, 0, screenWidth, screenHeight, tocolor(0, 0, 0, 200 * currentFadeVal))
+	dxDrawRectangle(0, 0, screenWidth, screenHeight, tocolor(0, 0, 0, 100 * currentFadeVal))
 	-- Сброс цвета
 	Drawing.setColor()
 	-- Сброс системы координат
@@ -75,6 +79,10 @@ end
 local function update(dt)
 	dt = dt / 1000
 	currentFadeVal = currentFadeVal + (targetFadeVal - currentFadeVal) * fadeSpeed * dt
+
+	if blurBox then
+		exports.blur_box:setBlurBoxColor( blurBox, 255, 255, 255, 255 * currentFadeVal)
+	end	
 end
 
 function Render.start()
@@ -158,8 +166,19 @@ function Render.fadeScreen(fade)
 	fade = not not fade
 	if fade then
 		targetFadeVal = 1 
+		if BLUR_ENABLED then
+			blurBox = exports.blur_box:createBlurBox(0, 0, screenWidth, screenHeight, 255, 255, 255, 0, false)
+			if blurBox then
+				exports.blur_box:setScreenResolutionMultiplier(0.4, 0.4)
+				exports.blur_box:setBlurIntensity(BLUR_INTERNSIVITY)
+			end			
+		end
 	else
 		targetFadeVal = 0
+
+		if blurBox then
+			exports.blur_box:destroyBlurBox(blurBox)
+		end
 	end
 end
 

@@ -27,7 +27,9 @@ local playersList = {}
 local scrollOffset = 0
 
 local function draw()
-	dxSetRenderTarget(renderTarget)
+	if renderTarget then
+		dxSetRenderTarget(renderTarget)
+	end
 	local w, h = 500, 50
 	local y = screenHeight / 2 - panelHeight / 2
 	local panelX = screenWidth / 2 - panelWidth / 2
@@ -62,7 +64,9 @@ local function draw()
 	x = panelX
 	y = itemY + itemsCount * itemHeight
 	dxDrawText("Players online: " .. tostring(#playersList), x, y, x + panelWidth, y + headerHeight, tocolor(255, 255, 255), 1, headerFont, "center", "center")
-	dxSetRenderTarget()
+	if renderTarget then
+		dxSetRenderTarget()
+	end
 end
 
 local function mouseDown()

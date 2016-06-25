@@ -3,6 +3,7 @@
 	"message_box_close": "Close",
 	"controls_arrows": "Arrows",
 	"controls_mouse": "Mouse",
+	"controls_space": "Space",
 	"controls_mouse_wheel": "Mouse wheel",
 	"price_free": "Free",
 	"skin_select_text": "Select your character",
@@ -25,9 +26,10 @@
 	// PhotoMode
 	"photo_mode_help_roll": "Roll left/right",
 	"photo_mode_help_move": "Move",
+	"photo_mode_help_speed": "Move slower/faster",
 	"photo_mode_help_look": "Look",
 	"photo_mode_help_zoom": "Zoom in/out",
-	"photo_mode_help_updown": "Move down/up",
+	"photo_mode_help_updown": "Move up/down",
 	"photo_mode_help_tips": "Toggle UI",
 
 	// UI

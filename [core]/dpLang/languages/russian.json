@@ -3,6 +3,7 @@
 	"message_box_close": "Закрыть",
 	"controls_arrows": "Стрелки",
 	"controls_mouse": "Мышь",
+	"controls_space": "Пробел",
 	"controls_mouse_wheel": "Колесо мыши",
 	"price_free": "Бесплатно",
 	"skin_select_text": "Выберите персонажа",
@@ -24,6 +25,7 @@
 	// PhotoMode
 	"photo_mode_help_roll": "Поворот влево/вправо",
 	"photo_mode_help_move": "Передвижение",
+	"photo_mode_help_speed": "Движение медленнее/быстрее",
 	"photo_mode_help_look": "Вращение",
 	"photo_mode_help_zoom": "Приближение/отдаление",
 	"photo_mode_help_updown": "Движение вверх/вниз",

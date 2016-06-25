@@ -16,13 +16,13 @@ local fadeSpeed = 10
 local forceRotationX, forceRotationY = 0, 0
 
 -- Размытие экрана при затемнении
-local BLUR_ENABLED = true
+local BLUR_ENABLED = false
 local BLUR_INTERNSIVITY = 3
 local blurBox
 
 -- Отрисовка в 3D
 local function draw()
-	dxDrawRectangle(0, 0, screenWidth, screenHeight, tocolor(0, 0, 0, 100 * currentFadeVal))
+	dxDrawRectangle(0, 0, screenWidth, screenHeight, tocolor(0, 0, 0, 200 * currentFadeVal))
 	-- Сброс цвета
 	Drawing.setColor()
 	-- Сброс системы координат

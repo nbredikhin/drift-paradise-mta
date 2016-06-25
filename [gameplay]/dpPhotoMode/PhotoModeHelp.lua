@@ -1,11 +1,12 @@
 PhotoModeHelp = {}
 local helpLines = {
-	{keys = {"Q", "E"}, 			text = "", locale = "photo_mode_help_roll"},
-	{keys = {"W", "A", "S", "D"}, 	text = "", locale = "photo_mode_help_move"},
-	{keys = {"Mouse"}, 				text = "", locale = "photo_mode_help_look"},
-	{keys = {"Z", "X"}, 			text = "", locale = "photo_mode_help_zoom"},
-	{keys = {"CTRL", "SPACE"}, 		text = "", locale = "photo_mode_help_updown"},
-	{keys = {"I"},					text = "", locale = "photo_mode_help_tips"}
+	{keys = {"Q", "E"}, 				text = "", locale = "photo_mode_help_roll"},
+	{keys = {"W", "A", "S", "D"}, 		text = "", locale = "photo_mode_help_move"},
+	{keys = {"Alt", "Shift"}, 			text = "", locale = "photo_mode_help_speed"},
+	{keys = {"controls_mouse"}, 		text = "", locale = "photo_mode_help_look"},
+	{keys = {"Z", "X"}, 				text = "", locale = "photo_mode_help_zoom"},
+	{keys = {"controls_space", "Ctrl"}, text = "", locale = "photo_mode_help_updown"},
+	{keys = {"I"},						text = "", locale = "photo_mode_help_tips"}
 }
 local lineHeight = 25
 local font
@@ -18,6 +19,9 @@ function PhotoModeHelp.start()
 	alpha = 0
 
 	for i, line in ipairs(helpLines) do
+		for j, key in ipairs(line.keys) do
+			helpLines[i].keys[j] = exports.dpLang:getString(key)
+		end
 		helpLines[i].text = exports.dpLang:getString(line.locale)
 	end
 end

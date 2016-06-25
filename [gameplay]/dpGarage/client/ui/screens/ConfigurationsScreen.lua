@@ -4,13 +4,26 @@ local screenSize = Vector2(guiGetScreenSize())
 
 function ConfigurationsScreen:init(componentName)
 	self.super:init()
-	self.componentsSelection = ComponentSelection({
-		--{name="Suspension", 	camera="suspension", 		locale="garage_tuning_config_suspension"},
-		{name="WheelsSize", 	camera="wheelsSize", 		locale="garage_tuning_config_wheels_size"},
-		{name="FrontWheels", 	camera="wheelsOffsetFront", locale="garage_tuning_config_front_wheels"},
-		{name="RearWheels", 	camera="wheelsOffsetRear", 	locale="garage_tuning_config_rear_wheels"},
+	-- local items = {
+	-- 	--{name="Suspension", 	camera="suspension", 		locale="garage_tuning_config_suspension"},
+	-- 	{name="WheelsSize", 	camera="wheelsSize", 		locale="garage_tuning_config_wheels_size"},
+	-- 	{name="FrontWheels", 	camera="wheelsOffsetFront", locale="garage_tuning_config_front_wheels"},
+	-- 	{name="RearWheels", 	camera="wheelsOffsetRear", 	locale="garage_tuning_config_rear_wheels"},
 		
-	})
+	-- }
+
+	self.componentsSelection = ComponentSelection({})
+
+	local vehicle = GarageCar.getVehicle()
+	-- Если на машине установлены передние или задние диски диски
+	if (vehicle:getData("WheelsF") and vehicle:getData("WheelsF") > 0) or 
+		(vehicle:getData("WheelsR") and vehicle:getData("WheelsR") > 0) 
+	then
+		self.componentsSelection:addComponent("WheelsSize",  "wheelsSize", 			"garage_tuning_config_wheels_size")
+		self.componentsSelection:addComponent("FrontWheels", "wheelsOffsetFront", 	"garage_tuning_config_front_wheels")
+		self.componentsSelection:addComponent("RearWheels",  "wheelsOffsetRear", 	"garage_tuning_config_rear_wheels")
+	end
+	
 	if componentName then
 		self.componentsSelection:showComponentByName(componentName)
 	end
@@ -42,9 +55,13 @@ function ConfigurationsScreen:onKey(key)
 		GarageUI.showSaving()
 		GarageCar.save()
 	elseif key == "enter" then
+		local componentName = self.componentsSelection:getSelectedComponentName()
+		if not componentName then
+			return
+		end
 		-- Отобразить экран настройки конфигурации
 		self.componentsSelection:stop()
-		local componentName = self.componentsSelection:getSelectedComponentName()
+				
 		local screenClass = ConfigurationScreen
 		if componentName == "FrontWheels" or componentName == "RearWheels" then
 			screenClass = WheelsScreen

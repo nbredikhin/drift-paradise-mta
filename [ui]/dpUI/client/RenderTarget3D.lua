@@ -1,4 +1,6 @@
 RenderTarget3D = {}
+-- Всё ломает внахуи
+local DISABLE_3D = false
 
 function RenderTarget3D.create(width, height)
 	local rt = {}
@@ -8,7 +10,7 @@ function RenderTarget3D.create(width, height)
 	rt.maskShader = exports.dpAssets:createShader("texture3d.fx")
 	rt.renderTarget = dxCreateRenderTarget(width, height, true)
 
-	rt.fallback = not rt.renderTarget or not rt.maskShader
+	rt.fallback = not rt.renderTarget or not rt.maskShader or DISABLE_3D
 
 	return rt
 end

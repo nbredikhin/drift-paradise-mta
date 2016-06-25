@@ -31,7 +31,7 @@ end
 
 function ComponentSelection:resetAnimation()
 	local component = self.componentsList[self.selectedComponent]
-	if component.animateComponent then
+	if component and component.animateComponent then
 		local dataValue = self.vehicle:getData(component.name)
 		if dataValue then
 			local componentName = string.format(component.animateComponent, dataValue)
@@ -47,6 +47,9 @@ end
 
 function ComponentSelection:updateSelection()
 	local component = self.componentsList[self.selectedComponent]
+	if not component then
+		return
+	end
 	-- Название компонента
 	if component.locale then
 		self.localizedComponentName = exports.dpLang:getString(component.locale)
@@ -77,6 +80,9 @@ function ComponentSelection:addComponent(name, cameraName, locale, animationSett
 		component.animationOffset = animationSettings.offset
 	end
 	table.insert(self.componentsList, component)
+	if #self.componentsList == 1 then
+		self:showComponentById(1)
+	end	
 	return true
 end
 
@@ -128,7 +134,7 @@ function ComponentSelection:update(deltaTime)
 	-- Анимация
 	if self.animationActive then
 		local component = self.componentsList[self.selectedComponent]
-		if component.animateComponent then
+		if component and component.animateComponent then
 			local dataValue = self.vehicle:getData(component.name)
 			if dataValue then
 				local animationMul = (math.sin(getTickCount() * ANIMATION_SPEED) + 1) / 2 * self.animationProgress
@@ -152,5 +158,9 @@ function ComponentSelection:draw(fadeProgress)
 end
 
 function ComponentSelection:getSelectedComponentName()
-	return self.componentsList[self.selectedComponent].name
+	local component = self.componentsList[self.selectedComponent]
+	if not component then
+		return false
+	end
+	return component.name
 end

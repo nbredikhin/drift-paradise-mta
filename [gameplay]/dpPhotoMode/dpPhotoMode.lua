@@ -6,6 +6,11 @@ dpPhotoModeOptions.MAX_CAMERA_FOV = 100
 dpPhotoModeOptions.MIN_CAMERA_FOV = 30
 dpPhotoModeOptions.MOUSE_SENSITIVITY = 0.2
 dpPhotoModeOptions.MAX_DISTANCE_FROM_PLAYER = 20
+dpPhotoModeOptions.SPEED_SLOWER_MUL = 0.1
+dpPhotoModeOptions.SPEED_FASTER_MUL = 2.5
+dpPhotoModeOptions.SMOOTH_MOVEMENT_SPEED = 0.004
+dpPhotoModeOptions.SMOOTH_LOOK_SPEED = 0.002
+
 -- Free look controls
 dpPhotoModeOptions.controls = {}
 dpPhotoModeOptions.controls.ROLL_RIGHT = "e"
@@ -16,25 +21,34 @@ dpPhotoModeOptions.controls.STRAFE_RIGHT = "d"
 dpPhotoModeOptions.controls.STRAFE_LEFT = "a"
 dpPhotoModeOptions.controls.ZOOM_OUT = "x" 	-- "mouse_wheel_down"
 dpPhotoModeOptions.controls.ZOOM_IN = "z" 	-- "mouse_wheel_up"
-dpPhotoModeOptions.controls.SPEED_MODIFIER = "lalt"
+dpPhotoModeOptions.controls.SPEED_SLOWER = "lalt"
+dpPhotoModeOptions.controls.SPEED_FASTER = "lshift"
 dpPhotoModeOptions.controls.MOVE_UP = "space"
 dpPhotoModeOptions.controls.MOVE_DOWN = "lctrl"
+dpPhotoModeOptions.controls.TOGGLE_SMOOTH = "c"
 
 dpPhotoModeOptions.CONTROL_LIST = {"vehicle_left", "vehicle_right", "handbrake"}
 
 -- Freecam position
 local cameraPosition = Vector3(0, 0, 0)
+local cameraPositionActual = cameraPosition
 -- Freecam direction
 local cameraDirection = Vector3(0, 0, 0)
 -- Freecam speed
 local cameraSpeed = Vector3(0, 0, 0)
 local cameraFOV = 70
+local cameraFOVActual = cameraFOV
 local cameraRoll = 0
+local cameraRollActual = cameraRoll
 
 -- Polar angle
 local rotationX = 0
+local actualRotationX = 0
 -- Azimuthal angle
 local rotationY = 0
+local actualRotationY = 0
+-- Smooth movement
+local isSmoothMovementEnabled = false
 
 local photoModeEnabled = false
 
@@ -53,6 +67,8 @@ local function initializeScriptVars()
 	rotationX, rotationY = 0, 0
 
 	mouseFrameDelay, updateFramesDelay = 0, 0
+
+	isSmoothMovementEnabled = false
 end
 
 local function adjustFOV(wheelDir)
@@ -72,10 +88,10 @@ local function update(dt)
 
 	-- If game is actually inactive (working with GUI or so)
 	-- Wait for 10 frames after games becomes active, just for smooth
-	if isMTAWindowActive() or isCursorShowing() then 
+	if isMTAWindowActive() or isCursorShowing() then
 		updateFramesDelay = 10
 		return
-	elseif updateFramesDelay > 0 then 
+	elseif updateFramesDelay > 0 then
 		updateFramesDelay = updateFramesDelay - 1
 		return
 	end
@@ -111,37 +127,56 @@ local function update(dt)
 		cameraSpeed = cameraSpeed - cameraRight
 	end
 
-	if getKeyState(dpPhotoModeOptions.controls.MOVE_UP) then 
+	if getKeyState(dpPhotoModeOptions.controls.MOVE_UP) then
 		cameraSpeed = cameraSpeed + Vector3(0, 0, 0.1)
 	elseif getKeyState(dpPhotoModeOptions.controls.MOVE_DOWN) then
 		cameraSpeed = cameraSpeed - Vector3(0, 0, 0.1)
 	end
 
 	cameraSpeed = dpPhotoModeOptions.CAMERA_MOVE_SPEED * cameraSpeed:getNormalized()
-	if getKeyState(dpPhotoModeOptions.controls.SPEED_MODIFIER) then
-		cameraSpeed = cameraSpeed * 0.1
+	if getKeyState(dpPhotoModeOptions.controls.SPEED_SLOWER) then
+		cameraSpeed = cameraSpeed * dpPhotoModeOptions.SPEED_SLOWER_MUL
+	elseif getKeyState(dpPhotoModeOptions.controls.SPEED_FASTER) then
+		cameraSpeed = cameraSpeed * dpPhotoModeOptions.SPEED_FASTER_MUL
 	end
 	cameraPosition = cameraPosition + dt * cameraSpeed
 
 	local distance = cameraPosition - localPlayer.position
-	if (distance.length) > dpPhotoModeOptions.MAX_DISTANCE_FROM_PLAYER then 
+	if (distance.length) > dpPhotoModeOptions.MAX_DISTANCE_FROM_PLAYER then
 		cameraPosition = localPlayer.position +
 		 distance:getNormalized() * dpPhotoModeOptions.MAX_DISTANCE_FROM_PLAYER
 	end
 
-	cameraDirection.x = cameraPosition.x + dt * 100 * math.cos(rotationY) * math.sin(rotationX)
-	cameraDirection.y = cameraPosition.y + dt * 100 * math.cos(rotationY) * math.cos(rotationX)
-	cameraDirection.z = cameraPosition.z + dt * 100 * math.sin(rotationY)
-	
-	setCameraMatrix(cameraPosition, cameraDirection, cameraRoll, cameraFOV)
+	if isSmoothMovementEnabled then
+		cameraPositionActual = cameraPositionActual + (cameraPosition - cameraPositionActual) * dt * dpPhotoModeOptions.SMOOTH_MOVEMENT_SPEED
+		actualRotationX = actualRotationX + exports.dpUtils:differenceBetweenAnglesRadians(actualRotationX, rotationX) * dt * dpPhotoModeOptions.SMOOTH_LOOK_SPEED
+		actualRotationY = actualRotationY + exports.dpUtils:differenceBetweenAnglesRadians(actualRotationY, rotationY) * dt * dpPhotoModeOptions.SMOOTH_LOOK_SPEED
+		cameraRollActual = cameraRollActual + (cameraRoll - cameraRollActual) * dt * dpPhotoModeOptions.SMOOTH_MOVEMENT_SPEED
+		cameraFOVActual = cameraFOVActual + (cameraFOV - cameraFOVActual) * dt * dpPhotoModeOptions.SMOOTH_MOVEMENT_SPEED
+	else
+		cameraPositionActual = cameraPosition
+		actualRotationX = rotationX
+		actualRotationY = rotationY
+		cameraRollActual = cameraRoll
+		cameraFOVActual = cameraFOV
+	end
+	cameraDirection.x = cameraPosition.x + dt * 100 * math.cos(actualRotationY) * math.sin(actualRotationX)
+	cameraDirection.y = cameraPosition.y + dt * 100 * math.cos(actualRotationY) * math.cos(actualRotationX)
+	cameraDirection.z = cameraPosition.z + dt * 100 * math.sin(actualRotationY)
+
+	--cameraPositionActual = cameraPosition
+	--cameraDirectionActual = cameraDirection
+	--cameraRollActual = cameraRoll
+	--cameraFOVActual = cameraFOV
+	setCameraMatrix(cameraPositionActual, cameraDirection, cameraRollActual, cameraFOVActual)
 end
 
 local function onCursorMove(cX, cY, aX, aY)
 	-- Same as in the update
-	if isMTAWindowActive() or isCursorShowing() then 
+	if isMTAWindowActive() or isCursorShowing() then
 		mouseFrameDelay = 10
 		return
-	elseif mouseFrameDelay > 0 then 
+	elseif mouseFrameDelay > 0 then
 		mouseFrameDelay = mouseFrameDelay - 1
 		return
 	end
@@ -152,18 +187,23 @@ local function onCursorMove(cX, cY, aX, aY)
 	aX = aX - width / 2
 	aY = aY - height / 2
 
-	rotationX = rotationX + aX * dpPhotoModeOptions.MOUSE_SENSITIVITY * 0.01745
-	rotationY = rotationY - aY * dpPhotoModeOptions.MOUSE_SENSITIVITY * 0.01745
-
+	local sensitivity = dpPhotoModeOptions.MOUSE_SENSITIVITY * 0.01745
+	if isSmoothMovementEnabled then
+		sensitivity = sensitivity / 3
+	end
+	rotationX = rotationX + aX * sensitivity
+	rotationY = rotationY - aY * sensitivity
+	--rotationX = exports.dpUtils:wrapAngleRadians(rotationX)
+	--rotationY = exports.dpUtils:wrapAngleRadians(rotationY)
 	-- Wrap angle
 	local PI = math.pi
-	if rotationX > PI then 
+	if rotationX > PI then
 		rotationX = rotationX - 2 * PI
 	elseif rotationX < -PI then
 		rotationX = rotationX + 2 * PI
 	end
 
-	if rotationY > PI then 
+	if rotationY > PI then
 		rotationY = rotationY - 2 * PI
 	elseif rotationY < -PI then
 		rotationY = rotationY + 2 * PI
@@ -174,13 +214,22 @@ local function onCursorMove(cX, cY, aX, aY)
 		rotationY = -PI / 2.05
 	elseif rotationY > PI / 2.05 then
 		rotationY = PI / 2.05
-	end 
+	end
+end
+
+local function onKey(key, isDown)
+	if not isDown then
+		return false
+	end
+	if key == dpPhotoModeOptions.controls.TOGGLE_SMOOTH then
+		isSmoothMovementEnabled = not isSmoothMovementEnabled
+	end
 end
 
 -- PUBLIC FUNCTIONS --
 
 function enablePhotoMode()
-	if photoModeEnabled or localPlayer:getData("dpCore.state") then 
+	if photoModeEnabled or localPlayer:getData("dpCore.state") then
 		return
 	end
 	if localPlayer:getData("activeUI") then
@@ -196,7 +245,7 @@ function enablePhotoMode()
 	-- Make camera look to point where it looked before initialization
 	local direction = (Camera.matrix.forward):getNormalized()
 	rotationX = math.atan2(direction.x, direction.y)
-	if direction.length ~= 0 then 
+	if direction.length ~= 0 then
 		rotationY = math.asin(direction.z / direction.length)
 	end
 
@@ -215,19 +264,26 @@ function enablePhotoMode()
 
 	PhotoModeHelp.start()
 	addEventHandler("onClientRender", root, PhotoModeHelp.draw)
+	addEventHandler("onClientKey", root, onKey)
 
 	playSound("sound.wav")
+
+	cameraPositionActual = cameraPosition
+	actualRotationX = rotationX
+	actualRotationY = rotationY
+	cameraRollActual = cameraRoll
+	cameraFOVActual = cameraFOV
 end
 
 function disablePhotoMode()
 	if not photoModeEnabled then
 		return
 	end
-	localPlayer:setData("activeUI", false)	
+	localPlayer:setData("activeUI", false)
 	photoModeEnabled = false
 	-- Return camera to player
 	setCameraTarget(localPlayer)
-	
+
 	-- Show HUD
 	exports.dpHUD:setVisible(true)
 	exports.dpNametags:setVisible(true)
@@ -240,6 +296,7 @@ function disablePhotoMode()
 
 	removeEventHandler("onClientPreRender", root, update)
 	removeEventHandler("onClientCursorMove", root, onCursorMove)
+	removeEventHandler("onClientKey", root, onKey)
 
 	PhotoModeHelp.stop()
 	removeEventHandler("onClientRender", root, PhotoModeHelp.draw)

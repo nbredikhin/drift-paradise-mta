@@ -15,14 +15,15 @@ local function startCameraView(cameraView)
 		currentCameraView = cameraView
 		toggleControl("change_camera", false)
 	else
-		setCameraTarget(localPlayer)
-		setCameraMatrix(0, 0, 0)
-		setCameraTarget(localPlayer)
-		currentCameraView = nil
-
+		if currentCameraView then
+			setCameraTarget(localPlayer)
+			setCameraMatrix(0, 0, 0)
+			setCameraTarget(localPlayer)
+			currentCameraView = nil
+		end
 		if localPlayer.vehicle then
 			setCameraViewMode(2)
-		else	
+		else
 			toggleControl("change_camera", true)
 		end
 	end

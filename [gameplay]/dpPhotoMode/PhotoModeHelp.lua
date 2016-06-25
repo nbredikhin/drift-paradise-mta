@@ -6,6 +6,7 @@ local helpLines = {
 	{keys = {"controls_mouse"}, 		text = "", locale = "photo_mode_help_look"},
 	{keys = {"Z", "X"}, 				text = "", locale = "photo_mode_help_zoom"},
 	{keys = {"controls_space", "Ctrl"}, text = "", locale = "photo_mode_help_updown"},
+	{keys = {"C"}, 						text = "", locale = "photo_mode_help_smooth"},
 	{keys = {"I"},						text = "", locale = "photo_mode_help_tips"}
 }
 local lineHeight = 25

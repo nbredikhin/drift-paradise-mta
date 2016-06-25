@@ -9,13 +9,24 @@ function wrapAngle(value)
 	return value
 end
 
-function differenceBetweenAngles(firstAngle, secondAngle)
-	local difference = secondAngle - firstAngle
-	while difference < -180 do
-		difference = difference + 360
+function wrapAngleRadians(value)
+	if not value then
+		return 0
 	end
-	while difference > 180 do
-		difference = difference - 360
+	local pi2 = math.pi * 2
+	value = math.mod(value, pi2)
+	if value < 0 then
+		value = value + pi2
+	end
+	return value
+end
+
+function differenceBetweenAnglesRadians(firstAngle, secondAngle)
+	local difference = secondAngle - firstAngle
+	if difference > math.pi then
+		difference = difference - math.pi * 2
+	elseif difference < -math.pi then
+		difference = difference + math.pi * 2
 	end
 	return difference
 end

@@ -12,7 +12,7 @@
 
 	<export type="shared" function="isValidVehicleModel"/>
 	<export type="shared" function="getVehicleOccupantsCount"/>
-	
+
 	<export type="shared" function="clearChat"/>
 	<export type="shared" function="isResourceRunning"/>
 	<export type="shared" function="tableCopy"/>
@@ -28,7 +28,9 @@
 	<export type="shared" function="convertTimestampToSeconds"/>
 	<!-- Геометрия -->
 	<export type="shared" function="wrapAngle"/>
+	<export type="shared" function="wrapAngleRadians"/>
 	<export type="shared" function="differenceBetweenAngles"/>
+	<export type="shared" function="differenceBetweenAnglesRadians"/>
 
 	<export type="server" function="isPlayerAdmin"/>
 </meta>

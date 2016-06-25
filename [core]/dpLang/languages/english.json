@@ -21,7 +21,7 @@
 	"beta_tutorial_2": "Welcome to Drift Paradise server!",
 	"beta_tutorial_3": "This project is still in development",
 	"beta_tutorial_4": "It's not a final version",
-	"beta_tutorial_5": "Good luck and have fun!",	
+	"beta_tutorial_5": "Good luck and have fun!",
 
 	// PhotoMode
 	"photo_mode_help_roll": "Roll left/right",
@@ -30,7 +30,8 @@
 	"photo_mode_help_look": "Look",
 	"photo_mode_help_zoom": "Zoom in/out",
 	"photo_mode_help_updown": "Move up/down",
-	"photo_mode_help_tips": "Toggle UI",
+	"photo_mode_help_tips": "Toggle UI and help",
+	"photo_mode_help_smooth": "Toggle smooth movement",
 
 	// UI
 	"login_panel_username_label": "Username",
@@ -78,7 +79,7 @@
 	"login_panel_err_username_invalid": "Username contains illegal characters",
 	"login_panel_err_enter_password_confirm": "Enter password confirmation",
 	"login_panel_err_passwords_do_not_match": "Your passwords do not match!",
-	"login_panel_err_beta_key_invalid": "Your beta key is invalid",	
+	"login_panel_err_beta_key_invalid": "Your beta key is invalid",
 
 	// Chat messages
 	"chat_message_login_success": "You have successfully logged in",
@@ -105,7 +106,7 @@
 	"garage_menu_customize_paint": "Paint",
 	"garage_menu_customize_stickers": "Vinyls",
 	"garage_menu_customize_config": "Configuration",
-	
+
 	"garage_menu_settings_bumper": "Remove rear bumper",
 	"garage_menu_back": "Back",
 
@@ -148,7 +149,7 @@
 	"garage_tuning_side_right": "Right side",
 	"garage_tuning_side_left": "Left side",
 	"garage_tuning_side_front": "Front side",
-	"garage_tuning_side_back": "Rear side",	
+	"garage_tuning_side_back": "Rear side",
 
 	"garage_tuning_stickers_figures": "Figures",
 	"garage_tuning_stickers_letters": "Letters",
@@ -160,7 +161,7 @@
 	"garage_tuning_config_rear_wheels": "Rear wheels",
 	"garage_tuning_config_suspension": "Suspension",
 	"garage_tuning_config_wheels_size": "Wheels radius",
-	
+
 	"garage_tuning_config_wheels_offset": "Offset",
 	"garage_tuning_config_wheels_angle": "Angle",
 	"garage_tuning_config_wheels_width": "Width",
@@ -177,7 +178,7 @@
 	"garage_sticker_editor_move": "Move",
 	"garage_sticker_editor_rotate": "Rotate",
 	"garage_sticker_editor_scale": "Scale",
-	"garage_sticker_editor_color": "Change color",	
+	"garage_sticker_editor_color": "Change color",
 
 	"garage_tuning_sticker_color": "Sticker color",
 	"garage_tuning_sticker_prev": "%s - previous",
@@ -191,14 +192,14 @@
 	"main_panel_tab_settings": "Settings",
 	"main_panel_tab_garage": "Garage",
 	"main_panel_tab_map": "Map",
-	"main_panel_account_donat": "Donate",	
-	"main_panel_account_more": "More",	
-	"main_panel_account_money": "Money",	
-	"main_panel_account_admin": "Admin",	
-	"main_panel_account_player": "Player",	
+	"main_panel_account_donat": "Donate",
+	"main_panel_account_more": "More",
+	"main_panel_account_money": "Money",
+	"main_panel_account_admin": "Admin",
+	"main_panel_account_player": "Player",
 	"main_panel_account_level": "Level progress",
 	"main_panel_account_regtime": "Registration date",
-	"main_panel_account_playtime": "Hours in-game",	
+	"main_panel_account_playtime": "Hours in-game",
 	"main_panel_account_cars_count": "Cars in garage",
 
 	// Markers

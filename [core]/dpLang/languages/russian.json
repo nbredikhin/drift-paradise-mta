@@ -1,4 +1,4 @@
-{	
+{
 	// Stuff
 	"message_box_close": "Закрыть",
 	"controls_arrows": "Стрелки",
@@ -7,7 +7,7 @@
 	"controls_mouse_wheel": "Колесо мыши",
 	"price_free": "Бесплатно",
 	"skin_select_text": "Выберите персонажа",
-	
+
 	"quit_reason_unknown": "выход",
 	"quit_reason_quit": "выход",
 	"quit_reason_kicked": "kick",
@@ -29,7 +29,8 @@
 	"photo_mode_help_look": "Вращение",
 	"photo_mode_help_zoom": "Приближение/отдаление",
 	"photo_mode_help_updown": "Движение вверх/вниз",
-	"photo_mode_help_tips": "Показать/скрыть интерфейс",	
+	"photo_mode_help_tips": "Показать/скрыть интерфейс и помощь",
+	"photo_mode_help_smooth": "Включить/выключить плавное перемещение",
 
 	// UI
 	"login_panel_username_label": "Имя пользователя",
@@ -43,7 +44,7 @@
 	"login_panel_color": "Цвет",
 	"login_panel_back": "Назад",
 	"login_panel_server_not_available": "Сервер Drift Paradise в данный момент недоступен",
-	"login_panel_server_error": "Ошибка сервера",	
+	"login_panel_server_error": "Ошибка сервера",
 
 	// World map
 	"world_map_help_text": "%s - управление камерой, %s - приблизить/отдалить, %s - выход",
@@ -54,7 +55,7 @@
 	"tab_panel_column_id": "ID",
 	"tab_panel_column_nickname": "Ник",
 	"tab_panel_column_money": "Деньги",
-	"tab_panel_column_level": "Уровень",	
+	"tab_panel_column_level": "Уровень",
 
 	// Message box
 	"login_panel_auth_error": "Ошибка авторизации",
@@ -76,13 +77,13 @@
 	"login_panel_err_password_too_long": "Слишком длинный пароль",
 	"login_panel_err_username_invalid": "Недопустимое имя пользователя",
 	"login_panel_err_enter_password_confirm": "Введите подтверждение пароля",
-	"login_panel_err_passwords_do_not_match": "Введённые пароли не совпадают",	
-	"login_panel_err_beta_key_invalid": "Введённый ключ недействителен!",	
+	"login_panel_err_passwords_do_not_match": "Введённые пароли не совпадают",
+	"login_panel_err_beta_key_invalid": "Введённый ключ недействителен!",
 
 	// Chat messages
 	"chat_message_login_success": "Вы успешно вошли",
 	"chat_message_player_join": "Игрок %s присоединился к серверу",
-	"chat_message_player_quit": "Игрок %s вышел с сервера (%s)",	
+	"chat_message_player_quit": "Игрок %s вышел с сервера (%s)",
 	"chat_adminsay_admin": "Администратор",
 
 	// Гараж
@@ -104,16 +105,16 @@
 	"garage_menu_customize_paint": "Покраска",
 	"garage_menu_customize_stickers": "Винилы",
 	"garage_menu_customize_config": "Конфигурация",
-	
+
 	"garage_menu_settings_bumper": "Снять задний бампер",
-	"garage_menu_back": "Назад",	
+	"garage_menu_back": "Назад",
 
 	// Тюнинг в гараже
 	"garage_tuning_component_front_bump": "Передний бампер",
 	"garage_tuning_component_rear_bump": "Задний бампер",
 	"garage_tuning_component_side_skirts": "Боковые юбки",
 	"garage_tuning_component_wheels_front": "Передние колёса",
-	"garage_tuning_component_wheels_rear": "Задние колёса",	
+	"garage_tuning_component_wheels_rear": "Задние колёса",
 	"garage_tuning_component_wheels": "Колёса",
 	"garage_tuning_component_spoilers": "Спойлер",
 	"garage_tuning_component_rear_fends": "Задние Фендеры",
@@ -121,18 +122,18 @@
 	"garage_tuning_component_bonnet": "Капот",
 	"garage_tuning_component_rear_lights": "Задние фары",
 	"garage_tuning_component_front_lights": "Передние фары",
-	"garage_tuning_component_exhaust": "Выхлоп",	
+	"garage_tuning_component_exhaust": "Выхлоп",
 	"garage_tuning_component_numberplate": "Номерной знак",
 
 	"garage_tuning_paint_body": "Цвет кузова",
 	"garage_tuning_paint_wheels_front": "Цвет передних дисков",
 	"garage_tuning_paint_wheels_rear": "Цвет задних дисков",
 	"garage_tuning_paint_wheels": "Цвет дисков",
-	"garage_tuning_paint_spoiler": "Цвет спойлера",	
+	"garage_tuning_paint_spoiler": "Цвет спойлера",
 
 	"garage_tuning_paint_hue": "Оттенок",
 	"garage_tuning_paint_saturation": "Насыщенность",
-	"garage_tuning_paint_brightness": "Яркость",	
+	"garage_tuning_paint_brightness": "Яркость",
 
 	"garage_tuning_item_bumper": "Бампер",
 	"garage_tuning_item_spoiler": "Спойлер",
@@ -153,7 +154,7 @@
 	"garage_tuning_stickers_letters": "Буквы",
 	"garage_tuning_stickers_numbers": "Цифры",
 	"garage_tuning_stickers_brands": "Бренды",
-	"garage_tuning_stickers_anime": "Аниме",	
+	"garage_tuning_stickers_anime": "Аниме",
 
 	"garage_tuning_config_front_wheels": "Передние колёса",
 	"garage_tuning_config_rear_wheels": "Задние колёса",
@@ -180,21 +181,21 @@
 
 	"garage_tuning_sticker_color": "Цвет наклейки",
 	"garage_tuning_sticker_prev": "%s - следующая",
-	"garage_tuning_sticker_next": "%s - предыдущая",	
+	"garage_tuning_sticker_next": "%s - предыдущая",
 	"garage_tuning_sticker_mirror": "%s - отзеркаливание",
-	"garage_tuning_sticker_mirror_text": "%s - отзеркаливание текста",	
+	"garage_tuning_sticker_mirror_text": "%s - отзеркаливание текста",
 
 	// Main panel
 	"main_panel_tab_account": "Аккаунт",
 	"main_panel_tab_teleport": "Телепорты",
 	"main_panel_tab_settings": "Настройки",
 	"main_panel_tab_garage": "Гараж",
-	"main_panel_tab_map": "Карта",	
-	"main_panel_account_donat": "Донат",	
-	"main_panel_account_more": "Дополнительно",	
-	"main_panel_account_money": "Деньги",	
-	"main_panel_account_admin": "Администратор",	
-	"main_panel_account_player": "Игрок",		
+	"main_panel_tab_map": "Карта",
+	"main_panel_account_donat": "Донат",
+	"main_panel_account_more": "Дополнительно",
+	"main_panel_account_money": "Деньги",
+	"main_panel_account_admin": "Администратор",
+	"main_panel_account_player": "Игрок",
 	"main_panel_account_level": "Прогресс уровня",
 	"main_panel_account_regtime": "Дата регистрации",
 	"main_panel_account_playtime": "Часов в игре",

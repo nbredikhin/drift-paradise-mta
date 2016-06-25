@@ -37,8 +37,10 @@ function Drawing.rectangle(x, y, width, height)
 end
 
 function Drawing.line(x1, y1, x2, y2, width)
-	x = x + drawX
-	y = y + drawY	
+	x1 = x1 + drawX
+	y1 = y1 + drawY
+	x2 = x2 + drawX
+	y2 = y2 + drawY
 	dxDrawLine(x1, y1, x2, y2, drawColor, width, Drawing.POST_GUI)
 end
 

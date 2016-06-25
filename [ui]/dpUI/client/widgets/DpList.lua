@@ -17,7 +17,7 @@ function DpList.create(properties)
 	widget.items = exports.dpUtils:defaultValue(properties.items, {})
 	widget.columns = exports.dpUtils:defaultValue(properties.columns, {})
 	widget.activeItem = 1
-	
+
 	if not properties.colors then
 		properties.colors = {}
 	end
@@ -82,7 +82,7 @@ function DpList.create(properties)
 					else
 						Drawing.setColor(Colors.color(textColor, alpha))
 					end
-					
+
 				end
 				local drawX = x
 				if column.offset then

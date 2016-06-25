@@ -3,11 +3,11 @@ Render.resources = {}
 Render.clickedWidget = false
 Render.mouseClick = false
 
-local MAX_TRANSORM_ANGLE = 20 
+local MAX_TRANSORM_ANGLE = 20
 local screenWidth, screenHeight = guiGetScreenSize()
 local screenWidthLimited, screenHeightLimited = getLimitedScreenSize()
 local oldMouseState = false
-local renderTarget3D 
+local renderTarget3D
 
 local targetFadeVal = 0
 local currentFadeVal = 0
@@ -16,7 +16,7 @@ local fadeSpeed = 10
 local forceRotationX, forceRotationY = 0, 0
 
 -- Размытие экрана при затемнении
-local BLUR_ENABLED = false
+local BLUR_ENABLED = true
 local BLUR_INTERNSIVITY = 3
 local blurBox
 
@@ -70,9 +70,9 @@ local function draw()
 			mouseX, mouseY = forceRotationX * screenWidth, forceRotationY * screenHeight
 		end
 		local rotationX = -(mouseX - screenWidth / 2) / screenWidth * MAX_TRANSORM_ANGLE
-		local rotationY = (mouseY - screenHeight / 2) / screenHeight * MAX_TRANSORM_ANGLE	
+		local rotationY = (mouseY - screenHeight / 2) / screenHeight * MAX_TRANSORM_ANGLE
 
-		RenderTarget3D.setTransform(renderTarget3D, rotationX, rotationY, 0)			
+		RenderTarget3D.setTransform(renderTarget3D, rotationX, rotationY, 0)
 	end
 end
 
@@ -82,7 +82,7 @@ local function update(dt)
 
 	if blurBox then
 		exports.blur_box:setBlurBoxColor( blurBox, 255, 255, 255, 255 * currentFadeVal)
-	end	
+	end
 end
 
 function Render.start()
@@ -165,13 +165,13 @@ end
 function Render.fadeScreen(fade)
 	fade = not not fade
 	if fade then
-		targetFadeVal = 1 
+		targetFadeVal = 1
 		if BLUR_ENABLED then
 			blurBox = exports.blur_box:createBlurBox(0, 0, screenWidth, screenHeight, 255, 255, 255, 0, false)
 			if blurBox then
 				exports.blur_box:setScreenResolutionMultiplier(0.4, 0.4)
 				exports.blur_box:setBlurIntensity(BLUR_INTERNSIVITY)
-			end			
+			end
 		end
 	else
 		targetFadeVal = 0

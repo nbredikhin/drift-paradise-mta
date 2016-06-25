@@ -22,7 +22,7 @@ function DpButton.create(properties)
 	widget.font = Fonts.default
 	if properties.fontType and Fonts[properties.fontType] then
 		widget.font = Fonts[properties.fontType]
-	end	
+	end
 	function widget:updateTheme()
 		self.colors = {
 			normal = Colors.color(self.colorName),

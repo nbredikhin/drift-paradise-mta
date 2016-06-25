@@ -1,7 +1,7 @@
 <meta>
 	<oop>true</oop>
 	<download_priority_group>2</download_priority_group>
-	
+
 	<script type="client" src="client/exports.lua"/>
 	<script type="server" src="script.lua"/>
 
@@ -27,6 +27,11 @@
 	<file src="assets/textures/screen_shadow.png"/>
 	<file src="assets/textures/arrow.png"/>
 	<file src="assets/textures/logo_square_simple.png"/>
+
+	<file src="assets/textures/buttons/circle.png"/>
+	<file src="assets/textures/buttons/en.png"/>
+	<file src="assets/textures/buttons/ru.png"/>
+	<file src="assets/textures/buttons/ua.png"/>
 
 	<!-- Stickers -->
 	<file src="assets/textures/stickers/0.png"/>

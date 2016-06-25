@@ -1,12 +1,12 @@
-addEventHandler("onClientResourceStart", resourceRoot, function () 
+addEventHandler("onClientResourceStart", resourceRoot, function ()
 	-- Создать панель
 	Panel.create()
 	-- Создать табы
 	AccountTab.create()
 	TeleportTab.create()
 	SettingsTab.create()
-	Panel.showTab("account")
-	Panel.setVisible(false)
+	Panel.showTab("settings")
+	Panel.setVisible(true)
 end)
 
 function isVisible()

@@ -92,7 +92,8 @@ local widgetsList = {
 	"DpInput",
 	"DpLabel",
 	"DpImageButton",
-	"DpList"
+	"DpList",
+	"DpCheckbox"
 }
 
 local function createWidgetProxy(name, resourceRoot, ...)
@@ -111,7 +112,7 @@ end
 
 -- Генерация экспортов для всех widget'ов
 for i, name in ipairs(widgetsList) do
-	_G["create" .. name] = function (...) 
+	_G["create" .. name] = function (...)
 		return createWidgetProxy(name, sourceResourceRoot, ...)
 	end
 	printMetaExport("create" .. name)
@@ -153,6 +154,6 @@ for i, name in ipairs(publicPropertiesList) do
 			widget[name] = value
 		end
 		return true
-	end	
+	end
 	printMetaExport("set" .. capitalizedName)
 end

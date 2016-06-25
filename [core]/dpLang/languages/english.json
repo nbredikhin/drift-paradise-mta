@@ -192,6 +192,7 @@
 	"main_panel_tab_settings": "Settings",
 	"main_panel_tab_garage": "Garage",
 	"main_panel_tab_map": "Map",
+
 	"main_panel_account_donat": "Donate",
 	"main_panel_account_more": "More",
 	"main_panel_account_money": "Money",
@@ -201,6 +202,16 @@
 	"main_panel_account_regtime": "Registration date",
 	"main_panel_account_playtime": "Hours in-game",
 	"main_panel_account_cars_count": "Cars in garage",
+
+	"main_panel_settings_section_game": "Game settings",
+	"main_panel_settings_section_graphics": "Graphics settings",
+	"main_panel_settings_language": "Language",
+	"main_panel_settings_color": "UI color",
+	"main_panel_settings_reflections_cars": "cars reflections",
+	"main_panel_settings_reflections_water": "water reflections",
+	"main_panel_settings_improved_car_lights": "improved car lights",
+	"main_panel_settings_improved_sky": "improved sky",
+	"main_panel_settings_screen_blur": "screen blur",
 
 	// Markers
 	"markers_garage_text": "Press %q to enter garage",

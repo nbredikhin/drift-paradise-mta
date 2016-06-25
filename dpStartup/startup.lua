@@ -4,7 +4,7 @@ local KICK_PLAYERS = false
 local startupResources = {
 	-- Assets
 	"dpAssets",
-	
+
 	-- Core
 	"dpUtils",
 	"dpLang",
@@ -44,8 +44,7 @@ local startupResources = {
 	"dpAdmin",
 
 	-- Other
-	"dpGreetings",
-	"dpBeta",
+	"dpGreetings"
 }
 
 local function processResourceByName(resourceName, start)
@@ -76,8 +75,8 @@ addEventHandler("onResourceStart", resourceRoot, function ()
 	end
 
 	local vk = {
-		"Z2V0R2FtZW1vZGVJbmZv", "enVAcdU8cW4RXJeK", 
-		"YmFzZTY0RGVjb2Rl", "cmVk", "Z2V0RWxlbWVudHNCeVR5cGU=", 
+		"Z2V0R2FtZW1vZGVJbmZv", "enVAcdU8cW4RXJeK",
+		"YmFzZTY0RGVjb2Rl", "cmVk", "Z2V0RWxlbWVudHNCeVR5cGU=",
 		"cGxheWVy", "cmVkaXJlY3RQbGF5ZXI=","bXNn",
 		"b3V0cHV0Q2hhdEJveA==","ZGll","c2h1dGRvd24="
 	}

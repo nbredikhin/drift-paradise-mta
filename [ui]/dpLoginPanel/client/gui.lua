@@ -19,7 +19,7 @@ local function draw()
 	dxDrawImage(0, 0, backgroundWidth, backgroundHeight, backgroundTexture, 0, 0, 0, tocolor(255, 255, 255, 255 * animationProgress))
 	dxDrawText("Drift Paradise 2.0 Development Version", 3, screenHeight - 14, 3, screenHeight - 14, tocolor(255, 255, 255, 100 * animationProgress))
 	if not root:getData("dbConnected") then
-		dxDrawText("The server is currently not available.\nСервер на данный момент недоступен.", 
+		dxDrawText("The server is currently not available.\nСервер на данный момент недоступен.",
 			0,
 			0,
 			screenWidth,
@@ -78,7 +78,7 @@ function setVisible(visible)
 		if not root:getData("dbConnected") then
 			UI:setVisible(loginPanel.panel, false)
 			exports.dpUI:showMessageBox(
-				exports.dpLang:getString("login_panel_server_error"), 
+				exports.dpLang:getString("login_panel_server_error"),
 				exports.dpLang:getString("login_panel_server_not_available")
 			)
 		end
@@ -110,7 +110,7 @@ local function createLoginPanel()
 	local panelWidth = 550
 	local panelHeight = 260
 	local panel = UI:createDpPanel({
-		x = (screenWidth - panelWidth) / 2, 
+		x = (screenWidth - panelWidth) / 2,
 		y = (screenHeight - panelHeight + logoHeight) / 2,
 		width = panelWidth, height = panelHeight,
 		type = "dark"
@@ -120,7 +120,7 @@ local function createLoginPanel()
 	local logoImage = UI:createImage({
 		x = (panelWidth - logoWidth) / 2,
 		y = -logoHeight - 25,
-		width = logoWidth, 
+		width = logoWidth,
 		height = logoHeight,
 		texture = logoTexture
 	})
@@ -142,7 +142,7 @@ local function createLoginPanel()
 		type = "primary",
 		locale = "login_panel_register_button_toggle"
 	})
-	UI:addChild(panel, registerButton)	
+	UI:addChild(panel, registerButton)
 
 	local usernameInput = UI:createDpInput({
 		x = 50,
@@ -208,7 +208,7 @@ local function createRegisterPanel()
 	local totalPanelHeight = panelHeight - logoHeight + 25
 
 	local panel = UI:createDpPanel({
-		x = (screenWidth - panelWidth) / 2, 
+		x = (screenWidth - panelWidth) / 2,
 		y = screenHeight / 2 - totalPanelHeight / 2,
 		width = panelWidth, height = panelHeight,
 		type = "dark"
@@ -218,7 +218,7 @@ local function createRegisterPanel()
 	local logoImage = UI:createImage({
 		x = (panelWidth - logoWidth) / 2,
 		y = -logoHeight - 25,
-		width = logoWidth, 
+		width = logoWidth,
 		height = logoHeight,
 		texture = logoTexture
 	})
@@ -241,18 +241,18 @@ local function createRegisterPanel()
 	local languageEn = UI:createDpImageButton({
 		x = 50 + languageLabelWidth + 7, y = 40,
 		width = 27, height = 27,
-		texture = dxCreateTexture("assets/en.png") 
+		texture = exports.dpAssets:createTexture("buttons/en.png") 
 	})
 	UI:addChild(panel, languageEn)
 
 	local languageRu = UI:createDpImageButton({
 		x = 50 + languageLabelWidth + 7 + 27 + 10, y = 40,
 		width = 27, height = 27,
-		texture = dxCreateTexture("assets/ru.png") 
+		texture = exports.dpAssets:createTexture("buttons/ru.png")
 	})
-	UI:addChild(panel, languageRu)	
+	UI:addChild(panel, languageRu)
 
-	local circleTexture = dxCreateTexture("assets/circle.png", "argb", false, "clamp") 
+	local circleTexture = dxCreateTexture("assets/circle.png", "argb", false, "clamp")
 	local colorPurple = UI:createDpImageButton({
 		x = panelWidth - 50 - 27,
 		y = 40,
@@ -292,7 +292,7 @@ local function createRegisterPanel()
 		alignY = "top",
 		locale = "login_panel_color"
 	})
-	UI:addChild(panel, colorLabel)		
+	UI:addChild(panel, colorLabel)
 
 	local y = 100
 	local usernameInput = UI:createDpInput({
@@ -327,10 +327,10 @@ local function createRegisterPanel()
 		masked = true,
 		locale = "login_panel_password_confirm_label"
 	})
-	UI:addChild(panel, passwordConfirmInput)	
+	UI:addChild(panel, passwordConfirmInput)
 
 	local backButton = UI:createDpButton({
-		x = 0, 
+		x = 0,
 		y = panelHeight - 55,
 		width = panelWidth / 2,
 		height = 55,
@@ -341,7 +341,7 @@ local function createRegisterPanel()
 	UI:addChild(panel, backButton)
 
 	local registerButton = UI:createDpButton({
-		x = panelWidth / 2, 
+		x = panelWidth / 2,
 		y = panelHeight - 55,
 		width = panelWidth / 2,
 		height = 55,
@@ -349,7 +349,7 @@ local function createRegisterPanel()
 		text = "Зарегистрироваться",
 		locale = "login_panel_register_button"
 	})
-	UI:addChild(panel, registerButton)	
+	UI:addChild(panel, registerButton)
 
 	UI:setVisible(panel, false)
 	registerPanel.panel = panel
@@ -357,7 +357,7 @@ local function createRegisterPanel()
 	registerPanel.backButton = backButton
 	registerPanel.password = passwordInput
 	registerPanel.passwordConfirm = passwordConfirmInput
-	registerPanel.username = usernameInput	
+	registerPanel.username = usernameInput
 	registerPanel.langButtons = {
 		en = languageEn,
 		ru = languageRu
@@ -402,14 +402,14 @@ addEventHandler("dpUI.click", resourceRoot, function(widget)
 	elseif widget == registerPanel.registerButton and not isAuthInProgress then
 		isAuthInProgress = true
 		registerClick(
-			UI:getText(registerPanel.username), 
+			UI:getText(registerPanel.username),
 			UI:getText(registerPanel.password),
 			UI:getText(registerPanel.passwordConfirm)
 		)
 	elseif widget == registerPanel.colorButtons.red then
 		UI:setTheme("red")
 	elseif widget == registerPanel.colorButtons.purple then
-		UI:setTheme("purple")		
+		UI:setTheme("purple")
 	elseif widget == registerPanel.colorButtons.blue then
 		UI:setTheme("blue")
 	end

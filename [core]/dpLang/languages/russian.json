@@ -191,6 +191,7 @@
 	"main_panel_tab_settings": "Настройки",
 	"main_panel_tab_garage": "Гараж",
 	"main_panel_tab_map": "Карта",
+
 	"main_panel_account_donat": "Донат",
 	"main_panel_account_more": "Дополнительно",
 	"main_panel_account_money": "Деньги",
@@ -200,6 +201,16 @@
 	"main_panel_account_regtime": "Дата регистрации",
 	"main_panel_account_playtime": "Часов в игре",
 	"main_panel_account_cars_count": "Количество машин",
+
+	"main_panel_settings_section_game": "Настройки игры",
+	"main_panel_settings_section_graphics": "Настройки графики",
+	"main_panel_settings_language": "Язык",
+	"main_panel_settings_color": "Цвет интерфейса",
+	"main_panel_settings_reflections_cars": "отражения на автомобилях",
+	"main_panel_settings_reflections_water": "отражения на воде",
+	"main_panel_settings_improved_car_lights": "улучшенный эффект фар",
+	"main_panel_settings_improved_sky": "улучшенное небо",
+	"main_panel_settings_screen_blur": "размытие экрана",
 
 	// Markers
 	"markers_garage_text": "Нажмите %q чтобы войти в гараж",

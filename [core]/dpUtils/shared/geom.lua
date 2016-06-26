@@ -21,6 +21,16 @@ function wrapAngleRadians(value)
 	return value
 end
 
+function differenceBetweenAngles(firstAngle, secondAngle)
+	local difference = secondAngle - firstAngle
+	if difference > 180 then
+		difference = difference - 360
+	elseif difference < -180 then
+		difference = difference + 360
+	end
+	return difference
+end
+
 function differenceBetweenAnglesRadians(firstAngle, secondAngle)
 	local difference = secondAngle - firstAngle
 	if difference > math.pi then

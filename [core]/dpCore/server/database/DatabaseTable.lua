@@ -10,7 +10,7 @@ DatabaseTable.ID_COLUMN_NAME = "_id"
 --- Тип столбца для ID записи
 DatabaseTable.ID_COLUMN_TYPE = "int"
 
-local function retrieveQueryResults(connection, queryString, callback, ...)	
+local function retrieveQueryResults(connection, queryString, callback, ...)
 	if not isElement(connection) then
 		outputDebugString("ERROR: retrieveQueryResults failed: no database connection")
 		return false
@@ -20,10 +20,11 @@ local function retrieveQueryResults(connection, queryString, callback, ...)
 	end
 	-- Если не передали callback
 	if type(callback) ~= "function" then
+		-- Вернуть результат запроса синхронно
 		local handle = connection:query(queryString)
 		local result = handle:poll(-1)
 		return result
-	else -- Если передали callback
+	else -- Если передали callback, вернуть результат асинхронно
 		return not not connection:query(function (queryHandle, args)
 			local result = queryHandle:poll(0)
 			if type(args) ~= "table" then
@@ -52,7 +53,7 @@ function DatabaseTable.create(tableName, columns, options)
 	if type(options) ~= "string" then
 		options = ""
 	else
-		options = ", " .. options 
+		options = ", " .. options
 	end
 	local connection = Database.getConnection()
 	if not connection then
@@ -77,7 +78,7 @@ function DatabaseTable.create(tableName, columns, options)
 		table.insert(columnsQueries, columnQuery)
 	end
 	local queryString = connection:prepareString(
-		"CREATE TABLE IF NOT EXISTS `??` (" .. table.concat(columnsQueries, ", ") .. " " .. options .. ");", 
+		"CREATE TABLE IF NOT EXISTS `??` (" .. table.concat(columnsQueries, ", ") .. " " .. options .. ");",
 		tableName
 	)
 	return connection:exec(queryString)
@@ -114,7 +115,7 @@ function DatabaseTable.insert(tableName, insertValues, callback, ...)
 	local columnsQuery = connection:prepareString("(" .. table.concat(columnsQueries, ",") .. ")")
 	local valuesQuery = connection:prepareString("(" .. table.concat(valuesQueries, ",") .. ")")
 	local queryString = connection:prepareString(
-		"INSERT INTO `??` " .. columnsQuery .. " VALUES " .. valuesQuery .. ";", 
+		"INSERT INTO `??` " .. columnsQuery .. " VALUES " .. valuesQuery .. ";",
 		tableName
 	)
 	return retrieveQueryResults(connection, queryString, callback, ...)
@@ -158,16 +159,12 @@ function DatabaseTable.update(tableName, setFields, whereFields, callback, ...)
 	return retrieveQueryResults(connection, queryString, callback, ...)
 end
 
--- string tableName, [table columns, ...]
--- columns: Массив {"column1", "column2", ...}
--- Если не указаны columns, делается SELECT *
-
 --- Получение записей из таблицы
 -- @tparam string tableName название таблицы
 -- @tparam table columnst список столбцов, которые нужно получить
 -- @tparam[opt] table whereFields поля, по которым будут выбираться строки {ключ=значение}
 -- @tparam[opt] function callback callback
--- @treturn bool результат выполнения функции. 
+-- @treturn bool результат выполнения функции.
 -- Если не указан callback, функция выполняется синхронно и результат запроса к БД будет передан в качестве возвращаемого значения.
 -- @usage DatabaseTable.select("users", {"username", "password"}, { username = "user3" })
 function DatabaseTable.select(tableName, columns, whereFields, callback, ...)
@@ -202,18 +199,49 @@ function DatabaseTable.select(tableName, columns, whereFields, callback, ...)
 	for i, name in ipairs(columns) do
 		table.insert(selectColumns, connection:prepareString("`??`", name))
 	end
-	
+
 	-- SELECT COLUMNS
 	local queryString = connection:prepareString(
-		"SELECT " .. table.concat(selectColumns, ",") .." FROM `??` " .. whereQueryString ..";", 
+		"SELECT " .. table.concat(selectColumns, ",") .." FROM `??` " .. whereQueryString ..";",
 		tableName
 	)
 	return retrieveQueryResults(connection, queryString, callback, ...)
 end
 
---- Удаление записей из таблицы.
--- Данный метод не реализован
-function DatabaseTable.delete()
+--- Удаление записей из таблицы
+-- @tparam string tableName название таблицы
+-- @tparam[opt] table whereFields поля, по которым будут выбираться строки для удаления {ключ=значение}
+-- @tparam[opt] function callback callback
+-- @treturn bool результат выполнения функции.
+-- Если не указан callback, функция выполняется синхронно и результат запроса к БД будет передан в качестве возвращаемого значения.
+-- @usage DatabaseTable.delete("users", { username = "user2" })
+function DatabaseTable.delete(tableName, whereFields, callback, ...)
+	if type(tableName) ~= "string" then
+		outputDebugString("ERROR: DatabaseTable.select: bad arguments")
+		return false
+	end
 	local connection = Database.getConnection()
-	return true
+	if not connection then
+		outputDebugString("ERROR: DatabaseTable.select: no database connection")
+		return false
+	end
+	-- WHERE
+	local whereQueries = {}
+	if not whereFields then
+		whereFields = {}
+	end
+	for column, value in pairs(whereFields) do
+		table.insert(whereQueries, connection:prepareString("`??`=?", column, value))
+	end
+	local whereQueryString = ""
+	if #whereQueries > 0 then
+		whereQueryString = " WHERE " .. table.concat(whereQueries, ", ")
+	end
+
+	-- SELECT COLUMNS
+	local queryString = connection:prepareString(
+		"DELETE FROM `??` " .. whereQueryString ..";",
+		tableName
+	)
+	return retrieveQueryResults(connection, queryString, callback, ...)
 end

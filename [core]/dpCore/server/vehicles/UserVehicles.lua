@@ -34,6 +34,27 @@ function UserVehicles.addVehicle(ownerId, model, callback)
 	return not not success
 end
 
+-- Удаление автомобиля из аккаунта
+function UserVehicles.removeVehicle(vehicleId, callback)
+	vehicleId = tonumber(vehicleId)
+	if not vehicleId then
+		executeCallback(callback, false)
+		return false
+	end
+
+	-- Вернуть автомобиль в гараж, если он заспавнен в момент удаления
+	local vehicle = VehicleSpawn.getSpawnedVehicle(vehicleId)
+	if isElement(vehicle) then
+		returnVehicleToGarage(vehicle)	
+	end
+
+	local success = DatabaseTable.delete(VEHICLES_TABLE_NAME, { _id = vehicleId }, callback)
+	if not success then
+		executeCallback(callback, false)
+	end
+	return success
+end
+
 -- Информация об автомобиле
 function UserVehicles.getVehicle(vehicleId, callback)
 	if type(vehicleId) ~= "number" then
@@ -51,7 +72,7 @@ function UserVehicles.updateVehicle(vehicleId, fields, callback)
 		return false
 	end
 
-	local success = DatabaseTable.update(VEHICLES_TABLE_NAME, fields, {_id = vehicleId}, 
+	local success = DatabaseTable.update(VEHICLES_TABLE_NAME, fields, {_id = vehicleId},
 	function (result)
 		executeCallback(callback, not not result)
 	end)
@@ -81,9 +102,4 @@ end
 
 function UserVehicles.changeOwner(vehicleId, newOwnerId, callback)
 	return UserVehicles.updateVehicle(vehicleId, {owner_id = newOwnerId}, callback)
-end
-
--- Удаление автомобия из аккаунта
-function UserVehicles.removeVehicle(vehicleId)
-
 end

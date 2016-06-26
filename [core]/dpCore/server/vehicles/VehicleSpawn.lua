@@ -55,7 +55,7 @@ local function removeUserSpawnedVehicle(userId, vehicle)
 	if not userSpawnedVehicles[userId] then
 		userSpawnedVehicles[userId] = {}
 	end
-	userSpawnedVehicles[userId][vehicle] = nil	
+	userSpawnedVehicles[userId][vehicle] = nil
 end
 
 -- Возвращает массив автомобилей, принадлежащих пользователю с userId
@@ -84,7 +84,7 @@ end
 
 -- Возвращает элемент заспавненного автомобиля по его _id в базе данных
 function VehicleSpawn.getSpawnedVehicle(vehicleId)
-	return getElementByID(tostring(vehicleId))
+	return getElementByID("vehicle_" .. tostring(vehicleId))
 end
 
 -- Возвращает игрока, который является владельцем автомобиля
@@ -122,9 +122,9 @@ local function autosaveVehicle(vehicle, saveTuning, saveStickers)
 		tuningTable = {}
 		for k in pairs(VehicleTuning.defaultTuningTable) do
 			tuningTable[k] = vehicle:getData(k)
-			if not tuningTable[k] then 
+			if not tuningTable[k] then
 				tuningTable[k] = nil
-			end 
+			end
 		end
 	end
 	local stickersTable
@@ -192,7 +192,7 @@ function VehicleSpawn.spawn(vehicleId, position, rotation)
 	vehicleInfo = vehicleInfo[1]
 	if not vehicleInfo.owner_id then
 		return false
-	end	
+	end
 
 	local user = Users.get(vehicleInfo.owner_id, { "username" })
 	if type(user) ~= "table" or #user == 0 then
@@ -211,7 +211,7 @@ function VehicleSpawn.spawn(vehicleId, position, rotation)
 		vehicle:setData(name, vehicleInfo[name])
 	end
 	vehicle:setData("owner_username", user.username)
-	vehicle.id = tostring(vehicleInfo._id)
+	vehicle.id = "vehicle_" .. tostring(vehicleInfo._id)
 
 	addUserSpawnedVehicle(vehicleInfo.owner_id, vehicle)
 	VehicleTuning.applyToVehicle(vehicle, vehicleInfo.tuning, vehicleInfo.stickers)
@@ -221,7 +221,7 @@ function VehicleSpawn.spawn(vehicleId, position, rotation)
 	return vehicle
 end
 
--- Защита даты 
+-- Защита даты
 addEventHandler("onElementDataChange", root, function(dataName, oldValue)
 	if not client then
 		return

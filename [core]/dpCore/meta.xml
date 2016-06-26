@@ -4,7 +4,7 @@
 	<include resource="dpUtils"/>
 
 	<!-- SHARED -->
-	
+
 	<script type="shared" src="shared/utils.lua"/>
 	<!-- Основной конфиг -->
 	<script type="shared" src="shared/AccountsConfig.lua"/>
@@ -31,9 +31,9 @@
 	<script type="server" src="server/vehicles/VehicleSpawn.lua"/>
 	<script type="server" src="server/vehicles/exports.lua"/>
 	<!-- Gameplay -->
-	<script type="server" src="server/gameplay/PlayerSpawn.lua"/>	
-	<script type="server" src="server/gameplay/player_join.lua"/>	
-	<script type="server" src="server/gameplay/player_ids.lua"/>	
+	<script type="server" src="server/gameplay/PlayerSpawn.lua"/>
+	<script type="server" src="server/gameplay/player_join.lua"/>
+	<script type="server" src="server/gameplay/player_ids.lua"/>
 	<!-- Основной скрипт -->
 	<script type="server" src="server/main.lua"/>
 
@@ -45,10 +45,12 @@
 	<export type="server" function="spawnVehicle"/>
 	<export type="server" function="updateVehicle"/>
 	<export type="server" function="updateVehicleTuning"/>
+	<export type="server" function="updatePlayerVehiclesCount"/>
 	<export type="server" function="isPlayerOwningVehicle"/>
 	<export type="server" function="returnVehicleToGarage"/>
 	<export type="server" function="getPlayerVehicles"/>
 	<export type="server" function="addPlayerVehicle"/>
+	<export type="server" function="removePlayerVehicle"/>
 	<export type="server" function="getVehicleById"/>
 
 	<!-- CLIENT -->

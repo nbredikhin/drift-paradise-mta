@@ -1,6 +1,6 @@
 Panel = {}
 local screenWidth, screenHeight
-local renderTarget 
+local renderTarget
 local headerColor = tocolor(29, 29, 29)
 local itemColor = tocolor(42, 40, 41)
 local highlightedColor = tocolor(255, 255, 255)
@@ -58,7 +58,7 @@ local function draw()
 			local width = panelWidth * column.size
 			dxDrawText(text, x, y, x + width, y + headerHeight * 0.8, tocolor(255, 255, 255), 1, itemFont, "center", "center", true)
 			x = x + width
-		end		
+		end
 		y = y + itemHeight
 	end
 	x = panelX
@@ -82,7 +82,7 @@ end
 local function mouseUp()
 	if #playersList <= itemsCount then
 		return
-	end	
+	end
 	scrollOffset = scrollOffset - 1
 	if scrollOffset < 0 then
 		scrollOffset = 0
@@ -98,7 +98,7 @@ function Panel.start()
 	logoTexture = exports.dpAssets:createTexture("logo.png")
 	local textureWidth, textureHeight = dxGetMaterialSize(logoTexture)
 	logoWidth = 415
-	logoHeight = textureHeight * 415 / textureWidth	
+	logoHeight = textureHeight * 415 / textureWidth
 	panelHeight = logoHeight + 10 + headerHeight * 2 + itemsCount * itemHeight
 	highlightedColor = tocolor(exports.dpUI:getThemeColor())
 
@@ -110,7 +110,7 @@ function Panel.start()
 	-- 	local data = {
 	-- 		money = math.random(100, 999999)
 	-- 	}
-	-- 	function fakePlayer:getData(name) 
+	-- 	function fakePlayer:getData(name)
 	-- 		return data[name]
 	-- 	end
 	-- 	table.insert(fakePlayers, fakePlayer)
@@ -118,7 +118,7 @@ function Panel.start()
 
 	local function addPlayerToList(player)
 		table.insert(playersList, {
-			id = tostring(player.id),
+			id = player:getData("serverId") or 0,
 			name = exports.dpUtils:removeHexFromString(player.name),
 			money = player:getData("money") or 0,
 			level = 1
@@ -132,7 +132,7 @@ function Panel.start()
 	end
 
 	bindKey("mouse_wheel_up", "down", mouseUp)
-	bindKey("mouse_wheel_down", "down", mouseDown)	
+	bindKey("mouse_wheel_down", "down", mouseDown)
 	localPlayer:setData("activeUI", "tabPanel")
 end
 
@@ -143,7 +143,7 @@ function Panel.stop()
 	destroyElement(logoTexture)
 
 	unbindKey("mouse_wheel_up", "down", mouseUp)
-	unbindKey("mouse_wheel_down", "down", mouseDown)	
+	unbindKey("mouse_wheel_down", "down", mouseDown)
 
 	localPlayer:setData("activeUI", false)
 end

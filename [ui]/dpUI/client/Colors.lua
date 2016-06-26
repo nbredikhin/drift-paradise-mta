@@ -66,6 +66,9 @@ function Colors.setTheme(name)
 		return false
 	end
 	local file = fileOpen("themes/" .. name .. ".json")
+	if not file then
+		return false
+	end
 	local themeJSON = file:read(file.size)
 	file:close()
 
@@ -98,5 +101,17 @@ end
 addEventHandler("onClientResourceStart", resourceRoot, function ()
 	colorScheme = exports.dpUtils:tableCopy(colorSchemeDefault)
 
-	Colors.setTheme("red")
+	local theme = exports.dpConfig:getProperty("ui.theme")
+	if theme then
+		Colors.setTheme(theme)
+	else
+		Colors.setTheme("red")
+	end
+end)
+
+addEvent("dpConfig.update", false)
+addEventHandler("dpConfig.update", root, function (key, value)
+	if key == "ui.theme" then
+		Colors.setTheme(value)
+	end
 end)

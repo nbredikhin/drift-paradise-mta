@@ -25,8 +25,8 @@ function getRenderTarget()
 end
 printMetaExport("getRenderTarget")
 
-function setTheme(...)
-	return Colors.setTheme(...)
+function setTheme(theme)
+	return exports.dpConfig:setProperty("ui.theme", theme)
 end
 printMetaExport("setTheme")
 

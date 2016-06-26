@@ -12,6 +12,7 @@ local renderTarget3D
 local targetFadeVal = 0
 local currentFadeVal = 0
 local fadeSpeed = 10
+local fadeActive = false
 
 local forceRotationX, forceRotationY = 0, 0
 
@@ -50,14 +51,14 @@ local function draw()
 	end
 	dxSetRenderTarget()
 
+	if Render.mouseClick and not MessageBox.isActive() then
+		triggerEvent("_dpUI.clickInternal", resourceRoot)
+	end
 	if Render.clickedWidget and not MessageBox.isActive() then
 		triggerEvent("dpUI.click", Render.clickedWidget.resourceRoot, Render.clickedWidget.id)
 		if type(Render.clickedWidget.click) == "function" then
 			Render.clickedWidget:click(mouseX, mouseY)
 		end
-	end
-	if Render.mouseClick and not MessageBox.isActive() then
-		triggerEvent("_dpUI.clickInternal", resourceRoot)
 	end
 	Render.mouseClick = false
 
@@ -90,6 +91,8 @@ function Render.start()
 	Drawing.POST_GUI = not not renderTarget3D.fallback
 	addEventHandler("onClientRender", root, draw)
 	addEventHandler("onClientPreRender", root, update)
+
+	BLUR_ENABLED = exports.dpConfig:getProperty("ui.blur")
 end
 
 function Render.setupResource(resourceRoot)
@@ -162,22 +165,31 @@ function Render.getRenderTarget()
 	return renderTarget3D.renderTarget
 end
 
+local function setupBlurBox()
+	blurBox = exports.blur_box:createBlurBox(0, 0, screenWidth, screenHeight, 255, 255, 255, 0, false)
+	if blurBox then
+		exports.blur_box:setScreenResolutionMultiplier(0.4, 0.4)
+		exports.blur_box:setBlurIntensity(BLUR_INTERNSIVITY)
+	end
+end
+
 function Render.fadeScreen(fade)
 	fade = not not fade
+	if fade == fadeActive then
+		return
+	end
+	fadeActive = fade
 	if fade then
 		targetFadeVal = 1
 		if BLUR_ENABLED then
-			blurBox = exports.blur_box:createBlurBox(0, 0, screenWidth, screenHeight, 255, 255, 255, 0, false)
-			if blurBox then
-				exports.blur_box:setScreenResolutionMultiplier(0.4, 0.4)
-				exports.blur_box:setBlurIntensity(BLUR_INTERNSIVITY)
-			end
+			setupBlurBox()
 		end
 	else
 		targetFadeVal = 0
 
 		if blurBox then
 			exports.blur_box:destroyBlurBox(blurBox)
+			blurBox = nil
 		end
 	end
 end
@@ -188,3 +200,23 @@ function Render.forceRotation(x, y)
 		forceRotationY = y
 	end
 end
+
+addEvent("dpConfig.update", false)
+addEventHandler("dpConfig.update", root, function (key, value)
+	if key == "ui.blur" then
+		value = not not value
+		if BLUR_ENABLED ~= value then
+			if fadeActive then
+				if value then
+					setupBlurBox()
+				else
+					if blurBox then
+						exports.blur_box:destroyBlurBox(blurBox)
+						blurBox = nil
+					end
+				end
+			end
+			BLUR_ENABLED = value
+		end
+	end
+end)

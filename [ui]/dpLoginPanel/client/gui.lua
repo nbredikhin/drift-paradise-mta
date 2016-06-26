@@ -17,7 +17,7 @@ local KEY_REGEXP = "^[A-Za-z0-9_]$"
 local function draw()
 	animationProgress = math.min(1, animationProgress + ANIMATION_SPEED)
 	dxDrawImage(0, 0, backgroundWidth, backgroundHeight, backgroundTexture, 0, 0, 0, tocolor(255, 255, 255, 255 * animationProgress))
-	dxDrawText("Drift Paradise 2.0 Development Version", 3, screenHeight - 14, 3, screenHeight - 14, tocolor(255, 255, 255, 100 * animationProgress))
+	dxDrawText("Drift Paradise 2.0", 3, screenHeight - 14, 3, screenHeight - 14, tocolor(255, 255, 255, 100 * animationProgress))
 	if not root:getData("dbConnected") then
 		dxDrawText("The server is currently not available.\nСервер на данный момент недоступен.",
 			0,
@@ -89,10 +89,6 @@ function setVisible(visible)
 		if fields then
 			UI:setText(loginPanel.username, fields.username)
 			UI:setText(loginPanel.password, fields.password)
-			exports.dpLang:setLanguage(fields.language)
-			if fields.color then
-				exports.dpUI:setTheme(fields.color)
-			end
 		end
 		backgroundTexture = DxTexture("assets/background.jpg")
 	else
@@ -391,9 +387,11 @@ addEventHandler("dpUI.click", resourceRoot, function(widget)
 		UI:setVisible(registerPanel.panel, false)
 	-- Переключение языка
 	elseif widget == registerPanel.langButtons.en then
-		exports.dpLang:setLanguage("english")
+		--exports.dpLang:setLanguage("english")
+		exports.dpConfig:setProperty("ui.language", "english")
 	elseif widget == registerPanel.langButtons.ru then
-		exports.dpLang:setLanguage("russian")
+		--exports.dpLang:setLanguage("russian")
+		exports.dpConfig:setProperty("ui.language", "russian")
 	-- Кнопка входа
 	elseif widget == loginPanel.startGameButton and not isAuthInProgress then
 		isAuthInProgress = true
@@ -407,11 +405,14 @@ addEventHandler("dpUI.click", resourceRoot, function(widget)
 			UI:getText(registerPanel.passwordConfirm)
 		)
 	elseif widget == registerPanel.colorButtons.red then
-		UI:setTheme("red")
+		-- UI:setTheme("red")
+		exports.dpConfig:setProperty("ui.theme", "red")
 	elseif widget == registerPanel.colorButtons.purple then
-		UI:setTheme("purple")
+		-- UI:setTheme("purple")
+		exports.dpConfig:setProperty("ui.theme", "purple")
 	elseif widget == registerPanel.colorButtons.blue then
-		UI:setTheme("blue")
+		-- UI:setTheme("blue")
+		exports.dpConfig:setProperty("ui.theme", "blue")
 	end
 end)
 

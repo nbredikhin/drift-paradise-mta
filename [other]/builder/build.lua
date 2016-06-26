@@ -39,7 +39,7 @@ end
 
 local function saveFile(path, data)
 	if not path then
-		return fals
+		return false
 	end
 	if fileExists(path) then
 		fileDelete(path)

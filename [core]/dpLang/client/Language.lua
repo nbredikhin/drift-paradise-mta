@@ -12,6 +12,7 @@ function Language.setLanguage(lang)
 	Locales.load(lang)
 	currentLanguage = lang
 	triggerEvent("dpLang.languageChanged", root, currentLanguage)
+	return true
 end
 
 function Language.getLanguage()
@@ -46,7 +47,11 @@ function Language.chatMessage(name, ...)
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
-	Language.setLanguage(DEFAULT_LANGUAGE)
+	-- Ставим язык из настроек
+	if not Language.setLanguage(exports.dpConfig:getProperty("ui.language")) then
+		-- Если не удалось поставить язык из настроек, ставим дефолтный
+		Language.setLanguage(DEFAULT_LANGUAGE)
+	end
 end)
 
 addEvent("dpLang.chatMessageServer", true)
@@ -54,8 +59,10 @@ addEventHandler("dpLang.chatMessageServer", resourceRoot, function (name, ...)
 	Language.chatMessage(name, ...)
 end)
 
-addEventHandler("onClientResourceStart", resourceRoot, function ()
-	if localPlayer:getData("language") then
-		Language.setLanguage(localPlayer:getData("language"))
+-- Обновление языка при изменении настроек
+addEvent("dpConfig.update", false)
+addEventHandler("dpConfig.update", root, function (key, value)
+	if key == "ui.language" then
+		Language.setLanguage(value)
 	end
 end)

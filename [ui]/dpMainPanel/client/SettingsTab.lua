@@ -167,6 +167,8 @@ function SettingsTab.create()
 		width = 20, height = 20
 	}
 	UI:addChild(panel, blurChechbox)
+	UI:setState(blurChechbox, exports.dpConfig:getProperty("ui.blur"))
+
 	UI:addChild(panel, UI:createDpLabel {
 		x = 50, y = y,
 		width = width / 3, height = 30,
@@ -185,7 +187,8 @@ function SettingsTab.create()
 			red = colorRed,
 			blue = colorBlue,
 			purple = colorPurple
-		}
+		},
+		blurChechbox = blurChechbox
 	}
 end
 
@@ -202,5 +205,7 @@ addEventHandler("dpUI.click", resourceRoot, function(widget)
 		UI:setTheme("purple")
 	elseif widget == widgets.colorButtons.blue then
 		UI:setTheme("blue")
+	elseif widget == widgets.blurChechbox then
+		exports.dpConfig:setProperty("ui.blur", UI:getState(widget))
 	end
 end)

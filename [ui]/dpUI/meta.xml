@@ -96,4 +96,6 @@
 	<export type="client" function="getActiveItem"/>
 	<export type="client" function="setItems"/>
 	<export type="client" function="getItems"/>
+	<export type="client" function="getState"/>
+	<export type="client" function="setState"/>
 </meta>

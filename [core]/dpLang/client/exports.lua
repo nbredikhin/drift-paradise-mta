@@ -1,10 +1,5 @@
-function setLanguage(...)
-	success, result = pcall(Language.setLanguage, ...)
-	if success then 
-		return result
-	else
-		return false
-	end
+function setLanguage(language)
+	return exports.dpConfig:setProperty("ui.language", language)
 end
 
 function getLanguage(...)

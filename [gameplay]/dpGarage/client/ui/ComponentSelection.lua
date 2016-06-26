@@ -5,6 +5,16 @@ local ANIMATION_SPEED = 0.005
 
 function ComponentSelection:init(componentsList)
 	self.vehicle = GarageCar.getVehicle()
+	-- Компонент, выбранный в данный момент
+	self.selectedComponent = 1
+	-- Переведенное название компонента
+	self.localizedComponentName = ""
+	-- Отображение названия компонента на экране
+	self.componentNameText = ComponentNameText()
+	self.animationProgress = 0
+	self.animationTarget = 0
+	self.animationActive = true
+
 	self.componentsList = {}
 	for i, component in ipairs(componentsList) do
 		self:addComponent(
@@ -14,17 +24,6 @@ function ComponentSelection:init(componentsList)
 			component.animate
 		)
 	end
-	-- Компонент, выбранный в данный момент
-	self.selectedComponent = 1
-	-- Переведенное название компонента
-	self.localizedComponentName = ""
-	-- Отображение названия компонента на экране
-	self.componentNameText = ComponentNameText()
-
-	self.animationProgress = 0
-	self.animationTarget = 0
-	self.animationActive = true
-
 	-- Отобразить выбранный компонент
 	self:updateSelection()
 end

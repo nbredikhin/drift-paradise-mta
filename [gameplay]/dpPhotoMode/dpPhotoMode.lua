@@ -148,8 +148,9 @@ local function update(dt)
 	end
 
 	if isSmoothMovementEnabled then
+		rotationX = rotationX * 0.97
 		cameraPositionActual = cameraPositionActual + (cameraPosition - cameraPositionActual) * dt * dpPhotoModeOptions.SMOOTH_MOVEMENT_SPEED
-		actualRotationX = actualRotationX + exports.dpUtils:differenceBetweenAnglesRadians(actualRotationX, rotationX) * dt * dpPhotoModeOptions.SMOOTH_LOOK_SPEED
+		actualRotationX = actualRotationX + rotationX * dt * dpPhotoModeOptions.SMOOTH_LOOK_SPEED
 		actualRotationY = actualRotationY + exports.dpUtils:differenceBetweenAnglesRadians(actualRotationY, rotationY) * dt * dpPhotoModeOptions.SMOOTH_LOOK_SPEED
 		cameraRollActual = cameraRollActual + (cameraRoll - cameraRollActual) * dt * dpPhotoModeOptions.SMOOTH_MOVEMENT_SPEED
 		cameraFOVActual = cameraFOVActual + (cameraFOV - cameraFOVActual) * dt * dpPhotoModeOptions.SMOOTH_MOVEMENT_SPEED
@@ -191,18 +192,19 @@ local function onCursorMove(cX, cY, aX, aY)
 	if isSmoothMovementEnabled then
 		sensitivity = sensitivity / 3
 	end
-	rotationX = rotationX + aX * sensitivity
+	if isSmoothMovementEnabled then
+		rotationX = rotationX + aX * sensitivity * 0.6
+	else
+		rotationX = rotationX + aX * sensitivity
+	end
 	rotationY = rotationY - aY * sensitivity
-	--rotationX = exports.dpUtils:wrapAngleRadians(rotationX)
-	--rotationY = exports.dpUtils:wrapAngleRadians(rotationY)
 	-- Wrap angle
 	local PI = math.pi
-	if rotationX > PI then
-		rotationX = rotationX - 2 * PI
-	elseif rotationX < -PI then
-		rotationX = rotationX + 2 * PI
-	end
-
+	-- if rotationX > PI then
+	-- 	rotationX = rotationX - 2 * PI
+	-- elseif rotationX < -PI then
+	-- 	rotationX = rotationX + 2 * PI
+	-- end
 	if rotationY > PI then
 		rotationY = rotationY - 2 * PI
 	elseif rotationY < -PI then
@@ -223,6 +225,9 @@ local function onKey(key, isDown)
 	end
 	if key == dpPhotoModeOptions.controls.TOGGLE_SMOOTH then
 		isSmoothMovementEnabled = not isSmoothMovementEnabled
+		if isSmoothMovementEnabled then
+			rotationX = 0
+		end
 	end
 end
 

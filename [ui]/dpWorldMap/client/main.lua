@@ -8,6 +8,9 @@ function setVisible(visible)
 	if visible and localPlayer:getData("dpCore.state") then
 		return
 	end	
+	if exports.dpMainPanel:isVisible() or exports.dpTabPanel:isVisible() then
+		return
+	end	
 	isVisible = visible
 	if visible then
 		localPlayer:setData("dpCore.state", "map")

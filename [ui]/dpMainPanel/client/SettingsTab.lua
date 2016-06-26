@@ -103,6 +103,7 @@ function SettingsTab.create()
 		width = 20, height = 20
 	}
 	UI:addChild(panel, reflectionsCheckbox)
+	UI:setState(reflectionsCheckbox, exports.dpConfig:getProperty("graphics.reflections_cars"))
 	UI:addChild(panel, UI:createDpLabel {
 		x = 50, y = y,
 		width = width / 3, height = 30,
@@ -114,11 +115,12 @@ function SettingsTab.create()
 
 	-- Вода
 	y = y + 30
-	local carLightsCheckbox = UI:createDpCheckbox {
+	local waterCheckbox = UI:createDpCheckbox {
 		x = 20, y = y + 4,
 		width = 20, height = 20
 	}
-	UI:addChild(panel, carLightsCheckbox)
+	UI:addChild(panel, waterCheckbox)
+	UI:setState(waterCheckbox, exports.dpConfig:getProperty("graphics.reflections_water"))
 	UI:addChild(panel, UI:createDpLabel {
 		x = 50, y = y,
 		width = width / 3, height = 30,
@@ -135,6 +137,7 @@ function SettingsTab.create()
 		width = 20, height = 20
 	}
 	UI:addChild(panel, carLightsCheckbox)
+	UI:setState(carLightsCheckbox, exports.dpConfig:getProperty("graphics.improved_car_lights"))
 	UI:addChild(panel, UI:createDpLabel {
 		x = 50, y = y,
 		width = width / 3, height = 30,
@@ -146,11 +149,12 @@ function SettingsTab.create()
 
 	-- Небо
 	y = y + 30
-	local carLightsCheckbox = UI:createDpCheckbox {
+	local improvedSkyCheckbox = UI:createDpCheckbox {
 		x = 20, y = y + 4,
 		width = 20, height = 20
 	}
-	UI:addChild(panel, carLightsCheckbox)
+	UI:addChild(panel, improvedSkyCheckbox)
+	UI:setState(improvedSkyCheckbox, exports.dpConfig:getProperty("graphics.improved_sky"))
 	UI:addChild(panel, UI:createDpLabel {
 		x = 50, y = y,
 		width = width / 3, height = 30,
@@ -188,7 +192,11 @@ function SettingsTab.create()
 			blue = colorBlue,
 			purple = colorPurple
 		},
-		blurChechbox = blurChechbox
+		blurChechbox = blurChechbox,
+		improvedSkyCheckbox = improvedSkyCheckbox,
+		carLightsCheckbox = carLightsCheckbox,
+		waterCheckbox = waterCheckbox,
+		reflectionsCheckbox = reflectionsCheckbox
 	}
 end
 
@@ -207,5 +215,13 @@ addEventHandler("dpUI.click", resourceRoot, function(widget)
 		UI:setTheme("blue")
 	elseif widget == widgets.blurChechbox then
 		exports.dpConfig:setProperty("ui.blur", UI:getState(widget))
+	elseif widget == widgets.improvedSkyCheckbox then
+		exports.dpConfig:setProperty("graphics.improved_sky", UI:getState(widget))
+	elseif widget == widgets.carLightsCheckbox then
+		exports.dpConfig:setProperty("graphics.improved_car_lights", UI:getState(widget))
+	elseif widget == widgets.waterCheckbox then
+		exports.dpConfig:setProperty("graphics.reflections_water", UI:getState(widget))
+	elseif widget == widgets.reflectionsCheckbox then
+		exports.dpConfig:setProperty("graphics.reflections_cars", UI:getState(widget))
 	end
 end)

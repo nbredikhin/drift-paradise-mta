@@ -119,6 +119,9 @@ local function update(dt)
 end
 
 local function onCollision()
+	if source ~= localPlayer.vehicle then
+		return
+	end
 	-- outputChatBox("LOOOOOL")
 	-- If we collided, we reset all drift multipliers
 	isDrifting = false

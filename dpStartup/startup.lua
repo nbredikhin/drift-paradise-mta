@@ -45,7 +45,12 @@ local startupResources = {
 	"dpAdmin",
 
 	-- Other
-	"dpGreetings"
+	"dpGreetings",
+
+	-- Third party
+	"blur_box",
+	"car_reflections",
+	"water_reflections"
 }
 
 local function processResourceByName(resourceName, start)

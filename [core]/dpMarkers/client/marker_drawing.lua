@@ -37,6 +37,13 @@ markerTypes.city = {
 	string = "markers_city_text"
 }
 
+markerTypes.showroom = {
+	color = {212, 0, 40},
+	icon = "assets/showroom_icon.png",
+	text = "assets/showroom_text.png",
+	string = "markers_showroom_text"
+}
+
 local function drawScreenText(text)
 	text = string.format(exports.dpLang:getString(text), string.upper(markerKey))
 	local yOffset = math.sin(getTickCount() * MARKER_ANIMATION_SPEED) * 5

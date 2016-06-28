@@ -10,6 +10,8 @@ addEventHandler("dpGarage.enter", resourceRoot, function (success, vehiclesList,
 	if success then
 		Garage.start(vehiclesList, enteredVehicleId)
 	else
+		local errorType = vehiclesList
+		fadeCamera(true)
 		if errorType then
 			local errorText = exports.dpLang:getString(errorType)
 			if errorText then

@@ -2,7 +2,7 @@ ShowRoom = {}
 
 ShowRoom.room = {}
 ShowRoom.podium = {}
-ShowRoom.isStarted = false
+ShowRoom.isActive = false
 ShowRoom.currentCar = 1
 ShowRoom.currentColor = 1
 
@@ -124,76 +124,87 @@ ShowRoom.changeColor = function(inc)
 	setVehicleColor(ShowRoom.vehicle, color.r, color.g, color.b)
 end
 
-ShowRoom.start = function()
-	if ShowRoom.isStarted then 
-		return
+function ShowRoom.start()
+	if ShowRoom.isActive then 
+		return false
 	end
-	ShowRoom.podium = createObject(3782, 1500, 1500, 1497)
-	ShowRoom.room = createObject(3781, 1500, 1500, 1500)
 
+	return true
+end
+
+local function toggleFreeLook()
+	ShowRoom.targetRotation = ShowRoom.podium.rotation.z
+	ShowRoom.freeLookEnabled = not ShowRoom.freeLookEnabled
+end
+
+function ShowRoom.start()
+	if ShowRoom.isActive then 
+		return false
+	end
+	ShowRoom.isActive = true
 	ShowRoom.vehicle = createVehicle(ShowRoom.Cars[ShowRoom.currentCar].model, 1500, 1500, 1498)
 	setTimer(function()
 		local color = ShowRoom.Colors[ShowRoom.currentColor]
 		setVehicleColor(ShowRoom.vehicle, color.r, color.g, color.b)
 	end, 500, 1)
-	setElementDimension(localPlayer, 0)
-	showChat(false)
-	setPlayerHudComponentVisible("all", false)
+	-- Dimension машины и объектов
+	ShowRoom.podium.dimension = localPlayer.dimension
+	ShowRoom.room.dimension = localPlayer.dimension
+	ShowRoom.vehicle.dimension = localPlayer.dimension
+
 	CameraManager.start()
 
 	bindKey("arrow_l", "up", onLeftArrowUp)
 	bindKey("arrow_r", "up", onRightArrowUp)
 	bindKey("arrow_u", "up", onUpArrowUp)
-	bindKey("arrow_d", "up", onDownArrowUp)
-	bindKey("e", "up", function()
-		ShowRoom.targetRotation = ShowRoom.podium.rotation.z
-		ShowRoom.freeLookEnabled = not ShowRoom.freeLookEnabled
-	end)
-	toggleAllControls(false)
+	bindKey("arrow_d", "up", onDownArrowUp)	
+	bindKey("e", "up", toggleFreeLook)
+	bindKey("backspace", "down", exitShowRoom)
 	addEventHandler("onClientPreRender", root, update)
 	addEventHandler("onClientCursorMove", root, onClientCursorMove)
+
+	toggleAllControls(false)
+	exports.dpHUD:setVisible(false)
+	showChat(false)
+	return true
 end
 
-ShowRoom.stop = function()
-	if not ShowRoom.isStarted then 
-		return
+function ShowRoom.stop()
+	if not ShowRoom.isActive then 
+		return false
 	end
+	ShowRoom.isActive = false
 
 	CameraManager.stop()
 
-	destroyElement(ShowRoom.podium)
-	destroyElement(ShowRoom.room)
-
-	destroyElement(ShowRoom.vehicle)
-
-	setElementDimension(localPlayer, 1)
-	showChat(true)
-	setPlayerHudComponentVisible("all", true)
 	unbindKey("arrow_l", "up", onLeftArrowUp)
 	unbindKey("arrow_r", "up", onRightArrowUp)
 	unbindKey("arrow_u", "up", onUpArrowUp)
 	unbindKey("arrow_d", "up", onDownArrowUp)
-	toggleAllControls(true)
+	unbindKey("e", "up", toggleFreeLook)
 	removeEventHandler("onClientPreRender", root, update)
 	removeEventHandler("onClientCursorMove", root, onClientCursorMove)
+
+	showChat(true)
+	exports.dpHUD:setVisible(true)
+	toggleAllControls(true)
+
+	destroyElement(ShowRoom.vehicle)
+	return true
 end
 
-addCommandHandler("f", function() 
-	ShowRoom.targetRotation = ShowRoom.podium.rotation.z
-	ShowRoom.freeLookEnabled = not ShowRoom.freeLookEnabled
-end)
-
 addEventHandler("onClientResourceStart", resourceRoot, function()
-	local txd = engineLoadTXD("object.txd")
+	ShowRoom.podium = createObject(3782, 1500, 1500, 1497)
+	ShowRoom.room = createObject(3781, 1500, 1500, 1500)
+
+	local txd = engineLoadTXD("assets/object.txd")
     engineImportTXD(txd, 3781)
-    local dff = engineLoadDFF("object.dff")
+    local dff = engineLoadDFF("assets/object.dff")
     engineReplaceModel(dff, 3781)
-    local col = engineLoadCOL("object2.col")
+    local col = engineLoadCOL("assets/object2.col")
     engineReplaceCOL(col, 3782)
-    dff = engineLoadDFF("object2.dff")
+    dff = engineLoadDFF("assets/object2.dff")
     engineImportTXD(txd, 3782)
     engineReplaceModel(dff, 3782)
-
-    ShowRoom.start()
 end)
  

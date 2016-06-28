@@ -1,14 +1,12 @@
-addEvent("dpCore.playerVehiclesList", true)
-
 addEvent("dpGarage.enter", true)
 addEventHandler("dpGarage.enter", resourceRoot, function ()
 	if client:getData("dpCore.state") then
-		triggerClientEvent(client, "dpGarage.enter", resourceRoot, true, "garage_enter_failed")
+		triggerClientEvent(client, "dpGarage.enter", resourceRoot, false, "garage_enter_failed")
 		return
 	end
 	local playerVehicles = exports.dpCore:getPlayerVehicles(client)
 	if type(playerVehicles) ~= "table" or #playerVehicles == 0 then
-		triggerClientEvent(client, "dpGarage.enter", resourceRoot, true, "garage_enter_failed")
+		triggerClientEvent(client, "dpGarage.enter", resourceRoot, false, "garage_enter_failed")
 		return
 	end
 	client:setData("dpCore.state", "garage")

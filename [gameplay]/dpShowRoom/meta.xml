@@ -1,9 +1,13 @@
 <meta>
 	<oop>true</oop>
-	<script type="client" src="dpShowRoom.lua"/>
-	<script type="client" src="dpCameraManager.lua"/>
-	<file src="object.dff" />
-	<file src="object.txd" />
-	<file src="object2.dff" />
-	<file src="object2.col" />
+	<script type="client" src="client/ShowRoom.lua"/>
+	<script type="client" src="client/CameraManager.lua"/>
+	<script type="client" src="client/enter_exit.lua"/>
+
+	<script type="server" src="server/enter_exit.lua"/>
+	
+	<file src="assets/object.dff" />
+	<file src="assets/object.txd" />
+	<file src="assets/object2.dff" />
+	<file src="assets/object2.col" />
 </meta>	

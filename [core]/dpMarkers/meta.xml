@@ -12,4 +12,7 @@
 
 	<file src="assets/city_icon.png"/>
 	<file src="assets/city_text.png"/>	
+
+	<file src="assets/showroom_icon.png"/>
+	<file src="assets/showroom_text.png"/>		
 </meta>

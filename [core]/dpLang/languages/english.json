@@ -216,4 +216,5 @@
 	// Markers
 	"markers_garage_text": "Press %q to enter garage",
 	"markers_city_text": "Press %q to teleport back to the city",
+	"markers_showroom_text": "Press %q to open car shop",
 }

@@ -6,7 +6,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	PropsStorage.setDefault("ui.theme", "red")
 	PropsStorage.setDefault("ui.blur", true)
 	-- Параметры графики
-	PropsStorage.setDefault("graphics.reflections_cars", true)
+	PropsStorage.setDefault("graphics.reflections_cars", false)
 	PropsStorage.setDefault("graphics.reflections_water", false)
 	PropsStorage.setDefault("graphics.improved_car_lights", false)
 	PropsStorage.setDefault("graphics.improved_sky", false)

@@ -22,7 +22,18 @@ local ENCRYPT_PNG_PATHS = true
 -- Объединить все скрипты в один файл
 local SCRIPTS_SINGLE_FILE = true
 
+-- Собрать ТОЛЬКО ресурсы из списка
 local RESOURCES_TO_BUILD = false--{dpCore = true}
+
+-- Ресурсы, которые нужно собрать помимо ресурсов с префиксом RESOURCE_PREFIX
+local INCLUDE_RESOURCES = {
+	"blur_box",
+	"car_reflections",
+	"water_reflections",
+	"dynamic_lighting",
+	"dynamic_lighting_vehicles",
+	"shader_dynamic_sky"
+}
 
 local function loadFile(path, count)
 	local file = fileOpen(path)
@@ -164,6 +175,16 @@ local function buildResource(resource)
 	newMeta:unload()
 end
 
+-- Находится ли ресурс с названием name в списке INCLUDE_RESOURCES
+local function isResourceIncluded(name)
+	for i, n in ipairs(INCLUDE_RESOURCES) do
+		if n == name then
+			return true
+		end
+	end
+	return false
+end
+
 local function buildResources()
 	local resourcesList = getResources()
 	if RESOURCES_TO_BUILD then
@@ -176,7 +197,7 @@ local function buildResources()
 		resourcesList = res
 	end
 	for i, resource in ipairs(resourcesList) do
-		if string.sub(resource.name, 1, string.len(RESOURCE_PREFIX)) == RESOURCE_PREFIX then
+		if isResourceIncluded(resource.name) or string.sub(resource.name, 1, string.len(RESOURCE_PREFIX)) == RESOURCE_PREFIX then
 			buildResource(resource)
 		end
 	end

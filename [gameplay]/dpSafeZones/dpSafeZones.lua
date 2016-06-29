@@ -3,6 +3,8 @@ local safeZonesList = {
 	{Vector2( { x = 1841.980, y = -1334.551} ), Vector2( { x = 1775.478, y = -1447.706 })},
 	-- Мерия
 	{Vector2( { x = 1554.707, y = -1744.444} ), Vector2( { x = 1402.353, y = -1776.95 })},
+	-- Автомагазин
+	{Vector2( { x = 1287.114, y = -1841.375} ), Vector2( { x = 1190.152, y = -1722.41 })},
 }
 
 local function createSafeZone(pos1, pos2)

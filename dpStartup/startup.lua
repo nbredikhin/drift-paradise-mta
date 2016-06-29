@@ -50,7 +50,10 @@ local startupResources = {
 	-- Third party
 	"blur_box",
 	"car_reflections",
-	"water_reflections"
+	"water_reflections",
+	"dynamic_lighting",
+	"dynamic_lighting_vehicles",
+	"shader_dynamic_sky"
 }
 
 local function processResourceByName(resourceName, start)

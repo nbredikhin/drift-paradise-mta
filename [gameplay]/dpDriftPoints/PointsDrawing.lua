@@ -1,44 +1,154 @@
 PointsDrawing = {}
 local screenSize = Vector2(guiGetScreenSize())
-local font
-local FONT_SIZE = 70
-local TEXT_COLOR = {255, 255, 255}
-local FUCKED_UP_TEXT_COLOR = {255, 0, 0}
-local CLOSE_TEXT_COLOR = {255, 150, 0}
-local SHADOW_COLOR = tocolor(0, 0, 0, 150)
-local SHADOW_OFFSET = Vector2(2, 2)
-local TEXT_VERTICAL_OFFSET = screenSize.y / 3
-local PULSE_MUL = 0.1
 
-function PointsDrawing.draw(driftPoints, pointsMultiplier)
-	local color = TEXT_COLOR
-	-- if DriftPoints.isDriftingClose() then
-	-- 	color = CLOSE_TEXT_COLOR 
-	-- end
-	if DriftPoints.isPreventedByCollision() then
-		color = FUCKED_UP_TEXT_COLOR
+local FONT_SIZE = 42
+local MULTIPLIER_FONT_SIZE = 24
+local font
+local font2
+local textHeight
+local state = "hide"
+
+local themeColor = {212, 0, 40}
+
+local pointsCount = 0
+local currentMultiplier = 0
+local targetAlpha = 0
+local alpha = 0
+local hidingTextScale = 1
+local hidingTextAlpha = 255
+local showingProgress = 0
+local SHOWING_SPEED = 8
+local HIDING_SPEED = 8
+
+-- Тряска
+local isShaking = false
+local shakingAmount = 0
+local SHAKE_POWER = 5
+
+-- Столкновение
+local isCollision = false
+
+-- Ебучие палки
+local lineHeight = 2
+
+function PointsDrawing.show()
+	if state == "hide" or state == "hiding" then
+		state = "showing"
+		targetAlpha = 255
+		alpha = 0
+		isCollision = false
+		showingProgress = 0
+		currentMultiplier = 0
+		pointsCount = 0
+
+		themeColor = {exports.dpUI:getThemeColor()}
 	end
-	color = tocolor(unpack(color))
-	local scaleMul = math.max(0.5, math.min(1, driftPoints / 5000))
-	local scale = scaleMul
-	if DriftPoints.isDrifting() then
-		scale = (1 - (math.sin(getTickCount() / 100) + 1) * PULSE_MUL * scaleMul) * scaleMul
+end
+
+function PointsDrawing.collision()
+	if isCollision then
+		return
 	end
-	dxDrawText(
-		tostring(driftPoints), 
-		SHADOW_OFFSET.x, 
-		SHADOW_OFFSET.y, 
-		screenSize.x + SHADOW_OFFSET.x, 
-		screenSize.y / 4 + SHADOW_OFFSET.y,
-		SHADOW_COLOR, 
-		scale, 
-		font,
-		"center", 
-		"center"
-	)
-	dxDrawText(tostring(driftPoints), 0, 0, screenSize.x, screenSize.y / 4, color, scale, font, "center", "center")
+	shakingAmount = 2
+	isCollision = true
+end
+
+function PointsDrawing.hide()
+	if state == "show" then
+		state = "hiding"
+		targetAlpha = 0
+		alpha = 255
+		hidingTextScale = 1
+		hidingTextAlpha = 255
+		isCollision = false
+	end
+end
+
+function PointsDrawing.draw()
+	local textWidth = dxGetTextWidth(pointsCount, 1, font)
+	local textX = screenSize.x / 2 - textWidth / 2
+	local textY = 80	
+	if state == "showing" or state == "hiding" then
+		dxDrawText(pointsCount, textX, textY, textX + textWidth, textY + textHeight, tocolor(255, 255, 255, alpha), 1, font, "center", "center")
+	elseif state == "show" then
+		local textRotation = 0
+		if isCollision then
+			textRotation = (math.random() - 0.5) * 10 * shakingAmount
+			local ox = (math.random() - 0.5) * SHAKE_POWER * shakingAmount
+			local oy = (math.random() - 0.5) * SHAKE_POWER * shakingAmount
+			dxDrawText(pointsCount, textX + ox, textY + oy, textX + textWidth + ox, textY + textHeight + oy, tocolor(255, 0, 0, 170), 1, font, "center", "center", false, false, false, false, false, textRotation)
+			local ox = (math.random() - 0.5) * SHAKE_POWER * shakingAmount
+			local oy = (math.random() - 0.5) * SHAKE_POWER * shakingAmount
+			dxDrawText(pointsCount, textX + ox, textY + oy, textX + textWidth + ox, textY + textHeight + oy, tocolor(50, 150, 255, 170), 1, font, "center", "center", false, false, false, false, false, textRotation)
+		end			
+		local ox = (math.random() - 0.5) * SHAKE_POWER * shakingAmount
+		local oy = (math.random() - 0.5) * SHAKE_POWER * shakingAmount
+		dxDrawText(pointsCount, textX + ox, textY + oy, textX + textWidth + ox, textY + textHeight + oy, tocolor(255, 255, 255), 1, font, "center", "center", false, false, false, false, false, textRotation)
+		
+		if currentMultiplier > 0 and not isCollision then
+			local mulX = textX + textWidth + ox + 5
+			local mulY = textY + oy
+			dxDrawText("X" .. tostring(currentMultiplier), mulX, mulY, mulX, mulY + textHeight, tocolor(themeColor[1], themeColor[2], themeColor[3], 230), 1, font2, "left", "top", false, false, false, false, false, textRotation)
+		end
+	end
+	if state == "hiding" and not isCollision then
+		dxDrawText(pointsCount, textX, textY, textX + textWidth, textY + textHeight, tocolor(255, 255, 255, hidingTextAlpha), hidingTextScale, font, "center", "center")
+	end
+end
+
+function PointsDrawing.update(deltaTime)
+	deltaTime = deltaTime / 1000
+
+	if state == "showing" then
+		alpha = alpha + (targetAlpha - alpha) * SHOWING_SPEED * deltaTime
+		showingProgress = showingProgress + deltaTime * 2
+		if showingProgress > 1 then
+			showingProgress = 1
+		end
+		if alpha > 250 then
+			alpha = 255
+			state = "show"
+		end
+	elseif state == "hiding" then
+		alpha = alpha + (targetAlpha - alpha) * HIDING_SPEED * deltaTime
+		hidingTextScale = hidingTextScale + deltaTime * 1
+		hidingTextAlpha = hidingTextAlpha - deltaTime * 700
+		if hidingTextAlpha < 0 then
+			hidingTextAlpha = 0
+		end
+		if alpha < 5 then
+			alpha = 0
+			state = "hide"
+		end
+	end
+	shakingAmount = shakingAmount - deltaTime * 2
+	if shakingAmount < 0 then
+		shakingAmount = 0
+	end
+end
+
+function PointsDrawing.updateMultiplier(multiplier)
+	if multiplier then
+		currentMultiplier = multiplier
+	end
+end
+
+function PointsDrawing.setShaking(shaking)
+	if shaking then
+		shakingAmount = 1
+	end
+	isShaking = shaking
+end
+
+function PointsDrawing.updatePointsCount(count)
+	pointsCount = tostring(count)
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
-	font = exports.dpAssets:createFont("Cuprum-Bold.ttf", FONT_SIZE)
+	font = exports.dpAssets:createFont("Roboto-Regular.ttf", FONT_SIZE, true)
+	font2 = exports.dpAssets:createFont("Roboto-Regular.ttf", MULTIPLIER_FONT_SIZE, true)
+	textHeight = dxGetFontHeight(1, font)
 end)
+
+addEventHandler("onClientRender", root, PointsDrawing.draw)
+addEventHandler("onClientPreRender", root, PointsDrawing.update)

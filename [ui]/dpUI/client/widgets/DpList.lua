@@ -32,7 +32,7 @@ function DpList.create(properties)
 
 	local backgroundColor1 = Colors.color("white")
 	local backgroundColor2 = Colors.color("gray_lighter")
-	local backgroundColorHover = Colors.color("primary")
+	--local backgroundColorHover = Colors.color("primary")
 
 	function widget:draw()
 		-- if isPointInRect(self.mouseX, self.mouseY, 0, 0, self.width, self.height) then
@@ -50,7 +50,7 @@ function DpList.create(properties)
 			-- Фон
 			if isHover then
 				self.activeItem = i
-				Drawing.setColor(backgroundColorHover)
+				Drawing.setColor(Colors.color("primary"))
 			else
 				if i % 2 == 0 then
 					Drawing.setColor(backgroundColor1)

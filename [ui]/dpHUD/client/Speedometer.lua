@@ -155,4 +155,12 @@ end
 
 function Speedometer.setVisible(visible)
 	Speedometer.visible = not not visible
+	if visible then
+		circleTargetColor = {exports.dpUI:getThemeColor()}
+	end
 end
+
+addEvent("dpUI.updateTheme", false)
+addEventHandler("dpUI.updateTheme", root, function ()
+	circleTargetColor = {exports.dpUI:getThemeColor()}
+end)

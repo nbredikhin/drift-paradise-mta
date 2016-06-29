@@ -87,6 +87,7 @@ function Colors.setTheme(name)
 	end
 	currentThemeName = name
 	Render.updateTheme()
+	triggerEvent("dpUI.updateTheme", resourceRoot)
 	return true
 end
 

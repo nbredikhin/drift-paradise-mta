@@ -77,17 +77,17 @@ local function update(deltaTime)
 end
 
 local function onMouseWheelUp()
-	targetCamera.FOV = targetCamera.FOV + 2
-	if targetCamera.FOV > 40 then 
-		targetCamera.FOV = 40
-	end
-end
-
-local function onMouseWheelDown()
 	targetCamera.FOV = targetCamera.FOV - 2
 	if targetCamera.FOV < 20 then
 		targetCamera.FOV = 20 
 	end 
+end
+
+local function onMouseWheelDown()
+	targetCamera.FOV = targetCamera.FOV + 2
+	if targetCamera.FOV > 40 then 
+		targetCamera.FOV = 40
+	end	
 end
 
 function CameraManager.setState(name, noAnimation, animationSpeed)

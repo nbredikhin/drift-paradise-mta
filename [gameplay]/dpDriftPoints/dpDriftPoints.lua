@@ -56,6 +56,7 @@ local function detectDrift()
 		return 0, false
 	end
 	velocity = velocity:getNormalized()
+
 	local angle = math.abs(math.deg(math.acos(velocity:dot(direction) / (velocity.length * direction.length))))
 	if angle > MIN_DRIFT_ANGLE and angle < 90 then
 		isPreventedByCollision = false
@@ -78,7 +79,7 @@ local function update(dt)
 	end
 	if driftRestrictedTimer > 0 then
 		driftRestrictedTimer = driftRestrictedTimer - dt
-		PointsDrawing.draw(driftPoints, pointsMultiplier)
+		--PointsDrawing.draw(driftPoints, pointsMultiplier)
 		return
 	end
 
@@ -89,17 +90,22 @@ local function update(dt)
 		 driftPoints = driftPoints + MIN_DRIFT_POINTS * pointsMultiplier
 		 driftTimer = driftTimer + dt
 		 nonDriftTimer = 0
+
+		 PointsDrawing.show()
+		 PointsDrawing.setShaking(true)
 	else 
+		PointsDrawing.setShaking(false)
 		nonDriftTimer = nonDriftTimer + dt
 		if nonDriftTimer > MAX_NON_DRIFT_TIME then
 			-- Reset multipliers
 			driftPoints = 0
 			driftTimer = 0
 			pointsMultiplier = 1
+			PointsDrawing.hide()
 			return
 		end
 		--dxDrawText("Points: " .. driftPoints .. " MULT: x" .. pointsMultiplier, 300, 10, 500, 500, 0xffb57900, 2, "pricedown")
-		PointsDrawing.draw(driftPoints, pointsMultiplier)
+		--PointsDrawing.draw(driftPoints, pointsMultiplier)
 		return
 	end
 
@@ -110,12 +116,14 @@ local function update(dt)
 	if driftTimer > LONG_DRIFT_TIME then
 		driftTimer = 0
 		pointsMultiplier = pointsMultiplier + 1
+		PointsDrawing.updateMultiplier(pointsMultiplier)
 
 		if pointsMultiplier > MAX_MULTIPLIER then
 			pointsMultiplier = MAX_MULTIPLIER
 		end
 	end
-	PointsDrawing.draw(driftPoints, pointsMultiplier)
+
+	PointsDrawing.updatePointsCount(driftPoints)
 end
 
 local function onCollision()
@@ -126,6 +134,7 @@ local function onCollision()
 	-- If we collided, we reset all drift multipliers
 	isDrifting = false
 	isPreventedByCollision = true
+	PointsDrawing.collision()
 	driftTimer = 0
 	pointsMultiplier = 1
 	nonDriftTimer = MAX_NON_DRIFT_TIME

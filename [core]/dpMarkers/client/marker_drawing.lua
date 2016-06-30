@@ -44,6 +44,20 @@ markerTypes.showroom = {
 	string = "markers_showroom_text"
 }
 
+markerTypes.house = {
+	color = {212, 0, 40},
+	icon = "assets/house_floor.png",
+	iconSize = 1,
+	text = "assets/house_icon.png",
+	string = "Ето дом зоходити"
+}
+
+markerTypes.exit = {
+	color = {212, 0, 40},
+	text = "assets/exit_icon.png",
+	string = "Exit"
+}
+
 local function drawScreenText(text)
 	text = string.format(exports.dpLang:getString(text), string.upper(markerKey))
 	local yOffset = math.sin(getTickCount() * MARKER_ANIMATION_SPEED) * 5
@@ -89,8 +103,6 @@ local function drawMarker(marker)
 		200 + math.sin(t * MARKER_ANIMATION_SPEED / 3) * 35
 	}
 
-	local iconSize = MARKER_ICON_SIZE - math.sin(t * MARKER_ANIMATION_SPEED) * MARKER_ANIMATION_SIZE
-	local textSize = MARKER_TEXT_SIZE
 	if localPlayer:isWithinMarker(marker) or 
 		(localPlayer.vehicle and localPlayer.vehicle:isWithinMarker(marker))
 	then
@@ -106,24 +118,36 @@ local function drawMarker(marker)
 	end	
 
 	-- Иконка на земле
-	local direction = marker:getData("dpMarkers.direction")
-	local ox = math.cos(direction) * iconSize / 2
-	local oy =  math.sin(direction) * iconSize / 2
-	dxDrawMaterialLine3D(
-		marker.position.x + ox,
-		marker.position.y + oy,
-		marker.position.z,
-		marker.position.x - ox,
-		marker.position.y - oy,
-		marker.position.z,
-		markerProperties.icon, 
-		iconSize,
-		tocolor(255, 255, 255, color[4]),
-		marker.position.x,
-		marker.position.y,
-		marker.position.z + 1
-	)
+	if markerProperties.icon then
+		-- Размеры иконки
+		local markerIconSize = MARKER_ICON_SIZE
+		local animationSize = MARKER_ANIMATION_SIZE
+		if markerProperties.iconSize then
+			markerIconSize = markerProperties.iconSize
+			animationSize = markerIconSize / MARKER_ICON_SIZE * MARKER_ANIMATION_SIZE
+		end
+		local iconSize = markerIconSize - math.sin(t * MARKER_ANIMATION_SPEED) * animationSize		
 
+		local direction = marker:getData("dpMarkers.direction")
+		local ox = math.cos(direction) * iconSize / 2
+		local oy =  math.sin(direction) * iconSize / 2
+		dxDrawMaterialLine3D(
+			marker.position.x + ox,
+			marker.position.y + oy,
+			marker.position.z,
+			marker.position.x - ox,
+			marker.position.y - oy,
+			marker.position.z,
+			markerProperties.icon, 
+			iconSize,
+			tocolor(255, 255, 255, color[4]),
+			marker.position.x,
+			marker.position.y,
+			marker.position.z + 1
+		)
+	end
+
+	local textSize = MARKER_TEXT_SIZE
 	-- Вертикальная картинка
 	local textAnimationOffset = math.sin(t * MARKER_ANIMATION_SPEED) * MARKER_TEXT_ANIMATION_SIZE
 	dxDrawMaterialLine3D(
@@ -174,8 +198,12 @@ end)
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
 	for name, markerProperties in pairs(markerTypes) do
-		markerProperties.icon = dxCreateTexture(markerProperties.icon)
-		markerProperties.text = dxCreateTexture(markerProperties.text)
+		if markerProperties.icon then
+			markerProperties.icon = dxCreateTexture(markerProperties.icon)
+		end
+		if markerProperties.text then
+			markerProperties.text = dxCreateTexture(markerProperties.text)
+		end
 	end
 
 	screenTextFont = exports.dpAssets:createFont("Roboto-Regular.ttf", 30)

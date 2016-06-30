@@ -135,8 +135,8 @@ tabsHandlers.garage = function ()
 end
 
 tabsHandlers.map = function ()
-	exports.dpWorldMap:setVisible(true)
 	Panel.setVisible(false)
+	exports.dpWorldMap:setVisible(true)
 end
 
 tabsHandlers.teleport = function ()

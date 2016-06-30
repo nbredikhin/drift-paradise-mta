@@ -35,7 +35,7 @@ function TeleportTab.refresh()
 				count = count + 1
 			end
 		end
-		table.insert(items, {name, "Игроков:", count})
+		table.insert(items, {name, exports.dpLang:getString("main_panel_teleport_players") .. ":", count})
 	end
 	UI:setItems(list, items)
 end

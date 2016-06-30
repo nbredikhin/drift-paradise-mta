@@ -5,14 +5,17 @@
 	<script type="client" src="client/marker_drawing.lua"/>
 	<script type="client" src="client/marker_creation.lua"/>
 
-	<export type="client" function="createMarker"/>
+	<script type="server" src="server/marker_creation.lua"/>
+
+	<export type="shared" function="createMarker"/>
 
 	<file src="assets/garage_icon.png"/>
 	<file src="assets/garage_text.png"/>
-
 	<file src="assets/city_icon.png"/>
 	<file src="assets/city_text.png"/>	
-
 	<file src="assets/showroom_icon.png"/>
 	<file src="assets/showroom_text.png"/>		
+	<file src="assets/house_icon.png"/>
+	<file src="assets/house_floor.png"/>			
+	<file src="assets/exit_icon.png"/>			
 </meta>

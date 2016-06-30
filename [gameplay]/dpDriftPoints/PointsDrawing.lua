@@ -60,8 +60,19 @@ function PointsDrawing.hide()
 		alpha = 255
 		hidingTextScale = 1
 		hidingTextAlpha = 255
-		isCollision = false
+		--isCollision = false
 	end
+end
+
+local function dxDrawTextShadow(text, x1, y1, x2, y2, color, scale, font, alignX, alignY, textRotation, alpha)
+	if not alpha then
+		alpha = 255
+	end
+	dxDrawText(text, x1 - 1, y1, x2 - 1, y2, tocolor(0, 0, 0, alpha), scale, font, alignX, alignY, false, false, false, false, false, textRotation)
+	dxDrawText(text, x1 + 1, y1, x2 + 1, y2, tocolor(0, 0, 0, alpha), scale, font, alignX, alignY, false, false, false, false, false, textRotation)
+	dxDrawText(text, x1, y1 - 1, x2, y2 - 1, tocolor(0, 0, 0, alpha), scale, font, alignX, alignY, false, false, false, false, false, textRotation)
+	dxDrawText(text, x1, y1 + 1, x2, y2 + 1, tocolor(0, 0, 0, alpha), scale, font, alignX, alignY, false, false, false, false, false, textRotation)
+	dxDrawText(text, x1, y1, x2, y2, color, scale, font, alignX, alignY, false, false, false, false, false, textRotation)
 end
 
 function PointsDrawing.draw()
@@ -69,7 +80,7 @@ function PointsDrawing.draw()
 	local textX = screenSize.x / 2 - textWidth / 2
 	local textY = 80	
 	if state == "showing" or state == "hiding" then
-		dxDrawText(pointsCount, textX, textY, textX + textWidth, textY + textHeight, tocolor(255, 255, 255, alpha), 1, font, "center", "center")
+		dxDrawTextShadow(pointsCount, textX, textY, textX + textWidth, textY + textHeight, tocolor(255, 255, 255, alpha), 1, font, "center", "center", 0, alpha)
 	elseif state == "show" then
 		local textRotation = 0
 		if isCollision then
@@ -83,12 +94,12 @@ function PointsDrawing.draw()
 		end			
 		local ox = (math.random() - 0.5) * SHAKE_POWER * shakingAmount
 		local oy = (math.random() - 0.5) * SHAKE_POWER * shakingAmount
-		dxDrawText(pointsCount, textX + ox, textY + oy, textX + textWidth + ox, textY + textHeight + oy, tocolor(255, 255, 255), 1, font, "center", "center", false, false, false, false, false, textRotation)
+		dxDrawTextShadow(pointsCount, textX + ox, textY + oy, textX + textWidth + ox, textY + textHeight + oy, tocolor(255, 255, 255), 1, font, "center", "center", textRotation)
 		
 		if currentMultiplier > 0 and not isCollision then
 			local mulX = textX + textWidth + ox + 5
 			local mulY = textY + oy
-			dxDrawText("X" .. tostring(currentMultiplier), mulX, mulY, mulX, mulY + textHeight, tocolor(themeColor[1], themeColor[2], themeColor[3], 230), 1, font2, "left", "top", false, false, false, false, false, textRotation)
+			dxDrawTextShadow("X" .. tostring(currentMultiplier), mulX, mulY, mulX, mulY + textHeight, tocolor(themeColor[1], themeColor[2], themeColor[3]), 1, font2, "left", "top", textRotation)
 		end
 	end
 	if state == "hiding" and not isCollision then

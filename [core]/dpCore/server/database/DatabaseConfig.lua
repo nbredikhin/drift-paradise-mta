@@ -18,7 +18,7 @@ DatabaseConfig = {
 
 	-- Auth
 	username = "root",
-	password = "ZcsQF72L7E9y2xnD",
+	password = "ZcsQF72L7E9y2xnD", -- TODO: SMENIT'
 
 	options = {
 		autoreconnect = 1		

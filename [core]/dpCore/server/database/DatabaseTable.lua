@@ -161,7 +161,7 @@ end
 
 --- Получение записей из таблицы
 -- @tparam string tableName название таблицы
--- @tparam table columnst список столбцов, которые нужно получить
+-- @tparam[opt] table columns список столбцов, которые нужно получить
 -- @tparam[opt] table whereFields поля, по которым будут выбираться строки {ключ=значение}
 -- @tparam[opt] function callback callback
 -- @treturn bool результат выполнения функции.
@@ -244,4 +244,42 @@ function DatabaseTable.delete(tableName, whereFields, callback, ...)
 		tableName
 	)
 	return retrieveQueryResults(connection, queryString, callback, ...)
+end
+
+function DatabaseTable.exists(tableName)
+	if type(tableName) ~= "string" then
+		outputDebugString("ERROR: DatabaseTable.exists: bad arguments")
+		return false
+	end	
+	local connection = Database.getConnection()
+	if not connection then
+		outputDebugString("ERROR: DatabaseTable.exists: no database connection")
+		return false
+	end	
+	local queryString = connection:prepareString([[SELECT count(*) 
+		FROM information_schema.TABLES 
+		WHERE (TABLE_SCHEMA = ?) AND (TABLE_NAME = ?)
+	]], DatabaseConfig.dbName, tableName)
+
+	local result = retrieveQueryResults(connection, queryString)
+	-- Eto konechno strannovato, no tak nado
+	if type(result) == "table" then
+		result = result[1]
+		if type(result) == "table" then
+			local key = next(result)
+			if key then
+				result = result[key]
+			else
+				return false
+			end
+		else
+			return false
+		end
+	else
+		return false
+	end
+	if type(result) ~= "number" then
+		return false
+	end
+	return result > 0
 end

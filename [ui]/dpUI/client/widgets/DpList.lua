@@ -32,18 +32,8 @@ function DpList.create(properties)
 
 	local backgroundColor1 = Colors.color("white")
 	local backgroundColor2 = Colors.color("gray_lighter")
-	--local backgroundColorHover = Colors.color("primary")
 
 	function widget:draw()
-		-- if isPointInRect(self.mouseX, self.mouseY, 0, 0, self.width, self.height) then
-		-- 	if getKeyState("mouse1") then
-		-- 		self.color = self.colors.down
-		-- 	else
-		-- 		self.color = self.colors.hover
-		-- 	end
-		-- else
-		-- 	self.color = self.colors.normal
-		-- end
 		local y = self.y
 		for i, item in ipairs(self.items) do
 			local isHover = isPointInRect(self.mouseX, self.mouseY, 0, y, self.width, ITEM_HEIGHT)

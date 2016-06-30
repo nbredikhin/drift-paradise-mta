@@ -9,8 +9,9 @@ local startupResources = {
 	"dpUtils",
 	"dpConfig",
 	"dpLang",
-	"dpCore",
+	"dpMarkers",
 	"dpGameTime",
+	"dpCore",
 
 	-- UI
 	"dpUI",
@@ -25,7 +26,6 @@ local startupResources = {
 
 	-- Gameplay
 	"dpVehicles",
-	"dpMarkers",
 	"dpPhotoMode",
 	"dpDriftPoints",
 	"dpSafeZones",

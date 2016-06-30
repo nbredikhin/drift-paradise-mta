@@ -182,6 +182,15 @@ end)
 -- Обновление положения колёс
 addEventHandler("onClientPreRender", root, function ()
 	for vehicle, wheels in pairs(vehicleWheels) do
+		local velocity = vehicle.velocity
+		local direction = vehicle.matrix.forward
+
+		local driftAngle = 0
+		if velocity.length > 0 then 
+			velocity = velocity:getNormalized()
+			driftAngle = math.abs(math.deg(math.acos(velocity:dot(direction) / (velocity.length * direction.length))))		
+		end
+		
 		for name, wheel in pairs(wheels) do
 			if wheel.custom then
 				local rx, ry, rz = vehicle:getComponentRotation(name)

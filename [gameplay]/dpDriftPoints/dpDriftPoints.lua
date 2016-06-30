@@ -68,9 +68,11 @@ end
 
 local function update(dt)
 	if not isElement(localPlayer.vehicle) then
+		PointsDrawing.hide()
 		return
 	end
 	if localPlayer.vehicle.controller ~= localPlayer then
+		PointsDrawing.hide()
 		return
 	end
 
@@ -79,7 +81,9 @@ local function update(dt)
 	end
 	if driftRestrictedTimer > 0 then
 		driftRestrictedTimer = driftRestrictedTimer - dt
-		--PointsDrawing.draw(driftPoints, pointsMultiplier)
+		if driftRestrictedTimer < DRIFT_RESTRICT_TIME / 2 then
+			PointsDrawing.hide()
+		end
 		return
 	end
 

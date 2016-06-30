@@ -30,6 +30,9 @@
 	<script type="server" src="server/vehicles/VehicleTuning.lua"/>
 	<script type="server" src="server/vehicles/VehicleSpawn.lua"/>
 	<script type="server" src="server/vehicles/exports.lua"/>
+	<!-- Дома -->
+	<script type="server" src="server/houses/houses_list.lua"/>
+	<script type="server" src="server/houses/Houses.lua"/>
 	<!-- Gameplay -->
 	<script type="server" src="server/gameplay/PlayerSpawn.lua"/>
 	<script type="server" src="server/gameplay/player_join.lua"/>
@@ -57,6 +60,7 @@
 
 	<script type="client" src="client/users.lua"/>
 	<script type="client" src="client/join.lua"/>
+	<script type="client" src="client/house_entering.lua"/>
 	<!-- Функции для авторизации -->
 	<export type="client" function="register"/>
 	<export type="client" function="login"/>

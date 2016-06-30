@@ -18,12 +18,11 @@ function createMarker(markerType, position, direction)
 		end
 		markersByResource[sourceResourceRoot][marker] = true
 	end
-	addMarkerToDraw(marker)
 	marker:setData("dpMarkers.direction", math.rad(direction))
 	return marker
 end
 
-addEventHandler("onClientResourceStop", root, function ()
+addEventHandler("onResourceStop", root, function ()
 	-- Удаление маркеров, созданных ресурсом после его остановки
 	if markersByResource[source] then
 		for marker in pairs(markersByResource[source]) do

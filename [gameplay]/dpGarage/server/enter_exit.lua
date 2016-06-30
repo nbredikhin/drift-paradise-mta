@@ -40,11 +40,7 @@ addEventHandler("dpGarage.exit", resourceRoot, function (selectedCarId)
 	client:setData("dpCore.state", false)
 
 	-- Координаты дома
-	local houseId = exports.dpHouses:getPlayerHouseId(client)
-	if type(houseId) ~= "number" then
-		houseId = 0
-	end
-	local houseLocation = exports.dpHouses:getHouseLocation(houseId)
+	local houseLocation = exports.dpHouses:getPlayerHouseLocation(client)
 	if type(houseLocation) ~= "table" or type(houseLocation.garage) ~= "table" then
 		client.position = Vector3(0, 0, 10)
 	else

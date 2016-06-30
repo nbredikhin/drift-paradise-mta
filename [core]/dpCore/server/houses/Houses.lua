@@ -49,16 +49,121 @@ function Houses.setup()
 			local data = fromJSON(house.data)
 			local marker = exports.dpMarkers:createMarker("house", Vector3(unpack(data.enter)))
 			local dimension = 50000 + i
+			marker:setData("_id", house._id)
 			marker:setData("owner_id", house.owner_id)
 			marker:setData("house_data", data)
 			marker:setData("house_dimension", dimension)
+			marker.id = "house_enter_marker_" .. tostring(house._id)
 
 			local exitMarker = exports.dpMarkers:createMarker("exit", Vector3(unpack(data.exit)))
 			exitMarker.interior = data.interior
 			exitMarker.dimension = dimension
 			exitMarker:setData("house_exit_position", data.enter)
+			exitMarker.id = "house_exit_marker_" .. tostring(house._id)
 
-			local garageMarker = exports.dpMarkers:createMarker("garage", Vector3(unpack(data.garage)))
+			--local garageMarker = exports.dpMarkers:createMarker("garage", Vector3(unpack(data.garage)))
 		end
+	end)
+end
+
+function Houses.buyPlayerHouse(player, houseId)
+	if not isElement(player) then
+		return false
+	end
+	local playerId = player:getData("_id")
+	if not playerId then
+		outputDebugString("Houses.buyPlayerHouse: not authorized")
+		return false
+	end
+	if not houseId then
+		return
+	end
+	if player:getData("house_id") then
+		-- Уже есть дом
+		return false
+	end
+	return DatabaseTable.select(HOUSES_TABLE_NAME, {}, {_id = houseId}, function (house)
+		if type(house) ~= "table" then
+			-- Дом не найден
+			return
+		end
+		if not house[1] then
+			-- Дом не найден
+			return
+		end
+		house = house[1]
+
+		if house.owner_id then
+			-- Уже есть владелец
+			return
+		end
+		local playerMoney = player:getData("money")
+		if not playerMoney then playerMoney = 0 end
+		if player:getData("money") < house.price then
+			-- Недостаточно денег
+			outputDebugString("Fail: not enough money")
+			return 
+		end
+		DatabaseTable.update(HOUSES_TABLE_NAME, {owner_id = playerId}, {_id = house._id}, function(result)
+			if result then
+				player:setData("money", player:getData("money") - house.price)
+				Houses.setupPlayerHouseData(player)
+				outputDebugString("Success")	
+			else
+				outputDebugString("Fail")
+			end
+		end)
+	end)
+end
+
+function Houses.getUserHouseId(userId)
+	if not userId then
+		return false
+	end
+	local result = DatabaseTable.select(HOUSES_TABLE_NAME, {"_id"}, {owner_id = userId})
+	if type(result) == "table" and result[1] then
+		return result[1]._id
+	else
+		return false
+	end
+end
+
+function Houses.setupPlayerHouseData(player, callback, ...)
+	if not isElement(player) then
+		return
+	end
+	player:removeData("house_id")
+	player:removeData("house_data")	
+	local userId = player:getData("_id")
+	if not userId then
+		return
+	end
+	local args = {...}
+	return DatabaseTable.select(HOUSES_TABLE_NAME, {"_id", "data"}, {owner_id = userId}, function(result)
+		if type(result) == "table" and result[1] then
+			player:setData("house_id", result[1]._id)
+			player:setData("house_data", fromJSON(result[1].data))
+		end
+		executeCallback(callback, unpack(args))
+	end)
+end
+
+function Houses.removePlayerHouse(player)
+	if not isElement(player) then
+		return false
+	end
+	local playerId = player:getData("_id")
+	if not playerId then
+		outputDebugString("Houses.removePlayerHouse: not authorized")
+		return false
+	end
+	local houseId = player:getData("house_id")
+	if not houseId then
+		-- Нет дома
+		return false
+	end
+	return DatabaseTable.update(HOUSES_TABLE_NAME, {owner_id = "NULL"}, {_id = houseId}, function ()
+		outputDebugString("Removed house") 
+		Houses.setupPlayerHouseData(player) 
 	end)
 end

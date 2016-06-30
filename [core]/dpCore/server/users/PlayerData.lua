@@ -5,6 +5,9 @@ local loadFields = {
 local saveFields = {
 	"skin", "money", "playtime"
 }
+local protectFields = {
+	"house_id"
+}
 
 local function filterData(dataName, value)
 	if dataName == "lastseen" then
@@ -46,6 +49,12 @@ addEventHandler("onElementDataChange", root, function(dataName, oldValue)
 				return 
 			end
 		end
+		for i, name in ipairs(protectFields) do
+			if dataName == name then
+				source:setData(dataName, oldValue)
+				return 
+			end
+		end		
 	end
 end)
 

@@ -1,6 +1,15 @@
 -- Создание (и автоматическое удаление) маркеров
 
 local MARKER_COLLISION_RADIUS = 5
+local markerTypes = {
+	house = {
+		radius = 1,
+	},
+
+	exit = {
+		radius = 1
+	}
+}
 local markersByResource = {}
 
 function createMarker(markerType, position, direction)
@@ -10,7 +19,13 @@ function createMarker(markerType, position, direction)
 	if type(direction) ~= "number" then
 		direction = 0
 	end
-	local marker = Marker(position, "cylinder", MARKER_COLLISION_RADIUS, 0, 0, 0, 0)
+	local radius = MARKER_COLLISION_RADIUS
+	if markerTypes[markerType] then
+		if markerTypes[markerType].radius then
+			radius = markerTypes[markerType].radius
+		end
+	end
+	local marker = Marker(position, "cylinder", radius, 0, 0, 0, 0)
 	marker:setData("dpMarkers.type", markerType)
 	if isElement(sourceResourceRoot) then
 		if not markersByResource[sourceResourceRoot] then

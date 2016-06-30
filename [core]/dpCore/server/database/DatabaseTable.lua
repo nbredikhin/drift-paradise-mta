@@ -142,7 +142,11 @@ function DatabaseTable.update(tableName, setFields, whereFields, callback, ...)
 
 	local setQueries = {}
 	for column, value in pairs(setFields) do
-		table.insert(setQueries, connection:prepareString("`??`=?", column, value))
+		if value == "NULL" then
+			table.insert(setQueries, connection:prepareString("`??`=NULL", column))
+		else
+			table.insert(setQueries, connection:prepareString("`??`=?", column, value))
+		end
 	end
 	local whereQueries = {}
 	if not whereFields then

@@ -33,6 +33,7 @@
 	<!-- Дома -->
 	<script type="server" src="server/houses/houses_list.lua"/>
 	<script type="server" src="server/houses/Houses.lua"/>
+	<script type="server" src="server/houses/exports.lua"/>
 	<!-- Gameplay -->
 	<script type="server" src="server/gameplay/PlayerSpawn.lua"/>
 	<script type="server" src="server/gameplay/player_join.lua"/>
@@ -55,12 +56,14 @@
 	<export type="server" function="addPlayerVehicle"/>
 	<export type="server" function="removePlayerVehicle"/>
 	<export type="server" function="getVehicleById"/>
+	<!-- Функции для работы с домами -->
+	<export type="server" function="buyPlayerHouse"/>
+	<export type="server" function="removePlayerHouse"/>
 
 	<!-- CLIENT -->
 
 	<script type="client" src="client/users.lua"/>
 	<script type="client" src="client/join.lua"/>
-	<script type="client" src="client/house_entering.lua"/>
 	<!-- Функции для авторизации -->
 	<export type="client" function="register"/>
 	<export type="client" function="login"/>

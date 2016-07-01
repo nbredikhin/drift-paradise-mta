@@ -9,7 +9,10 @@ addEventHandler("dpCore.house_enter", resourceRoot, function (markerId)
 	if type(houseData) ~= "table" then
 		return
 	end
-	client.position = Vector3(unpack(houseData.exit)) + Vector3(0, 0, 0.3)
+	client.position = Vector3(unpack(houseData.exit))
+	if houseData.exit_rotation then
+		client.rotation = Vector3(0, 0, houseData.exit_rotation)
+	end
 	client.interior = houseData.interior
 	client.dimension = houseMarker:getData("house_dimension")
 end)
@@ -26,7 +29,11 @@ addEventHandler("dpCore.house_exit", resourceRoot, function (markerId)
 	end
 
 	local position = Vector3(unpack(houseMarker:getData("house_exit_position")))
+	local rotation = houseMarker:getData("house_exit_rotation")
+	if rotation then
+		client.rotation = Vector3(0, 0, rotation)
+	end	
 	client.interior = 0
 	client.dimension = 0
-	client.position = position + Vector3(0, 0, 0.3)
+	client.position = position
 end)

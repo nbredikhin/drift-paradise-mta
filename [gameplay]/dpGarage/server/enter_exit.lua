@@ -27,6 +27,7 @@ addEventHandler("dpGarage.enter", resourceRoot, function ()
 	client.position = Vector3(0, 0, 0)
 	client.dimension = tonumber(client:getData("_id")) or (math.random(1000, 9999) + 5000) + 4000
 	client.frozen = true
+	client.interior = 0
 	triggerClientEvent(client, "dpGarage.enter", resourceRoot, true, playerVehicles, enteredVehicleId)
 	client:setData("activeMap", false)
 end)
@@ -49,6 +50,7 @@ addEventHandler("dpGarage.exit", resourceRoot, function (selectedCarId)
 	end
 	client.frozen = false
 	client.dimension = 0
+	client.interior = 0
 	-- Если игрок выбрал машину в гараже
 	if selectedCarId then
 		local vehicle = exports.dpCore:spawnVehicle(selectedCarId, client.position, client.rotation)

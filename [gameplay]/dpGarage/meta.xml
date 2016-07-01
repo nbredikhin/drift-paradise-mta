@@ -59,7 +59,6 @@
 	<script type="client" src="client/CarTexture.lua"/>
 	<script type="client" src="client/camera_presets.lua"/>
 	<script type="client" src="client/CameraManager.lua"/>
-	<script type="client" src="client/garage_marker.lua"/>
 
 	<!-- Функции -->
 	<export type="client" function="enterGarage"/>

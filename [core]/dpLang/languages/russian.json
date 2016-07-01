@@ -218,4 +218,6 @@
 	"markers_garage_text": "Нажмите %q чтобы войти в гараж",
 	"markers_city_text": "Нажмите %q чтобы телепортироваться в город",
 	"markers_showroom_text": "Нажмите %q чтобы открыть автомагазин",
+	"markers_house_enter_text": "Нажмите %q чтобы войти в дом",
+	"markers_house_exit_text": "Нажмите %q чтобы выйти на улицу",	
 }

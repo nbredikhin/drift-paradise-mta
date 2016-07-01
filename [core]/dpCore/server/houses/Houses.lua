@@ -47,18 +47,19 @@ function Houses.setup()
 		end
 		for i, house in ipairs(result) do
 			local data = fromJSON(house.data)
-			local marker = exports.dpMarkers:createMarker("house", Vector3(unpack(data.enter)))
-			local dimension = 50000 + i
+			local marker = exports.dpMarkers:createMarker("house", Vector3(unpack(data.enter)) - Vector3(0, 0, 0.5))
+			local dimension = exports.dpHouses:getHouseDimension(i)
 			marker:setData("_id", house._id)
 			marker:setData("owner_id", house.owner_id)
 			marker:setData("house_data", data)
 			marker:setData("house_dimension", dimension)
 			marker.id = "house_enter_marker_" .. tostring(house._id)
 
-			local exitMarker = exports.dpMarkers:createMarker("exit", Vector3(unpack(data.exit)))
+			local exitMarker = exports.dpMarkers:createMarker("exit", Vector3(unpack(data.exit)) - Vector3(0, 0, 0.5))
 			exitMarker.interior = data.interior
 			exitMarker.dimension = dimension
 			exitMarker:setData("house_exit_position", data.enter)
+			exitMarker:setData("house_exit_rotation", data.enter_rotation)
 			exitMarker.id = "house_exit_marker_" .. tostring(house._id)
 
 			--local garageMarker = exports.dpMarkers:createMarker("garage", Vector3(unpack(data.garage)))

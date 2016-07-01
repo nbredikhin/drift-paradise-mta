@@ -1,13 +1,13 @@
 <meta>
 	<oop>true</oop>
-
-	<script type="shared" src="shared/houses_table.lua"/>
+	
 	<script type="shared" src="shared/houses.lua"/>
-	<script type="client" src="client/garage_markers.lua"/>
+	<script type="client" src="client/garage_marker.lua"/>
 	<script type="client" src="client/house_entering.lua"/>
 
 	<script type="server" src="server/house_entering.lua"/>
 	
 	<export type="shared" function="hasPlayerHouse"/>
 	<export type="shared" function="getPlayerHouseLocation"/>
+	<export type="shared" function="getHouseDimension"/>
 </meta>

@@ -6,12 +6,20 @@ local defaultHouse = {
 		rotation = Vector3(0, 0, 90),
 	},
 	position = Vector3 {x = 1787.025, y = -1384.408, z = 15.393},
+	rotation = 0,
 	dimension = 0,
 	interior = 0
 }
 
 function hasPlayerHouse(player)
 	return not not player:getData("house_id")
+end
+
+function getHouseDimension(houseId)
+	if type(houseId) ~= "number" then
+		return false
+	end
+	return 50000 + houseId
 end
 
 function getPlayerHouseLocation(player)
@@ -29,10 +37,11 @@ function getPlayerHouseLocation(player)
 	return {
 		garage = {
 			position = Vector3(unpack(houseData.garage)),
-			rotation = Vector3()
+			rotation = Vector3(0, 0, houseData.garage_rotation)
 		},
 		position = Vector3(unpack(houseData.spawn)),
-		dimension = 50000 + houseId,
+		rotation = Vector3(0, 0, houseData.spawn_rotation),
+		dimension = getHouseDimension(houseId),
 		interior = houseData.interior
 	}
 end

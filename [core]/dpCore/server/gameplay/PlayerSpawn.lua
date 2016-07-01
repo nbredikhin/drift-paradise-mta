@@ -14,6 +14,9 @@ function PlayerSpawn.spawn(player)
 	end
 	local location = exports.dpHouses:getPlayerHouseLocation(player)
 	player:spawn(location.position)
+	if location.rotation then
+		player.rotation = location.rotation
+	end
 	player:setCameraTarget()
 	player:fadeCamera(true, 3)
 	player.interior = location.interior

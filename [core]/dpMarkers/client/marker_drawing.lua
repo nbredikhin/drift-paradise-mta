@@ -49,13 +49,13 @@ markerTypes.house = {
 	icon = "assets/house_floor.png",
 	iconSize = 1,
 	text = "assets/house_icon.png",
-	string = "Ето дом зоходити"
+	string = "markers_house_enter_text"
 }
 
 markerTypes.exit = {
 	color = {212, 0, 40},
 	text = "assets/exit_icon.png",
-	string = "Exit"
+	string = "markers_house_exit_text"
 }
 
 local function drawScreenText(text)

@@ -28,8 +28,7 @@ local SHAKE_POWER = 5
 -- Столкновение
 local isCollision = false
 
--- Ебучие палки
-local lineHeight = 2
+local multiplierAlpha = 0
 
 function PointsDrawing.show()
 	if state == "hide" or state == "hiding" then
@@ -97,9 +96,15 @@ function PointsDrawing.draw()
 		dxDrawTextShadow(pointsCount, textX + ox, textY + oy, textX + textWidth + ox, textY + textHeight + oy, tocolor(255, 255, 255), 1, font, "center", "center", textRotation)
 		
 		if currentMultiplier > 0 and not isCollision then
+			local mulText = "X" .. tostring(currentMultiplier)
+			local mulTextWidth = dxGetTextWidth(mulText, 1, font2)
 			local mulX = textX + textWidth + ox + 5
-			local mulY = textY + oy
-			dxDrawTextShadow("X" .. tostring(currentMultiplier), mulX, mulY, mulX, mulY + textHeight, tocolor(themeColor[1], themeColor[2], themeColor[3]), 1, font2, "left", "top", textRotation)
+			local mulY = textY + oy			
+				
+			if multiplierAlpha > 0 then
+				dxDrawText(mulText, mulX, mulY, mulX + mulTextWidth, mulY + textHeight / 2, tocolor(themeColor[1], themeColor[2], themeColor[3], 255 * multiplierAlpha), 1 + 1 * multiplierAlpha, font2, "center", "center", false, false, false, false, false, textRotation)
+			end
+			dxDrawTextShadow(mulText, mulX, mulY, mulX + mulTextWidth, mulY + textHeight / 2, tocolor(themeColor[1], themeColor[2], themeColor[3]), 1, font2, "center", "center", textRotation)
 		end
 	end
 	if state == "hiding" and not isCollision then
@@ -131,6 +136,11 @@ function PointsDrawing.update(deltaTime)
 			alpha = 0
 			state = "hide"
 		end
+	elseif state == "show" then
+		multiplierAlpha = multiplierAlpha - deltaTime * 5
+		if multiplierAlpha < 0 then
+			multiplierAlpha = 0
+		end
 	end
 	shakingAmount = shakingAmount - deltaTime * 2
 	if shakingAmount < 0 then
@@ -141,6 +151,7 @@ end
 function PointsDrawing.updateMultiplier(multiplier)
 	if multiplier then
 		currentMultiplier = multiplier
+		multiplierAlpha = 1
 	end
 end
 

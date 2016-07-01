@@ -165,6 +165,10 @@ function Houses.removePlayerHouse(player)
 	end
 	return DatabaseTable.update(HOUSES_TABLE_NAME, {owner_id = "NULL"}, {_id = houseId}, function ()
 		outputDebugString("Removed house") 
+		local marker = getElementByID("house_enter_marker_" .. tostring(houseId))
+		if isElement(marker) then
+			marker:setData("owner_id", false)
+		end
 		Houses.setupPlayerHouseData(player) 
 	end)
 end

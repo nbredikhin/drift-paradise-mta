@@ -221,4 +221,5 @@
 	"markers_showroom_text": "Press %q to open car shop",
 	"markers_house_enter_text": "Press %q to enter house",
 	"markers_house_exit_text": "Press %q to exit",
+	"markers_house_knock_text": "Press %q to knock the door",
 }

@@ -103,6 +103,7 @@ local function drawMarker(marker)
 		200 + math.sin(t * MARKER_ANIMATION_SPEED / 3) * 35
 	}
 
+	-- Текст маркера
 	if localPlayer:isWithinMarker(marker) or 
 		(localPlayer.vehicle and localPlayer.vehicle:isWithinMarker(marker))
 	then
@@ -112,9 +113,15 @@ local function drawMarker(marker)
 			60 + math.sin(t * MARKER_ANIMATION_SPEED) * 30,
 			255
 		}
-
-		drawScreenText(markerProperties.string)
-		currentMarker = marker
+		local markerText = marker:getData("dpMarkers.text")
+		if not markerText then
+			markerText = markerProperties.string
+		end
+		drawScreenText(markerText)
+		if currentMarker ~= marker then
+			triggerEvent("dpMarkers.enter", marker)
+			currentMarker = marker
+		end
 	end	
 
 	-- Иконка на земле
@@ -223,8 +230,17 @@ addEventHandler("onClientKey", root, function (key, state)
 		if localPlayer:isWithinMarker(currentMarker) or 
 			(localPlayer.vehicle and localPlayer.vehicle:isWithinMarker(currentMarker))
 		then
-			triggerEvent("dpMarkers.enter", currentMarker)
+			triggerEvent("dpMarkers.use", currentMarker)
 			cancelEvent()
 		end		
+	end
+end)
+
+addEventHandler("onClientMarkerLeave", resourceRoot, function (player)
+	if player ~= localPlayer then
+		return
+	end
+	if source == currentMarker then
+		currentMarker = nil
 	end
 end)

@@ -1,5 +1,5 @@
-addEvent("dpCore.house_enter", true)
-addEventHandler("dpCore.house_enter", resourceRoot, function (markerId)
+addEvent("dpHouses.house_enter", true)
+addEventHandler("dpHouses.house_enter", resourceRoot, function (markerId)
 	local houseMarker = Element.getByID(markerId)
 	fadeCamera(client, true, 0.5)
 	if not isElement(houseMarker) then
@@ -17,8 +17,8 @@ addEventHandler("dpCore.house_enter", resourceRoot, function (markerId)
 	client.dimension = houseMarker:getData("house_dimension")
 end)
 
-addEvent("dpCore.house_exit", true)
-addEventHandler("dpCore.house_exit", resourceRoot, function (markerId)
+addEvent("dpHouses.house_exit", true)
+addEventHandler("dpHouses.house_exit", resourceRoot, function (markerId)
 	local houseMarker = Element.getByID(markerId)
 	fadeCamera(client, true, 0.5)
 	if not isElement(houseMarker) then

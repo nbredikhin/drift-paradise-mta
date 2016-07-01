@@ -18,13 +18,13 @@ local pointsMultiplier = 1
 local MAX_MULTIPLIER = 10
 
 -- Points for drift added each frame
-local MIN_DRIFT_POINTS = 10
+local MIN_DRIFT_POINTS = 2
 -- Minimum angle, required to start drift
-local MIN_DRIFT_ANGLE = 10
+local MIN_DRIFT_ANGLE = 20
 -- Minimum speed, required to start drift
 local MIN_DRIFT_SPEED = 0.2
 -- Time player have to drift before multiplier raises
-local LONG_DRIFT_TIME = 1000
+local LONG_DRIFT_TIME = 5000
 -- Time player can non-drift before multiplier resets
 local MAX_NON_DRIFT_TIME = 2000
 
@@ -82,7 +82,7 @@ local function update(dt)
 	if driftRestrictedTimer > 0 then
 		driftRestrictedTimer = driftRestrictedTimer - dt
 		if driftRestrictedTimer < DRIFT_RESTRICT_TIME / 2 then
-			PointsDrawing.hide()
+			PointsDrawing.hide()			
 		end
 		return
 	end
@@ -102,6 +102,10 @@ local function update(dt)
 		nonDriftTimer = nonDriftTimer + dt
 		if nonDriftTimer > MAX_NON_DRIFT_TIME then
 			-- Reset multipliers
+			if driftPoints > 0 then
+				--outputChatBox("Finished drift: " .. tostring(driftTimer/1000) .. "s")
+				triggerEvent("dpDriftPoints.earnedPoints", resourceRoot, driftPoints, pointsMultiplier, driftTimer)
+			end
 			driftPoints = 0
 			driftTimer = 0
 			pointsMultiplier = 1
@@ -120,10 +124,11 @@ local function update(dt)
 	if driftTimer > LONG_DRIFT_TIME then
 		driftTimer = 0
 		pointsMultiplier = pointsMultiplier + 1
-		PointsDrawing.updateMultiplier(pointsMultiplier)
 
 		if pointsMultiplier > MAX_MULTIPLIER then
 			pointsMultiplier = MAX_MULTIPLIER
+		else
+			PointsDrawing.updateMultiplier(pointsMultiplier)
 		end
 	end
 
@@ -140,6 +145,7 @@ local function onCollision()
 	isPreventedByCollision = true
 	PointsDrawing.collision()
 	driftTimer = 0
+	driftPoints = 0
 	pointsMultiplier = 1
 	nonDriftTimer = MAX_NON_DRIFT_TIME
 	-- After collision, we should restrict drift for a while

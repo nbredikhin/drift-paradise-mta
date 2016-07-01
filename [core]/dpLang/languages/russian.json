@@ -220,4 +220,5 @@
 	"markers_showroom_text": "Нажмите %q чтобы открыть автомагазин",
 	"markers_house_enter_text": "Нажмите %q чтобы войти в дом",
 	"markers_house_exit_text": "Нажмите %q чтобы выйти на улицу",	
+	"markers_house_knock_text": "Нажмите %q чтобы постучаться в дверь",
 }

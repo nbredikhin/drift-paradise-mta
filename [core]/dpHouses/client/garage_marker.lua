@@ -8,8 +8,8 @@ if houseData then
 	position = Vector3(unpack(houseData.garage))
 end
 local garageMarker = exports.dpMarkers:createMarker("garage", position, 180)
-addEvent("dpMarkers.enter", false)
-addEventHandler("dpMarkers.enter", garageMarker, function()
+addEvent("dpMarkers.use", false)
+addEventHandler("dpMarkers.use", garageMarker, function()
 	exports.dpGarage:enterGarage()
 end)
 

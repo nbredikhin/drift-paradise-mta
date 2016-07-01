@@ -58,5 +58,5 @@ if ENABLE_SHOWROOOM_CMD then
 end
 
 local showroomMarker = exports.dpMarkers:createMarker("showroom", Vector3 { x = 1203.585, y = -1733.989, z = 12.6 }, -135)
-addEvent("dpMarkers.enter", false)
-addEventHandler("dpMarkers.enter", showroomMarker, enterShowRoom)
+addEvent("dpMarkers.use", false)
+addEventHandler("dpMarkers.use", showroomMarker, enterShowRoom)

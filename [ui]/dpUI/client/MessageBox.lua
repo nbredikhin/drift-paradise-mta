@@ -12,6 +12,7 @@ local renderTarget
 local font
 local animationProgress = 0
 local ANIMATION_SPEED = 0.03
+local oldCursorState
 
 local function draw()
 	if not isActive then
@@ -105,6 +106,8 @@ function MessageBox.show(header, text)
 	animationProgress = 0
 	MessageBox.redraw()
 	addEventHandler("onClientRender", root, draw, true, "low-10")
+	oldCursorState = isCursorShowing()
+	showCursor(true)
 	return true
 end
 
@@ -115,6 +118,7 @@ function MessageBox.hide()
 	isActive = false
 	-- TODO: Показать следующее окно из очереди
 	removeEventHandler("onClientRender", root, draw)
+	showCursor(oldCursorState)
 	return true
 end
 

@@ -6,7 +6,7 @@ local defaultHouse = {
 		rotation = Vector3(0, 0, 90),
 	},
 	position = Vector3 {x = 1787.025, y = -1384.408, z = 15.393},
-	rotation = 0,
+	rotation = Vector3(0, 0, 90),
 	dimension = 0,
 	interior = 0
 }

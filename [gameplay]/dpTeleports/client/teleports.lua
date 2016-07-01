@@ -43,10 +43,10 @@ local function teleportToCity()
 	localPlayer:setData("activeMap", false)
 end
 
-addEvent("dpMarkers.enter", false)
+addEvent("dpMarkers.use", false)
 addEventHandler("onClientResourceStart", resourceRoot, function ()
 	for i, pos in ipairs(cityTeleports) do
 		local marker = exports.dpMarkers:createMarker("city", pos, 180)
-		addEventHandler("dpMarkers.enter", marker, teleportToCity)
+		addEventHandler("dpMarkers.use", marker, teleportToCity)
 	end
 end)

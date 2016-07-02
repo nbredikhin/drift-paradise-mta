@@ -20,7 +20,7 @@ function BuyWindow.show(marker)
 	end
 	showCursor(true)
 	UI:setText(window.labels.rooms, "3")
-	UI:setText(window.labels.price, exports.dpUtils:format_num(marker:getData("house_price"), 2, "$"))
+	UI:setText(window.labels.price, exports.dpUtils:format_num(marker:getData("house_price"), 0, "$"))
 	UI:setText(window.labels.tv, exports.dpLang:getString("houses_info_no"))
 	UI:setText(window.labels.radio, exports.dpLang:getString("houses_info_no"))
 	UI:setText(window.labels.console, exports.dpLang:getString("houses_info_no"))
@@ -117,7 +117,6 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		type = "primary",
 		locale = "Купить"
 	})
-
 	UI:addChild(window.panel, window.buyButton)	
 
 	UI:setVisible(window.panel, false)
@@ -127,7 +126,12 @@ addEventHandler("dpUI.click", root, function (widget)
 	if widget == window.buyButton then
 		triggerServerEvent("dpHouses.buy", currentMarker)
 		BuyWindow.hide()
-	else
+	elseif widget == window.cancelButton then
 		BuyWindow.hide()
 	end
 end)
+
+
+if localPlayer:getData("activeUI") == "houseBuyWindow" then
+	localPlayer:setData("activeUI", false)
+end

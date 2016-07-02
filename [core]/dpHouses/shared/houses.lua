@@ -27,7 +27,7 @@ function getPlayerHouseLocation(player)
 		return false
 	end
 	if not hasPlayerHouse(player) then
-		return defaultHouse
+		return defaultHouse, true
 	end
 	local houseData = player:getData("house_data")
 	local houseId = player:getData("house_id")

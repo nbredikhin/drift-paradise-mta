@@ -15,6 +15,7 @@ addEventHandler("dpHouses.house_enter", resourceRoot, function (markerId)
 	end
 	client.interior = houseData.interior
 	client.dimension = houseMarker:getData("house_dimension")
+	client:setData("activeMap", "house")
 end)
 
 addEvent("dpHouses.house_exit", true)
@@ -36,4 +37,12 @@ addEventHandler("dpHouses.house_exit", resourceRoot, function (markerId)
 	client.interior = 0
 	client.dimension = 0
 	client.position = position
+
+	client:setData("activeMap", false)
+end)
+
+
+addEvent("dpHouses.knock", true)
+addEventHandler("dpHouses.knock", resourceRoot, function (houseId)
+	triggerClientEvent("dpHouses.knock", client, houseId)
 end)

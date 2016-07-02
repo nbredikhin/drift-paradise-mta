@@ -13,3 +13,8 @@ addEventHandler("dpHouses.buy", root, function ()
 
 	exports.dpCore:buyPlayerHouse(client, houseId)
 end)
+
+addEvent("dpHouses.sell", true)
+addEventHandler("dpHouses.sell", resourceRoot, function ()
+	exports.dpCore:removePlayerHouse(client)
+end)

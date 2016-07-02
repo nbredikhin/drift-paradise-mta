@@ -3,6 +3,7 @@
 	
 	<script type="shared" src="shared/houses.lua"/>
 	<script type="client" src="client/BuyWindow.lua"/>
+	<script type="client" src="client/HouseMenu.lua"/>
 	<script type="client" src="client/garage_marker.lua"/>
 	<script type="client" src="client/house_entering.lua"/>
 	<script type="client" src="client/buying.lua"/>
@@ -16,4 +17,7 @@
 
 	<file src="assets/textures/houses/1-1.png"/>
 	<file src="assets/textures/houses/1-2.png"/>
+	<file src="assets/textures/house_menu.png"/>
+
+	<file src="assets/sounds/knocking.wav"/>
 </meta>

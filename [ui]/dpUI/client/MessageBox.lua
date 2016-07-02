@@ -92,7 +92,7 @@ function MessageBox.start()
 	end)
 end
 
-function MessageBox.show(header, text)
+function MessageBox.show(header, text, buttons)
 	if type(header) ~= "string" or type(text) ~= "string" then
 		return false
 	end

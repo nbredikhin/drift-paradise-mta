@@ -9,7 +9,7 @@
 
 housesList = {
 	{
-		price = 1250000, 
+		price = 1200000, 
 		data = { 
 			-- Вход
 			enter = {2495.344, -1690.605, 14.3},
@@ -18,7 +18,7 @@ housesList = {
 			exit = {2496.0500, -1693.9260, 1014.5},
 			exit_rotation = 180,
 			-- Маркер гаража
-			garage = {2505.365, -1687.128, 13.1},
+			garage = {2505.365, -1687.128, 13.08},
 			garage_rotation = 15,
 			-- Точка спавна
 			spawn = {2492.633, -1702.091, 1018.344},
@@ -34,7 +34,7 @@ housesList = {
 			enter_rotation = 90,
 			exit = {225.756, 1240.000, 1082.1},
 			exit_rotation = 90,
-			garage = {2511.715, -1671.032, 13.1},
+			garage = {2511.715, -1671.032, 13.08},
 			garage_rotation = 0,
 			spawn = {224.080, 1250.974, 1082.148},
 			spawn_rotation = 90,

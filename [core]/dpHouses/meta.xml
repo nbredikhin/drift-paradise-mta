@@ -2,12 +2,18 @@
 	<oop>true</oop>
 	
 	<script type="shared" src="shared/houses.lua"/>
+	<script type="client" src="client/BuyWindow.lua"/>
 	<script type="client" src="client/garage_marker.lua"/>
 	<script type="client" src="client/house_entering.lua"/>
+	<script type="client" src="client/buying.lua"/>
 
 	<script type="server" src="server/house_entering.lua"/>
+	<script type="server" src="server/buying.lua"/>
 	
 	<export type="shared" function="hasPlayerHouse"/>
 	<export type="shared" function="getPlayerHouseLocation"/>
 	<export type="shared" function="getHouseDimension"/>
+
+	<file src="assets/textures/houses/1-1.png"/>
+	<file src="assets/textures/houses/1-2.png"/>
 </meta>

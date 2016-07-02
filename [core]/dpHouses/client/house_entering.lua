@@ -13,11 +13,14 @@ addEventHandler("dpMarkers.enter", root, function ()
 		local houseId = localPlayer:getData("house_id")
 		local ownerId = marker:getData("owner_id")
 		if not ownerId and houseId then
-			marker:setData("dpMarkers.text", "")
+			marker:setData("dpMarkers.text", "", false)
 		elseif ownerId and ownerId ~= playerId then
-			marker:setData("dpMarkers.text", exports.dpLang:getString("markers_house_knock_text"))
+			marker:setData("dpMarkers.text", exports.dpLang:getString("markers_house_knock_text"), false)
+		elseif not ownerId and not houseId then
+			marker:setData("dpMarkers.text", "")
+			BuyWindow.show(marker)
 		else
-			marker:setData("dpMarkers.text", exports.dpLang:getString("markers_house_enter_text"))
+			marker:setData("dpMarkers.text", exports.dpLang:getString("markers_house_enter_text"), false)
 		end
 	end
 end)
@@ -29,13 +32,19 @@ addEventHandler("dpMarkers.use", root, function ()
 		local houseData = marker:getData("house_data")
 		local ownerId = marker:getData("owner_id")
 		local houseId = localPlayer:getData("house_id")
+		local playerId = localPlayer:getData("_id")
 		if not ownerId and houseId then
 			exports.dpUI:showMessageBox("Покупка дома", "Чтобы купить этот дом, вы должны продать свой текущий дом!")
 			return
-		elseif ownerId and ownerId ~= localPlayer:getData("_id") then
+		elseif ownerId and ownerId ~= playerId then
+			return
+		elseif not ownerId and not houseId then
+			BuyWindow.show(marker)
 			return
 		end
-		enterHouse(marker)
+		if ownerId == playerId then
+			enterHouse(marker)
+		end		
 	elseif type(marker:getData("house_exit_position")) == "table" then
 		setTimer(function ()
 			triggerServerEvent("dpHouses.house_exit", resourceRoot, marker.id)

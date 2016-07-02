@@ -7,6 +7,8 @@ local SIZE_SMALL = 14
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
 	Fonts.default = exports.dpAssets:createFont("Roboto-Regular.ttf", SIZE_NORMAL)
+	Fonts.defaultBold = exports.dpAssets:createFont("Roboto-Regular.ttf", SIZE_NORMAL, true)
+
 	Fonts.defaultSmall = exports.dpAssets:createFont("Roboto-Regular.ttf", SIZE_SMALL)
 	Fonts.defaultLarge = exports.dpAssets:createFont("Roboto-Regular.ttf", SIZE_LARGE)
 	Fonts.defaultLarger = exports.dpAssets:createFont("Roboto-Regular.ttf", SIZE_LARGER)

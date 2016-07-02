@@ -17,7 +17,7 @@ local markerTypes = {}
 
 -- Текст на экране
 local screenTextFont
-local screenTextBottomOffset = 100
+local screenTextBottomOffset = 60
 
 -- Маркер, в котором сейчас находится игрок
 local currentMarker
@@ -58,22 +58,30 @@ markerTypes.exit = {
 	string = "markers_house_exit_text"
 }
 
+local function dxDrawShadowText(text, x1, y1, x2, y2, color, scale, font, alignX, alignY)
+	dxDrawText(text, x1 - 1, y1, x2 - 1, y2, tocolor(0, 0, 0, 150), scale, font, alignX, alignY)
+	dxDrawText(text, x1 + 1, y1, x2 + 1, y2, tocolor(0, 0, 0, 150), scale, font, alignX, alignY)
+	dxDrawText(text, x1, y1 - 1, x2, y2 - 1, tocolor(0, 0, 0, 150), scale, font, alignX, alignY)
+	dxDrawText(text, x1, y1 + 1, x2, y2 + 1, tocolor(0, 0, 0, 150), scale, font, alignX, alignY)
+	dxDrawText(text, x1, y1, x2, y2, color, scale, font, alignX, alignY)
+end
+
 local function drawScreenText(text)
 	text = string.format(exports.dpLang:getString(text), string.upper(markerKey))
 	local yOffset = math.sin(getTickCount() * MARKER_ANIMATION_SPEED) * 5
-	dxDrawText(
-		text, 
-		10, 
-		10 + yOffset, 
-		screenSize.x, 
-		screenSize.y - screenTextBottomOffset + 2 + yOffset, 
-		tocolor(0, 0, 0, 150), 
-		1, 
-		screenTextFont, 
-		"center", 
-		"bottom"
-	)
-	dxDrawText(
+	-- dxDrawText(
+	-- 	text, 
+	-- 	10, 
+	-- 	10 + yOffset, 
+	-- 	screenSize.x, 
+	-- 	screenSize.y - screenTextBottomOffset + 2 + yOffset, 
+	-- 	tocolor(0, 0, 0, 150), 
+	-- 	1, 
+	-- 	screenTextFont, 
+	-- 	"center", 
+	-- 	"bottom"
+	-- )
+	dxDrawShadowText(
 		text, 
 		0, 
 		0 + yOffset, 
@@ -213,7 +221,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		end
 	end
 
-	screenTextFont = exports.dpAssets:createFont("Roboto-Regular.ttf", 30)
+	screenTextFont = exports.dpAssets:createFont("Roboto-Regular.ttf", 22)
 end)
 
 addEventHandler("onClientKey", root, function (key, state)

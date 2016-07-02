@@ -222,4 +222,13 @@
 	"markers_house_enter_text": "Press %q to enter house",
 	"markers_house_exit_text": "Press %q to exit",
 	"markers_house_knock_text": "Press %q to knock the door",
+
+	// House system
+	"houses_info_price": "Price",
+	"houses_info_rooms_count": "Rooms count",
+	"houses_info_tv": "TV",
+	"houses_info_radio": "Radio",
+	"houses_info_console": "Gaming console",
+	"houses_info_yes": "Yes",	
+	"houses_info_no": "No",	
 }

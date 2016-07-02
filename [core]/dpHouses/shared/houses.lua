@@ -3,7 +3,7 @@ local DEBUG_ALWAYS_SPAWN_AT_HOTEL = true
 local defaultHouse = {
 	garage = {
 		position = Vector3(1823.487, -1411.959, 13.602),
-		rotation = Vector3(0, 0, 90),
+		rotation = Vector3(0, 0, 270),
 	},
 	position = Vector3 {x = 1787.025, y = -1384.408, z = 15.393},
 	rotation = Vector3(0, 0, 90),

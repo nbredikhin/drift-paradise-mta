@@ -221,4 +221,13 @@
 	"markers_house_enter_text": "Нажмите %q чтобы войти в дом",
 	"markers_house_exit_text": "Нажмите %q чтобы выйти на улицу",	
 	"markers_house_knock_text": "Нажмите %q чтобы постучаться в дверь",
+
+	// House system
+	"houses_info_price": "Цена",
+	"houses_info_rooms_count": "Количество комнат",
+	"houses_info_tv": "Телевизор",
+	"houses_info_radio": "Радио",
+	"houses_info_console": "Приставка",	
+	"houses_info_yes": "Есть",	
+	"houses_info_no": "Нет",	
 }

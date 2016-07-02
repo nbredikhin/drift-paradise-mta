@@ -52,8 +52,10 @@ function Houses.setup()
 			marker:setData("_id", house._id)
 			marker:setData("owner_id", house.owner_id)
 			marker:setData("house_data", data)
+			marker:setData("house_price", house.price)
 			marker:setData("house_dimension", dimension)
 			marker.id = "house_enter_marker_" .. tostring(house._id)
+			marker:setData("dpMarkers.text", "")
 
 			local exitMarker = exports.dpMarkers:createMarker("exit", Vector3(unpack(data.exit)) - Vector3(0, 0, 0.5))
 			exitMarker.interior = data.interior
@@ -74,44 +76,53 @@ function Houses.buyPlayerHouse(player, houseId)
 	local playerId = player:getData("_id")
 	if not playerId then
 		outputDebugString("Houses.buyPlayerHouse: not authorized")
+		triggerClientEvent("dpCore.buy_house", resourceRoot, false)
 		return false
 	end
 	if not houseId then
+		triggerClientEvent("dpCore.buy_house", resourceRoot, false)
 		return
 	end
 	if player:getData("house_id") then
 		-- Уже есть дом
+		triggerClientEvent("dpCore.buy_house", resourceRoot, false)
 		return false
 	end
 	return DatabaseTable.select(HOUSES_TABLE_NAME, {}, {_id = houseId}, function (house)
 		if type(house) ~= "table" then
 			-- Дом не найден
+			triggerClientEvent("dpCore.buy_house", resourceRoot, false)
 			return
 		end
 		if not house[1] then
 			-- Дом не найден
+			triggerClientEvent("dpCore.buy_house", resourceRoot, false)
 			return
 		end
 		house = house[1]
 
 		if house.owner_id then
 			-- Уже есть владелец
+			triggerClientEvent("dpCore.buy_house", resourceRoot, false)
 			return
 		end
 		local playerMoney = player:getData("money")
 		if not playerMoney then playerMoney = 0 end
 		if player:getData("money") < house.price then
 			-- Недостаточно денег
-			outputDebugString("Fail: not enough money")
+			triggerClientEvent("dpCore.buy_house", resourceRoot, false)
+			--outputDebugString("Fail: not enough money")
 			return 
 		end
 		DatabaseTable.update(HOUSES_TABLE_NAME, {owner_id = playerId}, {_id = house._id}, function(result)
 			if result then
 				player:setData("money", player:getData("money") - house.price)
 				Houses.setupPlayerHouseData(player)
-				outputDebugString("Success")	
+				--outputDebugString("Success")
+				triggerClientEvent("dpCore.buy_house", resourceRoot, true)
 			else
-				outputDebugString("Fail")
+				--outputDebugString("Fail")
+				triggerClientEvent("dpCore.buy_house", resourceRoot, false)
 			end
 		end)
 	end)
@@ -144,6 +155,10 @@ function Houses.setupPlayerHouseData(player, callback, ...)
 		if type(result) == "table" and result[1] then
 			player:setData("house_id", result[1]._id)
 			player:setData("house_data", fromJSON(result[1].data))
+			local marker = getElementByID("house_enter_marker_" .. tostring(result[1]._id))
+			if isElement(marker) then
+				marker:setData("owner_id", userId)
+			end			
 		end
 		executeCallback(callback, unpack(args))
 	end)

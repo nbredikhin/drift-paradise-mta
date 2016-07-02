@@ -46,7 +46,7 @@ addEventHandler("dpGarage.exit", resourceRoot, function (selectedCarId)
 		client.position = Vector3(0, 0, 10)
 	else
 		client.position = houseLocation.garage.position
-		client.rotation = houseLocation.garage.rotation + Vector3(0, 0, 180)
+		client.rotation = houseLocation.garage.rotation
 	end
 	client.frozen = false
 	client.dimension = 0

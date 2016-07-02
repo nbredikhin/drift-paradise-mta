@@ -231,4 +231,9 @@
 	"houses_info_console": "Gaming console",
 	"houses_info_yes": "Yes",	
 	"houses_info_no": "No",	
+
+	"houses_menu_sell": "Sell house",
+	"houses_menu_open_door": "Unlock door",
+	"houses_menu_close_door": "Lock door",
+	"houses_menu_kick": "Kick all players out",
 }

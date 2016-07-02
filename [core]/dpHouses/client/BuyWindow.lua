@@ -122,7 +122,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	UI:setVisible(window.panel, false)
 end)
 
-addEventHandler("dpUI.click", root, function (widget)
+addEventHandler("dpUI.click", resourceRoot, function (widget)
 	if widget == window.buyButton then
 		triggerServerEvent("dpHouses.buy", currentMarker)
 		BuyWindow.hide()

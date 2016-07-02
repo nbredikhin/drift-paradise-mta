@@ -25,6 +25,7 @@ function PlayerSpawn.spawn(player)
 	player.interior = location.interior
 	player.dimension = location.dimension
 	player.model = player:getData("skin")
+	triggerClientEvent("dpCore.spawn", player, isHotel)
 	return true
 end
 

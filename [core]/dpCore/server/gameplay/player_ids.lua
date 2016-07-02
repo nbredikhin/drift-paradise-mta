@@ -4,14 +4,14 @@ addEventHandler("onPlayerJoin", root, function ()
 	if #players == 0 then
 		players[1] = source
 		source.id =  "player_1"
-		p:setData("serverId", 1)
+		source:setData("serverId", 1)
 		return
 	end
 	for i = 1, #players + 1 do
 		if not isElement(players[i]) then
 			players[i] = source
 			source.id =  "player_" .. tostring(i)
-			p:setData("serverId", i)
+			source:setData("serverId", i)
 			return
 		end
 	end

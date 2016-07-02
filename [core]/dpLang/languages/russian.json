@@ -230,4 +230,9 @@
 	"houses_info_console": "Приставка",	
 	"houses_info_yes": "Есть",	
 	"houses_info_no": "Нет",	
+
+	"houses_menu_sell": "Продать дом",
+	"houses_menu_open_door": "Открыть входную дверь",
+	"houses_menu_close_door": "Запереть входную дверь",
+	"houses_menu_kick": "Выгнать всех игроков",	
 }

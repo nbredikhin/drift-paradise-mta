@@ -50,14 +50,13 @@ local function update()
 end
 
 local function onKey(key, state)
-	if localPlayer:getData("activeUI") then
+	if localPlayer:getData("activeUI") ~= "skinSelect" then
 		return
 	end
 	if not state then
 		return
 	end
 	if key == "enter" and currentState == "stand" then
-
 		setTimer(function ()
 			SkinSelect.exit()
 			triggerServerEvent("dpSkinSelect.selected", resourceRoot, currentSkin)

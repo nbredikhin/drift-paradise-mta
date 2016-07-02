@@ -23,7 +23,7 @@ local ENCRYPT_PNG_PATHS = true
 local SCRIPTS_SINGLE_FILE = true
 
 -- Собрать ТОЛЬКО ресурсы из списка
-local RESOURCES_TO_BUILD = false--{dpCore = true}
+local RESOURCES_TO_BUILD = {dpCore = true, dpHouses  = true}
 
 -- Ресурсы, которые нужно собрать помимо ресурсов с префиксом RESOURCE_PREFIX
 local INCLUDE_RESOURCES = {

@@ -1,39 +1,48 @@
 local function enterHouse(marker)
 	setTimer(function ()
 		triggerServerEvent("dpHouses.house_enter", resourceRoot, marker.id)
+		exports.dpHUD:setVisible(false)
 	end, 500, 1)
 	fadeCamera(false, 0.5)
 end
+
+local knockingSound
+local knockingDisabled = false
 
 addEvent("dpHouses.knock", true)
 addEventHandler("dpHouses.knock", root, function (houseId)
 	if not isElement(source) then
 		return
 	end
-	if not isElementStreamedIn(source) then
+	if isElement(knockingSound) then
 		return
 	end
-	local o = source
-	--outputChatBox(tostring(o.type))
-	local position = source.position
-	local sound = playSound3D("assets/sounds/knocking.wav", position)
-	sound.maxDistance = 20
-	sound.mixDistance = 1
 
+	if isElementStreamedIn(source) then
+		knockingSound = playSound3D("assets/sounds/knocking.wav", source.position)
+		knockingSound.maxDistance = 20
+		knockingSound.mixDistance = 1
+	end
 	local exitMarker = Element.getByID("house_exit_marker_" .. tostring(houseId))
 	if isElement(exitMarker) and isElementStreamedIn(exitMarker) then
 		local sound = playSound3D("assets/sounds/knocking.wav", exitMarker.position)
 		sound.maxDistance = 20
 		sound.mixDistance = 1
-		sound.dimension = getHouseDimension(houseId)
+		sound.dimension = exitMarker.dimension
+		sound.interior = exitMarker.interior
 	end
 end)
 
 local function knockHouse(marker)
+	if knockingDisabled then
+		return
+	end
 	if not isElement(marker) then
 		return
 	end
 	triggerServerEvent("dpHouses.knock", resourceRoot, marker:getData("_id"))
+	knockingDisabled = true
+	setTimer(function() knockingDisabled = false end, 3000, 1)
 end
 
 addEvent("dpMarkers.enter", false)
@@ -91,6 +100,7 @@ addEventHandler("dpMarkers.use", root, function ()
 	elseif type(marker:getData("house_exit_position")) == "table" then
 		setTimer(function ()
 			triggerServerEvent("dpHouses.house_exit", resourceRoot, marker.id)
+			exports.dpHUD:setVisible(true)
 		end, 500, 1)
 		fadeCamera(false, 0.5)		
 	end
@@ -113,4 +123,11 @@ addEventHandler("onClientElementDataChange", root, function(dataName)
 	else
 		marker:setData("dpMarkers.text", exports.dpLang:getString("markers_house_enter_text"), false)
 	end	
+end)
+
+addEvent("dpCore.spawn", true)
+addEventHandler("dpCore.spawn", localPlayer, function(isHotel)
+	if not isHotel then
+		exports.dpHUD:setVisible(false)
+	end
 end)

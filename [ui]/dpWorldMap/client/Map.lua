@@ -1,6 +1,11 @@
 Map = {}
+local oldInterior = 0
 
 function Map.start()
+	oldInterior = localPlayer.interior
+	if not oldInterior then
+		oldInterior = 0
+	end
 	localPlayer.interior = 16
 	MapWorld.start()
 	MapCamera.start()
@@ -22,7 +27,7 @@ function Map.update(dt)
 end
 
 function Map.stop()
-	localPlayer.interior = 0
+	localPlayer.interior = oldInterior
 	MapWorld.stop()
 	MapCamera.stop()
 	MapControls.stop()

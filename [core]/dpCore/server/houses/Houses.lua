@@ -76,41 +76,41 @@ function Houses.buyPlayerHouse(player, houseId)
 	local playerId = player:getData("_id")
 	if not playerId then
 		outputDebugString("Houses.buyPlayerHouse: not authorized")
-		triggerClientEvent("dpCore.buy_house", resourceRoot, false)
+		triggerClientEvent(player, "dpCore.buy_house", resourceRoot, false)
 		return false
 	end
 	if not houseId then
-		triggerClientEvent("dpCore.buy_house", resourceRoot, false)
+		triggerClientEvent(player, "dpCore.buy_house", resourceRoot, false)
 		return
 	end
 	if player:getData("house_id") then
 		-- Уже есть дом
-		triggerClientEvent("dpCore.buy_house", resourceRoot, false)
+		triggerClientEvent(player, "dpCore.buy_house", resourceRoot, false)
 		return false
 	end
 	return DatabaseTable.select(HOUSES_TABLE_NAME, {}, {_id = houseId}, function (house)
 		if type(house) ~= "table" then
 			-- Дом не найден
-			triggerClientEvent("dpCore.buy_house", resourceRoot, false)
+			triggerClientEvent(player, "dpCore.buy_house", resourceRoot, false)
 			return
 		end
 		if not house[1] then
 			-- Дом не найден
-			triggerClientEvent("dpCore.buy_house", resourceRoot, false)
+			triggerClientEvent(player, "dpCore.buy_house", resourceRoot, false)
 			return
 		end
 		house = house[1]
 
 		if house.owner_id then
 			-- Уже есть владелец
-			triggerClientEvent("dpCore.buy_house", resourceRoot, false)
+			triggerClientEvent(player, "dpCore.buy_house", resourceRoot, false)
 			return
 		end
 		local playerMoney = player:getData("money")
 		if not playerMoney then playerMoney = 0 end
 		if player:getData("money") < house.price then
 			-- Недостаточно денег
-			triggerClientEvent("dpCore.buy_house", resourceRoot, false)
+			triggerClientEvent(player, "dpCore.buy_house", resourceRoot, false)
 			--outputDebugString("Fail: not enough money")
 			return 
 		end
@@ -119,10 +119,10 @@ function Houses.buyPlayerHouse(player, houseId)
 				player:setData("money", player:getData("money") - house.price)
 				Houses.setupPlayerHouseData(player)
 				--outputDebugString("Success")
-				triggerClientEvent("dpCore.buy_house", resourceRoot, true)
+				triggerClientEvent(player, "dpCore.buy_house", resourceRoot, true)
 			else
 				--outputDebugString("Fail")
-				triggerClientEvent("dpCore.buy_house", resourceRoot, false)
+				triggerClientEvent(player, "dpCore.buy_house", resourceRoot, false)
 			end
 		end)
 	end)

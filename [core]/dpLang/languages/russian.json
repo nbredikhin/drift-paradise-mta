@@ -1,4 +1,8 @@
 {
+	// Drift Paradise 2.0
+	// Russian language
+	// Created by Nikita Bredikhin (Wherry)
+
 	// Stuff
 	"message_box_close": "Закрыть",
 	"controls_arrows": "Стрелки",
@@ -11,7 +15,7 @@
 	"quit_reason_unknown": "выход",
 	"quit_reason_quit": "выход",
 	"quit_reason_kicked": "kick",
-	"quit_reason_banned": "забанен",
+	"quit_reason_banned": "бан",
 	"quit_reason_bad connection": "ошибка подключения",
 	"quit_reason_timed out": "ошибка подключения",
 
@@ -56,6 +60,7 @@
 	"tab_panel_column_nickname": "Ник",
 	"tab_panel_column_money": "Деньги",
 	"tab_panel_column_level": "Уровень",
+	"tab_panel_players_online": "Игроков онлайн",
 
 	// Message box
 	"login_panel_auth_error": "Ошибка авторизации",
@@ -221,6 +226,7 @@
 	"markers_house_enter_text": "Нажмите %q чтобы войти в дом",
 	"markers_house_exit_text": "Нажмите %q чтобы выйти на улицу",	
 	"markers_house_knock_text": "Нажмите %q чтобы постучаться в дверь",
+	"markers_house_buy_text": "Нажмите %q чтобы открыть меню покупки дома",
 
 	// House system
 	"houses_info_price": "Цена",
@@ -235,4 +241,17 @@
 	"houses_menu_open_door": "Открыть входную дверь",
 	"houses_menu_close_door": "Запереть входную дверь",
 	"houses_menu_kick": "Выгнать всех игроков",	
+	"houses_menu_close": "Закрыть",
+
+	"houses_buy_cancel": "Отмена",
+	"houses_buy_confirm": "Купить",	
+
+	"houses_message_title": "Дом",
+	"houses_message_cant_buy": "Невозможно купить этот дом",
+	"houses_message_no_money": "У вас недостаточно денег для покупки этого дома",
+	"houses_message_already_have_house": "Чтобы купить этот дом, продайте свой текущий дом",	
+	"houses_message_buy_success": "Вы успешно купили дом!",
+	"houses_message_buy_fail": "Не удалось купить этот дом. Попробуйте позже.",
+	"houses_message_sell_success": "Вы успешно продали свой дом!",
+	"houses_message_sell_fail": "Не удалось продать ваш дом. Попробуйте позже."		
 }

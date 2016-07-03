@@ -2,6 +2,8 @@
 	<oop>true</oop>
 	
 	<script type="shared" src="shared/houses.lua"/>
+	<script type="shared" src="shared/config.lua"/>
+
 	<script type="client" src="client/BuyWindow.lua"/>
 	<script type="client" src="client/HouseMenu.lua"/>
 	<script type="client" src="client/garage_marker.lua"/>

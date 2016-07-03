@@ -2,6 +2,8 @@ BuyWindow = {}
 local screenSize = Vector2(guiGetScreenSize())
 local UI = exports.dpUI
 local window = {}
+
+-- Список полей с информацией о дома
 local infoLabels = {
 	{"rooms", 	"houses_info_rooms_count", "0"},
 	{"tv", 		"houses_info_tv", "-"},
@@ -19,14 +21,20 @@ function BuyWindow.show(marker)
 		return
 	end
 	showCursor(true)
+	-- TODO: Информация о количестве комнат
 	UI:setText(window.labels.rooms, "3")
 	UI:setText(window.labels.price, exports.dpUtils:format_num(marker:getData("house_price"), 0, "$"))
+	-- TODO: Заполнить поля с информацией о доме
 	UI:setText(window.labels.tv, exports.dpLang:getString("houses_info_no"))
 	UI:setText(window.labels.radio, exports.dpLang:getString("houses_info_no"))
 	UI:setText(window.labels.console, exports.dpLang:getString("houses_info_no"))
+
+	-- Отобразить окно покупки
 	UI:fadeScreen(true)
 	UI:setVisible(window.panel, true)
 	localPlayer:setData("activeUI", "houseBuyWindow")
+
+	-- Маркер дома, для которого отображается окно покупки
 	currentMarker = marker
 end
 
@@ -41,6 +49,7 @@ function BuyWindow.hide()
 	localPlayer:setData("activeUI", false)
 end
 
+-- Создание окна
 addEventHandler("onClientResourceStart", resourceRoot, function ()
 	local panelWidth = 400
 	local panelHeight = 410
@@ -107,7 +116,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		width = panelWidth / 2,
 		height = 55,
 		type = "default_dark",
-		locale = "Отмена"
+		locale = "houses_buy_cancel"
 	})
 	UI:addChild(window.panel, window.cancelButton)	
 	window.buyButton = UI:createDpButton({
@@ -115,7 +124,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		width = panelWidth / 2,
 		height = 55,
 		type = "primary",
-		locale = "Купить"
+		locale = "houses_buy_confirm"
 	})
 	UI:addChild(window.panel, window.buyButton)	
 
@@ -124,9 +133,44 @@ end)
 
 addEventHandler("dpUI.click", resourceRoot, function (widget)
 	if widget == window.buyButton then
+		-- Проверка маркера дома
+		if not isElement(currentMarker) then
+			outputDebugString("BuyWindow: no marker")
+			exports.dpUI:showMessageBox(
+				exports.dpLang:getString("houses_message_title"), 
+				exports.dpLang:getString("houses_message_cant_buy")
+			)
+			BuyWindow.hide()
+			return
+		end
+		-- Проверка значений
+		local money = exports.dpUtils:getElementDataDefault(localPlayer, "money", 0)
+		local price = currentMarker:getData("house_price")
+		if type(price) ~= "number" then
+			outputDebugString("BuyWindow: house_price is not 'number'")
+			exports.dpUI:showMessageBox(
+				exports.dpLang:getString("houses_message_title"), 
+				exports.dpLang:getString("houses_message_cant_buy")
+			)
+			BuyWindow.hide()		
+			return
+		end
+		-- У игрока недостаточно денег
+		if money < price then
+			outputDebugString("BuyWindow: not enough money")
+			exports.dpUI:showMessageBox(
+				exports.dpLang:getString("houses_message_title"), 
+				exports.dpLang:getString("houses_message_no_money")
+			)
+			BuyWindow.hide()		
+			return
+		end
+
+		-- Купить дом
 		triggerServerEvent("dpHouses.buy", currentMarker)
-		BuyWindow.hide()
+		BuyWindow.hide()	
 	elseif widget == window.cancelButton then
+		-- Скрыть меню покупки дома
 		BuyWindow.hide()
 	end
 end)

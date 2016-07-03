@@ -73,3 +73,18 @@ function getPlayersByPartOfName(namePart, caseSensitive)
 	end
 	return matchingPlayers
 end
+
+local _getElementData = getElementData
+function getElementDataDefault(element, dataName, defaultValue)
+	if not element then
+		return defaultValue
+	end
+	if not dataName then
+		return defaultValue
+	end
+	local value = _getElementData(element, dataName)
+	if not value then
+		return defaultValue
+	end
+	return value
+end

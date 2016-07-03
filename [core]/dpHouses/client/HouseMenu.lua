@@ -2,8 +2,11 @@ HouseMenu = {}
 local screenSize = Vector2(guiGetScreenSize())
 local UI = exports.dpUI
 local window = {}
+local confirmWindow = {}
 local kickLocked = false
+local KICK_COOLDOWN_TIME = HOUSE_PLAYERS_KICK_COOLDOWN
 
+-- Кнопки для действий с домом
 local actions = {
 	{"toggleDoor", "houses_menu_close_door"},
 	{"kickPlayers", "houses_menu_kick"},
@@ -11,18 +14,31 @@ local actions = {
 }
 
 function HouseMenu.show()
+	-- Если игрок не находится в доме
 	if localPlayer:getData("activeMap") ~= "house" then
 		return
 	end
+	-- Игрок не находится в дома (2)
+	local currentHouseId = localPlayer:getData("currentHouse")
+	if not currentHouseId then
+		return
+	end	
+	-- Открыто другое меню
 	if localPlayer:getData("activeUI") then
 		return
 	end
+	-- У игрока нет дома
 	local houseId = localPlayer:getData("house_id")
 	if not houseId then
 		return
 	end
+	-- Игрок находится не в своём доме
+	if currentHouseId ~= houseId then
+		return
+	end
 	localPlayer:setData("activeUI", "houseMenu")
 
+	-- Текст кнопки открытия двери в зависимости от состояния двери
 	local marker = Element.getByID("house_enter_marker_" .. houseId)
 	if isElement(marker) then
 		local str = "houses_menu_open_door"
@@ -32,6 +48,7 @@ function HouseMenu.show()
 		UI:setText(window.toggleDoor, exports.dpLang:getString(str))
 	end
 
+	-- Отобразить меню дома
 	UI:setVisible(window.panel, true)
 	UI:fadeScreen(true)
 	showCursor(true)
@@ -48,6 +65,7 @@ function HouseMenu.hide()
 	UI:fadeScreen(false)	
 end
 
+-- Создание меню дома
 addEventHandler("onClientResourceStart", resourceRoot, function ()
 	local panelWidth = 350
 	local panelHeight = 235	
@@ -97,14 +115,14 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		width = panelWidth,
 		height = 55,
 		type = "primary",
-		locale = "Закрыть"
+		locale = "houses_menu_close"
 	})
 	UI:addChild(window.panel, window.closeButton)	
 
 	UI:setVisible(window.panel, false)
 end)
 
-bindKey("F3", "down", function ()
+bindKey(HOUSE_MENU_BUTTON, "down", function ()
 	if localPlayer:getData("activeUI") ~= "houseMenu" then
 		HouseMenu.show()
 	else
@@ -118,33 +136,41 @@ end
 
 addEventHandler("dpUI.click", resourceRoot, function (widget)
 	if widget == window.closeButton then
+		-- Кнопка "Закрыть"
 		HouseMenu.hide()
 	elseif widget == window.sell then
+		-- Продажа дома
 		HouseMenu.hide()
+		-- TODO: Show confirm window
 		triggerServerEvent("dpHouses.sell", resourceRoot)
 	elseif widget == window.toggleDoor then
 		local houseId = localPlayer:getData("house_id")
 		if not houseId then
+			HouseMenu.hide()
 			return
 		end
 		local marker = Element.getByID("house_enter_marker_" .. tostring(houseId))	
 		if not isElement(marker) then
+			HouseMenu.hide()
 			return
 		end
+		-- TODO: Перенести на сервер
 		marker:setData("house_open", not marker:getData("house_open"), true)
+
+		-- Обновление текста кнопки
 		local str = "houses_menu_open_door"
 		if marker:getData("house_open") then
 			str = "houses_menu_close_door"
 		end
 		UI:setText(window.toggleDoor, exports.dpLang:getString(str))
 	elseif widget == window.kickPlayers then
+		-- Выгнать всех игроков из дома
 		if not kickLocked  then
 			triggerServerEvent("dpHouses.kickPlayers", resourceRoot)
 			kickLocked  = true
-			setTimer(function() kickLocked = false end, 2000, 1)
+
+			-- Временно отключить кнопку
+			setTimer(function() kickLocked = false end, KICK_COOLDOWN_TIME, 1)
 		end
 	end
-	--else
-	--	BuyWindow.hide()
-	--end
 end)

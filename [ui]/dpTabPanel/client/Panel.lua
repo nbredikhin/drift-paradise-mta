@@ -24,6 +24,7 @@ local columns = {
 	{ name = "tab_panel_column_level", 		size = 0.25, 	data = "level"},
 }
 local playersList = {}
+local playersOnlineString = "Players online"
 local scrollOffset = 0
 
 local function draw()
@@ -63,7 +64,7 @@ local function draw()
 	end
 	x = panelX
 	y = itemY + itemsCount * itemHeight
-	dxDrawText("Players online: " .. tostring(#playersList), x, y, x + panelWidth, y + headerHeight, tocolor(255, 255, 255), 1, headerFont, "center", "center")
+	dxDrawText(playersOnlineString .. ": " .. tostring(#playersList), x, y, x + panelWidth, y + headerHeight, tocolor(255, 255, 255), 1, headerFont, "center", "center")
 	if renderTarget then
 		dxSetRenderTarget()
 	end
@@ -134,6 +135,11 @@ function Panel.start()
 	bindKey("mouse_wheel_up", "down", mouseUp)
 	bindKey("mouse_wheel_down", "down", mouseDown)
 	localPlayer:setData("activeUI", "tabPanel")
+
+	playersOnlineString = exports.dpLang:getString("tab_panel_players_online")
+	if not playersOnlineString then
+		playersOnlineString = "Players online"
+	end
 end
 
 function Panel.stop()

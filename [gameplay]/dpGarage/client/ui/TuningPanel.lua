@@ -95,7 +95,9 @@ function TuningPanel:draw(fadeProgress)
 		self.y, 
 		self.width, 
 		self.height, 
-		tocolor(BACKGROUND_COLOR[1], BACKGROUND_COLOR[2], BACKGROUND_COLOR[3], self.backgroundAlpha * fadeProgress)
+		tocolor(BACKGROUND_COLOR[1], BACKGROUND_COLOR[2], BACKGROUND_COLOR[3], self.backgroundAlpha * fadeProgress),
+		false,
+		true -- Sub pixel positioning
 	)
 	-- Отрисовка иконок
 	local x, y = self.x + PADDING_X, self.y + PADDING_Y
@@ -118,7 +120,9 @@ function TuningPanel:draw(fadeProgress)
 			self.y, 
 			self.textBoxWidth, 
 			self.height, 
-			tocolor(TEXT_BACKGROUND_COLOR[1], TEXT_BACKGROUND_COLOR[2], TEXT_BACKGROUND_COLOR[3], self.textBackgroundAlpha * fadeProgress)
+			tocolor(TEXT_BACKGROUND_COLOR[1], TEXT_BACKGROUND_COLOR[2], TEXT_BACKGROUND_COLOR[3], self.textBackgroundAlpha * fadeProgress),
+			false,
+			true -- Sub pixel positioning			
 		)
 		-- Отрисовка текста
 		dxDrawText(
@@ -132,7 +136,11 @@ function TuningPanel:draw(fadeProgress)
 			self.font,
 			"center",
 			"center",
-			true
+			true,
+			false,
+			false,
+			false,
+			true -- Sub pixel positioning	
 		)
 	end
 end

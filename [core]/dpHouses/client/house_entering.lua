@@ -1,3 +1,6 @@
+local knockingSound
+local knockingDisabled = false
+
 local function enterHouse(marker)
 	setTimer(function ()
 		triggerServerEvent("dpHouses.house_enter", resourceRoot, marker.id)
@@ -5,9 +8,6 @@ local function enterHouse(marker)
 	end, 500, 1)
 	fadeCamera(false, 0.5)
 end
-
-local knockingSound
-local knockingDisabled = false
 
 addEvent("dpHouses.knock", true)
 addEventHandler("dpHouses.knock", root, function (houseId)
@@ -42,7 +42,7 @@ local function knockHouse(marker)
 	end
 	triggerServerEvent("dpHouses.knock", resourceRoot, marker:getData("_id"))
 	knockingDisabled = true
-	setTimer(function() knockingDisabled = false end, 3000, 1)
+	setTimer(function() knockingDisabled = false end, HOUSE_DOOR_KNOCKING_COOLDOWN, 1)
 end
 
 addEvent("dpMarkers.enter", false)
@@ -63,8 +63,7 @@ addEventHandler("dpMarkers.enter", root, function ()
 				marker:setData("dpMarkers.text", exports.dpLang:getString("markers_house_enter_text"), false)
 			end
 		elseif not ownerId and not houseId then
-			marker:setData("dpMarkers.text", "")
-			BuyWindow.show(marker)
+			marker:setData("dpMarkers.text", "markers_house_buy_text", false)
 		else
 			marker:setData("dpMarkers.text", exports.dpLang:getString("markers_house_enter_text"), false)
 		end
@@ -80,7 +79,10 @@ addEventHandler("dpMarkers.use", root, function ()
 		local houseId = localPlayer:getData("house_id")
 		local playerId = localPlayer:getData("_id")
 		if not ownerId and houseId then
-			exports.dpUI:showMessageBox("Покупка дома", "Чтобы купить этот дом, вы должны продать свой текущий дом!")
+			exports.dpUI:showMessageBox(
+				exports.dpLang:getString("houses_message_title"), 
+				exports.dpLang:getString("houses_message_already_have_house")
+			)
 			return
 		elseif ownerId and ownerId ~= playerId then
 			local opened = marker:getData("house_open")
@@ -107,22 +109,36 @@ addEventHandler("dpMarkers.use", root, function ()
 end)
 
 addEventHandler("onClientElementDataChange", root, function(dataName)
-	if dataName ~= "house_open" then
-		return
-	end
 	if source.type ~= "marker" then
 		return
-	end
-	if not isElementStreamedIn(source) then
-		return
-	end
-	local marker = source
-	local isOpen = marker:getData("house_open")
-	if not isOpen then
-		marker:setData("dpMarkers.text", exports.dpLang:getString("markers_house_knock_text"), false)			
-	else
-		marker:setData("dpMarkers.text", exports.dpLang:getString("markers_house_enter_text"), false)
 	end	
+	local marker = source
+	-- Текст маркера при открытии/закрытии двери
+	if dataName == "house_open" then
+		if not isElementStreamedIn(source) then
+			return
+		end
+		local isOpen = marker:getData("house_open")
+		if not isOpen then
+			marker:setData("dpMarkers.text", exports.dpLang:getString("markers_house_knock_text"), false)			
+		else
+			marker:setData("dpMarkers.text", exports.dpLang:getString("markers_house_enter_text"), false)
+		end	
+	elseif dataName == "owner_id" then
+		local ownerId = marker:getData("owner_id")
+		if not ownerId then
+			return
+		end
+		local playerId = localPlayer:getData("_id")
+		if not playerId then
+			return
+		end
+
+		-- Если дом стал принадлежать игроку
+		if ownerId == playerId then
+			marker:setData("dpMarkers.text", exports.dpLang:getString("markers_house_enter_text"), false)
+		end
+	end
 end)
 
 addEvent("dpCore.spawn", true)

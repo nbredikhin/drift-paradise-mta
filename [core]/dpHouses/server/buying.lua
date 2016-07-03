@@ -18,22 +18,28 @@ addEvent("dpHouses.sell", true)
 addEventHandler("dpHouses.sell", resourceRoot, function ()
 	local money = client:getData("money")
 	if type(money) ~= "number" then
+		triggerClientEvent(client, "dpHouses.sell", resourceRoot, false)
 		return
 	end
 	local houseId = client:getData("house_id")
 	if not houseId then
+		triggerClientEvent(client, "dpHouses.sell", resourceRoot, false)
 		return
 	end
 	local marker = Element.getByID("house_enter_marker_" .. tostring(houseId))
 	if not marker then
+		triggerClientEvent(client, "dpHouses.sell", resourceRoot, false)
 		return
 	end
 	local price = marker:getData("house_price")
 	if type(price) ~= "number" then
+		triggerClientEvent(client, "dpHouses.sell", resourceRoot, false)
 		return
 	end
 	kickAllPlayersFromHouse(houseId)
-	price = math.floor(price * 0.5)
+	price = math.floor(price * HOUSE_SELL_PRICE_MUL)
 	client:setData("money", money + price)
 	exports.dpCore:removePlayerHouse(client)
+
+	triggerClientEvent(client, "dpHouses.sell", resourceRoot, true)
 end)

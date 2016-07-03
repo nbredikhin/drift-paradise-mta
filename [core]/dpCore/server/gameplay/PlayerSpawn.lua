@@ -15,6 +15,7 @@ function PlayerSpawn.spawn(player)
 	local location, isHotel = exports.dpHouses:getPlayerHouseLocation(player)
 	if not isHotel then
 		player:setData("activeMap", "house")
+		player:setData("currentHouse", player:getData("house_id"))
 	end
 	player:spawn(location.position)
 	if location.rotation then

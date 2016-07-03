@@ -1,5 +1,11 @@
 {
-	// Stuff
+	// Drift Paradise 2.0
+	// English language
+	// Created by Nikita Bredikhin (Wherry)	
+
+	// =============================================
+	// ================== General ==================
+	// =============================================
 	"message_box_close": "Close",
 	"controls_arrows": "Arrows",
 	"controls_mouse": "Mouse",
@@ -15,7 +21,9 @@
 	"quit_reason_bad connection": "bad connection",
 	"quit_reason_timed out": "timed out",
 
-	// Tutorial
+	// =============================================
+	// ================= Tutorial ==================
+	// =============================================
 	"beta_tutorial_1": "Hello",
 	"beta_tutorial_2": "Добро пожаловать на Drift Paradise!",
 	"beta_tutorial_2": "Welcome to Drift Paradise server!",
@@ -23,7 +31,9 @@
 	"beta_tutorial_4": "It's not a final version",
 	"beta_tutorial_5": "Good luck and have fun!",
 
-	// PhotoMode
+	// =============================================
+	// ================= PhotoMode =================
+	// =============================================
 	"photo_mode_help_roll": "Roll left/right",
 	"photo_mode_help_move": "Move",
 	"photo_mode_help_speed": "Move slower/faster",
@@ -33,7 +43,9 @@
 	"photo_mode_help_tips": "Toggle UI and help",
 	"photo_mode_help_smooth": "Toggle smooth movement",
 
-	// UI
+	// =============================================
+	// ================ Login panel ================
+	// =============================================
 	"login_panel_username_label": "Username",
 	"login_panel_password_label": "Password",
 	"login_panel_password_confirm_label": "Confirm password",
@@ -47,18 +59,25 @@
 	"login_panel_server_not_available": "Drift Paradise server is currently not available",
 	"login_panel_server_error": "Server error",
 
-	// World map
+	// ==============================================
+	// ================= World map ==================
+	// ==============================================
 	"world_map_help_text": "%s - move camera, %s - zoom in/out, %s - exit",
 	"blip_garage": "Garage",
 	"blip_strip_club": "Strip club",
 
-	// Tab panel
+	// ==============================================
+	// ================= Tab panel ==================
+	// ==============================================
 	"tab_panel_column_id": "ID",
 	"tab_panel_column_nickname": "Nickname",
 	"tab_panel_column_money": "Money",
 	"tab_panel_column_level": "Level",
+	"tab_panel_players_online": "Players online",
 
-	// Message box
+	// =============================================
+	// ================ Message box ================
+	// =============================================
 	"login_panel_auth_error": "Authorization error",
 	"login_panel_register_error": "Registration error",
 
@@ -81,13 +100,17 @@
 	"login_panel_err_passwords_do_not_match": "Your passwords do not match!",
 	"login_panel_err_beta_key_invalid": "Your beta key is invalid",
 
-	// Chat messages
+	// ======================================================
+	// ================== Chat messages =====================
+	// ======================================================
 	"chat_message_login_success": "You have successfully logged in",
 	"chat_message_player_join": "Player %s has joined the server",
 	"chat_message_player_quit": "Player %s has left the server (%s)",
 	"chat_adminsay_admin": "Admin",
 
-	// Garage
+	// =====================================
+	// ============= Garage ================
+	// =====================================
 	"garage_no_vehicle_error": "You must be in a car to enter garage",
 	"garage_not_driver": "You must be driving this car to enter garage",
 	"garage_has_occupants": "You must be the only car occupant to enter garage",
@@ -95,7 +118,6 @@
 	"garage_not_logged_in": "You must be logged in to enter garage",
 	"garage_enter_failed": "Failed to enter garage",
 
-	// Garage UI
 	"garage_menu_go_city": "Take car",
 	"garage_menu_customize": "Tuning",
 	"garage_menu_settings": "Settings",
@@ -110,7 +132,9 @@
 	"garage_menu_settings_bumper": "Remove rear bumper",
 	"garage_menu_back": "Back",
 
-	// Garage tuning
+	// ========================================
+	// ================ Tuning ================
+	// ========================================
 	"garage_tuning_component_front_bump": "Front bumper",
 	"garage_tuning_component_rear_bump": "Rear bumper",
 	"garage_tuning_component_side_skirts": "Side skirts",
@@ -186,7 +210,9 @@
 	"garage_tuning_sticker_mirror": "%s - mirroring",
 	"garage_tuning_sticker_mirror_text": "%s - text mirroring",
 
-	// Main panel
+	// ====================================
+	// ============ Main panel ============
+	// ====================================
 	"main_panel_tab_account": "Account",
 	"main_panel_tab_teleport": "Teleports",
 	"main_panel_tab_settings": "Settings",
@@ -215,15 +241,20 @@
 	"main_panel_settings_improved_sky": "improved sky",
 	"main_panel_settings_screen_blur": "screen blur",
 
-	// Markers
+	// ==========================================
+	// ================ Markers =================
+	// ==========================================
 	"markers_garage_text": "Press %q to enter garage",
 	"markers_city_text": "Press %q to teleport back to the city",
 	"markers_showroom_text": "Press %q to open car shop",
 	"markers_house_enter_text": "Press %q to enter house",
 	"markers_house_exit_text": "Press %q to exit",
 	"markers_house_knock_text": "Press %q to knock the door",
+	"markers_house_buy_text": "Press %q to open house buy menu",
 
-	// House system
+	// ====================================
+	// =========== House system ===========
+	// ====================================
 	"houses_info_price": "Price",
 	"houses_info_rooms_count": "Rooms count",
 	"houses_info_tv": "TV",
@@ -236,4 +267,17 @@
 	"houses_menu_open_door": "Unlock door",
 	"houses_menu_close_door": "Lock door",
 	"houses_menu_kick": "Kick all players out",
+	"houses_menu_close": "Close",
+
+	"houses_buy_cancel": "Cancel",
+	"houses_buy_confirm": "Buy",
+
+	"houses_message_title": "House",
+	"houses_message_cant_buy": "You can't buy this house",
+	"houses_message_no_money": "You don't have enough money to buy this house",
+	"houses_message_already_have_house": "To buy this house you have to sell your old house first",
+	"houses_message_buy_success": "You have successfully bought this house!",
+	"houses_message_buy_fail": "Failed to buy this house. Please, try later",
+	"houses_message_sell_success": "You have successfully sold your house!",
+	"houses_message_sell_fail": "Failed to sell your house. Please, try later"	
 }

@@ -167,8 +167,17 @@ addEventHandler("dpUI.click", resourceRoot, function (widget)
 		end
 
 		-- Купить дом
-		triggerServerEvent("dpHouses.buy", currentMarker)
-		BuyWindow.hide()	
+		local houseMarker = currentMarker
+		BuyWindow.hide()
+		-- Окно подтверждения
+		local confirmText = string.format(
+			exports.dpLang:getString("houses_message_buy_confirm"),
+			exports.dpUtils:format_num(price, 0, "$")
+		)
+		ConfirmWindow.show(confirmText, function()
+			-- Купить дом
+			triggerServerEvent("dpHouses.buy", houseMarker)
+		end)
 	elseif widget == window.cancelButton then
 		-- Скрыть меню покупки дома
 		BuyWindow.hide()

@@ -279,5 +279,7 @@
 	"houses_message_buy_success": "You have successfully bought this house!",
 	"houses_message_buy_fail": "Failed to buy this house. Please, try later",
 	"houses_message_sell_success": "You have successfully sold your house!",
-	"houses_message_sell_fail": "Failed to sell your house. Please, try later"	
+	"houses_message_sell_fail": "Failed to sell your house. Please, try later",
+	"houses_message_buy_confirm": "Are you sure you want to buy this house for %s?",	
+	"houses_message_sell_confirm": "Are you sure you want to sell your house for %s?"
 }

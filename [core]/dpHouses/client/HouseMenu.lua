@@ -2,7 +2,6 @@ HouseMenu = {}
 local screenSize = Vector2(guiGetScreenSize())
 local UI = exports.dpUI
 local window = {}
-local confirmWindow = {}
 local kickLocked = false
 local KICK_COOLDOWN_TIME = HOUSE_PLAYERS_KICK_COOLDOWN
 
@@ -140,9 +139,29 @@ addEventHandler("dpUI.click", resourceRoot, function (widget)
 		HouseMenu.hide()
 	elseif widget == window.sell then
 		-- Продажа дома
+		local houseId = localPlayer:getData("house_id")
+		if not houseId then
+			return
+		end
+		local marker = Element.getByID("house_enter_marker_" .. tostring(houseId))	
+		if not isElement(marker) then
+			outputDebugString("Sell house: no marker")
+			return
+		end
+		local price = marker:getData("house_price")
+		if type(price) ~= "number" then
+			outputDebugString("Sell house: no price")
+			return
+		end
+		price = math.floor(price * HOUSE_SELL_PRICE_MUL)
+		local confirmText = string.format(
+			exports.dpLang:getString("houses_message_sell_confirm"),
+			exports.dpUtils:format_num(price, 0, "$")
+		)
 		HouseMenu.hide()
-		-- TODO: Show confirm window
-		triggerServerEvent("dpHouses.sell", resourceRoot)
+		ConfirmWindow.show(confirmText, function()
+			triggerServerEvent("dpHouses.sell", resourceRoot)
+		end)
 	elseif widget == window.toggleDoor then
 		local houseId = localPlayer:getData("house_id")
 		if not houseId then

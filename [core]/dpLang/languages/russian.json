@@ -253,5 +253,7 @@
 	"houses_message_buy_success": "Вы успешно купили дом!",
 	"houses_message_buy_fail": "Не удалось купить этот дом. Попробуйте позже.",
 	"houses_message_sell_success": "Вы успешно продали свой дом!",
-	"houses_message_sell_fail": "Не удалось продать ваш дом. Попробуйте позже."		
+	"houses_message_sell_fail": "Не удалось продать ваш дом. Попробуйте позже.",
+	"houses_message_buy_confirm": "Вы уверены, что хотите купить этот дом за %s?",	
+	"houses_message_sell_confirm": "Вы уверены, что хотите продать свой дом за %s?"		
 }

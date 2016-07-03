@@ -6,6 +6,7 @@
 
 	<script type="client" src="client/BuyWindow.lua"/>
 	<script type="client" src="client/HouseMenu.lua"/>
+	<script type="client" src="client/ConfirmWindow.lua"/>
 	<script type="client" src="client/garage_marker.lua"/>
 	<script type="client" src="client/house_entering.lua"/>
 	<script type="client" src="client/buying.lua"/>

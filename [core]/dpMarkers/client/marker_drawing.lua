@@ -132,6 +132,7 @@ local function drawMarker(marker)
 		end
 	end	
 
+	local mx, my, mz = getElementPosition(marker)
 	-- Иконка на земле
 	if markerProperties.icon then
 		-- Размеры иконки
@@ -147,18 +148,18 @@ local function drawMarker(marker)
 		local ox = math.cos(direction) * iconSize / 2
 		local oy =  math.sin(direction) * iconSize / 2
 		dxDrawMaterialLine3D(
-			marker.position.x + ox,
-			marker.position.y + oy,
-			marker.position.z,
-			marker.position.x - ox,
-			marker.position.y - oy,
-			marker.position.z,
+			mx + ox,
+			my + oy,
+			mz,
+			mx - ox,
+			my - oy,
+			mz,
 			markerProperties.icon, 
 			iconSize,
 			tocolor(255, 255, 255, color[4]),
-			marker.position.x,
-			marker.position.y,
-			marker.position.z + 1
+			mx,
+			my,
+			mz + 1
 		)
 	end
 
@@ -166,12 +167,12 @@ local function drawMarker(marker)
 	-- Вертикальная картинка
 	local textAnimationOffset = math.sin(t * MARKER_ANIMATION_SPEED) * MARKER_TEXT_ANIMATION_SIZE
 	dxDrawMaterialLine3D(
-		marker.position.x, 
-		marker.position.y,
-		marker.position.z + textSize / 2 + MARKER_TEXT_OFFSET.z + textAnimationOffset,
-		marker.position.x,
-		marker.position.y,
-		marker.position.z - textSize / 2 + MARKER_TEXT_OFFSET.z + textAnimationOffset,
+		mx, 
+		my,
+		mz + textSize / 2 + MARKER_TEXT_OFFSET.z + textAnimationOffset,
+		mx,
+		my,
+		mz - textSize / 2 + MARKER_TEXT_OFFSET.z + textAnimationOffset,
 		markerProperties.text,
 		textSize,
 		tocolor(unpack(color))

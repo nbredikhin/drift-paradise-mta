@@ -208,6 +208,9 @@
 	"main_panel_account_regtime": "Дата регистрации",
 	"main_panel_account_playtime": "Часов в игре",
 	"main_panel_account_cars_count": "Количество машин",
+	"main_panel_account_house": "Дом",
+	"main_panel_account_house_yes": "Есть",
+	"main_panel_account_house_no": "Нет",
 
 	"main_panel_settings_section_game": "Настройки игры",
 	"main_panel_settings_section_graphics": "Настройки графики",

@@ -126,6 +126,13 @@ function AccountTab.create()
 		type = "dark",
 	}
 	UI:addChild(panel, hasHouseLabel)
+	UIDataBinder.bind(hasHouseLabel, "house_id", function (value)
+		local houseStr = "main_panel_account_house_no"
+		if type(value) == "number" and value > 0 then
+			houseStr = "main_panel_account_house_yes"
+		end
+		return exports.dpLang:getString("main_panel_account_house") .. ": " .. exports.dpLang:getString(houseStr)
+	end)	
 
 	-- Дата регистрации
 	local registerDateLabel = UI:createDpLabel {

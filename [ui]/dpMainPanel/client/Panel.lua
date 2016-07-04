@@ -142,3 +142,7 @@ end
 tabsHandlers.teleport = function ()
 	TeleportTab.refresh()
 end
+
+tabsHandlers.account = function ()
+	UIDataBinder.refresh()
+end

@@ -230,6 +230,9 @@
 	"main_panel_account_regtime": "Registration date",
 	"main_panel_account_playtime": "Hours in-game",
 	"main_panel_account_cars_count": "Cars in garage",
+	"main_panel_account_house": "House",
+	"main_panel_account_house_yes": "Yes",
+	"main_panel_account_house_no": "No",
 
 	"main_panel_settings_section_game": "Game settings",
 	"main_panel_settings_section_graphics": "Graphics settings",

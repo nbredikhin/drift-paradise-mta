@@ -4,5 +4,6 @@
 	<script type="shared" src="shared/lib/yaci.lua"/>
 	<script type="server" src="server/Race.lua"/>
 	<script type="server" src="server/RaceManager.lua"/>
+	<script type="server" src="server/RaceGameplay.lua"/>
 	<script type="server" src="server/main.lua"/>
 </meta>

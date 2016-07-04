@@ -41,6 +41,13 @@ local function onData(dataName)
 	end
 	updateWidget(source, dataName)
 end
+
+function UIDataBinder.refresh()
+	for k, v in pairs(bindings) do
+		updateWidget(v.element, k)
+	end
+end
+
 function UIDataBinder.setActive(active)
 	active = not not active
 	if active == isActive then
@@ -48,9 +55,7 @@ function UIDataBinder.setActive(active)
 	end
 
 	if active then
-		for k, v in pairs(bindings) do
-			updateWidget(v.element, k)
-		end
+		UIDataBinder.refresh()
 		addEventHandler("onClientElementDataChange", root, onData)
 	else
 		removeEventHandler("onClientElementDataChange", root, onData)

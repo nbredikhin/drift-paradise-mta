@@ -1,0 +1,30 @@
+<meta>
+    <info name="Chat"/>
+    <oop>true</oop>
+
+    <settings>
+        <setting name="#log_chat" value="true" accept="false, true"/>
+    </settings>
+
+    <script src="shared/utils.lua" type="shared"/>
+    <script src="client/tabs.lua" type="client"/>
+    <script src="client/chat.lua" type="client"/>
+    <script src="client/hud/hud.lua" type="client"/>
+    <script src="client/hud/input.lua" type="client"/>
+    <script src="client/main.lua" type="client"/>
+    <script src="client/exports.lua" type="client"/>
+    <script src="client/testcommands.lua" type="client"/>
+
+    <script src="server/tabs.lua" type="server"/>
+    <script src="server/main.lua" type="server"/>
+    <script src="server/exports.lua" type="server"/>
+
+    <export function="output" type="client"/>
+    <export function="output" type="server"/>
+    <export function="send" type="client"/>
+    <export function="getTab" type="client"/>
+    <export function="setTab" type="client"/>
+    <export function="addTab" type="client"/>
+    <export function="removeTab" type="client"/>
+
+</meta>

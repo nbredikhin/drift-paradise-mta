@@ -31,23 +31,36 @@ function Hud.drawMessages(currentTab)
     local j = MAX_CHAT_LINES - 1
     for i = messageCount, firstIndex, -1 do
         local message = messages[i]
-        dxDrawText(message.text:gsub("#%x%x%x%x%x%x", ""), 33, 33 + j * 20, 0, 0, tocolor(0, 0, 0, 255), 1.0, "default-bold", "left", "top", false, false, false, false, true)
+        dxDrawText(message.text:gsub("#%x%x%x%x%x%x", ""), 33, 33 + j * 20, 0, 0, 0xFF000000, 1.0, "default-bold", "left", "top", false, false, false, false, true)
         dxDrawText(message.text, 32, 32 + j * 20, 0, 0, message.color, 1.0, "default-bold", "left", "top", false, false, true, message.colorCoded, true)
         j = j - 1
     end
 end
 
 function Hud.drawTabs(currentTab)
+    local scale = 1.0
+    local font = "default-bold"
     local width = 32
+
     for i, tabName in ipairs(Tab.getAll()) do
+        local tabText
         local text, localized = Tab.getText(tabName)
-        dxDrawText(text, width, 16, 0, 0, tabName == currentTab and 0xFFFF0000 or 0xFFFFFFFF, 1.0, "default-bold", "left", "top", false, false, false, false, true)
-        width = width + 4 + dxGetTextWidth(text, 1.0, "default-bold")
+        if localized then
+            tabText = exports.dpLang:getString(text)
+        else
+            tabText = text
+        end
+        dxDrawText(tabText:gsub("#%x%x%x%x%x%x", ""), width + 1, 17, 0, 0, 0xFF000000, scale, font, "left", "top", false, false, false, false, true)
+        dxDrawText(tabText, width, 16, 0, 0, tabName == currentTab and tocolor(252, 212, 0) or 0xFFFFFFFF, scale, font, "left", "top", false, false, false, false, true)
+        width = width + 4 + dxGetTextWidth(tabText, scale, font)
     end
 end
 
 function Hud.drawInput()
-    dxDrawText("Say: " .. Input.getText(), 32, 32 + MAX_CHAT_LINES * 20, 0, 0, 0xFFFFFFFF, 1.0, "default-bold", "left", "top", false, false, false, false, true)
+    local text = exports.dpLang:getString("chat_input_message") .. ": " .. Input.getText()
+    local right = 32 + dxGetTextWidth(text:sub(1, 96), 1, "default-bold")
+    dxDrawText(text, 33, 33 + MAX_CHAT_LINES * 20, right + 1, 0, 0xFF000000, 1.0, "default-bold", "left", "top", false, true, false, false, true)
+    dxDrawText(text, 32, 32 + MAX_CHAT_LINES * 20, right, 0, 0xFFFFFFFF, 1.0, "default-bold", "left", "top", false, true, false, false, true)
 end
 
 addEventHandler("onClientResourceStart", resourceRoot,

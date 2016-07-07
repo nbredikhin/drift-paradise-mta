@@ -1,3 +1,5 @@
+local MAX_MESSAGE_LENGTH = 128
+
 local REPEAT_KEY_WAIT = 500
 local REPEAT_KEY_DELAY = 50
 
@@ -9,6 +11,8 @@ local inputText = ""
 
 local inputHistory = {}
 local inputHistoryCurrent
+
+local currentInputText
 
 Input = {}
 
@@ -24,41 +28,43 @@ function Input.getHistory()
     return inputHistory
 end
 
-function Input.getCurrentHistory()
-    if inputHistoryCurrent == nil then
-        return false
-    end
-    return inputHistoryCurrent
-end
+-- function Input.getCurrentHistory()
+--     if inputHistoryCurrent == nil then
+--         return false
+--     end
+--     return inputHistoryCurrent
+-- end
 
-function Input.historyUp()
+local function historyUp()
     if inputHistoryCurrent == nil then
-        if #inputHistory ~= 0 then
-            inputHistoryCurrent = #inputHistory
-        else
+        if #inputHistory == 0 then
             return false
         end
+        inputHistoryCurrent = #inputHistory
+        currentInputText = inputText
     elseif inputHistoryCurrent == 1 then
         return false
     else
         inputHistoryCurrent = inputHistoryCurrent - 1
     end
-    return inputHistory[inputHistoryCurrent]
+    inputText = inputHistory[inputHistoryCurrent]
+    return true
 end
 
-function Input.historyDown()
+local function historyDown()
     if inputHistoryCurrent == nil then
-        if #inputHistory ~= 0 then
-            inputHistoryCurrent = #inputHistory
-        else
-            return false
-        end
-    elseif inputHistoryCurrent == #inputHistory then
         return false
+    end
+
+    if inputHistoryCurrent == #inputHistory then
+        inputHistoryCurrent = nil
+        inputText = currentInputText
+        currentInputText = nil
     else
         inputHistoryCurrent = inputHistoryCurrent + 1
+        inputText = inputHistory[inputHistoryCurrent]
     end
-    return inputHistory[inputHistoryCurrent]
+    return true
 end
 
 local function erase()
@@ -70,7 +76,9 @@ local function insert(character)
     if not firstCharSkipped then
         firstCharSkipped = true
     else
-        inputText = inputText .. character
+        if #inputText < MAX_MESSAGE_LENGTH then -- Limit message length
+            inputText = inputText .. character
+        end
     end
 end
 
@@ -101,6 +109,7 @@ function Input.close()
     inputActive = false
     firstCharSkipped = false
     inputHistoryCurrent = nil
+    currentInputText = nil
 
     removeEventHandler("onClientCharacter", root, insert)
 
@@ -139,15 +148,9 @@ local function handleKey(key, repeatKey)
 	elseif key == "enter" then
         send()
     elseif key == "arrow_u" then
-        local text = Input.historyUp()
-        if text then
-            inputText = text
-        end
+        historyUp()
     elseif key == "arrow_d" then
-        local text = Input.historyDown()
-        if text then
-            inputText = text
-        end
+        historyDown()
 	elseif key == "escape" then
         cancelEvent()
         Input.close()

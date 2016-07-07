@@ -1,3 +1,1 @@
-function output(...)
-    return Chat.output(...)
-end
+output = Chat.output

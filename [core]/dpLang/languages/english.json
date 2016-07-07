@@ -1,7 +1,7 @@
 {
 	// Drift Paradise 2.0
 	// English language
-	// Created by Nikita Bredikhin (Wherry)	
+	// Created by Nikita Bredikhin (Wherry)
 
 	// =============================================
 	// ================== General ==================
@@ -263,8 +263,8 @@
 	"houses_info_tv": "TV",
 	"houses_info_radio": "Radio",
 	"houses_info_console": "Gaming console",
-	"houses_info_yes": "Yes",	
-	"houses_info_no": "No",	
+	"houses_info_yes": "Yes",
+	"houses_info_no": "No",
 
 	"houses_menu_sell": "Sell house",
 	"houses_menu_open_door": "Unlock door",
@@ -283,6 +283,10 @@
 	"houses_message_buy_fail": "Failed to buy this house. Please, try later",
 	"houses_message_sell_success": "You have successfully sold your house!",
 	"houses_message_sell_fail": "Failed to sell your house. Please, try later",
-	"houses_message_buy_confirm": "Are you sure you want to buy this house for %s?",	
-	"houses_message_sell_confirm": "Are you sure you want to sell your house for %s?"
+	"houses_message_buy_confirm": "Are you sure you want to buy this house for %s?",
+	"houses_message_sell_confirm": "Are you sure you want to sell your house for %s?",
+
+    // Chat
+    "chat_tab_general": "General",
+    "chat_input_message": "Message"
 }

@@ -227,7 +227,7 @@
 	"markers_city_text": "Нажмите %q чтобы телепортироваться в город",
 	"markers_showroom_text": "Нажмите %q чтобы открыть автомагазин",
 	"markers_house_enter_text": "Нажмите %q чтобы войти в дом",
-	"markers_house_exit_text": "Нажмите %q чтобы выйти на улицу",	
+	"markers_house_exit_text": "Нажмите %q чтобы выйти на улицу",
 	"markers_house_knock_text": "Нажмите %q чтобы постучаться в дверь",
 	"markers_house_buy_text": "Нажмите %q чтобы открыть меню покупки дома",
 
@@ -236,27 +236,31 @@
 	"houses_info_rooms_count": "Количество комнат",
 	"houses_info_tv": "Телевизор",
 	"houses_info_radio": "Радио",
-	"houses_info_console": "Приставка",	
-	"houses_info_yes": "Есть",	
-	"houses_info_no": "Нет",	
+	"houses_info_console": "Приставка",
+	"houses_info_yes": "Есть",
+	"houses_info_no": "Нет",
 
 	"houses_menu_sell": "Продать дом",
 	"houses_menu_open_door": "Открыть входную дверь",
 	"houses_menu_close_door": "Запереть входную дверь",
-	"houses_menu_kick": "Выгнать всех игроков",	
+	"houses_menu_kick": "Выгнать всех игроков",
 	"houses_menu_close": "Закрыть",
 
 	"houses_buy_cancel": "Отмена",
-	"houses_buy_confirm": "Купить",	
+	"houses_buy_confirm": "Купить",
 
 	"houses_message_title": "Дом",
 	"houses_message_cant_buy": "Невозможно купить этот дом",
 	"houses_message_no_money": "У вас недостаточно денег для покупки этого дома",
-	"houses_message_already_have_house": "Чтобы купить этот дом, продайте свой текущий дом",	
+	"houses_message_already_have_house": "Чтобы купить этот дом, продайте свой текущий дом",
 	"houses_message_buy_success": "Вы успешно купили дом!",
 	"houses_message_buy_fail": "Не удалось купить этот дом. Попробуйте позже.",
 	"houses_message_sell_success": "Вы успешно продали свой дом!",
 	"houses_message_sell_fail": "Не удалось продать ваш дом. Попробуйте позже.",
-	"houses_message_buy_confirm": "Вы уверены, что хотите купить этот дом за %s?",	
-	"houses_message_sell_confirm": "Вы уверены, что хотите продать свой дом за %s?"		
+	"houses_message_buy_confirm": "Вы уверены, что хотите купить этот дом за %s?",
+	"houses_message_sell_confirm": "Вы уверены, что хотите продать свой дом за %s?",
+
+    // Chat
+    "chat_tab_general": "Общий",
+    "chat_input_message": "Сообщение"
 }

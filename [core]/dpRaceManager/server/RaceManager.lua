@@ -12,9 +12,7 @@ function RaceManager:addRace(race)
 	table.insert(self.races, race)
 	race.id = #self.races
 	race.raceManager = self
-	if not race.settings.noDimension then
-		race.dimension = 70000 + race.id
-	end
+	race:onAdded()
 	return true
 end
 

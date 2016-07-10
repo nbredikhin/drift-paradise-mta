@@ -6,16 +6,43 @@ local DEFAULT_RACE_DURATION = 300
 
 Race = newclass("Race")
 
+-- Конструктор
+-- table settings - таблица настроек гонки
 function Race:init(settings)
+	-- Состояние гонки. Нельзя изменить напрямую
+	-- Возможные состояния: 
+	-- no_map 	- карта ещё не загружена. Нельзя добавлять или удалять игроков.
+	-- waiting 	- ожидание старта. Можно добавлять и удалять игроков.
+	-- running	- непосредственно гонка. Нельзя добавлять игроков, но можно удалять игроков.
+	-- finished - гонка завершилась. Нельзя добавлять игроков, но можно удалять игроков.
 	self._state = "no_map"
+	-- Настройки гонки	
+	-- bool noSpawnpoints 	- начать гонку в точках, где находятся игроки, в данный момент.
+	--						Если у трассы нет спавнпойнтов, гонка начнется в точках, где
+	--						находятся игроки, в данный момент.
+	-- bool noDimension 	- не переносить игроков в отдельный dimension
+	--						По умолчанию игроки переносятся в отдельный dimension, чтобы не
+	--						происходило случаных помех или падений фпс из-за скоплений игроков.
+	-- bool createVehicles	- создать автомобиль для участников гонки. TODO: Пока не нужно  
+	self.settings = {
+		duration = 10,
+		noSpawnpoints = false,
+		noDimension = false,
+		createVehicles = false,
+	}
+	self.settings = exports.dpUtils:extendTable(self.settings, settings)
+	-- Участники гонки
 	self.players = {}
+	-- Dimension гонки
 	self.dimension = 0
 	self.gameplay = RaceGameplay(self)	
-	-- Настройки
-	self.settings = {
-		duration = 10
-	}
-	self.settings = exports.dpUtils(self.settings, settings)
+end
+
+-- Гонка была добавлена в RaceManager
+function Race:onAdded()
+	if not self.settings.noDimension then
+		self.dimension = 70000 + self.id
+	end
 end
 
 --- Загрузка карты в гонку
@@ -28,6 +55,7 @@ function Race:loadMap(map)
 	return true
 end
 
+-- Вызывает клиентский метод, определенный в client->Race, для всех игроков гонки
 function Race:callMethod(methodName, ...)
 	for i, player in ipairs(self.players) do
 		self:callPlayerMethod(player, methodName, ...)
@@ -35,6 +63,7 @@ function Race:callMethod(methodName, ...)
 	return true
 end
 
+-- Вызывает клиентский метод, определенный в client->Race, для указанного игрока
 function Race:callPlayerMethod(player, methodName, ...)
 	return triggerClientEvent(player, "dpRaceManager.rpc", resourceRoot, methodName, ...)
 end
@@ -52,6 +81,7 @@ function Race:setState(state)
 	return true
 end
 
+-- Возвращает текущее состояние гонки
 function Race:getState()
 	return self._state
 end
@@ -65,10 +95,14 @@ function Race:addPlayer(player)
 		outputDebugString("Player '" .. tostring(player.name) .. "' is already in other race")
 		return false
 	end
+	if not self.settings.createVehicles and not isElement(player.vehicle) then
+		outputDebugString("Player '" .. tostring(player.name) .. "' must be in a vehicle to join this race")
+		return false
+	end
 	table.insert(self.players, player)
 	player:setData("race_id", self.id)
 	self.gameplay:onPlayerJoin(player)
-	self:callPlayerMethod(player, "onJoin")
+	self:callPlayerMethod(player, "onJoin", self.settings)
 	self:callPlayerMethod(player, "updateState", state)
 	return true
 end

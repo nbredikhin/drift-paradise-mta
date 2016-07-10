@@ -9,22 +9,37 @@ function RaceGameplay:init(race)
 end
 
 function RaceGameplay:onPlayerJoin(player)
-	if player.vehicle then
-		player:removeFromVehicle()
-	end
-	player:fadeCamera(false, 0.5)
 	-- Машина для гонки	
-	local vehicle = Vehicle(411, player.position + Vector3(0, 2, 0))
-	vehicle.dimension = self.race.dimension
+	local vehicle
+	if self.race.settings.createVehicles then
+		player:removeFromVehicle()
+		vehicle = Vehicle(411, player.position + Vector3(0, 2, 0))
+	else
+		vehicle = player.vehicle
+		if not isElement(vehicle) then
+			return
+		end
+	end
+	if not self.race.settings.noDimension then
+		vehicle.dimension = self.race.dimension
+	end
 	vehicle.frozen = true
-
+	player:fadeCamera(false, 0.5)
+	local race = self.race
 	setTimer(function()
 		if not isElement(player) then
 			return
 		end	
 		-- Перемещение игрока в гонку
-		player.dimension = self.race.dimension
-		player:warpIntoVehicle(vehicle)
+		if not race.settings.noSpawnpoints then
+			-- TODO: Переместить игрока на точку спавна
+		end
+		if not race.settings.noDimension then
+			player.dimension = race.dimension
+		end
+		if not player.vehicle then
+			player:warpIntoVehicle(vehicle)
+		end
 		player:fadeCamera(true)
 		player:setCameraTarget(player)
 	end, 1000, 1)

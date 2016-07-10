@@ -7,8 +7,8 @@ addEventHandler("onResourceStart", resourceRoot, function()
 
 	setTimer(function()
 		local testRace = Race({
-			playerVehicle = true,
-			noSpawnpoints = true
+			noSpawnpoints = true,
+			noDimension = true
 		})
 		raceManager:addRace(testRace)
 		testRace:addPlayer(getRandomPlayer())

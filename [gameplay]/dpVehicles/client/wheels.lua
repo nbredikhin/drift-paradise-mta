@@ -136,6 +136,9 @@ local function setupVehicleWheels(vehicle)
 		wheel.object = createObject(1025, 0, 0, -10)
 		wheel.object.alpha = 0
 		wheel.object:setCollisionsEnabled(false)
+		if wheel.object.dimension ~= vehicle.dimension then
+			wheel.object.dimension = vehicle.dimension
+		end
 		-- Отобразить стандартные колёса по умолчанию
 		vehicle:setComponentVisible(name, true)
 		-- Сохранить начальную позицию колёс
@@ -197,10 +200,13 @@ addEventHandler("onClientPreRender", root, function ()
 				local position = vehicle.matrix:transformPosition(wheel.position)
 				wheel.object.position = position
 				wheel.object.rotation = vehicle.rotation
+				if wheel.object.dimension ~= vehicle.dimension then
+					wheel.object.dimension = vehicle.dimension
+				end
 
 				wheel.shader:setValue("sRotationX", rx)
 				wheel.shader:setValue("sRotationZ", rz)
-				wheel.shader:setValue("sAxis", {vehicle.matrix.up.x, vehicle.matrix.up.y, vehicle.matrix.up.z})	
+				wheel.shader:setValue("sAxis", {vehicle.matrix.up.x, vehicle.matrix.up.y, vehicle.matrix.up.z})					
 			end	
 			vehicle:setComponentVisible(name, not wheel.custom)
 		end

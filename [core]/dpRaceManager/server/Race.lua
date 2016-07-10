@@ -6,14 +6,16 @@ local DEFAULT_RACE_DURATION = 300
 
 Race = newclass("Race")
 
-function Race:init()
-	self.state = "no_map"
+function Race:init(settings)
+	self._state = "no_map"
 	self.players = {}
+	self.dimension = 0
+	self.gameplay = RaceGameplay(self)	
+	-- Настройки
 	self.settings = {
 		duration = 10
 	}
-	self.dimension = 0
-	self.gameplay = RaceGameplay(self)
+	self.settings = exports.dpUtils(self.settings, settings)
 end
 
 --- Загрузка карты в гонку
@@ -24,6 +26,34 @@ function Race:loadMap(map)
 	end
 	race.state = "waiting"
 	return true
+end
+
+function Race:callMethod(methodName, ...)
+	for i, player in ipairs(self.players) do
+		self:callPlayerMethod(player, methodName, ...)
+	end
+	return true
+end
+
+function Race:callPlayerMethod(player, methodName, ...)
+	return triggerClientEvent(player, "dpRaceManager.rpc", resourceRoot, methodName, ...)
+end
+
+-- Смена состояния гонки
+function Race:setState(state)
+	if type(state) ~= "string" then
+		return true
+	end
+	if self._state == state then
+		return false
+	end
+	self._state = state
+	self:callMethod("updateState", state)
+	return true
+end
+
+function Race:getState()
+	return self._state
 end
 
 --- Добавление игрока в гонку
@@ -38,6 +68,8 @@ function Race:addPlayer(player)
 	table.insert(self.players, player)
 	player:setData("race_id", self.id)
 	self.gameplay:onPlayerJoin(player)
+	self:callPlayerMethod(player, "onJoin")
+	self:callPlayerMethod(player, "updateState", state)
 	return true
 end
 
@@ -91,7 +123,9 @@ function Race:removePlayer(player)
 
 			if #self.players == 0 then
 				self.raceManager:removeRace(self)
-			end	
+			end
+
+			self:callPlayerMethod(player, "onLeave")
 			return true
 		end
 	end
@@ -112,7 +146,7 @@ function Race:start()
 		race:onTimeout()
 	end, duration * 1000, 1)
 
-	race.state = "running"
+	race:setState("running")
 end
 
 function Race:playerFinish(player)
@@ -130,6 +164,7 @@ function Race:onTimeout()
 	end
 end
 
+-- Эвенты
 function Race:onVehicleStartExit(vehicle, player)
 	self:playerFinish(player)
 end

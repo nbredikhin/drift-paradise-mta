@@ -1,7 +1,0 @@
-<meta>
-	<oop>true</oop>
-
-	<script type="server" src="server/adminsay.lua"/>
-	<script type="server" src="server/pm.lua"/>
-	<script type="client" src="client/messages.lua"/>
-</meta>

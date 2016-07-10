@@ -6,6 +6,18 @@ function defaultValue(value, default)
 	end
 end
 
+function extendTable(table1, table2)
+	if type(table1) ~= "table" or type(table2) ~= "table" then
+		return false
+	end
+	for k, v in pairs(table2) do
+		if table1[k] == nil then
+			table1[k] = v
+		end
+	end
+	return table1
+end
+
 -- http://stackoverflow.com/a/2421746
 function capitalizeString(str)
     return (str:gsub("^%l", string.upper))

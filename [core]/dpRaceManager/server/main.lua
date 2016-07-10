@@ -4,13 +4,19 @@ addEventHandler("onResourceStart", resourceRoot, function()
 	raceManager = RaceManager()
 	outputDebugString("RaceManager started: " .. tostring(raceManager:class():name()))
 
-	local testRace = Race()
-	raceManager:addRace(testRace)
-	testRace:addPlayer(getRandomPlayer())
 
 	setTimer(function()
-		testRace:start()
-	end, 3000, 1)
+		local testRace = Race({
+			playerVehicle = true,
+			noSpawnpoints = true
+		})
+		raceManager:addRace(testRace)
+		testRace:addPlayer(getRandomPlayer())
+
+		setTimer(function()
+			testRace:start()
+		end, 3000, 1)
+	end, 1000, 1)
 end)
 
 addEventHandler("onVehicleStartExit", root, function(...)

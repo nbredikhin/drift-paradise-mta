@@ -1,6 +1,0 @@
-<meta>
-	<info name="Dynamic Lighting - Vehicles" author="Ren712" version="1.0.2" type="script" />
-	<script src="c_vehicleLight.lua" type="client" />
-	<file src="shaders/shader_null.fx" type="client" />
-	<include resource="dynamic_lighting" />
-</meta>

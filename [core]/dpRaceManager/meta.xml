@@ -7,5 +7,10 @@
 	<script type="server" src="server/RaceGameplay.lua"/>
 	<script type="server" src="server/main.lua"/>
 
+	<script type="client" src="client/ui/ScreenManager.lua"/>
+	<script type="client" src="client/ui/Screen.lua"/>
+	<script type="client" src="client/ui/screens/WaitingScreen.lua"/>
+	<script type="client" src="client/ui/screens/RaceScreen.lua"/>
 	<script type="client" src="client/Race.lua"/>
+	<script type="client" src="client/RaceUI.lua"/>	
 </meta>

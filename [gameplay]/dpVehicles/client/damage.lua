@@ -28,7 +28,7 @@ setTimer(function ()
 	end
 	if localPlayer.vehicle.health < 1000 then
 		if localPlayer.vehicle.onGround then
-			localPlayer.vehicle.rotation = Vector3(0, 0, localPlayer.vehicle.rotation.z)
+			localPlayer.vehicle.rotation = Vector3(0, 0, localPlayer.vehicle.rotation.z + 180)
 		end
 		repairVehicle(localPlayer.vehicle)
 	end

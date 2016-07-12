@@ -103,7 +103,7 @@ function Race:addPlayer(player)
 	player:setData("race_id", self.id)
 	self.gameplay:onPlayerJoin(player)
 	self:callPlayerMethod(player, "onJoin", self.settings)
-	self:callPlayerMethod(player, "updateState", state)
+	self:callPlayerMethod(player, "updateState", self:getState())
 	return true
 end
 

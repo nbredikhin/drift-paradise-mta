@@ -11,7 +11,7 @@ function Race.start()
 	end
 	isActive = true
 	Race.state = nil
-	outputDebugString("Client race start")
+	RaceUI.start()
 end
 
 function Race.stop()
@@ -20,7 +20,7 @@ function Race.stop()
 	end
 	isActive = false
 	Race.state = nil
-	outputDebugString("Client race stop")
+	RaceUI.stop()
 end
 
 -- RPC
@@ -57,4 +57,5 @@ end)
 -- Изменилось состоние гонки
 Race.addMethod("updateState", function (state)
 	Race.state = state
+	RaceUI.setState(state)
 end)

@@ -14,6 +14,7 @@
 	<script type="client" src="client/wheels.lua"/>
 	<script type="client" src="client/numberplate.lua"/>
 	<script type="client" src="client/lights_sync.lua"/>
+	<script type="client" src="client/spoiler_color.lua"/>
 
 	<script type="shared" src="shared/wheel_sizes.lua"/>
 	<script type="server" src="server_test.lua"/>

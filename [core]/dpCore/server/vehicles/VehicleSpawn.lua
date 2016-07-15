@@ -9,11 +9,12 @@ local dataFields = {
 	"_id", "owner_id", "mileage", "tuning", "stickers"
 }
 local autosaveFields = {
-	"mileage"
+	"mileage",
+	"Suspension"
 }
 -- Поля, которые можно менять на клиенте
 local allowedFields = {
-	mileage = true
+	mileage = true,
 }
 
 local function getUserSpawnedVehiclesTable(userId)

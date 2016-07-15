@@ -77,7 +77,7 @@ local function setupVehicleTexture(vehicle)
 	if not isElement(vehicle) or not isElementStreamedIn(vehicle) then
 		return
 	end
-	if isElementLocal(vehicle) then
+	if isElementLocal(vehicle) or vehicle:getData("localVehicle") then
 		return
 	end
 	local bodyColor = vehicle:getData("BodyColor")

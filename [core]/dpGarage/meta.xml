@@ -14,6 +14,7 @@
 	<!-- Сервер -->
 	<script type="server" src="server/enter_exit.lua"/>
 	<script type="server" src="server/tuning_server.lua"/>
+	<script type="server" src="server/handling.lua"/>
 	
 	<!-- Клиент -->
 	<script type="client" src="client/colors_utils.lua"/>

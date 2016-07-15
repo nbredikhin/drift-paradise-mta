@@ -12,7 +12,9 @@ function ConfigurationsScreen:init(componentName)
 		
 	-- }
 
-	self.componentsSelection = ComponentSelection({})
+	self.componentsSelection = ComponentSelection({
+		{name="Suspension", 	camera="suspension", 		locale="garage_tuning_config_suspension"}
+	})
 
 	local vehicle = GarageCar.getVehicle()
 	-- Если на машине установлены передние или задние диски диски

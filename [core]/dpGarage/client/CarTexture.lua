@@ -34,13 +34,12 @@ end
 
 function CarTexture.previewBodyColor(r, g, b)
 	bodyColor = {r, g, b}
-	--outputDebugString(table.concat(bodyColor, ","))
 	CarTexture.redraw()
 end
 
 function CarTexture.save()
 	if editorStickers then
-		vehicle:setData("stickers", editorStickers)
+		vehicle:setData("stickers", editorStickers, false)
 	end
 end
 

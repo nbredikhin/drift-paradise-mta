@@ -19,12 +19,18 @@ end
 function ConfigurationScreen:update(deltaTime)
 	self.super:update(deltaTime)
 	if self.dataName then
-		GarageCar.previewTuning(self.dataName, 0.5 + self.menu.currentValue * 0.26)
+		if self.dataName == "Suspension" then
+			GarageCar.previewHandling("Suspension", 0.7 + self.menu.currentValue * 0.3)
+		else
+			GarageCar.previewTuning(self.dataName, 0.5 + self.menu.currentValue * 0.26)
+		end
 	end
 	if getKeyState("arrow_r") then
 		self.menu:increase(deltaTime)
+		self.vehicle.velocity = Vector3(0, 0, 0.01)
 	elseif getKeyState("arrow_l") then
-		self.menu:decrease(deltaTime)	
+		self.menu:decrease(deltaTime)
+		self.vehicle.velocity = Vector3(0, 0, -0.01)
 	end
 end
 
@@ -36,7 +42,11 @@ function ConfigurationScreen:onKey(key)
 		self.dataName = nil
 		self.screenManager:showScreen(ConfigurationsScreen(self.dataName))
 	elseif key == "enter" then
-		GarageCar.applyTuningFromData(self.dataName)
+		if self.dataName == "Suspension" then
+			GarageCar.applyHandling("Suspension")
+		else
+			GarageCar.applyTuning(self.dataName)
+		end
 		GarageCar.save()
 		self.screenManager:showScreen(ConfigurationsScreen(self.dataName))
 	end

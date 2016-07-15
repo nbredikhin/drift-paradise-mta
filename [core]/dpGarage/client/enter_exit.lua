@@ -4,11 +4,11 @@ local ENABLE_GARAGE_CMD = true		-- Команда /garage для входа в �
 local isEnterExitInProcess = false 	-- Входит (выходит) ли в данный момент игрок в гараж
 
 addEvent("dpGarage.enter", true)
-addEventHandler("dpGarage.enter", resourceRoot, function (success, vehiclesList, enteredVehicleId)
+addEventHandler("dpGarage.enter", resourceRoot, function (success, vehiclesList, enteredVehicleId, vehicle)
 	isEnterExitInProcess = false
 	
 	if success then
-		Garage.start(vehiclesList, enteredVehicleId)
+		Garage.start(vehiclesList, enteredVehicleId, vehicle)
 	else
 		local errorType = vehiclesList
 		fadeCamera(true)

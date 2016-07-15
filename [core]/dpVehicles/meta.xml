@@ -18,6 +18,8 @@
 
 	<script type="shared" src="shared/wheel_sizes.lua"/>
 	<script type="server" src="server_test.lua"/>
+	
+	<script type="server" src="server/suspension.lua"/>
 
 	<export type="client" function="getComponentsNames"/>
 	<export type="client" function="redrawBodyRenderTarget"/>

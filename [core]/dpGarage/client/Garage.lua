@@ -19,7 +19,7 @@ local musicURLs = {
 	"http://online-song.net/mp3/1-46v4/23608cdf9d84c9/p23/Coolio+%96+Gangsta+s+Paradise.mp3"
 }
 
-function Garage.start(vehicles, enteredVehicleId)
+function Garage.start(vehicles, enteredVehicleId, vehicle)
 	if isActive then
 		return false
 	end
@@ -46,7 +46,7 @@ function Garage.start(vehicles, enteredVehicleId)
 	end
 
 	setTimer(function () 
-		GarageCar.start(vehicles)
+		GarageCar.start(vehicle, vehicles)
 		GarageCar.showCarById(enteredVehicleId)
 		CameraManager.start()
 		GarageUI.start()		

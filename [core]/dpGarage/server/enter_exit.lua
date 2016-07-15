@@ -28,7 +28,14 @@ addEventHandler("dpGarage.enter", resourceRoot, function ()
 	client.dimension = tonumber(client:getData("_id")) or (math.random(1000, 9999) + 5000) + 4000
 	client.frozen = true
 	client.interior = 0
-	triggerClientEvent(client, "dpGarage.enter", resourceRoot, true, playerVehicles, enteredVehicleId)
+	local vehicle = createVehicle(411, Vector3 { x = 2915.438, y = -3186.282, z = 2535.244 })
+	vehicle.dimension = client.dimension
+	vehicle.interior = client.interior
+	client:setData("garageVehicle", vehicle)
+	vehicle:setData("localVehicle", true)
+	vehicle:setSyncer(client)
+
+	triggerClientEvent(client, "dpGarage.enter", resourceRoot, true, playerVehicles, enteredVehicleId, vehicle)
 	client:setData("activeMap", false)
 end)
 
@@ -39,6 +46,12 @@ addEventHandler("dpGarage.exit", resourceRoot, function (selectedCarId)
 		return
 	end
 	client:setData("dpCore.state", false)
+	-- Удаление машины
+	local garageVehicle = client:getData("garageVehicle")
+	if isElement(garageVehicle) then
+		destroyElement(garageVehicle)
+		garageVehicle = nil
+	end
 
 	-- Координаты дома
 	local houseLocation = exports.dpHouses:getPlayerHouseLocation(client)

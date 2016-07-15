@@ -257,7 +257,7 @@ function enablePhotoMode()
 	-- Hide HUD
 	exports.dpHUD:setVisible(false)
 	exports.dpNametags:setVisible(false)
-	showChat(false)
+	exports.dpChat:setVisible(false)
 
 	for i, name in ipairs(dpPhotoModeOptions.CONTROL_LIST) do
 		setControlState(name, getControlState(name))
@@ -292,7 +292,7 @@ function disablePhotoMode()
 	-- Show HUD
 	exports.dpHUD:setVisible(true)
 	exports.dpNametags:setVisible(true)
-	showChat(true)
+	exports.dpChat:setVisible(true)
 
 	for i, name in ipairs(dpPhotoModeOptions.CONTROL_LIST) do
 		setControlState(name, false)

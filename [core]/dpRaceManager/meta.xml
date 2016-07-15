@@ -6,6 +6,7 @@
 	<script type="server" src="server/RaceManager.lua"/>
 	<script type="server" src="server/RaceGameplay.lua"/>
 	<script type="server" src="server/main.lua"/>
+	<script type="server" src="server/exports.lua"/>
 
 	<script type="client" src="client/ui/ScreenManager.lua"/>
 	<script type="client" src="client/ui/Screen.lua"/>
@@ -13,4 +14,11 @@
 	<script type="client" src="client/ui/screens/RaceScreen.lua"/>
 	<script type="client" src="client/Race.lua"/>
 	<script type="client" src="client/RaceUI.lua"/>	
+
+	<export type="server" function="createRace"/>
+	<export type="server" function="removeRace"/>
+	<export type="server" function="startRace"/>
+	<export type="server" function="raceLoadMap"/>
+	<export type="server" function="raceAddPlayers"/>
+	<export type="server" function="raceAddPlayer"/>
 </meta>

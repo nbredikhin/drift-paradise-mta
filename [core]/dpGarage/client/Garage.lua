@@ -30,8 +30,7 @@ function Garage.start(vehicles, enteredVehicleId)
 	exports.dpGameTime:forceTime(12, 0)
 	Assets.start()
 
-	showChat(false)
-
+	exports.dpChat:setVisible(false)
 	exports.dpMainPanel:setVisible(false)
 	exports.dpTabPanel:setVisible(false)
 	exports.dpWorldMap:setVisible(false)	
@@ -72,7 +71,7 @@ function Garage.stop()
 	GarageCar.stop()
 	Assets.stop()
 	exports.dpGameTime:restoreTime()
-	showChat(true)
+	exports.dpChat:setVisible(true)
 	exports.dpHUD:showAll()
 	if isElement(sound) then
 		removeEventHandler("onClientSoundStopped", resourceRoot, Garage.playRandomMusic)

@@ -20,11 +20,13 @@ function RaceGameplay:onPlayerJoin(player)
 			return
 		end
 	end
-	if not self.race.settings.noDimension then
+	if self.race.settings.separateDimension then
 		vehicle.dimension = self.race.dimension
 	end
 	vehicle.frozen = true
-	player:fadeCamera(false, 0.5)
+	if self.race.settings.fadeCameraOnJoin then
+		player:fadeCamera(false, 0.5)
+	end	
 	local race = self.race
 	setTimer(function()
 		if not isElement(player) then
@@ -34,14 +36,16 @@ function RaceGameplay:onPlayerJoin(player)
 		if not race.settings.noSpawnpoints then
 			-- TODO: Переместить игрока на точку спавна
 		end
-		if not race.settings.noDimension then
+		if race.settings.separateDimension then
 			player.dimension = race.dimension
 		end
 		if not player.vehicle then
 			player:warpIntoVehicle(vehicle)
 		end
-		player:fadeCamera(true)
-		player:setCameraTarget(player)
+		if self.race.settings.fadeCameraOnJoin then
+			player:fadeCamera(true)
+			player:setCameraTarget(player)
+		end		
 	end, 1000, 1)
 end
 

@@ -126,7 +126,7 @@ function SkinSelect.enter()
 	localPlayer.dimension = DIMENSION
 	font = exports.dpAssets:createFont("Roboto-Regular.ttf", 36)
 	screenText = exports.dpLang:getString("skin_select_text")
-	showChat(false)
+	exports.dpChat:setVisible(false)
 	localPlayer:setData("activeUI", "skinSelect", false)
 end
 
@@ -145,7 +145,7 @@ function SkinSelect.exit()
 
 	localPlayer.dimension = 0
 
-	showChat(true)
+	exports.dpChat:setVisible(true)
 	localPlayer:setData("activeUI", false, true)
 end
 

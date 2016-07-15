@@ -110,7 +110,7 @@ function VehicleSelect.enter(models)
 	isActive = true
 	isSelected = false
 	fadeCamera(true, 1)
-	showChat(false)
+	exports.dpChat:setVisible(false)
 	textures.car1 = dxCreateTexture("assets/test.png")
 	textures.shadow = exports.dpAssets:createTexture("screen_shadow.png")
 	setTime(12, 12)
@@ -136,7 +136,7 @@ function VehicleSelect.exit()
 		destroyElement(vehicle)
 	end
 	vehicles = {}	
-	showChat(true)
+	exports.dpChat:setVisible(true)
 end
 
 addEvent("dpVehicleSelect.start", true)

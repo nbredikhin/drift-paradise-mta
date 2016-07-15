@@ -9,28 +9,34 @@ Race = newclass("Race")
 -- Конструктор
 -- table settings - таблица настроек гонки
 function Race:init(settings)
-	-- Состояние гонки. Нельзя изменить напрямую
+	---- Состояние гонки. 
+	-- Нельзя изменить напрямую, только через race:setState(state)
 	-- Возможные состояния: 
 	-- no_map 	- карта ещё не загружена. Нельзя добавлять или удалять игроков.
 	-- waiting 	- ожидание старта. Можно добавлять и удалять игроков.
 	-- running	- непосредственно гонка. Нельзя добавлять игроков, но можно удалять игроков.
 	-- finished - гонка завершилась. Нельзя добавлять игроков, но можно удалять игроков.
 	self._state = "no_map"
-	-- Настройки гонки	
+
+	---- Настройки гонки
+	-- number duration 		- продолжительность гонки в секундах
 	-- bool noSpawnpoints 	- начать гонку в точках, где находятся игроки, в данный момент.
 	--						Если у трассы нет спавнпойнтов, гонка начнется в точках, где
 	--						находятся игроки, в данный момент.
-	-- bool noDimension 	- не переносить игроков в отдельный dimension
+	-- bool separateDimension - использовать отдельный dimension
 	--						По умолчанию игроки переносятся в отдельный dimension, чтобы не
 	--						происходило случаных помех или падений фпс из-за скоплений игроков.
 	-- bool createVehicles	- создать автомобиль для участников гонки. TODO: Пока не нужно  
+	-- bool fadeCameraOnJoin - затемнять камеру игрока при добавлении его в гонку
 	self.settings = {
 		duration = 10,
 		noSpawnpoints = false,
-		noDimension = false,
+		separateDimension = true,
 		createVehicles = false,
+		fadeCameraOnJoin = true
 	}
-	self.settings = exports.dpUtils:extendTable(self.settings, settings)
+	-- Установить не указанные настройки по умолчанию
+	self.settings = exports.dpUtils:extendTable(settings, self.settings)
 	-- Участники гонки
 	self.players = {}
 	-- Dimension гонки
@@ -40,7 +46,7 @@ end
 
 -- Гонка была добавлена в RaceManager
 function Race:onAdded()
-	if not self.settings.noDimension then
+	if self.settings.separateDimension then
 		self.dimension = 70000 + self.id
 	end
 end
@@ -49,9 +55,10 @@ end
 -- @tparam table map гонка
 function Race:loadMap(map)
 	if type(map) ~= "table" then
-		return
+		return false
 	end
-	race.state = "waiting"
+	self.map = map
+	self:setState("waiting")
 	return true
 end
 

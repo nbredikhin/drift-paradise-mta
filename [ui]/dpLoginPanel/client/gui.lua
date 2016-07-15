@@ -67,7 +67,7 @@ end
 function setVisible(visible)
 	visible = not not visible
 	if HIDE_CHAT then
-		showChat(not visible)
+		exports.dpChat:setVisible(not visible)
 	end
 	exports.dpHUD:setVisible(false)
 

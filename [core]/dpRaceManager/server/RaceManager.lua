@@ -9,17 +9,39 @@ function RaceManager:addRace(race)
 		outputDebugString("RaceManager: Bad argument #1 for 'addRace'. Expected 'Race', got '" .. tostring(race) .. "'")
 		return false
 	end
-	table.insert(self.races, race)
-	race.id = #self.races
+	local added = false
+	for i = 1, #self.races do
+		if not self.races[i] then
+			self.races[i] = race
+			race.id = i
+			added = true
+		end 
+	end
+	if not added then
+		table.insert(self.races, race)
+		race.id = #self.races
+	end	
 	race.raceManager = self
 	race:onAdded()
-	return true
+	return race.id
+end
+
+function RaceManager:getRaceById(id)
+	if type(id) ~= "number" then
+		return false
+	end
+	for i, race in ipairs(self.races) do
+		if race.id == id then
+			return race
+		end
+	end
+	return false
 end
 
 function RaceManager:removeRace(race)
 	for i, r in ipairs(self.races) do
 		if r == race then
-			table.remove(self.races, i)
+			self.races[i] = nil
 			outputDebugString("Race removed: " .. tostring(race.id))
 			return true
 		end

@@ -10,7 +10,6 @@ local dataFields = {
 }
 local autosaveFields = {
 	"mileage",
-	"Suspension"
 }
 -- Поля, которые можно менять на клиенте
 local allowedFields = {

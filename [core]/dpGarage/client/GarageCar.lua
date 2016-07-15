@@ -250,20 +250,14 @@ function GarageCar.getTuningTable()
 		tuningTable[name] = vehicle:getData(name)
 	end
 
+	-- Высота подвески
 	local suspensionHeight = vehicle:getData("Suspension")
 	if type(suspensionHeight) == "number" then
 		tuningTable["Suspension"] = math.floor(suspensionHeight * 100) / 100
 	else
 		tuningTable["Suspension"] = nil
 	end
-	--outputDebugString("Suspension: " .. tostring(tuningTable["Suspension"]))
-	--outputDebugString("Suspension data: " .. tostring(vehicle:getData("Suspension")))
-
-	-- TODO:
-	-- BodyTexture 	= false
-	-- NeonColor 		= false
-	-- Nitro 			= 0
-	-- Windows			= 0
+	
 	return tuningTable
 end
 

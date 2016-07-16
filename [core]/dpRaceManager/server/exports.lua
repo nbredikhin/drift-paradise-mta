@@ -65,3 +65,23 @@ function raceAddPlayer(id, player)
 	end
 	return race:addPlayer(player)
 end
+
+-- Находится ли игрок в какой-либо гонке
+-- element player - игрок, для которого нужно проверить нахождение в гонке
+-- возвращает boolean - находится ли игрок в гонке
+function isPlayerInRace(player)
+	if not isElement(player) then
+		return false
+	end
+	return not not player:getData("race_id")
+end
+
+-- Возвращает id гонки, в которой находится игрок
+-- element player - игрок
+-- возвращает number - id гонки
+function getPlayerRace(player)
+	if not isElement(player) then
+		return false
+	end
+	return player:getData("race_id")
+end

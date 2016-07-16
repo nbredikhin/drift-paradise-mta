@@ -21,4 +21,5 @@
 	<export type="server" function="raceLoadMap"/>
 	<export type="server" function="raceAddPlayers"/>
 	<export type="server" function="raceAddPlayer"/>
+	<export type="server" function="isPlayerInRace"/>
 </meta>

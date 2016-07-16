@@ -1,3 +1,8 @@
+-- Максимальное количество чекпойнтов в дуэли
+local DUEL_CHECKPOINTS_COUNT = 30
+-- Максимальная длительность дуэли в секундах
+local DUEL_DURATION = 300
+
 function startDuel(player1, player2)
 	-- TODO: Проверить расстояние между игроками
 
@@ -13,6 +18,12 @@ function startDuel(player1, player2)
 		exports.dpChat:output("general", "Не удалось запустить дуэль: невозможно создать гонку")
 		return false
 	end
+	-- Генерация случайной трассы
+	local checkpoints = PathGenerator.generateCheckpointsForPlayer(player1, DUEL_CHECKPOINTS_COUNT)
+	exports.dpRaceManager:raceLoadMap(race, {
+		duration = DUEL_DURATION,
+		checkpoints = checkpoints
+	})
 	-- Добавить игроков в гонку
 	exports.dpRaceManager:raceAddPlayers(race, {player1, player2})
 

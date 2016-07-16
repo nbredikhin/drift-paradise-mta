@@ -41,12 +41,14 @@ function Race:init(settings)
 	self.players = {}
 	-- Dimension гонки
 	self.dimension = 0
+
 	self.gameplay = RaceGameplay(self)	
 end
 
 -- Гонка была добавлена в RaceManager
 function Race:onAdded()
 	if self.settings.separateDimension then
+		-- Выбор dimension'а в зависимости от id гонки
 		self.dimension = 70000 + self.id
 	end
 end
@@ -57,7 +59,17 @@ function Race:loadMap(map)
 	if type(map) ~= "table" then
 		return false
 	end
-	self.map = map
+	-- Не заданы чекпойнты
+	if type(map.checkpoints) ~= "table" or #map.checkpoints == 0 then
+		return false
+	end
+	-- Значения по умолчанию
+	self.map = exports.dpUtils:extendTable(map, {
+		-- Длительность гонок из настроек
+		duration = self.settings.duration,
+		--weather = 0,
+		--time = {12, 0}
+	})
 	self:setState("waiting")
 	return true
 end
@@ -84,6 +96,7 @@ function Race:setState(state)
 		return false
 	end
 	self._state = state
+	-- Передать всем игрокам новое состояние гонки
 	self:callMethod("updateState", state)
 	return true
 end
@@ -98,18 +111,24 @@ function Race:addPlayer(player)
 	if not isElement(player) or player.type ~= "player" then
 		return false
 	end
+	-- Игрок уже находится в другой гонке
 	if player:getData("race_id") then
 		outputDebugString("Player '" .. tostring(player.name) .. "' is already in other race")
 		return false
 	end
+	-- Игрок не находится в автомобиле, когда гонка требует машину игрока
 	if not self.settings.createVehicles and not isElement(player.vehicle) then
 		outputDebugString("Player '" .. tostring(player.name) .. "' must be in a vehicle to join this race")
 		return false
 	end
+	-- Добавление игрока в список участников
 	table.insert(self.players, player)
 	player:setData("race_id", self.id)
+	-- Обработка входа в гонку
 	self.gameplay:onPlayerJoin(player)
+	-- Вызов клиентских методов
 	self:callPlayerMethod(player, "onJoin", self.settings)
+	self:callMethod("onPlayerJoin", player)
 	self:callPlayerMethod(player, "updateState", self:getState())
 	return true
 end
@@ -119,6 +138,7 @@ function Race:isPlayerIn(player)
 	if not isElement(player) or player.type ~= "player" then
 		return false
 	end	
+	-- Поиск игрока в списке участников гонки 
 	for i, p in ipairs(self.players) do
 		if p == player then
 			return true, i
@@ -158,15 +178,17 @@ function Race:removePlayer(player)
 	-- Удалить игрока
 	for i, p in ipairs(self.players) do
 		if p == player then
+			-- Обработать выход игрока
 			self.gameplay:onPlayerLeave(player)
+			self:callPlayerMethod(player, "onLeave")
+			self:callMethod("onPlayerLeave", player)
+			-- Полностью удалить игрока из гонки
 			player:removeData("race_id")
 			table.remove(self.players, i)
-
+			-- Если все игроки покинули гонку - удалить её
 			if #self.players == 0 then
 				self.raceManager:removeRace(self)
 			end
-
-			self:callPlayerMethod(player, "onLeave")
 			return true
 		end
 	end
@@ -194,18 +216,33 @@ function Race:playerFinish(player)
 	if not isElement(player) or player.type ~= "player" then
 		return false
 	end	
+	-- TODO: Не удалять игрока из гонки сразу, отображать экран конца гонки
 	self:removePlayer(player)
 end
 
--- Когда время вышло
+-- Время вышло
 function Race:onTimeout()
 	outputDebugString("Race timeout")
+
+	-- Принудительно финишировать всем игрокам
 	for i, player in ipairs(self.players) do
 		self:playerFinish(player)
 	end
 end
 
--- Эвенты
-function Race:onVehicleStartExit(vehicle, player)
+---- Обработчики событий МТА
+-- Каждый обработчик должен иметь следующее имя:
+-- <eventName>Handler, где eventName - название события
+-- Например: "onPlayerQuitHandler"
+-- source - первый аргумент обработчика
+
+-- Игрок вышел из автомобиля
+function Race:onVehicleStartExitHandler(vehicle, player)
+	-- TODO: Запустить таймер, показать предупреждение
 	self:playerFinish(player)
+end
+
+-- Игрок вышел с сервера
+function Race:onPlayerQuitHandler(player)
+	self:removePlayer(player)
 end

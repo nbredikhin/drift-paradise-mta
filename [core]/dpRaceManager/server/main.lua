@@ -14,7 +14,3 @@ addEventHandler("onResourceStart", resourceRoot, function()
 	-- 	end, 3000, 1)
 	-- end, 1000, 1)
 end)
-
-addEventHandler("onVehicleStartExit", root, function(...)
-	raceManager:handleEvent("onVehicleStartExit", source, ...)
-end)

@@ -5,5 +5,9 @@
 	<script type="server" src="server/generator/checkpointsTable"/>
 	<script type="server" src="server/generator/checkpoint.lua"/>
 	<script type="server" src="server/generator/PathGenerator.lua"/>	
+	<script type="server" src="server/calling.lua"/>
 	<script type="server" src="server/main.lua"/>
+
+	<script type="client" src="client/DuelUI.lua"/>
+	<script type="client" src="client/calling.lua"/>
 </meta>

@@ -2,8 +2,6 @@
 -- @module dpRaceManager.Race
 -- @author Wherry
 
-local DEFAULT_RACE_DURATION = 300
-
 Race = newclass("Race")
 
 -- Конструктор
@@ -200,9 +198,6 @@ function Race:start()
 	self.gameplay:onRaceStart()
 
 	local duration = self.settings.duration
-	if type(self.settings.duration) ~= "number" then
-		duration = DEFAULT_RACE_DURATION
-	end
 
 	local race = self
 	self.durationTimer = setTimer(function()

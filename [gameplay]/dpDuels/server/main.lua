@@ -32,11 +32,11 @@ function startDuel(player1, player2)
 	end, 3000, 1)
 end
 
-addCommandHandler("duel", function (player)
-	if not player.vehicle then
-		exports.dpChat:output("general", "No vehicle")
-		return false
-	end
-	exports.dpChat:output("general", "Создание дуэли...")
-	startDuel(player)
-end)
+-- addCommandHandler("duel", function (player)
+-- 	if not player.vehicle then
+-- 		exports.dpChat:output("general", "No vehicle")
+-- 		return false
+-- 	end
+-- 	exports.dpChat:output("general", "Создание дуэли...")
+-- 	startDuel(player)
+-- end)

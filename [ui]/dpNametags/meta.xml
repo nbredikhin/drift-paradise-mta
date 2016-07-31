@@ -1,8 +1,0 @@
-<meta>
-	<oop>true</oop>
-
-	<script type="client" src="client/main.lua"/>
-	<export type="client" function="setVisible"/>
-
-	<file src="assets/font.ttf"/>
-</meta>

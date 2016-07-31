@@ -195,6 +195,12 @@ end
 
 --- Запуск гонки
 function Race:start()
+	if #self.players == 0 then
+		outputDebugString("Race:start - can't start a race without players. Removing...")
+		self.raceManager:removeRace(self)
+		return false
+	end
+
 	self.gameplay:onRaceStart()
 
 	local duration = self.settings.duration
@@ -204,7 +210,8 @@ function Race:start()
 		race:onTimeout()
 	end, duration * 1000, 1)
 
-	race:setState("running")
+	self:setState("running")
+	return true
 end
 
 function Race:playerFinish(player)
@@ -217,6 +224,11 @@ end
 
 -- Время вышло
 function Race:onTimeout()
+	if isTimer(self.durationTimer) then
+		killTimer(self.durationTimer)
+	end
+	self.durationTimer = nil
+
 	outputDebugString("Race timeout")
 
 	-- Принудительно финишировать всем игрокам

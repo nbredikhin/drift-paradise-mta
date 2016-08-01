@@ -1,0 +1,12 @@
+<meta>
+	<oop>true</oop>
+	
+	<script type="shared" src="shared/yaci.lua"/>
+
+	<script type="client" src="client/exports.lua"/>
+	<script type="client" src="client/ParticlesManager.lua"/>
+	<script type="client" src="client/Particle.lua"/>
+	<script type="client" src="client/ParticlesEmitter.lua"/>
+
+	<file src="assets/smoke.png"/>
+</meta>

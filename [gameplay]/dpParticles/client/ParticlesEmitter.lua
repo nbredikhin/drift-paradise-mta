@@ -2,23 +2,23 @@ ParticlesEmitter = newclass "ParticlesEmitter"
 
 local DEFAULT_OPTIONS = {
 	type = "sphere",
-	speed = {-6, 6},
+	speed = {-0.5, 0.5},
 	friction = 0.98,
 	forceX = 0,
 	forceY = 0,
-	forceZ = 0.1,
+	forceZ = 0.03,
 
 	positionX = 0,
 	positionY = 0,
 	positionZ = 0,
 
-	lifetime = {1, 2},
-	delay = 0.02,
-	desnity = 3,
+	lifetime = {4, 5},
+	delay = 0.2,
+	desnity = 1,
 	fadeOutAt = 2,
 	fadeInAt = 0.2,
 
-	startSize = {1, 3},
+	startSize = {0.5, 1},
 	endSize = {4, 6},
 
 	rotation = 0,
@@ -62,7 +62,6 @@ function ParticlesEmitter:getRandomOption(name)
 end
 
 function ParticlesEmitter:addParticle(particle)
-	outputChatBox(#self.particles)
 	for i = 1, #self.particles do
 		if not self.particles[i] then
 			self.particles[i] = particle

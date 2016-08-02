@@ -1,33 +1,69 @@
 ParticlesManager = {}
+local emittersCount = 0
 local emitters = {}
 
-function ParticlesManager.addEmitter(emitter)
-	table.insert(emitters, emitter)	
+function ParticlesManager.addEmitter(emitter, resource)
+	if type(emitter) ~= "table" then
+		return false
+	end
+	if isElement(resource) then
+		emitter.resource = resource
+	end
+	if emittersCount == 0 then
+		emitters = {emitter}
+		emittersCount = 1
+		return emittersCount
+	end
+	for i = 1, emittersCount do
+		if not emitters[i] then
+			emitters[i] = emitter
+			return i
+		end
+	end
+	emittersCount = emittersCount + 1
+	emitters[emittersCount] = emitter
+	return emittersCount
 end
 
 function ParticlesManager.removeEmitterById(id)
+	if type(id) ~= "number" then
+		return false
+	end
+	emitters[id] = nil
+	if id == emittersCount then
+		emittersCount = emittersCount - 1
+	end
+end
 
+function ParticlesManager.getEmitterById(id)
+	if type(id) ~= "number" then
+		return
+	end
+	return emitters[id]
 end
 
 addEventHandler("onClientRender", root, function ()
-	for i, e in ipairs(emitters) do
-		e:draw()
+	for i = 1, emittersCount do
+		if emitters[i] then
+			emitters[i]:draw()
+		end
 	end
 end)
 
 addEventHandler("onClientPreRender", root, function (deltaTime)
 	deltaTime = deltaTime / 1000
 
-	for i, e in ipairs(emitters) do
-		e:update(deltaTime)
+	for i = 1, emittersCount do
+		if emitters[i] then
+			emitters[i]:update(deltaTime)
+		end
 	end
 end)
 
-addEventHandler("onClientResourceStart", resourceRoot, function ()
-	local emitter = ParticlesEmitter({
-		positionX = -29,
-		positionY = 1770, 
-		positionZ = 17
-	})
-	ParticlesManager.addEmitter(emitter)
+addEventHandler("onClientResourceStop", root, function ()
+	for i = 1, emittersCount do
+		if emitters[i].resource == source then
+			ParticlesManager.removeEmitterById(i)
+		end
+	end
 end)

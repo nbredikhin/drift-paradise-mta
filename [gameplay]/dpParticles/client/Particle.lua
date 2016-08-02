@@ -23,6 +23,8 @@ function Particle:init()
 
 	self.rotation = 0
 	self.rotationSpeed = 0
+
+	self.alpha = 1
 end
 
 function Particle:draw()
@@ -38,7 +40,8 @@ function Particle:draw()
 	end
 	if alpha > 255 then
 		alpha = 255
-	end	
+	end
+	alpha = alpha * self.alpha
 	local sizeX = math.cos(self.rotation) * self.size / 2
 	local sizeY = math.sin(self.rotation) * self.size / 2
 	dxDrawMaterialLine3D(
@@ -58,11 +61,12 @@ function Particle:draw()
 end
 
 function Particle:update(deltaTime)
+	local gameSpeed = getGameSpeed()
 	self.x = self.x + self.vx * deltaTime
 	self.y = self.y + self.vy * deltaTime
 	self.z = self.z + self.vz * deltaTime
 
-	local fric = (1 - self.friction) * getGameSpeed()
+	local fric = (1 - self.friction) * gameSpeed
 	self.vx = self.vx - self.vx * fric
 	self.vy = self.vy - self.vy * fric
 	self.vz = self.vz - self.vz * fric

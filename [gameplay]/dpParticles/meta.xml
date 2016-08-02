@@ -8,5 +8,12 @@
 	<script type="client" src="client/Particle.lua"/>
 	<script type="client" src="client/ParticlesEmitter.lua"/>
 
-	<file src="assets/smoke.png"/>
+	<export type="client" function="createEmitter"/>
+	<export type="client" function="destroyEmitter"/>
+	<export type="client" function="setEmitterPosition"/>
+	<export type="client" function="setEmitterOption"/>
+
+	<file src="assets/smoke1.png"/>
+	<file src="assets/smoke2.png"/>
+	<file src="assets/smoke3.png"/>
 </meta>

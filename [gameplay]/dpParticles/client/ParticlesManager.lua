@@ -62,7 +62,7 @@ end)
 
 addEventHandler("onClientResourceStop", root, function ()
 	for i = 1, emittersCount do
-		if emitters[i].resource == source then
+		if emitters[i] and emitters[i].resource == source then
 			ParticlesManager.removeEmitterById(i)
 		end
 	end

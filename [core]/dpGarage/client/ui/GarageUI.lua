@@ -15,21 +15,35 @@ local function draw()
 	if screenManager then
 		screenManager:draw()
 
-		local helpTextAlpha = 255
+		local activeScreenAlpha = 255
 		if screenManager.activeScreen then
-			helpTextAlpha = helpTextAlpha * screenManager.activeScreen.fadeProgress
+			activeScreenAlpha = activeScreenAlpha * screenManager.activeScreen.fadeProgress
 		end
 		dxSetRenderTarget(renderTarget)
 		dxDrawText(
 			helpText, 
 			0, screenSize.y - 50, 
 			screenSize.x, screenSize.y, 
-			tocolor(255, 255, 255, helpTextAlpha), 
+			tocolor(255, 255, 255, activeScreenAlpha), 
 			1, 
 			Assets.fonts.helpText,
 			"center",
 			"center"
-		)	
+		)
+		-- Деньги игрока
+		if screenManager.activeScreen:class():name() ~= "MainScreen" then
+			dxDrawText(
+				"$#FFFFFF" .. tostring(localPlayer:getData("money")), 
+				0, 20, 
+				screenSize.x - 20, screenSize.y, 
+				tocolor(Garage.themePrimaryColor[1], Garage.themePrimaryColor[2], Garage.themePrimaryColor[3], 255), 
+				1, 
+				Assets.fonts.moneyText,
+				"right",
+				"top", 
+				false, false, false, true
+			)
+		end		
 		dxSetRenderTarget()
 	end
 end

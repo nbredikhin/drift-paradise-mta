@@ -42,6 +42,7 @@ function Assets.start()
 		componentName = exports.dpAssets:createFont("Roboto-Regular.ttf", 30),
 		menuLabel = exports.dpAssets:createFont("Roboto-Regular.ttf", 18),
 		helpText = exports.dpAssets:createFont("Roboto-Regular.ttf", 16),
+		moneyText = exports.dpAssets:createFont("Roboto-Regular.ttf", 24),
 		controlIconButton = exports.dpAssets:createFont("Roboto-Regular.ttf", 18),
 		stickersGridText = exports.dpAssets:createFont("Roboto-Regular.ttf", 12),
 

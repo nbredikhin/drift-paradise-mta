@@ -16,5 +16,4 @@ addEventHandler("dpGarage.saveCar", resourceRoot, function (garageVehicleIndex, 
 		return
 	end
 	exports.dpCore:updateVehicleTuning(vehicleTable._id, tuning, stickers)
-	triggerClientEvent(client, "dpGarage.saveCar", resourceRoot, true)
 end)

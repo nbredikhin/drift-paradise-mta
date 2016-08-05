@@ -93,9 +93,12 @@ function ComponentScreen:onKey(key)
 		self.menu:showNext()
 		self:onItemChanged()
 	elseif key == "enter" then
-		--if self.menu:canBuyCurrentComponent() then
-			GarageCar.applyTuning(self.componentName, self.menu.activeItem  - 1)
-			self.screenManager:showScreen(ComponentsScreen(self.componentName))
-		--end
+		local item = self.menu.items[self.menu.activeItem]
+		Garage.buy(item.price, function(success)
+			if success then
+				GarageCar.applyTuning(self.componentName, self.menu.activeItem  - 1)
+				self.screenManager:showScreen(ComponentsScreen(self.componentName))
+			end
+		end)
 	end
 end

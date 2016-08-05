@@ -96,6 +96,7 @@ end
 function StickersGrid:draw(fadeProgress)
 	-- Отрисовка сетки
 	dxSetRenderTarget(self.gridRenderTarget, true)
+	local money = localPlayer:getData("money")
 	for i, item in ipairs(self.stickersList) do
 		math.randomseed(i)
 		local backgroundColor = 0
@@ -104,6 +105,12 @@ function StickersGrid:draw(fadeProgress)
 		if self.isGridActive and itemX == self.selectionX and itemY == self.selectionY then
 			backgroundColor = tocolor(60, 60, 60, 255 * fadeProgress)
 		end	
+		local imageColor = {255, 255, 255, 255}
+		local priceAlpha = 255
+		if money < item.price then
+			imageColor = {50, 50, 50, 255}
+			priceAlpha = 150
+		end		
 		itemX = (itemX - 1) * self.itemSize
 		itemY = (itemY - 1) * self.itemSize - self.gridScrollOffset
 
@@ -116,14 +123,14 @@ function StickersGrid:draw(fadeProgress)
 			self.itemSize * self.stickerItemScale, 
 			item.texture,
 			0, 0, 0,
-			tocolor(255, 255, 255, 255 * fadeProgress)
+			tocolor(imageColor[1], imageColor[2], imageColor[3], imageColor[4] * fadeProgress)
 		)
 		dxDrawText("$" .. tostring(item.price), 
 			itemX, 
 			itemY - self.itemTextHeight + self.itemSize, 
 			itemX + self.itemSize, 
 			itemY + self.itemSize,
-			tocolor(255, 255, 255, 255 * fadeProgress),
+			tocolor(255, 255, 255, priceAlpha * fadeProgress),
 			1,
 			self.font,
 			"center",

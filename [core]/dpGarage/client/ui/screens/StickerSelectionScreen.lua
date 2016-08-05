@@ -38,10 +38,17 @@ function StickerSelectionScreen:onKey(key)
 	if key == "enter" then
 		local screen = StickerEditorScreen(self.sideName)
 		local sticker = self.stickersGrid:getSelectedSticker()
-		if sticker and sticker.id then
-			screen:addSticker(sticker.id)
+		if not sticker then
+			return 
 		end
-		self.screenManager:showScreen(screen)
+		Garage.buy(sticker.price, function(success)
+			if success then
+				if sticker and sticker.id then
+					screen:addSticker(sticker.id)
+				end
+				self.screenManager:showScreen(screen)
+			end			
+		end)
 	elseif key == "backspace" then
 		self.screenManager:showScreen(StickerEditorScreen(self.sideName))
 	end

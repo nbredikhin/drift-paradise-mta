@@ -31,7 +31,7 @@ local function draw()
 			"center"
 		)
 		-- Деньги игрока
-		if screenManager.activeScreen:class():name() ~= "MainScreen" then
+		if screenManager.activeScreen and screenManager.activeScreen:class():name() ~= "MainScreen" then
 			dxDrawText(
 				"$#FFFFFF" .. tostring(localPlayer:getData("money")), 
 				0, 20, 

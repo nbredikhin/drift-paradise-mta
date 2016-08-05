@@ -12,7 +12,6 @@ function Particle:init()
 	self.size = 2
 	self.sizeSpeed = 0
 
-	self.color = {255, 255, 255, 255}
 	self.friction = 0
 
 	self.lifetime = 0
@@ -20,6 +19,7 @@ function Particle:init()
 	self.fadeOutAt = 0
 	self.fadeInAt = 0
 	self.texture = nil
+	self.color = {}
 
 	self.rotation = 0
 	self.rotationSpeed = 0

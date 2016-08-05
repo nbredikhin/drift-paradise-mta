@@ -28,6 +28,9 @@ local DEFAULT_OPTIONS = {
 	rotation = 0,
 	rotationSpeed = 10,
 
+	r = 255,
+	g = 255,
+	b = 255,
 	alpha = 1
 }
 
@@ -115,6 +118,12 @@ function ParticlesEmitter:emit()
 		particle.vx = self:getRandomOption("speed")
 		particle.vy = self:getRandomOption("speed")
 		particle.vz = self:getRandomOption("speed")
+
+		particle.color = {
+			self.options.r,
+			self.options.g,
+			self.options.b,
+		}
 
 		particle.fadeOutAt = self.options.fadeOutAt
 		particle.fadeInAt = self.options.fadeInAt

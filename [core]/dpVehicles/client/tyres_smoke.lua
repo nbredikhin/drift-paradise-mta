@@ -34,8 +34,8 @@ local function update()
 	for vehicle, emitters in pairs(smokeVehicles) do
 		if vehicle.onGround and checkVehicleOnGround(vehicle) then
 			local driftAngle = detectVehicleDrift(vehicle)
-			if driftAngle then
-				local smokeMul = (driftAngle - MIN_DRIFT_ANGLE) / MAX_DRIFT_ANGLE
+			if true then --driftAngle then
+				local smokeMul = 1--(driftAngle - MIN_DRIFT_ANGLE) / MAX_DRIFT_ANGLE
 				if smokeMul > 1 then
 					smokeMul = 1
 				end
@@ -59,9 +59,21 @@ local function update()
 				exports.dpParticles:setEmitterOption(emitters.leftEmitter, "delay", delay)
 				exports.dpParticles:setEmitterOption(emitters.rightEmitter, "delay", delay)
 
-				local alpha = smokeMul
+				local alpha = smokeMul * 0.8 + 0.2 
 				exports.dpParticles:setEmitterOption(emitters.leftEmitter, "alpha", alpha)
 				exports.dpParticles:setEmitterOption(emitters.rightEmitter, "alpha", alpha)
+
+				local color = vehicle:getData("SmokeColor")
+				if color then
+					exports.dpParticles:setEmitterOption(emitters.leftEmitter, "r", color[1])
+					exports.dpParticles:setEmitterOption(emitters.rightEmitter, "r", color[1])
+
+					exports.dpParticles:setEmitterOption(emitters.leftEmitter, "g", color[2])
+					exports.dpParticles:setEmitterOption(emitters.rightEmitter, "g", color[2])
+
+					exports.dpParticles:setEmitterOption(emitters.leftEmitter, "b", color[3])
+					exports.dpParticles:setEmitterOption(emitters.rightEmitter, "b", color[3])										
+				end
 
 				-- Left wheel
 				local ox, oy, oz = vehicle:getComponentPosition("wheel_lb_dummy")
@@ -93,7 +105,7 @@ local function addVehicleSmoke(vehicle)
 		startSize = 0,
 		endSize = 0,
 
-		forceZ = 1.2
+		forceZ = 1.2,
 	}
 	local leftEmitter = exports.dpParticles:createEmitter(options)
 	local rightEmitter = exports.dpParticles:createEmitter(options)
@@ -141,4 +153,9 @@ addEventHandler("onClientElementDestroy", root, function ()
 	if source.type == "vehicle" then
 		removeVehicleSmoke(source)
 	end
+end)
+
+addEvent("onClientVehicleCreated", false)
+addEventHandler("onClientVehicleCreated", root, function ()
+	addVehicleSmoke(source)
 end)

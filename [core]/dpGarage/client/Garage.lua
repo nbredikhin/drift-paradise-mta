@@ -100,9 +100,14 @@ function Garage.playRandomMusic(reason)
 	sound.maxDistance = 50	
 end
 
-function Garage.buy(price, callback)
-	if type(price) ~= "number" or type(callback) ~= "function" then
+function Garage.buy(price, level, callback)
+	if type(price) ~= "number" or type(level) ~= "number" or type(callback) ~= "function" then
 		return false
+	end
+	if level > localPlayer:getData("level") then
+		outputDebugString("Error: Not enough level")
+		callback(false)
+		return
 	end
 	if localPlayer:getData("money") < price then
 		outputDebugString("Error: Not enough money")

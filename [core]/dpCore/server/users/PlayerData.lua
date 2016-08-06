@@ -1,12 +1,12 @@
 PlayerData = {}
 local loadFields = {
-	"_id", "username", "skin", "money", "lastseen", "playtime", "register_time"
+	"_id", "username", "skin", "money", "lastseen", "playtime", "register_time", "xp"
 }
 local saveFields = {
-	"skin", "money", "playtime"
+	"skin", "money", "playtime", "xp"
 }
 local protectFields = {
-	"house_id"
+	"house_id", "level"
 }
 
 local function filterData(dataName, value)
@@ -20,6 +20,8 @@ function PlayerData.set(player, account)
 	for i, name in ipairs(loadFields) do
 		player:setData(name, filterData(name, account[name]))
 	end
+	player:setData("level", 1)
+	triggerEvent("_playerDataLoaded", resourceRoot, player)
 end
 
 function PlayerData.get(player)

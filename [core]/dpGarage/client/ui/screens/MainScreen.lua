@@ -50,7 +50,7 @@ function MainScreen:onKey(key)
 		end
 	elseif key == "backspace" then
 		self.screenManager:hideScreen()
-		exitGarage()
+		exitGarage(GarageCar.getId())
 	elseif key == "arrow_l" then
 		GarageCar.showPreviousCar()
 	elseif key == "arrow_r" then

@@ -32,17 +32,30 @@ local function draw()
 		)
 		-- Деньги игрока
 		if screenManager.activeScreen and screenManager.activeScreen:class():name() ~= "MainScreen" then
+			local primaryColor = tocolor(Garage.themePrimaryColor[1], Garage.themePrimaryColor[2], Garage.themePrimaryColor[3], 255)
 			dxDrawText(
 				"$#FFFFFF" .. tostring(localPlayer:getData("money")), 
 				0, 20, 
 				screenSize.x - 20, screenSize.y, 
-				tocolor(Garage.themePrimaryColor[1], Garage.themePrimaryColor[2], Garage.themePrimaryColor[3], 255), 
+				primaryColor, 
 				1, 
 				Assets.fonts.moneyText,
 				"right",
 				"top", 
 				false, false, false, true
 			)
+
+			dxDrawText(
+				exports.dpLang:getString("player_level") .. ": #FFFFFF" .. tostring(localPlayer:getData("level")), 
+				0, 60, 
+				screenSize.x - 20, screenSize.y, 
+				primaryColor, 
+				1, 
+				Assets.fonts.levelText,
+				"right",
+				"top", 
+				false, false, false, true
+			)			
 		end		
 		dxSetRenderTarget()
 	end

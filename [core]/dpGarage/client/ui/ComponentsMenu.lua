@@ -20,12 +20,14 @@ function MenuItem:init(position, rotation)
 	self.targetOffset = 0
 	self.price = 0
 	self.name = ""
+	self.level = 0
 end
 
 function MenuItem:draw(fadeProgress)
 	self.super:draw(fadeProgress)
 	local textAlpha = self.alpha
-	local priceColor = tocolor(Garage.themePrimaryColor[1], Garage.themePrimaryColor[2], Garage.themePrimaryColor[3], self.alpha)
+	local priceColor = tocolor(255, 255, 255, self.alpha)
+	local levelColor = tocolor(Garage.themePrimaryColor[1], Garage.themePrimaryColor[2], Garage.themePrimaryColor[3], self.alpha)
 	if self.price > localPlayer:getData("money") then
 		available = false
 		textAlpha = textAlpha * 0.25
@@ -36,13 +38,21 @@ function MenuItem:draw(fadeProgress)
 	dxDrawRectangle(0, 0, self.resolution.x, self.resolution.y, color)
 	dxDrawText(tostring(self.name), 0, 0, self.resolution.x * 0.6, self.resolution.y, tocolor(255, 255, 255, textAlpha), 1, Assets.fonts.componentItem, "center", "center")
 
+	local starSize = self.resolution.y * 0.28
+	local starX = self.resolution.x - 55
+	if self.level > localPlayer:getData("level") then
+		levelColor = tocolor(255, 255, 255, self.alpha * 0.25)
+	end
+	dxDrawImage(starX, self.resolution.y / 2 - starSize / 2, starSize, starSize, Assets.textures.levelIcon, 0, 0, 0, levelColor)
+
+	dxDrawText(tostring(self.level), starX + starSize + 2, 0, self.resolution.x, self.resolution.y, levelColor, 1, Assets.fonts.componentItemInfo, "left", "center")
 	local priceText = ""
 	if self.price > 0 then
 		priceText = "$" .. tostring(self.price)
 	else
 		priceText = exports.dpLang:getString("price_free")
-	end
-	dxDrawText(priceText, self.resolution.x * 0.6, 0, self.resolution.x, self.resolution.y, priceColor, 1, Assets.fonts.componentItemInfo, "center", "center")
+	end	
+	dxDrawText(priceText, self.resolution.x * 0.4, 0, starX - 10, self.resolution.y, priceColor, 1, Assets.fonts.componentItemInfo, "right", "center")
 	dxSetRenderTarget()
 end
 
@@ -97,7 +107,7 @@ end
 function ComponentsMenu:updateMenuItems()
 	local position = self.position + Vector3(0, 0, ITEM_HEIGHT * 1.5)
 	for i = 1, 3 do
-		self.menuItems[i].targetAlpha = 220
+		self.menuItems[i].targetAlpha = 235
 		self.menuItems[i].targetOffset = 0
 		self.menuItems[i].targetPosition = Vector3(position.x, position.y, position.z)
 		self.menuItems[i].targetSize = self.menuItems[i].normalSize 
@@ -105,6 +115,7 @@ function ComponentsMenu:updateMenuItems()
 		if itemIndex >= 1 and itemIndex <= #self.items then
 			self.menuItems[i].name = self.items[itemIndex].name
 			self.menuItems[i].price = self.items[itemIndex].price
+			self.menuItems[i].level = self.items[itemIndex].level
 		end
 		position = position - Vector3(0, 0, ITEM_HEIGHT + ITEM_SPACE)
 	end

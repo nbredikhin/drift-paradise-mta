@@ -151,8 +151,8 @@ end
 function GarageCar.applyTuning(name, value)
 	if not value then
 		value = vehicle:getData(name)
-	else
-		vehicle:setData(name, value, true)
+	else		
+		vehicle:setData(name, value, false)
 	end
 	currentTuningTable[name] = value
 end

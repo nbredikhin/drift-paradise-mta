@@ -28,7 +28,7 @@ end
 
 function ColorMenu:getColor()
 	local r, g, b = hsvToRgb(self.bars[1].value, self.bars[2].value, self.bars[3].value, 255)
-	return r, g, b
+	return math.floor(r), math.floor(g), math.floor(b)
 end
 
 function ColorMenu:setColor(r, g, b)

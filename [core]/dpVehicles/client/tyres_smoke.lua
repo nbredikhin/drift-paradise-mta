@@ -1,4 +1,6 @@
 -- Дым из-под колёс при дрифте
+local CONFIG_PROPERTY_NAME = "graphics.tyres_smoke"
+
 local smokeVehicles = {}
 
 local MIN_DRIFT_ANGLE = 5
@@ -8,7 +10,7 @@ local function detectVehicleDrift(vehicle)
 	local velocity = vehicle.velocity
 	local direction = vehicle.matrix.forward
 
-	if velocity.length < 0.2 then 
+	if velocity.length < 0.12 then 
 		return 0, false
 	end
 	velocity = velocity:getNormalized()
@@ -24,18 +26,27 @@ local function checkVehicleOnGround(vehicle)
 	local ox, oy, oz = vehicle:getComponentPosition("wheel_lb_dummy")
 	local centerPosition1 = vehicle.matrix:transformPosition(0, oy, oz)
 	local centerPosition2 = vehicle.matrix:transformPosition(0, oy, oz - 0.5)
-
-	--dxDrawLine3D(centerPosition1, centerPosition2)
-	
 	return not isLineOfSightClear(centerPosition1, centerPosition2, true, false, false, true, false)
 end
 
 local function update()
 	for vehicle, emitters in pairs(smokeVehicles) do
+		-- Left wheel
+		local ox, oy, oz = vehicle:getComponentPosition("wheel_lb_dummy")
+		local leftPosition = vehicle.matrix:transformPosition(ox, oy, oz)						
+		exports.dpParticles:setEmitterPosition(emitters.leftEmitter, leftPosition.x, leftPosition.y, leftPosition.z)
+		-- Right wheel
+		ox, oy, oz = vehicle:getComponentPosition("wheel_rb_dummy")
+		local rightPosition = vehicle.matrix:transformPosition(ox, oy, oz)
+		exports.dpParticles:setEmitterPosition(emitters.rightEmitter, rightPosition.x, rightPosition.y, rightPosition.z)
+
+		exports.dpParticles:setEmitterOption(emitters.leftEmitter, "density", 0)
+		exports.dpParticles:setEmitterOption(emitters.rightEmitter, "density", 0)
+
 		if vehicle.onGround and checkVehicleOnGround(vehicle) then
 			local driftAngle = detectVehicleDrift(vehicle)
-			if true then --driftAngle then
-				local smokeMul = 1--(driftAngle - MIN_DRIFT_ANGLE) / MAX_DRIFT_ANGLE
+			if driftAngle then
+				local smokeMul = (driftAngle - MIN_DRIFT_ANGLE) / MAX_DRIFT_ANGLE
 				if smokeMul > 1 then
 					smokeMul = 1
 				end
@@ -74,21 +85,15 @@ local function update()
 					exports.dpParticles:setEmitterOption(emitters.leftEmitter, "b", color[3])
 					exports.dpParticles:setEmitterOption(emitters.rightEmitter, "b", color[3])										
 				end
-
-				-- Left wheel
-				local ox, oy, oz = vehicle:getComponentPosition("wheel_lb_dummy")
-				local leftPosition = vehicle.matrix:transformPosition(ox, oy, oz)						
-				exports.dpParticles:setEmitterPosition(emitters.leftEmitter, leftPosition.x, leftPosition.y, leftPosition.z)
-				-- Right wheel
-				ox, oy, oz = vehicle:getComponentPosition("wheel_rb_dummy")
-				local rightPosition = vehicle.matrix:transformPosition(ox, oy, oz)
-				exports.dpParticles:setEmitterPosition(emitters.rightEmitter, rightPosition.x, rightPosition.y, rightPosition.z)
 			end
 		end
 	end
 end
 
 local function addVehicleSmoke(vehicle)
+	if not exports.dpConfig:getProperty(CONFIG_PROPERTY_NAME) then
+		return
+	end
 	if not isElement(vehicle) or smokeVehicles[vehicle] then
 		return false
 	end
@@ -155,7 +160,25 @@ addEventHandler("onClientElementDestroy", root, function ()
 	end
 end)
 
-addEvent("onClientVehicleCreated", false)
+addEvent("onClientVehicleCreated", true)
 addEventHandler("onClientVehicleCreated", root, function ()
-	addVehicleSmoke(source)
+	local vehicle = source
+	setTimer(function()
+		if isElement(vehicle) and isElementStreamedIn(vehicle) then
+			addVehicleSmoke(vehicle)
+		end
+	end, 1000, 1)
+end)
+
+addEvent("dpConfig.update", false)
+addEventHandler("dpConfig.update", root, function (key, value)
+	if key == CONFIG_PROPERTY_NAME then
+		for i, v in ipairs(getElementsByType("vehicle")) do
+			if value and isElementStreamedIn(v) then
+				addVehicleSmoke(v)
+			else
+				removeVehicleSmoke(v)
+			end
+		end
+	end
 end)

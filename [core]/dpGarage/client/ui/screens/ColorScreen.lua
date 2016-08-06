@@ -64,6 +64,7 @@ function ColorScreen:onKey(key)
 	elseif key == "enter" then
 		self.colorPreviewEnabled = false
 		GarageCar.applyTuning(self.componentName, {self.colorMenu:getColor()})
+		--outputDebugString("ApplyTuning: " .. tostring(self.componentName) .. " " .. table.concat({self.colorMenu:getColor()}, ","))
 		CarTexture.reset()
 		self.screenManager:showScreen(ColorsScreen(self.componentName))
 	end

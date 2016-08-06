@@ -218,6 +218,7 @@ function VehicleSpawn.spawn(vehicleId, position, rotation)
 
 	-- Выключить фары
 	vehicle:setData("LightsState", false)
+	triggerClientEvent(root, "onClientVehicleCreated", vehicle)
 	return vehicle
 end
 

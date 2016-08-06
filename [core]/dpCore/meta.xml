@@ -38,6 +38,7 @@
 	<script type="server" src="server/gameplay/PlayerSpawn.lua"/>
 	<script type="server" src="server/gameplay/player_join.lua"/>
 	<script type="server" src="server/gameplay/player_ids.lua"/>
+	<script type="server" src="server/gameplay/player_levels.lua"/>
 	<!-- Основной скрипт -->
 	<script type="server" src="server/main.lua"/>
 

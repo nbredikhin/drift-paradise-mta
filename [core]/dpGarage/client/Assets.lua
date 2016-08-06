@@ -22,6 +22,8 @@ function Assets.start()
 		tuningVinylsIcon = DxTexture("assets/images/icons/vinyls.png"),
 		tuningSettingsIcon = DxTexture("assets/images/icons/settings.png"),
 
+		levelIcon = exports.dpAssets:createTexture("level.png"),
+
 		stickersSection1 = DxTexture("assets/images/icons/section1.png"),
 		stickersSection2 = DxTexture("assets/images/icons/section2.png"),
 		stickersSection3 = DxTexture("assets/images/icons/section3.png"),
@@ -43,6 +45,7 @@ function Assets.start()
 		menuLabel = exports.dpAssets:createFont("Roboto-Regular.ttf", 18),
 		helpText = exports.dpAssets:createFont("Roboto-Regular.ttf", 16),
 		moneyText = exports.dpAssets:createFont("Roboto-Regular.ttf", 24),
+		levelText = exports.dpAssets:createFont("Roboto-Regular.ttf", 14),
 		controlIconButton = exports.dpAssets:createFont("Roboto-Regular.ttf", 18),
 		stickersGridText = exports.dpAssets:createFont("Roboto-Regular.ttf", 12),
 

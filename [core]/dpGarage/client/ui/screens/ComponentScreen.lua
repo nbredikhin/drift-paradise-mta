@@ -37,7 +37,7 @@ function ComponentScreen:init(name)
 		if i == 1 then
 			name = exports.dpLang:getString("garage_tuning_stock_text")
 		end
-		table.insert(items, {name = name, price = price})
+		table.insert(items, {name = name, price = price, level = i})
 	end
 	-- 3D меню
 	self.menu = ComponentsMenu(
@@ -94,7 +94,7 @@ function ComponentScreen:onKey(key)
 		self:onItemChanged()
 	elseif key == "enter" then
 		local item = self.menu.items[self.menu.activeItem]
-		Garage.buy(item.price, function(success)
+		Garage.buy(item.price, item.level, function(success)
 			if success then
 				GarageCar.applyTuning(self.componentName, self.menu.activeItem  - 1)
 				self.screenManager:showScreen(ComponentsScreen(self.componentName))

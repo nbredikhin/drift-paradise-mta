@@ -1,28 +1,35 @@
-function setupSpoilerColor(vehicle)
-	local color = vehicle:getData("SpoilerColor")
-	if type(color) ~= "table" then
-		return
+-- Тонировка стёкол
+
+local levels = {
+	0.8,
+	0.5,
+	0.2
+}
+
+function setupWindows(vehicle)
+	local level = vehicle:getData("Windows")
+	if not level then
+		return false
 	end
-	local r, g, b = unpack(color)
-	VehicleShaders.replaceColor(vehicle, "*spoiler*", r, g, b)
+	VehicleShaders.replaceWindows(vehicle, "windows", 0.5)
 end
 
--- Обновить текстуры всех видимых машин при запуске скрипта
+-- Обновить при запуске скрипта
 addEventHandler("onClientResourceStart", resourceRoot, function()
 	for i, vehicle in ipairs(getElementsByType("vehicle")) do
-		setupSpoilerColor(vehicle)
+		setupWindows(vehicle)
 	end
 end)
 
 addEventHandler("onClientRestore", root, function ()
 	for i, vehicle in ipairs(getElementsByType("vehicle")) do
-		setupSpoilerColor(vehicle)
+		setupWindows(vehicle)
 	end
 end)
 
 addEventHandler("onClientElementStreamIn", root, function()
 	if source.type == "vehicle" then
-		setupSpoilerColor(source)
+		setupWindows(source)
 	end
 end)
 
@@ -31,6 +38,6 @@ addEventHandler("onClientElementDataChange", root, function(dataName, oldValue)
 		return
 	end
 	if dataName == "SpoilerColor" then
-		setupSpoilerColor(source)
+		setupWindows(source)
 	end
 end)

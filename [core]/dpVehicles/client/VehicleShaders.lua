@@ -2,6 +2,7 @@ VehicleShaders = {}
 
 -- Активные шейдеры на автомобилях
 local shaders = {}
+local reflectionTexture
 
 -- Удаление всех шейдеров с автомобиля
 local function destroyVehicleShaders(vehicle)
@@ -82,6 +83,41 @@ function VehicleShaders.replaceColor(vehicle, textureName, r, g, b)
 	return true
 end
 
+function VehicleShaders.replaceWindows(vehicle, textureName, transparency)
+	if not isElement(vehicle) or type(textureName) ~= "string" then
+		return false
+	end
+	if type(transparency) ~= "number" then
+		return false
+	end
+	local shaderName = "windows_" .. tostring(textureName)
+	if not shaders[shaderName] then
+		shaders[shaderName] = {}
+	end
+	local shader = shaders[shaderName][vehicle]
+	if isElement(shader) then
+		destroyElement(shader) 
+		shader = nil
+	end
+	if not isElement(shader) then
+		-- Создание нового шейдера
+		shader = dxCreateShader("assets/shaders/windows.fx")
+	end
+	-- Не удалось создать шейдер
+	if not shader then
+		return false
+	end
+	engineApplyShaderToWorldTexture(shader, textureName, vehicle)
+	shader:setData("shader_type", "windows", false)
+	shaders[shaderName][vehicle] = shader
+
+	shader:setValue("sReflectionTexture", reflectionTexture)
+	shader:setValue("windowTransparency", transparency)
+	shader:setValue("brightnessFactor", (1 - transparency) * 0.15)
+	outputDebugString("Da")
+	return true
+end
+
 addEventHandler("onClientElementDestroy", root, function ()
 	if source.type ~= "vehicle" then
 		return
@@ -101,4 +137,8 @@ addEventHandler("onClientVehicleExplode", root, function ()
 		return
 	end
 	destroyVehicleShaders(source)
+end)
+
+addEventHandler("onClientResourceStart", resourceRoot, function ()
+	reflectionTexture = dxCreateTexture("assets/reflection.dds")
 end)

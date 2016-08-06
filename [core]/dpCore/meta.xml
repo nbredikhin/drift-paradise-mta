@@ -7,6 +7,7 @@
 
 	<script type="shared" src="shared/utils.lua"/>
 	<!-- Основной конфиг -->
+	<script type="shared" src="shared/levels.lua"/>
 	<script type="shared" src="shared/AccountsConfig.lua"/>
 	<!-- Функция для проверки имени пользователя -->
 	<script type="shared" src="shared/usercheck.lua"/>
@@ -69,4 +70,7 @@
 	<export type="client" function="register"/>
 	<export type="client" function="login"/>
 	<export type="client" function="logout"/>
+
+	<export type="shared" function="getXPFromLevel"/>
+	<export type="shared" function="getLevelFromXP"/>
 </meta>

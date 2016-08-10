@@ -114,7 +114,6 @@ function VehicleShaders.replaceWindows(vehicle, textureName, transparency)
 	shader:setValue("sReflectionTexture", reflectionTexture)
 	shader:setValue("windowTransparency", transparency)
 	shader:setValue("brightnessFactor", (1 - transparency) * 0.15)
-	outputDebugString("Da")
 	return true
 end
 

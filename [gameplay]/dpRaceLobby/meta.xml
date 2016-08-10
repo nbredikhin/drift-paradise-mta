@@ -1,0 +1,14 @@
+<meta>
+	<oop>true</oop>
+
+	<script type="client" src="client/mapsList.lua"/>
+	<script type="client" src="client/MapsScreen.lua"/>
+	<script type="client" src="client/SearchScreen.lua"/>
+
+	<file src="assets/default_image.png"/>
+	<file src="assets/classic/1.png"/>
+	<file src="assets/classic/2.png"/>
+	<file src="assets/classic/3.png"/>
+	<file src="assets/classic/4.png"/>
+	<file src="assets/classic/5.png"/>
+</meta>

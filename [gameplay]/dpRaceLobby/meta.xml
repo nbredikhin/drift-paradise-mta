@@ -5,6 +5,8 @@
 	<script type="client" src="client/MapsScreen.lua"/>
 	<script type="client" src="client/SearchScreen.lua"/>
 
+	<export type="client" function="setVisible"/>
+
 	<file src="assets/default_image.png"/>
 	<file src="assets/classic/1.png"/>
 	<file src="assets/classic/2.png"/>

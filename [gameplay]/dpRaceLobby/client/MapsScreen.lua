@@ -9,9 +9,9 @@ local panelHeight = 550
 -- Высота кнопки вкладки
 local TAB_BUTTON_HEIGHT = 50
 local tabsList = {
-	{ name = "classic", locale = "Классический" },
-	{ name = "drift", locale = "Дрифт" },
-	{ name = "drag", locale = "Драг" },
+	{ name = "classic", locale = "race_lobby_mode_classic" },
+	{ name = "drift", locale = "race_lobby_mode_drift" },
+	{ name = "drag", locale = "race_lobby_mode_drag" },
 }
 local activeTab
 
@@ -176,7 +176,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		y = panelHeight - BOTTOM_BUTTON_HEIGHT,
 		width = BOTTOM_BUTTON_WIDTH,
 		height = BOTTOM_BUTTON_HEIGHT,
-		locale = "Закрыть",
+		locale = "race_lobby_close_button",
 		type = "default_dark"
 	})
 	UI:addChild(ui.panel, ui.closeButton)
@@ -186,7 +186,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		y = panelHeight - BOTTOM_BUTTON_HEIGHT,
 		width = BOTTOM_BUTTON_WIDTH,
 		height = BOTTOM_BUTTON_HEIGHT,
-		locale = "Найти игру",
+		locale = "race_lobby_play_button",
 		type = "primary",
 	})
 	UI:addChild(ui.panel, ui.playButton)
@@ -197,7 +197,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		localPlayer:setData("activeUI", false)
 	end
 	
-	MapsScreen.setVisible(true)
+	MapsScreen.setVisible(false)
 end)
 
 addEvent("dpUI.click", false)
@@ -228,5 +228,12 @@ addEventHandler("dpUI.click", resourceRoot, function (widget)
 
 	if widget == ui.closeButton then
 		MapsScreen.setVisible(false)
+	elseif widget == ui.playButton then
+		MapsScreen.setVisible(false)
+		SearchScreen.startSearch()
 	end
 end)
+
+function setVisible(visible)
+	MapsScreen.setVisible(visible)
+end

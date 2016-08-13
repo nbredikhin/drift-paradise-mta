@@ -18,10 +18,10 @@ local function onGameFound()
 	foundGame = true
 	acceptedGame = false
 	UI:setType(ui.acceptButton, "primary")
-	UI:setText(ui.acceptButton, "Принять")	
+	UI:setText(ui.acceptButton, exports.dpLang:getString("race_search_accept"))	
 
-	UI:setText(ui.mainLabel, "Игра найдена!")
-	UI:setText(ui.infoLabel, "Нажмите \"Принять\", чтобы войти в игру")
+	UI:setText(ui.mainLabel, exports.dpLang:getString("race_search_race_fount"))
+	UI:setText(ui.infoLabel, exports.dpLang:getString("race_search_press_accept"))
 end
 addEvent("dpRaceLobby.raceFound", true)
 addEventHandler("dpRaceLobby.raceFound", resourceRoot, onGameFound)
@@ -41,13 +41,13 @@ local function updateTime()
 	end
 	time = tostring(minutesCount) .. ":" .. time
 
-	UI:setText(ui.acceptButton, "Поиск: " .. time)
+	UI:setText(ui.acceptButton, exports.dpLang:getString("race_search_searching") .. " " .. time)
 	UI:setType(ui.acceptButton, "default_dark")
 end
 
 function SearchScreen.startSearch(mapsList)
 	if not mapsList then
-		exports.dpUI:showMessageBox("Maps", "No maps")
+		exports.dpUI:showMessageBox("Maps", "No maps selected")
 		return false
 	end
 	lastMapsList = mapsList
@@ -79,9 +79,9 @@ function SearchScreen.setVisible(visible)
 		secoundsCount = -1
 		updateTime()
 
-		UI:setText(ui.mainLabel, "Поиск игроков...")
+		UI:setText(ui.mainLabel, exports.dpLang:getString("race_search_searching_label"))
 		local playersCount = root:getData("MatchmakingSearchingPlayersCount") or 12
-		UI:setText(ui.infoLabel, "Игроков в поиске: " .. playersCount)				
+		UI:setText(ui.infoLabel, exports.dpLang:getString("race_search_players_in_search")  .. " " .. tostring(playersCount))				
 	end
 end
 
@@ -101,7 +101,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		y = panelHeight - BUTTON_HEIGHT,
 		width = panelWidth / 2,
 		height = BUTTON_HEIGHT,
-		locale = "Отмена",
+		locale = "race_search_cancel",
 		type = "default_dark"
 	})
 	UI:addChild(ui.panel, ui.cancelButton)
@@ -112,7 +112,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		y = panelHeight - BUTTON_HEIGHT,
 		width = panelWidth / 2,
 		height = BUTTON_HEIGHT,
-		locale = "Поиск: 00:00",
+		text = "...",
 		type = "default_dark"
 	})
 	UI:addChild(ui.panel, ui.acceptButton)
@@ -150,25 +150,35 @@ addEventHandler("dpUI.click", resourceRoot, function (widget)
 		SearchScreen.setVisible(false)
 		MapsScreen.setVisible(true)
 		triggerServerEvent("dpRaceLobby.cancelSearch", resourceRoot)
+		lastMapsList = {}
 	elseif widget == ui.acceptButton then
 		if foundGame and not acceptedGame then
 			acceptedGame = true
 			triggerServerEvent("dpRaceLobby.acceptRace", resourceRoot)
 
 			UI:setType(ui.acceptButton, "default_dark")
-			UI:setText(ui.acceptButton, "Ожидание...")	
+			UI:setText(ui.acceptButton, exports.dpLang:getString("race_search_waiting_button"))	
 
-			UI:setText(ui.mainLabel, "Ожидание игроков")
-			UI:setText(ui.infoLabel, "Готово игроков: 0 из 0")			
+			UI:setText(ui.mainLabel, exports.dpLang:getString("race_search_waiting_label"))
+			UI:setText(ui.infoLabel, string.format(
+				exports.dpLang:getString("race_search_players_ready_count")
+				"0", "0"
+			))			
 		end
 	end
 end)
 
 addEvent("dpRaceLobby.raceCancelled", true)
-addEventHandler("dpRaceLobby.raceCancelled", resourceRoot, function ()
+addEventHandler("dpRaceLobby.raceCancelled", resourceRoot, function (player)
 	if foundGame then
 		SearchScreen.setVisible(false)
 		SearchScreen.startSearch(lastMapsList)
+		if player ~= client then
+			exports.dpUI:showMessageBox(
+				exports.dpLang:getString("race_search_reject_error_title"),
+				exports.dpLang:getString("race_search_reject_error_body")
+			)
+		end
 	end
 end)
 
@@ -180,5 +190,14 @@ addEventHandler("dpRaceLobby.updateReadyCount", resourceRoot, function (count, t
 	if not foundGame or not acceptedGame then
 		return
 	end
-	UI:setText(ui.infoLabel, "Готово игроков: " .. tostring(count) ..  " из " .. tostring(total))
+	UI:setText(ui.infoLabel, string.format(
+		exports.dpLang:getString("race_search_players_ready_count"),
+		tostring(count), tostring(total)
+	))		
+end)
+
+addEvent("dpRaceLobby.raceStart", true)
+addEventHandler("dpRaceLobby.raceStart", resourceRoot, function ()
+	SearchScreen.setVisible(false)
+	lastMapsList = {}
 end)

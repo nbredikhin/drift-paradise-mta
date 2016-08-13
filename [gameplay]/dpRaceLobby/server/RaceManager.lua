@@ -28,7 +28,7 @@ local function getPendingRace(id)
 	return false
 end
 
-local function cancelPendingRace(id)
+local function cancelPendingRace(id, cancelPlayer)
 	if type(id) ~= "number" then
 		return false
 	end
@@ -39,7 +39,7 @@ local function cancelPendingRace(id)
 	for i, player in ipairs(race.players) do
 		if isElement(player) then
 			player:setData("MatchmakingRaceId", false)
-			triggerClientEvent(player, "dpRaceLobby.raceCancelled", resourceRoot)
+			triggerClientEvent(player, "dpRaceLobby.raceCancelled", resourceRoot, cancelPlayer)
 		end
 	end
 	removePendingRace(id)
@@ -64,12 +64,17 @@ function RaceManager.raceReady(mapName, playersList)
 end
 
 function RaceManager.startRace(race)
-	outputDebugString("START RACE PLS")
+	for i, player in ipairs(race.players) do
+		player:setData("MatchmakingRaceId", false)
+		triggerClientEvent(player, "dpRaceLobby.raceStart", resourceRoot)
+	end
+
+	-- TODO: Создать гонку
 end
 
 addEvent("dpRaceLobby.cancelSearch", true)
 addEventHandler("dpRaceLobby.cancelSearch", resourceRoot, function ()
-	cancelPendingRace(client:getData("MatchmakingRaceId"))
+	cancelPendingRace(client:getData("MatchmakingRaceId"), client)
 end)
 
 addEvent("dpRaceLobby.acceptRace", true)
@@ -79,7 +84,7 @@ addEventHandler("dpRaceLobby.acceptRace", resourceRoot, function ()
 		return 
 	end
 	race.readyCount = race.readyCount + 1
-	if race.readyCount >= #race.players + 1 then
+	if race.readyCount >= #race.players then
 		RaceManager.startRace(race)
 	else
 		for i, player in ipairs(race.players) do 

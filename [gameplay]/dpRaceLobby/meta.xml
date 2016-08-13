@@ -13,9 +13,9 @@
 	<export type="client" function="setVisible"/>
 	<!-- Files -->
 	<file src="assets/default_image.png"/>
-	<file src="assets/classic/1.png"/>
-	<file src="assets/classic/2.png"/>
-	<file src="assets/classic/3.png"/>
-	<file src="assets/classic/4.png"/>
-	<file src="assets/classic/5.png"/>
+	<file src="assets/previews/country1.png"/>
+	<file src="assets/previews/country2.png"/>
+	<file src="assets/previews/city1.png"/>
+	<file src="assets/previews/city2.png"/>
+	<file src="assets/previews/city3.png"/>
 </meta>

@@ -25,6 +25,42 @@ local MAP_UNSELECTED_IMAGE_COLOR = tocolor(255, 255, 255, 200)
 local MAP_UNSELECTED_LABEL_COLOR = tocolor(0, 0, 0, 100)
 local selectedMapsCount = 0
 
+local function getSelectedMapsList()
+	local list = {}
+	for i, map in ipairs(activeTab.maps) do
+		if UI:getState(map.checkbox) then
+			table.insert(list, map.name)
+		end
+	end
+	return list
+end
+
+local function toggleMapItem(map, forceState)
+	if forceState ~= nil then
+		UI:setState(map.checkbox, forceState)
+	else
+		UI:setState(map.checkbox, not UI:getState(map.checkbox))
+	end
+	
+	local labelColor = tocolor(exports.dpUI:getThemeColor())
+	if not UI:getState(map.checkbox) then
+		labelColor = MAP_UNSELECTED_LABEL_COLOR
+	end
+	UI:setColor(map.label, labelColor)
+
+	local imageColor = MAP_UNSELECTED_IMAGE_COLOR
+	if UI:getState(map.checkbox) then
+		imageColor = MAP_SELECTED_IMAGE_COLOR
+	end
+	UI:setColor(map.image, imageColor)
+
+	if #getSelectedMapsList() == 0 then
+		UI:setType(ui.playButton, "default_dark")
+	else
+		UI:setType(ui.playButton, "primary")
+	end
+end
+
 function MapsScreen.setVisible(visible)
 	local isVisible = UI:getVisible(ui.panel)
 	if not not isVisible == not not visible then
@@ -52,33 +88,10 @@ function MapsScreen.setVisible(visible)
 	exports.dpUI:fadeScreen(visible)
 
 	selectedMapsCount = 0
-	MapsScreen.openTab(1)	
+	MapsScreen.openTab(1)
 	return true
 end
 
-local function toggleMapItem(map)
-	UI:setState(map.checkbox, not UI:getState(map.checkbox))
-	
-	local labelColor = tocolor(exports.dpUI:getThemeColor())
-	if not UI:getState(map.checkbox) then
-		labelColor = MAP_UNSELECTED_LABEL_COLOR
-		selectedMapsCount = selectedMapsCount - 1
-	end
-	UI:setColor(map.label, labelColor)
-
-	local imageColor = MAP_UNSELECTED_IMAGE_COLOR
-	if UI:getState(map.checkbox) then
-		imageColor = MAP_SELECTED_IMAGE_COLOR
-		selectedMapsCount = selectedMapsCount + 1
-	end
-	UI:setColor(map.image, imageColor)
-
-	if selectedMapsCount == 0 then
-		UI:setType(ui.playButton, "default_dark")
-	else
-		UI:setType(ui.playButton, "primary")
-	end
-end
 
 function MapsScreen.openTab(id)
 	if type(id) ~= "number" then
@@ -91,14 +104,17 @@ function MapsScreen.openTab(id)
 	if activeTab then
 		UI:setVisible(activeTab.panel, false)
 		UI:setType(activeTab.button, "default_dark")
+		for i, map in ipairs(activeTab.maps) do
+			toggleMapItem(map, false)
+		end	
 	end
 	UI:setVisible(tab.panel, true)
 
 	UI:setType(tab.button, "primary")
 	activeTab = tab
-	for i, map in ipairs(tab.maps) do
-		toggleMapItem(map)
-	end
+	for i, map in ipairs(activeTab.maps) do
+		toggleMapItem(map, true)
+	end		
 	return true
 end
 
@@ -157,7 +173,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 					width = mapItemWidth, height = 30,
 					color = MAP_UNSELECTED_LABEL_COLOR,
 					fontType = "defaultSmall",
-					text = map.name,
+					locale = map.locale,
 					alignX = "center",
 				})
 				UI:addChild(item, mapNameLabel)
@@ -169,7 +185,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 				UI:addChild(item, mapCheckbox)
 
 				local texture
-				local path = "assets/" .. tostring(tab.name) .. "/" .. tostring(i) .. ".png"
+				local path = "assets/previews/" .. tostring(map.name) .. ".png"
 				if fileExists(path) then
 					texture = dxCreateTexture(path)
 				else
@@ -244,9 +260,15 @@ addEventHandler("dpUI.click", resourceRoot, function (widget)
 
 	if widget == ui.closeButton then
 		MapsScreen.setVisible(false)
-	elseif widget == ui.playButton then
-		MapsScreen.setVisible(false)
-		SearchScreen.startSearch({"test"})
+	elseif widget == ui.playButton then		
+		local mapsList = getSelectedMapsList()
+		if not mapsList or #mapsList == 0 then
+			-- Show error
+		else
+			outputDebugString("Maps list: " .. tostring(#mapsList))
+			MapsScreen.setVisible(false)
+			SearchScreen.startSearch(mapsList)
+		end
 	end
 end)
 

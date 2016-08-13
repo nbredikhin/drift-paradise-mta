@@ -23,6 +23,7 @@ local MAP_ITEM_INDENT = 5
 local MAP_SELECTED_IMAGE_COLOR = tocolor(255, 255, 255)
 local MAP_UNSELECTED_IMAGE_COLOR = tocolor(255, 255, 255, 200)
 local MAP_UNSELECTED_LABEL_COLOR = tocolor(0, 0, 0, 100)
+local selectedMapsCount = 0
 
 function MapsScreen.setVisible(visible)
 	local isVisible = UI:getVisible(ui.panel)
@@ -50,8 +51,33 @@ function MapsScreen.setVisible(visible)
 	exports.dpHUD:setVisible(not visible)
 	exports.dpUI:fadeScreen(visible)
 
-	MapsScreen.openTab(1)
+	selectedMapsCount = 0
+	MapsScreen.openTab(1)	
 	return true
+end
+
+local function toggleMapItem(map)
+	UI:setState(map.checkbox, not UI:getState(map.checkbox))
+	
+	local labelColor = tocolor(exports.dpUI:getThemeColor())
+	if not UI:getState(map.checkbox) then
+		labelColor = MAP_UNSELECTED_LABEL_COLOR
+		selectedMapsCount = selectedMapsCount - 1
+	end
+	UI:setColor(map.label, labelColor)
+
+	local imageColor = MAP_UNSELECTED_IMAGE_COLOR
+	if UI:getState(map.checkbox) then
+		imageColor = MAP_SELECTED_IMAGE_COLOR
+		selectedMapsCount = selectedMapsCount + 1
+	end
+	UI:setColor(map.image, imageColor)
+
+	if selectedMapsCount == 0 then
+		UI:setType(ui.playButton, "default_dark")
+	else
+		UI:setType(ui.playButton, "primary")
+	end
 end
 
 function MapsScreen.openTab(id)
@@ -70,6 +96,9 @@ function MapsScreen.openTab(id)
 
 	UI:setType(tab.button, "primary")
 	activeTab = tab
+	for i, map in ipairs(tab.maps) do
+		toggleMapItem(map)
+	end
 	return true
 end
 
@@ -163,12 +192,11 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 					image = mapImage,
 					checkbox = mapCheckbox
 				})
-			end
+			end			
 		else
 			outputDebugString("No maps for tab: " .. tostring(tab.name))
 		end
-	end	
-
+	end		
 
 	-- Кнопка "Закрыть"
 	ui.closeButton = UI:createDpButton({
@@ -187,7 +215,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		width = BOTTOM_BUTTON_WIDTH,
 		height = BOTTOM_BUTTON_HEIGHT,
 		locale = "race_lobby_play_button",
-		type = "primary",
+		type = "default_dark",
 	})
 	UI:addChild(ui.panel, ui.playButton)
 
@@ -209,19 +237,7 @@ addEventHandler("dpUI.click", resourceRoot, function (widget)
 		end
 		for j, map in ipairs(tab.maps) do
 			if widget == map.image or widget == map.label or widget == map.panel then
-				UI:setState(map.checkbox, not UI:getState(map.checkbox))
-				
-				local labelColor = tocolor(exports.dpUI:getThemeColor())
-				if not UI:getState(map.checkbox) then
-					labelColor = MAP_UNSELECTED_LABEL_COLOR
-				end
-				UI:setColor(map.label, labelColor)
-
-				local imageColor = MAP_UNSELECTED_IMAGE_COLOR
-				if UI:getState(map.checkbox) then
-					imageColor = MAP_SELECTED_IMAGE_COLOR
-				end
-				UI:setColor(map.image, imageColor)
+				toggleMapItem(map)
 			end
 		end
 	end 
@@ -230,7 +246,7 @@ addEventHandler("dpUI.click", resourceRoot, function (widget)
 		MapsScreen.setVisible(false)
 	elseif widget == ui.playButton then
 		MapsScreen.setVisible(false)
-		SearchScreen.startSearch()
+		SearchScreen.startSearch({"test"})
 	end
 end)
 

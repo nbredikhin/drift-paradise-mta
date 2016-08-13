@@ -11,15 +11,20 @@ local counterTimer
 local secoundsCount = 0
 
 local foundGame = false
+local acceptedGame = false
+local lastMapsList = {}
 
 local function onGameFound()
 	foundGame = true
+	acceptedGame = false
 	UI:setType(ui.acceptButton, "primary")
 	UI:setText(ui.acceptButton, "Принять")	
 
 	UI:setText(ui.mainLabel, "Игра найдена!")
 	UI:setText(ui.infoLabel, "Нажмите \"Принять\", чтобы войти в игру")
 end
+addEvent("dpRaceLobby.raceFound", true)
+addEventHandler("dpRaceLobby.raceFound", resourceRoot, onGameFound)
 
 local function updateTime()
 	secoundsCount = secoundsCount + 1
@@ -40,8 +45,14 @@ local function updateTime()
 	UI:setType(ui.acceptButton, "default_dark")
 end
 
-function SearchScreen.startSearch()
+function SearchScreen.startSearch(mapsList)
+	if not mapsList then
+		exports.dpUI:showMessageBox("Maps", "No maps")
+		return false
+	end
+	lastMapsList = mapsList
 	SearchScreen.setVisible(true)
+	triggerServerEvent("dpRaceLobby.startSearch", resourceRoot, mapsList)
 end
 
 function SearchScreen.setVisible(visible)
@@ -57,6 +68,7 @@ function SearchScreen.setVisible(visible)
 	exports.dpUI:fadeScreen(visible)	
 
 	foundGame = false
+	acceptedGame = false
 
 	if isTimer(counterTimer) then
 		killTimer(counterTimer)
@@ -67,12 +79,9 @@ function SearchScreen.setVisible(visible)
 		secoundsCount = -1
 		updateTime()
 
-		setTimer(function ()
-			onGameFound()
-		end, 3500, 1)
-
 		UI:setText(ui.mainLabel, "Поиск игроков...")
-		UI:setText(ui.infoLabel, "Игроков в поиске: " .. tostring(math.random(20, 100)))				
+		local playersCount = root:getData("MatchmakingSearchingPlayersCount") or 12
+		UI:setText(ui.infoLabel, "Игроков в поиске: " .. playersCount)				
 	end
 end
 
@@ -140,7 +149,36 @@ addEventHandler("dpUI.click", resourceRoot, function (widget)
 	if widget == ui.cancelButton then
 		SearchScreen.setVisible(false)
 		MapsScreen.setVisible(true)
-	elseif widget == ui.playButton then
-		SearchScreen.setVisible(false)
+		triggerServerEvent("dpRaceLobby.cancelSearch", resourceRoot)
+	elseif widget == ui.acceptButton then
+		if foundGame and not acceptedGame then
+			acceptedGame = true
+			triggerServerEvent("dpRaceLobby.acceptRace", resourceRoot)
+
+			UI:setType(ui.acceptButton, "default_dark")
+			UI:setText(ui.acceptButton, "Ожидание...")	
+
+			UI:setText(ui.mainLabel, "Ожидание игроков")
+			UI:setText(ui.infoLabel, "Готово игроков: 0 из 0")			
+		end
 	end
+end)
+
+addEvent("dpRaceLobby.raceCancelled", true)
+addEventHandler("dpRaceLobby.raceCancelled", resourceRoot, function ()
+	if foundGame then
+		SearchScreen.setVisible(false)
+		SearchScreen.startSearch(lastMapsList)
+	end
+end)
+
+addEvent("dpRaceLobby.updateReadyCount", true)
+addEventHandler("dpRaceLobby.updateReadyCount", resourceRoot, function (count, total)
+	if not count or not total then
+		return
+	end
+	if not foundGame or not acceptedGame then
+		return
+	end
+	UI:setText(ui.infoLabel, "Готово игроков: " .. tostring(count) ..  " из " .. tostring(total))
 end)

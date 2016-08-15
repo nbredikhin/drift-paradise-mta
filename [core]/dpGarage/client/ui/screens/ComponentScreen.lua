@@ -33,11 +33,15 @@ function ComponentScreen:init(name)
 		if type(price) ~= "number" then
 			price = 0
 		end
+		local level = componentConfig.level
+		if type(level) ~= "number" then
+			level = 1
+		end
 		local name = itemName .. " " .. tostring(i - 1)
 		if i == 1 then
 			name = exports.dpLang:getString("garage_tuning_stock_text")
 		end
-		table.insert(items, {name = name, price = price, level = i})
+		table.insert(items, {name = name, price = price, level = level})
 	end
 	-- 3D меню
 	self.menu = ComponentsMenu(
@@ -94,10 +98,11 @@ function ComponentScreen:onKey(key)
 		self:onItemChanged()
 	elseif key == "enter" then
 		local item = self.menu.items[self.menu.activeItem]
+		local this = self
 		Garage.buy(item.price, item.level, function(success)
 			if success then
-				GarageCar.applyTuning(self.componentName, self.menu.activeItem  - 1)
-				self.screenManager:showScreen(ComponentsScreen(self.componentName))
+				GarageCar.applyTuning(this.componentName, this.menu.activeItem  - 1)
+				this.screenManager:showScreen(ComponentsScreen(this.componentName))
 			end
 		end)
 	end

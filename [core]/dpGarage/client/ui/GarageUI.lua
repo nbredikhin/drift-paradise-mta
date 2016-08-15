@@ -31,7 +31,7 @@ local function draw()
 			"center"
 		)
 		-- Деньги игрока
-		if screenManager.activeScreen and screenManager.activeScreen:class():name() ~= "MainScreen" then
+		if screenManager.activeScreen then
 			local primaryColor = tocolor(Garage.themePrimaryColor[1], Garage.themePrimaryColor[2], Garage.themePrimaryColor[3], 255)
 			dxDrawText(
 				"$#FFFFFF" .. tostring(localPlayer:getData("money")), 

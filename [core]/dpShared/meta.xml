@@ -1,0 +1,21 @@
+<meta>
+	<oop>true</oop>
+
+	<script type="shared" src="vehicles_list.lua"/>
+	<script type="shared" src="vehicles_tuning.lua"/>
+	<script type="shared" src="vehicles_prices.lua"/>
+	<script type="shared" src="tuning_prices.lua"/>
+	<script type="shared" src="player_economics.lua"/>
+
+	<!-- Функции для работы с названиями/моделями автомобилей -->
+	<export type="shared" function="getVehicleModelFromName"/>
+	<export type="shared" function="getVehicleNameFromModel"/>
+	<export type="shared" function="getVehiclesTable"/>
+	<export type="shared" function="getVehicleReadableName"/>
+
+	<!-- Тюнинг -->
+	<export type="shared" function="getVehicleTuningTable"/>
+	<export type="shared" function="getVehiclePrices"/>
+	<export type="shared" function="getTuningPrices"/>
+	<export type="shared" function="getEconomicsProperty"/>
+</meta>

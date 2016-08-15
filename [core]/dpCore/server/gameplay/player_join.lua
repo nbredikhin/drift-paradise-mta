@@ -1,6 +1,5 @@
 -- Начальные скины
 local START_SKINS = {15, 46, 96}
-local START_VEHICLES = {411, 602, 558}
 
 -- Вход игрока на сервер
 addEvent("dpCore.login", false)
@@ -12,6 +11,9 @@ addEventHandler("dpCore.login", root, function (success)
 	if source:getData("skin") == 0 then
 		triggerClientEvent(source, "dpSkinSelect.start", resourceRoot, START_SKINS)
 		source:setData("dpCore.state", "skinSelect")
+
+		local startMoney = exports.dpShared:getEconomicsProperty("start_money")
+		source:setData("money", startMoney)
 	else
 		PlayerSpawn.spawn(source)
 	end
@@ -36,7 +38,18 @@ addEventHandler("dpSkinSelect.selected", root, function (skin)
 		if type(vehicles) == "table" and #vehicles > 0 then
 			PlayerSpawn.spawn(player)
 		else
-			triggerClientEvent(player, "dpVehicleSelect.start", resourceRoot, START_VEHICLES)
+			local startVehicles = {}
+			local startVehiclesNames = exports.dpShared:getEconomicsProperty("start_vehicles")
+			if not startVehiclesNames then 
+				startVehiclesNames = {}
+			end
+			for i, name in ipairs(startVehiclesNames) do
+				local model = exports.dpShared:getVehicleModelFromName(name)
+				if model then
+					table.insert(startVehicles, model)
+				end
+			end
+			triggerClientEvent(player, "dpVehicleSelect.start", resourceRoot, startVehicles)
 			player:setData("dpCore.state", "vehicleSelect")
 		end
 	end)
@@ -53,7 +66,11 @@ addEventHandler("dpVehicleSelect.selected", root, function (selectedVehicle)
 		selectedVehicle = 1
 	end
 	local player = client
-	UserVehicles.addVehicle(client:getData("_id"), START_VEHICLES[selectedVehicle], function(success)
+	local startVehiclesNames = exports.dpShared:getEconomicsProperty("start_vehicles")
+	local name = startVehiclesNames[selectedVehicle]
+	local model = exports.dpShared:getVehicleModelFromName(name)
+	
+	UserVehicles.addVehicle(client:getData("_id"), model, function(success)
 		PlayerSpawn.spawn(player)
 	end)
 end)

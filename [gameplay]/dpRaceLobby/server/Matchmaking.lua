@@ -4,12 +4,25 @@ local pendingPlayersList = {}
 local mapCheckTimers = {}
 local pendingPlayersCount = 0
 
+setTimer(function()
+	local count = 0
+	local players = {}
+	for mapName, players in pairs(pendingPlayersList) do
+		for p in pairs(players) do
+			if not players[p] then
+				players[p] = true
+				count = count + 1
+			end
+		end
+	end	
+	root:setData("MatchmakingSearchingPlayersCount", count)
+end, 15000, 0)
+
 local function removePendingPlayer(player)
 	for mapName, players in pairs(pendingPlayersList) do
 		for p in pairs(players) do
 			if p == player then
 				pendingPlayersList[mapName][p] = nil
-				pendingPlayersCount = pendingPlayersCount - 1
 			end
 		end
 	end
@@ -83,8 +96,6 @@ local function addPlayerToMap(player, mapName)
 	pendingPlayersList[mapName][player] = {
 		rank = rank
 	}
-	pendingPlayersCount = pendingPlayersCount + 1
-	root:setData("MatchmakingSearchingPlayersCount", pendingPlayersCount)
 	Matchmaking.scheduleMapCheck(mapName, rank)
 	--outputDebugString("addPlayerToMap: " .. tostring(mapName))
 end

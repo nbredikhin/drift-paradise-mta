@@ -2,7 +2,9 @@
 	<oop>true</oop>
 	<min_mta_version client="1.5.2" server="1.5.2" />
 	<include resource="dpAssets"/>
-	
+	<!-- Shared -->
+	<script type="shared" src="shared/wheel_sizes.lua"/>	
+	<!-- Client -->
 	<script type="client" src="client/body_texture.lua"/>
 	<script type="client" src="client/colors.lua"/>
 	<script type="client" src="client/components.lua"/>
@@ -17,18 +19,17 @@
 	<script type="client" src="client/VehicleShaders.lua"/>
 	<script type="client" src="client/wheels.lua"/>
 	<script type="client" src="client/windows.lua"/>
-
-	<script type="shared" src="shared/wheel_sizes.lua"/>
+	<!-- Server -->
 	<script type="server" src="server_test.lua"/>
-	
 	<script type="server" src="server/suspension.lua"/>
 
+	<!-- Exports -->
 	<export type="client" function="getComponentsNames"/>
 	<export type="client" function="redrawBodyRenderTarget"/>
 	<export type="client" function="createVehicleRenderTarget"/>
-
 	<export type="shared" function="getModelDefaultWheelsSize"/>
 
+	<!-- Assets -->
 	<file src="assets/light.png"/>
 	<file src="assets/selection.png"/>
 	<file src="assets/numberplate.png"/>

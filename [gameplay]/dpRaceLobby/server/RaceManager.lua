@@ -70,6 +70,10 @@ function RaceManager.startRace(race)
 	end
 
 	-- TODO: Создать гонку
+	outputConsole("RACE START:")
+	for i, p in ipairs(race.players) do
+		outputConsole(tostring(i) .. ". " .. tostring(p.name))
+	end
 end
 
 addEvent("dpRaceLobby.cancelSearch", true)

@@ -19,11 +19,11 @@ local DISABLE_SCRIPTS_CACHE = true
 local ENCRYPT_SCRIPT_PATHS = true
 -- Шифровать пути к .png
 local ENCRYPT_PNG_PATHS = true
--- Объединить все скрипты в один файл
-local SCRIPTS_SINGLE_FILE = true
 
 -- Собрать ТОЛЬКО ресурсы из списка
-local RESOURCES_TO_BUILD = {dpCore = true, dpHouses  = true}
+local RESOURCES_TO_BUILD = false--{dpCore = true, dpHouses  = true}
+-- Ресурсы, которые не нужно компилировать 
+local DISABLE_COMPILE_AND_ENCRYPT = { dpShared = true }
 
 -- Ресурсы, которые нужно собрать помимо ресурсов с префиксом RESOURCE_PREFIX
 local INCLUDE_RESOURCES = {
@@ -86,16 +86,15 @@ end
 
 local function buildScript(resource, src, type, outPath)
 	local builtSrc = src
-	if ENCRYPT_SCRIPT_PATHS then
+	if ENCRYPT_SCRIPT_PATHS and not DISABLE_COMPILE_AND_ENCRYPT[resource.name] then
 		builtSrc = md5(SECRET_KEY .. resource.name) .. "/" .. sha256(src .. SECRET_KEY)
 	end
 	copyFile(":" .. resource.name .. "/" .. src, outPath .. "/" .. builtSrc)
-
-	if COMPILE_SCRIPTS then
+	compileScriptsTotal = compileScriptsTotal + 1
+	if COMPILE_SCRIPTS and not DISABLE_COMPILE_AND_ENCRYPT[resource.name] then
 		local fileData = loadFile(":" .. resource.name .. "/" .. src)
 		if fileData then
-			fetchRemote(LUAC_URL, writeCompiledScript, fileData, false, outPath .. "/" .. builtSrc)
-			compileScriptsTotal = compileScriptsTotal + 1
+			fetchRemote(LUAC_URL, writeCompiledScript, fileData, false, outPath .. "/" .. builtSrc)			
 		end
 	else
 		outputServerLog("Building scripts: " .. compileScriptsCurrent)

@@ -16,8 +16,21 @@ function ColorScreen:init(componentName)
 	if color then
 		self.colorMenu:setColor(unpack(color))
 	end
+
+	-- Цена
+	local priceInfo = {0, 1, false}
+	if componentName == "BodyColor" then
+		priceInfo = exports.dpShared:getTuningPrices("body_color")
+	elseif componentName == "WheelsColorR" or componentName == "WheelsColorF" then
+		priceInfo = exports.dpShared:getTuningPrices("wheels_color")
+	elseif componentName == "SpoilerColor" then
+		priceInfo = exports.dpShared:getTuningPrices("spoiler_color")
+	end
+	self.colorMenu.price = priceInfo[1]
+	self.requiredLevel = priceInfo[2]
+
 	self.colorPreviewEnabled = true
-	CameraManager.setState("selecting" .. componentName, false, 3)
+	CameraManager.setState("selecting" .. componentName, false, 3)	
 end
 
 function ColorScreen:hide()
@@ -63,9 +76,13 @@ function ColorScreen:onKey(key)
 		self.screenManager:showScreen(ColorsScreen(self.componentName))
 	elseif key == "enter" then
 		self.colorPreviewEnabled = false
-		GarageCar.applyTuning(self.componentName, {self.colorMenu:getColor()})
-		--outputDebugString("ApplyTuning: " .. tostring(self.componentName) .. " " .. table.concat({self.colorMenu:getColor()}, ","))
-		CarTexture.reset()
-		self.screenManager:showScreen(ColorsScreen(self.componentName))
+		local this = self
+		Garage.buy(self.colorMenu.price, self.requiredLevel, function(success)
+			if success then
+				GarageCar.applyTuning(this.componentName, {this.colorMenu:getColor()})
+				CarTexture.reset()
+			end
+			self.screenManager:showScreen(ColorsScreen(self.componentName))
+		end)
 	end
 end

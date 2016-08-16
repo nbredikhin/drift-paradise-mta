@@ -3,11 +3,16 @@ raceManager = RaceManager()
 addEventHandler("onResourceStart", resourceRoot, function()
 	setTimer(function()
 		local testRace = Race({
-			noSpawnpoints = true,
-			separateDimension = false
+			separateDimension = true,
+			duration = 301
 		})
-		raceManager:addRace(testRace)
-		testRace:addPlayer(getRandomPlayer())
+		raceManager:addRace(testRace)		
+		testRace:loadMap("hello-world")
+		outputDebugString(tostring(testRace.map))
+
+		for i, player in ipairs(getElementsByType("player")) do
+			testRace:addPlayer(player)
+		end
 
 		setTimer(function()
 			testRace:start()

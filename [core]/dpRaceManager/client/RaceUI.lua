@@ -7,11 +7,13 @@ local stateScreens
 
 local function draw()
 	screenManager:draw()
+	Countdown.draw()
 end
 
 local function update(deltaTime)
 	deltaTime = deltaTime / 1000
 	screenManager:update(deltaTime)
+	Countdown.update(deltaTime)
 end
 
 function RaceUI.start()
@@ -26,6 +28,7 @@ function RaceUI.start()
 	}
 
 	screenManager = ScreenManager()
+	RaceUI.screenManager = screenManager
 
 	addEventHandler("onClientRender", root, draw)
 	addEventHandler("onClientPreRender", root, update)
@@ -42,6 +45,13 @@ function RaceUI.stop()
 
 	removeEventHandler("onClientRender", root, draw)
 	removeEventHandler("onClientPreRender", root, update)
+
+	Countdown.stop()
+end
+
+function RaceUI.showCountdown()
+	screenManager:hideScreen()
+	Countdown.start()
 end
 
 function RaceUI.setState(state)

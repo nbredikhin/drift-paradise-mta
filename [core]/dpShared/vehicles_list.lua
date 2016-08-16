@@ -3,7 +3,8 @@ local vehiclesTable = {
 	nissan_240sx = 602,
 	nissan_gtr = 558,
 	toyota_ae86 = 589,
-	mazda_mx5miata = 411
+	mazda_mx5miata = 411,
+	petya_pidor = 429
 }
 
 -- Названия в том виде, в котором они будут отображаться
@@ -40,11 +41,11 @@ end
 
 function getVehicleReadableName(nameOrId)
 	if type(nameOrId) == "string" then
-		return vehiclesReadableNames[nameOrId]
+		return vehiclesReadableNames[nameOrId] or ""
 	elseif type(nameOrId) == "number" then
 		local name = getVehicleNameFromModel(model)
 		if name then
-			return vehiclesReadableNames[name]
+			return vehiclesReadableNames[name] or ""
 		end
 	end
 end

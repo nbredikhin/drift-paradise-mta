@@ -33,13 +33,14 @@ end
 
 -- Загрузить карту в гонку
 -- number id - id гонки
+-- string mapName - название карты
 -- возвращает boolean - результат выполнения
-function raceLoadMap(id, map)
+function raceLoadMap(id, mapName)
 	local race = raceManager:getRaceById(id)
 	if not race then
 		return false
 	end
-	return race:loadMap(map)
+	return race:loadMap(mapName)
 end
 
 -- Добавить нескольких игроков в гонку

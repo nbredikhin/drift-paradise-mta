@@ -2,6 +2,7 @@
 	<oop>true</oop>
 
 	<script type="shared" src="shared/lib/yaci.lua"/>
+	<script type="server" src="server/MapLoader.lua"/>
 	<script type="server" src="server/Race.lua"/>
 	<script type="server" src="server/RaceManager.lua"/>
 	<script type="server" src="server/RaceGameplay.lua"/>
@@ -10,8 +11,10 @@
 
 	<script type="client" src="client/ui/ScreenManager.lua"/>
 	<script type="client" src="client/ui/Screen.lua"/>
+	<script type="client" src="client/ui/Countdown.lua"/>
 	<script type="client" src="client/ui/screens/WaitingScreen.lua"/>
 	<script type="client" src="client/ui/screens/RaceScreen.lua"/>
+	<script type="client" src="client/RaceCheckpoints.lua"/>
 	<script type="client" src="client/Race.lua"/>
 	<script type="client" src="client/RaceUI.lua"/>	
 
@@ -22,4 +25,10 @@
 	<export type="server" function="raceAddPlayers"/>
 	<export type="server" function="raceAddPlayer"/>
 	<export type="server" function="isPlayerInRace"/>
+
+	<file src="assets/countdown3.png"/>
+	<file src="assets/countdown2.png"/>
+	<file src="assets/countdown1.png"/>
+	<file src="assets/countdown0.png"/>
+	<file src="assets/timer.png"/>
 </meta>

@@ -18,9 +18,9 @@ function Race:init(settings)
 
 	---- Настройки гонки
 	-- number duration 		- продолжительность гонки в секундах
-	-- bool noSpawnpoints 	- начать гонку в точках, где находятся игроки, в данный момент.
-	--						Если у трассы нет спавнпойнтов, гонка начнется в точках, где
-	--						находятся игроки, в данный момент.
+	-- bool ignoreSpawnpoints - начать гонку в точках, где находятся игроки, в данный момент.
+	--							Если у трассы нет спавнпойнтов, гонка начнется в точках, где
+	--							находятся игроки, в данный момент.
 	-- bool separateDimension - использовать отдельный dimension
 	--						По умолчанию игроки переносятся в отдельный dimension, чтобы не
 	--						происходило случаных помех или падений фпс из-за скоплений игроков.
@@ -28,7 +28,7 @@ function Race:init(settings)
 	-- bool fadeCameraOnJoin - затемнять камеру игрока при добавлении его в гонку
 	self.settings = {
 		duration = 10,
-		noSpawnpoints = false,
+		ignoreSpawnpoints = false,
 		separateDimension = true,
 		createVehicles = false,
 		fadeCameraOnJoin = true
@@ -53,21 +53,17 @@ end
 
 --- Загрузка карты в гонку
 -- @tparam table map гонка
-function Race:loadMap(map)
-	if type(map) ~= "table" then
+function Race:loadMap(mapName)
+	if type(mapName) ~= "string" then
+		return false
+	end	
+	if self:getState() ~= "no_map" then
 		return false
 	end
-	-- Не заданы чекпойнты
-	if type(map.checkpoints) ~= "table" or #map.checkpoints == 0 then
+	self.map = MapLoader()
+	if not self.map:load(mapName) then
 		return false
 	end
-	-- Значения по умолчанию
-	self.map = exports.dpUtils:extendTable(map, {
-		-- Длительность гонок из настроек
-		duration = self.settings.duration,
-		--weather = 0,
-		--time = {12, 0}
-	})
 	self:setState("waiting")
 	return true
 end
@@ -106,6 +102,10 @@ end
 
 --- Добавление игрока в гонку
 function Race:addPlayer(player)
+	if self.state == "no_map" then
+		outputDebugString("Can't add player: no map loaded")
+		return false
+	end
 	if not isElement(player) or player.type ~= "player" then
 		return false
 	end
@@ -125,9 +125,11 @@ function Race:addPlayer(player)
 	-- Обработка входа в гонку
 	self.gameplay:onPlayerJoin(player)
 	-- Вызов клиентских методов
-	self:callPlayerMethod(player, "onJoin", self.settings)
+	self:callPlayerMethod(player, "onJoin", self.settings, self.dimension)
 	self:callMethod("onPlayerJoin", player)
 	self:callPlayerMethod(player, "updateState", self:getState())
+	-- Отправить карту
+	triggerLatentClientEvent(player, "dpRaceManager.rpc", resourceRoot, "loadMap", self.map:getMapJSON())
 	return true
 end
 
@@ -193,14 +195,13 @@ function Race:removePlayer(player)
 	return false
 end
 
---- Запуск гонки
-function Race:start()
-	if #self.players == 0 then
-		outputDebugString("Race:start - can't start a race without players. Removing...")
-		self.raceManager:removeRace(self)
-		return false
+function Race:removeAllPlayers()
+	while #self.players > 0 do
+		self:removePlayer(self.players[1])
 	end
+end
 
+function Race:run()
 	self.gameplay:onRaceStart()
 
 	local duration = self.settings.duration
@@ -211,15 +212,28 @@ function Race:start()
 	end, duration * 1000, 1)
 
 	self:setState("running")
-	return true
+end
+
+--- Запуск гонки
+function Race:start()
+	if #self.players == 0 then
+		outputDebugString("Race:start - can't start a race without players. Removing...")
+		self.raceManager:removeRace(self)
+		return false
+	end
+
+	self:callMethod("showCountdown")
+	local race = self
+	setTimer(function()
+		race:run()
+	end, 1000 * 3, 1)
 end
 
 function Race:playerFinish(player)
 	if not isElement(player) or player.type ~= "player" then
 		return false
 	end	
-	-- TODO: Не удалять игрока из гонки сразу, отображать экран конца гонки
-	self:removePlayer(player)
+	-- TODO: Не удалять игрока из гонки сразу, отображать экран конца гонки	
 end
 
 -- Время вышло
@@ -235,6 +249,7 @@ function Race:onTimeout()
 	for i, player in ipairs(self.players) do
 		self:playerFinish(player)
 	end
+	self:removeAllPlayers()
 end
 
 ---- Обработчики событий МТА

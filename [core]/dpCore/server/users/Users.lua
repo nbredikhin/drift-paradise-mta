@@ -118,6 +118,9 @@ function Users.loginPlayer(player, username, password, callback)
 			else
 				errorType = "already_logged_in"
 			end
+		else
+			executeCallback(callback, success, errorType)
+			return
 		end
 		-- Получить дом игрока и вызывать callback
 		Houses.setupPlayerHouseData(player, callback, success, errorType)	

@@ -6,6 +6,8 @@ RaceGameplay = newclass("RaceGameplay")
 
 function RaceGameplay:init(race)
 	self.race = race
+
+	self.currentSpawnpoint = 1
 end
 
 function RaceGameplay:onPlayerJoin(player)
@@ -19,11 +21,7 @@ function RaceGameplay:onPlayerJoin(player)
 		if not isElement(vehicle) then
 			return
 		end
-	end
-	if self.race.settings.separateDimension then
-		vehicle.dimension = self.race.dimension
-	end
-	vehicle.frozen = true
+	end	
 	if self.race.settings.fadeCameraOnJoin then
 		player:fadeCamera(false, 0.5)
 	end	
@@ -33,19 +31,33 @@ function RaceGameplay:onPlayerJoin(player)
 			return
 		end	
 		-- Перемещение игрока в гонку
-		if not race.settings.noSpawnpoints then
-			-- TODO: Переместить игрока на точку спавна
-		end
-		if race.settings.separateDimension then
+		if self.race.settings.separateDimension then
+			vehicle.dimension = self.race.dimension
 			player.dimension = race.dimension
+		end
+		vehicle.frozen = true
+		if not race.settings.ignoreSpawnpoints then
+			local spawnpoints = self.race.map.spawnpoints
+			if spawnpoints then
+				local x, y, z, rx, ry, rz = unpack(spawnpoints[self.currentSpawnpoint])
+
+				vehicle.position = Vector3(x, y, z)
+				vehicle.rotation = Vector3(rx, ry, rz)
+
+				self.currentSpawnpoint = self.currentSpawnpoint + 1
+				if self.currentSpawnpoint > #spawnpoints then
+					self.currentSpawnpoint = 1
+				end
+			end
 		end
 		if not player.vehicle then
 			player:warpIntoVehicle(vehicle)
 		end
-		if self.race.settings.fadeCameraOnJoin then
+
+		if race.settings.fadeCameraOnJoin then
 			player:fadeCamera(true)
 			player:setCameraTarget(player)
-		end		
+		end				
 	end, 1000, 1)
 end
 
@@ -57,7 +69,6 @@ function RaceGameplay:onPlayerLeave(player)
 			player.vehicle.frozen = false
 		end
 	end
-	outputDebugString("Leave")
 	player.dimension = 0
 end
 

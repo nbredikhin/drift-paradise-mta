@@ -79,3 +79,9 @@ function RaceUI.setState(state)
 	currentState = state
 	return screenManager:showScreen(screenClass:new())
 end
+
+-- addEventHandler("onClientResourceStart", resourceRoot, function ()
+-- 	RaceUI.start()
+-- 	screenManager:showScreen(FinishScreen:new())
+-- 	outputDebugString("test")
+-- end)

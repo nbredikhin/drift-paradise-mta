@@ -1,9 +1,10 @@
 <meta>
 	<oop>true</oop>
 
-	<script type="shared" src="vehicles_list.lua"/>
-	<script type="shared" src="vehicles_tuning.lua"/>
-	<script type="shared" src="vehicles_prices.lua"/>
+	<script type="shared" src="vehicle_list.lua"/>
+	<script type="shared" src="vehicle_tuning.lua"/>
+	<script type="shared" src="vehicle_prices.lua"/>
+	<script type="shared" src="vehicle_classes.lua"/>
 	<script type="shared" src="tuning_prices.lua"/>
 	<script type="shared" src="player_economics.lua"/>
 
@@ -18,4 +19,7 @@
 	<export type="shared" function="getVehiclePrices"/>
 	<export type="shared" function="getTuningPrices"/>
 	<export type="shared" function="getEconomicsProperty"/>
+
+	<export type="shared" function="getVehicleClass"/>
+	<export type="shared" function="getVehicleClassName"/>
 </meta>

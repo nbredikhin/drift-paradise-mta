@@ -3,8 +3,7 @@ local vehiclesTable = {
 	nissan_240sx = 602,
 	nissan_gtr = 558,
 	toyota_ae86 = 589,
-	mazda_mx5miata = 411,
-	petya_pidor = 429
+	mazda_mx5miata = 411
 }
 
 -- Названия в том виде, в котором они будут отображаться
@@ -12,7 +11,7 @@ local vehiclesReadableNames = {
 	nissan_240sx = "Nissan 240SX",
 	nissan_gtr = "Nissan GT-R",
 	toyota_ae86 = "Toyota AE86",
-	mazda_mx5 = "Mazda MX-5"
+	mazda_mx5miata = "Mazda MX-5"
 }
 
 -- Функции

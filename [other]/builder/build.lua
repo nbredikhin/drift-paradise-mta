@@ -21,7 +21,7 @@ local ENCRYPT_SCRIPT_PATHS = true
 local ENCRYPT_PNG_PATHS = true
 
 -- Собрать ТОЛЬКО ресурсы из списка
-local RESOURCES_TO_BUILD = {dpCore = true, dpConfig = true, dpLoginPanel = true}
+local RESOURCES_TO_BUILD = {dpVehicles = true}
 -- Ресурсы, которые не нужно компилировать 
 local DISABLE_COMPILE_AND_ENCRYPT = { dpShared = true }
 

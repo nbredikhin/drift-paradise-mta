@@ -1,0 +1,4 @@
+<map edf:definitions="editor_main">
+    <object id="object (veg_palmkb1) (1)" breakable="true" interior="0" alpha="255" model="625" doublesided="true" scale="1" dimension="1" posX="1242" posY="-1788.1" posZ="117.7" rotX="0" rotY="0" rotZ="270"></object>
+    <object id="object (veg_palmkb1) (2)" breakable="true" interior="0" alpha="255" model="625" doublesided="true" scale="1" dimension="1" posX="1224.6" posY="-1778.6" posZ="117.7" rotX="0" rotY="0" rotZ="270"></object>
+</map>

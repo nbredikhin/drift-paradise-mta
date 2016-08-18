@@ -1,0 +1,90 @@
+<meta>
+	<info author="Strix" name="Chat"/>
+	<oop>true</oop>
+
+	<settings>
+		<setting name="#log_chat" value="true" accept="false, true"/>
+		<setting name="#log_commands" value="true" accept="false, true"/>
+	</settings>
+
+	<script src="shared/utils.lua" type="shared"/>
+	<script src="shared/import.lua" type="shared"/>
+
+	<script src="client/main.lua" type="client"/>
+	<script src="client/tabs.lua" type="client"/>
+	<script src="client/chat.lua" type="client"/>
+	<script src="client/hud/hud.lua" type="client"/>
+	<script src="client/hud/input.lua" type="client"/>
+	<script src="client/exports.lua" type="client"/>
+	<script src="client/testcommands.lua" type="client"/>
+
+	<script src="server/main.lua" type="server"/>
+	<script src="server/tabs.lua" type="server"/>
+	<script src="server/chat.lua" type="server"/>
+	<script src="server/exports.lua" type="server"/>
+
+	<!-- setVisible(visible)
+		@desc: Показывает или скрывает чат
+		boolean visible:	определяет, будет ли чат показан (true) или скрыт (false)
+	-->
+	<export function="setVisible" type="client"/>
+
+	<!-- output(tabName, text, localized, r, g, b, colorCoded)
+		@desc: Отправляет сообщение локальному игроку в чат
+		string tabName:	    название вкладки, в которую отправится сообщение
+		string text:		текст сообщения или, если localized == true, id локализованного сообщения
+		boolean localized:  указывает, локализовано ли сообщение
+		int r, g, b:		цвет
+		boolean colorCoded: указывает, должны ли цветовые коды преобразовываться в цвета
+	-->
+	<export function="output" type="client"/>
+
+	<!-- output(tabName, text, localized, visibleTo, r, g, b, colorCoded)
+		@desc: Отправляет сообщение, указанным в параметре visibleTo, игрокам в чат
+		string tabName:	 название вкладки, в которую отправится сообщение
+		string text:		текст сообщения или, если localized == true, id локализованной строки
+		boolean localized:  указывает, локализовано ли сообщение
+		element visibleTo:  кому будет отправлено это сообщение
+		int r, g, b:		цвет
+		boolean colorCoded: указывает, должны ли работать цветовые коды
+	-->
+	<export function="output" type="server"/>
+
+	<!-- send(tabName, message, colorCoded)
+		@desc: Отправляет сообщение от имени игрока
+		string tabName:	 название вкладки, в которую отправится сообщение
+		string message:	 текст сообщения
+		boolean colorCoded: указывает, должны ли работать цветовые коды
+	-->
+	<export function="send" type="client"/>
+
+	<!-- getTab()
+		@desc: Получает название открытой вкладки
+	-->
+	<export function="getTab" type="client"/>
+
+	<!-- setTab(tabName)
+		@desc: Устанавливает вкладку
+		string tabName: название вкладки
+	-->
+	<export function="setTab" type="client"/>
+
+	<!-- addTab(tabName, text, localized)
+		@desc: Добавляет вкладку
+		string tabName:	 название вкладки
+		string text:		отображаемое название вкладки или, если localized == true, id локализованной строки
+		boolean localized:  указывает, локализовано ли название вкладки
+	-->
+	<export function="addTab" type="client"/>
+
+	<!-- removeTab(tabName)
+		@desc: Убирает вкладку
+		string tabName:	 название вкладки
+	-->
+	<export function="removeTab" type="client"/>
+	<export function="isTabExists" type="client"/>
+
+	<aclrequest>
+		<right name="function.executeCommandHandler" access="true"/>
+	</aclrequest>
+</meta>

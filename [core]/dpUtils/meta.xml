@@ -1,0 +1,39 @@
+<meta>
+	<oop>true</oop>
+	<download_priority_group>10</download_priority_group>
+
+	<script type="shared" src="shared/time.lua"/>
+	<script type="shared" src="shared/geom.lua"/>
+	<script type="shared" src="shared/table.lua"/>
+	<script type="shared" src="shared/other.lua"/>
+	<script type="shared" src="shared/vehicles.lua"/>
+
+	<script type="server" src="server/players.lua"/>
+
+	<export type="shared" function="isValidVehicleModel"/>
+	<export type="shared" function="getVehicleOccupantsCount"/>
+
+	<export type="shared" function="clearChat"/>
+	<export type="shared" function="extendTable"/>
+	<export type="shared" function="isResourceRunning"/>
+	<export type="shared" function="tableCopy"/>
+	<export type="shared" function="defaultValue"/>
+	<export type="shared" function="capitalizeString"/>
+	<export type="shared" function="removeHexFromString"/>
+	<export type="shared" function="RGBToHex"/>
+	<export type="shared" function="generateString"/>
+	<export type="shared" function="getPlayersByPartOfName"/>
+	<export type="shared" function="format_num"/>
+	<export type="shared" function="getElementDataDefault"/>
+	<!-- Работа со временем -->
+	<export type="shared" function="isLeapYear"/>
+	<export type="shared" function="getTimestamp"/>
+	<export type="shared" function="convertTimestampToSeconds"/>
+	<!-- Геометрия -->
+	<export type="shared" function="wrapAngle"/>
+	<export type="shared" function="wrapAngleRadians"/>
+	<export type="shared" function="differenceBetweenAngles"/>
+	<export type="shared" function="differenceBetweenAnglesRadians"/>
+
+	<export type="server" function="isPlayerAdmin"/>
+</meta>

@@ -1,0 +1,17 @@
+<meta>
+	<oop>true</oop>
+	<script type="client" src="client/CarshopMenu.lua"/>
+	<script type="client" src="client/Carshop.lua"/>
+	<script type="client" src="client/CameraManager.lua"/>
+	<script type="client" src="client/enter_exit.lua"/>
+
+	<script type="server" src="server/enter_exit.lua"/>
+	<script type="server" src="server/buying.lua"/>
+	
+	<file src="assets/object.dff" />
+	<file src="assets/object.txd" />
+	<file src="assets/object2.dff" />
+	<file src="assets/object2.col" />
+
+	<map src="carshop.map" dimension="1"></map>
+</meta>	

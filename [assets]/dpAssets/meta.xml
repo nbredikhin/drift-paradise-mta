@@ -1,0 +1,218 @@
+<meta>
+	<oop>true</oop>
+	<download_priority_group>99</download_priority_group>
+
+	<script type="client" src="client/exports.lua"/>
+	<script type="server" src="script.lua"/>
+
+	<export type="client" function="createShader"/>
+	<export type="client" function="createTexture"/>
+	<export type="client" function="createFont"/>
+	<export type="client" function="createShaderCached"/>
+	<export type="client" function="createTextureCached"/>
+	<export type="client" function="createFontCached"/>
+
+	<file src="assets/shaders/include/tex_matrix.fx"/>
+	<file src="assets/shaders/include/texture.fx"/>
+	<file src="assets/shaders/mask3d.fx"/>
+	<file src="assets/shaders/texture3d.fx"/>
+	<file src="assets/shaders/texture_replace.fx"/>
+
+	<file src="assets/fonts/Roboto-Regular.ttf"/>
+	<file src="assets/fonts/Roboto-Light.ttf"/>
+	<file src="assets/fonts/Roboto-Italic.ttf"/>
+	<file src="assets/fonts/Cuprum-Bold.ttf"/>
+
+	<file src="assets/textures/logo.png"/>
+	<file src="assets/textures/screen_shadow.png"/>
+	<file src="assets/textures/arrow.png"/>
+	<file src="assets/textures/logo_square_simple.png"/>
+	<file src="assets/textures/level.png"/>
+
+	<file src="assets/textures/buttons/circle.png"/>
+	<file src="assets/textures/buttons/en.png"/>
+	<file src="assets/textures/buttons/ru.png"/>
+	<file src="assets/textures/buttons/ua.png"/>
+
+	<!-- Stickers -->
+	<file src="assets/textures/stickers/0.png"/>
+	<file src="assets/textures/stickers/1.png"/>
+	<file src="assets/textures/stickers/2.png"/>
+	<file src="assets/textures/stickers/4.png"/>
+	<file src="assets/textures/stickers/5.png"/>
+	<file src="assets/textures/stickers/6.png"/>
+	<file src="assets/textures/stickers/7.png"/>
+	<file src="assets/textures/stickers/8.png"/>
+	<file src="assets/textures/stickers/9.png"/>
+	<file src="assets/textures/stickers/10.png"/>
+	<file src="assets/textures/stickers/11.png"/>
+	<file src="assets/textures/stickers/12.png"/>
+	<file src="assets/textures/stickers/13.png"/>
+	<file src="assets/textures/stickers/14.png"/>
+	<file src="assets/textures/stickers/15.png"/>
+	<file src="assets/textures/stickers/16.png"/>
+	<file src="assets/textures/stickers/17.png"/>
+	<file src="assets/textures/stickers/18.png"/>
+	<file src="assets/textures/stickers/20.png"/>
+	<file src="assets/textures/stickers/21.png"/>
+	<file src="assets/textures/stickers/22.png"/>
+	<file src="assets/textures/stickers/23.png"/>
+	<file src="assets/textures/stickers/24.png"/>
+	<file src="assets/textures/stickers/25.png"/>
+	<file src="assets/textures/stickers/26.png"/>
+	<file src="assets/textures/stickers/27.png"/>
+	<file src="assets/textures/stickers/28.png"/>
+	<file src="assets/textures/stickers/29.png"/>
+	<file src="assets/textures/stickers/30.png"/>
+	<file src="assets/textures/stickers/32.png"/>
+	<file src="assets/textures/stickers/33.png"/>
+	<file src="assets/textures/stickers/34.png"/>
+	<file src="assets/textures/stickers/35.png"/>
+	<file src="assets/textures/stickers/36.png"/>
+	<file src="assets/textures/stickers/37.png"/>
+	<file src="assets/textures/stickers/38.png"/>
+	<file src="assets/textures/stickers/39.png"/>
+	<file src="assets/textures/stickers/40.png"/>
+	<file src="assets/textures/stickers/41.png"/>
+	<file src="assets/textures/stickers/42.png"/>
+	<file src="assets/textures/stickers/43.png"/>
+	<file src="assets/textures/stickers/44.png"/>
+	<file src="assets/textures/stickers/45.png"/>
+	<file src="assets/textures/stickers/46.png"/>
+	<file src="assets/textures/stickers/47.png"/>
+	<file src="assets/textures/stickers/48.png"/>
+	<file src="assets/textures/stickers/49.png"/>
+	<file src="assets/textures/stickers/50.png"/>
+	<file src="assets/textures/stickers/51.png"/>
+	<file src="assets/textures/stickers/52.png"/>
+	<file src="assets/textures/stickers/53.png"/>
+	<file src="assets/textures/stickers/54.png"/>
+	<file src="assets/textures/stickers/55.png"/>
+	<file src="assets/textures/stickers/56.png"/>
+	<file src="assets/textures/stickers/57.png"/>
+	<file src="assets/textures/stickers/58.png"/>
+	<file src="assets/textures/stickers/59.png"/>
+	<file src="assets/textures/stickers/60.png"/>
+	<file src="assets/textures/stickers/61.png"/>
+	<file src="assets/textures/stickers/62.png"/>
+	<file src="assets/textures/stickers/63.png"/>
+	<file src="assets/textures/stickers/64.png"/>
+	<file src="assets/textures/stickers/65.png"/>
+	<file src="assets/textures/stickers/66.png"/>
+	<file src="assets/textures/stickers/67.png"/>
+	<file src="assets/textures/stickers/68.png"/>
+	<file src="assets/textures/stickers/69.png"/>
+	<file src="assets/textures/stickers/70.png"/>
+	<file src="assets/textures/stickers/71.png"/>
+	<file src="assets/textures/stickers/72.png"/>
+	<file src="assets/textures/stickers/73.png"/>
+	<file src="assets/textures/stickers/74.png"/>
+	<file src="assets/textures/stickers/75.png"/>
+	<file src="assets/textures/stickers/76.png"/>
+	<file src="assets/textures/stickers/77.png"/>
+	<file src="assets/textures/stickers/78.png"/>
+	<file src="assets/textures/stickers/79.png"/>
+	<file src="assets/textures/stickers/80.png"/>
+	<file src="assets/textures/stickers/81.png"/>
+	<file src="assets/textures/stickers/82.png"/>
+	<file src="assets/textures/stickers/83.png"/>
+	<file src="assets/textures/stickers/84.png"/>
+	<file src="assets/textures/stickers/85.png"/>
+	<file src="assets/textures/stickers/86.png"/>
+	<file src="assets/textures/stickers/87.png"/>
+	<file src="assets/textures/stickers/88.png"/>
+	<file src="assets/textures/stickers/89.png"/>
+	<file src="assets/textures/stickers/90.png"/>
+	<file src="assets/textures/stickers/91.png"/>
+	<file src="assets/textures/stickers/92.png"/>
+	<file src="assets/textures/stickers/93.png"/>
+	<file src="assets/textures/stickers/94.png"/>
+	<file src="assets/textures/stickers/95.png"/>
+	<file src="assets/textures/stickers/96.png"/>
+	<file src="assets/textures/stickers/100.png"/>
+	<file src="assets/textures/stickers/101.png"/>
+	<file src="assets/textures/stickers/102.png"/>
+	<file src="assets/textures/stickers/103.png"/>
+	<file src="assets/textures/stickers/104.png"/>
+	<file src="assets/textures/stickers/105.png"/>
+	<file src="assets/textures/stickers/106.png"/>
+	<file src="assets/textures/stickers/107.png"/>
+	<file src="assets/textures/stickers/108.png"/>
+	<file src="assets/textures/stickers/110.png"/>
+	<file src="assets/textures/stickers/111.png"/>
+	<file src="assets/textures/stickers/112.png"/>
+	<file src="assets/textures/stickers/113.png"/>
+	<file src="assets/textures/stickers/114.png"/>
+	<file src="assets/textures/stickers/115.png"/>
+	<file src="assets/textures/stickers/122.png"/>
+	<file src="assets/textures/stickers/123.png"/>
+	<file src="assets/textures/stickers/124.png"/>
+	<file src="assets/textures/stickers/125.png"/>
+	<file src="assets/textures/stickers/126.png"/>
+	<file src="assets/textures/stickers/127.png"/>
+	<file src="assets/textures/stickers/128.png"/>
+	<file src="assets/textures/stickers/129.png"/>
+	<file src="assets/textures/stickers/130.png"/>
+	<file src="assets/textures/stickers/131.png"/>
+	<file src="assets/textures/stickers/132.png"/>
+	<file src="assets/textures/stickers/133.png"/>
+	<file src="assets/textures/stickers/134.png"/>
+	<file src="assets/textures/stickers/135.png"/>
+	<file src="assets/textures/stickers/136.png"/>
+	<file src="assets/textures/stickers/137.png"/>
+	<file src="assets/textures/stickers/138.png"/>
+	<file src="assets/textures/stickers/139.png"/>
+	<file src="assets/textures/stickers/140.png"/>
+	<file src="assets/textures/stickers/141.png"/>
+	<file src="assets/textures/stickers/142.png"/>
+	<file src="assets/textures/stickers/143.png"/>
+	<file src="assets/textures/stickers/144.png"/>
+	<file src="assets/textures/stickers/145.png"/>
+	<file src="assets/textures/stickers/146.png"/>
+	<file src="assets/textures/stickers/155.png"/>
+	<file src="assets/textures/stickers/156.png"/>
+	<file src="assets/textures/stickers/157.png"/>
+	<file src="assets/textures/stickers/158.png"/>
+	<file src="assets/textures/stickers/159.png"/>
+	<file src="assets/textures/stickers/160.png"/>
+	<file src="assets/textures/stickers/161.png"/>
+	<file src="assets/textures/stickers/162.png"/>
+	<file src="assets/textures/stickers/163.png"/>
+	<file src="assets/textures/stickers/164.png"/>
+	<file src="assets/textures/stickers/165.png"/>
+	<file src="assets/textures/stickers/166.png"/>
+	<file src="assets/textures/stickers/167.png"/>
+	<file src="assets/textures/stickers/168.png"/>
+	<file src="assets/textures/stickers/169.png"/>
+	<file src="assets/textures/stickers/170.png"/>
+	<file src="assets/textures/stickers/171.png"/>
+	<file src="assets/textures/stickers/172.png"/>
+	<file src="assets/textures/stickers/173.png"/>
+	<file src="assets/textures/stickers/174.png"/>
+	<file src="assets/textures/stickers/175.png"/>
+	<file src="assets/textures/stickers/176.png"/>
+	<file src="assets/textures/stickers/177.png"/>
+	<file src="assets/textures/stickers/178.png"/>
+	<file src="assets/textures/stickers/179.png"/>
+	<file src="assets/textures/stickers/180.png"/>
+	<file src="assets/textures/stickers/181.png"/>
+	<file src="assets/textures/stickers/182.png"/>
+	<file src="assets/textures/stickers/183.png"/>
+	<file src="assets/textures/stickers/184.png"/>
+	<file src="assets/textures/stickers/185.png"/>
+	<file src="assets/textures/stickers/186.png"/>
+	<file src="assets/textures/stickers/187.png"/>
+	<file src="assets/textures/stickers/188.png"/>
+	<file src="assets/textures/stickers/189.png"/>
+	<file src="assets/textures/stickers/190.png"/>
+	<file src="assets/textures/stickers/191.png"/>
+	<file src="assets/textures/stickers/192.png"/>
+	<file src="assets/textures/stickers/193.png"/>
+	<file src="assets/textures/stickers/194.png"/>
+	<file src="assets/textures/stickers/195.png"/>
+	<file src="assets/textures/stickers/196.png"/>
+	<file src="assets/textures/stickers/197.png"/>
+	<file src="assets/textures/stickers/198.png"/>
+	<file src="assets/textures/stickers/199.png"/>
+
+</meta>

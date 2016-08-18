@@ -1,0 +1,299 @@
+{
+	// Drift Paradise 2.0
+	// Russian language
+	// Created by Nikita Bredikhin (Wherry)
+
+	// Stuff
+	"message_box_close": "Закрыть",
+	"controls_arrows": "Стрелки",
+	"controls_mouse": "Мышь",
+	"controls_space": "Пробел",
+	"controls_mouse_wheel": "Колесо мыши",
+	"price_free": "Бесплатно",
+	"skin_select_text": "Выберите персонажа",
+	"player_level": "Уровень",
+
+	"quit_reason_unknown": "выход",
+	"quit_reason_quit": "выход",
+	"quit_reason_kicked": "kick",
+	"quit_reason_banned": "бан",
+	"quit_reason_bad connection": "ошибка подключения",
+	"quit_reason_timed out": "ошибка подключения",
+
+	// Tutorial
+	"beta_tutorial_1": "Привет",
+	"beta_tutorial_2": "Добро пожаловать на Drift Paradise!",
+	"beta_tutorial_3": "Данный проект является незаконченным",
+	"beta_tutorial_4": "Не стоит оценивать сервер по текущей версии",
+	"beta_tutorial_5": "Желаем вам приятной игры",
+
+	// PhotoMode
+	"photo_mode_help_roll": "Поворот влево/вправо",
+	"photo_mode_help_move": "Передвижение",
+	"photo_mode_help_speed": "Движение медленнее/быстрее",
+	"photo_mode_help_look": "Вращение",
+	"photo_mode_help_zoom": "Приближение/отдаление",
+	"photo_mode_help_updown": "Движение вверх/вниз",
+	"photo_mode_help_tips": "Показать/скрыть интерфейс и помощь",
+	"photo_mode_help_smooth": "Включить/выключить плавное перемещение",
+
+	// UI
+	"login_panel_username_label": "Имя пользователя",
+	"login_panel_password_label": "Пароль",
+	"login_panel_password_confirm_label": "Подтверждение пароля",
+	"login_panel_beta_key_label": "Ключ доступа на бета-тест",
+	"login_panel_start_game_button": "Начать игру",
+	"login_panel_register_button_toggle": "Регистрация",
+	"login_panel_register_button": "Зарегистрироваться",
+	"login_panel_language": "Выберите язык",
+	"login_panel_color": "Цвет",
+	"login_panel_back": "Назад",
+	"login_panel_server_not_available": "Сервер Drift Paradise в данный момент недоступен",
+	"login_panel_server_error": "Ошибка сервера",
+
+	// World map
+	"world_map_help_text": "%s - управление камерой, %s - приблизить/отдалить, %s - выход",
+	"blip_garage": "Гараж",
+	"blip_strip_club": "Стрип клуб",
+
+	// Tab panel
+	"tab_panel_column_id": "ID",
+	"tab_panel_column_nickname": "Ник",
+	"tab_panel_column_money": "Деньги",
+	"tab_panel_column_level": "Уровень",
+	"tab_panel_players_online": "Игроков онлайн",
+
+	// Message box
+	"login_panel_auth_error": "Ошибка авторизации",
+	"login_panel_register_error": "Ошибка регистрации",
+
+	"login_panel_err_enter_username": "Введите имя пользователя",
+	"login_panel_err_enter_password": "Введите пароль",
+	"login_panel_err_login_unknown": "Не удалось войти",
+	"login_panel_err_register_unknown": "Не удалось зарегистрироваться",
+	"login_panel_err_bad_password": "Неверный пароль",
+	"login_panel_err_user_not_found": "Пользователь не найден",
+	"login_panel_err_account_in_use": "Этот аккаунт уже используется",
+	"login_panel_err_username_taken": "Данное имя уже используется",
+	"login_panel_register_success": "Вы успешно зарегистрировались!",
+
+	"login_panel_err_username_too_short": "Слишком короткое имя",
+	"login_panel_err_username_too_long": "Слишком длинное имя",
+	"login_panel_err_password_too_short": "Слишком короткий пароль",
+	"login_panel_err_password_too_long": "Слишком длинный пароль",
+	"login_panel_err_username_invalid": "Недопустимое имя пользователя",
+	"login_panel_err_enter_password_confirm": "Введите подтверждение пароля",
+	"login_panel_err_passwords_do_not_match": "Введённые пароли не совпадают",
+	"login_panel_err_beta_key_invalid": "Введённый ключ недействителен!",
+
+	// Chat messages
+	"chat_message_login_success": "Вы успешно вошли",
+	"chat_message_player_join": "Игрок %s присоединился к серверу",
+	"chat_message_player_quit": "Игрок %s вышел с сервера (%s)",
+	"chat_adminsay_admin": "Администратор",
+
+	// Гараж
+	"garage_no_vehicle_error": "Вы должны находиться в машине, чтобы войти в гараж",
+	"garage_not_driver": "Вы должны быть водителем автомобиля, чтобы войти в гараж",
+	"garage_has_occupants": "В гараж нельзя войти с пассажирами",
+	"garage_not_owner": "Вы должны быть владельцем автомобиля, чтобы войти в гараж",
+	"garage_not_logged_in": "Вы должны быть залогинены, чтобы войти в гараж",
+	"garage_enter_failed": "Не удалось войти в гараж",
+
+	// Интерфейс гаража
+	"garage_menu_go_city": "Выбрать машину",
+	"garage_menu_customize": "Тюнинг",
+	"garage_menu_settings": "Настройки",
+	"garage_menu_sell": "Продать машину",
+	"garage_menu_exit": "Выход",
+
+	"garage_menu_customize_components": "Компоненты",
+	"garage_menu_customize_paint": "Покраска",
+	"garage_menu_customize_stickers": "Винилы",
+	"garage_menu_customize_config": "Конфигурация",
+
+	"garage_menu_settings_bumper": "Снять задний бампер",
+	"garage_menu_back": "Назад",
+
+	// Тюнинг в гараже
+	"garage_tuning_component_front_bump": "Передний бампер",
+	"garage_tuning_component_rear_bump": "Задний бампер",
+	"garage_tuning_component_side_skirts": "Боковые юбки",
+	"garage_tuning_component_wheels_front": "Передние колёса",
+	"garage_tuning_component_wheels_rear": "Задние колёса",
+	"garage_tuning_component_wheels": "Колёса",
+	"garage_tuning_component_spoilers": "Спойлер",
+	"garage_tuning_component_rear_fends": "Задние Фендеры",
+	"garage_tuning_component_front_fends": "Передние Фендеры",
+	"garage_tuning_component_bonnet": "Капот",
+	"garage_tuning_component_rear_lights": "Задние фары",
+	"garage_tuning_component_front_lights": "Передние фары",
+	"garage_tuning_component_exhaust": "Выхлоп",
+	"garage_tuning_component_numberplate": "Номерной знак",
+
+	"garage_tuning_paint_body": "Цвет кузова",
+	"garage_tuning_paint_wheels_front": "Цвет передних дисков",
+	"garage_tuning_paint_wheels_rear": "Цвет задних дисков",
+	"garage_tuning_paint_wheels": "Цвет дисков",
+	"garage_tuning_paint_spoiler": "Цвет спойлера",
+
+	"garage_tuning_paint_hue": "Оттенок",
+	"garage_tuning_paint_saturation": "Насыщенность",
+	"garage_tuning_paint_brightness": "Яркость",
+
+	"garage_tuning_item_bumper": "Бампер",
+	"garage_tuning_item_spoiler": "Спойлер",
+	"garage_tuning_item_wheel": "Колёса",
+	"garage_tuning_item_skirt": "Юбки",
+	"garage_tuning_item_fender": "Фендеры",
+	"garage_tuning_item_bonnet": "Капот",
+	"garage_tuning_item_exhaust": "Выхлоп",
+	"garage_tuning_item_lights": "Фары",
+
+	"garage_tuning_side_top": "Крыша",
+	"garage_tuning_side_right": "Правая сторона",
+	"garage_tuning_side_left": "Левая сторона",
+	"garage_tuning_side_front": "Передняя сторона",
+	"garage_tuning_side_back": "Задняя сторона",
+
+	"garage_tuning_stickers_figures": "Фигуры",
+	"garage_tuning_stickers_letters": "Буквы",
+	"garage_tuning_stickers_numbers": "Цифры",
+	"garage_tuning_stickers_brands": "Бренды",
+	"garage_tuning_stickers_anime": "Аниме",
+
+	"garage_tuning_config_front_wheels": "Передние колёса",
+	"garage_tuning_config_rear_wheels": "Задние колёса",
+	"garage_tuning_config_suspension": "Подвеска",
+	"garage_tuning_config_wheels_size": "Радиус колёс",
+
+	"garage_tuning_config_wheels_offset": "Вынос",
+	"garage_tuning_config_wheels_angle": "Развал",
+	"garage_tuning_config_wheels_width": "Толщина",
+
+	"garage_tuning_buy_button": "Купить",
+	"garage_tuning_stock_text": "Сток",
+	"garage_tuning_install_button": "Установить",
+
+	"garage_help_text": "%s - выбор, %s - принять, %s - назад, %s - обзор",
+	"garage_help_sticker_selection": "%s - выбор, %s - купить, %s - отмена",
+	"garage_help_sticker_editor": "%s - управление, %s, %s, %s, %s - выбор режима, %s/%s - добавить/удалить наклейку, %s - назад",
+	"garage_help_numberplate": "Ввод текста, %s - удалить символ, %s - сохранить, %s - отмена",
+
+	"garage_sticker_editor_move": "Перемещение",
+	"garage_sticker_editor_scale": "Масштаб",
+	"garage_sticker_editor_rotate": "Вращение",
+	"garage_sticker_editor_color": "Выбор цвета",
+
+	"garage_tuning_sticker_color": "Цвет наклейки",
+	"garage_tuning_sticker_prev": "%s - следующая",
+	"garage_tuning_sticker_next": "%s - предыдущая",
+	"garage_tuning_sticker_mirror": "%s - отзеркаливание",
+	"garage_tuning_sticker_mirror_text": "%s - отзеркаливание текста",
+
+	// Main panel
+	"main_panel_tab_account": "Аккаунт",
+	"main_panel_tab_teleport": "Телепорты",
+	"main_panel_tab_settings": "Настройки",
+	"main_panel_tab_garage": "Гараж",
+	"main_panel_tab_races": "Гонки",
+
+	"main_panel_teleport_players": "Игроков",
+
+	"main_panel_account_donat": "Донат",
+	"main_panel_account_more": "Дополнительно",
+	"main_panel_account_money": "Деньги",
+	"main_panel_account_admin": "Администратор",
+	"main_panel_account_player": "Игрок",
+	"main_panel_account_level": "Прогресс уровня",
+	"main_panel_account_regtime": "Дата регистрации",
+	"main_panel_account_playtime": "Часов в игре",
+	"main_panel_account_cars_count": "Количество машин",
+	"main_panel_account_house": "Дом",
+	"main_panel_account_house_yes": "есть",
+	"main_panel_account_house_no": "нет",
+
+	"main_panel_settings_section_game": "Настройки игры",
+	"main_panel_settings_section_graphics": "Настройки графики",
+	"main_panel_settings_language": "Язык",
+	"main_panel_settings_color": "Цвет интерфейса",
+	"main_panel_settings_reflections_cars": "отражения на автомобилях",
+	"main_panel_settings_reflections_water": "отражения на воде",
+	"main_panel_settings_improved_car_lights": "улучшенный эффект фар",
+	"main_panel_settings_improved_sky": "улучшенное небо",
+	"main_panel_settings_screen_blur": "размытие экрана",
+	"main_panel_settings_tyres_smoke": "дым от колёс",
+
+	// Markers
+	"markers_garage_text": "Нажмите %q чтобы войти в гараж",
+	"markers_city_text": "Нажмите %q чтобы телепортироваться в город",
+	"markers_showroom_text": "Нажмите %q чтобы открыть автомагазин",
+	"markers_house_enter_text": "Нажмите %q чтобы войти в дом",
+	"markers_house_exit_text": "Нажмите %q чтобы выйти на улицу",
+	"markers_house_knock_text": "Нажмите %q чтобы постучаться в дверь",
+	"markers_house_buy_text": "Нажмите %q чтобы открыть меню покупки дома",
+
+	// House system
+	"houses_info_price": "Цена",
+	"houses_info_rooms_count": "Количество комнат",
+	"houses_info_tv": "Телевизор",
+	"houses_info_radio": "Радио",
+	"houses_info_console": "Приставка",
+	"houses_info_yes": "Есть",
+	"houses_info_no": "Нет",
+
+	"houses_menu_sell": "Продать дом",
+	"houses_menu_open_door": "Открыть входную дверь",
+	"houses_menu_close_door": "Запереть входную дверь",
+	"houses_menu_kick": "Выгнать всех игроков",
+	"houses_menu_close": "Закрыть",
+
+	"houses_buy_cancel": "Отмена",
+	"houses_buy_confirm": "Купить",
+
+	"houses_message_title": "Дом",
+	"houses_message_cant_buy": "Невозможно купить этот дом",
+	"houses_message_no_money": "У вас недостаточно денег для покупки этого дома",
+	"houses_message_already_have_house": "Чтобы купить этот дом, продайте свой текущий дом",
+	"houses_message_buy_success": "Вы успешно купили дом!",
+	"houses_message_buy_fail": "Не удалось купить этот дом. Попробуйте позже.",
+	"houses_message_sell_success": "Вы успешно продали свой дом!",
+	"houses_message_sell_fail": "Не удалось продать ваш дом. Попробуйте позже.",
+	"houses_message_buy_confirm": "Вы уверены, что хотите купить этот дом за %s?",
+	"houses_message_sell_confirm": "Вы уверены, что хотите продать свой дом за %s?",
+
+	// Chat
+	"chat_tab_general": "Общий",
+	"chat_input_message": "Сообщение",
+
+	// Race
+	"race_lobby_close_button": "Закрыть",
+	"race_lobby_play_button": "Найти гонку",
+	"race_lobby_mode_classic": "Классический",
+	"race_lobby_mode_drift": "Дрифт",
+	"race_lobby_mode_drag": "Драг",
+
+	"race_search_accept": "Принять",
+	"race_search_race_fount": "Гонка найдена!",
+	"race_search_press_accept": "Нажмите \"Принять\", чтобы начать игру",
+	"race_search_searching": "Поиск:",
+	"race_search_searching_label": "Поиск игроков...",
+	"race_search_players_in_search": "Игроков в поиске:",
+	"race_search_cancel": "Отмена",
+	"race_search_waiting_button": "Ожидание...",
+	"race_search_waiting_label": "Ожидание игроков",
+	"race_search_players_ready_count": "Готово игроков: %s из %s",
+	"race_search_reject_error_title": "Поиск гонки",
+	"race_search_reject_error_body": "Один из игроков не принял гонку",
+
+	// Carshop
+	"carshop_label_speed": "Скорость",
+	"carshop_label_acceleration": "Ускорение",
+	"carshop_label_control": "Управление",
+
+	"carshop_buy_button": "Купить",
+	"carshop_required_level": "Требуется уровень %s",
+	"carshop_no_money": "Недостаточно денег",
+	"carshop_buy_error_title": "Не удалось купить машину",
+	"carshop_buy_error_unknown": "Неизвестная ошибка",	
+}

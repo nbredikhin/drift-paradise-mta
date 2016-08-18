@@ -1,0 +1,4 @@
+<meta>
+	<oop>true</oop>
+	<script type="client" src="dpSafeZones.lua"/>
+</meta>

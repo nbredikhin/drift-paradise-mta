@@ -1,0 +1,9 @@
+<meta>
+	<oop>true</oop>
+
+	<script type="client" src="client/Panel.lua"/>
+	<script type="client" src="client/main.lua"/>
+
+	<export type="client" function="isVisible"/>
+	<export type="client" function="setVisible"/>
+</meta>

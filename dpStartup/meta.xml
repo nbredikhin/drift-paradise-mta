@@ -1,0 +1,9 @@
+<meta>
+	<oop>true</oop>
+
+	<download_priority_group>120</download_priority_group>
+
+	<script type="server" src="startup.lua"/>
+	<script type="client" src="client.lua"/>
+	<export function="getGamemodeInfo" http="true"/>
+</meta>

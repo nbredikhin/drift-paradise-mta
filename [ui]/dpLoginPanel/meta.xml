@@ -1,0 +1,16 @@
+<meta>
+	<oop>true</oop>
+	<include resource="dpUI"/>
+	<download_priority_group>-100</download_priority_group>
+
+	<script type="client" src="client/login.lua"/>
+	<script type="client" src="client/gui.lua"/>
+	<script type="client" src="client/Autologin.lua"/>
+	<file src="assets/background.jpg"/>
+	<file src="assets/en.png"/>
+	<file src="assets/ru.png"/>
+	<file src="assets/circle.png"/>
+	<file src="assets/quote.png"/>
+
+	<export type="client" function="setVisible"/>
+</meta>

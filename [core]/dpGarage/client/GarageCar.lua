@@ -188,6 +188,9 @@ function GarageCar.resetTuning()
 	end
 
 	-- Цвета
+	if not currentTuningTable.BodyColor then
+		currentTuningTable.BodyColor = {212, 0, 40}
+	end
 	for i, name in ipairs(colorsData) do
 		if currentTuningTable[name] then
 			setData(name, currentTuningTable[name])

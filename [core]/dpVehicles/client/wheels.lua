@@ -182,22 +182,81 @@ addEventHandler("onClientResourceStart", resourceRoot, function()
 	end
 end)
 
+local function getDriftAngle(vehicle)
+	if vehicle.velocity.length < 0.12 then
+		return 0
+	end
+
+	local direction = vehicle.matrix.forward
+	local velocity = vehicle.velocity.normalized
+
+	local dot = direction.x * velocity.x + direction.y * velocity.y
+	local det = direction.x * velocity.y - direction.y * velocity.x
+
+	local angle = math.deg(math.atan2(det, dot))
+	if math.abs(angle) > 100 then
+		return 0
+	end
+	return angle
+end
+
+local function wrapAngle(value)
+	if not value then
+		return 0
+	end
+	value = math.mod(value, 360)
+	if value < 0 then
+		value = value + 360
+	end
+	return value
+end
+
+local localVehicleSteering = {}
+for i, name in ipairs(wheelsNames) do
+	localVehicleSteering[name] = 0
+end
+
+local steeringSmoothing = 0.7
+
 -- Обновление положения колёс
 addEventHandler("onClientPreRender", root, function ()
+	if getKeyState("space") then
+		steeringSmoothing = 0.1
+	else
+		steeringSmoothing = 0.2
+	end
 	for vehicle, wheels in pairs(vehicleWheels) do
 		local velocity = vehicle.velocity
 		local direction = vehicle.matrix.forward
-
-		local driftAngle = 0
-		if velocity.length > 0 then 
-			velocity = velocity:getNormalized()
-			driftAngle = math.abs(math.deg(math.acos(velocity:dot(direction) / (velocity.length * direction.length))))		
+		local driftAngle = getDriftAngle(vehicle)
+		if driftAngle > 50 then
+			driftAngle = 50
 		end
-		
+		local driftMul = 1 - math.min(1, math.abs(driftAngle) / 66)
+		local steeringMul = 1
+		local isLocalVehicle = vehicle == localPlayer.vehicle
+		if isLocalVehicle and getKeyState("space") then
+			steeringMul = 0
+		end
 		for name, wheel in pairs(wheels) do
 			if wheel.custom then
 				local rx, ry, rz = vehicle:getComponentRotation(name)
 				local position = vehicle.matrix:transformPosition(wheel.position)
+				local steering = 0
+				if name == "wheel_rf_dummy" then
+					local angleOffset = wrapAngle(rz + 180) - 180
+					steering = driftAngle * 0.6 + angleOffset * driftMul * steeringMul
+				elseif name == "wheel_lf_dummy" then
+					local angleOffset = rz - 180
+					steering = driftAngle * 0.6 + angleOffset * driftMul  * steeringMul + 180
+				else
+					steering = rz
+				end
+				local currentSteering = steering
+				if isLocalVehicle then
+					localVehicleSteering[name] = localVehicleSteering[name] + (steering - localVehicleSteering[name]) * steeringSmoothing
+					currentSteering = localVehicleSteering[name]
+				end				
 				wheel.object.position = position
 				wheel.object.rotation = vehicle.rotation
 				if wheel.object.dimension ~= vehicle.dimension then
@@ -205,7 +264,7 @@ addEventHandler("onClientPreRender", root, function ()
 				end
 
 				wheel.shader:setValue("sRotationX", rx)
-				wheel.shader:setValue("sRotationZ", rz)
+				wheel.shader:setValue("sRotationZ", currentSteering)
 				wheel.shader:setValue("sAxis", {vehicle.matrix.up.x, vehicle.matrix.up.y, vehicle.matrix.up.z})					
 			end	
 			vehicle:setComponentVisible(name, not wheel.custom)

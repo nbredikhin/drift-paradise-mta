@@ -11,6 +11,11 @@ local driftTimer = 0
 local nonDriftTimer = 0
 -- Drift angle
 local driftAngle = 0
+local driftDirection = 0
+
+-- Перекладка
+local DIRECTION_CHANGE_POINTS = 800
+local DIRECTION_CHANGE_MAX_TIME = 1250
 
 -- Points multiplier
 local pointsMultiplier = 1
@@ -49,22 +54,48 @@ local function isDriftingClose()
 end
 
 local function detectDrift()
-	local velocity = localPlayer.vehicle.velocity
-	local direction = localPlayer.vehicle.matrix.forward
-
-	if velocity.length < MIN_DRIFT_SPEED then 
+	local vehicle = localPlayer.vehicle
+	if vehicle.velocity.length < MIN_DRIFT_SPEED then
 		return 0, false
 	end
-	velocity = velocity:getNormalized()
 
-	local angle = math.abs(math.deg(math.acos(velocity:dot(direction) / (velocity.length * direction.length))))
+	local direction = vehicle.matrix.forward
+	local velocity = vehicle.velocity.normalized
+
+	local dot = direction.x * velocity.x + direction.y * velocity.y
+	local det = direction.x * velocity.y - direction.y * velocity.x
+
+	local angle = math.deg(math.atan2(det, dot))
+	local direction = 1
+	if angle < 0 then
+		direction = -1
+	end
+	angle = math.abs(angle)
 	if angle > MIN_DRIFT_ANGLE and angle < 90 then
 		isPreventedByCollision = false
-		return angle, true
+		return angle, true, direction
 	else
-		return angle, false
+		return angle, false, direction
 	end
 end
+
+-- local function detectDrift()
+-- 	local velocity = localPlayer.vehicle.velocity
+-- 	local direction = localPlayer.vehicle.matrix.forward
+
+-- 	if velocity.length < MIN_DRIFT_SPEED then 
+-- 		return 0, false
+-- 	end
+-- 	velocity = velocity:getNormalized()
+
+-- 	local angle = math.abs(math.deg(math.acos(velocity:dot(direction) / (velocity.length * direction.length))))
+-- 	if angle > MIN_DRIFT_ANGLE and angle < 90 then
+-- 		isPreventedByCollision = false
+-- 		return angle, true
+-- 	else
+-- 		return angle, false
+-- 	end
+-- end
 
 local function update(dt)
 	if not isElement(localPlayer.vehicle) then
@@ -87,15 +118,22 @@ local function update(dt)
 		return
 	end
 
-	driftAngle, isDrifting = detectDrift()
+	driftAngle, isDrifting, direction = detectDrift()
 
+	local isChangingDirectionBonusAllowed = false
 	if isDrifting then
 		 -- Add points and drift time, reset non-drift time
 		 driftPoints = driftPoints + MIN_DRIFT_POINTS * pointsMultiplier
 		 driftTimer = driftTimer + dt
-		 nonDriftTimer = 0
+		 
 
-		 PointsDrawing.show()
+		 if PointsDrawing.show() then
+		 	driftDirection = direction	
+		 end
+		 if nonDriftTimer > 250 and nonDriftTimer < DIRECTION_CHANGE_MAX_TIME then
+		 	isChangingDirectionBonusAllowed = true
+		 end
+		 nonDriftTimer = 0
 		 PointsDrawing.setShaking(true)
 	else 
 		PointsDrawing.setShaking(false)
@@ -131,8 +169,16 @@ local function update(dt)
 			PointsDrawing.updateMultiplier(pointsMultiplier)
 		end
 	end
+	--outputDebugString(tostring(driftTimer / LONG_DRIFT_TIME))
 
-	PointsDrawing.updatePointsCount(driftPoints)
+	if direction ~= driftDirection and isChangingDirectionBonusAllowed then
+		driftDirection = direction
+		local scoreValue = DIRECTION_CHANGE_POINTS
+		driftPoints = driftPoints + scoreValue
+		PointsDrawing.drawBonus(scoreValue)
+	end
+
+	PointsDrawing.updatePointsCount(driftPoints, driftAngle * direction)
 end
 
 local function onCollision()

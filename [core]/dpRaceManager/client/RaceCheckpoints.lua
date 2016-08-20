@@ -12,9 +12,11 @@ local function onMarkerHit(player)
 	playSoundFrontEnd(43)
 	if currentCheckpoint < #checkpointsList then
 		RaceCheckpoints.showNext()
+		localPlayer:setData("race_checkpoint", currentCheckpoint - 1)
 	else
-		outputDebugString("Client finished")
-	end
+		Race.finished()
+		localPlayer:setData("race_checkpoint", -1)
+	end	
 end
 
 local function destroyMarkers()
@@ -33,11 +35,13 @@ function RaceCheckpoints.start(checkpoints)
 	RaceCheckpoints.showNext()
 
 	addEventHandler("onClientMarkerHit", resourceRoot, onMarkerHit)
+	localPlayer:setData("race_checkpoint", 0)
 end
 
 function RaceCheckpoints.stop()
 	destroyMarkers()
 	removeEventHandler("onClientMarkerHit", resourceRoot, onMarkerHit)
+	localPlayer:setData("race_checkpoint", 0)
 end
 
 function RaceCheckpoints.showNext()
@@ -65,4 +69,19 @@ function RaceCheckpoints.showNext()
 	else
 		currentMarker.icon = "finish"
 	end
+end
+
+function RaceCheckpoints.getCurrentCheckpoint()
+	return currentCheckpoint - 1
+end
+
+function RaceCheckpoints.getCheckpointsCount()
+	return #checkpointsList
+end
+
+function RaceCheckpoints.getCheckpointPosition()
+	if not isElement(currentMarker) then
+		return false
+	end
+	return currentMarker.position
 end

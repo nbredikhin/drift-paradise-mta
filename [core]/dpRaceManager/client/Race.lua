@@ -1,12 +1,49 @@
 Race = {}
 Race.state = nil
 Race.settings = {}
+Race.players = {}
+Race.rank = 0
 
+local finishedPlayers = {}
 local raceObjects = {}
 Race.dimension = 0
 
 local isActive = false
 local rpcMethods = {}
+local finishScreen
+local isFinished = false
+
+local rankTimer
+
+local function calculateRank()
+	if isFinished then
+		return
+	end
+	if not Race.players or #Race.players == 0 then
+		Race.rank = 0
+		return
+	end
+	if #Race.players == 1 then
+		Race.rank = 1
+		return
+	end
+
+	local localCheckpoint = RaceCheckpoints.getCurrentCheckpoint()
+	local distance = getDistanceBetweenPoints2D(localPlayer.vehicle.position, RaceCheckpoints.getCheckpointPosition())
+	local rank = 1
+	for i, p in ipairs(Race.players) do
+		local playerCheckpoint = p:getData("race_checkpoint")
+		if playerCheckpoint > localCheckpoint then
+			rank = rank + 1
+		elseif playerCheckpoint == localCheckpoint then
+			local pos = RaceCheckpoints.getCheckpointPosition()
+			if pos and getDistanceBetweenPoints2D(p.vehicle.position, pos) < distance then
+				rank = rank + 1
+			end
+		end
+	end
+	Race.rank = rank
+end
 
 function Race.start()
 	if isActive then
@@ -14,7 +51,14 @@ function Race.start()
 	end
 	isActive = true
 	Race.state = nil
+	isFinished = false
+	finishScreen = nil
 	RaceUI.start()	
+	finishedPlayers = {}
+	Race.players = {}
+	toggleControl("enter_exit", false)
+
+	rankTimer = setTimer(calculateRank, 1000, 0)
 end
 
 function Race.stop()
@@ -31,7 +75,26 @@ function Race.stop()
 		end
 	end
 	raceObjects = {}
+	triggerServerEvent("leaveRace", resourceRoot)
 	RaceCheckpoints.stop()
+	toggleControl("enter_exit", true)
+
+	if isTimer(rankTimer) then
+		killTimer(rankTimer)
+		rankTimer = nil
+	end		
+end
+
+function Race.finished(timeout)
+	RaceCheckpoints.stop()
+	triggerServerEvent("finishRace", resourceRoot)
+	isFinished = true
+	finishScreen = FinishScreen()
+	RaceUI.screenManager:showScreen(finishScreen)
+end
+
+function Race.getFinishedPlayers()
+	return finishedPlayers
 end
 
 -- RPC
@@ -69,6 +132,10 @@ Race.addMethod("onLeave", function ()
 	Race.stop()
 end)
 
+Race.addMethod("timeout", function ()
+	Race.finished(true)
+end)
+
 -- Изменилось состоние гонки
 Race.addMethod("updateState", function (state)
 	Race.state = state
@@ -91,6 +158,14 @@ Race.addMethod("loadMap", function (mapJSON)
 	end
 end)
 
-Race.addMethod("showCountdown", function()
-	RaceUI.showCountdown()
+Race.addMethod("showCountdown", function(players)
+	RaceUI.showCountdown()	
+	Race.players = players
+end)
+
+Race.addMethod("updateFinishedPlayers", function (players)
+	finishedPlayers = players
+	if finishScreen then
+		finishScreen:setPlayersList(players)
+	end
 end)

@@ -9,7 +9,7 @@ local buttonsHeight = 60
 
 local iconsSize = 20
 
-function FinishScreen:init(playersList)
+function FinishScreen:init()
 	self.super:init()
 	self.renderTarget = exports.dpUI:getRenderTarget()
 	screenWidth, screenHeight = exports.dpUI:getScreenSize()
@@ -25,19 +25,22 @@ function FinishScreen:init(playersList)
 	self.timeIcon = dxCreateTexture("assets/timer.png")
 
 	self.themeColor = {exports.dpUI:getThemeColor()}
+	self.mouseOver = false
 
 	self.ranksColors = {
 		{255, 200, 0},
 		{200, 200, 230},
 		{200, 70, 30}
 	}
-	self.playersList = {
-		{name = "Wherry", prize = 1500, time = "01:15", isLocal = true},
-		{name = "flusha", prize = 1000, time = "01:17"},
-		{name = "olofmeister", prize = 500, time = "01:25"},
-		{name = "dno", prize = 200, time = "01:60"},
-		{name = "LONG_TEXT_LONG_TEXT_LONG_TEXT_LONG_TEXT_LONG_TEXT", prize = 200, time = "01:60"},
-	}
+	self.playersList = {}
+	self:setPlayersList(Race.getFinishedPlayers())
+	-- self.playersList = {
+	-- 	{name = "Wherry", prize = 1500, time = "01:15", isLocal = true},
+	-- 	{name = "flusha", prize = 1000, time = "01:17"},
+	-- 	{name = "olofmeister", prize = 500, time = "01:25"},
+	-- 	{name = "dno", prize = 200, time = "01:60"},
+	-- 	{name = "LONG_TEXT_LONG", prize = 200, time = "01:60"},
+	-- }
 	self.columns = {
 		{source = "name", size = 0.5, icon = self.rankIcon},
 		{source = "prize", size = 0.25, icon = self.dollarIcon, space = 0},
@@ -113,7 +116,63 @@ function FinishScreen:draw()
 	end
 
 	y = y + (6 - #self.playersList) * itemHeight - buttonsHeight
-	dxDrawRectangle(x, y, panelWidth, buttonsHeight, tocolor(212, 0, 40, 255 * self.fadeProgress))
+	local buttonColor = tocolor(212, 0, 40, 255 * self.fadeProgress)
+	local mx, my = getCursorPosition()
+	if  mx and 
+		mx * realScreenSize.x > x and 
+		mx * realScreenSize.x < x + panelWidth and 
+		my * realScreenSize.y > y and 
+		my * realScreenSize.y < y + buttonsHeight 
+	then
+		buttonColor = tocolor(222, 20, 60, 255 * self.fadeProgress)
+		self.mouseOver = true
+	else
+		self.mouseOver = false
+	end
+	dxDrawRectangle(x, y, panelWidth, buttonsHeight, buttonColor)
 	dxDrawText("Завершить гонку", x, y, x + panelWidth, y + buttonsHeight, tocolor(255, 255, 255), 1, self.itemFont, "center", "center")
 	dxSetRenderTarget()
+end
+
+function FinishScreen:onKey(key, state)
+	self.super:onKey()
+	if not state then
+		return 
+	end
+
+	if key == "mouse1" and self.mouseOver then
+		Race.stop()
+	end
+end
+
+local function getTimeString(value)
+	local seconds = math.floor(value)
+	local minutes = math.floor(seconds / 60)
+	seconds = seconds - minutes * 60
+	if minutes < 10 then
+		minutes = "0" .. tostring(minutes)
+	else
+		minutes = tostring(minutes)
+	end
+	if seconds < 10 then
+		seconds = "0" .. tostring(seconds)
+	else
+		seconds = tostring(seconds)
+	end
+	return tostring(minutes) .. ":" .. tostring(seconds)
+end
+
+function FinishScreen:setPlayersList(players)
+	if type(players) ~= "table" then
+		return false
+	end
+
+	self.playersList = {}
+	for i, playerInfo in ipairs(players) do
+		table.insert(self.playersList, { 
+			name = playerInfo.player.name,
+			prize = playerInfo.money,
+			time = getTimeString(math.floor(playerInfo.time / 1000))
+		})
+	end
 end

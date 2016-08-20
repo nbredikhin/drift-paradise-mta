@@ -1,16 +1,30 @@
 RaceManager = newclass("RaceManager")
+addEvent("leaveRace", true)
+addEvent("finishRace", true)
+addEvent("updateRank", true)
 
 function RaceManager:init()
 	self.races = {}
 
 	self:addEventHandler("onVehicleStartExit", root)
 	self:addEventHandler("onPlayerQuit", root)
+
+	self:addClientEventHandler("leaveRace")
+	self:addClientEventHandler("finishRace")
+	self:addClientEventHandler("updateRank")
 end
 
 function RaceManager:addEventHandler(eventName, attachTo)
 	local raceManager = self
 	addEventHandler(eventName, attachTo, function (...)
 		raceManager:handleEvent(eventName, source, ...)
+	end)
+end
+
+function RaceManager:addClientEventHandler(eventName)
+	local raceManager = self
+	addEventHandler(eventName, resourceRoot, function (...)
+		raceManager:handleClientEvent(eventName, client, ...)
 	end)
 end
 
@@ -80,4 +94,24 @@ function RaceManager:handleEvent(eventName, source, ...)
 		end
 	end
 	return true
+end
+
+function RaceManager:handleClientEvent(eventName, client, ...)
+	if type(eventName) ~= "string" then
+		return false
+	end
+	local raceId = client:getData("race_id")
+	if type(raceId) ~= "number" then
+		return 
+	end
+	local race = self:getRaceById(raceId)
+	if not race then
+		client:setData("race_id", false)
+		return
+	end
+
+	local eventHandler = race[eventName .. "Handler"]
+	if type(eventHandler) == "function" then
+		eventHandler(race, client, ...)
+	end	
 end

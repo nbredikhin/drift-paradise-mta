@@ -4,7 +4,7 @@ addEventHandler("onResourceStart", resourceRoot, function()
 	-- setTimer(function()
 	-- 	local testRace = Race({
 	-- 		separateDimension = true,
-	-- 		duration = 301
+	-- 		duration = 5
 	-- 	})
 	-- 	raceManager:addRace(testRace)		
 	-- 	testRace:loadMap("hello-world")

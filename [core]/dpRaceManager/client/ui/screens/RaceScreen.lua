@@ -53,7 +53,7 @@ function RaceScreen:draw()
 	dxDrawText(posText, x, y, x + posTextWidth, y + panelHeight, whiteColor, 1, self.font, "left", "center")
 	x = x + posTextWidth + 5
 
-	local posValueText = "99/99"
+	local posValueText = tostring(Race.rank) .. "/" .. tostring(#Race.players)
 	local posValueTextWidth = dxGetTextWidth(posValueText, 1, self.font, false)
 	dxDrawText(posValueText, x, y, x + posTextWidth, y + panelHeight, primaryColor, 1, self.font, "left", "center") 
 	x = x + posValueTextWidth + 10
@@ -62,7 +62,9 @@ function RaceScreen:draw()
 	local cpTextWidth = dxGetTextWidth(cpText, 1, self.font, false)
 	dxDrawText(cpText, x, y, x + posTextWidth, y + panelHeight, whiteColor, 1, self.font, "left", "center") 
 	x = x + cpTextWidth + 5	
-	local cpValueText = "98/99"
+	local currentCheckpoint = RaceCheckpoints.getCurrentCheckpoint()
+	local totalCheckpoints = RaceCheckpoints.getCheckpointsCount()
+	local cpValueText = tostring(currentCheckpoint) .. "/" .. tostring(totalCheckpoints)
 	local cpValueTextWidth = dxGetTextWidth(cpValueText, 1, self.font, false)
 	dxDrawText(cpValueText, x, y, x + posTextWidth, y + panelHeight, primaryColor, 1, self.font, "left", "center") 
 	x = x + cpValueTextWidth + 10

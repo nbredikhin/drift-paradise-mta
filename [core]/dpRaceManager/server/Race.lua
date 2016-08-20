@@ -40,7 +40,8 @@ function Race:init(settings)
 	-- Dimension гонки
 	self.dimension = 0
 
-	self.gameplay = RaceGameplay(self)	
+	self.gameplay = RaceGameplay(self)
+	self.finishedPlayers = {}
 end
 
 -- Гонка была добавлена в RaceManager
@@ -52,7 +53,7 @@ function Race:onAdded()
 end
 
 --- Загрузка карты в гонку
--- @tparam table map гонка
+-- @tparam string mapName - название карты
 function Race:loadMap(mapName)
 	if type(mapName) ~= "string" then
 		return false
@@ -64,6 +65,16 @@ function Race:loadMap(mapName)
 	if not self.map:load(mapName) then
 		return false
 	end
+	self:setState("waiting")
+	return true
+end
+
+function Race:setMap(mapData)
+	if type(mapData) ~= "table" then
+		return false
+	end
+	self.map = MapLoader()
+	self.map.checkpoints = mapData.checkpoints
 	self:setState("waiting")
 	return true
 end
@@ -177,13 +188,13 @@ function Race:removePlayer(player)
 
 	-- Удалить игрока
 	for i, p in ipairs(self.players) do
-		if p == player then
+		if p == player then			
 			-- Обработать выход игрока
 			self.gameplay:onPlayerLeave(player)
 			self:callPlayerMethod(player, "onLeave")
 			self:callMethod("onPlayerLeave", player)
 			-- Полностью удалить игрока из гонки
-			player:removeData("race_id")
+			player:setData("race_id", false)
 			table.remove(self.players, i)
 			-- Если все игроки покинули гонку - удалить её
 			if #self.players == 0 then
@@ -216,13 +227,17 @@ end
 
 --- Запуск гонки
 function Race:start()
+	if self:getState() ~= "waiting" then
+		return false
+	end
 	if #self.players == 0 then
 		outputDebugString("Race:start - can't start a race without players. Removing...")
 		self.raceManager:removeRace(self)
 		return false
 	end
+	self.finishedPlayers = {}
 
-	self:callMethod("showCountdown")
+	self:callMethod("showCountdown", self.players)
 	local race = self
 	setTimer(function()
 		race:run()
@@ -233,23 +248,38 @@ function Race:playerFinish(player)
 	if not isElement(player) or player.type ~= "player" then
 		return false
 	end	
-	-- TODO: Не удалять игрока из гонки сразу, отображать экран конца гонки	
+	local timeLeft = getTimerDetails(self.durationTimer)
+	if not timeLeft then
+		return false
+	end
+	local timePassed = self.settings.duration * 1000 - timeLeft
+	local rank = #self.finishedPlayers + 1
+	local money = 2500 - (500 * (rank - 1))
+	local xp = 250 - (50 * (rank - 1))
+	table.insert(self.finishedPlayers, {
+		player = player,
+		time = timePassed,
+		rank = rank, 
+		money = money,
+		xp = xp
+	})
+	self:callMethod("updateFinishedPlayers", self.finishedPlayers)
+	return true
 end
 
 -- Время вышло
 function Race:onTimeout()
-	if isTimer(self.durationTimer) then
-		killTimer(self.durationTimer)
-	end
-	self.durationTimer = nil
-
-	outputDebugString("Race timeout")
-
 	-- Принудительно финишировать всем игрокам
 	for i, player in ipairs(self.players) do
 		self:playerFinish(player)
-	end
-	self:removeAllPlayers()
+	end	
+	self:callMethod("timeout")
+	if isTimer(self.durationTimer) then
+		killTimer(self.durationTimer)
+	end	
+	self.durationTimer = nil
+	outputDebugString("Race timeout")
+	--self:removeAllPlayers()
 end
 
 ---- Обработчики событий МТА
@@ -267,4 +297,15 @@ end
 -- Игрок вышел с сервера
 function Race:onPlayerQuitHandler(player)
 	self:removePlayer(player)
+end
+
+function Race:leaveRaceHandler(player)
+	self:removePlayer(player)
+end
+
+function Race:finishRaceHandler(player)
+	if not self.durationTimer then
+		return false
+	end
+	self:playerFinish(player)
 end

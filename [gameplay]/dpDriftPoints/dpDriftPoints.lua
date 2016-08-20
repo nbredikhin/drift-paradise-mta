@@ -9,7 +9,7 @@ local driftPoints = 0
 local driftTimer = 0
 -- How many time player is not drifting
 local nonDriftTimer = 0
--- Drift angle
+
 local driftAngle = 0
 local driftDirection = 0
 
@@ -17,9 +17,7 @@ local driftDirection = 0
 local DIRECTION_CHANGE_POINTS = 800
 local DIRECTION_CHANGE_MAX_TIME = 1250
 
--- Points multiplier
 local pointsMultiplier = 1
--- Maximum points multilier
 local MAX_MULTIPLIER = 10
 
 -- Points for drift added each frame

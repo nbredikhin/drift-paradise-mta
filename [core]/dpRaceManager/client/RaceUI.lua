@@ -16,6 +16,10 @@ local function update(deltaTime)
 	Countdown.update(deltaTime)
 end
 
+local function onKey(...)
+	screenManager:onKey(...)
+end
+
 function RaceUI.start()
 	if isActive then
 		return false
@@ -32,6 +36,7 @@ function RaceUI.start()
 
 	addEventHandler("onClientRender", root, draw)
 	addEventHandler("onClientPreRender", root, update)
+	addEventHandler("onClientKey", root, onKey)
 end
 
 function RaceUI.stop()
@@ -45,6 +50,7 @@ function RaceUI.stop()
 
 	removeEventHandler("onClientRender", root, draw)
 	removeEventHandler("onClientPreRender", root, update)
+	removeEventHandler("onClientKey", root, onKey)
 
 	Countdown.stop()
 end
@@ -79,9 +85,3 @@ function RaceUI.setState(state)
 	currentState = state
 	return screenManager:showScreen(screenClass:new())
 end
-
--- addEventHandler("onClientResourceStart", resourceRoot, function ()
--- 	RaceUI.start()
--- 	screenManager:showScreen(FinishScreen:new())
--- 	outputDebugString("test")
--- end)

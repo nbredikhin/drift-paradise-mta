@@ -77,6 +77,13 @@ local function onKey(button, isDown)
 	end
 	if screenManager then
 		screenManager:onKey(button)
+		if button == "enter" then
+			exports.dpSounds:playSound("ui_select.wav")
+		elseif button == "backspace" then
+			exports.dpSounds:playSound("ui_back.wav")
+		elseif string.find(button, "arrow") then
+			exports.dpSounds:playSound("ui_change.wav")
+		end
 	end
 end
 

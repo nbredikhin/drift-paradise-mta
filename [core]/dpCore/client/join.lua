@@ -3,6 +3,8 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	setBlurLevel(0)
 	-- Отключение скрытия объектов
 	setOcclusionsEnabled(false)
+	-- Отключение фоновых звуков стрельбы
+	setWorldSoundEnabled(5, false)
 
 	setWeather(0)
 	setTime(12, 0)

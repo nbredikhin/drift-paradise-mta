@@ -1,0 +1,10 @@
+<meta>
+	<oop>true</oop>
+
+	<script type="client" src="sounds.lua"/>
+	<export type="client" function="playSound"/>
+
+	<file src="sounds/ui_back.wav"/>
+	<file src="sounds/ui_select.wav"/>
+	<file src="sounds/ui_change.wav"/>
+</meta>

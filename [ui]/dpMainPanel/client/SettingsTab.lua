@@ -224,27 +224,43 @@ end
 addEvent("dpUI.click", false)
 addEventHandler("dpUI.click", resourceRoot, function(widget)
 	-- Переключение языка
+	local checkboxClicked = false
 	if widget == widgets.langButtons.en then
 		exports.dpLang:setLanguage("english")
+		checkboxClicked = true
 	elseif widget == widgets.langButtons.ru then
+		checkboxClicked = true
 		exports.dpLang:setLanguage("russian")
 	elseif widget == widgets.colorButtons.red then
+		checkboxClicked = true
 		UI:setTheme("red")
 	elseif widget == widgets.colorButtons.purple then
+		checkboxClicked = true
 		UI:setTheme("purple")
 	elseif widget == widgets.colorButtons.blue then
+		checkboxClicked = true
 		UI:setTheme("blue")
 	elseif widget == widgets.blurChechbox then
+		checkboxClicked = true
 		exports.dpConfig:setProperty("ui.blur", UI:getState(widget))
 	elseif widget == widgets.improvedSkyCheckbox then
+		checkboxClicked = true
 		exports.dpConfig:setProperty("graphics.improved_sky", UI:getState(widget))
 	elseif widget == widgets.carLightsCheckbox then
+		checkboxClicked = true
 		exports.dpConfig:setProperty("graphics.improved_car_lights", UI:getState(widget))
 	elseif widget == widgets.waterCheckbox then
+		checkboxClicked = true
 		exports.dpConfig:setProperty("graphics.reflections_water", UI:getState(widget))
 	elseif widget == widgets.reflectionsCheckbox then
+		checkboxClicked = true
 		exports.dpConfig:setProperty("graphics.reflections_cars", UI:getState(widget))
 	elseif widget == widgets.smokeCheckbox then
+		checkboxClicked = true
 		exports.dpConfig:setProperty("graphics.tyres_smoke", UI:getState(widget))
+	end
+
+	if checkboxClicked then
+		exports.dpSounds:playSound("ui_change.wav")
 	end
 end)

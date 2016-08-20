@@ -192,13 +192,16 @@ function StickerEditorScreen:onKey(key)
 		self.screenManager:showScreen(StickersSideScreen(self.sideName))
 	elseif key == "1" then
 		CarTexture.toggleStickerMirroring()
+		exports.dpSounds:playSound("ui_change.wav")
 	elseif key == "2" then
 		CarTexture.toggleTextMirroring()
+		exports.dpSounds:playSound("ui_change.wav")
 	elseif key == "enter" then
 		CarTexture.unselectSticker()
 		self:updateSelectedSticker()
 	elseif key == "a" then
 		self.screenManager:showScreen(StickerSelectionScreen(self.sideName))
+		exports.dpSounds:playSound("ui_select.wav")
 	elseif key == "d" or key == "delete" then
 		CarTexture.removeSticker()
 		self:updateSelectedSticker()
@@ -215,6 +218,7 @@ function StickerEditorScreen:onKey(key)
 	else
 		for name, v in pairs(stickerControlKeys) do
 			if key == name then
+				exports.dpSounds:playSound("ui_change.wav")
 				self.panel:setActiveItem(v.panelItem)
 				self.mode = v.mode
 

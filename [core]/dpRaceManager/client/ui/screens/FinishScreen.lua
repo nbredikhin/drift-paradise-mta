@@ -142,6 +142,7 @@ function FinishScreen:onKey(key, state)
 
 	if key == "mouse1" and self.mouseOver then
 		Race.stop()
+		exports.dpSounds:playSound("ui_select.wav")
 	end
 end
 

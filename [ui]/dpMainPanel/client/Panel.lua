@@ -123,6 +123,7 @@ addEventHandler("dpUI.click", resourceRoot, function (widget)
 	for name, button in pairs(tabsButtons) do
 		if widget == button then
 			Panel.showTab(name)
+			exports.dpSounds:playSound("ui_select.wav")
 			return
 		end
 	end 

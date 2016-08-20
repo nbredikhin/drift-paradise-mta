@@ -7,6 +7,7 @@ local startupResources = {
 	-- Configuration
 	"dpConfig",
 	"dpShared",
+	"dpSounds",
 	
 	-- Core	
 	"dpImport",

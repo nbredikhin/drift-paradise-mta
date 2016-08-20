@@ -382,22 +382,28 @@ addEventHandler("dpUI.click", resourceRoot, function(widget)
 	if widget == loginPanel.registerButton then
 		UI:setVisible(loginPanel.panel, false)
 		UI:setVisible(registerPanel.panel, true)
+		exports.dpSounds:playSound("ui_select.wav")
 	elseif widget == registerPanel.backButton then
 		UI:setVisible(loginPanel.panel, true)
 		UI:setVisible(registerPanel.panel, false)
+		exports.dpSounds:playSound("ui_back.wav")
 	-- Переключение языка
 	elseif widget == registerPanel.langButtons.en then
+		exports.dpSounds:playSound("ui_change.wav")
 		--exports.dpLang:setLanguage("english")
 		exports.dpConfig:setProperty("ui.language", "english")
 	elseif widget == registerPanel.langButtons.ru then
 		--exports.dpLang:setLanguage("russian")
 		exports.dpConfig:setProperty("ui.language", "russian")
+		exports.dpSounds:playSound("ui_change.wav")
 	-- Кнопка входа
 	elseif widget == loginPanel.startGameButton and not isAuthInProgress then
+		exports.dpSounds:playSound("ui_select.wav")
 		isAuthInProgress = true
 		startGameClick(UI:getText(loginPanel.username), UI:getText(loginPanel.password))
 	-- Кнопка регистрации
 	elseif widget == registerPanel.registerButton and not isAuthInProgress then
+		exports.dpSounds:playSound("ui_select.wav")
 		isAuthInProgress = true
 		registerClick(
 			UI:getText(registerPanel.username),
@@ -405,13 +411,13 @@ addEventHandler("dpUI.click", resourceRoot, function(widget)
 			UI:getText(registerPanel.passwordConfirm)
 		)
 	elseif widget == registerPanel.colorButtons.red then
-		-- UI:setTheme("red")
+		exports.dpSounds:playSound("ui_change.wav")
 		exports.dpConfig:setProperty("ui.theme", "red")
 	elseif widget == registerPanel.colorButtons.purple then
-		-- UI:setTheme("purple")
+		exports.dpSounds:playSound("ui_change.wav")
 		exports.dpConfig:setProperty("ui.theme", "purple")
 	elseif widget == registerPanel.colorButtons.blue then
-		-- UI:setTheme("blue")
+		exports.dpSounds:playSound("ui_change.wav")
 		exports.dpConfig:setProperty("ui.theme", "blue")
 	end
 end)

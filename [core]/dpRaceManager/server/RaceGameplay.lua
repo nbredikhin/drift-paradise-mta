@@ -22,6 +22,7 @@ function RaceGameplay:onPlayerJoin(player)
 			return
 		end
 	end	
+	vehicle.frozen = true
 	if self.race.settings.fadeCameraOnJoin then
 		player:fadeCamera(false, 0.5)
 	end	
@@ -38,7 +39,7 @@ function RaceGameplay:onPlayerJoin(player)
 		vehicle.frozen = true
 		if not race.settings.ignoreSpawnpoints then
 			local spawnpoints = self.race.map.spawnpoints
-			if spawnpoints then
+			if type(spawnpoints) == "table" and #spawnpoints > 0 then
 				local x, y, z, rx, ry, rz = unpack(spawnpoints[self.currentSpawnpoint])
 
 				vehicle.position = Vector3(x, y, z)

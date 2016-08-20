@@ -28,7 +28,8 @@ function RaceUI.start()
 	stateScreens = {
 		waiting = WaitingScreen,
 		no_map = WaitingScreen,
-		running = RaceScreen
+		running = RaceScreen,
+		ended = FinishScreen
 	}
 
 	screenManager = ScreenManager()

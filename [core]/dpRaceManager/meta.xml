@@ -23,6 +23,7 @@
 	<export type="server" function="removeRace"/>
 	<export type="server" function="startRace"/>
 	<export type="server" function="raceLoadMap"/>
+	<export type="server" function="raceSetMap"/>
 	<export type="server" function="raceAddPlayers"/>
 	<export type="server" function="raceAddPlayer"/>
 	<export type="server" function="isPlayerInRace"/>

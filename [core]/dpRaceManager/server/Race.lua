@@ -31,7 +31,8 @@ function Race:init(settings)
 		ignoreSpawnpoints = false,
 		separateDimension = true,
 		createVehicles = false,
-		fadeCameraOnJoin = true
+		fadeCameraOnJoin = true,
+		onePlayerFinish = false
 	}
 	-- Установить не указанные настройки по умолчанию
 	self.settings = exports.dpUtils:extendTable(settings, self.settings)
@@ -70,11 +71,14 @@ function Race:loadMap(mapName)
 end
 
 function Race:setMap(mapData)
+	outputDebugString("Set map pls 2")
 	if type(mapData) ~= "table" then
 		return false
 	end
+	outputDebugString("SET MAP")
 	self.map = MapLoader()
 	self.map.checkpoints = mapData.checkpoints
+	outputDebugString("test")
 	self:setState("waiting")
 	return true
 end
@@ -117,6 +121,10 @@ function Race:addPlayer(player)
 		outputDebugString("Can't add player: no map loaded")
 		return false
 	end
+	if not self.map then
+		outputDebugString("Can't add player: no map")
+		return
+	end	
 	if not isElement(player) or player.type ~= "player" then
 		return false
 	end
@@ -134,6 +142,7 @@ function Race:addPlayer(player)
 	table.insert(self.players, player)
 	player:setData("race_id", self.id)
 	-- Обработка входа в гонку
+	player:setData("race_state", "in")
 	self.gameplay:onPlayerJoin(player)
 	-- Вызов клиентских методов
 	self:callPlayerMethod(player, "onJoin", self.settings, self.dimension)
@@ -195,6 +204,7 @@ function Race:removePlayer(player)
 			self:callMethod("onPlayerLeave", player)
 			-- Полностью удалить игрока из гонки
 			player:setData("race_id", false)
+			player:setData("race_state", false)
 			table.remove(self.players, i)
 			-- Если все игроки покинули гонку - удалить её
 			if #self.players == 0 then
@@ -244,10 +254,42 @@ function Race:start()
 	end, 1000 * 3, 1)
 end
 
-function Race:playerFinish(player)
+function Race:isPlayerFinished(player)
+	if not isElement(player) or player.type ~= "player" then
+		return false
+	end		
+	if not player:getData("race_id") then
+		outputDebugString("Race:removePlayer - player is not in race")
+		return false
+	end
+	-- Если игрок находится в другой гонке
+	if player:getData("race_id") ~= self.id then
+		outputDebugString("Race:removePlayer - player is in another race")
+		return false
+	end
+	return player:getData("race_state") == "finished"
+end
+
+function Race:playerFinish(player, timeout)
 	if not isElement(player) or player.type ~= "player" then
 		return false
 	end	
+	-- Если игрок не находится в гонке
+	if not player:getData("race_id") then
+		outputDebugString("Race:removePlayer - player is not in race")
+		return false
+	end
+	-- Если игрок находится в другой гонке
+	if player:getData("race_id") ~= self.id then
+		outputDebugString("Race:removePlayer - player is in another race")
+		return false
+	end	
+	if self:getState() == "ended" then
+		return false
+	end	
+	if self:isPlayerFinished(player) then
+		return false
+	end
 	local timeLeft = getTimerDetails(self.durationTimer)
 	if not timeLeft then
 		return false
@@ -256,30 +298,40 @@ function Race:playerFinish(player)
 	local rank = #self.finishedPlayers + 1
 	local money = 2500 - (500 * (rank - 1))
 	local xp = 250 - (50 * (rank - 1))
+
+	if timeout then
+		money = 0
+		xp = 0
+	end
 	table.insert(self.finishedPlayers, {
 		player = player,
 		time = timePassed,
 		rank = rank, 
 		money = money,
-		xp = xp
+		xp = xp,
+		timeout = timeout
 	})
+	player:setData("race_state", "finished")
 	self:callMethod("updateFinishedPlayers", self.finishedPlayers)
 	return true
 end
 
 -- Время вышло
 function Race:onTimeout()
+	if self:getState() == "ended" then
+		return false
+	end
 	-- Принудительно финишировать всем игрокам
 	for i, player in ipairs(self.players) do
-		self:playerFinish(player)
+		self:playerFinish(player, true)
 	end	
 	self:callMethod("timeout")
 	if isTimer(self.durationTimer) then
 		killTimer(self.durationTimer)
-	end	
-	self.durationTimer = nil
+		self.durationTimer = nil
+	end		
 	outputDebugString("Race timeout")
-	--self:removeAllPlayers()
+	self:setState("ended")
 end
 
 ---- Обработчики событий МТА
@@ -290,8 +342,7 @@ end
 
 -- Игрок вышел из автомобиля
 function Race:onVehicleStartExitHandler(vehicle, player)
-	-- TODO: Запустить таймер, показать предупреждение
-	self:playerFinish(player)
+	self:playerFinish(player, true)
 end
 
 -- Игрок вышел с сервера
@@ -306,6 +357,7 @@ end
 function Race:finishRaceHandler(player)
 	if not self.durationTimer then
 		return false
-	end
+	end	
 	self:playerFinish(player)
+	self:onTimeout()
 end

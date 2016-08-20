@@ -94,7 +94,7 @@ function FinishScreen:draw()
 		for j, column in ipairs(self.columns) do
 			local iconColor = tocolor(self.themeColor[1], self.themeColor[2], self.themeColor[3], 255 * self.fadeProgress)
 			if j == 1 then
-				if i <= 3 then
+				if i <= 3 and not item.nowin then
 					iconColor = tocolor(self.ranksColors[i][1], self.ranksColors[i][2], self.ranksColors[i][3])
 				else
 					iconColor = false
@@ -170,10 +170,16 @@ function FinishScreen:setPlayersList(players)
 
 	self.playersList = {}
 	for i, playerInfo in ipairs(players) do
+		local nowin = playerInfo.timeout
+		local time = getTimeString(math.floor(playerInfo.time / 1000))
+		if nowin then
+			time = "-"
+		end
 		table.insert(self.playersList, { 
 			name = playerInfo.player.name,
 			prize = playerInfo.money,
-			time = getTimeString(math.floor(playerInfo.time / 1000))
+			time = time,
+			nowin = nowin
 		})
 	end
 end

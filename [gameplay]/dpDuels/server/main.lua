@@ -1,5 +1,5 @@
 -- Максимальное количество чекпойнтов в дуэли
-local DUEL_CHECKPOINTS_COUNT = 30
+local DUEL_CHECKPOINTS_COUNT = 3
 -- Максимальная длительность дуэли в секундах
 local DUEL_DURATION = 300
 
@@ -12,7 +12,9 @@ function startDuel(player1, player2)
 		-- Не нужен отдельный dimension
 		separateDimension = false,
 		-- Не затемнять камеру при входе в дуэль
-		fadeCameraOnJoin = false
+		fadeCameraOnJoin = false,
+		onePlayerFinish = true,
+		duration = DUEL_DURATION
 	})
 	if not race then
 		exports.dpChat:output("general", "Не удалось запустить дуэль: невозможно создать гонку")
@@ -20,9 +22,11 @@ function startDuel(player1, player2)
 	end
 	-- Генерация случайной трассы
 	local checkpoints = PathGenerator.generateCheckpointsForPlayer(player1, DUEL_CHECKPOINTS_COUNT)
-	exports.dpRaceManager:raceLoadMap(race, {
-		duration = DUEL_DURATION,
-		checkpoints = checkpoints
+	outputDebugString("Set map pls")
+	exports.dpRaceManager:raceSetMap(race, {	
+		checkpoints = checkpoints,
+		separateDimension = false,
+		ignoreSpawnpoints = true
 	})
 	-- Добавить игроков в гонку
 	exports.dpRaceManager:raceAddPlayers(race, {player1, player2})
@@ -32,11 +36,13 @@ function startDuel(player1, player2)
 	end, 3000, 1)
 end
 
--- addCommandHandler("duel", function (player)
--- 	if not player.vehicle then
--- 		exports.dpChat:output("general", "No vehicle")
--- 		return false
--- 	end
--- 	exports.dpChat:output("general", "Создание дуэли...")
--- 	startDuel(player)
--- end)
+addCommandHandler("duel", function (player)
+	if not player.vehicle then
+		exports.dpChat:output("general", "No vehicle")
+		return false
+	end
+	exports.dpChat:output("general", "Создание дуэли...")
+	local players = getElementsByType("player")
+	startDuel(players[1], players[2])
+end)
+

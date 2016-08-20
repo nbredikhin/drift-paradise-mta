@@ -43,6 +43,18 @@ function raceLoadMap(id, mapName)
 	return race:loadMap(mapName)
 end
 
+-- Загрузить карту в гонку
+-- number id - id гонки
+-- table map - карта
+-- возвращает boolean - результат выполнения
+function raceSetMap(id, ...)
+	local race = raceManager:getRaceById(id)
+	if not race then
+		return false
+	end
+	return race:setMap(...)
+end
+
 -- Добавить нескольких игроков в гонку
 -- number id 		- id гонки
 -- table players 	- массив игроков, которых нужно добавить в гонку

@@ -13,9 +13,10 @@ function StickersGrid:init()
 	self.panel = TuningPanel({
 		{icon = Assets.textures.stickersSection1, 	text = exports.dpLang:getString("garage_tuning_stickers_figures")},
 		{icon = Assets.textures.stickersSection2, 	text = exports.dpLang:getString("garage_tuning_stickers_brands")},
-		{icon = Assets.textures.stickersSection3, 	text = exports.dpLang:getString("garage_tuning_stickers_letters")},
-		{icon = Assets.textures.stickersSection4, 	text = exports.dpLang:getString("garage_tuning_stickers_numbers")},	
-		{icon = Assets.textures.stickersSection5, 	text = exports.dpLang:getString("garage_tuning_stickers_anime")},	
+		{icon = Assets.textures.stickersSection3, 	text = exports.dpLang:getString("garage_tuning_stickers_flags")},
+		{icon = Assets.textures.stickersSection4, 	text = exports.dpLang:getString("garage_tuning_stickers_letters")},
+		{icon = Assets.textures.stickersSection5, 	text = exports.dpLang:getString("garage_tuning_stickers_numbers")},	
+		{icon = Assets.textures.stickersSection6, 	text = exports.dpLang:getString("garage_tuning_stickers_other")},	
 	})
 	self.y = self.y + self.panel.height / 2
 	self.panel.x = self.x

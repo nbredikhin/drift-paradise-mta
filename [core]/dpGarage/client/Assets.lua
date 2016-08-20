@@ -29,6 +29,7 @@ function Assets.start()
 		stickersSection3 = DxTexture("assets/images/icons/section3.png"),
 		stickersSection4 = DxTexture("assets/images/icons/section4.png"),
 		stickersSection5 = DxTexture("assets/images/icons/section5.png"),
+		stickersSection6 = DxTexture("assets/images/icons/section6.png"),
 	}
 
 	for i, section in ipairs(TuningConfig.stickers) do

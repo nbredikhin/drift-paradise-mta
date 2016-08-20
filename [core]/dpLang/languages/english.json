@@ -178,9 +178,10 @@
 
 	"garage_tuning_stickers_figures": "Figures",
 	"garage_tuning_stickers_letters": "Letters",
+	"garage_tuning_stickers_flags": "Flags",
 	"garage_tuning_stickers_numbers": "Numbers",
 	"garage_tuning_stickers_brands": "Brands",
-	"garage_tuning_stickers_anime": "Anime",
+	"garage_tuning_stickers_other": "Other",
 
 	"garage_tuning_config_front_wheels": "Front wheels",
 	"garage_tuning_config_rear_wheels": "Rear wheels",

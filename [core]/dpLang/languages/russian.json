@@ -158,9 +158,10 @@
 
 	"garage_tuning_stickers_figures": "Фигуры",
 	"garage_tuning_stickers_letters": "Буквы",
+	"garage_tuning_stickers_flags": "Флаги",
 	"garage_tuning_stickers_numbers": "Цифры",
 	"garage_tuning_stickers_brands": "Бренды",
-	"garage_tuning_stickers_anime": "Аниме",
+	"garage_tuning_stickers_other": "Другое",
 
 	"garage_tuning_config_front_wheels": "Передние колёса",
 	"garage_tuning_config_rear_wheels": "Задние колёса",

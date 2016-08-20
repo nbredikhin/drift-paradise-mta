@@ -1,7 +1,7 @@
 -- Максимальное количество чекпойнтов в дуэли
-local DUEL_CHECKPOINTS_COUNT = 3
+local DUEL_CHECKPOINTS_COUNT = 20
 -- Максимальная длительность дуэли в секундах
-local DUEL_DURATION = 300
+local DUEL_DURATION = 180
 
 function startDuel(player1, player2)
 	-- TODO: Проверить расстояние между игроками

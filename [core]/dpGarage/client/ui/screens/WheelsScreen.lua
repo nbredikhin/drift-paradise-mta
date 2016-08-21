@@ -27,6 +27,8 @@ function WheelsScreen:init(wheelsSide)
 		"WheelsAngle",
 		"WheelsWidth"
 	}
+	local price = unpack(exports.dpShared:getTuningPrices("wheels_advanced"))
+	self.menu.price = price
 	local c = "R"
 	if wheelsSide == "FrontWheels" then
 		c = "F"

@@ -1,5 +1,12 @@
 ColorScreen = Screen:subclass "ColorScreen"
 
+local priceSources = {
+	BodyColor = "body_color",
+	WheelsColorF = "wheels_color",
+	WheelsColorR = "wheels_color",
+	SpoilerColor = "spoiler_color"
+}
+
 local colorMenus = {
 	["BodyColor"]    = {locale="garage_tuning_paint_body",    position = Vector3(2916, -3188.8, 2535.6),   angle = 10},
 	["WheelsColorF"]  = {locale="garage_tuning_paint_wheels",  position = Vector3(2913.8, -3184.3, 2535.4), angle = 15},
@@ -18,13 +25,9 @@ function ColorScreen:init(componentName)
 	end
 
 	-- Цена
-	local priceInfo = {0, 1, false}
-	if componentName == "BodyColor" then
-		priceInfo = exports.dpShared:getTuningPrices("body_color")
-	elseif componentName == "WheelsColorR" or componentName == "WheelsColorF" then
-		priceInfo = exports.dpShared:getTuningPrices("wheels_color")
-	elseif componentName == "SpoilerColor" then
-		priceInfo = exports.dpShared:getTuningPrices("spoiler_color")
+	local priceInfo = {0, 1}
+	if priceSources[componentName] then
+		priceInfo = exports.dpShared:getTuningPrices(priceSources[componentName])
 	end
 	self.colorMenu.price = priceInfo[1]
 	self.requiredLevel = priceInfo[2]

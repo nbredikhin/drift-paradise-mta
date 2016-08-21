@@ -5,6 +5,7 @@ local screenSize = Vector2(guiGetScreenSize())
 -- componentName - название компонента, который нужно отобразить при переходе на экран
 function ComponentsScreen:init(componentName)
 	self.super:init()
+	local numberplateInfo = exports.dpShared:getTuningPrices("numberplate")
 	local componentsList = {
 		{name="FrontBump", 	camera="frontBump", 	locale="garage_tuning_component_front_bump", animate={component="FrontBump%u", 		offset=Vector3(0, 0.1, 0)}},
 		{name="WheelsF", 	camera="wheelLF", 		locale="garage_tuning_component_wheels_front"},
@@ -18,7 +19,7 @@ function ComponentsScreen:init(componentName)
 		{name="FrontFends", camera="frontFends", 	locale="garage_tuning_component_front_fends",animate={component="FrontFends%u", 	offset=Vector3(0.05, 0, 0)}},
 		{name="Bonnets", 	camera="bonnet", 		locale="garage_tuning_component_bonnet",	 animate={component="Bonnets%u", 		offset=Vector3(0, 0, 0.05)}},
 		{name="FrontLights",camera="frontLights", 	locale="garage_tuning_component_front_lights"},
-		{name="Numberplate",camera="numberplate", 	locale="garage_tuning_component_numberplate"},
+		{name="Numberplate",camera="numberplate", 	locale="garage_tuning_component_numberplate", price = numberplateInfo[1], level = numberplateInfo[2]},
 	}
 	local vehicle = GarageCar.getVehicle()
 	local toRemove = {}
@@ -65,8 +66,11 @@ function ComponentsScreen:onKey(key)
 		self.screenManager:showScreen(TuningScreen(1))
 		GarageCar.save()
 	elseif key == "enter" then
+		if not self.componentsSelection:canBuy() then
+			return
+		end
 		self.componentsSelection:stop()
-		local componentName = self.componentsSelection:getSelectedComponentName()
+		local componentName = self.componentsSelection:getSelectedComponentName()		
 		if componentName == "Numberplate" then
 			self.screenManager:showScreen(NumberplateScreen())
 		else

@@ -1,12 +1,13 @@
 -- Цены на тюнинг
 local tuningPrices = {
 	-- Покраска кузова
-	body_color = {0, 1},
-	-- Покраска дисков
-	wheels_color = {0, 1},
-	-- Покраска спойлера
-	spoiler_color = {0, 1},
+	body_color = {500, 2},
+	-- Смена номерного знака
+	numberplate = {500, 5},
+	-- Смена высоты подвески
+	suspension = {1000, 3},
 	-- Спойлеры
+	spoiler_color = {650, 3},
 	spoilers = {
 		{0, 1}, 
 		{0, 1}, 
@@ -30,6 +31,9 @@ local tuningPrices = {
 		{0, 1}
 	},
 	-- Колёса
+	wheels_size = {1000, 2},
+	wheels_advanced = {1000, 1},	
+	wheels_color = {800, 4},
 	wheels = {
 		{0, 1},
 		{0, 1},
@@ -53,6 +57,10 @@ local tuningPrices = {
 
 function getTuningPrices(name)
 	if name then
-		return tuningPrices[name]
+		if tuningPrices[name] then
+			return tuningPrices[name]
+		else
+			return {0, 1}
+		end
 	end
 end

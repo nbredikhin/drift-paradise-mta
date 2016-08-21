@@ -21,11 +21,15 @@ function ComponentSelection:init(componentsList)
 			component.name, 
 			component.camera, 
 			component.locale, 
-			component.animate
+			component.animate,
+			component.price,
+			component.level
 		)
 	end
 	-- Отобразить выбранный компонент
 	self:updateSelection()
+
+	self.isVisible = true
 end
 
 function ComponentSelection:resetAnimation()
@@ -52,9 +56,9 @@ function ComponentSelection:updateSelection()
 	-- Название компонента
 	if component.locale then
 		self.localizedComponentName = exports.dpLang:getString(component.locale)
-		self.componentNameText:changeText(self.localizedComponentName)
+		self.componentNameText:changeText(self.localizedComponentName, component.price, component.level)
 	else
-		self.componentNameText:changeText("")
+		self.componentNameText:changeText("", component.price, component.level)
 	end
 	-- Перемещение камеры
 	if component.cameraName then
@@ -62,11 +66,12 @@ function ComponentSelection:updateSelection()
 	end
 	self.animationProgress = 0
 	self.animationTarget = 1
+	self:stopBlinking()
 	return true
 end
 
 -- Добавить компонент в список
-function ComponentSelection:addComponent(name, cameraName, locale, animationSettings)
+function ComponentSelection:addComponent(name, cameraName, locale, animationSettings, price, level)
 	if not name then
 		return false
 	end
@@ -74,6 +79,8 @@ function ComponentSelection:addComponent(name, cameraName, locale, animationSett
 	component.name = name
 	component.cameraName = cameraName
 	component.locale = locale
+	component.price = price
+	component.level = level
 	if animationSettings then
 		component.animateComponent = animationSettings.component
 		component.animationOffset = animationSettings.offset
@@ -153,6 +160,9 @@ function ComponentSelection:update(deltaTime)
 end
 
 function ComponentSelection:draw(fadeProgress)
+	if not self.isVisible then
+		return
+	end
 	self.componentNameText:draw(fadeProgress)
 end
 
@@ -162,4 +172,42 @@ function ComponentSelection:getSelectedComponentName()
 		return false
 	end
 	return component.name
+end
+
+function ComponentSelection:getSelectedComponentPriceLevel()
+	local component = self.componentsList[self.selectedComponent]
+	if not component then
+		return false
+	end
+	return component.price, component.level
+end
+
+function ComponentSelection:blink()
+	if not self.isVisible or isTimer(self.blinkTimer) then
+		return
+	end
+	local this = self
+	self.blinkTimer = setTimer(function ()
+		this.isVisible = not this.isVisible
+	end, 200, 8)
+end
+
+function ComponentSelection:stopBlinking()
+	if isTimer(self.blinkTimer) then
+		killTimer(self.blinkTimer)
+		self.isVisible = true
+	end
+end
+
+function ComponentSelection:canBuy()
+	local price, level = self:getSelectedComponentPriceLevel()
+	if level and level > localPlayer:getData("level") then
+		self:blink()
+		return false
+	end
+	if price and price > localPlayer:getData("money") then
+		self:blink()
+		return false
+	end
+	return true
 end

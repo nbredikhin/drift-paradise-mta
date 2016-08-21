@@ -50,16 +50,16 @@ function NumberplateScreen:onKey(key)
 		self.screenManager:showScreen(ComponentsScreen("Numberplate"))
 		GarageCar.applyTuning("Numberplate", self.numberplateText)
 	elseif key == "backspace" then
-		GarageCar.resetTuning()
-		self.screenManager:showScreen(ComponentsScreen("Numberplate"))
-	elseif key == "space" then
-		self.numberplateText = self.numberplateText .. " "
-		self:updateText()
-	elseif key == "delete" then
 		if string.len(self.numberplateText) > 0 then
 			self.numberplateText = string.sub(self.numberplateText, 1, -2)
 			self:updateText()
+		else
+			GarageCar.resetTuning()
+			self.screenManager:showScreen(ComponentsScreen("Numberplate"))
 		end
+	elseif key == "space" then
+		self.numberplateText = self.numberplateText .. " "
+		self:updateText()
 	else
 		if string.find(allowedLetters, key) then
 			self.numberplateText = self.numberplateText .. key			

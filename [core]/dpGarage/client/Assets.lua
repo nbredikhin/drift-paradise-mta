@@ -43,6 +43,7 @@ function Assets.start()
 		colorMenuHeader = exports.dpAssets:createFont("Roboto-Regular.ttf", 20),
 		colorMenuPrice = exports.dpAssets:createFont("Roboto-Regular.ttf", 18),
 		componentName = exports.dpAssets:createFont("Roboto-Regular.ttf", 30),
+		componentNameInfo = exports.dpAssets:createFont("Roboto-Regular.ttf", 15),
 		menuLabel = exports.dpAssets:createFont("Roboto-Regular.ttf", 18),
 		helpText = exports.dpAssets:createFont("Roboto-Regular.ttf", 16),
 		moneyText = exports.dpAssets:createFont("Roboto-Regular.ttf", 24),

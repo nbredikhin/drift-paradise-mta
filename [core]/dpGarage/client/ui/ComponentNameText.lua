@@ -8,11 +8,15 @@ function ComponentNameText:init()
 	self.height = 100
 	
 	self.text = ""
-
+	self.font = Assets.fonts.componentName
+	self.infoFont = Assets.fonts.componentNameInfo
+	self.fontHeight = dxGetFontHeight(1, self.font)
 	-- Анимация текста
 	self.animationProgress = 0
 	self.animationTarget = 0
 	self.animationSpeed = 2
+
+	self.infoText = ""
 
 	-- Минимальный масштаб текста
 	self.scaleAnimationStart = 0.5
@@ -21,15 +25,33 @@ function ComponentNameText:init()
 
 	-- Цвет текста
 	self.color = {255, 255, 255}
+	self.infoColorHex = exports.dpUtils:RGBToHex(unpack(Garage.themePrimaryColor))
 end
 
-function ComponentNameText:changeText(text)
+function ComponentNameText:changeText(text, price, level)
 	if type(text) ~= "string" then
 		return
 	end
 	self.animationTarget = 0
 	self.animationProgress = 0
 	self.text = text
+	self:setInfo(price, level)
+end
+
+function ComponentNameText:setInfo(price, level)
+	if (not price and not level) or (level <= 1 and price == 0) then
+		self.infoText = ""
+		return
+	end
+	if (not price or price == 0) and level then
+		self.infoText = "Доступно с уровня " .. self.infoColorHex .. tostring(level)
+		return
+	end
+	if (not level or level <= 1) and price then
+		self.infoText = "Цена: " .. self.infoColorHex .. "$" .. tostring(price)
+	end
+
+	self.infoText = "Цена: " .. self.infoColorHex .. "$" .. tostring(price) .. "#FFFFFF Доступно с уровня " .. self.infoColorHex .. tostring(level)
 end
 
 function ComponentNameText:update(deltaTime)
@@ -46,5 +68,8 @@ function ComponentNameText:draw(fadeProgress)
 	-- Анимация увеличения
 	local scale = math.min(1, 1 - self.scaleAnimationStart + self.scaleAnimationStart * self.animationProgress * self.scaleAnimationSpeed)
 
-	dxDrawText(self.text, self.x, self.y, self.x + self.width, self.y + self.height, color, scale, Assets.fonts.componentName, "center", "center")
+	local y = self.y
+	dxDrawText(self.text, self.x, y, self.x + self.width, y, color, scale, self.font, "center", "top")
+	y = y + self.fontHeight
+	dxDrawText(self.infoText, self.x, y, self.x + self.width, y, color, scale, self.infoFont, "center", "top", false, false, false, true)
 end

@@ -4,26 +4,20 @@ local screenSize = Vector2(guiGetScreenSize())
 
 function ConfigurationsScreen:init(componentName)
 	self.super:init()
-	-- local items = {
-	-- 	--{name="Suspension", 	camera="suspension", 		locale="garage_tuning_config_suspension"},
-	-- 	{name="WheelsSize", 	camera="wheelsSize", 		locale="garage_tuning_config_wheels_size"},
-	-- 	{name="FrontWheels", 	camera="wheelsOffsetFront", locale="garage_tuning_config_front_wheels"},
-	-- 	{name="RearWheels", 	camera="wheelsOffsetRear", 	locale="garage_tuning_config_rear_wheels"},
-		
-	-- }
 
+	local suspensionPrice, suspensionLevel = unpack(exports.dpShared:getTuningPrices("suspension"))
 	self.componentsSelection = ComponentSelection({
-		{name="Suspension", 	camera="suspension", 		locale="garage_tuning_config_suspension"}
+		{name="Suspension", 	camera="suspension", 		locale="garage_tuning_config_suspension", price = suspensionPrice, level = suspensionLevel}
 	})
 
 	local vehicle = GarageCar.getVehicle()
-	-- Если на машине установлены передние или задние диски диски
+	-- Если на машине установлены передние или задние диски
 	if (vehicle:getData("WheelsF") and vehicle:getData("WheelsF") > 0) or 
 		(vehicle:getData("WheelsR") and vehicle:getData("WheelsR") > 0) 
 	then
-		self.componentsSelection:addComponent("WheelsSize",  "wheelsSize", 			"garage_tuning_config_wheels_size")
-		self.componentsSelection:addComponent("FrontWheels", "wheelsOffsetFront", 	"garage_tuning_config_front_wheels")
-		self.componentsSelection:addComponent("RearWheels",  "wheelsOffsetRear", 	"garage_tuning_config_rear_wheels")
+		self.componentsSelection:addComponent("WheelsSize",  "wheelsSize", 			"garage_tuning_config_wheels_size", nil, unpack(exports.dpShared:getTuningPrices("wheels_size")))
+		self.componentsSelection:addComponent("FrontWheels", "wheelsOffsetFront", 	"garage_tuning_config_front_wheels", nil, unpack(exports.dpShared:getTuningPrices("wheels_advanced")))
+		self.componentsSelection:addComponent("RearWheels",  "wheelsOffsetRear", 	"garage_tuning_config_rear_wheels", nil, unpack(exports.dpShared:getTuningPrices("wheels_advanced")))
 	end
 	
 	if componentName then

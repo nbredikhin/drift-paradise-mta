@@ -297,4 +297,31 @@
 	"carshop_no_money": "Недостаточно денег",
 	"carshop_buy_error_title": "Не удалось купить машину",
 	"carshop_buy_error_unknown": "Неизвестная ошибка",	
+
+	// Context menu
+	"context_menu_vehicle_door_lf_open": "Открыть левую переднюю дверь",
+	"context_menu_vehicle_door_rf_open": "Открыть правую переднюю дверь",
+	"context_menu_vehicle_door_lb_open": "Открыть левую заднюю дверь",
+	"context_menu_vehicle_door_rb_open": "Открыть правую заднюю дверь",
+	"context_menu_vehicle_door_lf_close": "Закрыть левую переднюю дверь",
+	"context_menu_vehicle_door_rf_close": "Закрыть правую переднюю дверь",
+	"context_menu_vehicle_door_lb_close": "Закрыть левую заднюю дверь",
+	"context_menu_vehicle_door_rb_close": "Закрыть правую заднюю дверь",
+
+	"context_menu_vehicle_lights_on": "Включить фары",
+	"context_menu_vehicle_lights_off": "Выключить фары",
+
+	"context_menu_vehicle_handbrake_on": "Поставить на ручник",
+	"context_menu_vehicle_handbrake_off": "Снять с ручника",	
+
+	"context_menu_vehicle_engine_on": "Завести двигатель",
+	"context_menu_vehicle_engine_off": "Заглушить двигатель",
+
+	"context_menu_player_profile": "Открыть профиль игрока",
+	"context_menu_player_pm": "Отправить PM",
+	"context_menu_player_duel": "Вызвать на гонку",
+	"context_menu_player_report": "Пожаловать на игрока",
+
+	"context_menu_title_car": "Автомобиль",
+	"context_menu_title_player": "Игрок",	
 }

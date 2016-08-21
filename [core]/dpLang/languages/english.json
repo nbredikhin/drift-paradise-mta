@@ -323,4 +323,31 @@
 	"carshop_no_money": "Not enough money",
 	"carshop_buy_error_title": "Failed to buy car",
 	"carshop_buy_error_unknown": "Unknown error",
+
+	// Context menu
+	"context_menu_vehicle_door_lf_open": "Open left front door",
+	"context_menu_vehicle_door_rf_open": "Open right front door",
+	"context_menu_vehicle_door_lb_open": "Open left rear door",
+	"context_menu_vehicle_door_rb_open": "Open right rear door",
+	"context_menu_vehicle_door_lf_close": "Close left front door",
+	"context_menu_vehicle_door_rf_close": "Close right front door",
+	"context_menu_vehicle_door_lb_close": "Close left rear door",
+	"context_menu_vehicle_door_rb_close": "Close right rear door",
+
+	"context_menu_vehicle_lights_on": "Turn lights on",
+	"context_menu_vehicle_lights_off": "Turn lights off",
+
+	"context_menu_vehicle_handbrake_on": "Enable hand brake",
+	"context_menu_vehicle_handbrake_off": "Disable hand brake",	
+
+	"context_menu_vehicle_engine_on": "Start engine",
+	"context_menu_vehicle_engine_off": "Stop engine",
+
+	"context_menu_player_profile": "Show player profile",
+	"context_menu_player_pm": "Send PM",
+	"context_menu_player_duel": "Duel...",
+	"context_menu_player_report": "Report player",
+
+	"context_menu_title_car": "Car",
+	"context_menu_title_player": "Player",
 }

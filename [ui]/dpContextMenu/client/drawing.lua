@@ -107,6 +107,12 @@ function showMenu(menu, element)
 		else
 			item.state = not not item.enabled
 		end
+		if type(item.locale) == "string" then
+			item.text = exports.dpLang:getString(item.locale)
+		end
+		if type(item.getText) == "function" then
+			item.text = item.getText(element)
+		end
 		local width = dxGetTextWidth(item.text, 1, itemFont)
 		if width > maxWidth then
 			maxWidth = width

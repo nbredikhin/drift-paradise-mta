@@ -1,8 +1,12 @@
-local CURSOR_BUTTON = "u"
+local CURSOR_BUTTON = "f2"
 local registeredMenus = {}
 
 function registerContextMenu(targetElementType, menu)
 	registeredMenus[targetElementType] = menu
+end
+
+function getContextMenu(targetElementType)
+	return registeredMenus[targetElementType]
 end
 
 addEventHandler("onClientClick", root, function(button, state, x, y, worldX, worldY, worldZ, targetElement)
@@ -22,5 +26,5 @@ end)
 
 bindKey(CURSOR_BUTTON, "down", function() 
 	hideMenu()
-	showCursor(not isCursorShowing()) 
+	showCursor(not isCursorShowing(), false) 
 end)

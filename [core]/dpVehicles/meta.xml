@@ -19,14 +19,17 @@
 	<script type="client" src="client/VehicleShaders.lua"/>
 	<script type="client" src="client/wheels.lua"/>
 	<script type="client" src="client/windows.lua"/>
+	<script type="client" src="client/actions.lua"/>
 	<!-- Server -->
 	<script type="server" src="server_test.lua"/>
 	<script type="server" src="server/suspension.lua"/>
+	<script type="server" src="server/actions.lua"/>
 
 	<!-- Exports -->
 	<export type="client" function="getComponentsNames"/>
 	<export type="client" function="redrawBodyRenderTarget"/>
 	<export type="client" function="createVehicleRenderTarget"/>
+	<export type="client" function="toggleVehicleParam"/>
 	<export type="shared" function="getModelDefaultWheelsSize"/>
 
 	<!-- Assets -->

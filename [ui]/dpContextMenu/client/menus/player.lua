@@ -1,10 +1,10 @@
 local playerMenu = {
 	title = "Игрок Wherry",
 	items = {
-		{ text = "Посмотреть профиль", enabled = false},
-		{ text = "Вызвать на гонку", enabled = false},
-		{ text = "Отправить PM", enabled = false},
-		{ text = "Пожаловаться на игрока", enabled = false}	
+		{ locale = "context_menu_player_profile", enabled = false},
+		{ locale = "context_menu_player_duel", enabled = false},
+		{ locale = "context_menu_player_pm", enabled = false},
+		{ locale = "context_menu_player_report", enabled = false}	
 	}
 }
 
@@ -12,7 +12,9 @@ function playerMenu:init(player)
 	if player == localPlayer then
 		return false
 	end	
-	self.title = "Игрок " .. tostring(player.name)
+	self.title = string.format("%s %s", 
+		exports.dpLang:getString("context_menu_title_player"),
+		tostring(player.name))
 end
 
 registerContextMenu("player", playerMenu)

@@ -1,0 +1,9 @@
+<meta>
+	<oop>true</oop>
+
+	<script type="client" src="client/drawing.lua"/>
+	<script type="client" src="client/showing.lua"/>
+
+	<script type="client" src="client/menus/player.lua"/>
+	<script type="client" src="client/menus/vehicle.lua"/>
+</meta>

@@ -123,6 +123,7 @@ local function onKey(key, down)
 		end
 		Carshop.showVehicle(currentVehicleId)
 		exports.dpUI:hideMessageBox()
+		exports.dpSounds:playSound("ui_change.wav")
 	elseif key == "d" or key == "arrow_r" then
 		currentVehicleId = currentVehicleId + 1
 		if currentVehicleId > #vehiclesList then
@@ -130,12 +131,14 @@ local function onKey(key, down)
 		end
 		Carshop.showVehicle(currentVehicleId)
 		exports.dpUI:hideMessageBox()
+		exports.dpSounds:playSound("ui_change.wav")
 	elseif key == "backspace" then
 		if exports.dpUI:isMessageBoxVisible() then
 			exports.dpUI:hideMessageBox()
 		else
 			exitCarshop()
 		end
+		exports.dpSounds:playSound("ui_back.wav")
 	end
 end
 
@@ -279,6 +282,7 @@ function Carshop.buy()
 		triggerServerEvent("dpCarshop.buyVehicle", resourceRoot, Carshop.currentVehicleInfo.model)
 		isBuying = true
 	end
+	exports.dpSounds:playSound("ui_select.wav")
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()

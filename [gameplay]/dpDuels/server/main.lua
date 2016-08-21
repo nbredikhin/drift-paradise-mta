@@ -22,7 +22,6 @@ function startDuel(player1, player2)
 	end
 	-- Генерация случайной трассы
 	local checkpoints = PathGenerator.generateCheckpointsForPlayer(player1, DUEL_CHECKPOINTS_COUNT)
-	outputDebugString("Set map pls")
 	exports.dpRaceManager:raceSetMap(race, {	
 		checkpoints = checkpoints,
 		separateDimension = false,

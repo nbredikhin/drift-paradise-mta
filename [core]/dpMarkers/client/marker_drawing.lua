@@ -52,6 +52,14 @@ markerTypes.house = {
 	string = "markers_house_enter_text"
 }
 
+markerTypes.stripclub = {
+	color = {212, 0, 40},
+	icon = "assets/house_floor.png",
+	iconSize = 1,
+	text = "assets/strip_icon.png",
+	string = "markers_strip_enter_text"
+}
+
 markerTypes.exit = {
 	color = {212, 0, 40},
 	text = "assets/exit_icon.png",

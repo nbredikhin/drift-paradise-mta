@@ -1,0 +1,5 @@
+<meta>
+	<oop>true</oop>
+
+	<script type="server" src="anims.lua"/>
+</meta>

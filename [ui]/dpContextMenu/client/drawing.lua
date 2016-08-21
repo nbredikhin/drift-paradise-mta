@@ -124,13 +124,14 @@ function showMenu(menu, element)
 	end
 
 	menuWidth = math.max(MENU_MIN_WIDTH, maxWidth + itemTextOffset * 2)
+	local totalHeight = menuItemHeight * #currentMenu.items + menuHeaderHeight
 	targetElement = element
 
 	local mx, my = getCursorPosition()
 	mx = mx * screenSize.x
 	my = my * screenSize.y
 
-	menuScreenPosition = Vector2(mx, my)	
+	menuScreenPosition = Vector2(math.min(mx, screenSize.x - menuWidth), math.min(my, screenSize.y - totalHeight))
 end
 
 function isMenuVisible()

@@ -31,6 +31,7 @@ local startupResources = {
 
 	-- Gameplay
 	"dpParticles",
+	"dpAnims",
 	"dpVehicles",
 	"dpPhotoMode",
 	"dpDriftPoints",
@@ -43,6 +44,7 @@ local startupResources = {
 	"dpCameraViews",
 	"dpStripClub",
 	"dpTeleports",
+	"dpContextMenu",
 
 	-- World
 	"dpMapfiles",

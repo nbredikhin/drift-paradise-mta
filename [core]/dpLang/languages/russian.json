@@ -233,6 +233,7 @@
 	"markers_house_exit_text": "Нажмите %q чтобы выйти на улицу",
 	"markers_house_knock_text": "Нажмите %q чтобы постучаться в дверь",
 	"markers_house_buy_text": "Нажмите %q чтобы открыть меню покупки дома",
+	"markers_strip_enter_text": "Нажмите %q чтобы войти в стрипклуб",
 
 	// House system
 	"houses_info_price": "Цена",
@@ -323,5 +324,14 @@
 	"context_menu_player_report": "Пожаловать на игрока",
 
 	"context_menu_title_car": "Автомобиль",
-	"context_menu_title_player": "Игрок",	
+	"context_menu_title_player": "Игрок",
+
+	"context_menu_anim_hello": "Приветствие",
+	"context_menu_anim_no": "Отказ",
+	"context_menu_anim_bye": "Прощание",
+	"context_menu_anim_wave": "Помахать рукой",
+	"context_menu_anim_lay": "Прилечь",
+	"context_menu_anim_sit": "Сесть",
+	"context_menu_anim_fucku": "Средний палец",
+	"context_menu_anim_serious": "Руки на груди"
 }

@@ -257,6 +257,7 @@
 	"markers_house_exit_text": "Press %q to exit",
 	"markers_house_knock_text": "Press %q to knock the door",
 	"markers_house_buy_text": "Press %q to open house buy menu",
+	"markers_strip_enter_text": "Press %q enter strip club",
 
 	// ====================================
 	// =========== House system ===========
@@ -350,4 +351,13 @@
 
 	"context_menu_title_car": "Car",
 	"context_menu_title_player": "Player",
+
+	"context_menu_anim_hello": "Greeting",
+	"context_menu_anim_no": "Negative",
+	"context_menu_anim_bye": "Goodbye",
+	"context_menu_anim_wave": "Wave hand",
+	"context_menu_anim_lay": "Lay down",
+	"context_menu_anim_sit": "Sit",
+	"context_menu_anim_fucku": "Fck u",
+	"context_menu_anim_serious": "Hands crossed over chest"	
 }

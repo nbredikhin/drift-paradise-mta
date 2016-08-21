@@ -59,7 +59,7 @@ addEventHandler("onClientRender", root, function ()
 			textColor = menuSelectedTextColor
 			highlightedItem = item
 		end
-		if item.enabled == false then
+		if item.state == false then
 			bgColor = menuBackgroundColor
 			textColor = menuDisabledTextColor
 		end
@@ -85,17 +85,28 @@ addEventHandler("onClientRender", root, function ()
 end)
 
 function showMenu(menu, element)
+	if type(menu) ~= "table" then
+		return false
+	end
 	currentMenu = menu
 
 	if type(currentMenu.init) == "function" then
 		local show = currentMenu.init(currentMenu, element)
 		if show == false then
 			hideMenu()
+			return
 		end
 	end	
 
 	local maxWidth = 0
 	for i, item in ipairs(currentMenu.items) do
+		if type(item.enabled) == "function" then
+			item.state = item.enabled(element)
+		elseif item.enabled == nil then
+			item.state = true
+		else
+			item.state = not not item.enabled
+		end
 		local width = dxGetTextWidth(item.text, 1, itemFont)
 		if width > maxWidth then
 			maxWidth = width

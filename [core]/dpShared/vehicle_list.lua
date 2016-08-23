@@ -4,7 +4,9 @@ local vehiclesTable = {
 	nissan_gtr = 558,
 	toyota_ae86 = 589,
 	mazda_mx5miata = 411,
-	nissan_er34 = 445
+	nissan_er34 = 445,
+	lamborghini_huracan = 415,
+	bmw_dunno = 429,
 }
 
 -- Названия в том виде, в котором они будут отображаться
@@ -13,7 +15,9 @@ local vehiclesReadableNames = {
 	nissan_gtr = "Nissan GT-R",
 	toyota_ae86 = "Toyota AE86",
 	mazda_mx5miata = "Mazda MX-5",
-	nissan_er34 = "Nissan Skyline ER34"
+	nissan_er34 = "Nissan Skyline ER34",
+	bmw_dunno = "BMW Бандитская",
+	lamborghini_huracan = "Lamborghini Huracan"
 }
 
 -- Функции

@@ -1,10 +1,10 @@
 local function onPlayerConnect()
 	local messageColor = exports.dpUtils:RGBToHex(exports.dpUI:getThemeColor())
 	local playerName = exports.dpUtils:removeHexFromString(source.name)
-	outputChatBox(
+	exports.dpChat:message(
+		"global",
 		messageColor .. string.format(exports.dpLang:getString("chat_message_player_join"), playerName), 
-		255, 255, 255,
-		true
+		255, 255, 255
 	)
 end
 
@@ -12,10 +12,10 @@ local function onPlayerQuit(reason)
 	local messageColor = exports.dpUtils:RGBToHex(exports.dpUI:getThemeColor())
 	local playerName = exports.dpUtils:removeHexFromString(source.name)
 	reason = exports.dpLang:getString("quit_reason_" .. string.lower(tostring(reason)))
-	outputChatBox(
+	exports.dpChat:message(
+		"global",
 		messageColor .. string.format(exports.dpLang:getString("chat_message_player_quit"), playerName, reason), 
-		255, 255, 255,
-		true
+		255, 255, 255
 	)
 end
 

@@ -21,12 +21,13 @@ local ENCRYPT_SCRIPT_PATHS = true
 local ENCRYPT_PNG_PATHS = true
 
 -- Собрать ТОЛЬКО ресурсы из списка
-local RESOURCES_TO_BUILD = false--{dpVehicles = true}
+local RESOURCES_TO_BUILD = {dpGreetings = true}
 -- Ресурсы, которые не нужно компилировать 
 local DISABLE_COMPILE_AND_ENCRYPT = { dpShared = true }
 
 -- Ресурсы, которые нужно собрать помимо ресурсов с префиксом RESOURCE_PREFIX
 local INCLUDE_RESOURCES = {
+	"geoip",
 	"blur_box",
 	"car_reflections",
 	"water_reflections",

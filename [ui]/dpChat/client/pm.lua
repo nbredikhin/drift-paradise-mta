@@ -1,5 +1,38 @@
 local TAB_NAME_PREFIX = "pmtab_"
 
+function startPM(player, message)
+	if not isElement(player) then
+		return false
+	end
+	if player == localPlayer then
+		return false
+	end
+	local playerId = player:getData("_id")
+	if not playerId then
+		return 
+	end
+
+	local tabName = TAB_NAME_PREFIX .. tostring(playerId)
+
+	if Chat.getTabFromName(tabName) then
+		if message then
+			Chat.message(tabName, localPlayer.name .. "#FFFFFF: " .. tostring(message))
+			triggerServerEvent("dpChat.pm", root, player, message)
+		end
+		return
+	end
+	Chat.createTab(tabName, player.name)
+	Chat.setActiveTab(tabName)
+
+	Chat.message(tabName, string.format(exports.dpLang:getString("chat_pm_started"), tostring(player.name)), 150, 150, 150)
+	triggerServerEvent("dpChat.pm", root, player, false)
+
+	if message then
+		Chat.message(tabName, localPlayer.name .. "#FFFFFF: " .. tostring(message))
+		triggerServerEvent("dpChat.pm", root, player, message)
+	end	
+end
+
 addCommandHandler("pm", function (cmd, name, ...)
 	local players = exports.dpUtils:getPlayersByPartOfName(name)
 	local player
@@ -13,29 +46,13 @@ addCommandHandler("pm", function (cmd, name, ...)
 			return
 		end
 	end
-	local playerId = player:getData("_id")
-	if not playerId then
-		return 
-	end
 
-	local tabName = TAB_NAME_PREFIX .. tostring(playerId)
 	local args = {...}
 	local message
 	if #args > 0 then
 		message = table.concat(args, " ")
-	end
-	if Chat.getTabFromName(tabName) then
-		if message then
-			triggerServerEvent("dpChat.pm", root, player, message)
-		end
-		return
-	end
-	Chat.createTab(tabName, player.name)
-	Chat.setActiveTab(tabName)
-	Chat.message(tabName, string.format(exports.dpLang:getString("chat_pm_started"), tostring(player.name)), 150, 150, 150)
-	if message then
-		triggerServerEvent("dpChat.pm", root, player, message)
 	end	
+	startPM(player, message)
 end)
 
 local function getPlayerByAccountId(id)
@@ -60,6 +77,7 @@ addEventHandler("dpChat.message", root, function (tabName, message)
 	if not isElement(player) then
 		Chat.message(tabName, "Игрок не подключен!")
 	end
+	Chat.message(tabName, localPlayer.name .. "#FFFFFF: " .. tostring(message))
 	triggerServerEvent("dpChat.pm", root, player, message)
 end)
 
@@ -76,5 +94,9 @@ addEventHandler("dpChat.pm", root, function (player, message)
 	if not Chat.getTabFromName(tabName) then
 		Chat.createTab(tabName, player.name)
 	end
-	Chat.message(tabName, player.name .. "#FFFFFF: " .. tostring(message))
+	if message then
+		Chat.message(tabName, player.name .. "#FFFFFF: " .. tostring(message))
+	else
+		Chat.message(tabName, string.format(exports.dpLang:getString("chat_pm_started"), tostring(player.name)), 150, 150, 150)
+	end
 end)

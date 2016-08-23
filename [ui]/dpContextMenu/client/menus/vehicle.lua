@@ -46,7 +46,7 @@ local myVehicleMenu = {
 	{ getText = getActionString("door", 4),
 		-- Проверка наличия двери 
 		enabled = function(vehicle) 
-			return vehicle:getComponentVisible("door_lb_dummy")
+			return vehicle:getComponentVisible("door_lr_dummy")
 		end,
 
 		click = vehicleAction("door", 4)
@@ -54,7 +54,7 @@ local myVehicleMenu = {
 	{ getText = getActionString("door", 5),
 		-- Проверка наличия двери 
 		enabled = function(vehicle) 
-			return vehicle:getComponentVisible("door_rb_dummy")
+			return vehicle:getComponentVisible("door_rr_dummy")
 		end,
 
 		click = vehicleAction("door", 5)
@@ -67,6 +67,9 @@ local vehicleMenu = {
 }
 
 function vehicleMenu:init(vehicle)
+	if not isElement(vehicle) then
+		return
+	end
 	if not vehicle.controller then
 		return false
 	end

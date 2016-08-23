@@ -13,4 +13,5 @@
 
 	<export type="client" function="setVisible"/>
 	<export type="client" function="message"/>
+	<export type="client" function="startPM"/>
 </meta>

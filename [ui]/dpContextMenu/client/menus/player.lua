@@ -6,7 +6,13 @@ local playerMenu = {
 local remotePlayerMenu = {
 	{ locale = "context_menu_player_profile", enabled = false},
 	{ locale = "context_menu_player_duel", enabled = false},
-	{ locale = "context_menu_player_pm", enabled = false},
+	{ locale = "context_menu_player_pm", 
+		click = function (player)
+			exports.dpChat:startPM(player)
+		end,
+
+		enabled = true
+	},
 	{ locale = "context_menu_player_report", enabled = false}	
 }
 
@@ -29,10 +35,16 @@ local localPlayerMenu = {
 }
 
 function playerMenu:init(player)
+	if not isElement(player) then
+		return
+	end
 	self.title = string.format("%s %s", 
 		exports.dpLang:getString("context_menu_title_player"),
 		tostring(player.name))
 
+	if player.vehicle then
+		return
+	end
 	if player == localPlayer then
 		self.items = localPlayerMenu
 	else

@@ -291,7 +291,7 @@
 	"houses_message_sell_confirm": "Are you sure you want to sell your house for %s?",
 
 	// Chat
-	"chat_tab_general": "General",
+	"chat_tab_global": "Global",
 	"chat_input_message": "Message",
 
 	"chat_tab_russian": "Russian",

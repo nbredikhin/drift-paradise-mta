@@ -265,13 +265,13 @@
 	"houses_message_sell_confirm": "Вы уверены, что хотите продать свой дом за %s?",
 
 	// Chat
-	"chat_tab_general": "Общий",
+	"chat_tab_global": "Общий",
 	"chat_input_message": "Сообщение",
 
 	"chat_tab_russian": "Русский",
 	"chat_tab_english": "Английский",	
 
-	"chat_pm_started": "Здесь вы можете отпарвлять личные сообщения игроку %s",
+	"chat_pm_started": "Здесь вы можете отправлять личные сообщения игроку %s",
 	"chat_close_tab": "Чтобы закрыть вкладку, кликните по ней правой кнопкой мыши",	
 
 	// Race

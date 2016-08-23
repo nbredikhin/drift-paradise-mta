@@ -10,7 +10,7 @@ function getContextMenu(targetElementType)
 end
 
 addEventHandler("onClientClick", root, function(button, state, x, y, worldX, worldY, worldZ, targetElement)
-	if not targetElement then
+	if not isElement(targetElement) then
 		return
 	end
 	if button ~= "right" or state ~= "down" then
@@ -25,6 +25,9 @@ addEventHandler("onClientClick", root, function(button, state, x, y, worldX, wor
 end)
 
 bindKey(CURSOR_BUTTON, "down", function() 
+	if localPlayer:getData("dpCore.state") then
+		return
+	end
 	hideMenu()
 	showCursor(not isCursorShowing(), false) 
 end)

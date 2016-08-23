@@ -1,6 +1,6 @@
 local screenSize = Vector2(guiGetScreenSize())
 local currentMenu = false
-local currentTarget
+local targetElement
 
 local menuScreenPosition = Vector2()
 
@@ -76,16 +76,19 @@ addEventHandler("onClientRender", root, function ()
 		y = y + menuItemHeight
 	end
 
-	if getKeyState("mouse1") then
-		hideMenu()
+	if getKeyState("mouse1") then		
 		if highlightedItem and highlightedItem.enabled ~= false and type(highlightedItem.click) == "function" then
-			highlightedItem.click(currentTarget)
+			highlightedItem.click(targetElement)
 		end
+		hideMenu()
 	end
 end)
 
 function showMenu(menu, element)
 	if type(menu) ~= "table" then
+		return false
+	end
+	if not isElement(element) then
 		return false
 	end
 	currentMenu = menu
@@ -97,6 +100,8 @@ function showMenu(menu, element)
 			return
 		end
 	end	
+
+	toggleControl("fire", false)
 
 	local maxWidth = 0
 	for i, item in ipairs(currentMenu.items) do
@@ -139,6 +144,7 @@ function isMenuVisible()
 end
 
 function hideMenu()
+	setTimer(function() toggleControl("fire", true) end, 200, 1)
 	currentMenu = false
 end
 

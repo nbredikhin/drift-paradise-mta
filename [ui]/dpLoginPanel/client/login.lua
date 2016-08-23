@@ -48,7 +48,7 @@ addEventHandler("dpCore.loginResponse", root, function (success, err)
 	setVisible(false)
 	Autologin.remember(currentUsername, currentPassword)
 	exports.dpUtils:clearChat()
-	outputChatBox(exports.dpLang:getString("chat_message_login_success"), 0, 255, 0)
+	exports.dpChat:message("global", exports.dpLang:getString("chat_message_login_success"), 0, 255, 0)
 end)
 
 function registerClick(username, password, passwordConfirm, ...)

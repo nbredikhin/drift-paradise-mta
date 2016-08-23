@@ -15,11 +15,16 @@ local function setupLangTabTitle()
 	Chat.setTabTitle("lang", title)
 end
 
+local function setupGlobalTabTitle()
+	Chat.setTabTitle("global", exports.dpLang:getString("chat_tab_global"))
+end
+
 addEventHandler("onClientResourceStart", resourceRoot, function ()
 	Chat.createTab("global", "Global", true)
 	Chat.createTab("lang", "Lang", true)
 
 	setupLangTabTitle()
+	setupGlobalTabTitle()
 end)
 
 addEvent("dpChat.message")
@@ -36,12 +41,14 @@ addEventHandler("dpChat.broadcastMessage", root, function (tabName, message)
 	Chat.message(tabName, message)
 end)
 
-addEventHandler("onClientElemenetDataChange", localPlayer, function(dataName)
+addEventHandler("onClientElementDataChange", localPlayer, function(dataName)
 	if dataName == "langChat" then
+		Chat.clearTab("lang")
 		setupLangTabTitle()
 	end
 end)
 
 addEventHandler("dpLang.languageChanged", root, function ()
 	setupLangTabTitle()
+	setupGlobalTabTitle()
 end)

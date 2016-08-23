@@ -188,6 +188,9 @@
 	"garage_tuning_config_suspension": "Suspension",
 	"garage_tuning_config_wheels_size": "Wheels radius",
 
+	"garage_tuning_config_suspension_label": "Suspension height",
+	"garage_tuning_config_wheels_size_label": "Wheels radius",
+
 	"garage_tuning_config_wheels_offset": "Offset",
 	"garage_tuning_config_wheels_angle": "Angle",
 	"garage_tuning_config_wheels_width": "Width",

@@ -3,14 +3,13 @@ GarageCar = {}
 
 addEvent("dpGarage.loaded", false)
 
-local CAR_POSITION = Vector3 { x = 2915.438, y = -3186.282, z = 2535.244 }
+local CAR_POSITION = Vector3 { x = 2915.438, y = -3186.282, z = 2535.2 }
 local vehicle
 local vehiclesList = {}
 local currentVehicle = 1
 local currentTuningTable = {}
 
 -- Время, на которое размораживается машина при смене модели
-local VEHICLE_UNFREEZE_TIME = 600
 local unfreezeTimer
 
 -- Дата, которая округляется при сохранении
@@ -21,7 +20,8 @@ local configurationData = {
 	"WheelsWidthR", 
 	"WheelsAngleF", 
 	"WheelsAngleR", 
-	"WheelsSize"
+	"WheelsSize",
+	"Suspension"
 }
 -- Цвета, которые выставляются белыми по умолчанию и округляются
 local colorsData = {
@@ -48,20 +48,21 @@ local function updateVehicle()
 	vehicle.model = vehiclesList[currentVehicle].model
 
 	vehicle:setColor(255, 0, 0, 255, 255, 255)
-	-- Разморозка машины на 1 сек
-	vehicle.frozen = false
-	vehicle.velocity = Vector3(0, 0, -0.01)
 	vehicle.position = CAR_POSITION
-	if isTimer(unfreezeTimer) then killTimer(unfreezeTimer) end
-	unfreezeTimer = setTimer(function ()
-		--vehicle.frozen = true
-	end, VEHICLE_UNFREEZE_TIME, 1)
-
 
 	currentTuningTable = {}
 	if type(vehiclesList[currentVehicle].tuning) == "string" then
 		currentTuningTable = fromJSON(vehiclesList[currentVehicle].tuning)
 	end
+
+	if isTimer(unfreezeTimer) then killTimer(unfreezeTimer) end
+	unfreezeTimer = setTimer(function ()
+		if currentTuningTable.Suspension and tonumber(currentTuningTable.Suspension) > 0.5 then
+			vehicle.velocity = Vector3(0, 0, 0.01)
+		else
+			vehicle.velocity = Vector3(0, 0, -0.01)
+		end
+	end, 250, 2)	
 	
 	-- Наклейки
 	local stickersJSON = vehiclesList[currentVehicle].stickers
@@ -89,9 +90,6 @@ function GarageCar.start(car, vehicles)
 	vehicle = car
 	vehicle.position = CAR_POSITION
 	--vehicle = createVehicle(411, CAR_POSITION)
-	unfreezeTimer = setTimer(function ()
-		vehicle.frozen = true
-	end, VEHICLE_UNFREEZE_TIME, 1)
 	vehicle.rotation = Vector3(0, 0, -90)
 	vehicle.dimension = localPlayer.dimension
 
@@ -161,6 +159,7 @@ function GarageCar.applyHandling(name, value)
 		value = vehicle:getData(name)
 	else
 		GarageCar.previewHandling(name, value)
+		vehicle:setData(name, value, false)
 	end
 	currentTuningTable[name] = value
 end
@@ -206,7 +205,7 @@ function GarageCar.resetTuning()
 	-- Высота подвески	
 	local suspensionHeight = currentTuningTable["Suspension"]
 	if type(suspensionHeight) == "number" then
-		GarageCar.previewHandling("Suspension", suspensionHeight)
+		GarageCar.applyHandling("Suspension", suspensionHeight)
 	end
 
 	-- Размер колёс по-умолчанию
@@ -250,14 +249,6 @@ function GarageCar.getTuningTable()
 
 	for i, name in ipairs(copyData) do
 		tuningTable[name] = vehicle:getData(name)
-	end
-
-	-- Высота подвески
-	local suspensionHeight = vehicle:getData("Suspension")
-	if type(suspensionHeight) == "number" then
-		tuningTable["Suspension"] = math.floor(suspensionHeight * 100) / 100
-	else
-		tuningTable["Suspension"] = nil
 	end
 	
 	return tuningTable

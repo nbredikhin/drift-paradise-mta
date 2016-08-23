@@ -176,6 +176,15 @@ cameraPresets.wheelsSize = {
 	roll = 0	
 }
 
+cameraPresets.previewWheelsSize = {
+	targetPosition = Vector3(-0.5, -0.7, -0.3),
+	rotationHorizontal = 45,
+	rotationVertical = 5,
+	distance = 6.2,
+	FOV = 55,
+	roll = 0	
+}
+
 
 ----------------------------------------------------------
 
@@ -314,10 +323,19 @@ cameraPresets.previewFrontLights = {
 -- Подвеска
 cameraPresets.suspension = {
 	targetPosition = Vector3(0, 0, -0.3),
-	rotationHorizontal = 90,
+	rotationHorizontal = 50,
 	rotationVertical = 0,
 	distance = 6,
 	FOV = 55,
+	roll = 0	
+}
+
+cameraPresets.previewSuspension = {
+	targetPosition = Vector3(-0.2, -1.7, -0.3),
+	rotationHorizontal = 40,
+	rotationVertical = 0,
+	distance = 7,
+	FOV = 60,
 	roll = 0	
 }
 

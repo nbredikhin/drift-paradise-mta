@@ -4,9 +4,11 @@ local function updateVehicleSuspension(vehicle)
 	end
 	local value = vehicle:getData("Suspension")
 	if type(value) ~= "number" then
-		value = getOriginalHandling(vehicle.model).suspensionForceLevel
+		value = getOriginalHandling(vehicle.model).suspensionLowerLimit
+	else
+		value = -0.02 - value * 0.2
 	end
-	setVehicleHandling(vehicle, "suspensionForceLevel", value)
+	setVehicleHandling(vehicle, "suspensionLowerLimit", value)
 end
 
 addEventHandler("onElementDataChange", root, function (dataName)

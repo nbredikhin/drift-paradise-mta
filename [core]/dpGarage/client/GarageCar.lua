@@ -73,7 +73,7 @@ local function updateVehicle()
 		end
 		setData("stickers", stickers)	
 	else
-		
+		setData("stickers", {})
 	end
 	
 	GarageCar.resetTuning()

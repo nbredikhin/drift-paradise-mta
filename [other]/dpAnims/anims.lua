@@ -9,6 +9,8 @@ local anims = {
 	hello = {"ped", "endchat_03", false},
 	no = {"ped", "endchat_02", false},
 	bye = {"ped", "endchat_01", false},
+
+	--Ped > IDLE_Chat
 }
 
 addEvent("dpAnims.playAnim", true)

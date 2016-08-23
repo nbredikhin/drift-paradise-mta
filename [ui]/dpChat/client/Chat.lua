@@ -25,16 +25,6 @@ function Chat.setVisible(visible)
 	isVisible = visible
 end
 
-function Chat.setTab(name)
-	if type(name) ~= "string" then
-		return
-	end
-	if name == activeTabName then
-		return
-	end
-	activeTabName = name
-end
-
 function Chat.removeTab(name)
 	if type(name) ~= "string" then
 		return false
@@ -127,8 +117,15 @@ function Chat.message(tabName, text, r, g, b, colorCoded)
 end
 
 function Chat.setActiveTab(name)
+	if type(name) ~= "string" then
+		return
+	end
+	if name == activeTabName then
+		return false
+	end
 	if Chat.getTabFromName(name) then
 		activeTabName = name
+		return true
 	end
 end
 
@@ -180,7 +177,7 @@ function drawTabs()
 			alpha = 255
 
 			if getKeyState("mouse1") then
-				Chat.setTab(tab.name)
+				Chat.setActiveTab(tab.name)
 			end
 
 			highlightedTabName = tab.name
@@ -202,6 +199,15 @@ end
 
 function Chat.getActiveTab()
 	return activeTabName
+end
+
+function Chat.clearTab(name)
+	local tab = Chat.getTabFromName(name)
+	if not tab then
+		return
+	end
+	tab.messages = {}
+	return false
 end
 
 function drawInput()

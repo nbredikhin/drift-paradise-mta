@@ -2,6 +2,9 @@ local SHOW_MESSAGE = true
 local KICK_PLAYERS = false
 
 local startupResources = {
+	-- Important 
+	"geoip",
+	
 	-- Assets
 	"dpAssets",
 	-- Configuration

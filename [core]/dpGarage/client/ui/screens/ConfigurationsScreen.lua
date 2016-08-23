@@ -2,6 +2,11 @@
 ConfigurationsScreen = Screen:subclass "ConfigurationsScreen"
 local screenSize = Vector2(guiGetScreenSize())
 
+local screens = {
+	FrontWheels = WheelsScreen,
+	RearWheels = WheelsScreen
+}
+
 function ConfigurationsScreen:init(componentName)
 	self.super:init()
 
@@ -59,8 +64,8 @@ function ConfigurationsScreen:onKey(key)
 		self.componentsSelection:stop()
 				
 		local screenClass = ConfigurationScreen
-		if componentName == "FrontWheels" or componentName == "RearWheels" then
-			screenClass = WheelsScreen
+		if screens[componentName] then
+			screenClass = screens[componentName]
 		end
 		self.screenManager:showScreen(screenClass(componentName))
 	end	

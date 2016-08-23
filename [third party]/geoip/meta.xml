@@ -1,0 +1,9 @@
+<meta>
+	<info author="Fro" description="GeoIP tools" version="0.1" type="misc"/>
+	
+	<script src="geoip.lua" type="server"/>
+	
+	<export function="getCountry"/>
+	<export function="getCountryCity"/>
+</meta>
+

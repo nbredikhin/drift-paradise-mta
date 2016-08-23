@@ -1,8 +1,17 @@
+local function getDefaultLanguage()
+	local lang = getLocalization().code
+	if lang == "ru" then
+		return "russian"
+	else 
+		return "english"
+	end
+end
+
 addEventHandler("onClientResourceStart", resourceRoot, function ()
 	PropsStorage.init("player_prefs.json")
 	-- Настройки по умолчанию
 	-- Параметры интерфейса
-	PropsStorage.setDefault("ui.language", "english")
+	PropsStorage.setDefault("ui.language", getDefaultLanguage())
 	PropsStorage.setDefault("ui.theme", "red")
 	PropsStorage.setDefault("ui.blur", true)
 	PropsStorage.setDefault("chat.timestamp", false)

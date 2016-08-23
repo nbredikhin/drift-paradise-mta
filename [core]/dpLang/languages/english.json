@@ -294,6 +294,12 @@
 	"chat_tab_general": "General",
 	"chat_input_message": "Message",
 
+	"chat_tab_russian": "Russian",
+	"chat_tab_english": "English",
+
+	"chat_pm_started": "Here you can send private messages to %s",
+	"chat_close_tab": "To close this tab, click it with right mouse button",
+
 	// Race
 	"race_lobby_close_button": "Close",
 	"race_lobby_play_button": "Start race",

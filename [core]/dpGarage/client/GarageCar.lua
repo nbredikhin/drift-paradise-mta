@@ -62,8 +62,7 @@ local function updateVehicle()
 	if type(vehiclesList[currentVehicle].tuning) == "string" then
 		currentTuningTable = fromJSON(vehiclesList[currentVehicle].tuning)
 	end
-
-
+	
 	-- Наклейки
 	local stickersJSON = vehiclesList[currentVehicle].stickers
 	if stickersJSON then

@@ -47,8 +47,16 @@ function NumberplateScreen:onKey(key)
 	self.super:onKey(key)
 
 	if key == "enter" then
-		self.screenManager:showScreen(ComponentsScreen("Numberplate"))
-		GarageCar.applyTuning("Numberplate", self.numberplateText)
+		local this = self
+		local price, level = unpack(exports.dpShared:getTuningPrices("numberplate"))
+		Garage.buy(price, level, function(success)	
+			if success then
+				GarageCar.applyTuning("Numberplate", this.numberplateText)
+			else
+				GarageCar.resetTuning()
+			end
+			this.screenManager:showScreen(ComponentsScreen("Numberplate"))
+		end)
 	elseif key == "backspace" then
 		if string.len(self.numberplateText) > 0 then
 			self.numberplateText = string.sub(self.numberplateText, 1, -2)

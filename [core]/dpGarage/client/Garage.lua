@@ -3,6 +3,8 @@ Garage.themePrimaryColor = {}
 local isActive = false
 local sound
 
+local pendingBuyCallback
+
 -- Фоновая музыка
 local musicURLs = {
 	"http://online-song.net/mp3/1-21v4/aaabda7058058a/p30/Twista+%28L.A.+Rush+OST%29+%96+Get+Me+%282004%29.mp3",
@@ -102,8 +104,13 @@ end
 
 function Garage.buy(price, level, callback)
 	if type(price) ~= "number" or type(level) ~= "number" or type(callback) ~= "function" then
+		outputDebugString("Garage.buy: bad arguments")
 		return false
 	end
+	if pendingBuyCallback then
+		callback(false)
+		return false
+	end	
 	if level > localPlayer:getData("level") then
 		outputDebugString("Error: Not enough level")
 		callback(false)
@@ -114,7 +121,15 @@ function Garage.buy(price, level, callback)
 		callback(false)
 		return 
 	end
-
-	-- TODO: Server buy
-	callback(true)
+	pendingBuyCallback = callback
+	triggerServerEvent("dpGarage.buy", resourceRoot, price, level)
 end
+
+addEvent("dpGarage.buy", true)
+addEventHandler("dpGarage.buy", resourceRoot, function (success)
+	if type(pendingBuyCallback) ~= "function" then
+		return false
+	end
+	pendingBuyCallback(success)
+	pendingBuyCallback = nil
+end)

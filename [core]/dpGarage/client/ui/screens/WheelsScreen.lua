@@ -53,7 +53,7 @@ end
 function WheelsScreen:draw()
 	self.super:draw()
 	self.menu:draw(self.fadeProgress)
-	self:updatePreview()
+	--self:updatePreview()
 end
 
 function WheelsScreen:update(deltaTime)
@@ -65,18 +65,21 @@ function WheelsScreen:update(deltaTime)
 	end
 	if getKeyState("arrow_r") then
 		self.menu:increase(deltaTime)
-		--self:updatePreview()
+		self:updatePreview()
 	elseif getKeyState("arrow_l") then
 		self.menu:decrease(deltaTime)
-		--self:updatePreview()
+		self:updatePreview()
 	end
 end
 
 function WheelsScreen:updatePreview()
+	if self.disabled then
+		return
+	end
 	local bar, value = self.menu:getBarValue()
 	local dataName = self.dataNames[bar]
 	if string.find(dataName, "WheelsOffset") then
-		value = value / 3
+		value = value * 0.3
 	elseif string.find(dataName, "WheelsAngle") then
 		value = value * -20
 	elseif string.find(dataName, "WheelsWidth") then
@@ -92,15 +95,21 @@ function WheelsScreen:onKey(key)
 	end
 
 	if key == "enter" then
-		for i = 1, 3 do
-			GarageCar.applyTuningFromData(self.dataNames[i])
-		end	
-		GarageCar.resetTuning()
-		self.screenManager:showScreen(ConfigurationsScreen(self.wheelsSide))
+		local price, level = unpack(exports.dpShared:getTuningPrices("wheels_advanced"))
+		local this = self
 		self.disabled = true
+		Garage.buy(price, level, function (success)
+			if success then
+				for i = 1, 3 do
+					GarageCar.applyTuningFromData(this.dataNames[i])
+				end
+				GarageCar.resetTuning()
+				this.screenManager:showScreen(ConfigurationsScreen(this.wheelsSide))					
+			end
+		end)
 	elseif key == "backspace" then
-		GarageCar.resetTuning()
 		self.disabled = true
+		GarageCar.resetTuning()
 		self.screenManager:showScreen(ConfigurationsScreen(self.wheelsSide))
 	elseif key == "arrow_u" then
 		self.menu:selectPreviousBar()

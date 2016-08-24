@@ -82,10 +82,10 @@ function ColorScreen:onKey(key)
 		local this = self
 		Garage.buy(self.colorMenu.price, self.requiredLevel, function(success)
 			if success then
-				GarageCar.applyTuning(this.componentName, {this.colorMenu:getColor()})
-				CarTexture.reset()
+				GarageCar.applyTuning(this.componentName, {this.colorMenu:getColor()})				
 			end
-			self.screenManager:showScreen(ColorsScreen(self.componentName))
+			CarTexture.reset()
+			this.screenManager:showScreen(ColorsScreen(self.componentName))
 		end)
 	end
 end

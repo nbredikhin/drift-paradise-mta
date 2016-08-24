@@ -64,6 +64,12 @@ function StickersGrid:changeSection(sectionId)
 		for k, v in pairs(sticker) do
 			item[k] = v
 		end
+		if not item.level then
+			item.level = 1
+		end
+		if item.level < 1 then
+			item.level = 1
+		end
 		if item.id then
 			item.texture = Assets.textures["sticker_" .. tostring(item.id)]
 			if item.texture then
@@ -98,6 +104,7 @@ function StickersGrid:draw(fadeProgress)
 	-- Отрисовка сетки
 	dxSetRenderTarget(self.gridRenderTarget, true)
 	local money = localPlayer:getData("money")
+	local level = localPlayer:getData("level")
 	for i, item in ipairs(self.stickersList) do
 		math.randomseed(i)
 		local backgroundColor = 0
@@ -108,10 +115,10 @@ function StickersGrid:draw(fadeProgress)
 		end	
 		local imageColor = {255, 255, 255, 255}
 		local priceAlpha = 255
-		if money < item.price then
+		if money < item.price or level < item.level then
 			imageColor = {50, 50, 50, 255}
 			priceAlpha = 150
-		end		
+		end	
 		itemX = (itemX - 1) * self.itemSize
 		itemY = (itemY - 1) * self.itemSize - self.gridScrollOffset
 
@@ -126,17 +133,29 @@ function StickersGrid:draw(fadeProgress)
 			0, 0, 0,
 			tocolor(imageColor[1], imageColor[2], imageColor[3], imageColor[4] * fadeProgress)
 		)
-		dxDrawText("$" .. tostring(item.price), 
-			itemX, 
+		dxDrawText("$#FFFFFF" .. tostring(item.price), 
+			itemX + 10, 
 			itemY - self.itemTextHeight + self.itemSize, 
-			itemX + self.itemSize, 
+			itemX + self.itemSize / 2, 
 			itemY + self.itemSize,
-			tocolor(255, 255, 255, priceAlpha * fadeProgress),
+			tocolor(Garage.themePrimaryColor[1], Garage.themePrimaryColor[2], Garage.themePrimaryColor[3], priceAlpha * fadeProgress),
 			1,
 			self.font,
+			"left",
 			"center",
-			"center"
+			false, false, false, true
 		)
+		dxDrawText("★" .. tostring(item.level), 
+			itemX + self.itemSize / 2, 
+			itemY - self.itemTextHeight + self.itemSize, 
+			itemX + self.itemSize - 10, 
+			itemY + self.itemSize,
+			tocolor(Garage.themePrimaryColor[1], Garage.themePrimaryColor[2], Garage.themePrimaryColor[3], priceAlpha * fadeProgress),
+			1,
+			self.font,
+			"right",
+			"center"
+		)		
 	end
 	dxSetRenderTarget()
 

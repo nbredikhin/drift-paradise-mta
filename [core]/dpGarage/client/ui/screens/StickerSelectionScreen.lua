@@ -41,7 +41,7 @@ function StickerSelectionScreen:onKey(key)
 		if not sticker then
 			return 
 		end
-		Garage.buy(sticker.price, 1, function(success)
+		Garage.buy(sticker.price, sticker.level, function(success)
 			if success then
 				if sticker and sticker.id then
 					screen:addSticker(sticker.id)

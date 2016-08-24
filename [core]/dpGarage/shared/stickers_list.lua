@@ -2,11 +2,11 @@
 TuningConfig.stickers = {
 	-- Раздел "фигуры"
 	{
-		{id = 251, price = 1, level = 0},
-		{id = 252, price = 1, level = 0},
-		{id = 253, price = 1, level = 0},
-		{id = 254, price = 1, level = 0},
-		{id = 255, price = 1, level = 0},
+		{id = 251, price = 1, level = 1},
+		{id = 252, price = 10, level = 2},
+		{id = 253, price = 100, level = 3},
+		{id = 254, price = 1000, level = 4},
+		{id = 255, price = 10000, level = 5},
 		{id = 256, price = 1, level = 0},
 		{id = 257, price = 1, level = 0},
 		{id = 258, price = 1, level = 0},

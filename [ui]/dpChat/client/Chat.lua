@@ -19,10 +19,14 @@ function Chat.setVisible(visible)
 	if visible then
 
 	else
-
+		Input.close()
 	end
 
 	isVisible = visible
+end
+
+function Chat.isVisible()
+	return not not isVisible
 end
 
 function Chat.removeTab(name)

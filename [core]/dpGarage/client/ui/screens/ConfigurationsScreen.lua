@@ -62,6 +62,9 @@ function ConfigurationsScreen:onKey(key)
 		GarageUI.showSaving()
 		GarageCar.save()
 	elseif key == "enter" then
+		if not self.componentsSelection:canBuy() then
+			return
+		end		
 		local componentName = self.componentsSelection:getSelectedComponentName()
 		if not componentName then
 			return

@@ -19,10 +19,16 @@ function ConfigurationScreen:init(dataName)
 	self.vehicle = GarageCar.getVehicle()
 	self.dataName = dataName
 	self.dataType = "tuning"
+	local price = 0
 	if self.dataName == "Suspension" then
 		self.applyForce = true
 		self.dataType = "handling"
+
+		price = unpack(exports.dpShared:getTuningPrices("suspension"))
+	elseif self.dataName == "WheelsSize" then
+		price = unpack(exports.dpShared:getTuningPrices("wheels_size"))
 	end
+	self.menu.price = price
 	self.configurationIndex = configurationIndex
 	self.menu:setValue(GarageCar.getVehicle():getData(dataName))
 	CameraManager.setState("preview" .. tostring(dataName), false, 3)
@@ -64,13 +70,27 @@ function ConfigurationScreen:onKey(key)
 		GarageCar.resetTuning()
 		self.dataName = nil
 		self.screenManager:showScreen(ConfigurationsScreen(self.dataName))
-	elseif key == "enter" then
-		if self.dataType == "handling" then
-			GarageCar.applyHandling(self.dataName)
-		else
-			GarageCar.applyTuning(self.dataName)
+	elseif key == "enter" then	
+		local name = "suspension"
+		if self.dataName == "WheelsSize" then
+			name = "wheels_size"
 		end
-		GarageCar.save()
-		self.screenManager:showScreen(ConfigurationsScreen(self.dataName))
+		
+		local this = self
+		local price, level = unpack(exports.dpShared:getTuningPrices(name))
+		Garage.buy(price, level, function(success)	
+			if success then
+				if this.dataType == "handling" then
+					GarageCar.applyHandling(this.dataName)
+				else
+					GarageCar.applyTuning(this.dataName)
+				end
+				GarageCar.save()
+			else
+				GarageCar.resetTuning()
+				self.dataName = nil
+			end
+			self.screenManager:showScreen(ConfigurationsScreen(self.dataName))
+		end)
 	end
 end

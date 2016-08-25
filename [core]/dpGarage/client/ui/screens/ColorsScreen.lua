@@ -8,13 +8,13 @@ function ColorsScreen:init(componentName)
 	})
 	local vehicle = GarageCar.getVehicle()
 	-- Если на машине установлены передние диски
-	-- if vehicle:getData("WheelsF") and vehicle:getData("WheelsF") > 0 then
-	-- 	self.componentsSelection:addComponent("WheelsColorF", "wheelLF", "garage_tuning_paint_wheels_front", nil, unpack(exports.dpShared:getTuningPrices("wheels_color")))
-	-- end
-	-- -- Если на машине установлены задние диски
-	-- if vehicle:getData("WheelsR") and vehicle:getData("WheelsR") > 0 then
-	-- 	self.componentsSelection:addComponent("WheelsColorR", "wheelLB", "garage_tuning_paint_wheels_rear", nil, unpack(exports.dpShared:getTuningPrices("wheels_color")))
-	-- end
+	if vehicle:getData("WheelsF") and vehicle:getData("WheelsF") > 0 then
+		self.componentsSelection:addComponent("WheelsColorF", "wheelLF", "garage_tuning_paint_wheels_front", nil, unpack(exports.dpShared:getTuningPrices("wheels_color")))
+	end
+	-- Если на машине установлены задние диски
+	if vehicle:getData("WheelsR") and vehicle:getData("WheelsR") > 0 then
+		self.componentsSelection:addComponent("WheelsColorR", "wheelLB", "garage_tuning_paint_wheels_rear", nil, unpack(exports.dpShared:getTuningPrices("wheels_color")))
+	end
 
 	-- Если на машине установлен спойлер
 	if vehicle:getData("Spoilers") and vehicle:getData("Spoilers") > 0 then

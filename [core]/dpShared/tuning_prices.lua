@@ -33,7 +33,7 @@ local tuningPrices = {
 	-- Колёса
 	wheels_size = {1000, 2},
 	wheels_advanced = {1000, 1},	
-	wheels_color = {800, 4},
+	wheels_color = {2500, 30},
 	wheels = {
 		{0, 1},
 		{0, 1},

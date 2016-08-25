@@ -45,10 +45,32 @@ local function calculateRank()
 	Race.rank = rank
 end
 
+local function onKey(key, state)
+	if not state then
+		return
+	end
+	if key == "F1" then
+		if QuitPrompt.isVisible() or isFinished then
+			QuitPrompt.hide()
+		else
+			QuitPrompt.show()
+		end
+	end
+end
+
+addEventHandler("onClientResourceStart", resourceRoot, function ()
+	if localPlayer:getData("dpCore.state") == "race" then
+		localPlayer:setData("dpCore.state", false)
+		localPlayer:setData("activeUI", false)		
+	end
+end)
+
 function Race.start()
 	if isActive then
 		return false
 	end
+	localPlayer:setData("dpCore.state", "race")
+	localPlayer:setData("activeUI", "raceUI")
 	isActive = true
 	Race.state = nil
 	isFinished = false
@@ -59,12 +81,15 @@ function Race.start()
 	toggleControl("enter_exit", false)
 
 	rankTimer = setTimer(calculateRank, 1000, 0)
+	addEventHandler("onClientKey", root, onKey)
 end
 
 function Race.stop()
 	if not isActive then
 		return false
 	end
+	localPlayer:setData("dpCore.state", false)
+	localPlayer:setData("activeUI", false)	
 	isActive = false
 	Race.state = nil
 	RaceUI.stop()
@@ -83,9 +108,11 @@ function Race.stop()
 		killTimer(rankTimer)
 		rankTimer = nil
 	end		
+	removeEventHandler("onClientKey", root, onKey)
 end
 
 function Race.finished(timeout)
+	QuitPrompt.hide()
 	RaceCheckpoints.stop()
 	Countdown.stop()
 	triggerServerEvent("finishRace", resourceRoot)

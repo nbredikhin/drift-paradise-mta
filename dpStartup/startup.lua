@@ -14,7 +14,7 @@ local startupResources = {
 	
 	-- Core	
 	"dpImport",
-	"dpUtils",	
+	"dpUtils",
 	"dpLang",
 	"dpMarkers",
 	"dpGameTime",
@@ -42,6 +42,8 @@ local startupResources = {
 	"dpHouses",
 	"dpGarage",
 	"dpCarshop",
+	"dpRaceManager",
+	"dpDuels",
 	"dpSkinSelect",
 	"dpVehicleSelect",
 	"dpCameraViews",

@@ -5,9 +5,14 @@ local DUEL_DURATION = 180
 
 function startDuel(player1, player2, bet)
 	if not isElement(player1) or not isElement(player2) then
+		outputDebugString("Duel: no player")
+		return
+	end
+	if player1:getData("dpCore.state") or player2:getData("dpCore.state") then
 		return
 	end
 	if not bet then
+		outputDebugString("Duel: no bet")
 		return
 	end
 	-- TODO: Проверить расстояние между игроками
@@ -46,11 +51,12 @@ function startDuel(player1, player2, bet)
 end
 
 addCommandHandler("duel", function (player)
+	outputDebugString("da")
 	if not player.vehicle then
 		exports.dpChat:output("general", "No vehicle")
 		return false
 	end
 	local players = getElementsByType("player")
-	startDuel(players[1], players[2])
+	startDuel(players[1], players[1], 100)
 end)
 

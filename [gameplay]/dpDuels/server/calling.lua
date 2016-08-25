@@ -44,6 +44,7 @@ addEventHandler("dpDuels.answerCall", resourceRoot, function (targetPlayer, stat
 	if not targetPlayer.vehicle or targetPlayer.vehicle.controller ~= targetPlayer then
 		return false
 	end	
+	-- Проверить деньги
 	if client:getData("money") < bet then
 		return
 	end
@@ -51,10 +52,7 @@ addEventHandler("dpDuels.answerCall", resourceRoot, function (targetPlayer, stat
 		return
 	end
 	client:setData("money", client:getData("money") - bet)
-	targetPlayer:setData("money", client:getData("money") - bet)
+	targetPlayer:setData("money", targetPlayer:getData("money") - bet)
 
-	bet = bet * 2
-	-- Начать дуэль
-
-	startDuel(targetPlayer, client)
+	startDuel(targetPlayer, client, bet)
 end)

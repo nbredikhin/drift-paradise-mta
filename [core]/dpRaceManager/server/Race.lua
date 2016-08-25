@@ -32,7 +32,9 @@ function Race:init(settings)
 		separateDimension = true,
 		createVehicles = false,
 		fadeCameraOnJoin = true,
-		onePlayerFinish = false
+		onePlayerFinish = false,
+		money = {},
+		xp = {},
 	}
 	-- Установить не указанные настройки по умолчанию
 	self.settings = exports.dpUtils:extendTable(settings, self.settings)
@@ -71,14 +73,11 @@ function Race:loadMap(mapName)
 end
 
 function Race:setMap(mapData)
-	outputDebugString("Set map pls 2")
 	if type(mapData) ~= "table" then
 		return false
 	end
-	outputDebugString("SET MAP")
 	self.map = MapLoader()
 	self.map.checkpoints = mapData.checkpoints
-	outputDebugString("test")
 	self:setState("waiting")
 	return true
 end
@@ -206,14 +205,28 @@ function Race:removePlayer(player)
 			player:setData("race_id", false)
 			player:setData("race_state", false)
 			table.remove(self.players, i)
-			-- Если все игроки покинули гонку - удалить её
-			if #self.players == 0 then
-				self.raceManager:removeRace(self)
-			end
+			self:checkPlayersCount()
 			return true
 		end
 	end
 	return false
+end
+
+function Race:checkPlayersCount()
+	-- Если остался последний игрок - завершить гонку
+	if #self.players == 1 then
+		if self:getState() == "running" then
+			self:finish()
+		else
+			self:finish(true)
+			self:callMethod("removed")
+			self.raceManager:removeRace(self)
+		end
+	end
+	-- Если все игроки покинули гонку - удалить её
+	if #self.players == 0 then
+		self.raceManager:removeRace(self)
+	end
 end
 
 function Race:removeAllPlayers()
@@ -249,7 +262,7 @@ function Race:start()
 
 	self:callMethod("showCountdown", self.players)
 	local race = self
-	setTimer(function()
+	self.countdownTimer = setTimer(function()
 		race:run()
 	end, 1000 * 3, 1)
 end
@@ -259,12 +272,12 @@ function Race:isPlayerFinished(player)
 		return false
 	end		
 	if not player:getData("race_id") then
-		outputDebugString("Race:removePlayer - player is not in race")
+		outputDebugString("Race:isPlayerFinished - player is not in race")
 		return false
 	end
 	-- Если игрок находится в другой гонке
 	if player:getData("race_id") ~= self.id then
-		outputDebugString("Race:removePlayer - player is in another race")
+		outputDebugString("Race:isPlayerFinished - player is in another race")
 		return false
 	end
 	return player:getData("race_state") == "finished"
@@ -276,33 +289,55 @@ function Race:playerFinish(player, timeout)
 	end	
 	-- Если игрок не находится в гонке
 	if not player:getData("race_id") then
-		outputDebugString("Race:removePlayer - player is not in race")
+		outputDebugString("Race:playerFinish - player is not in race")
 		return false
 	end
 	-- Если игрок находится в другой гонке
 	if player:getData("race_id") ~= self.id then
-		outputDebugString("Race:removePlayer - player is in another race")
+		outputDebugString("Race:playerFinish - player is in another race")
 		return false
 	end	
 	if self:getState() == "ended" then
+		outputDebugString("Race:playerFinish - race ended")
 		return false
 	end	
 	if self:isPlayerFinished(player) then
+		outputDebugString("Race:playerFinish - alrady finished")
 		return false
 	end
-	local timeLeft = getTimerDetails(self.durationTimer)
-	if not timeLeft then
-		return false
-	end
+
+	local timeLeft = self.settings.duration * 1000
+	if self.durationTimer then
+		local timerTime = getTimerDetails(self.durationTimer)
+		if timerTime then
+			timeLeft = getTimerDetails(self.durationTimer)
+		end
+	end	
+
 	local timePassed = self.settings.duration * 1000 - timeLeft
 	local rank = #self.finishedPlayers + 1
-	local money = 2500 - (500 * (rank - 1))
-	local xp = 250 - (50 * (rank - 1))
-
+	local money = self.settings.money[rank]
+	if not money then
+		money = 0
+	end
+	local xp = self.settings.xp[rank]
+	if not xp then
+		xp = 0
+	end
 	if timeout then
 		money = 0
 		xp = 0
 	end
+	local playerMoney = player:getData("money")
+	if type(playerMoney) == "number" then
+		player:setData("money", playerMoney + money)
+	end
+
+	local playerXP = player:getData("xp")
+	if type(playerXP) == "number" then
+		player:setData("xp", playerXP + xp)
+	end	
+
 	table.insert(self.finishedPlayers, {
 		player = player,
 		time = timePassed,
@@ -313,7 +348,30 @@ function Race:playerFinish(player, timeout)
 	})
 	player:setData("race_state", "finished")
 	self:callMethod("updateFinishedPlayers", self.finishedPlayers)
+
+	if self:getState() ~= "ended" and #self.finishedPlayers >= #self.players then
+		self:finish()
+	end	
 	return true
+end
+
+function Race:finish(timeout)
+	if self:getState() == "ended" then
+		return false
+	end	
+	for i, player in ipairs(self.players) do
+		self:playerFinish(player, timeout)
+	end		
+	if isTimer(self.durationTimer) then
+		killTimer(self.durationTimer)
+		self.durationTimer = nil
+	end	
+	if isTimer(self.countdownTimer) then
+		killTimer(self.countdownTimer)
+		self.countdownTimer = nil
+	end
+	self:setState("ended")
+	self:callMethod("finished")
 end
 
 -- Время вышло
@@ -321,17 +379,10 @@ function Race:onTimeout()
 	if self:getState() == "ended" then
 		return false
 	end
-	-- Принудительно финишировать всем игрокам
-	for i, player in ipairs(self.players) do
-		self:playerFinish(player, true)
-	end	
+	-- Принудительно финишировать
+	self:finish(true)
 	self:callMethod("timeout")
-	if isTimer(self.durationTimer) then
-		killTimer(self.durationTimer)
-		self.durationTimer = nil
-	end		
 	outputDebugString("Race timeout")
-	self:setState("ended")
 end
 
 ---- Обработчики событий МТА
@@ -347,6 +398,7 @@ end
 
 -- Игрок вышел с сервера
 function Race:onPlayerQuitHandler(player)
+	outputDebugString("Race player quit")
 	self:removePlayer(player)
 end
 

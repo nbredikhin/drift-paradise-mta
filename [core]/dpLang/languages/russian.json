@@ -349,7 +349,6 @@
 	"duel_invite_duel_title": "Дуэль",
 	"duel_invite_local_nocar": "Вы должны быть в автомобиле",
 	"duel_invite_remote_nocar": "Игрок должен быть в автомобиле",
-	"duel_invite_remote_nocar": "Игрок должен быть в автомобиле",
 
 	"duel_invite_duel_with": "Дуэль с %s",
 	"duel_invite_call": "Вызвать",
@@ -360,7 +359,7 @@
 	"duel_invite_error_player_left": "Игрок вышел с сервера",
 	"duel_invite_error_bad_bet_amount": "Введена неверная ставка",
 	"duel_invite_error_bet_too_small": "Нельзя поставить меньше $%s",
-	"duel_invite_error_bet_too_big": "Игрок вышел с сервера",
+	"duel_invite_error_bet_too_big": "Нельзя поставить больше $%s",
 	"duel_invite_error_not_enough_money": "У вас недостаточно денег",
 	"duel_invite_error_player_not_enough_money": "У игрока недостаточно денег",
 

@@ -1,9 +1,15 @@
 -- Максимальное количество чекпойнтов в дуэли
-local DUEL_CHECKPOINTS_COUNT = 20
+local DUEL_CHECKPOINTS_COUNT = 5
 -- Максимальная длительность дуэли в секундах
 local DUEL_DURATION = 180
 
-function startDuel(player1, player2)
+function startDuel(player1, player2, bet)
+	if not isElement(player1) or not isElement(player2) then
+		return
+	end
+	if not bet then
+		return
+	end
 	-- TODO: Проверить расстояние между игроками
 
 	local race = exports.dpRaceManager:createRace({
@@ -14,7 +20,12 @@ function startDuel(player1, player2)
 		-- Не затемнять камеру при входе в дуэль
 		fadeCameraOnJoin = false,
 		onePlayerFinish = true,
-		duration = DUEL_DURATION
+		duration = DUEL_DURATION,
+
+		money = {
+			bet * 2, 
+			0
+		}
 	})
 	if not race then
 		return false

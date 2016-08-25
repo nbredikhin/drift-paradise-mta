@@ -87,6 +87,7 @@ end
 
 function Race.finished(timeout)
 	RaceCheckpoints.stop()
+	Countdown.stop()
 	triggerServerEvent("finishRace", resourceRoot)
 	isFinished = true
 	finishScreen = FinishScreen()
@@ -127,6 +128,17 @@ Race.addMethod("onJoin", function (settings, dimension)
 	Race.start()
 end)
 
+Race.addMethod("onPlayerLeave", function (player)
+	if Race.players then
+		for i, p in ipairs(Race.players) do
+			if p == player then
+				table.remove(Race.players, i)
+				break
+			end
+		end
+	end
+end)
+
 -- Локальный игрок покинул гонку
 Race.addMethod("onLeave", function ()
 	Race.stop()
@@ -134,6 +146,15 @@ end)
 
 Race.addMethod("timeout", function ()
 	Race.finished(true)
+end)
+
+Race.addMethod("removed", function ()
+	Race.stop()
+end)
+
+Race.addMethod("finished", function ()
+	Race.finished()
+	outputDebugString("RACE FINISHED")
 end)
 
 -- Изменилось состоние гонки

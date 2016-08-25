@@ -1,6 +1,15 @@
 raceManager = RaceManager()
 
 addEventHandler("onResourceStart", resourceRoot, function()
+	for i, p in ipairs(getElementsByType("player")) do
+		if p:getData("race_id") then
+			if p.vehicle then
+				p.vehicle.dimension = 0
+			end			
+			p.dimension = 0
+		end
+		p:setData("race_id", false)
+	end
 	-- setTimer(function()
 	-- 	local testRace = Race({
 	-- 		separateDimension = true,

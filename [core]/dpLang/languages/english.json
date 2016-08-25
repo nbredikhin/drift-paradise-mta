@@ -368,5 +368,32 @@
 	"context_menu_anim_lay": "Lay down",
 	"context_menu_anim_sit": "Sit",
 	"context_menu_anim_fucku": "Fck u",
-	"context_menu_anim_serious": "Hands crossed over chest"	
+	"context_menu_anim_serious": "Hands crossed over chest",
+
+	// Duels
+	"duel_invite_error_title": "Error",
+	"duel_invite_duel_title": "Duel",
+	"duel_invite_local_nocar": "You must be in a vehicle",
+	"duel_invite_remote_nocar": "Player must be in a car",
+
+	"duel_invite_duel_with": "Duel with %s",
+	"duel_invite_call": "Call",
+	"duel_invite_cancel": "Cancel",
+	"duel_invite_bet_placeholder": "Bet amount",
+	"duel_invite_info_label": "To start duel with this player, enter bet amount and click 'Call'",
+
+	"duel_invite_error_player_left": "Player is not on the server",
+	"duel_invite_error_bad_bet_amount": "Invalid bet amount",
+	"duel_invite_error_bet_too_small": "You can't bet less than $%s",
+	"duel_invite_error_bet_too_big": "You can't bet more than $%s",
+	"duel_invite_error_not_enough_money": "Not enough money",
+	"duel_invite_error_player_not_enough_money": "Player has not enough money",
+
+	"duel_invite_invite_sent_body": "Duel invintation sent",
+	"duel_invite_invite_sent_chatmsg": "Duel invintation sent. Waiting for the response...",
+	"duel_invite_invite_player_cancelled": "Player didn't accept the duel",
+
+	"duel_accept_message": "Player %s wants to duel with you.\nBet: $%s",
+	"duel_accept_key_accept": "%s - accept",
+	"duel_accept_key_decline": "%s - decline",	
 }

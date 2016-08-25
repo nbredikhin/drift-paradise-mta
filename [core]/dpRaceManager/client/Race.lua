@@ -28,21 +28,32 @@ local function calculateRank()
 		return
 	end
 
-	local localCheckpoint = RaceCheckpoints.getCurrentCheckpoint()
-	local distance = getDistanceBetweenPoints2D(localPlayer.vehicle.position, RaceCheckpoints.getCheckpointPosition())
-	local rank = 1
-	for i, p in ipairs(Race.players) do
-		local playerCheckpoint = p:getData("race_checkpoint")
-		if playerCheckpoint > localCheckpoint then
-			rank = rank + 1
-		elseif playerCheckpoint == localCheckpoint then
-			local pos = RaceCheckpoints.getCheckpointPosition()
-			if pos and getDistanceBetweenPoints2D(p.vehicle.position, pos) < distance then
+	if Race.settings.gamemode == "drift" then
+		local rank = 1
+		for i, p in ipairs(Race.players) do
+			local playerScore = p:getData("raceDriftScore")
+			if type(playerScore) == "number" and playerScore > DriftPoints.getScore() then
 				rank = rank + 1
 			end
 		end
+		Race.rank = rank
+	else
+		local localCheckpoint = RaceCheckpoints.getCurrentCheckpoint()
+		local distance = getDistanceBetweenPoints2D(localPlayer.vehicle.position, RaceCheckpoints.getCheckpointPosition())
+		local rank = 1
+		for i, p in ipairs(Race.players) do
+			local playerCheckpoint = p:getData("race_checkpoint")
+			if playerCheckpoint > localCheckpoint then
+				rank = rank + 1
+			elseif playerCheckpoint == localCheckpoint then
+				local pos = RaceCheckpoints.getCheckpointPosition()
+				if pos and getDistanceBetweenPoints2D(p.vehicle.position, pos) < distance then
+					rank = rank + 1
+				end
+			end
+		end
+		Race.rank = rank
 	end
-	Race.rank = rank
 end
 
 local function onKey(key, state)
@@ -82,12 +93,18 @@ function Race.start()
 
 	rankTimer = setTimer(calculateRank, 1000, 0)
 	addEventHandler("onClientKey", root, onKey)
+
+	if Race.settings.gamemode == "drift" then
+		localPlayer:setData("raceDriftScore", 0)
+		DriftPoints.start()
+	end
 end
 
 function Race.stop()
 	if not isActive then
 		return false
 	end
+	DriftPoints.stop()
 	localPlayer:setData("dpCore.state", false)
 	localPlayer:setData("activeUI", false)	
 	isActive = false
@@ -112,6 +129,7 @@ function Race.stop()
 end
 
 function Race.finished(timeout)
+	DriftPoints.stop()
 	QuitPrompt.hide()
 	RaceCheckpoints.stop()
 	Countdown.stop()
@@ -213,6 +231,11 @@ end)
 
 Race.addMethod("updateFinishedPlayers", function (players)
 	finishedPlayers = players
+	if type(finishedPlayers) == "table" then
+		table.sort(finishedPlayers, function (a, b)
+			return a.rank < b.rank
+		end)
+	end
 	if finishScreen then
 		finishScreen:setPlayersList(players)
 	end

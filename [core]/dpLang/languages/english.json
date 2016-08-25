@@ -323,6 +323,9 @@
 	"race_search_reject_error_title": "Race search",
 	"race_search_reject_error_body": "Someone didn't accept this race",
 
+	"race_drift_score": "Score",
+	"race_waiting_for_players": "Waiting for other players...",
+
 	// Carshop
 	"carshop_label_speed": "Speed",
 	"carshop_label_acceleration": "Acceleration",

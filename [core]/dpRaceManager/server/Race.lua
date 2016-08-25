@@ -27,6 +27,7 @@ function Race:init(settings)
 	-- bool createVehicles	- создать автомобиль для участников гонки. TODO: Пока не нужно  
 	-- bool fadeCameraOnJoin - затемнять камеру игрока при добавлении его в гонку
 	self.settings = {
+		gamemode = "default",
 		duration = 10,
 		ignoreSpawnpoints = false,
 		separateDimension = true,
@@ -315,7 +316,26 @@ function Race:playerFinish(player, timeout)
 	end	
 
 	local timePassed = self.settings.duration * 1000 - timeLeft
+
 	local rank = #self.finishedPlayers + 1
+	if self.settings.gamemode == "drift" then
+		local tmpRank = 1
+		local clientScore = player:getData("raceDriftScore")
+		if not clientScore then
+			clientScore = 0
+		end
+		for i, p in ipairs(self.finishedPlayers) do
+			local playerScore = p:getData("raceDriftScore")
+			if not playerScore then
+				playerScore = 0
+			end
+			if playerScore > clientScore then
+				tmpRank = tmpRank + 1
+			end
+		end
+		rank = tmpRank
+	end
+
 	local money = self.settings.money[rank]
 	if not money then
 		money = 0
@@ -379,8 +399,11 @@ function Race:onTimeout()
 	if self:getState() == "ended" then
 		return false
 	end
-	-- Принудительно финишировать
-	self:finish(true)
+	if self.gamemode == "drift" then
+		self:finish(false)
+	else
+		self:finish(true)
+	end
 	self:callMethod("timeout")
 	outputDebugString("Race timeout")
 end
@@ -410,6 +433,9 @@ function Race:finishRaceHandler(player)
 	if not self.durationTimer then
 		return false
 	end	
+	if self.gamemode == "drift" then
+		return
+	end
 	self:playerFinish(player)
 	self:onTimeout()
 end

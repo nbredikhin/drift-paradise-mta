@@ -13,6 +13,7 @@
 	<script type="client" src="client/ui/Screen.lua"/>
 	<script type="client" src="client/ui/Countdown.lua"/>
 	<script type="client" src="client/ui/QuitPrompt.lua"/>
+	<script type="client" src="client/ui/DriftPoints.lua"/>
 	<script type="client" src="client/ui/screens/WaitingScreen.lua"/>
 	<script type="client" src="client/ui/screens/RaceScreen.lua"/>
 	<script type="client" src="client/ui/screens/FinishScreen.lua"/>

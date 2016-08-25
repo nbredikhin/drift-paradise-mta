@@ -2,7 +2,7 @@ CarshopMenu = {}
 local renderTarget
 local MENU_OFFSET = Vector3(-7.5, -7, -0.7)
 local position = Vector3()
-local size = Vector2(1.4, 1.7)
+local size = Vector2(1.5, 1.7)
 local rotation = 280
 local resolution = size * 250
 
@@ -26,8 +26,6 @@ local function draw()
 	dxSetRenderTarget(renderTarget)
 	dxDrawRectangle(0, 0, resolution.x, resolution.y, tocolor(42, 40, 41))
 	dxDrawRectangle(0, 0, resolution.x, headerHeight, tocolor(32, 30, 31))	
-	local headerText = Carshop.currentVehicleInfo.name
-	dxDrawText(headerText, 20, 0, resolution.x, headerHeight, tocolor(255, 255, 255), 1, headerFont, "left", "center")
 
 	local priceText = ""
 	if Carshop.currentVehicleInfo.price > 0 then
@@ -36,6 +34,13 @@ local function draw()
 		priceText = exports.dpLang:getString("price_free")
 	end
 	dxDrawText(priceText, 0, 0, resolution.x - 20, headerHeight, tocolor(themeColor[1], themeColor[2], themeColor[3]), 1, labelFont, "right", "center")
+
+	local priceWidth = dxGetTextWidth(priceText, 1, labelFont)
+
+	local headerText = Carshop.currentVehicleInfo.name
+	local hearderWidth = dxGetTextWidth(headerText, 1, headerFont)
+	local hearderScale = math.min(1, (resolution.x - 60 - priceWidth) / hearderWidth)
+	dxDrawText(headerText, 20, 0, resolution.x - 20 - priceWidth, headerHeight, tocolor(255, 255, 255), hearderScale, headerFont, "left", "center", true)
 
 	local buyButtonActive = true
 	local buyButtonText = exports.dpLang:getString("carshop_buy_button")

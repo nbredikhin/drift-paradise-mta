@@ -1,7 +1,7 @@
 -- Максимальное количество чекпойнтов в дуэли
 local DUEL_CHECKPOINTS_COUNT = 5
 -- Максимальная длительность дуэли в секундах
-local DUEL_DURATION = 180
+local DUEL_DURATION = 15--180
 
 function startDuel(player1, player2, bet)
 	if not isElement(player1) or not isElement(player2) then
@@ -26,6 +26,8 @@ function startDuel(player1, player2, bet)
 		fadeCameraOnJoin = false,
 		onePlayerFinish = true,
 		duration = DUEL_DURATION,
+
+		gamemode = "drift",
 
 		money = {
 			bet * 2, 

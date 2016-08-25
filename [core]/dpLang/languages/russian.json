@@ -297,6 +297,9 @@
 	"race_search_reject_error_title": "Поиск гонки",
 	"race_search_reject_error_body": "Один из игроков не принял гонку",
 
+	"race_drift_score": "Очки",
+	"race_waiting_for_players": "Ожидание остальных игроков...",
+
 	// Carshop
 	"carshop_label_speed": "Скорость",
 	"carshop_label_acceleration": "Ускорение",

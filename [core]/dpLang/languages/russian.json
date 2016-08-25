@@ -342,5 +342,33 @@
 	"context_menu_anim_lay": "Прилечь",
 	"context_menu_anim_sit": "Сесть",
 	"context_menu_anim_fucku": "Средний палец",
-	"context_menu_anim_serious": "Руки на груди"
+	"context_menu_anim_serious": "Руки на груди",
+
+	// Duels
+	"duel_invite_error_title": "Ошибка",
+	"duel_invite_duel_title": "Дуэль",
+	"duel_invite_local_nocar": "Вы должны быть в автомобиле",
+	"duel_invite_remote_nocar": "Игрок должен быть в автомобиле",
+	"duel_invite_remote_nocar": "Игрок должен быть в автомобиле",
+
+	"duel_invite_duel_with": "Дуэль с %s",
+	"duel_invite_call": "Вызвать",
+	"duel_invite_cancel": "Отмена",
+	"duel_invite_bet_placeholder": "Ставка",
+	"duel_invite_info_label": "Чтобы отправить вызов игроку, введите сумму ставки и нажмите 'Вызвать'",
+
+	"duel_invite_error_player_left": "Игрок вышел с сервера",
+	"duel_invite_error_bad_bet_amount": "Введена неверная ставка",
+	"duel_invite_error_bet_too_small": "Нельзя поставить меньше $%s",
+	"duel_invite_error_bet_too_big": "Игрок вышел с сервера",
+	"duel_invite_error_not_enough_money": "У вас недостаточно денег",
+	"duel_invite_error_player_not_enough_money": "У игрока недостаточно денег",
+
+	"duel_invite_invite_sent_body": "Вызов отправлен",
+	"duel_invite_invite_sent_chatmsg": "Вызов отправлен. Ожидание ответа игрока...",
+	"duel_invite_invite_player_cancelled": "Игрок не принял вызов",
+
+	"duel_accept_message": "Игрок %s вызвал вас на дуэль.\nСтавка: $%s",
+	"duel_accept_key_accept": "%s - принять",
+	"duel_accept_key_decline": "%s - отказаться",
 }

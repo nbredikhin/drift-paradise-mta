@@ -6,7 +6,11 @@ local playerEconomics = {
 		"nissan_240sx", 
 		"toyota_ae86", 
 		"mazda_mx5miata"
-	}
+	},
+
+	-- Дуэли
+	duel_bet_min = 500,
+	duel_bet_max = 5000
 }
 
 function getEconomicsProperty(name)

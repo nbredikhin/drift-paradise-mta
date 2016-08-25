@@ -8,6 +8,9 @@
 	<script type="server" src="server/calling.lua"/>
 	<script type="server" src="server/main.lua"/>
 
-	<script type="client" src="client/DuelUI.lua"/>
+	<script type="client" src="client/InviteWindow.lua"/>
+	<script type="client" src="client/AcceptWindow.lua"/>
 	<script type="client" src="client/calling.lua"/>
+
+	<export type="client" function="callPlayer"/>
 </meta>

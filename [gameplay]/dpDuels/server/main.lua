@@ -17,7 +17,6 @@ function startDuel(player1, player2)
 		duration = DUEL_DURATION
 	})
 	if not race then
-		exports.dpChat:output("general", "Не удалось запустить дуэль: невозможно создать гонку")
 		return false
 	end
 	-- Генерация случайной трассы
@@ -40,7 +39,6 @@ addCommandHandler("duel", function (player)
 		exports.dpChat:output("general", "No vehicle")
 		return false
 	end
-	exports.dpChat:output("general", "Создание дуэли...")
 	local players = getElementsByType("player")
 	startDuel(players[1], players[2])
 end)

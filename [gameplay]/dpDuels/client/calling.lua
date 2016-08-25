@@ -3,8 +3,8 @@
 -- Вызвать игрока на дуэль
 -- player - игрок
 -- bet - ставка
-function callPlayer(player, bet)
-	triggerServerEvent("dpDuels.callPlayer", resourceRoot, player, bet)
+function callPlayer(player)
+	InviteWindow.show(player)
 end
 
 -- addCommandHandler("duel", function ()

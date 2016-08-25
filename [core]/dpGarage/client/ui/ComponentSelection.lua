@@ -203,10 +203,12 @@ function ComponentSelection:canBuy()
 	local price, level = self:getSelectedComponentPriceLevel()
 	if level and level > localPlayer:getData("level") then
 		self:blink()
+		exports.dpSounds:playSound("error.wav")
 		return false
 	end
 	if price and price > localPlayer:getData("money") then
 		self:blink()
+		exports.dpSounds:playSound("error.wav")
 		return false
 	end
 	return true

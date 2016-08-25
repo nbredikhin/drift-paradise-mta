@@ -7,6 +7,7 @@
 	<script type="shared" src="vehicle_classes.lua"/>
 	<script type="shared" src="tuning_prices.lua"/>
 	<script type="shared" src="player_economics.lua"/>
+	<script type="shared" src="gameplay_settings.lua"/>
 
 	<!-- Функции для работы с названиями/моделями автомобилей -->
 	<export type="shared" function="getVehicleModelFromName"/>
@@ -22,4 +23,6 @@
 
 	<export type="shared" function="getVehicleClass"/>
 	<export type="shared" function="getVehicleClassName"/>
+
+	<export type="shared" function="getGameplaySetting"/>
 </meta>

@@ -75,6 +75,7 @@ function Garage.stop()
 	exports.dpGameTime:restoreTime()
 	exports.dpChat:setVisible(true)
 	exports.dpHUD:showAll()
+	toggleAllControls(true)
 	if isElement(sound) then
 		removeEventHandler("onClientSoundStopped", resourceRoot, Garage.playRandomMusic)
 		destroyElement(sound)
@@ -109,15 +110,18 @@ function Garage.buy(price, level, callback)
 	end
 	if pendingBuyCallback then
 		callback(false)
+		exports.dpSounds:playSound("error.wav")
 		return false
 	end	
 	if level > localPlayer:getData("level") then
 		outputDebugString("Error: Not enough level")
+		exports.dpSounds:playSound("error.wav")
 		callback(false)
 		return
 	end
 	if localPlayer:getData("money") < price then
 		outputDebugString("Error: Not enough money")
+		exports.dpSounds:playSound("error.wav")
 		callback(false)
 		return 
 	end
@@ -128,7 +132,11 @@ end
 addEvent("dpGarage.buy", true)
 addEventHandler("dpGarage.buy", resourceRoot, function (success)
 	if type(pendingBuyCallback) ~= "function" then
+		exports.dpSounds:playSound("error.wav")
 		return false
+	end
+	if success then
+		exports.dpSounds:playSound("sell.wav")
 	end
 	pendingBuyCallback(success)
 	pendingBuyCallback = nil

@@ -174,9 +174,13 @@ function StickerEditorScreen:updateSelectedSticker()
 		end
 		self.sideName = minSide
 		CameraManager.setState("side" .. tostring(self.sideName), false, 4)
-		local r, g, b = fromColor(CarTexture.getStickerColor())
-		if r then
-			self.colorPanel:setColor(r, g, b)		
+
+		local stickerColor = CarTexture.getStickerColor()
+		if stickerColor then
+			local r, g, b = fromColor(CarTexture.getStickerColor())
+			if r then
+				self.colorPanel:setColor(r, g, b)		
+			end
 		end
 	else
 		self.stickerPreview:hideSticker()
@@ -224,8 +228,12 @@ function StickerEditorScreen:onKey(key)
 
 				if self.mode == "color" then
 					self.colorPanelX = 20
-					local r, g, b = fromColor(CarTexture.getStickerColor())
-					self.colorPanel:setColor(r, g, b)
+
+					local stickerColor = CarTexture.getStickerColor()
+					if stickerColor then
+						local r, g, b = fromColor(CarTexture.getStickerColor())
+						self.colorPanel:setColor(r, g, b)
+					end
 				else
 					self.colorPanelX = -self.colorPanel.resolution.x - 20
 				end

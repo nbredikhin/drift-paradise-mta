@@ -7,4 +7,6 @@
 	<file src="sounds/ui_back.wav"/>
 	<file src="sounds/ui_select.wav"/>
 	<file src="sounds/ui_change.wav"/>
+	<file src="sounds/error.wav"/>
+	<file src="sounds/sell.wav"/>
 </meta>

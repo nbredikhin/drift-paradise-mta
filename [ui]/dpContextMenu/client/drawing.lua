@@ -57,7 +57,9 @@ addEventHandler("onClientRender", root, function ()
 		if mx > x and mx < x + menuWidth and my > y and my < y + menuItemHeight then
 			bgColor = menuSelectionColor
 			textColor = menuSelectedTextColor
-			highlightedItem = item
+			if item.state then
+				highlightedItem = item
+			end
 		end
 		if item.state == false then
 			bgColor = menuBackgroundColor
@@ -137,6 +139,7 @@ function showMenu(menu, element)
 	my = my * screenSize.y
 
 	menuScreenPosition = Vector2(math.min(mx, screenSize.x - menuWidth), math.min(my, screenSize.y - totalHeight))
+	localPlayer:setData("activeUI", "contextMenu")
 end
 
 function isMenuVisible()
@@ -144,6 +147,7 @@ function isMenuVisible()
 end
 
 function hideMenu()
+	localPlayer:setData("activeUI", false)
 	setTimer(function() toggleControl("fire", true) end, 200, 1)
 	currentMenu = false
 end

@@ -3,9 +3,27 @@ local playerMenu = {
 	items = {}
 }
 
-local remotePlayerMenu = {
+remotePlayerMenu = {
 	{ locale = "context_menu_player_profile", enabled = false},
-	{ locale = "context_menu_player_duel", enabled = false},
+	{ locale = "context_menu_player_duel", 
+		enabled = function(element) 
+			if not isElement(element) then return false end 
+			return element.type == "vehicle" 
+		end,
+
+		click = function(vehicle)
+			if not isElement(vehicle) then
+				return
+			end
+			local player
+			if vehicle.type == "player" then
+				player = vehicle
+			else
+				player = vehicle.controller
+			end
+			exports.dpDuels:callPlayer(player)
+		end
+	},
 	{ locale = "context_menu_player_pm", 
 		click = function (player)
 			exports.dpChat:startPM(player)

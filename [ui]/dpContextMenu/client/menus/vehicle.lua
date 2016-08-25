@@ -78,7 +78,9 @@ function vehicleMenu:init(vehicle)
 		self.items = myVehicleMenu
 		self.title = exports.dpLang:getString("context_menu_title_car")
 	else
-		self.items = getContextMenu("player").items
+		local player = vehicle.controller
+		self.items = remotePlayerMenu
+		outputDebugString(tostring(#self.items))
 		self.title = string.format("%s %s", 
 			exports.dpLang:getString("context_menu_title_player"),
 			tostring(player.name))

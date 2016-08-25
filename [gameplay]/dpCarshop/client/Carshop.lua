@@ -269,18 +269,21 @@ end
 
 function Carshop.buy()
 	if Carshop.currentVehicleInfo.level > localPlayer:getData("level") then
+		exports.dpSounds:playSound("error.wav")
 		exports.dpUI:showMessageBox(
 			exports.dpLang:getString("carshop_buy_error_title"), 
 			string.format(
 				exports.dpLang:getString("carshop_required_level"), 
 				tostring(Carshop.currentVehicleInfo.level)))
 	elseif Carshop.currentVehicleInfo.price > localPlayer:getData("money") then
+		exports.dpSounds:playSound("error.wav")
 		exports.dpUI:showMessageBox(
 			exports.dpLang:getString("carshop_buy_error_title"), 
 			exports.dpLang:getString("carshop_no_money"))
 	else
 		triggerServerEvent("dpCarshop.buyVehicle", resourceRoot, Carshop.currentVehicleInfo.model)
 		isBuying = true
+		exports.dpSounds:playSound("sell.wav")
 	end
 	exports.dpSounds:playSound("ui_select.wav")
 end

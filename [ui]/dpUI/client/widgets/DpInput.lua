@@ -16,6 +16,11 @@ function DpInput.create(properties)
 
 	local widget = Input.create(properties)
 	local colorName = inputColors[exports.dpUtils:defaultValue(properties.type, "dark")]
+
+	if properties.type == "light" then
+		widget.textColor = Colors.color("black", 150)
+		widget.placeholderColor = Colors.color("black", 100)
+	end
 	function widget:updateTheme()
 		self.colors = {
 			normal = Colors.color(colorName),

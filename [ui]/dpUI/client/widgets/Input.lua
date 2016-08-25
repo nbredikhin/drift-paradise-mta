@@ -17,6 +17,8 @@ function Input.create(properties)
 	widget.masked = exports.dpUtils:defaultValue(properties.masked, false)
 	widget.font = Fonts.lightSmall
 	widget.regexp = exports.dpUtils:defaultValue(properties.regexp, false)
+	widget.textColor = Colors.color("white", 150)
+	widget.placeholderColor = Colors.color("white", 80)
 	local textOffsetX = 10
 	function widget:draw()
 		if activeInput == self then
@@ -37,10 +39,10 @@ function Input.create(properties)
 
 		-- Placeholder
 		local text = self.placeholder
-		Drawing.setColor(Colors.color("white", 80))
+		Drawing.setColor(self.placeholderColor)
 		if utf8.len(self.text) > 0 then
 			text = self.text
-			Drawing.setColor(Colors.color("white", 150))
+			Drawing.setColor(self.textColor)
 			if self.masked then
 				text = ""
 				for i = 1, utf8.len(self.text) do

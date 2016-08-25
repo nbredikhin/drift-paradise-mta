@@ -21,19 +21,19 @@ end)
 addEvent("dpGarage.buy", true)
 addEventHandler("dpGarage.buy", resourceRoot, function(price, level)
 	if type(level) ~= "number" or type(price) ~= "number" then
-		triggerClientEvent("dpGarage.buy", resourceRoot, false)
+		triggerClientEvent(client, "dpGarage.buy", resourceRoot, false)
 	end
 
 	if level > client:getData("level") then
-		triggerClientEvent("dpGarage.buy", resourceRoot, false)
+		triggerClientEvent(client, "dpGarage.buy", resourceRoot, false)
 		return
 	end
 	local money = client:getData("money")
 	if type(money) ~= "number" or money < price then
-		triggerClientEvent("dpGarage.buy", resourceRoot, false)
+		triggerClientEvent(client, "dpGarage.buy", resourceRoot, false)
 		return 
 	end
 	client:setData("money", money - price)
 
-	triggerClientEvent("dpGarage.buy", resourceRoot, true)
+	triggerClientEvent(client, "dpGarage.buy", resourceRoot, true)
 end)

@@ -3,8 +3,13 @@ addEventHandler("onResourceStart", resourceRoot, function()
 		gamemode = "default",
 		separateDimension = true
 	}
-	local race = Race(settings, MapLoader.load("hello-world.map"))
+	local map = MapLoader.load("hello-world")
+	map.duration = 5
+	local race = Race(settings, map)
 	race:addPlayer(getRandomPlayer())
+	setTimer(function()
+		race:launch()
+	end, 2000, 1)
 
 	--race:destroy()
 end)

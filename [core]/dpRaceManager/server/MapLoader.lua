@@ -13,6 +13,7 @@ function MapLoader.load(mapName)
 	-- Загрузить .map файл
 	local mapXML = XML.load("maps/" .. mapName .. ".map")
 	if not mapXML then
+		outputDebugString("MapLoader: no such map '" .. tostring(mapName) .. "'")
 		return false
 	end
 	-- Прочитать элементы

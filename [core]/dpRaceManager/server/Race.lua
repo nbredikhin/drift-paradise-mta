@@ -220,6 +220,11 @@ function Race:removePlayer(player)
 	triggerClientEvent(player, "Race.removedFromRace", self.element)
 	triggerClientEvent(self.element, "Race.playerRemoved", player)
 	self:log("Race player removed: '" .. tostring(player.name) .. "'")
+
+	-- Удалить гонку при удалении всех игроков
+	if self:getState() ~= RaceState.waiting and #self:getPlayers() == 0 then
+		self:destroy()
+	end
 	return true
 end
 
@@ -241,8 +246,8 @@ function Race:launch()
 		return false
 	end
 
-	triggerClientEvent(self.element, "Race.launch", player)
-	self.countdownTimer = setTimer(self.start, COUNTDOWN_DELAY, 1, self)
+	triggerClientEvent(self.element, "Race.launch", self.element)
+	self.countdownTimer = setTimer(function() self:start() end, COUNTDOWN_DELAY, 1)
 	self:log("Starting race...")
 	return true
 end
@@ -262,8 +267,13 @@ function Race:start()
 	
 	killTimer(self.countdownTimer)
 	self:setState(RaceState.running)
-	self.durationTimer = setTimer(self.finish, self.settings.duration * 1000, 1, self)
-	triggerClientEvent(self.element, "Race.start", player)
+	self.durationTimer = setTimer(function() self:finish() end, self.map.duration * 1000, 1)
+	triggerClientEvent(self.element, "Race.start", self.element)
+
+	for _, player in ipairs(self:getPlayers()) do
+		player.vehicle.frozen = false
+	end
+
 	self.gamemode:raceStarted()
 	self:log("Race started")
 	return true
@@ -278,7 +288,7 @@ function Race:finish(timeout)
 	end	
 
 	self:setState(RaceState.ended)
-	triggerClientEvent(self.element, "Race.finish", player)
+	triggerClientEvent(self.element, "Race.finish", self.element)
 	self.gamemode:raceFinished(timeout)
 	self:log("Race finished")
 	return true

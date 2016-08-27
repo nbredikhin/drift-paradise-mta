@@ -1,4 +1,4 @@
-raceRoot = Element("race-root")
+raceRoot = Element("race-root", "raceRoot")
 local races = {}
 
 -- Возможные состояния гонки
@@ -13,11 +13,32 @@ local function isRaceState(state)
 	return not not RaceState[state]
 end 
 
+function getPlayerRace(player)
+	if player.parent.type == "race" then
+		return races[player.parent.id]
+	end
+end
+
+-- Удалить игрока при уничтожении автомобиля
+addEventHandler("onElementDestroy", root, function ()
+	if source.type ~= "vehicle" then return end
+
+	local player = source.controller
+	if not isElement(player) then return end
+
+	local race = getPlayerRace(player)
+	if not race then return end
+	
+	race:removePlayer(player)
+end)
+
 ---------------------------------------------------------------
 ----------------------- Создание гонки ------------------------
 ---------------------------------------------------------------
 
-local RACE_LOG_FORMAT = "Race [%s]: %s"
+local RACE_LOG_SERVER = true
+local RACE_LOG_DEBUG = true
+local RACE_LOG_FORMAT = "Race[%s]: %s"
 
 local raceGamemodes = {
 	default = RaceDefault,
@@ -45,14 +66,14 @@ Race = newclass "Race"
 function Race:init(settings, map)
 	-- Создать element гонки и добавить в таблицу гонок
 	local id = raceRoot:getChildrenCount() + 1
-	self.element = Element("race", "race-" .. tostring(id))
+	self.element = Element("race", "race_" .. tostring(id))
 	self.element.parent = raceRoot
 	races[self.element.id] = self
 
 	-- Инициализация состояния гонки, загрузка настроек и карты
 	self.state = ""
-	self.settings 	= exports.dpUtils:extendTable(settings, self.settings)
-	self.map 		= exports.dpUtils:extendTable(map, self.map)
+	self.settings 	= exports.dpUtils:extendTable(settings, RACE_SETTINGS)
+	self.map 		= exports.dpUtils:extendTable(map, RACE_MAP)
 
 	-- Выбор уникального dimension'а в зависимости от настроек
 	if self.settings.separateDimension then
@@ -65,12 +86,6 @@ function Race:init(settings, map)
 	addEventHandler("onPlayerQuit", self.element, function ()
 		self:removePlayer(source)
 	end)
-	-- Удалить игрока при уничтожении автомобиля
-	addEventHandler("onElementDestroy", self.element, function ()
-		if source.type ~= "vehicle" then return end
-		local player = vehicle:getData("Race.player")
-		self:removePlayer(player)
-	end)
 	-- Удалить игрока при взрыве автомобиля
 	addEventHandler("onVehicleExplode", self.element, function ()
 		local player = vehicle:getData("Race.player")
@@ -82,7 +97,7 @@ function Race:init(settings, map)
 	end)
 	addEventHandler("onPlayerVehicleExit", self.element, function ()
 		self:removePlayer(source)
-	end)	
+	end)
 
 	self:setState(RaceState.waiting)
 
@@ -110,8 +125,8 @@ function Race:destroy()
 	end
 	-- Удалить саму гонку
 	races[self.element.id] = nil
-	self.element:destroy()
 	self:log("Race destroyed")
+	self.element:destroy()
 end
 
 ---------------------------------------------------------------
@@ -161,15 +176,19 @@ function Race:addPlayer(player)
 		return false
 	end
 
-	player.parent = self.element
-	player.vehicle.parent = self.element
-	player.dimension = self.dimension
 	player.vehicle.dimension = self.dimension
 	player.vehicle.frozen = true
 	player.vehicle:setData("Race.player", player)
+	player.vehicle.parent = player
+
+	player.parent = self.element
+	player.dimension = self.dimension
+	player:setData("Race.vehicle", player.vehicle)
 
 	triggerClientEvent(player, "Race.addedToRace", self.element)
 	triggerClientEvent(self.element, "Race.playerAdded", player)
+
+	self.gamemode:spawnPlayer(player)
 	self:log("Race player added: '" .. tostring(player.name) .. "'")
 	return true
 end
@@ -182,15 +201,21 @@ function Race:removePlayer(player)
 		return false
 	end
 
-	player.parent = root
-	player.vehicle.parent = root
-	player.dimension = 0
-	-- На момент удаления у игрока может не быть машины
-	if isElement(player.vehicle) then 
-		player.vehicle.dimension = 0
-		player.vehicle.frozen = false
-		player.vehicle:removeData("Race.player")
+	-- На момент удаления игрок может быть не в машине
+	local vehicle = player.vehicle
+	if not vehicle then
+		vehicle = player:getData("Race.vehicle")
 	end
+	if isElement(vehicle) then 
+		vehicle.dimension = 0
+		vehicle.frozen = false
+		vehicle:removeData("Race.player")
+		vehicle.parent = root
+	end
+
+	player.parent = root
+	player.dimension = 0
+	player:removeData("Race.finished")
 
 	triggerClientEvent(player, "Race.removedFromRace", self.element)
 	triggerClientEvent(self.element, "Race.playerRemoved", player)
@@ -264,5 +289,12 @@ end
 ---------------------------------------------------------------
 
 function Race:log(message)
-	outputDebugString(string.format(RACE_LOG_FORMAT, self.element.id, tostring(message)))
+	local outputString = string.format(RACE_LOG_FORMAT, self.element.id, tostring(message))
+	if RACE_LOG_SERVER then
+		outputServerLog(outputString)
+	end
+	if RACE_LOG_DEBUG then
+		outputDebugString(outputString)
+	end
+	return true
 end

@@ -5,13 +5,22 @@
 	<script type="shared" src="shared/check.lua"/>
 
 	<script type="server" src="server/MapLoader.lua"/>
+	<script type="server" src="server/RaceGamemode.lua"/>
+	<script type="server" src="server/gamemodes/RaceDefault.lua"/>
+	<script type="server" src="server/gamemodes/RaceDrag.lua"/>
+	<script type="server" src="server/gamemodes/RaceDrift.lua"/>
+	<script type="server" src="server/gamemodes/RaceDuel.lua"/>
+	<script type="server" src="server/Race.lua"/>
+	<script type="server" src="server/main.lua"/>
+	<script type="server" src="server/exports.lua"/>
+<!-- 	<script type="server" src="server/MapLoader.lua"/>
 	<script type="server" src="server/Race.lua"/>
 	<script type="server" src="server/RaceManager.lua"/>
 	<script type="server" src="server/RaceGameplay.lua"/>
 	<script type="server" src="server/main.lua"/>
-	<script type="server" src="server/exports.lua"/>
+	<script type="server" src="server/exports.lua"/> -->
 
-	<script type="client" src="client/ui/ScreenManager.lua"/>
+<!-- 	<script type="client" src="client/ui/ScreenManager.lua"/>
 	<script type="client" src="client/ui/Screen.lua"/>
 	<script type="client" src="client/ui/Countdown.lua"/>
 	<script type="client" src="client/ui/QuitPrompt.lua"/>
@@ -21,7 +30,7 @@
 	<script type="client" src="client/ui/screens/FinishScreen.lua"/>
 	<script type="client" src="client/RaceCheckpoints.lua"/>
 	<script type="client" src="client/Race.lua"/>
-	<script type="client" src="client/RaceUI.lua"/>	
+	<script type="client" src="client/RaceUI.lua"/>	 -->
 
 	<export type="server" function="createRace"/>
 	<export type="server" function="removeRace"/>

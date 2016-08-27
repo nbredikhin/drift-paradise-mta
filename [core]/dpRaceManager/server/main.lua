@@ -4,7 +4,7 @@ addEventHandler("onResourceStart", resourceRoot, function()
 		separateDimension = true
 	}
 	local map = MapLoader.load("hello-world")
-	map.duration = 5
+	map.duration = 3
 	local race = Race(settings, map)
 	race:addPlayer(getRandomPlayer())
 	setTimer(function()

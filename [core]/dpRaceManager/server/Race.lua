@@ -32,6 +32,13 @@ addEventHandler("onElementDestroy", root, function ()
 	race:removePlayer(player)
 end)
 
+-- Запретить выход игроков, находящихся в гонке, из автомобиля
+addEventHandler("onVehicleStartExit", root, function (player)
+	local race = getPlayerRace(player)
+	if not race then return end
+	cancelEvent()
+end)
+
 ---------------------------------------------------------------
 ----------------------- Создание гонки ------------------------
 ---------------------------------------------------------------
@@ -91,11 +98,8 @@ function Race:init(settings, map)
 		local player = vehicle:getData("Race.player")
 		self:removePlayer(player)
 	end)
-	-- Запретить выход игроков, находящихся в гонке, из автомобиля
-	addEventHandler("onVehicleStartExit", self.element, function ()
-		cancelEvent()
-	end)
 	addEventHandler("onPlayerVehicleExit", self.element, function ()
+		outputDebugString("Vehicle exit")
 		self:removePlayer(source)
 	end)
 
@@ -267,7 +271,7 @@ function Race:start()
 	
 	killTimer(self.countdownTimer)
 	self:setState(RaceState.running)
-	self.durationTimer = setTimer(function() self:finish() end, self.map.duration * 1000, 1)
+	self.durationTimer = setTimer(function() self:finish(true) end, self.map.duration * 1000, 1)
 	triggerClientEvent(self.element, "Race.start", self.element)
 
 	for _, player in ipairs(self:getPlayers()) do
@@ -299,7 +303,11 @@ end
 ---------------------------------------------------------------
 
 function Race:log(message)
-	local outputString = string.format(RACE_LOG_FORMAT, self.element.id, tostring(message))
+	local id = "destroyed"
+	if isElement(self.element) then
+		id = self.element.id
+	end
+	local outputString = string.format(RACE_LOG_FORMAT, id, tostring(message))
 	if RACE_LOG_SERVER then
 		outputServerLog(outputString)
 	end

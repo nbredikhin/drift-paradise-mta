@@ -14,11 +14,15 @@ end
 -- 	self.super:raceStarted(...)
 -- end
 
--- function RaceGamemode:raceFinished(...)
--- 	self.super:raceFinished(...)
--- end
+function RaceDefault:raceFinished(timeout)
+	self.super:raceFinished(timeout)
+	
+	if timeout then
+		self.race:removePlayer(getRandomPlayer())
+	end
+end
 
--- function RaceGamemode:playerFinished(player, timeout)
+-- function RaceDefault:playerFinished(player, timeout)
 -- 	if not self.super:playerFinished(player, timeout) then
 -- 		return false
 -- 	end

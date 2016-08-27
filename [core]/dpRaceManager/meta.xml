@@ -2,6 +2,8 @@
 	<oop>true</oop>
 
 	<script type="shared" src="shared/lib/yaci.lua"/>
+	<script type="shared" src="shared/check.lua"/>
+
 	<script type="server" src="server/MapLoader.lua"/>
 	<script type="server" src="server/Race.lua"/>
 	<script type="server" src="server/RaceManager.lua"/>

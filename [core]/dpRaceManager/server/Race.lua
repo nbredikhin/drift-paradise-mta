@@ -159,6 +159,10 @@ end
 
 function Race:addPlayer(player)
 	if not check("Race:addPlayer", "player", "player", player) then return false end
+	if not player:getData("_id") then
+		self:log("Failed to add player. Player is not logged in")
+		return false
+	end
 	-- Игрок не должен находиться в гонке
 	if player.parent.type == "race" then
 		self:log("Failed to add player. Player is in other race")

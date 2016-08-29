@@ -7,6 +7,31 @@ local countdownTextures = {}
 local timer
 local animationProgress = 0
 
+
+local function draw()
+	if not isVisible then
+		return false
+	end
+
+	local size = countdownSize + animationProgress * 20
+	dxDrawImage(
+		(screenSize.x - size) / 2, 
+		(screenSize.y - size) / 2, 
+		size, 
+		size, 
+		countdownTextures[value],
+		0, 0, 0,
+		tocolor(255, 255, 255, math.max(0, 255 - 255 * animationProgress))
+	) 
+end
+
+local function update(dt)
+	if not isVisible then
+		return false
+	end
+	animationProgress = animationProgress + dt
+end
+
 function Countdown.start()
 	if isVisible then
 		return
@@ -37,30 +62,9 @@ function Countdown.start()
 	end, 1000, 4)
 	playSoundFrontEnd(44)
 	isVisible = true
-end
 
-function Countdown.draw()
-	if not isVisible then
-		return false
-	end
-
-	local size = countdownSize + animationProgress * 20
-	dxDrawImage(
-		(screenSize.x - size) / 2, 
-		(screenSize.y - size) / 2, 
-		size, 
-		size, 
-		countdownTextures[value],
-		0, 0, 0,
-		tocolor(255, 255, 255, math.max(0, 255 - 255 * animationProgress))
-	) 
-end
-
-function Countdown.update(dt)
-	if not isVisible then
-		return false
-	end
-	animationProgress = animationProgress + dt
+	addEventHandler("onClientRender", root, draw)
+	addEventHandler("onClientPreRender", root, update)
 end
 
 function Countdown.stop()
@@ -68,6 +72,10 @@ function Countdown.stop()
 		return false
 	end
 	isVisible = false
+
+	removeEventHandler("onClientRender", root, draw)
+	removeEventHandler("onClientPreRender", root, update)
+
 	for i = 0, 3 do
 		if isElement(countdownTextures[i]) then
 			destroyElement(countdownTextures[i])

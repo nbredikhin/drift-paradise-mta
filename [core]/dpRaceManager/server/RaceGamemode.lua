@@ -50,5 +50,6 @@ function RaceGamemode:playerFinished(player, timeout)
 	self.finishedPlayers[player] = true
 	player:setData("Race.finished", true)
 	self.race:log("Player finished: '" .. tostring(player.name) .. "'")
+	triggerClientEvent(self.race.element, "Race.playerFinished", player)
 	return true
 end

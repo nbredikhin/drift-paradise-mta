@@ -124,12 +124,12 @@ PSInput VertexShaderFunction(VSInput VS)
     VS.Normal = rotate_vertex_position(VS.Normal, float3(0, 1, 0), float3(sRazval, 0, 0));
     VS.Normal = rotate_vertex_position(VS.Normal, float3(0, 0, 1), float3(sRotationZ, 0, 0));
     float3 worldNormal = mul(VS.Normal, (float3x3)gWorld);
-    // Освещение
+    //Освещение
     PS.Diffuse = MTACalcGTAVehicleDiffuse(worldNormal, VS.Diffuse);
-    float4 delta = PS.Diffuse - float4(0, 0, 0, 1);
-    if (dot(delta,delta) < 0.01) {
-      PS.Diffuse = CalcWheelsDiffuse(worldNormal, sColor);
-    }
+    // float4 delta = PS.Diffuse - float4(0, 0, 0, 1);
+    // if (dot(delta,delta) < 0.01) {
+    //   PS.Diffuse = CalcWheelsDiffuse(worldNormal, sColor);
+    // }
 
     return PS;
 }

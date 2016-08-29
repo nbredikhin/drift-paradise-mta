@@ -45,7 +45,7 @@ end)
 
 local RACE_LOG_SERVER = true
 local RACE_LOG_DEBUG = true
-local RACE_LOG_FORMAT = "Race[%s]: %s"
+local RACE_LOG_FORMAT = "Race [%s]: %s"
 
 local raceGamemodes = {
 	default = RaceDefault,
@@ -82,6 +82,8 @@ function Race:init(settings, map)
 	self.settings 	= exports.dpUtils:extendTable(settings, RACE_SETTINGS)
 	self.map 		= exports.dpUtils:extendTable(map, RACE_MAP)
 
+	self.element:setData("Race.settings", self.settings)
+
 	-- Выбор уникального dimension'а в зависимости от настроек
 	if self.settings.separateDimension then
 		self.dimension = id + 120000
@@ -111,7 +113,7 @@ function Race:init(settings, map)
 		return false
 	end
 	self.gamemode = gamemodeClass(self)
-	self:log("Race created")
+	self:log("Race created. Race ID: '" .. tostring(self.element.id) .. "'")
 end
 
 function Race:destroy()
@@ -122,7 +124,9 @@ function Race:destroy()
 	end
 
 	-- Принудительно финишировать гонку
-	self:finish()
+	if self:getState() == RaceState.running then
+		self:finish()
+	end
 	-- Удалить всех игроков из гонки
 	for _, player in ipairs(self:getPlayers()) do
 		self:removePlayer(player)
@@ -145,6 +149,7 @@ function Race:setState(state)
 	end
 
 	self.state = state
+	self.element:setData("Race.state", state)
 	triggerClientEvent(self.element, "Race.stateChanged", self.element, self.state)
 	return true
 end
@@ -193,11 +198,11 @@ function Race:addPlayer(player)
 	player.dimension = self.dimension
 	player:setData("Race.vehicle", player.vehicle)
 
-	triggerClientEvent(player, "Race.addedToRace", self.element)
+	triggerClientEvent(player, "Race.addedToRace", self.element, self.settings, self.map)
 	triggerClientEvent(self.element, "Race.playerAdded", player)
 
 	self.gamemode:spawnPlayer(player)
-	self:log("Race player added: '" .. tostring(player.name) .. "'")
+	self:log("Player added: '" .. tostring(player.name) .. "'")
 	return true
 end
 
@@ -227,7 +232,7 @@ function Race:removePlayer(player)
 
 	triggerClientEvent(player, "Race.removedFromRace", self.element)
 	triggerClientEvent(self.element, "Race.playerRemoved", player)
-	self:log("Race player removed: '" .. tostring(player.name) .. "'")
+	self:log("Player removed: '" .. tostring(player.name) .. "'")
 
 	-- Удалить гонку при удалении всех игроков
 	if self:getState() ~= RaceState.waiting and #self:getPlayers() == 0 then
@@ -267,6 +272,11 @@ function Race:start()
 		self:log("Failed to start race. It's already running or ended")
 		return false
 	end	
+	-- Гонка не должна быть без игроков
+	if #self:getPlayers() == 0 then
+		self:log("Failed to start race. No players in race")
+		return false
+	end
 	-- Не был запущен countdown
 	if not isTimer(self.countdownTimer) then
 		self:log("Race must be started with Race:launch()")

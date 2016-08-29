@@ -1,5 +1,5 @@
 Countdown = {}
-local isVisible = false
+Countdown.isActive = false
 local screenSize = Vector2(guiGetScreenSize())
 local value = 3
 local countdownSize = 200
@@ -9,10 +9,6 @@ local animationProgress = 0
 
 
 local function draw()
-	if not isVisible then
-		return false
-	end
-
 	local size = countdownSize + animationProgress * 20
 	dxDrawImage(
 		(screenSize.x - size) / 2, 
@@ -26,14 +22,12 @@ local function draw()
 end
 
 local function update(dt)
-	if not isVisible then
-		return false
-	end
+	dt = dt / 1000
 	animationProgress = animationProgress + dt
 end
 
 function Countdown.start()
-	if isVisible then
+	if Countdown.isActive then
 		return
 	end
 	value = 4
@@ -61,17 +55,17 @@ function Countdown.start()
 		end	
 	end, 1000, 4)
 	playSoundFrontEnd(44)
-	isVisible = true
+	Countdown.isActive = true
 
 	addEventHandler("onClientRender", root, draw)
 	addEventHandler("onClientPreRender", root, update)
 end
 
 function Countdown.stop()
-	if not isVisible then
+	if not Countdown.isActive then
 		return false
 	end
-	isVisible = false
+	Countdown.isActive = false
 
 	removeEventHandler("onClientRender", root, draw)
 	removeEventHandler("onClientPreRender", root, update)

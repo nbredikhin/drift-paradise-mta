@@ -1,4 +1,4 @@
-addEventHandler("onResourceStart", resourceRoot, function()
+local function createTestRace()
 	local settings = {
 		gamemode = "default",
 		separateDimension = true
@@ -10,6 +10,10 @@ addEventHandler("onResourceStart", resourceRoot, function()
 	setTimer(function()
 		race:launch()
 	end, 2000, 1)
+end
+
+addEventHandler("onResourceStart", resourceRoot, function()
+	setTimer(createTestRace, 1000, 1)
 
 	--race:destroy()
 end)

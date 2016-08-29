@@ -17,6 +17,13 @@
 	<script type="server" src="server/exports.lua"/>
 
 	<!-- Client-side scripts -->
+	<script type="client" src="client/ui/Countdown.lua"/>
+	<script type="client" src="client/ui/RaceTimer.lua"/>
+<!--<script type="client" src="client/gamemodes/RaceDefault.lua"/>
+	<script type="client" src="client/gamemodes/RaceDrag.lua"/>
+	<script type="client" src="client/gamemodes/RaceDrift.lua"/>
+	<script type="client" src="client/gamemodes/RaceDuel.lua"/> -->
+	<script type="client" src="client/RaceGamemode.lua"/>
 	<script type="client" src="client/RaceClient.lua"/>
 
 	<!-- Server-side exports -->

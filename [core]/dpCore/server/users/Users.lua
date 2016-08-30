@@ -133,7 +133,23 @@ function Users.get(userId, fields, callback)
 		return false
 	end
 	
-	return DatabaseTable.select(USERS_TABLE_NAME, fields, { _id = userId }, callback)
+	return DatabaseTable.update(USERS_TABLE_NAME, fields, { _id = userId }, callback)
+end
+
+function Users.update(username, fields)
+	if type(username) ~= "string" or type(fields) ~= "table" then
+		return false
+	end
+	local success = DatabaseTable.update(USERS_TABLE_NAME, fields, {username = username}, function () end)
+	return success
+end
+
+function Users.getByUsername(username, fields)
+	if type(username) ~= "string" or type(fields) ~= "table" then
+		return false
+	end
+	
+	return DatabaseTable.select(USERS_TABLE_NAME, fields, { username = username })
 end
 
 function Users.isPlayerLoggedIn(player)
@@ -177,6 +193,20 @@ function Users.getPlayerById(id)
 	for i, player in ipairs(getElementsByType("player")) do
 		local playerId = player:getData("_id") 
 		if playerId and playerId == id then
+			return player
+		end
+	end
+	return false
+end
+
+function Users.getPlayerByUsername(username)
+	if type(username) ~= "string" then
+		return false
+	end
+	username = string.lower(username)
+	for i, player in ipairs(getElementsByType("player")) do
+		local name = player:getData("username") 
+		if name and name == username then
 			return player
 		end
 	end

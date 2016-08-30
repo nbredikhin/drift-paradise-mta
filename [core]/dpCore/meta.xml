@@ -46,6 +46,11 @@
 	<!-- Функции для работы с игроками -->
 	<export type="server" function="isPlayerLoggedIn"/>
 	<export type="server" function="saveAccount"/>
+	<export type="server" function="userExists"/>
+	<export type="server" function="getUserAccount"/>
+	<export type="server" function="updateUserAccount"/>
+	<export type="server" function="getUserPlayer"/>
+	<export type="server" function="givePlayerMoney"/>
 	<!-- Функции для работы с автомобилями -->
 	<export type="shared" function="generateDefaultNumberplate"/>
 	<export type="server" function="spawnVehicle"/>

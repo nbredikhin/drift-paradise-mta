@@ -1,0 +1,10 @@
+<meta>
+	<oop>true</oop>
+	<script type="shared" src="shared/check.lua"/>
+
+	<script type="server" src="server/WebAPI.lua"/>
+	<script type="server" src="server/users.lua"/>
+	<script type="server" src="server/donations.lua"/>
+
+	<export function="api" http="true"/>
+</meta>

@@ -37,6 +37,8 @@ function RaceClient.startRace(raceElement, settings, map)
 	RaceClient.settings = settings
 	RaceClient.map = map
 
+	RaceCheckpoints.start(RaceClient.map.checkpoints)
+
 	-- Создание объектов карты
 	if not RaceClient.map.objects then
 		RaceClient.map.objects = {}
@@ -72,6 +74,7 @@ function RaceClient.stopRace()
 
 	Countdown.stop()
 	RaceTimer.stop()
+	RaceCheckpoints.stop()
 
 	for i, object in ipairs(resource:getDynamicElementRoot():getChildren("object")) do
 		destroyElement(object)

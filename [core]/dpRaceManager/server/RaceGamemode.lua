@@ -7,6 +7,10 @@ end
 
 function RaceGamemode:spawnPlayer(player)
 	if not check("RaceGamemode:spawnPlayer", "player", "player", player) then return false end
+	if not self.race then
+		outputDebugString("Failed to spawn player. No race")
+		return false
+	end
 	if not self.race.map then
 		self.race:log("Failed to spawn player. No map loaded")
 		return false
@@ -30,6 +34,9 @@ function RaceGamemode:spawnPlayer(player)
 end
 
 function RaceGamemode:raceStarted()
+	if not self.race then
+		outputDebugString("ЗАБЫЛ ВЫЗВАТЬ КОНСТРУКТОР СУКА")
+	end
 	for _, player in ipairs(self.race:getPlayers()) do
 		player:setData("Race.finished", false)
 	end 

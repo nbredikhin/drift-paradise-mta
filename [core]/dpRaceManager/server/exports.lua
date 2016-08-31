@@ -48,4 +48,4 @@ exportRaceFunction("raceLogMessage",	"log")
 
 -- Экспорт методов MapLoader
 loadRaceMap 	= function(...) return safeCall(function(...) return MapLoader.load(...) 	end, ...) end
-createRaceMap 	= function(...) return safeCall(function(...) return MapLoader.create(...) 	end, ...) end
+createRaceMap 	= function(...) return safeCall(function(...) return MapLoader.createMap(...) 	end, ...) end

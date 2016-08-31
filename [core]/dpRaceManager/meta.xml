@@ -23,6 +23,7 @@
 	<script type="client" src="client/gamemodes/RaceDrag.lua"/>
 	<script type="client" src="client/gamemodes/RaceDrift.lua"/>
 	<script type="client" src="client/gamemodes/RaceDuel.lua"/> -->
+	<script type="client" src="client/RaceCheckpoints.lua"/>
 	<script type="client" src="client/RaceGamemode.lua"/>
 	<script type="client" src="client/RaceClient.lua"/>
 
@@ -32,7 +33,7 @@
 	<export type="server" function="raceAddPlayer"/>
 	<export type="server" function="raceRemovePlayer"/>
 	<export type="server" function="raceGetPlayers"/>
-	<export type="server" function="launchRace"/>
+	<export type="server" function="startRace"/>
 	<export type="server" function="finishRace"/>
 	<export type="server" function="raceLogMessage"/>
 	

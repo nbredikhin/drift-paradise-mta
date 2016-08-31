@@ -52,8 +52,8 @@ local function draw()
 	local cpTextWidth = dxGetTextWidth(cpText, 1, font, false)
 	dxDrawText(cpText, x, y, x + posTextWidth, y + panelHeight, whiteColor, 1, font, "left", "center") 
 	x = x + cpTextWidth + 5	
-	local currentCheckpoint = 0
-	local totalCheckpoints = 99
+	local currentCheckpoint = RaceCheckpoints.getCurrentCheckpoint()
+	local totalCheckpoints = RaceCheckpoints.getCheckpointsCount()
 	local cpValueText = tostring(currentCheckpoint) .. "/" .. tostring(totalCheckpoints)
 	local cpValueTextWidth = dxGetTextWidth(cpValueText, 1, font, false)
 	dxDrawText(cpValueText, x, y, x + posTextWidth, y + panelHeight, primaryColor, 1, font, "left", "center") 

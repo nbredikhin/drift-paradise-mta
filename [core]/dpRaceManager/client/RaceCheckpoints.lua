@@ -14,7 +14,6 @@ local function onMarkerHit(player)
 		RaceCheckpoints.showNext()
 		localPlayer:setData("race_checkpoint", currentCheckpoint - 1)
 	else
-		Race.finished()
 		localPlayer:setData("race_checkpoint", -1)
 	end	
 end
@@ -52,7 +51,7 @@ function RaceCheckpoints.showNext()
 	local x, y, z = unpack(cp)
 	local r,g,b = exports.dpUI:getThemeColor()
 	currentMarker = createMarker(x, y, z, "checkpoint", 8, r, g, b)
-	currentMarker.dimension = Race.dimension
+	currentMarker.dimension = localPlayer.dimension
 
 	local isLast = currentCheckpoint == #checkpointsList
 	if not isLast then
@@ -61,7 +60,7 @@ function RaceCheckpoints.showNext()
 		currentMarker:setTarget(x, y, z)
 
 		nextMarker = createMarker(x, y, z, "checkpoint", 8, r, g, b, 100)
-		nextMarker.dimension = Race.dimension
+		nextMarker.dimension = localPlayer.dimension
 		local isLast = currentCheckpoint + 1 == #checkpointsList
 		if isLast then
 			nextMarker.icon = "finish"

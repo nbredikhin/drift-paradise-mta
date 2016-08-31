@@ -32,12 +32,8 @@ function MapLoader.load(mapName)
 	return map
 end
 
-function MapLoader.createMap(gamemode, checkpoints, spawnpoints, objects)
+function MapLoader.createMap(checkpoints, spawnpoints, objects)
 	local map = {}
-	if type(gamemode) ~= "string" then
-		gamemode = "default"
-	end
-	map.gamemode = gamemode
 	if type(checkpoints) ~= "table" or #checkpoints < 1 then
 		outputDebugString("Map must have at least one checkpoint")
 		return false
@@ -51,5 +47,5 @@ function MapLoader.createMap(gamemode, checkpoints, spawnpoints, objects)
 	if type(objects) == "table" then
 		map.objects = objects
 	end
-	return true
+	return map
 end

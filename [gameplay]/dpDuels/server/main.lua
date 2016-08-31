@@ -47,7 +47,7 @@ function startDuel(player1, player2, bet)
 		return false
 	end
 	outputDebugString(tostring(raceMap))
-	raceMap.duration = 15--DUEL_DURATION
+	raceMap.duration = 30--DUEL_DURATION
 	local raceSettings = {
 		separateDimension = true,
 		gamemode = "duel"

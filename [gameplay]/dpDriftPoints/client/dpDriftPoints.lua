@@ -7,6 +7,7 @@ local isPreventedByCollision = false
 local driftPoints = 0
 -- How many time player is drifting
 local driftTimer = 0
+local directionDriftTimer = 0
 -- How many time player is not drifting
 local nonDriftTimer = 0
 
@@ -123,7 +124,7 @@ local function update(dt)
 		 -- Add points and drift time, reset non-drift time
 		 driftPoints = driftPoints + MIN_DRIFT_POINTS * pointsMultiplier
 		 driftTimer = driftTimer + dt
-		 
+		 directionDriftTimer = directionDriftTimer + dt
 
 		 if PointsDrawing.show() then
 		 	driftDirection = direction	
@@ -141,6 +142,9 @@ local function update(dt)
 			if driftPoints > 0 then
 				--outputChatBox("Finished drift: " .. tostring(driftTimer/1000) .. "s")
 				triggerEvent("dpDriftPoints.earnedPoints", resourceRoot, driftPoints, pointsMultiplier, driftTimer)
+			end
+			if driftPoints > 0 then
+				directionDriftTimer = 0
 			end
 			driftPoints = 0
 			driftTimer = 0
@@ -169,11 +173,12 @@ local function update(dt)
 	end
 	--outputDebugString(tostring(driftTimer / LONG_DRIFT_TIME))
 
-	if direction ~= driftDirection and isChangingDirectionBonusAllowed then
+	if direction ~= driftDirection and isChangingDirectionBonusAllowed then		
 		driftDirection = direction
-		local scoreValue = DIRECTION_CHANGE_POINTS
+		local scoreValue = math.floor(DIRECTION_CHANGE_POINTS * math.min(1, directionDriftTimer / 3000) / 5) * 5
 		driftPoints = driftPoints + scoreValue
 		PointsDrawing.drawBonus(scoreValue)
+		directionDriftTimer = 0
 	end
 
 	PointsDrawing.updatePointsCount(driftPoints, driftAngle * direction)
@@ -189,6 +194,7 @@ local function onCollision()
 	isPreventedByCollision = true
 	PointsDrawing.collision()
 	driftTimer = 0
+	directionDriftTimer = 0
 	driftPoints = 0
 	pointsMultiplier = 1
 	nonDriftTimer = MAX_NON_DRIFT_TIME

@@ -102,6 +102,14 @@ function Race:init(settings, map)
 		self.dimension = 0
 	end
 
+	-- Маркер финиша
+	local x, y, z = unpack(self.map.checkpoints[#self.map.checkpoints])
+	if x and y and z then
+		self.finishMarker = createMarker(x, y, z - 1, "cylinder", 7, 0, 0, 0, 0)
+		self.finishMarker.dimension = self.dimension
+		self.finishMarker.parent = self.element
+	end
+
 	-- Корректное удаление игрока из гонки при выходе с сервера
 	addEventHandler("onPlayerQuit", self.element, function ()
 		self:removePlayer(source)
@@ -114,6 +122,18 @@ function Race:init(settings, map)
 	addEventHandler("onPlayerVehicleExit", self.element, function ()
 		outputDebugString("Vehicle exit")
 		self:removePlayer(source)
+	end)
+	addEventHandler("onMarkerHit", self.finishMarker, function (element)
+		if element.type ~= "vehicle" then
+			return
+		end
+		local player = element.controller
+		if not isElement(player) then
+			return
+		end
+		if player.parent == self.element then
+			self:playerFinish(player)
+		end
 	end)
 
 	self:setState(RaceState.waiting)
@@ -143,10 +163,13 @@ function Race:destroy()
 	for _, player in ipairs(self:getPlayers()) do
 		self:removePlayer(player)
 	end
+	if isElement(self.finishMarker) then
+		destroyElement(self.finishMarker)
+	end
 	-- Удалить саму гонку
 	races[self.element.id] = nil
 	self:log("Race destroyed")
-	self.element:destroy()
+	destroyElement(self.element)
 	self.isBeingDestroyed = false
 end
 
@@ -324,6 +347,17 @@ function Race:finish(timeout)
 	self:log("Race finished")
 	return true
 end
+
+function Race:playerFinish(player)
+	if not check("Race:playerFinish", "player", "player", player) then return false end
+	-- Игрок должен находиться в этой гонке
+	if player.parent.id ~= self.element.id then
+		self:log("Failed to finish player. Player is not in this race")
+		return false
+	end
+	return self.gamemode:playerFinished(player)
+end
+
 
 ---------------------------------------------------------------
 --------------------------- Прочее ----------------------------

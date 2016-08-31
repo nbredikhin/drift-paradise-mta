@@ -4,9 +4,10 @@ local currentCheckpoint = 1
 
 local currentMarker
 local nextMarker
+local hitMarker
 
 local function onMarkerHit(player)
-	if source ~= currentMarker or player ~= localPlayer then
+	if source ~= hitMarker or player ~= localPlayer then
 		return
 	end
 	playSoundFrontEnd(43)
@@ -14,7 +15,9 @@ local function onMarkerHit(player)
 		RaceCheckpoints.showNext()
 		localPlayer:setData("race_checkpoint", currentCheckpoint - 1)
 	else
+		currentCheckpoint = currentCheckpoint + 1
 		localPlayer:setData("race_checkpoint", -1)
+		destroyElement(hitMarker)
 	end	
 end
 
@@ -25,6 +28,10 @@ local function destroyMarkers()
 
 	if isElement(nextMarker) then
 		destroyElement(nextMarker)
+	end
+
+	if isElement(hitMarker) then
+		destroyElement(hitMarker)
 	end
 end
 
@@ -50,8 +57,11 @@ function RaceCheckpoints.showNext()
 	local cp = checkpointsList[currentCheckpoint]
 	local x, y, z = unpack(cp)
 	local r,g,b = exports.dpUI:getThemeColor()
-	currentMarker = createMarker(x, y, z, "checkpoint", 8, r, g, b)
+	currentMarker = createMarker(x, y, z, "checkpoint", 7, r, g, b)
 	currentMarker.dimension = localPlayer.dimension
+
+	hitMarker = createMarker(x, y, z - 1, "cylinder", 7, 0, 0, 0, 0)
+	hitMarker.dimension = localPlayer.dimension
 
 	local isLast = currentCheckpoint == #checkpointsList
 	if not isLast then
@@ -59,7 +69,7 @@ function RaceCheckpoints.showNext()
 		local x, y, z = unpack(cp)
 		currentMarker:setTarget(x, y, z)
 
-		nextMarker = createMarker(x, y, z, "checkpoint", 8, r, g, b, 100)
+		nextMarker = createMarker(x, y, z, "checkpoint", 7, r, g, b, 100)
 		nextMarker.dimension = localPlayer.dimension
 		local isLast = currentCheckpoint + 1 == #checkpointsList
 		if isLast then

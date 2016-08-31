@@ -1,44 +1,36 @@
 DriftView = {}
 local isActive = false
 
-local oldX, oldY, oldZ
-local wasOnCar
-local drawing = true
-
-local height = 1.4 -- как высоко над машиной будет камера
-local backOffset = -6 -- на сколько далеко камера будет распологаться от машины
-local lookAtOffset = 3 -- как далеко вперед будет смотреть камера (высота камеры)
+local cameraHeight = 1.4
+local cameraOffset = Vector3(0, -6.5, 0)
+local lookAtOffset = Vector3(0, 3, 0)
 
 local targetRotation = 0
 local currentRotation = 0
 local rotationMul = 0.05
 
-function getPositionInfrontOfElement(x,y,rotation, meters)
-    posX = x - math.sin(math.rad(rotation)) * meters
-    posY = y + math.cos(math.rad(rotation)) * meters
-    return posX, posY, posZ
+local currentCameraPosition = Vector3(cameraOffset) + Vector3(0, 0, cameraHeight)
+local currentLookOffset = Vector3(lookAtOffset)
+local currentCameraRoll = 0
+local currentCameraFOV = 70
+local currentCameraZ = 0
+local currentCameraRotation = math.pi
+
+local function getDriftAngle()
+	local vehicle = localPlayer.vehicle
+	if vehicle.velocity.length < 0.2 then
+		return 0, false
+	end
+
+	local direction = vehicle.matrix.forward
+	local velocity = vehicle.velocity.normalized
+
+	local dot = direction.x * velocity.x + direction.y * velocity.y
+	local det = direction.x * velocity.y - direction.y * velocity.x
+
+	local angle = math.atan2(det, dot)
+	return angle
 end
-
-function getVehicleSpeed(vehicle)   
-    if isElement(vehicle) then
-        local vx, vy, vz = getElementVelocity(vehicle)
-        
-        if (vx) and (vy)and (vz) then
-            return math.sqrt(vx^2 + vy^2 + vz^2) * 180 -- km/h
-        else
-            return 0
-        end
-    else
-        return 0
-    end
-end
-
-
-function findRotation( x1, y1, x2, y2 ) 
-    local t = -math.deg( math.atan2( x2 - x1, y2 - y1 ) )
-    return t < 0 and t + 360 or t
-end
-
 
 function differenceBetweenAngles(firstAngle, secondAngle)
 	local difference = secondAngle - firstAngle
@@ -57,43 +49,68 @@ local function update(deltaTime)
 	end	
 	deltaTime = deltaTime / 1000
 
-	local car = getPedOccupiedVehicle(localPlayer)
-	if car then
-		wasOnCar = true
-		local newX, newY, newZ = getElementPosition ( car )
-		if oldX and oldY and oldZ then
-			local isEnabled = not isMTAWindowActive()
-			local e_pressed = getKeyState("e") and isEnabled
-			local q_pressed = getKeyState("q") and isEnabled
-			
-			local carX, carY, carZ = getElementPosition ( car )							
-			targetRotation = findRotation( oldX, oldY, newX, newY )	
-			if getVehicleSpeed(car) < 5 then
-				local _, _, r = getElementRotation(car)
-				targetRotation = r
-			end				
-			if e_pressed and q_pressed then 
-				--targetRotation = -car.rotation.z
-				targetRotation = car.rotation.z + 180
-				currentRotation = targetRotation
-			elseif q_pressed then 
-				targetRotation = car.rotation.z + 90 
-			elseif e_pressed then 
-				targetRotation = car.rotation.z - 90 
-			end				
+	local vehicle = localPlayer.vehicle
+	if not vehicle then
+		return
+	end
 
-			targetRotation = (targetRotation + 180) % 360 - 180		
-			currentRotation = (currentRotation + 180) % 360 - 180		
-			currentRotation = currentRotation - differenceBetweenAngles(targetRotation, currentRotation) * rotationMul
-			local viewX, viewY = getPositionInfrontOfElement(carX, carY, currentRotation, lookAtOffset)
-			local cameraX, cameraY = getPositionInfrontOfElement(carX, carY, currentRotation, backOffset)
-			setCameraMatrix ( cameraX, cameraY, carZ+height, viewX, viewY, carZ )
-		end
-		oldX, oldY, oldZ = newX, newY, newZ
-	elseif wasOnCar then
-		wasOnCar = false
-		setCameraTarget ( localPlayer )
-	end	
+	local driftAngle = -getDriftAngle()
+	local targetCameraRotation = driftAngle + math.pi
+	currentCameraRotation = currentCameraRotation + (targetCameraRotation - currentCameraRotation) * deltaTime * 5
+
+	local len = #cameraOffset
+	local targetCameraPosition = Vector3(math.sin(currentCameraRotation) * len, math.cos(currentCameraRotation) * len, cameraHeight)
+	local targetLookOffset = lookAtOffset + Vector3(driftAngle * 3.1, 0, 0)
+
+	local targetCameraRoll = driftAngle * 5
+	currentCameraRoll = currentCameraRoll + (targetCameraRoll - currentCameraRoll) * deltaTime * 2
+
+	local targetCameraFOV = 70 + math.abs(driftAngle) * 20
+	currentCameraFOV = currentCameraFOV + (targetCameraFOV - currentCameraFOV) * deltaTime * 3	
+
+	local bothDown = false
+	if math.abs(driftAngle) > math.pi * 0.6 and #vehicle.velocity > 0.2 then
+		local lookRotation = 0
+		targetCameraPosition = Vector3(math.sin(lookRotation) * len, math.cos(lookRotation) * len, cameraHeight)
+		targetLookOffset = Vector3(0, 1, 0)	
+		currentCameraFOV = 70
+		currentCameraRoll = 0
+	else
+		if getKeyState("e") and getKeyState("q") then
+			bothDown = true
+			local lookRotation = 0
+			targetCameraPosition = Vector3(math.sin(lookRotation) * len, math.cos(lookRotation) * len, cameraHeight)
+			targetLookOffset = Vector3(0, 1, 0)	
+			currentCameraFOV = 70
+			currentCameraRoll = 0
+		end				
+	end
+
+	if not bothDown then
+		if getKeyState("e") then
+			local lookRotation = -math.pi / 2
+			targetCameraPosition = Vector3(math.sin(lookRotation) * len, math.cos(lookRotation) * len, cameraHeight)
+			targetLookOffset = Vector3()
+			currentCameraFOV = 70
+			currentCameraRoll = 0					
+		elseif getKeyState("q") then
+			local lookRotation = math.pi / 2
+			targetCameraPosition = Vector3(math.sin(lookRotation) * len, math.cos(lookRotation) * len, cameraHeight)
+			targetLookOffset = Vector3()
+			currentCameraFOV = 70
+			currentCameraRoll = 0					
+		end	
+	end
+
+	currentCameraPosition = currentCameraPosition + (targetCameraPosition - currentCameraPosition) * deltaTime * 5
+	currentLookOffset = currentLookOffset + (targetLookOffset - currentLookOffset) * deltaTime * 4
+
+	setCameraMatrix(
+		vehicle.matrix:transformPosition(currentCameraPosition), 
+		vehicle.matrix:transformPosition(currentLookOffset), 
+		currentCameraRoll, 
+		currentCameraFOV
+	)
 end
 
 function DriftView.start()
@@ -101,6 +118,7 @@ function DriftView.start()
 		return false
 	end
 	isActive = true
+	currentCameraZ = localPlayer.vehicle.position.z
 	addEventHandler("onClientPreRender", root, update)
 end
 

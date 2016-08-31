@@ -67,7 +67,11 @@ addEventHandler("dpGarage.exit", resourceRoot, function (selectedCarId)
 	-- Если игрок выбрал машину в гараже
 	if selectedCarId then
 		local vehicle = exports.dpCore:spawnVehicle(selectedCarId, client.position, client.rotation)
-		warpPedIntoVehicle(client, vehicle)
+		if isElement(vehicle) then
+			warpPedIntoVehicle(client, vehicle)
+		else
+			outputDebugString("Garage server: Failed to spawn vehicle")
+		end
 	end
 	triggerClientEvent(client, "dpGarage.exit", resourceRoot, true)
 end)

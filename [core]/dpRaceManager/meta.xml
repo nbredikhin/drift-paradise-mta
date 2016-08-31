@@ -28,13 +28,16 @@
 
 	<!-- Server-side exports -->
 	<export type="server" function="createRace"/>
-	<export type="server" function="removeRace"/>
-	<export type="server" function="startRace"/>
-	<export type="server" function="raceLoadMap"/>
-	<export type="server" function="raceSetMap"/>
-	<export type="server" function="raceAddPlayers"/>
+	<export type="server" function="destroyRace"/>
 	<export type="server" function="raceAddPlayer"/>
-	<export type="server" function="isPlayerInRace"/>
+	<export type="server" function="raceRemovePlayer"/>
+	<export type="server" function="raceGetPlayers"/>
+	<export type="server" function="launchRace"/>
+	<export type="server" function="finishRace"/>
+	<export type="server" function="raceLogMessage"/>
+	
+	<export type="server" function="loadRaceMap"/>
+	<export type="server" function="createRaceMap"/>
 
 	<!-- Assets -->
 	<file src="assets/countdown3.png"/>

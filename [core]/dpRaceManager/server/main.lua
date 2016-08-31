@@ -13,7 +13,7 @@ local function createTestRace()
 end
 
 addEventHandler("onResourceStart", resourceRoot, function()
-	setTimer(createTestRace, 1000, 1)
+	--setTimer(createTestRace, 1000, 1)
 
 	--race:destroy()
 end)

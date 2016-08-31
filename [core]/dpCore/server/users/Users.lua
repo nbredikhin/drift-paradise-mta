@@ -133,7 +133,7 @@ function Users.get(userId, fields, callback)
 		return false
 	end
 	
-	return DatabaseTable.update(USERS_TABLE_NAME, fields, { _id = userId }, callback)
+	return DatabaseTable.select(USERS_TABLE_NAME, fields, { _id = userId }, callback)
 end
 
 function Users.update(username, fields)

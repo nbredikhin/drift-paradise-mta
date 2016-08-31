@@ -22,8 +22,7 @@ local function retrieveQueryResults(connection, queryString, callback, ...)
 	if type(callback) ~= "function" then
 		-- Вернуть результат запроса синхронно
 		local handle = connection:query(queryString)
-		local result = handle:poll(-1)
-		return result
+		return handle:poll(-1)
 	else -- Если передали callback, вернуть результат асинхронно
 		return not not connection:query(function (queryHandle, args)
 			local result = queryHandle:poll(0)

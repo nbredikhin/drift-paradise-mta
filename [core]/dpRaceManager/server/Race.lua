@@ -19,6 +19,18 @@ function getPlayerRace(player)
 	end
 end
 
+function getRaceByElement(element)
+	if not isElement(element) then
+		outputDebugString("getRaceByElement: bad race element '" .. tostring(element) .. "'")
+		return false
+	end
+	if element.type ~= "race" then
+		outputDebugString("getRaceByElement: bad race element '" .. tostring(element.type) .. "'")
+		return false
+	end
+	return races[element.id]
+end
+
 -- Удалить игрока при уничтожении автомобиля
 addEventHandler("onElementDestroy", root, function ()
 	if source.type ~= "vehicle" then return end
@@ -55,12 +67,11 @@ local raceGamemodes = {
 }
 
 local RACE_SETTINGS = {
-	fadeCamera = false,
-	separateDimension = false
+	separateDimension = false,
+	gamemode = "default"
 }
 
 local RACE_MAP = {
-	gamemode = raceGamemodes.default,
 	duration = 300,
 
 	checkpoints = {},
@@ -110,6 +121,7 @@ function Race:init(settings, map)
 	local gamemodeClass = raceGamemodes[self.settings.gamemode]
 	if not gamemodeClass then
 		self:log("Failed to create race. Gamemode '" .. tostring(self.settings.gamemode) .. "' does not exist")
+		self:destroy()
 		return false
 	end
 	self.gamemode = gamemodeClass(self)
@@ -122,7 +134,7 @@ function Race:destroy()
 		self:log("Failed to destroy race. It's already destroyed.")
 		return false
 	end
-
+	self.isBeingDestroyed = true
 	-- Принудительно финишировать гонку
 	if self:getState() == RaceState.running then
 		self:finish()
@@ -135,6 +147,7 @@ function Race:destroy()
 	races[self.element.id] = nil
 	self:log("Race destroyed")
 	self.element:destroy()
+	self.isBeingDestroyed = false
 end
 
 ---------------------------------------------------------------
@@ -235,7 +248,7 @@ function Race:removePlayer(player)
 	self:log("Player removed: '" .. tostring(player.name) .. "'")
 
 	-- Удалить гонку при удалении всех игроков
-	if self:getState() ~= RaceState.waiting and #self:getPlayers() == 0 then
+	if not self.isBeingDestroyed and self:getState() ~= RaceState.waiting and #self:getPlayers() == 0 then
 		self:destroy()
 	end
 	return true

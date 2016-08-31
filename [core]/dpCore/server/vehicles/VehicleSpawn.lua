@@ -181,21 +181,25 @@ end
 function VehicleSpawn.spawn(vehicleId, position, rotation)
 	if type(vehicleId) ~= "number" or type(position) ~= "userdata" then
 		executeCallback(callback, false)
+		outputDebugString("VehicleSpawn.spawn: Bad aruments")
 		return false
 	end
 	if not rotation then rotation = Vector3() end
 
 	local vehicleInfo = UserVehicles.getVehicle(vehicleId)
 	if type(vehicleInfo) ~= "table" or #vehicleInfo == 0 then
+		outputDebugString("VehicleSpawn.spawn: Vehicle does not exist")
 		return false
 	end
 	vehicleInfo = vehicleInfo[1]
 	if not vehicleInfo.owner_id then
+		outputDebugString("VehicleSpawn.spawn: Bad vehicle info (no owner_id)")
 		return false
 	end
 
 	local user = Users.get(vehicleInfo.owner_id, { "username" })
 	if type(user) ~= "table" or #user == 0 then
+		outputDebugString("VehicleSpawn.spawn: Vehicle owner user does not exist. owner_id: " .. tostring(vehicleInfo.owner_id))
 		return false
 	end
 	user = user[1]
@@ -219,6 +223,7 @@ function VehicleSpawn.spawn(vehicleId, position, rotation)
 	-- Выключить фары
 	vehicle:setData("LightsState", false)
 	triggerClientEvent(root, "onClientVehicleCreated", vehicle)
+	outputDebugString("VehicleSpawn.spawn: Spawned vehicle " .. tostring(vehicleInfo._id))
 	return vehicle
 end
 

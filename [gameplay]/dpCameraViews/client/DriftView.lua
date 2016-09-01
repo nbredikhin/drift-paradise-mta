@@ -43,6 +43,11 @@ function differenceBetweenAngles(firstAngle, secondAngle)
 	return difference
 end
 
+local _getKeyState = getKeyState
+local function getKeyState(...)
+	return _getKeyState(...) and not isMTAWindowActive()
+end
+
 local function update(deltaTime)
 	if localPlayer:getData("activeUI") == "photoMode" then
 		return

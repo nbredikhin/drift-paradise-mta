@@ -1,6 +1,6 @@
-RaceDefault = RaceGamemode:subclass "RaceDefault"
+Sprint = RaceGamemode:subclass "Sprint"
 
-function RaceDefault:init(...)
+function Sprint:init(...)
 	self.super:init(...)
 end
 
@@ -10,11 +10,11 @@ end
 -- Особенности:
 -- Первый игрок доехал - оставляем 15 секунд 
 
--- function RaceDefault:raceStarted(...)
+-- function Sprint:raceStarted(...)
 -- 	self.super:raceStarted(...)
 -- end
 
-function RaceDefault:raceFinished(timeout)
+function Sprint:raceFinished(timeout)
 	self.super:raceFinished(timeout)
 	
 	if timeout then

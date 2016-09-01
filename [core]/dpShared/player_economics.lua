@@ -10,7 +10,10 @@ local playerEconomics = {
 
 	-- Дуэли
 	duel_bet_min = 500,
-	duel_bet_max = 5000
+	duel_bet_max = 5000,
+
+	-- Количество денег за 1000 очков дрифта
+	drift_money = 25,
 }
 
 function getEconomicsProperty(name)

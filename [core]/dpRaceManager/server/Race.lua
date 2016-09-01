@@ -55,20 +55,23 @@ end)
 ----------------------- Создание гонки ------------------------
 ---------------------------------------------------------------
 
+addEvent("Race.clientFinished", true)
+
 local RACE_LOG_SERVER = true
 local RACE_LOG_DEBUG = true
 local RACE_LOG_FORMAT = "Race [%s]: %s"
 
+-- Режиы гонок
 local raceGamemodes = {
-	default = RaceDefault,
-	drift = RaceDrift,
-	drag = RaceDrag,
-	duel = RaceDuel
+	sprint 	= Sprint,
+	drag 	= Drag,
+	circle 	= Circle,
+	duel 	= Duel
 }
 
 local RACE_SETTINGS = {
 	separateDimension = false,
-	gamemode = "default"
+	gamemode = "sprint"
 }
 
 local RACE_MAP = {
@@ -123,16 +126,9 @@ function Race:init(settings, map)
 		outputDebugString("Vehicle exit")
 		self:removePlayer(source)
 	end)
-	addEventHandler("onMarkerHit", self.finishMarker, function (element)
-		if element.type ~= "vehicle" then
-			return
-		end
-		local player = element.controller
-		if not isElement(player) then
-			return
-		end
-		if player.parent == self.element then
-			self:playerFinish(player)
+	addEventHandler("Race.clientFinished", self.element, function ()
+		if client.parent == self.element then
+			self:playerFinish(client)
 		end
 	end)
 
@@ -154,7 +150,12 @@ function Race:destroy()
 		self:log("Failed to destroy race. It's already destroyed.")
 		return false
 	end
+	if self.isBeingDestroyed then
+		self:log("Failed to destroy race. It's being destroyed.")
+		return false
+	end
 	self.isBeingDestroyed = true
+	triggerEvent("dpRaceManager.raceDestroyed", self.element)
 	-- Принудительно финишировать гонку
 	if self:getState() == RaceState.running then
 		self:finish()
@@ -244,6 +245,10 @@ end
 
 function Race:removePlayer(player)
 	if not check("Race:removePlayer", "player", "player", player) then return false end
+	if not isElement(self.element) then
+		self:log("Failed to remove player. Race is destroyed")
+		return false
+	end
 	-- Игрок должен находиться в этой гонке
 	if player.parent.id ~= self.element.id then
 		self:log("Failed to remove player. Player is not in this race")
@@ -265,6 +270,10 @@ function Race:removePlayer(player)
 	player.parent = root
 	player.dimension = 0
 	player:removeData("Race.finished")
+
+	if not self.isBeingDestroyed then
+		self.gamemode:playerRemoved(player)
+	end
 
 	triggerClientEvent(player, "Race.removedFromRace", self.element)
 	triggerClientEvent(self.element, "Race.playerRemoved", player)

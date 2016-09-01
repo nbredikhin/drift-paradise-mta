@@ -8,17 +8,17 @@
 	<!-- Server-side scripts -->
 	<script type="server" src="server/MapLoader.lua"/>
 	<script type="server" src="server/RaceGamemode.lua"/>
-	<script type="server" src="server/gamemodes/RaceDefault.lua"/>
-	<script type="server" src="server/gamemodes/RaceDrag.lua"/>
-	<script type="server" src="server/gamemodes/RaceDrift.lua"/>
-	<script type="server" src="server/gamemodes/RaceDuel.lua"/>
+	<script type="server" src="server/gamemodes/Sprint.lua"/>
+	<script type="server" src="server/gamemodes/Duel.lua"/>
+	<script type="server" src="server/gamemodes/Drag.lua"/>
+	<script type="server" src="server/gamemodes/Circle.lua"/>
 	<script type="server" src="server/Race.lua"/>
-	<script type="server" src="server/main.lua"/>
 	<script type="server" src="server/exports.lua"/>
 
 	<!-- Client-side scripts -->
 	<script type="client" src="client/ui/Countdown.lua"/>
 	<script type="client" src="client/ui/RaceTimer.lua"/>
+<!-- 	<script type="client" src="client/ui/ResultsTable.lua"/> -->
 <!--<script type="client" src="client/gamemodes/RaceDefault.lua"/>
 	<script type="client" src="client/gamemodes/RaceDrag.lua"/>
 	<script type="client" src="client/gamemodes/RaceDrift.lua"/>

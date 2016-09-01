@@ -3,6 +3,8 @@ local DUEL_CHECKPOINTS_COUNT = 1
 -- Максимальная длительность дуэли в секундах
 local DUEL_DURATION = 180
 
+local activeDuels = {}
+
 local function getVehicleSpawnpoint(vehicle)
 	if not isElement(vehicle) then
 		return false
@@ -47,9 +49,9 @@ function startDuel(player1, player2, bet)
 		return false
 	end
 	outputDebugString(tostring(raceMap))
-	raceMap.duration = 30--DUEL_DURATION
+	raceMap.duration = DUEL_DURATION
 	local raceSettings = {
-		separateDimension = true,
+		separateDimension = false,
 		gamemode = "duel"
 	}
 	local race = exports.dpRaceManager:createRace(raceSettings, raceMap)
@@ -58,7 +60,12 @@ function startDuel(player1, player2, bet)
 	end
 	-- Добавить игроков в гонку
 	exports.dpRaceManager:raceAddPlayer(race, player1)
-	--exports.dpRaceManager:raceAddPlayer(race, player2)
+	exports.dpRaceManager:raceAddPlayer(race, player2)
+
+	activeDuels[race] = {
+		players = {player1, player2},
+		bet = bet
+	}
 
 	setTimer(function () 
 		exports.dpRaceManager:startRace(race)
@@ -74,3 +81,38 @@ addCommandHandler("duel", function (player)
 	startDuel(players[1], players[1], 100)
 end)
 
+addEvent("RaceDuel.duelFinished", false)
+addEventHandler("RaceDuel.duelFinished", root, function (player)
+	if not isElement(player) then
+		return false
+	end
+	local duel = activeDuels[source]
+	if not duel then
+		outputDebugString("Duel finished, but not active")
+		return false
+	end
+	exports.dpCore:givePlayerMoney(player, duel.bet * 2)
+	for i, p in ipairs(duel.players) do
+		if isElement(p) then
+			triggerClientEvent(p, "dpDuels.showWinner", resourceRoot, player, duel.bet * 2)
+		end
+	end
+end)
+
+addEvent("dpRaceManager.raceDestroyed", false)
+addEventHandler("dpRaceManager.raceDestroyed", root, function()
+	if activeDuels[source] then
+		triggerClientEvent("dpDuels.showWinner", resourceRoot, false)
+		for i, player in ipairs(activeDuels[source].players) do
+			if isElement(p) then
+				triggerClientEvent(player, "dpDuels.showWinner", resourceRoot, false)
+			end
+		end
+	end
+end)
+
+addEventHandler("onResourceStop", resourceRoot, function ()
+	for duel in pairs(activeDuels) do
+		exports.dpRaceManager:destroyRace(duel)
+	end
+end)

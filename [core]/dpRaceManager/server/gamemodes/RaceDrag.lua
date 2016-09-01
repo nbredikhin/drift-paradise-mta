@@ -1,1 +1,0 @@
-RaceDrag = RaceGamemode:subclass "RaceDrag"

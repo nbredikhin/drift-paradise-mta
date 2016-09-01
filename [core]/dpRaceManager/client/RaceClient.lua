@@ -24,6 +24,10 @@ local function onRemovedFromRace()
 	RaceClient.stopRace()
 end
 
+function RaceClient.clientFinished()
+	RaceClient.gamemode:clientFinished()
+end
+
 function RaceClient.startRace(raceElement, settings, map)
 	if not check("RaceClient.startRace", "raceElement", "element", raceElement) then return false end
 	if not check("RaceClient.startRace", "settings", "table", settings) then return false end
@@ -48,17 +52,19 @@ function RaceClient.startRace(raceElement, settings, map)
 	end
 
 	-- Обработка событий
-	addEventHandler("Race.removedFromRace", raceElement, onRemovedFromRace)
-	addEventHandler("Race.stateChanged", 	raceElement, onStateChanged)
+	addEventHandler("Race.removedFromRace", RaceClient.raceElement, onRemovedFromRace)
+	addEventHandler("Race.stateChanged", 	RaceClient.raceElement, onStateChanged)
+	addEventHandler("onClientElementDestroy", RaceClient.raceElement, RaceClient.stopRace)
 
 	local gamemode = RaceGamemode()
-	gamemode:addEventHandler("Race.launch", 		raceElement, gamemode.raceLaunched)
-	gamemode:addEventHandler("Race.start", 			raceElement, gamemode.raceStarted)
-	gamemode:addEventHandler("Race.finish", 		raceElement, gamemode.raceFinished)
-	gamemode:addEventHandler("Race.playerFinished", raceElement, gamemode.playerFinished)
-	gamemode:addEventHandler("Race.playerAdded", 	raceElement, gamemode.playerAdded)
-	gamemode:addEventHandler("Race.playerRemoved", 	raceElement, gamemode.playerRemoved)
+	gamemode:addEventHandler("Race.launch", 		RaceClient.raceElement, gamemode.raceLaunched)
+	gamemode:addEventHandler("Race.start", 			RaceClient.raceElement, gamemode.raceStarted)
+	gamemode:addEventHandler("Race.finish", 		RaceClient.raceElement, gamemode.raceFinished)
+	gamemode:addEventHandler("Race.playerFinished", RaceClient.raceElement, gamemode.playerFinished)
+	gamemode:addEventHandler("Race.playerAdded", 	RaceClient.raceElement, gamemode.playerAdded)
+	gamemode:addEventHandler("Race.playerRemoved", 	RaceClient.raceElement, gamemode.playerRemoved)
 	RaceClient.gamemode = gamemode
+	outputDebugString("Client race started")
 end
 
 function RaceClient.stopRace()
@@ -70,6 +76,7 @@ function RaceClient.stopRace()
 
 	removeEventHandler("Race.removedFromRace", RaceClient.raceElement, onRemovedFromRace)
 	removeEventHandler("Race.stateChanged", RaceClient.raceElement, onStateChanged)
+	removeEventHandler("onClientElementDestroy", RaceClient.raceElement, RaceClient.stopRace)
 	RaceClient.gamemode:removeEventHandlers()
 
 	Countdown.stop()
@@ -83,4 +90,5 @@ function RaceClient.stopRace()
 	RaceClient.raceElement = nil
 	RaceClient.settings = nil
 	RaceClient.map = nil
+	outputDebugString("Client race stopped")
 end	

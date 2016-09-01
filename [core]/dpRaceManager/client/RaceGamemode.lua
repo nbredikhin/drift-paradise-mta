@@ -68,3 +68,7 @@ function RaceGamemode:playerFinished(source)
 		RaceTimer.stop()
 	end
 end
+
+function RaceGamemode:clientFinished()
+	triggerServerEvent("Race.clientFinished", RaceClient.raceElement)
+end

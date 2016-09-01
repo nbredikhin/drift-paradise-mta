@@ -1,1 +1,0 @@
-RaceDrift = RaceGamemode:subclass "RaceDrift"

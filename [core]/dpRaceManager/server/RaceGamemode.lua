@@ -48,6 +48,10 @@ function RaceGamemode:raceFinished(timeout)
 	end
 end
 
+function RaceGamemode:playerRemoved(player)
+
+end
+
 function RaceGamemode:playerFinished(player, timeout)
 	if not check("RaceGamemode:playerFinished", "player", "player", player) then return false end
 	-- Игрок уже финишировал

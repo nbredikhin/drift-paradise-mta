@@ -10,6 +10,7 @@
 
 	<script type="client" src="client/InviteWindow.lua"/>
 	<script type="client" src="client/AcceptWindow.lua"/>
+	<script type="client" src="client/WinnerScreen.lua"/>
 	<script type="client" src="client/calling.lua"/>
 
 	<export type="client" function="callPlayer"/>

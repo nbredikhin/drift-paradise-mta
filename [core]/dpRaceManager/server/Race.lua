@@ -71,12 +71,11 @@ local raceGamemodes = {
 
 local RACE_SETTINGS = {
 	separateDimension = false,
-	gamemode = "sprint"
+	gamemode = "sprint",
+	duration = 300
 }
 
 local RACE_MAP = {
-	duration = 300,
-
 	checkpoints = {},
 	objects = {},
 	spawnpoints = {}
@@ -166,6 +165,13 @@ function Race:destroy()
 	end
 	if isElement(self.finishMarker) then
 		destroyElement(self.finishMarker)
+	end
+	-- Удалить таймеры
+	if isTimer(self.durationTimer) then
+		killTimer(self.durationTimer)
+	end
+	if isTimer(self.countdownTimer) then
+		killTimer(self.countdownTimer)
 	end
 	-- Удалить саму гонку
 	races[self.element.id] = nil
@@ -275,10 +281,11 @@ function Race:removePlayer(player)
 		self.gamemode:playerRemoved(player)
 	end
 
-	triggerClientEvent(player, "Race.removedFromRace", self.element)
-	triggerClientEvent(self.element, "Race.playerRemoved", player)
-	self:log("Player removed: '" .. tostring(player.name) .. "'")
-
+	if self.element and isElement(self.element) then
+		triggerClientEvent(player, "Race.removedFromRace", self.element)
+		triggerClientEvent(self.element, "Race.playerRemoved", player)
+		self:log("Player removed: '" .. tostring(player.name) .. "'")
+	end
 	-- Удалить гонку при удалении всех игроков
 	if not self.isBeingDestroyed and self:getState() ~= RaceState.waiting and #self:getPlayers() == 0 then
 		self:destroy()
@@ -287,6 +294,9 @@ function Race:removePlayer(player)
 end
 
 function Race:getPlayers()
+	if not isElement(self.element) then
+		return {}
+	end
 	return self.element:getChildren("player")
 end
 
@@ -330,7 +340,7 @@ function Race:start()
 	
 	killTimer(self.countdownTimer)
 	self:setState(RaceState.running)
-	self.durationTimer = setTimer(function() self:finish(true) end, self.map.duration * 1000, 1)
+	self.durationTimer = setTimer(function() self:finish(true) end, self.settings.duration * 1000, 1)
 	triggerClientEvent(self.element, "Race.start", self.element)
 
 	for _, player in ipairs(self:getPlayers()) do

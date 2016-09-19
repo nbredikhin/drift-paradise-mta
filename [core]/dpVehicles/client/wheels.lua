@@ -256,7 +256,8 @@ addEventHandler("onClientPreRender", root, function ()
 				if isLocalVehicle then
 					localVehicleSteering[name] = localVehicleSteering[name] + (steering - localVehicleSteering[name]) * steeringSmoothing
 					currentSteering = localVehicleSteering[name]
-				end				
+				end
+				wheel.object.alpha = vehicle.alpha
 				wheel.object.position = position
 				wheel.object.rotation = vehicle.rotation
 				if wheel.object.dimension ~= vehicle.dimension then

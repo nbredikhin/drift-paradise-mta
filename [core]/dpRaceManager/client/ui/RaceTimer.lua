@@ -89,7 +89,7 @@ function RaceTimer.start()
 	themeColor = {exports.dpUI:getThemeColor()}
 	timeIcon = dxCreateTexture("assets/timer.png")
 	
-	raceTimeLeft = RaceClient.map.duration
+	raceTimeLeft = RaceClient.settings.duration
 end
 
 function RaceTimer.stop()

@@ -49,10 +49,10 @@ function startDuel(player1, player2, bet)
 		return false
 	end
 	outputDebugString(tostring(raceMap))
-	raceMap.duration = DUEL_DURATION
 	local raceSettings = {
 		separateDimension = false,
-		gamemode = "duel"
+		gamemode = "duel",
+		duration = DUEL_DURATION
 	}
 	local race = exports.dpRaceManager:createRace(raceSettings, raceMap)
 	if not race then
@@ -82,7 +82,7 @@ addCommandHandler("duel", function (player)
 end)
 
 addEvent("RaceDuel.duelFinished", false)
-addEventHandler("RaceDuel.duelFinished", root, function (player)
+addEventHandler("RaceDuel.duelFinished", root, function (player, timePassed)
 	if not isElement(player) then
 		return false
 	end
@@ -94,7 +94,7 @@ addEventHandler("RaceDuel.duelFinished", root, function (player)
 	exports.dpCore:givePlayerMoney(player, duel.bet * 2)
 	for i, p in ipairs(duel.players) do
 		if isElement(p) then
-			triggerClientEvent(p, "dpDuels.showWinner", resourceRoot, player, duel.bet * 2)
+			triggerClientEvent(p, "dpDuels.showWinner", resourceRoot, player, duel.bet * 2, timePassed)
 		end
 	end
 end)

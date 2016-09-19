@@ -6,6 +6,8 @@ RaceClient.gamemode = nil
 RaceClient.settings = {}
 RaceClient.map = {}
 
+local raceDimension = 0
+
 addEvent("Race.addedToRace", true)
 addEvent("Race.stateChanged", true)
 addEvent("Race.removedFromRace", true)
@@ -43,12 +45,22 @@ function RaceClient.startRace(raceElement, settings, map)
 
 	RaceCheckpoints.start(RaceClient.map.checkpoints)
 
+	raceDimension = localPlayer.dimension
+
 	-- Создание объектов карты
 	if not RaceClient.map.objects then
 		RaceClient.map.objects = {}
 	end
 	for i, o in ipairs(RaceClient.map.objects) do
-		createObject(unpack(o)).dimension = localPlayer.dimension
+		createObject(unpack(o)).dimension = raceDimension
+	end
+	-- Перенос маппинга в dimension гонки
+	if raceDimension ~= 0 then
+		for i, object in ipairs(getElementsByType("object")) do
+			if object.dimension == 0 then
+				object.dimension = raceDimension
+			end 
+		end
 	end
 
 	-- Обработка событий
@@ -86,9 +98,18 @@ function RaceClient.stopRace()
 	for i, object in ipairs(resource:getDynamicElementRoot():getChildren("object")) do
 		destroyElement(object)
 	end
+	-- Перенос маппинга обратно в нулевой dimension
+	if raceDimension ~= 0 then
+		for i, object in ipairs(getElementsByType("object")) do
+			if object.dimension == raceDimension then
+				object.dimension = 0
+			end 
+		end
+	end
 
 	RaceClient.raceElement = nil
 	RaceClient.settings = nil
 	RaceClient.map = nil
+	raceDimension = 0
 	outputDebugString("Client race stopped")
 end	

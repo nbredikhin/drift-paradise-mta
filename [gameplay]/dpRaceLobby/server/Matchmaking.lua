@@ -1,131 +1,89 @@
 Matchmaking = {}
 
-local pendingPlayersList = {}
-local mapCheckTimers = {}
-local pendingPlayersCount = 0
+local playersInSearch = {}
+local playersCheckTimer
 
-setTimer(function()
-	local count = 0
-	local players = {}
-	for mapName, players in pairs(pendingPlayersList) do
-		for p in pairs(players) do
-			if not players[p] then
-				players[p] = true
-				count = count + 1
-			end
-		end
-	end	
-	root:setData("MatchmakingSearchingPlayersCount", count)
-end, 15000, 0)
-
-local function removePendingPlayer(player)
-	for mapName, players in pairs(pendingPlayersList) do
-		for p in pairs(players) do
-			if p == player then
-				pendingPlayersList[mapName][p] = nil
-			end
-		end
-	end
+local addClientEventHandler = function(event, handler) 
+	addEvent(event, true)
+	return addEventHandler(event, resourceRoot, handler)
 end
 
-function Matchmaking.performMapCheck(mapName, rank)
-	--outputDebugString("performMapCheck: " .. tostring(mapName) .. " " .. tostring(rank))
-	if not mapName or not rank then
-		return false
-	end
-	if not pendingPlayersList[mapName] then
-		return false
-	end
+addClientEventHandler("dpRaceLobby.startSearch", function ()
+	Matchmaking.addPlayer(client)
+end)
 
-	local players = {}
-	for player, info in pairs(pendingPlayersList[mapName]) do
-		if info.rank == rank then
-			table.insert(players, player)
-		end
-	end
-	if #players < GlobalConfig.MATCHMAKING_MIN_PLAYERS then
-		--outputDebugString("Map check failed: Not enough players")
+addClientEventHandler("dpRaceLobby.cancelSearch", function ()
+	Matchmaking.removePlayer(client)
+end)
+
+local function delayPlayersCheck()
+	if isTimer(playersCheckTimer) then
 		return
 	end
-	table.sort(players, function(player1, player2)
-		return player1:getData("xp") < player2:getData("xp")
-	end)	
-	local racePlayers = {}
-	for i, player in ipairs(players) do
-		table.insert(racePlayers, player)
-		removePendingPlayer(player)
-		if #racePlayers >= GlobalConfig.MATCHMAKING_MAX_PLAYERS then
-			break
-		end		
-	end
-
-	RaceManager.raceReady(mapName, racePlayers)
-
-	if #players >= GlobalConfig.MATCHMAKING_MIN_PLAYERS then
-		Matchmaking.scheduleMapCheck(mapName, rank)
-	end	
+	playersCheckTimer = setTimer(Matchmaking.checkPlayers, GlobalConfig.MATCHMAKING_GAME_CHECK_INTERVAL, 1)
 end
 
-function Matchmaking.scheduleMapCheck(mapName, rank)
-	if not mapName or not rank then
-		return false
-	end
-	local key = tostring(mapName) .. "_" .. tostring(rank)
-	if isTimer(mapCheckTimers[key]) then
-		killTimer(mapCheckTimers[key])
-	end
-	mapCheckTimers[key] = setTimer(
-		Matchmaking.performMapCheck, 
-		GlobalConfig.MATCHMAKING_GAME_CHECK_INTERVAL, 
-		1, 
-		mapName, 
-		rank
-	)
-	--outputDebugString("scheduleMapCheck: " .. tostring(mapName))
-end
-
-local function addPlayerToMap(player, mapName)
+function Matchmaking.addPlayer(player)
 	if not isElement(player) then
 		return false
 	end
-	local rank = "someRank" -- TODO: Получить ранг машины
-
-	if not pendingPlayersList[mapName] then
-		pendingPlayersList[mapName] = {}
+	if playersInSearch[player] then
+		return false
 	end
-	pendingPlayersList[mapName][player] = {
-		rank = rank
+	if not player.vehicle then
+		return false
+	end
+	local vehicleClass = exports.dpShared:getVehicleClass(player.vehicle.model)
+
+	playersInSearch[player] = {
+		class = vehicleClass,
+		addedAt = getRealTime().timestamp
 	}
-	Matchmaking.scheduleMapCheck(mapName, rank)
-	--outputDebugString("addPlayerToMap: " .. tostring(mapName))
-end
-
-local function addPendingPlayer(player, mapsList)	
-	if not isElement(player) then
-		return false
-	end
-	if not player:getData("xp") then
-		return false
-	end
-	if type(mapsList) ~= "table" or #mapsList == 0 then
-		--outputDebugString("addPendingPlayer: Expected 'table', got '" .. type(mapsList) .. "'")
-		return false
-	end
-	for i, mapName in ipairs(mapsList) do
-		if type(mapName) == "string" then
-			addPlayerToMap(player, mapName)
-		end
-	end
+	delayPlayersCheck()
 	return true
 end
 
-addEvent("dpRaceLobby.startSearch", true)
-addEventHandler("dpRaceLobby.startSearch", resourceRoot, function (mapsList)
-	--outputDebugString(type(mapsList) .. " " .. tostring(#mapsList))
-	addPendingPlayer(client, mapsList)
-end)
+function Matchmaking.removePlayer(player)
+	if not player then
+		return false
+	end
+	if not playersInSearch[player] then
+		return false
+	end
 
-addEvent("dpRaceLobby.cancelSearch", true)
-addEventHandler("dpRaceLobby.cancelSearch", resourceRoot, function ()
-	removePendingPlayer(client)
-end)
+	playersInSearch[player] = nil
+
+	return true
+end
+
+function Matchmaking.checkPlayers()
+	local playersByClass = {{}, {}, {}, {}, {}}
+
+	local playersCount = 0
+	for player, info in pairs(playersInSearch) do
+		if not playersByClass[info.class] then
+			playersByClass[info.class] = {}
+		end
+		table.insert(playersByClass[info.class], player)
+		playersCount = playersCount + 1
+	end
+	root:setData("MatchmakingSearchingPlayersCount", playersCount)
+
+	for class, players in ipairs(playersByClass) do
+		if #players >= GlobalConfig.MATCHMAKING_MIN_PLAYERS then
+			table.sort(players, function(player1, player2)
+				return player1:getData("xp") < player2:getData("xp")
+			end)	
+
+			local count = math.min(#players, GlobalConfig.MATCHMAKING_MAX_PLAYERS)
+			local matchPlayers = {}
+			outputDebugString("Matchmaking: creating game (player count: " .. tostring(count) .. ")")
+			for i = 1, count do 
+				local player = players[i]
+				Matchmaking.removePlayer(player)
+				table.insert(matchPlayers, player)
+			end
+			RaceManager.raceReady(matchPlayers)
+		end
+	end
+end

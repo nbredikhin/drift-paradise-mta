@@ -46,11 +46,15 @@ local function cancelPendingRace(id, cancelPlayer)
 	return true
 end
 
-function RaceManager.raceReady(mapName, playersList)
+local function selectRandomMap()
+	return "hello-world"
+end
+
+function RaceManager.raceReady(playersList)
 	local raceId = racesCounter
 	table.insert(pendingRaces, {
 		id = raceId, 
-		map = mapName, 
+		map = selectRandomMap(),
 		players = playersList,
 		readyCount = 0
 	})
@@ -63,17 +67,30 @@ function RaceManager.raceReady(mapName, playersList)
 	end	
 end
 
-function RaceManager.startRace(race)
-	for i, player in ipairs(race.players) do
+function RaceManager.startRace(raceInfo)
+	for i, player in ipairs(raceInfo.players) do
 		player:setData("MatchmakingRaceId", false)
 		triggerClientEvent(player, "dpRaceLobby.raceStart", resourceRoot)
 	end
 
-	-- TODO: Создать гонку
-	outputConsole("RACE START:")
-	for i, p in ipairs(race.players) do
-		outputConsole(tostring(i) .. ". " .. tostring(p.name))
+	-- Создание карты и настройки
+	local raceMap = exports.dpRaceManager:loadRaceMap(raceInfo.map)
+	local raceSettings = {
+		separateDimension = true,
+		gamemode = "sprint",
+		duration = 15
+	}
+	local race = exports.dpRaceManager:createRace(raceSettings, raceMap)
+	if not race then
+		return false
 	end
+	-- Добавить игроков в гонку
+	for i, player in ipairs(raceInfo.players) do
+		exports.dpRaceManager:raceAddPlayer(race, player)
+	end
+	setTimer(function ()
+		exports.dpRaceManager:startRace(race)
+	end, 3000, 1)
 end
 
 addEvent("dpRaceLobby.cancelSearch", true)

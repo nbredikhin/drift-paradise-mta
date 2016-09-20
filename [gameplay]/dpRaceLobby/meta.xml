@@ -3,8 +3,6 @@
 	<!-- Shared -->
 	<script type="shared" src="shared/GlobalConfig.lua"/>
 	<!-- Client -->
-	<script type="client" src="client/mapsList.lua"/>
-	<script type="client" src="client/MapsScreen.lua"/>
 	<script type="client" src="client/SearchScreen.lua"/>
 	<!-- Server -->
 	<script type="server" src="server/RaceManager.lua"/>

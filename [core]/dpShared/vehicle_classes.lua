@@ -12,13 +12,21 @@ local classNames = {
 	"S5"
 }
 
-function getVehicleClass(nameOrId)
-	if type(nameOrId) == "string" then
-		return vehicleClasses[nameOrId]
-	elseif type(nameOrId) == "number" then
-		local name = getVehicleNameFromModel(model)
+local function getVehicleClassFromName(name)
+	if not name or not vehicleClasses[name]then
+		return 1
+	else 
+		return vehicleClasses[name]
+	end
+end
+
+function getVehicleClass(nameOrModel)
+	if type(nameOrModel) == "string" then
+		return getVehicleClassFromName(nameOrModel)
+	elseif type(nameOrModel) == "number" then
+		local name = getVehicleNameFromModel(nameOrModel)
 		if name then
-			return vehicleClasses[name]
+			return getVehicleClassFromName(name)
 		end
 	end
 end

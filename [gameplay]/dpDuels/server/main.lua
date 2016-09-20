@@ -48,7 +48,6 @@ function startDuel(player1, player2, bet)
 		outputDebugString("No race map")
 		return false
 	end
-	outputDebugString(tostring(raceMap))
 	local raceSettings = {
 		separateDimension = false,
 		gamemode = "duel",

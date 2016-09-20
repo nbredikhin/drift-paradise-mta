@@ -12,7 +12,6 @@ local secoundsCount = 0
 
 local foundGame = false
 local acceptedGame = false
-local lastMapsList = {}
 
 local function onGameFound()
 	foundGame = true
@@ -45,14 +44,19 @@ local function updateTime()
 	UI:setType(ui.acceptButton, "default_dark")
 end
 
-function SearchScreen.startSearch(mapsList)
-	if not mapsList then
-		exports.dpUI:showMessageBox("Maps", "No maps selected")
-		return false
-	end
-	lastMapsList = mapsList
+function SearchScreen.startSearch()
 	SearchScreen.setVisible(true)
-	triggerServerEvent("dpRaceLobby.startSearch", resourceRoot, mapsList)
+	triggerServerEvent("dpRaceLobby.startSearch", resourceRoot)
+end
+
+function SearchScreen.cancelSearch()
+	SearchScreen.setVisible(false)
+	triggerServerEvent("dpRaceLobby.cancelSearch", resourceRoot)
+end
+
+local function updatePlayersCountText()
+	local playersCount = root:getData("MatchmakingSearchingPlayersCount") or 12
+	UI:setText(ui.infoLabel, exports.dpLang:getString("race_search_players_in_search")  .. " " .. tostring(playersCount))	
 end
 
 function SearchScreen.setVisible(visible)
@@ -79,9 +83,9 @@ function SearchScreen.setVisible(visible)
 		secoundsCount = -1
 		updateTime()
 
-		UI:setText(ui.mainLabel, exports.dpLang:getString("race_search_searching_label"))
-		local playersCount = root:getData("MatchmakingSearchingPlayersCount") or 12
-		UI:setText(ui.infoLabel, exports.dpLang:getString("race_search_players_in_search")  .. " " .. tostring(playersCount))				
+		UI:setText(ui.mainLabel, exports.dpLang:getString("race_search_searching_label"))	
+		updatePlayersCountText()
+		setTimer(updatePlayersCountText, 1000, 1)
 	end
 end
 
@@ -147,10 +151,7 @@ end)
 addEvent("dpUI.click", false)
 addEventHandler("dpUI.click", resourceRoot, function (widget)
 	if widget == ui.cancelButton then
-		SearchScreen.setVisible(false)
-		MapsScreen.setVisible(true)
-		triggerServerEvent("dpRaceLobby.cancelSearch", resourceRoot)
-		lastMapsList = {}
+		SearchScreen.cancelSearch()
 	elseif widget == ui.acceptButton then
 		if foundGame and not acceptedGame then
 			acceptedGame = true
@@ -161,7 +162,7 @@ addEventHandler("dpUI.click", resourceRoot, function (widget)
 
 			UI:setText(ui.mainLabel, exports.dpLang:getString("race_search_waiting_label"))
 			UI:setText(ui.infoLabel, string.format(
-				exports.dpLang:getString("race_search_players_ready_count")
+				exports.dpLang:getString("race_search_players_ready_count"),
 				"0", "0"
 			))			
 		end
@@ -172,7 +173,7 @@ addEvent("dpRaceLobby.raceCancelled", true)
 addEventHandler("dpRaceLobby.raceCancelled", resourceRoot, function (player)
 	if foundGame then
 		SearchScreen.setVisible(false)
-		SearchScreen.startSearch(lastMapsList)
+		SearchScreen.startSearch()
 		if player ~= client then
 			exports.dpUI:showMessageBox(
 				exports.dpLang:getString("race_search_reject_error_title"),
@@ -199,5 +200,12 @@ end)
 addEvent("dpRaceLobby.raceStart", true)
 addEventHandler("dpRaceLobby.raceStart", resourceRoot, function ()
 	SearchScreen.setVisible(false)
-	lastMapsList = {}
 end)
+
+function setVisible(visible)
+	if visible then
+		SearchScreen.startSearch()
+	else
+		SearchScreen.cancelSearch()
+	end
+end

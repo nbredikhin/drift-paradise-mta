@@ -39,6 +39,8 @@
 	<file src="assets/numberplate.ttf"/>
 	<file src="assets/reflection.dds"/>
 
+	<file src="assets/wheels/reflection_cubemap.dds"/>
+
 	<file src="assets/shaders/mta-helper.fx"/>
 	<file src="assets/shaders/wheel.fx"/>
 	<file src="assets/shaders/windows.fx"/>

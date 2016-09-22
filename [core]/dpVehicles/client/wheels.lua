@@ -32,6 +32,8 @@ local dataNames = {
 	["WheelsColorF"] 	= true,
 }
 
+local shaderReflectionTexture
+
 -- Удаление кастомных колёс и шейдера
 local function removeVehicleWheels(vehicle)
 	if not vehicleWheels[vehicle] then
@@ -102,7 +104,7 @@ local function updateVehicleWheels(vehicle)
 				wheel.shader:setValue("sWidth", wheelWidth)
 				-- Цвет колеса
 				for i = 1, 3 do
-					wheelColor[i] = wheelColor[i] / 255 * 2 
+					wheelColor[i] = wheelColor[i] / 255 
 				end
 				wheelColor[4] = 1
 				wheel.shader:setValue("sColor", wheelColor)
@@ -146,8 +148,9 @@ local function setupVehicleWheels(vehicle)
 		wheel.position = Vector3(x, y, z)
 		-- Шейдер
 		wheel.shader = DxShader("assets/shaders/wheel.fx")
-		wheel.shader:applyToWorldTexture("*", wheel.object)
+		wheel.shader:setValue("sReflectionTexture", shaderReflectionTexture)
 
+		wheel.shader:applyToWorldTexture("*", wheel.object)
 		wheels[name] = wheel
 	end
 	vehicleWheels[vehicle] = wheels
@@ -177,6 +180,8 @@ addEventHandler("onClientElementDestroy", root, function ()
 end)
 
 addEventHandler("onClientResourceStart", resourceRoot, function()
+	shaderReflectionTexture = dxCreateTexture("assets/wheels/reflection_cubemap.dds")
+	
 	for i, vehicle in ipairs(getElementsByType("vehicle")) do
 		setupVehicleWheels(vehicle)
 	end

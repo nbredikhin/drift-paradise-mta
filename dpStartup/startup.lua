@@ -67,7 +67,10 @@ local startupResources = {
 	"water_reflections",
 	"dynamic_lighting",
 	"dynamic_lighting_vehicles",
-	"shader_dynamic_sky"
+	"shader_dynamic_sky",
+
+	-- Non-important assets
+	"dpWheels",
 }
 
 local function processResourceByName(resourceName, start)

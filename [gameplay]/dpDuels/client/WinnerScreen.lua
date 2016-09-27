@@ -62,13 +62,13 @@ end
 function WinnerScreen.show(player, bet, timePassed)
 	themeColorHEX = exports.dpUtils:RGBToHex(exports.dpUI:getThemeColor())
 
-	local timeString = "Время: " .. themeColorHEX .. tostring(getTimeString(math.floor(timePassed / 1000)))
+	local timeString = exports.dpLang:getString("duel_winner_screen_time") .. ": " .. themeColorHEX .. tostring(getTimeString(math.floor(timePassed / 1000)))
 	if player == localPlayer then
-		mainText = "Вы победили!"
-		moneyText = "Выигрыш: " .. themeColorHEX .. "$" .. tostring(bet) 
+		mainText = exports.dpLang:getString("duel_winner_screen_you_won")
+		moneyText = exports.dpLang:getString("duel_winner_screen_prize") .. ": " .. themeColorHEX .. "$" .. tostring(bet) 
 		infoText = timeString
 	else
-		mainText = "Вы проиграли!"
+		mainText = exports.dpLang:getString("duel_winner_screen_you_lost")
 		moneyText = timeString
 	end
 	WinnerScreen.start()

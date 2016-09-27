@@ -175,8 +175,11 @@ function Race:destroy()
 	end
 	-- Удалить саму гонку
 	races[self.element.id] = nil
-	self:log("Race destroyed")
-	destroyElement(self.element)
+	if destroyElement(self.element) then
+		self:log("Race destroyed")
+	else
+		self:log("Failed to destroy race")
+	end
 	self.isBeingDestroyed = false
 end
 
@@ -219,7 +222,7 @@ function Race:addPlayer(player)
 	-- Игрок должен быть в автомобиле
 	if not player.vehicle then
 		self:log("Failed to add player. Player must be in a vehicle")
-		return false
+		return false 
 	end
 	-- Игрок должен быть за рулем
 	if player.vehicle.controller ~= player then

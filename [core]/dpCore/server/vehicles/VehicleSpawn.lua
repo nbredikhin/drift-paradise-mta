@@ -222,8 +222,10 @@ function VehicleSpawn.spawn(vehicleId, position, rotation)
 
 	-- Выключить фары
 	vehicle:setData("LightsState", false)
-	triggerClientEvent(root, "onClientVehicleCreated", vehicle)
 	outputDebugString("VehicleSpawn.spawn: Spawned vehicle " .. tostring(vehicleInfo._id))
+
+	triggerEvent("onVehicleCreated", vehicle)
+	triggerClientEvent(root, "onClientVehicleCreated", vehicle)
 	return vehicle
 end
 

@@ -18,7 +18,7 @@ function Sprint:raceFinished(timeout)
 	self.super:raceFinished(timeout)
 	
 	if timeout then
-		self.race:removePlayer(getRandomPlayer())
+		self.race:destroy()
 	end
 end
 

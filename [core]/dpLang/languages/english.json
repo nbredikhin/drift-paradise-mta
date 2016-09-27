@@ -378,6 +378,7 @@
 	"duel_invite_duel_title": "Duel",
 	"duel_invite_local_nocar": "You must be in a vehicle",
 	"duel_invite_remote_nocar": "Player must be in a car",
+	"duel_invite_too_far": "Player is too far from you",
 
 	"duel_invite_duel_with": "Duel with %s",
 	"duel_invite_call": "Call",
@@ -399,4 +400,9 @@
 	"duel_accept_message": "Player %s wants to duel with you.\nBet: $%s",
 	"duel_accept_key_accept": "%s - accept",
 	"duel_accept_key_decline": "%s - decline",	
+
+	"duel_winner_screen_you_won": "You won!",
+	"duel_winner_screen_you_lost": "You lost",
+	"duel_winner_screen_prize": "Prize",
+	"duel_winner_screen_time": "Time",	
 }

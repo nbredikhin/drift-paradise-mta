@@ -352,6 +352,7 @@
 	"duel_invite_duel_title": "Дуэль",
 	"duel_invite_local_nocar": "Вы должны быть в автомобиле",
 	"duel_invite_remote_nocar": "Игрок должен быть в автомобиле",
+	"duel_invite_too_far": "Игрок слишком далеко",
 
 	"duel_invite_duel_with": "Дуэль с %s",
 	"duel_invite_call": "Вызвать",
@@ -373,4 +374,9 @@
 	"duel_accept_message": "Игрок %s вызвал вас на дуэль.\nСтавка: $%s",
 	"duel_accept_key_accept": "%s - принять",
 	"duel_accept_key_decline": "%s - отказаться",
+
+	"duel_winner_screen_you_won": "Вы победили!",
+	"duel_winner_screen_you_lost": "Вы проиграли!",
+	"duel_winner_screen_prize": "Выигрыш",
+	"duel_winner_screen_time": "Время",
 }

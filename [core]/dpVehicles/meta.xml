@@ -4,6 +4,7 @@
 	<include resource="dpAssets"/>
 	<!-- Shared -->
 	<script type="shared" src="shared/wheel_sizes.lua"/>	
+	<script type="shared" src="shared/handlings_table.lua"/>	
 	<!-- Client -->
 	<script type="client" src="client/body_texture.lua"/>
 	<script type="client" src="client/colors.lua"/>
@@ -20,10 +21,13 @@
 	<script type="client" src="client/wheels.lua"/>
 	<script type="client" src="client/windows.lua"/>
 	<script type="client" src="client/actions.lua"/>
+	<script type="client" src="client/handling.lua"/>
 	<!-- Server -->
+	<script type="server" src="server/utils.lua"/>
 	<script type="server" src="server_test.lua"/>
 	<script type="server" src="server/suspension.lua"/>
 	<script type="server" src="server/actions.lua"/>
+	<script type="server" src="server/handlings.lua"/>
 
 	<!-- Exports -->
 	<export type="client" function="getComponentsNames"/>
@@ -31,6 +35,7 @@
 	<export type="client" function="createVehicleRenderTarget"/>
 	<export type="client" function="toggleVehicleParam"/>
 	<export type="shared" function="getModelDefaultWheelsSize"/>
+	<export type="shared" function="getVehicleHandlingTable"/>
 
 	<!-- Assets -->
 	<file src="assets/light.png"/>

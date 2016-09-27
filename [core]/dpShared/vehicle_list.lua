@@ -7,6 +7,7 @@ local vehiclesTable = {
 	nissan_er34 = 445,
 	lamborghini_huracan = 415,
 	bmw_dunno = 429,
+	bmw_e46 = 436,
 }
 
 -- Названия в том виде, в котором они будут отображаться
@@ -16,7 +17,7 @@ local vehiclesReadableNames = {
 	toyota_ae86 = "Toyota AE86",
 	mazda_mx5miata = "Mazda MX-5",
 	nissan_er34 = "Nissan Skyline ER34",
-	bmw_dunno = "BMW Бандитская",
+	bmw_e46 = "BMW E46",
 	lamborghini_huracan = "Lamborghini Huracan"
 }
 

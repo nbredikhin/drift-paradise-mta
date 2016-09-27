@@ -40,6 +40,10 @@ VehicleTuning.defaultTuningTable = {
 
 	-- Настройки
 	Suspension 		= 0, -- Высота подвески
+
+	-- Улучшения
+	StreetHandling 	= 0, -- Уровень стрит-хандлинга
+	DriftHandling  	= 0, -- Уровень дрифт-хандлинга
 }
 
 function VehicleTuning.applyToVehicle(vehicle, tuningJSON, stickersJSON)

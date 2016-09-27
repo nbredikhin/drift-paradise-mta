@@ -175,13 +175,22 @@ PSInput VertexShaderFunction(VSInput VS)
     PS.SparkleTex.y = fmod( VS.Position.y, 10 ) * 4.0;
     PS.SparkleTex.z = fmod( VS.Position.z, 10 ) * 4.0;
 
-    PS.Diffuse = MTACalcGTABuildingDiffuse( VS.Diffuse ); 
+    PS.Diffuse = MTACalcGTABuildingDiffuse( float4(1, 1, 1, 1) );
     return PS;
 }
 
 float4 PixelShaderFunction(PSInput PS) : COLOR0
 {
     float4 OutColor = 1;
+
+    float4 paintColor = sColor;
+    float4 maptex = tex2D(Sampler0,PS.TexCoord.xy);
+    float4 delta = maptex - float4(0, 0, 0, 1);
+    if (dot(delta,delta) < 0.2) {
+        float4 Color = maptex * PS.Diffuse * 1;
+        Color.a = PS.Diffuse.a;
+        return Color;
+    }    
     // Some settings for something or another
     float microflakePerturbation = 1.00;
     float normalPerturbation = 1.00;
@@ -217,7 +226,6 @@ float4 PixelShaderFunction(PSInput PS) : COLOR0
     // the view vector in the vertex shader and simply interpolating it is insufficient
     // and produces artifacts.
     float3 vView = normalize( PS.View );
-    float4 maptex = tex2D(Sampler0,PS.TexCoord.xy);
   
     // Transform the surface normal into world space (in order to compute reflection
     // vector to perform environment map look-up):
@@ -251,12 +259,7 @@ float4 PixelShaderFunction(PSInput PS) : COLOR0
     finalColor.rgb += PS.Diffuse2.rgb  * 0.75;
     finalColor.a = 1.0;
     // Bodge in the car colors
-    float4 paintColor = 1;
-    float4 delta = maptex - float4(0, 0, 0, 1);
-    if (dot(delta,delta) > 0.2) {
-      paintColor = sColor;
-    }
-    float4 Color = 0.18 + finalColor / 1 * 0.35 + PS.Diffuse * 0.9;
+    float4 Color = 0.15 + finalColor / 1 * 0.33 + PS.Diffuse * 0.9;
     //Color.rgb += finalColor * PS.Diffuse;
 
     Color *= maptex * paintColor; 

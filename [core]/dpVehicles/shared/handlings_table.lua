@@ -81,17 +81,28 @@ handlingsTable["lamborghini_huracan"] = {
 
 local handlingProperties = {"identifier", "mass", "turnMass", "dragCoeff", "centerOfMassX", "centerOfMassY", "centerOfMassZ", "percentSubmerged", "tractionMultiplier", "tractionLoss", "tractionBias", "numberOfGears", "maxVelocity", "engineAcceleration", "engineInertia", "driveType", "engineType", "brakeDeceleration", "brakeBias", "ABS", "steeringLock", "suspensionForceLevel", "suspensionDamping", "suspensionHighSpeedDamping", "suspensionUpperLimit", "suspensionLowerLimit", "suspensionFrontRearBias", "suspensionAntiDiveMultiplier", "seatOffsetDistance", "collisionDamageMultiplier", "monetary", "modelFlags", "handlingFlags", "headLight", "tailLight", "animGroup", "identifier", "mass", "turnMass", "dragCoeff", "centerOfMassX", "centerOfMassY", "centerOfMassZ", "percentSubmerged", "tractionMultiplier", "tractionLoss", "tractionBias", "numberOfGears", "maxVelocity", "engineAcceleration", "engineInertia", "driveType", "engineType", "brakeDeceleration", "brakeBias", "ABS", "steeringLock", "suspensionForceLevel", "suspensionDamping", "suspensionHighSpeedDamping", "suspensionUpperLimit", "suspensionLowerLimit", "suspensionFrontRearBias", "suspensionAntiDiveMultiplier", "seatOffsetDistance", "collisionDamageMultiplier", "monetary", "modelFlags", "handlingFlags", "headLight", "tailLight", "animGroup"}
 
-function getVehicleHandlingString(vehicleName, handlingName, level)
-	if not vehicleName then
+function hasVehicleHandling(vehicleName, handlingName, level)
+	if type(vehicleName) ~= "string" then
 		return false
 	end
 	if type(handlingsTable[vehicleName]) ~= "table" then
 		return false
 	end
-	if type(handlingsTable[vehicleName][handlingName]) ~= "table" then
-		return false
+	if type(handlingName) == "string" then
+		if type(handlingsTable[vehicleName][handlingName]) ~= "table" then
+			return false
+		end
+		if type(level) == "number" then
+			if type(handlingsTable[vehicleName][handlingName][level]) ~= "string" then
+				return false
+			end
+		end
 	end
-	if type(handlingsTable[vehicleName][handlingName][level]) ~= "string" then
+	return true
+end
+
+function getVehicleHandlingString(vehicleName, handlingName, level)
+	if not hasVehicleHandling(vehicleName, handlingName, level) then
 		return false
 	end
 	return handlingsTable[vehicleName][handlingName][level]

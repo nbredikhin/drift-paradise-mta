@@ -33,9 +33,13 @@ function UpgradesScreen:onKey(key)
 		if self.menu:hasUpgrade() then
 			return
 		end
+		local upgradeName, price = self.menu:getSelectedUpgrade()
+		if not upgradeName or not price then
+			outputDebugString("NOT GONNA BUY GTFO")
+			return
+		end
 		local this = self
 		self.disabled = true
-		local upgradeName, price = self.menu:getSelectedUpgrade()
 		Garage.buy(price, 0, function (success)
 			if success then
 				GarageCar.applyTuning(upgradeName, 1)

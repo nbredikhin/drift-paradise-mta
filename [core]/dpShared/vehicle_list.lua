@@ -1,24 +1,23 @@
 -- Краткие названия для использования в коде вместо ID
 local vehiclesTable = {
+	bmw_e46 = 436,
+	lamborghini_huracan = 415,
+	mazda_mx5miata = 411,
 	nissan_240sx = 602,
+	nissan_er34 = 445,
 	nissan_gtr = 558,
 	toyota_ae86 = 589,
-	mazda_mx5miata = 411,
-	nissan_er34 = 445,
-	lamborghini_huracan = 415,
-	bmw_dunno = 429,
-	bmw_e46 = 436,
 }
 
 -- Названия в том виде, в котором они будут отображаться
 local vehiclesReadableNames = {
+	bmw_e46 = "BMW E46",
+	lamborghini_huracan = "Lamborghini Huracan",
+	mazda_mx5miata = "Mazda MX-5",
 	nissan_240sx = "Nissan 240SX",
+	nissan_er34 = "Nissan Skyline ER34",
 	nissan_gtr = "Nissan GT-R",
 	toyota_ae86 = "Toyota AE86",
-	mazda_mx5miata = "Mazda MX-5",
-	nissan_er34 = "Nissan Skyline ER34",
-	bmw_e46 = "BMW E46",
-	lamborghini_huracan = "Lamborghini Huracan"
 }
 
 -- Функции

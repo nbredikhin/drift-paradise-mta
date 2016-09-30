@@ -5,7 +5,7 @@ local vehiclesPrices = {
 	toyota_ae86 		= {0, 1},
 	mazda_mx5miata 		= {0, 1},
 	nissan_er34 		= {0, 1},
-	bmw_dunno 			= {0, 1},
+	bmw_e46 			= {0, 1},
 	lamborghini_huracan = {0, 1},
 }
 

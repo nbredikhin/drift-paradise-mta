@@ -297,3 +297,7 @@ function GarageCar.getComponentsCount(name)
 	end
 	return count
 end
+
+function GarageCar.getName()
+	return exports.dpShared:getVehicleNameFromModel(vehicle.model)
+end

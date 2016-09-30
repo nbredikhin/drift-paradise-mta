@@ -10,20 +10,25 @@ function UpgradesMenu:init(position, rotation)
 	self.buttonHeight = 80
 	self.buttonOffset = 20
 
-	self.buttons = {
-		{
-			upgrade 	= "StreetHandling",
-			name 		= exports.dpLang:getString("garage_tuning_config_street_upgrade"), 
-			description = exports.dpLang:getString("garage_tuning_config_street_description"), 
-			price 		= 1000
-		},
-		{
+	self.buttons = {}
+	
+	table.insert(self.buttons, {
+		upgrade 	= "StreetHandling",
+		name 		= exports.dpLang:getString("garage_tuning_config_street_upgrade"), 
+		description = exports.dpLang:getString("garage_tuning_config_street_description"), 
+		price 		= 1000,
+		enabled 	= exports.dpVehicles:hasVehicleHandling(GarageCar.getName(), "street", 2)
+	})
+
+	if exports.dpVehicles:hasVehicleHandling(GarageCar.getName(), "drift") then
+		table.insert(self.buttons, {
 			upgrade 	= "DriftHandling",
 			name 		= exports.dpLang:getString("garage_tuning_config_drift_upgrade"), 
 			description = exports.dpLang:getString("garage_tuning_config_drift_description"), 
-			price 		= 3000
-		}
-	}
+			price 		= 3000,
+			enabled 	= exports.dpVehicles:hasVehicleHandling(GarageCar.getName(), "drift")
+		})
+	end
 	self.activeButton = 1
 	self.price = false
 
@@ -38,7 +43,12 @@ function UpgradesMenu:hasUpgrade(name)
 end
 
 function UpgradesMenu:getSelectedUpgrade()
-	return self.buttons[self.activeButton].upgrade, self.buttons[self.activeButton].price
+	local price = self.buttons[self.activeButton].price
+	local money = localPlayer:getData("money")
+	if not self.buttons[self.activeButton].enabled or self:hasUpgrade() or money < price then
+		return false
+	end
+	return self.buttons[self.activeButton].upgrade, price
 end
 
 function UpgradesMenu:draw(fadeProgress)
@@ -61,6 +71,7 @@ function UpgradesMenu:draw(fadeProgress)
 
 	local y = self.headerHeight + self.buttonOffset
 	local buttonWidth = self.resolution.x - self.buttonOffset * 2
+	local money = localPlayer:getData("money")
 	for i, button in ipairs(self.buttons) do
 		local cursorSize = 5
 		local r, g, b, a = 255, 255, 255, 255
@@ -74,7 +85,7 @@ function UpgradesMenu:draw(fadeProgress)
 			a = 200
 		end
 
-		if self:hasUpgrade(button.upgrade) then
+		if not button.enabled or self:hasUpgrade(button.upgrade) or money < button.price then
 			r, g, b = 50, 50, 50
 			isDisabledButton = true
 		end

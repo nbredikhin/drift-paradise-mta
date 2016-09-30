@@ -152,7 +152,7 @@ function Carshop.start()
 	-- Список автомобилей
 	vehiclesList = {}
 	local vehicles = exports.dpShared:getVehiclesTable()
-	for name, model in pairs(vehicles) do
+	for name, model in pairs(vehicles) do		
 		local priceInfo = exports.dpShared:getVehiclePrices(name)
 		if priceInfo then
 			local vehicleInfo = {

@@ -5,10 +5,10 @@ local languageChats = {
 }
 
 addEvent("dpChat.broadcastMessage", true)
-addEventHandler("dpChat.broadcastMessage", root, function (tabName, message)
-	local message = client.name .. "#FFFFFF: " .. tostring(message)
+addEventHandler("dpChat.broadcastMessage", root, function (tabName, rawMessage)
+	local message = client.name .. "#FFFFFF: " .. tostring(rawMessage)
 	if tabName == "global" then		
-		triggerClientEvent("dpChat.broadcastMessage", root, "global", message)
+		triggerClientEvent("dpChat.broadcastMessage", root, "global", message, client)
 	elseif tabName == "lang" then
 		local lang = client:getData("langChat")
 		if not lang then
@@ -20,7 +20,14 @@ addEventHandler("dpChat.broadcastMessage", root, function (tabName, message)
 				playerLang = "Unknown"
 			end
 			if playerLang == lang then
-				triggerClientEvent(player, "dpChat.broadcastMessage", root, "lang", message)
+				triggerClientEvent(player, "dpChat.broadcastMessage", root, "lang", message, client)
+			end
+		end
+	elseif tabName == "local" then
+		for i, player in ipairs(getElementsByType("player")) do
+			local distance = (player.position - client.position):getLength()
+			if distance < 100 then
+				triggerClientEvent(player, "dpChat.broadcastMessage", root, "local", rawMessage, client, distance)
 			end
 		end
 	end

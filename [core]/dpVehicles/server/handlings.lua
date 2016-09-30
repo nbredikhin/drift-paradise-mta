@@ -34,7 +34,6 @@ local function setupVehicleHandling(vehicle)
 	for k, v in pairs(handlingsTable) do
 		setVehicleHandling(vehicle, k, v, false)
 	end
-	outputDebugString("SET HANDLINGS TO " ..tostring(activeHandling))
 
 	updateVehicleSuspension(vehicle)
 end

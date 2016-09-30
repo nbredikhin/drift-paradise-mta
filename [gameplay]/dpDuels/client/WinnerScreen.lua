@@ -109,7 +109,7 @@ function WinnerScreen.stop()
 	return true
 end
 
-bindKey("5", "down", function() WinnerScreen.show(localPlayer, 500, 126123) end)
+-- bindKey("5", "down", function() WinnerScreen.show(localPlayer, 500, 126123) end)
 
 addEvent("dpDuels.showWinner", true)
 addEventHandler("dpDuels.showWinner", resourceRoot, function(winner, bet, timePassed)

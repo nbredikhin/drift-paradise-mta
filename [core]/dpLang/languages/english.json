@@ -302,6 +302,7 @@
 
 	// Chat
 	"chat_tab_global": "Global",
+	"chat_tab_local": "Local",
 	"chat_input_message": "Message",
 
 	"chat_tab_russian": "Russian",

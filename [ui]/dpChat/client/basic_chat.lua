@@ -1,14 +1,23 @@
+-- Расстояние, на котором видны локальные сообщения
+local MAX_MESSAGE_DISTANCE = 100
+-- Цвет сообщений при наибольшем расстоянии; 0 - черный, 1 - белый
+local MIN_BRIGHTNESS = 0.4
+
 local langTitles = {
-	en = "chat_tab_english",
 	ru = "chat_tab_russian"
 }
 
-local function setupLangTabTitle()
+local function getLang()
 	local lang = localPlayer:getData("langChat")
-	if not lang then
+	if not lang or string.upper(lang) == "O1" then
 		lang = "en"
 	end
-	local title = "English"
+	return lang
+end
+
+local function setupLangTabTitle()
+	local lang = getLang()
+	local title = string.upper(lang)
 	if langTitles[lang] then
 		title = exports.dpLang:getString(langTitles[lang])
 	end
@@ -19,26 +28,44 @@ local function setupGlobalTabTitle()
 	Chat.setTabTitle("global", exports.dpLang:getString("chat_tab_global"))
 end
 
+local function setupLocalTabTitle()
+	Chat.setTabTitle("local", exports.dpLang:getString("chat_tab_local"))
+end
+
 addEventHandler("onClientResourceStart", resourceRoot, function ()
 	Chat.createTab("global", "Global", true)
-	Chat.createTab("lang", "Lang", true)
-
-	setupLangTabTitle()
 	setupGlobalTabTitle()
+
+	Chat.createTab("local", "Local", true)
+	setupLocalTabTitle()
+
+	if getLang() ~= "en" then
+		Chat.createTab("lang", "Lang", true)
+		setupLangTabTitle()
+	end
 end)
 
 addEvent("dpChat.message")
 addEventHandler("dpChat.message", root, function (tabName, message)
-	if tabName == "global" then
-		triggerServerEvent("dpChat.broadcastMessage", root, "global", message)
-	elseif tabName == "lang" then
-		triggerServerEvent("dpChat.broadcastMessage", root, "lang", message)
+	if tabName == "global" or tabName == "lang" or tabName == "local" then
+		triggerServerEvent("dpChat.broadcastMessage", root, tabName, message)
 	end
 end)
 
+local function getColorFromDistance(distance)
+	local multiplier = MIN_BRIGHTNESS + math.min(1 - distance / MAX_MESSAGE_DISTANCE, 1) * (1 - MIN_BRIGHTNESS)
+	local color = math.floor(multiplier * 255)
+	return exports.dpUtils:RGBToHex(color, color, color)
+end
+
 addEvent("dpChat.broadcastMessage", true)
-addEventHandler("dpChat.broadcastMessage", root, function (tabName, message)
-	Chat.message(tabName, message)
+addEventHandler("dpChat.broadcastMessage", root, function (tabName, message, sender, distance)
+	if tabName == "local" then
+		local message = sender.name .. tostring(getColorFromDistance(distance)) .. ": " .. tostring(message)
+		Chat.message(tabName, message)
+	else
+		Chat.message(tabName, message)
+	end
 end)
 
 addEventHandler("onClientElementDataChange", localPlayer, function(dataName)
@@ -51,4 +78,5 @@ end)
 addEventHandler("dpLang.languageChanged", root, function ()
 	setupLangTabTitle()
 	setupGlobalTabTitle()
+	setupLocalTabTitle()
 end)

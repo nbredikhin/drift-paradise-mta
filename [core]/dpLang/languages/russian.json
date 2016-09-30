@@ -276,6 +276,7 @@
 
 	// Chat
 	"chat_tab_global": "Общий",
+	"chat_tab_local": "Рядом",
 	"chat_input_message": "Сообщение",
 
 	"chat_tab_russian": "Русский",

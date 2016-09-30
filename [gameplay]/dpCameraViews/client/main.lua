@@ -6,6 +6,10 @@ local cameraViews = {
 local currentCameraViewIndex = 1
 local currentCameraView
 
+local cockpitDisabledCars = {
+	toyota_ae86 = true
+}
+
 local function startCameraView(cameraView)
 	if currentCameraView then
 		currentCameraView.stop()
@@ -39,6 +43,9 @@ bindKey("change_camera","down", function ()
 		return
 	end
 	currentCameraViewIndex = currentCameraViewIndex + 1
+	if currentCameraViewIndex == 3 and cockpitDisabledCars[exports.dpShared:getVehicleNameFromModel(localPlayer.vehicle.model)] then
+		currentCameraViewIndex = 1
+	end
 	if currentCameraViewIndex > #cameraViews then
 		currentCameraViewIndex = 1
 	end

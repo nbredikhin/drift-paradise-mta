@@ -1,3 +1,8 @@
+local handlingData = {
+	street = "StreetHandling",
+	drift = "DriftHandling"
+}
+
 local function setupVehicleHandling(vehicle)
 	if not isElement(vehicle) then
 		return false
@@ -6,8 +11,23 @@ local function setupVehicleHandling(vehicle)
 	local activeHandling = vehicle:getData("activeHandling")
 	if not activeHandling then
 		activeHandling = "street"
+		vehicle:setData("activeHandling", activeHandling)
 	end
-	local handlingsTable = getVehicleHandlingTable(vehicleName, activeHandling, 1)
+	local handlingLevel = vehicle:getData(handlingData[activeHandling])
+	if type(handlingLevel) ~= "number" then
+		handlingLevel = 0
+	end
+	-- Если дрифт-хандлинг не куплен
+	if activeHandling == "drift" and handlingLevel == 0 then
+		vehicle:setData("activeHandling", "street")
+		return
+	end
+	if activeHandling == "street" then
+		handlingLevel = handlingLevel + 1
+	else
+		handlingLevel = 1
+	end
+	local handlingsTable = getVehicleHandlingTable(vehicleName, activeHandling, handlingLevel)
 	if not handlingsTable then
 		return false
 	end
@@ -43,8 +63,11 @@ addEventHandler("onElementDataChange", root, function (dataName)
 	end
 end)
 
-addEvent("switch_handling_pls", true)
-addEventHandler("switch_handling_pls", resourceRoot, function ()
+addEvent("switchPlayerHandling", true)
+addEventHandler("switchPlayerHandling", resourceRoot, function ()
+	if not client.vehicle then
+		return 
+	end
 	if client.vehicle:getData("activeHandling") == "street" then
 		client.vehicle:setData("activeHandling", "drift", true)
 	else

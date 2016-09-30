@@ -34,6 +34,7 @@
 	<export type="client" function="redrawBodyRenderTarget"/>
 	<export type="client" function="createVehicleRenderTarget"/>
 	<export type="client" function="toggleVehicleParam"/>
+	<export type="client" function="switchHandling"/>
 	<export type="shared" function="getModelDefaultWheelsSize"/>
 	<export type="shared" function="getVehicleHandlingTable"/>
 

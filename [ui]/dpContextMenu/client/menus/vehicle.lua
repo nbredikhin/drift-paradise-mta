@@ -4,6 +4,10 @@ local function vehicleAction(name, value)
 	end
 end
 
+local function switchHandling()
+	exports.dpVehicles:switchHandling()
+end
+
 local doorsLocales = {
 	[2] = {"context_menu_vehicle_door_lf_close", "context_menu_vehicle_door_lf_open"},
 	[3] = {"context_menu_vehicle_door_rf_close", "context_menu_vehicle_door_rf_open"},
@@ -13,7 +17,13 @@ local doorsLocales = {
 
 local function getActionString(name, value)
 	return function(vehicle)
-		if name == "engine" then
+		if name == "handling" then
+			if vehicle:getData("activeHandling") == "street" then
+				return exports.dpLang:getString("context_menu_vehicle_enable_drift_mode")
+			else
+				return exports.dpLang:getString("context_menu_vehicle_disable_drift_mode")
+			end
+		elseif name == "engine" then
 			if getVehicleEngineState(vehicle) then
 				return exports.dpLang:getString("context_menu_vehicle_engine_off")
 			else
@@ -38,6 +48,13 @@ local function getActionString(name, value)
 end
 
 local myVehicleMenu = {
+	{ 
+		getText = getActionString("handling"), 	
+		click 	= switchHandling,
+		enabled = function(vehicle)
+			return vehicle:getData("DriftHandling") > 0
+		end
+	},
 	{ getText = getActionString("engine"), 		click = vehicleAction("engine")},
 	{ getText = getActionString("handbrake"), 	click = vehicleAction("handbrake"), enabled = false},
 	{ getText = getActionString("lights"), 		click = vehicleAction("lights")}, 

@@ -327,6 +327,9 @@
 	"context_menu_vehicle_door_lb_close": "Закрыть левую заднюю дверь",
 	"context_menu_vehicle_door_rb_close": "Закрыть правую заднюю дверь",
 
+	"context_menu_vehicle_enable_drift_mode": "Включить Дрифт-режим",
+	"context_menu_vehicle_disable_drift_mode": "Отключить Дрифт-режим",
+
 	"context_menu_vehicle_lights_on": "Включить фары",
 	"context_menu_vehicle_lights_off": "Выключить фары",
 

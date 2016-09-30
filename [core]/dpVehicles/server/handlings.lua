@@ -15,6 +15,8 @@ local function setupVehicleHandling(vehicle)
 	for k, v in pairs(handlingsTable) do
 		setVehicleHandling(vehicle, k, v)
 	end
+
+	updateVehicleSuspension(vehicle)
 end
 
 addEvent("onVehicleCreated", false)

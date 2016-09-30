@@ -69,8 +69,8 @@ setTimer(function ()
 	if localPlayer.vehicle.health < 1000 then
 		repairVehicle(localPlayer.vehicle)
 	end
-
-	if localPlayer.vehicle.onGround and isVehicleOnRoof(localPlayer.vehicle) and #localPlayer.vehicle.velocity < 0.3 and math.abs(localPlayer.vehicle.turnVelocity.x) < 0.007 then
+	
+	if isVehicleOnRoof(localPlayer.vehicle) and #localPlayer.vehicle.velocity < 0.3 and math.abs(localPlayer.vehicle.turnVelocity.x) < 0.007 then
 		flipCounter = flipCounter + 1
 		if flipCounter > 4 then
 			flipMyVehicle()			

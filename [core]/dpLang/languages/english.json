@@ -186,6 +186,7 @@
 	"garage_tuning_config_front_wheels": "Front wheels",
 	"garage_tuning_config_rear_wheels": "Rear wheels",
 	"garage_tuning_config_suspension": "Suspension",
+	"garage_tuning_config_upgrades": "Upgrades",
 	"garage_tuning_config_wheels_size": "Wheels radius",
 
 	"garage_tuning_config_suspension_label": "Suspension height",
@@ -194,6 +195,11 @@
 	"garage_tuning_config_wheels_offset": "Offset",
 	"garage_tuning_config_wheels_angle": "Angle",
 	"garage_tuning_config_wheels_width": "Width",
+
+	"garage_tuning_config_street_upgrade": "\"Street\" configuration",
+	"garage_tuning_config_street_description": "Faster speed and acceleration, improved controls",
+	"garage_tuning_config_drift_upgrade": "\"Drift\" configuration",
+	"garage_tuning_config_drift_description": "Special Drift Mode that can be enabled or disabled at any time",
 
 	"garage_tuning_buy_button": "Buy",
 	"garage_tuning_stock_text": "Default",

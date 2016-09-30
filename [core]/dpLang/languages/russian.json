@@ -166,6 +166,7 @@
 	"garage_tuning_config_front_wheels": "Передние колёса",
 	"garage_tuning_config_rear_wheels": "Задние колёса",
 	"garage_tuning_config_suspension": "Подвеска",
+	"garage_tuning_config_upgrades": "Улучшения",
 	"garage_tuning_config_wheels_size": "Радиус колёс",
 
 	"garage_tuning_config_suspension_label": "Высота подвески",
@@ -174,6 +175,11 @@
 	"garage_tuning_config_wheels_offset": "Вынос",
 	"garage_tuning_config_wheels_angle": "Развал",
 	"garage_tuning_config_wheels_width": "Толщина",
+
+	"garage_tuning_config_street_upgrade": "Конфигурация \"Street\"",
+	"garage_tuning_config_street_description": "Увеличение скорости и ускорения, лучшая управляемость",
+	"garage_tuning_config_drift_upgrade": "Конфигурация \"Drift\"",
+	"garage_tuning_config_drift_description": "Специальный \"Дрифт-режим\", который можно включать и выключать",
 
 	"garage_tuning_buy_button": "Купить",
 	"garage_tuning_stock_text": "Сток",

@@ -1,4 +1,4 @@
-local function updateVehicleSuspension(vehicle)
+function updateVehicleSuspension(vehicle)
 	if not isElement(vehicle) then
 		return false
 	end

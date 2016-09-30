@@ -132,8 +132,6 @@ float3 rotate_vertex_position(float3 position, float3 axis, float angle)
 PSInput VertexShaderFunction(VSInput VS)
 {
     PSInput PS = (PSInput)0;    
-    //float3 worldNormal = mul(VS.Normal, (float3x3)gWorld);
-
 
     PS.Position = mul(float4(VS.Position, 1), gWorldViewProjection);
 

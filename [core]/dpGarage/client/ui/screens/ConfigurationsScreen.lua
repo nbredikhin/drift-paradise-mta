@@ -7,7 +7,8 @@ function ConfigurationsScreen:init(componentName)
 
 	local suspensionPrice, suspensionLevel = unpack(exports.dpShared:getTuningPrices("suspension"))
 	self.componentsSelection = ComponentSelection({
-		{name="Suspension", 	camera="suspension", 		locale="garage_tuning_config_suspension", price = suspensionPrice, level = suspensionLevel}
+		{name="Upgrades", 	camera="upgrades", 	 locale="garage_tuning_config_upgrades",   price = 0, level = 0},
+		{name="Suspension", camera="suspension", locale="garage_tuning_config_suspension", price = suspensionPrice, level = suspensionLevel}
 	})
 
 	local vehicle = GarageCar.getVehicle()
@@ -32,7 +33,8 @@ function ConfigurationsScreen:init(componentName)
 
 	self.configurationScreens = {
 		FrontWheels = WheelsScreen,
-		RearWheels = WheelsScreen
+		RearWheels = WheelsScreen,
+		Upgrades = UpgradesScreen
 	}	
 end
 

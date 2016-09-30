@@ -341,6 +341,28 @@ cameraPresets.previewSuspension = {
 
 ----------------------------------------------------------
 
+-- Улучешния
+cameraPresets.upgrades = {
+	targetPosition = Vector3(0, 0.2, -0.1),
+	rotationHorizontal = 30,
+	rotationVertical = 0,
+	distance = 7,
+	FOV = 50,
+	roll = 0
+}
+
+cameraPresets.previewUpgrades = {
+	targetPosition = Vector3(0, 0, -0.1),
+	rotationHorizontal = 20,
+	rotationVertical = 0,
+	distance = 6.8,
+	FOV = 50,
+	roll = 0
+}
+
+
+----------------------------------------------------------
+
 -- Оффсет передних колёс
 cameraPresets.wheelsOffsetFront = {
 	targetPosition = "wheel_lf_dummy",

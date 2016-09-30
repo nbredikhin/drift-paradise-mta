@@ -66,6 +66,7 @@
 	"world_map_help_text": "%s - move camera, %s - zoom in/out, %s - exit",
 	"blip_garage": "Garage",
 	"blip_strip_club": "Strip club",
+	"blip_carshop": "Car shop",
 
 	// ==============================================
 	// ================= Tab panel ==================

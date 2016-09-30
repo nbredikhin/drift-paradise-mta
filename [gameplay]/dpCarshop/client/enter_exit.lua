@@ -62,3 +62,6 @@ end
 local enteranceMarker = exports.dpMarkers:createMarker("showroom", Vector3 { x = 1207.585, y = -1747.989, z = 12.7 }, -45)
 addEvent("dpMarkers.use", false)
 addEventHandler("dpMarkers.use", enteranceMarker, enterCarshop)
+local blip = createBlip(0, 0, 0, 55)
+blip:attach(enteranceMarker)
+blip:setData("text", "blip_carshop")

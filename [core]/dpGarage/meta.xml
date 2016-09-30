@@ -54,6 +54,7 @@
 	<script type="client" src="client/ui/WheelsMenu.lua"/>
 	<script type="client" src="client/ui/SliderMenu.lua"/>
 	<script type="client" src="client/ui/UpgradesMenu.lua"/>
+	<script type="client" src="client/ui/CarNamePanel.lua"/>
 
 	<script type="client" src="client/ui/GarageUI.lua"/>
 	<!-- Основное -->

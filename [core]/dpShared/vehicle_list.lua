@@ -49,7 +49,7 @@ function getVehicleReadableName(nameOrId)
 	if type(nameOrId) == "string" then
 		return vehiclesReadableNames[nameOrId] or ""
 	elseif type(nameOrId) == "number" then
-		local name = getVehicleNameFromModel(model)
+		local name = getVehicleNameFromModel(nameOrId)
 		if name then
 			return vehiclesReadableNames[name] or ""
 		end

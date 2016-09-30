@@ -31,10 +31,10 @@ local function setupVehicleHandling(vehicle)
 	if not handlingsTable then
 		return false
 	end
-	setVehicleHandling(vehicle, true)
 	for k, v in pairs(handlingsTable) do
-		setVehicleHandling(vehicle, k, v)
+		setVehicleHandling(vehicle, k, v, false)
 	end
+	outputDebugString("SET HANDLINGS TO " ..tostring(activeHandling))
 
 	updateVehicleSuspension(vehicle)
 end
@@ -48,9 +48,9 @@ addEventHandler("onVehicleCreated", root, function ()
 end)
 
 addEventHandler("onResourceStart", resourceRoot, function ()
+
 	for i, v in ipairs(getElementsByType("vehicle")) do
 		v:setData("activeHandling", "street")
-		setupVehicleHandling(v)
 	end
 end)
 

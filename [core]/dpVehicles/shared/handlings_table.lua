@@ -104,3 +104,11 @@ function getVehicleHandlingTable(vehicleName, handlingName, level)
 	end
 	return importHandling(handlingString)
 end
+
+function getAllHandlingTables(handlingName, level)
+	local result = {}
+	for name, t in pairs(handlingsTable) do
+		result[name] = getVehicleHandlingTable(name, handlingName, level)
+	end
+	return result
+end

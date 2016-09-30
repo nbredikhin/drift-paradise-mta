@@ -33,6 +33,8 @@ local colorsData = {
 -- Дата, которая копируется как есть
 local copyData = {
 	"Numberplate",
+	"StreetHandling",
+	"DriftHandling"
 }
 
 local function setData(key, value)
@@ -220,6 +222,14 @@ function GarageCar.resetTuning()
 	if not currentTuningTable["Numberplate"] then
 		GarageCar.applyTuning("Numberplate", "DRIFT")
 	end
+
+	if not currentTuningTable["StreetHandling"] then
+		GarageCar.applyTuning("StreetHandling", 0)
+	end
+
+	if not currentTuningTable["DriftHandling"] then
+		GarageCar.applyTuning("DriftHandling", 0)
+	end	
 end
 
 function GarageCar.getTuningTable()

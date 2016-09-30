@@ -30,22 +30,22 @@ function UpgradesScreen:onKey(key)
 	end
 
 	if key == "enter" then
-		-- local price, level = unpack(exports.dpShared:getTuningPrices("wheels_advanced"))
-		-- local this = self
-		-- self.disabled = true
-		-- Garage.buy(price, level, function (success)
-		-- 	if success then
-		-- 		for i = 1, 3 do
-		-- 			GarageCar.applyTuningFromData(this.dataNames[i])
-		-- 		end
-		-- 		GarageCar.resetTuning()
-		-- 		this.screenManager:showScreen(ConfigurationsScreen(this.wheelsSide))					
-		-- 	end
-		-- end)
+		if self.menu:hasUpgrade() then
+			return
+		end
+		local this = self
+		self.disabled = true
+		local upgradeName, price = self.menu:getSelectedUpgrade()
+		Garage.buy(price, 0, function (success)
+			if success then
+				GarageCar.applyTuning(upgradeName, 1)
+				GarageCar.resetTuning()
+				this.screenManager:showScreen(ConfigurationsScreen("Upgrades"))
+			end			
+		end)
 	elseif key == "backspace" then
-		-- self.disabled = true
-		-- GarageCar.resetTuning()
-		-- self.screenManager:showScreen(ConfigurationsScreen(self.wheelsSide))
+		self.disabled = true
+		self.screenManager:showScreen(ConfigurationsScreen("Upgrades"))
 	elseif key == "arrow_u" then
 		self.menu:selectPrevious()
 	elseif key == "arrow_d" then

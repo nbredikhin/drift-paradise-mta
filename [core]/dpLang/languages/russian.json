@@ -390,4 +390,10 @@
 	"duel_winner_screen_you_lost": "Вы проиграли!",
 	"duel_winner_screen_prize": "Выигрыш",
 	"duel_winner_screen_time": "Время",
+
+	// Handling switching
+	"handling_switching_message_drift": "Включение Дрифт-режима...",
+	"handling_switching_message_street": "Включение Стрит-режима...",
+	"handling_switching_message_no_upgrade": "На машине не установлено улучшение для дрифта!",
+	"handling_switching_message_moving": "Вы должны стоять на месте, чтобы менять режим!"	
 }

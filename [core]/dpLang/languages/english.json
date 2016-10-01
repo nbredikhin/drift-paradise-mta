@@ -416,4 +416,10 @@
 	"duel_winner_screen_you_lost": "You lost",
 	"duel_winner_screen_prize": "Prize",
 	"duel_winner_screen_time": "Time",	
+
+	// Handling switching
+	"handling_switching_message_drift": "Switching to Drift mode...",
+	"handling_switching_message_street": "Switching to Street mode...",
+	"handling_switching_message_no_upgrade": "You don't have drift upgrade installed!",
+	"handling_switching_message_moving": "You have to stop your car to change mode!"	
 }

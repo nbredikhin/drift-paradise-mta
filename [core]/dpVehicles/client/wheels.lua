@@ -33,6 +33,7 @@ local dataNames = {
 }
 
 local shaderReflectionTexture
+local wheelsHiddenPosition = Vector3(0, 0, -10)
 
 -- Удаление кастомных колёс и шейдера
 local function removeVehicleWheels(vehicle)
@@ -113,6 +114,7 @@ local function updateVehicleWheels(vehicle)
 		else
 			wheel.custom = false
 			wheel.object.alpha = 0
+			wheel.object.position = wheelsHiddenPosition
 		end
 		-- Скрыть/отобразить стандартное колесо
 		setVehicleComponentVisible(vehicle, name, not wheel.custom)		

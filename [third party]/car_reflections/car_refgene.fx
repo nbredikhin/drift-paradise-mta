@@ -228,7 +228,7 @@ float4 PixelShaderFunction(PSInput PS) : COLOR0
     if (gShatt ==0){
       if (PS.Diffuse.a >=0.8) {Color.rgba=0;}  
 	 }
-
+    Color.a *= PS.Diffuse.a;
     return Color;
 }
 

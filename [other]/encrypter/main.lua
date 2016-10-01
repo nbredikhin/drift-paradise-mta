@@ -4,10 +4,14 @@ local fileName = "1"
 -- Список ресурсов, который нужно залочить при запуске
 -- Название и модель, которую нужно заменить
 local lockResources = {
-	{"DP-ToyotaAE86", 589},
-	{"DP-Nissan240sx", 602},
-	{"DP-MazdaMX5Miata", 411},
+	-- {"DP-ToyotaAE86", 589},
+	-- {"DP-Nissan240sx", 602},
+	-- {"DP-MazdaMX5Miata", 411},
 }
+
+for name, model in pairs(exports.dpShared:getVehiclesTable()) do
+	table.insert(lockResources, {"enc_" .. tostring(name), model})
+end
 local counter = 0
 
 -- Расширения файлов, которые нужно лочить

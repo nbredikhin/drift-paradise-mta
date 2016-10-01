@@ -52,10 +52,15 @@ addEventHandler("dpChat.message", root, function (tabName, message)
 	end
 end)
 
-local function getColorFromDistance(distance)
+local function getColorFromDistance(distance, r, g, b)
 	local multiplier = MIN_BRIGHTNESS + math.min(1 - distance / MAX_MESSAGE_DISTANCE, 1) * (1 - MIN_BRIGHTNESS)
-	local color = math.floor(multiplier * 255)
-	return exports.dpUtils:RGBToHex(color, color, color)
+	if not r or not g or not b then
+		r, g, b = 255, 255, 255
+	end
+	r = math.floor(multiplier * r)
+	g = math.floor(multiplier * g)
+	b = math.floor(multiplier * b)
+	return exports.dpUtils:RGBToHex(r, g, b)
 end
 
 addEvent("dpChat.broadcastMessage", true)
@@ -64,6 +69,21 @@ addEventHandler("dpChat.broadcastMessage", root, function (tabName, message, sen
 		local message = sender.name .. tostring(getColorFromDistance(distance)) .. ": " .. tostring(message)
 		Chat.message(tabName, message)
 	else
+		Chat.message(tabName, message)
+	end
+end)
+
+addEvent("dpChat.me", true)
+addEventHandler("dpChat.me", root, function (tabName, message, sender, distance)
+	if tabName == "local" then
+		local senderName = exports.dpUtils:removeHexFromString(tostring(sender.name))
+		message = exports.dpUtils:removeHexFromString(tostring(message))
+		message = getColorFromDistance(distance, 255, 0, 255) .. "* " ..  senderName .. " " .. message
+		Chat.message(tabName, message)
+	else
+		local senderName = exports.dpUtils:removeHexFromString(tostring(sender.name))
+		message = exports.dpUtils:removeHexFromString(tostring(message))
+		message = "#FF00FF* " .. senderName .. " " .. message		
 		Chat.message(tabName, message)
 	end
 end)

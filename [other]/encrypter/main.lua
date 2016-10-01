@@ -4,9 +4,9 @@ local fileName = "1"
 -- Список ресурсов, который нужно залочить при запуске
 -- Название и модель, которую нужно заменить
 local lockResources = {
-	{"DP-ToyotaAE86", 411},
-	{"DP-Nissan240sx", 425},
-	{"DP-MazdaMX5Miata", 602},
+	{"DP-ToyotaAE86", 589},
+	{"DP-Nissan240sx", 602},
+	{"DP-MazdaMX5Miata", 411},
 }
 local counter = 0
 

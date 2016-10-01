@@ -33,6 +33,20 @@ addEventHandler("dpChat.broadcastMessage", root, function (tabName, rawMessage)
 	end
 end)
 
+addEvent("dpChat.me", true)
+addEventHandler("dpChat.me", root, function (tabName, rawMessage)
+	if tabName == "local" then
+		for i, player in ipairs(getElementsByType("player")) do
+			local distance = (player.position - client.position):getLength()
+			if distance < 100 then
+				triggerClientEvent(player, "dpChat.me", root, tabName, rawMessage, client, distance)
+			end
+		end
+	else
+		triggerClientEvent("dpChat.me", root, tabName, rawMessage, client)
+	end
+end)
+
 local function setupPlayerCountry(player)
 	local code = exports.geoip:getCountry(player.ip)
 	if not code then

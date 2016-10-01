@@ -91,7 +91,6 @@ function GarageCar.start(car, vehicles)
 	currentVehicle = 1
 	vehicle = car
 	vehicle.position = CAR_POSITION
-	--vehicle = createVehicle(411, CAR_POSITION)
 	vehicle.rotation = Vector3(0, 0, -90)
 	vehicle.dimension = localPlayer.dimension
 

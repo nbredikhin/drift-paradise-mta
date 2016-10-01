@@ -20,8 +20,14 @@ function MainScreen:init(item)
 		position, 
 		0
 	)		
-	self:updateCarName()
+	self.carNamePanel.text = ""
 
+	self:updateCarName()
+	local this = self
+	setTimer(function()
+		this:updateCarName()
+	end, 500, 4)
+	
 	CameraManager.setState("startingCamera", false, 2)
 
 	if type(item) == "number" then
@@ -30,6 +36,9 @@ function MainScreen:init(item)
 end
 
 function MainScreen:updateCarName()
+	if not isElement(GarageCar.getVehicle()) then
+		return
+	end
 	self.carNamePanel.text = exports.dpShared:getVehicleReadableName(GarageCar.getVehicle().model)
 end
 

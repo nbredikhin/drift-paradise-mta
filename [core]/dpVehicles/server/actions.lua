@@ -15,8 +15,11 @@ addEventHandler("dpVehicles.vehicleAction", root, function (action, value)
 		local currentRatio = vehicle:getDoorOpenRatio(value)
 		if currentRatio < 0.5 then
 			vehicle:setDoorOpenRatio(value, 1, 500)
+			vehicle:setData("DoorState" .. tostring(value), true)
+			outputDebugString("DoorState" .. tostring(value))
 		else
 			vehicle:setDoorOpenRatio(value, 0, 500)
+			vehicle:setData("DoorState" .. tostring(value), false)
 		end
 	elseif action == "lock" then
 		for i = 2, 5 do

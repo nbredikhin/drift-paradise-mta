@@ -1,4 +1,4 @@
-local function repairVehicle(vehicle)
+local function repairVehicle(vehicle, closeDoors, serverSide)
 	-- Восстановить hp
 	vehicle.health = 1000
 	-- Починить фары
@@ -8,20 +8,30 @@ local function repairVehicle(vehicle)
 	-- Починить двери
 	for i = 0, 5 do
 		setVehicleDoorState(vehicle, i, 0)
+		if vehicle:getData("DoorState" .. tostring(i)) then
+			vehicle:setDoorOpenRatio(i, 1)
+		end
 	end
-	-- Починить хзчто
-	vehicle:fix()	
+	-- Починить панели
+	for i = 0, 6 do
+		setVehiclePanelState(vehicle, i, 0)
+	end
 end
 
 -- Отключение повреждений автомобилей
+
+local repairTimer
 
 addEventHandler("onClientVehicleCollision", root, function (element, force)
 	if force < 3 then
 		return
 	end
 	cancelEvent()
-	source:fix()
 	repairVehicle(source)
+	if isTimer(repairTimer) then
+		killTimer(repairTimer)
+	end
+	repairTimer = setTimer(repairVehicle, 300, 1, source)
 end)
 
 function isVehicleOnRoof(vehicle)
@@ -65,7 +75,6 @@ setTimer(function ()
 	if not localPlayer.vehicle then
 		return
 	end
-	repairVehicle(localPlayer.vehicle)
 	if localPlayer.vehicle.health < 1000 then
 		repairVehicle(localPlayer.vehicle)
 	end

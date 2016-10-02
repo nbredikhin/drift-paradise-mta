@@ -173,7 +173,7 @@ PSInput VertexShaderFunction(VSInput VS)
     PS.SparkleTex.y = fmod( VS.Position.y, 10 ) * 4.0;
     PS.SparkleTex.z = fmod( VS.Position.z, 10 ) * 4.0;
 
-    PS.Diffuse = MTACalcGTABuildingDiffuse( float4(1, 1, 1, 1) );
+    PS.Diffuse = MTACalcGTABuildingDiffuse(VS.Diffuse) + float4(0.2, 0.2, 0.2, 0);
     return PS;
 }
 

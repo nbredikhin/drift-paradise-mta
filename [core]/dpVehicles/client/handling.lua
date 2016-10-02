@@ -19,8 +19,8 @@ local function draw()
 	local alpha = 1
 	if progress < 0.1 then
 		alpha = progress / 0.1
-	elseif progress > 0.9 then
-		alpha = 1 - (progress - 0.9) / 0.1
+	elseif progress > 0.95 then
+		alpha = 1 - (progress - 0.95) / 0.05
 	end
 
 	local x = (screenSize.x - BAR_WIDTH) / 2
@@ -48,7 +48,10 @@ local function update(dt)
 	switchingDelay = switchingDelay - dt
 	if switchingDelay < 0 then
 		stopSwitching()
-		switchHandlingInstantly()
+		if drawProgress then
+			switchHandlingInstantly()
+			exports.dpSounds:playSound("ui_change.wav")
+		end
 	end
 
 	if drawProgress and (getControlState("accelerate") or getControlState("brake_reverse")) then
@@ -80,24 +83,28 @@ function switchHandling()
 
 	addEventHandler("onClientRender", root, draw)
 	addEventHandler("onClientPreRender", root, update)
-
-	drawProgress = true
-	if localPlayer.vehicle.velocity:getLength() > 0.001 then
+	
+	if localPlayer.vehicle:getData("DriftHandling") == 0 then
+		drawProgress = false
+		text = exports.dpLang:getString("handling_switching_message_no_upgrade")
+	elseif localPlayer.vehicle.velocity:getLength() > 0.001 then
 		drawProgress = false
 		text = exports.dpLang:getString("handling_switching_message_moving")
-	else
-		if localPlayer.vehicle:getData("activeHandling") == "street" then
-			if localPlayer.vehicle:getData("DriftHandling") == 0 then
-				text = exports.dpLang:getString("handling_switching_message_no_upgrade")
-				drawProgress = false
-			else
-				text = exports.dpLang:getString("handling_switching_message_drift")
-			end
+	else		
+		local activeHandling = localPlayer.vehicle:getData("activeHandling")
+		if not activeHandling or activeHandling == "street" then
+			text = exports.dpLang:getString("handling_switching_message_drift")
 		else
 			text = exports.dpLang:getString("handling_switching_message_street")
 		end
+		drawProgress = true
 	end
 
+	if drawProgress then
+		exports.dpSounds:playSound("ui_select.wav")
+	else
+		exports.dpSounds:playSound("error.wav")
+	end
 	BAR_WIDTH = dxGetTextWidth(text, 1, font) + 40
 end
 

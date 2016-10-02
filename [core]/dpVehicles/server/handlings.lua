@@ -43,6 +43,7 @@ addEventHandler("onVehicleCreated", root, function ()
 	if source.type ~= "vehicle" then
 		return
 	end
+	source:setData("activeHandling", "street")
 	setupVehicleHandling(source)
 end)
 

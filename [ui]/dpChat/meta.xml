@@ -1,6 +1,6 @@
 <meta>
 	<oop>true</oop>
-	<script type="client" src="client/Chat.lua"/>
+	<script type="client" src="client/chat.lua"/>
 	<script type="client" src="client/Input.lua"/>
 	<script type="client" src="client/commands.lua"/>
 	<script type="client" src="client/basic_chat.lua"/>

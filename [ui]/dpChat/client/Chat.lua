@@ -31,13 +31,16 @@ end
 
 function Chat.removeTab(name)
 	if type(name) ~= "string" then
+		outputDebugString("Chat.removeTab: Expected string, got " .. tostring(type(name)))
 		return false
 	end
 	local tab, index = Chat.getTabFromName(name)
 	if not tab then
+		outputDebugString("Chat.removeTab: No such tab: " .. tostring(name))
 		return false
 	end
 	if tab.unremovable then
+		outputDebugString("Chat.removeTab: Tab '" .. tostring(name) .. "' is unremovable")
 		return false
 	end
 	table.remove(chatTabs, index)
@@ -82,14 +85,13 @@ function Chat.createTab(name, title, unremovable)
 		name = name, 
 		title = title,
 		unremovable = not not unremovable,
-		messages = {
-
-		}
+		messages = {}
 	}
 	if not activeTabName then
 		activeTabName = name
 	end
 	table.insert(chatTabs, tab)
+	outputDebugString("Chat.createTab: '" .. tostring(name) .. "' Unremovable: " .. tostring(tab.unremovable))
 end
 
 function Chat.message(tabName, text, r, g, b, colorCoded)
@@ -239,6 +241,9 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 end)
 
 bindKey("mouse2", "down", function ()
+	if not isCursorShowing() or not highlightedTabName then
+		return
+	end
 	Chat.removeTab(highlightedTabName)
 end)
 

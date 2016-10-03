@@ -31,7 +31,6 @@ end
 
 function Duel:playerRemoved(player)
 	self.super:playerRemoved(player)
-
 	local players = self.race:getPlayers()
 	if #players > 0 then
 		triggerEvent("RaceDuel.duelFinished", self.race.element, players[1], self:getTimePassed())

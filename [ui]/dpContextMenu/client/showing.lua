@@ -10,6 +10,12 @@ function getContextMenu(targetElementType)
 end
 
 addEventHandler("onClientClick", root, function(button, state, x, y, worldX, worldY, worldZ, targetElement)
+	if button ~= "right" or state ~= "down" then
+		return
+	end
+	if isMenuVisible() then
+		hideMenu()
+	end	
 	if not isElement(targetElement) then
 		return
 	end
@@ -22,12 +28,6 @@ addEventHandler("onClientClick", root, function(button, state, x, y, worldX, wor
 	if localPlayer:getData("activeUI") then
 		return
 	end	
-	if button ~= "right" or state ~= "down" then
-		return
-	end
-	if isMenuVisible() then
-		hideMenu()
-	end
 	if registeredMenus[targetElement.type] then
 		showMenu(registeredMenus[targetElement.type], targetElement)
 	end

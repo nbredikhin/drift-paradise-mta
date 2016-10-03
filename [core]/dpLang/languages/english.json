@@ -409,7 +409,7 @@
 	"duel_invite_invite_player_cancelled": "Player didn't accept the duel",
 
 	"duel_accept_message": "Player %s wants to duel with you.\nBet: $%s",
-	"duel_accept_key_accept": "%s - accept",
+	"duel_accept_key_accept": "%s - accept (%s)",
 	"duel_accept_key_decline": "%s - decline",	
 
 	"duel_winner_screen_you_won": "You won!",
@@ -421,5 +421,6 @@
 	"handling_switching_message_drift": "Switching to Drift mode...",
 	"handling_switching_message_street": "Switching to Street mode...",
 	"handling_switching_message_no_upgrade": "You don't have drift upgrade installed!",
-	"handling_switching_message_moving": "You have to stop your car to change mode!"	
+	"handling_switching_message_moving": "You have to stop your car to change mode!",	
+	"handling_switching_message_forced": "You are not allowed to change mode here"
 }

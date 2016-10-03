@@ -38,6 +38,8 @@
 	<export type="shared" function="getModelDefaultWheelsSize"/>
 	<export type="shared" function="getVehicleHandlingTable"/>
 	<export type="shared" function="hasVehicleHandling"/>
+	<export type="server" function="forceVehicleHandling"/>
+	<export type="server" function="unforceVehicleHandling"/>
 
 	<!-- Assets -->
 	<file src="assets/light.png"/>

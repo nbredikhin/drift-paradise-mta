@@ -13,6 +13,13 @@ local function setupVehicleHandling(vehicle)
 		activeHandling = "street"
 		vehicle:setData("activeHandling", activeHandling)
 	end
+	-- Handling forcing
+	local forceHandling = vehicle:getData("forceHandling")
+	if type(forceHandling) == "string" then
+		vehicle:setData("activeHandling", forceHandling)
+		activeHandling = forceHandling
+	end	
+
 	local handlingLevel = vehicle:getData(handlingData[activeHandling])
 	if type(handlingLevel) ~= "number" then
 		handlingLevel = 0
@@ -74,3 +81,27 @@ addEventHandler("switchPlayerHandling", resourceRoot, function ()
 		client.vehicle:setData("activeHandling", "street", true)
 	end
 end)
+
+function forceVehicleHandling(vehicle, handlingName)
+	if not isElement(vehicle) then
+		return false
+	end
+	if type(handlingName) ~= "string" then
+		return unforceVehicleHandling(vehicle)
+	end
+	local handlingLevel = vehicle:getData(handlingData[handlingName])
+	if type(handlingLevel) ~= "number" or handlingLevel == 0 then
+		return false
+	end
+	vehicle:setData("activeHandling", handlingName)	
+	vehicle:setData("forceHandling", handlingName)
+	return true
+end
+
+function unforceVehicleHandling(vehicle)
+	if not isElement(vehicle) then
+		return false
+	end
+	vehicle:setData("forceHandling", false)
+	return true
+end

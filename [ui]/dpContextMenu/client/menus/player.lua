@@ -26,6 +26,15 @@ remotePlayerMenu = {
 	},
 	{ locale = "context_menu_player_pm", 
 		click = function (player)
+			if not isElement(player) then
+				return
+			end
+			if player.type == "vehicle" then
+				player = player.controller
+				if not player then
+					return
+				end
+			end
 			exports.dpChat:startPM(player)
 		end,
 

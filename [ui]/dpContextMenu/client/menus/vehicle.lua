@@ -97,10 +97,9 @@ function vehicleMenu:init(vehicle)
 	else
 		local player = vehicle.controller
 		self.items = remotePlayerMenu
-		outputDebugString(tostring(#self.items))
 		self.title = string.format("%s %s", 
 			exports.dpLang:getString("context_menu_title_player"),
-			tostring(player.name))
+			tostring(exports.dpUtils:removeHexFromString(player.name)))
 	end
 end
 

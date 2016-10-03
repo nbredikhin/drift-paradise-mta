@@ -25,7 +25,7 @@ function InviteWindow.show(player)
 		exports.dpUI:showMessageBox(exports.dpLang:getString("duel_invite_error_title"), exports.dpLang:getString("duel_invite_remote_nocar"))
 		return
 	end
-	if (targetPlayer.position - localPlayer.position):getLength() > 5 then
+	if (targetPlayer.position - localPlayer.position):getLength() > 14 then
 		exports.dpUI:showMessageBox(exports.dpLang:getString("duel_invite_error_title"), exports.dpLang:getString("duel_invite_too_far"))
 		return 
 	end
@@ -200,6 +200,3 @@ addEventHandler("dpDuels.answerCall", resourceRoot, function (player, status)
 		exports.dpUI:showMessageBox(exports.dpLang:getString("duel_invite_duel_title"), exports.dpLang:getString("duel_invite_invite_player_cancelled"))
 	end
 end)
-
-
-bindKey("z", "down", function () InviteWindow.invite(localPlayer) end)

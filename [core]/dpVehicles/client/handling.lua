@@ -84,7 +84,10 @@ function switchHandling()
 	addEventHandler("onClientRender", root, draw)
 	addEventHandler("onClientPreRender", root, update)
 	
-	if localPlayer.vehicle:getData("DriftHandling") == 0 then
+	if localPlayer.vehicle:getData("forceHandling") then
+		drawProgress = false
+		text = exports.dpLang:getString("handling_switching_message_forced")
+	elseif localPlayer.vehicle:getData("DriftHandling") == 0 then
 		drawProgress = false
 		text = exports.dpLang:getString("handling_switching_message_no_upgrade")
 	elseif localPlayer.vehicle.velocity:getLength() > 0.001 then

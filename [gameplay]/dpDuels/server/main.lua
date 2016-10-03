@@ -91,8 +91,10 @@ addEventHandler("RaceDuel.duelFinished", root, function (player, timePassed)
 		return false
 	end
 	exports.dpCore:givePlayerMoney(player, duel.bet * 2)
+	exports.dpVehicles:unforceVehicleHandling(player.vehicle)
 	for i, p in ipairs(duel.players) do
 		if isElement(p) then
+			exports.dpVehicles:unforceVehicleHandling(p.vehicle)
 			triggerClientEvent(p, "dpDuels.showWinner", resourceRoot, player, duel.bet * 2, timePassed)
 		end
 	end
@@ -103,7 +105,8 @@ addEventHandler("dpRaceManager.raceDestroyed", root, function()
 	if activeDuels[source] then
 		triggerClientEvent("dpDuels.showWinner", resourceRoot, false)
 		for i, player in ipairs(activeDuels[source].players) do
-			if isElement(p) then
+			if isElement(player) then
+				exports.dpVehicles:unforceVehicleHandling(player.vehicle)
 				triggerClientEvent(player, "dpDuels.showWinner", resourceRoot, false)
 			end
 		end

@@ -4,6 +4,9 @@ function startPM(player, message)
 	if not isElement(player) then
 		return false
 	end
+	if player.type ~= "player" then
+		return false
+	end
 	if player == localPlayer then
 		return false
 	end
@@ -21,7 +24,7 @@ function startPM(player, message)
 		end
 		return
 	end
-	Chat.createTab(tabName, player.name)
+	Chat.createTab(tabName, exports.dpUtils:removeHexFromString(player.name), false)
 	Chat.setActiveTab(tabName)
 
 	Chat.message(tabName, string.format(exports.dpLang:getString("chat_pm_started"), tostring(player.name)), 150, 150, 150)
@@ -92,7 +95,7 @@ addEventHandler("dpChat.pm", root, function (player, message)
 	end
 	local tabName = TAB_NAME_PREFIX .. tostring(playerId)
 	if not Chat.getTabFromName(tabName) then
-		Chat.createTab(tabName, player.name)
+		Chat.createTab(tabName, player.name, false)
 	end
 	if message then
 		Chat.message(tabName, player.name .. "#FFFFFF: " .. tostring(message))

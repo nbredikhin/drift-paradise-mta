@@ -2,6 +2,7 @@ RaceGamemode = newclass "RaceGamemode"
 
 function RaceGamemode:init(race)
 	self.race = race
+	self.forceHandling = "street"
 	self.finishedPlayers = {}
 end 
 
@@ -30,6 +31,10 @@ function RaceGamemode:spawnPlayer(player)
 	local x, y, z, rx, ry, rz =	unpack(spawnpoint)
 	player.vehicle.position = Vector3(x, y, z)
 	player.vehicle.rotation = Vector3(rx, ry, rz)
+
+	if type(self.forceHandling) == "string" then
+		exports.dpVehicles:forceVehicleHandling(player.vehicle, self.forceHandling)
+	end
 	return true
 end
 
@@ -49,7 +54,9 @@ function RaceGamemode:raceFinished(timeout)
 end
 
 function RaceGamemode:playerRemoved(player)
-
+	if isElement(player.vehicle) then
+		exports.dpVehicles:unforceVehicleHandling(player.vehicle)
+	end
 end
 
 function RaceGamemode:playerFinished(player, timeout)

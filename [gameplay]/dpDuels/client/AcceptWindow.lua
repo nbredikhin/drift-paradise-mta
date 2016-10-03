@@ -14,6 +14,9 @@ local currentBet
 local cancelKey = "K"
 local acceptKey = "L"
 
+local ACCEPT_TIME = 15000
+local acceptTimer
+
 local function draw()
 	if not isVisible then
 		return 
@@ -27,7 +30,10 @@ local function draw()
 	local alpha = 220
 	dxDrawRectangle(x, y, panelWidth, panelHeight, tocolor(panelColor[1], panelColor[2], panelColor[3], alpha))
 	
-	local str = string.format(exports.dpLang:getString("duel_accept_message"), tostring(targetPlayer.name), tostring(currentBet))
+	local timeLeft = getTimerDetails(acceptTimer)
+	timeLeft = math.floor(timeLeft / 1000)
+
+	local str = string.format(exports.dpLang:getString("duel_accept_message"), tostring(targetPlayer.name), tostring(currentBet), tostring(timeLeft))
 	dxDrawText(str, x, y, x + panelWidth, y + panelHeight - buttonsHeight, tocolor(0, 0, 0, alpha), 1, font, "center", "center", false, true)
 	y = y + panelHeight - buttonsHeight
 	dxDrawRectangle(x, y, panelWidth / 2, buttonsHeight, tocolor(42, 40, 41, alpha))
@@ -35,8 +41,17 @@ local function draw()
 	dxDrawText(str, x, y, x + panelWidth / 2, y + buttonsHeight, tocolor(255, 255, 255, alpha), 1, font2, "center", "center", false, true)
 	
 	dxDrawRectangle(x + panelWidth / 2, y, panelWidth / 2, buttonsHeight, tocolor(themeColor[1], themeColor[2], themeColor[3], alpha))
-	str = string.format(exports.dpLang:getString("duel_accept_key_accept"), acceptKey)
+	str = string.format(exports.dpLang:getString("duel_accept_key_accept"), acceptKey, tostring(timeLeft))
 	dxDrawText(str, x + panelWidth / 2, y, x + panelWidth, y + buttonsHeight, tocolor(255, 255, 255, alpha), 1, font2, "center", "center", false, true)
+end
+
+local function answerCall(accepted)
+	AcceptWindow.setVisible(false)
+	if accepted then
+		triggerServerEvent("dpDuels.answerCall", resourceRoot, targetPlayer, true, currentBet)
+	else
+		triggerServerEvent("dpDuels.answerCall", resourceRoot, targetPlayer, false)
+	end
 end
 
 local function onKey(key, state)
@@ -45,11 +60,9 @@ local function onKey(key, state)
 	end
 
 	if key == string.lower(acceptKey) then
-		AcceptWindow.setVisible(false)
-		triggerServerEvent("dpDuels.answerCall", resourceRoot, targetPlayer, true, currentBet)
+		answerCall(true)
 	elseif key == string.lower(cancelKey) then
-		AcceptWindow.setVisible(false)
-		triggerServerEvent("dpDuels.answerCall", resourceRoot, targetPlayer, false)
+		answerCall(false)
 	end
 end
 
@@ -59,7 +72,13 @@ function AcceptWindow.setVisible(visible)
 		return
 	end
 
+	if isTimer(acceptTimer) then
+		killTimer(acceptTimer)
+	end
+	acceptTimer = nil
+
 	if visible then
+		acceptTimer = setTimer(answerCall, ACCEPT_TIME, 1, false)
 		themeColor = {exports.dpUI:getThemeColor()}
 		addEventHandler("onClientRender", root, draw)
 		addEventHandler("onClientKey", root, onKey)

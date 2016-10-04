@@ -6,7 +6,7 @@ local saveFields = {
 	"skin", "money", "playtime", "xp"
 }
 local protectFields = {
-	"house_id", "level"
+	"house_id", "level", "money", "xp"
 }
 
 local function filterData(dataName, value)

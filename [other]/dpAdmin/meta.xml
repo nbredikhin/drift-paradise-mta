@@ -1,15 +1,14 @@
 <meta>
-	<include resource="ajax"/>
 	<oop>true</oop>
 
-	<html src="web/index.html" default="true"/>
-	<html src="web/bootstrap.min.css" raw="true"/>
-	<html src="web/jquery.js" raw="true"/>
-	<html src="web/img.jpg" raw="true"/>
-
-	<script type="server" src="methods.lua"/>
-	<script type="server" src="server/slots.lua"/>
-	<script type="client" src="client.lua"/>
-
-	<export http="true" function="getPlayers"/>
+	<!-- Shared -->
+	<script type="shared" src="shared/luafun.lua"/>
+	<!-- Client -->
+	<script type="client" src="client/main.lua"/>
+	<script type="client" src="client/ui/main.lua"/>
+	<script type="client" src="client/ui/tabs/players.lua"/>
+	<script type="client" src="client/ui/tabs/server.lua"/>
+	<script type="client" src="client/ui/tabs/gift_keys.lua"/>
+	<!-- Server -->
+	<script type="server" src="server/data.lua"/>
 </meta>

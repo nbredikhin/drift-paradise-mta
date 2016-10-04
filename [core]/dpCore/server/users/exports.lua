@@ -31,10 +31,26 @@ function givePlayerMoney(player, money)
 		return false
 	end
 	money = math.floor(money)
-	local currentMoney = player:getData("money")
+	local currentXP = player:getData("money")
 	if type(currentMoney) ~= "number" then
 		return false
 	end
 	player:setData("money", math.max(0, currentMoney + money))
+	return true
+end
+
+function givePlayerXP(player, xp)
+	if not isElement(player) then
+		return false
+	end
+	if type(xp) ~= "number" then
+		return false
+	end
+	xp = math.floor(xp)
+	local currentXP = player:getData("xp")
+	if type(currentXP) ~= "number" then
+		return false
+	end
+	player:setData("xp", math.max(0, currentXP + xp))
 	return true
 end

@@ -41,9 +41,11 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		windowSize.y, 
 		"Drift Paradise Admin Panel", 
 		false)
+	ui.window.sizable = false
+	ui.window.movable = true
 	ui.window.visible = false
 	ui.tabPanel = GuiTabPanel(0, 0.04, 1, 1, true, ui.window)
 end)
 
--- setTimer(admin.togglePanel, 50, 1)
+setTimer(admin.togglePanel, 50, 1)
 bindKey("f5", "down", admin.togglePanel)

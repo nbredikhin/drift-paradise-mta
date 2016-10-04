@@ -1,4 +1,5 @@
 local ui = {}
+local selectedPlayer
 
 local function updatePlayersFilter()
 	ui.playersList:clear()
@@ -57,12 +58,17 @@ addEventHandler("dpAdmin.requirePlayerVehiclesList", resourceRoot, function (veh
 	end
 end)
 
+local function showCarSelection()
+
+end
 
 local function updateSelectedPlayer()
 	local selectedItems = ui.playersList:getSelectedItems()
+	selectedPlayer = nil
 	local player
 	if selectedItems and #selectedItems > 0 then		
 		player = ui.playersList:getItemData(selectedItems[1].row, 1)
+		selectedPlayer = player
 	end
 
 	ui.player.nickname.text   = "Selected player: " .. defaultField(player, "name")
@@ -70,11 +76,23 @@ local function updateSelectedPlayer()
 	ui.player.registered.text = "Registered: "      .. defaultData(player, "register_time")
 
 	ui.player.level.text    = "Level: "        .. defaultData(player, "level")
-	ui.player.money.text    = "Money: "        .. defaultData(player, "money")
+	ui.player.xp.text    	= "Total XP: "     .. defaultData(player, "xp")
+	ui.player.money.text    = "Money: $"       .. defaultData(player, "money")
 	ui.player.playtime.text = "Hours played: " .. defaultData(player, "playtime", function (v) return math.floor(tonumber(v) / 60) end)
+
+	ui.player.giveXP.enabled 	= not not player
+	ui.player.giveMoney.enabled = not not player
+	ui.player.setHouse.enabled  = not not player
+	ui.player.giveCar.enabled 	= not not player
 
 	ui.player.vehiclesCount.text = string.format("Garage cars: %s", defaultData(player, "garage_cars_count"))
 	updateVehiclesList(player)
+end
+
+local function handleDataChange()
+	if source == selectedPlayer then
+		updateSelectedPlayer()
+	end
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
@@ -99,6 +117,8 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	y = y + height * 2
 	ui.player.level = GuiLabel(x, y, width, height, "", true, ui.panel)
 	y = y + height
+	ui.player.xp = GuiLabel(x, y, width, height, "", true, ui.panel)
+	y = y + height	
 	ui.player.money = GuiLabel(x, y, width, height, "", true, ui.panel)
 	y = y + height
 	ui.player.playtime = GuiLabel(x, y, width, height, "", true, ui.panel)
@@ -133,9 +153,48 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	ui.player.changePassword.enabled = false
 
 	updateSelectedPlayer()
-	addEventHandler("onClientGUITabSwitched", ui.panel, onTabOpened)
+	addEventHandler("onClientGUITabSwitched", ui.panel, onTabOpened, false)
 	addEventHandler("dpAdmin.panelOpened", resourceRoot, onTabOpened)
 
-	addEventHandler("onClientGUIChanged", ui.searchNameEdit, updatePlayersFilter)
-	addEventHandler("onClientGUIClick", ui.playersList, updateSelectedPlayer)
+	addEventHandler("onClientGUIChanged", ui.searchNameEdit, updatePlayersFilter, false)
+	addEventHandler("onClientGUIClick", ui.playersList, updateSelectedPlayer, false)
+
+	addEventHandler("onClientElementDataChange", root, handleDataChange)
+	addEventHandler("onClientGUIClick", ui.player.giveXP, function ()
+		if not selectedPlayer then
+			return
+		end
+		local name = exports.dpUtils:removeHexFromString(selectedPlayer.name)
+		admin.ui.showValueWindow("Give money", "Give money to player " .. name, 0, function (value)
+			if type(value) ~= "number" then
+				return
+			end
+			triggerServerEvent("dpAdmin.executeCommand", resourceRoot, "givemoney", selectedPlayer, value)
+		end)
+	end, false)
+
+	addEventHandler("onClientGUIClick", ui.player.giveMoney, function ()
+		if not selectedPlayer then
+			return
+		end
+		local name = exports.dpUtils:removeHexFromString(selectedPlayer.name)
+		admin.ui.showValueWindow("Give XP", "Give XP to player " .. name, 0, function (value)
+			if type(value) ~= "number" then
+				return
+			end
+			triggerServerEvent("dpAdmin.executeCommand", resourceRoot, "givexp", selectedPlayer, value)
+		end)
+	end, false)
+
+	addEventHandler("onClientGUIClick", ui.player.giveCar, function ()
+		if not selectedPlayer then
+			return
+		end
+		admin.ui.showCarSelection(function (name)
+			if type(name) ~= "string" then
+				return
+			end
+			triggerServerEvent("dpAdmin.executeCommand", resourceRoot, "givecar", selectedPlayer, name)
+		end)
+	end, false)		
 end)

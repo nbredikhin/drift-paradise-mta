@@ -131,7 +131,7 @@ end)
 
 tabsHandlers.garage = function ()
 	exports.dpGarage:enterGarage()
-	localPlayer:setData("dpCore.state", "some_shiet", false)
+	localPlayer:setData("dpCore.state", "loading_garage", false)
 	Panel.setVisible(false)
 end
 

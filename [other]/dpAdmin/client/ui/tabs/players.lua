@@ -29,12 +29,12 @@ local function defaultData(element, data, filter)
 		return "" 
 	end
 	local value = element:getData(data)
-	if not value then
-		return ""
-	end
 	if type(filter) == "function" then
 		return tostring(filter(value))
 	end
+	if not value then
+		return ""
+	end		
 	return tostring(value)
 end
 
@@ -52,15 +52,12 @@ addEventHandler("dpAdmin.requirePlayerVehiclesList", resourceRoot, function (veh
 	if type(vehiclesList) ~= "table" then
 		return false
 	end
+	ui.player.vehiclesList:clear()
 	for i, vehicle in ipairs(vehiclesList) do
 		local name = exports.dpShared:getVehicleReadableName(vehicle.model)
 		ui.player.vehiclesList:addRow(vehicle._id, name)
 	end
 end)
-
-local function showCarSelection()
-
-end
 
 local function updateSelectedPlayer()
 	local selectedItems = ui.playersList:getSelectedItems()
@@ -70,9 +67,20 @@ local function updateSelectedPlayer()
 		player = ui.playersList:getItemData(selectedItems[1].row, 1)
 		selectedPlayer = player
 	end
+	updateVehiclesList(player)
 
 	ui.player.nickname.text   = "Selected player: " .. defaultField(player, "name")
+	ui.player.state.text      = "Location: " .. defaultData(player, "dpCore.state", 
+		function (state)
+			if type(state) ~= "string" then
+				return "city"
+			else
+				return state
+			end
+		end)
+
 	ui.player.account.text    = "Account name: "    .. defaultData(player, "username")
+	ui.player.group.text      = "Account type: "    .. defaultData(player, "aclGroup")
 	ui.player.registered.text = "Registered: "      .. defaultData(player, "register_time")
 
 	ui.player.level.text    = "Level: "        .. defaultData(player, "level")
@@ -87,7 +95,6 @@ local function updateSelectedPlayer()
 	ui.player.removeCar.enabled = false
 
 	ui.player.vehiclesCount.text = string.format("Garage cars: %s", defaultData(player, "garage_cars_count"))
-	updateVehiclesList(player)
 end
 
 local function handleDataChange()
@@ -117,14 +124,20 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	ui.player = {}
 	local x = playersListWidth + 0.03
 	local y = 0.01
-	local width = 0.25
+	local width = 0.45
 	local height = 0.04
 	ui.player.nickname = GuiLabel(x, y, width, height, "", true, ui.panel)
 	y = y + height
+	ui.player.state = GuiLabel(x, y, width, height, "", true, ui.panel)
+	y = y + height * 2
+
 	ui.player.account = GuiLabel(x, y, width, height, "", true, ui.panel)
 	y = y + height
+	ui.player.group = GuiLabel(x, y, width, height, "", true, ui.panel)
+	y = y + height	
 	ui.player.registered = GuiLabel(x, y, width, height, "", true, ui.panel)
 	y = y + height * 2
+
 	ui.player.level = GuiLabel(x, y, width, height, "", true, ui.panel)
 	y = y + height
 	ui.player.xp = GuiLabel(x, y, width, height, "", true, ui.panel)
@@ -173,10 +186,14 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		if ui.player.vehiclesList:getRowCount() <= 1 then
 			ui.player.removeCar.enabled = false
 		end
+
+		if defaultData(player, "dpCore.state") == "garage" then
+			ui.player.removeCar.enabled = false
+		end
 	end, false)
 
 	addEventHandler("onClientElementDataChange", root, handleDataChange)
-	addEventHandler("onClientGUIClick", ui.player.giveXP, function ()
+	addEventHandler("onClientGUIClick", ui.player.giveMoney, function ()
 		if not selectedPlayer then
 			return
 		end
@@ -189,7 +206,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		end)
 	end, false)
 
-	addEventHandler("onClientGUIClick", ui.player.giveMoney, function ()
+	addEventHandler("onClientGUIClick", ui.player.giveXP, function ()
 		if not selectedPlayer then
 			return
 		end

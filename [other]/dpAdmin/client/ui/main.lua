@@ -24,9 +24,16 @@ function admin.ui.getTab(name)
 end
 
 function admin.togglePanel()
-	ui.window.visible = not ui.window.visible
-	showCursor(ui.window.visible)
-	if ui.window.visible then
+	local visible = not ui.window.visible
+	if localPlayer:getData("aclGroup") ~= "admin" then
+		visible = false
+	end
+	if ui.window.visible == visible then
+		return 
+	end
+	ui.window.visible = visible
+	showCursor(visible)
+	if visible then
 		triggerEvent("dpAdmin.panelOpened", resourceRoot)
 	else
 		triggerEvent("dpAdmin.panelClosed", resourceRoot)
@@ -47,5 +54,5 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	ui.tabPanel = GuiTabPanel(0, 0.04, 1, 1, true, ui.window)
 end)
 
-setTimer(admin.togglePanel, 50, 1)
+-- setTimer(admin.togglePanel, 50, 1)
 bindKey("f5", "down", admin.togglePanel)

@@ -84,6 +84,7 @@ local function updateSelectedPlayer()
 	ui.player.giveMoney.enabled = not not player
 	ui.player.setHouse.enabled  = not not player
 	ui.player.giveCar.enabled 	= not not player
+	ui.player.removeCar.enabled = false
 
 	ui.player.vehiclesCount.text = string.format("Garage cars: %s", defaultData(player, "garage_cars_count"))
 	updateVehiclesList(player)
@@ -93,6 +94,15 @@ local function handleDataChange()
 	if source == selectedPlayer then
 		updateSelectedPlayer()
 	end
+end
+
+local function getSelectedVehicleId()
+	local selectedItems = ui.player.vehiclesList:getSelectedItems()
+	local vehicleId = nil		
+	if selectedItems and #selectedItems > 0 then		
+		vehicleId = ui.player.vehiclesList:getItemText(selectedItems[1].row, 1)
+	end	
+	return vehicleId
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
@@ -158,6 +168,12 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 
 	addEventHandler("onClientGUIChanged", ui.searchNameEdit, updatePlayersFilter, false)
 	addEventHandler("onClientGUIClick", ui.playersList, updateSelectedPlayer, false)
+	addEventHandler("onClientGUIClick", ui.player.vehiclesList, function ()
+		ui.player.removeCar.enabled = not not getSelectedVehicleId()
+		if ui.player.vehiclesList:getRowCount() <= 1 then
+			ui.player.removeCar.enabled = false
+		end
+	end, false)
 
 	addEventHandler("onClientElementDataChange", root, handleDataChange)
 	addEventHandler("onClientGUIClick", ui.player.giveXP, function ()
@@ -197,4 +213,20 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 			triggerServerEvent("dpAdmin.executeCommand", resourceRoot, "givecar", selectedPlayer, name)
 		end)
 	end, false)		
+
+	addEventHandler("onClientGUIClick", ui.player.removeCar, function ()
+		if not selectedPlayer then
+			return
+		end
+		admin.ui.showConfirmWindow("Remove garage car", "Are you sure?", function (accepted)
+			if not accepted then
+				return
+			end
+			local id = getSelectedVehicleId()
+			if not id then
+				return
+			end
+			triggerServerEvent("dpAdmin.executeCommand", resourceRoot, "removecar", selectedPlayer, id)
+		end)
+	end, false)			
 end)

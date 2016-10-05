@@ -7,11 +7,14 @@
 	<script type="client" src="client/main.lua"/>
 	<script type="client" src="client/ui/main.lua"/>
 	<script type="client" src="client/ui/value_window.lua"/>
+	<script type="client" src="client/ui/confirm_window.lua"/>
 	<script type="client" src="client/ui/car_selection.lua"/>
+
 	<script type="client" src="client/ui/tabs/players.lua"/>
 	<script type="client" src="client/ui/tabs/server.lua"/>
 	<script type="client" src="client/ui/tabs/gift_keys.lua"/>
 	<!-- Server -->
+	<script type="server" src="server/utils.lua"/>
 	<script type="server" src="server/commands.lua"/>
 	<script type="server" src="server/data.lua"/>
 </meta>

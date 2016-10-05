@@ -14,7 +14,9 @@ local function executeCommand(player, name, ...)
 	if type(commands[name]) ~= "function" then
 		return false
 	end
-	-- TODO: Check is player admin
+	if not isPlayerAdmin(player) then
+		return false
+	end
 	return commands[name](...)
 end
 
@@ -32,6 +34,10 @@ addCommand("givecar", function (player, name)
 		return false
 	end
 	return exports.dpCore:addPlayerVehicle(player, model)
+end)
+
+addCommand("removecar", function (player, id)
+	return exports.dpCore:removePlayerVehicle(player, id)
 end)
 
 addEvent("dpAdmin.executeCommand", true)

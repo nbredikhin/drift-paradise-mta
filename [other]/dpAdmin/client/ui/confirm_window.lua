@@ -36,7 +36,10 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	ui.acceptButton = GuiButton(0.5, 0.7, 0.45, 0.3, "Yes", true, ui.window)
 
 	ui.window.visible = false
-	addEventHandler("onClientGUIClick", resourceRoot, function()		
+	addEventHandler("onClientGUIClick", resourceRoot, function()	
+		if not ui.window.visible then
+			return false
+		end			
 		if source == ui.acceptButton then
 			if type(currentCallback) == "function" then
 				currentCallback(true)

@@ -45,7 +45,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	ui.selectButton = GuiButton(0.5, 0.9, 0.45, 0.1, "Select", true, ui.window)	
 
 	addEventHandler("onClientGUIClick", ui.cancelButton, admin.ui.hideCarSelection, false)
-	addEventHandler("onClientGUIClick", ui.selectButton, function ()		
+	addEventHandler("onClientGUIClick", ui.selectButton, function ()
 		if type(currentCallback) ~= "function" then
 			return
 		end

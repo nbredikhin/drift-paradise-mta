@@ -86,7 +86,11 @@ local function updateSelectedPlayer()
 	ui.player.level.text    = "Level: "        .. defaultData(player, "level")
 	ui.player.xp.text    	= "Total XP: "     .. defaultData(player, "xp")
 	ui.player.money.text    = "Money: $"       .. defaultData(player, "money")
-	ui.player.playtime.text = "Hours played: " .. defaultData(player, "playtime", function (v) return math.floor(tonumber(v) / 60) end)
+	ui.player.playtime.text = "Hours played: " .. defaultData(player, "playtime", 
+		function (v) 
+			if not v then return 0 end
+			return math.floor(tonumber(v) / 60) 
+		end)
 
 	ui.player.giveXP.enabled 	= not not player
 	ui.player.giveMoney.enabled = not not player

@@ -35,6 +35,9 @@
 	<script type="server" src="server/houses/houses_list.lua"/>
 	<script type="server" src="server/houses/Houses.lua"/>
 	<script type="server" src="server/houses/exports.lua"/>
+	<!-- Подарочные ключи -->
+	<script type="server" src="server/giftkeys/GiftKeys.lua"/>
+	<script type="server" src="server/giftkeys/exports.lua"/>	
 	<!-- Gameplay -->
 	<script type="server" src="server/gameplay/PlayerSpawn.lua"/>
 	<script type="server" src="server/gameplay/player_join.lua"/>
@@ -67,6 +70,11 @@
 	<!-- Функции для работы с домами -->
 	<export type="server" function="buyPlayerHouse"/>
 	<export type="server" function="removePlayerHouse"/>
+	<!-- Функции для работы с подарочными ключами -->
+	<export type="server" function="createGiftKey"/>
+	<export type="server" function="activateGiftKey"/>
+	<export type="server" function="removeGiftKey"/>
+	<export type="server" function="getGiftKeys"/>
 
 	<!-- CLIENT -->
 

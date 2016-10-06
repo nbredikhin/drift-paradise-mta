@@ -10,6 +10,7 @@ addEventHandler("onResourceStart", resourceRoot, function ()
 	Users.setup()
 	UserVehicles.setup()
 	Houses.setup()
+	GiftKeys.setup()
 end)
 
 addEventHandler("onPlayerQuit", root, function ()

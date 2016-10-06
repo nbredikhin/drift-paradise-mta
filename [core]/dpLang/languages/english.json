@@ -432,5 +432,8 @@
 	"gift_key_panel_back": "Back",
 	"gift_key_panel_activate": "Activate key",
 	"gift_key_main_label": "Enter your gift key",
-	"gift_key_input_placeholder": "Gift key"
+	"gift_key_input_placeholder": "Gift key",
+	"gift_key_message_title": "Gift Keys",
+	"gift_key_message_fail": "Failed to activate your key",
+	"gift_key_message_success": "You have successfully activated your key!",
 }

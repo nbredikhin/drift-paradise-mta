@@ -407,5 +407,8 @@
 	"gift_key_panel_back": "Назад",
 	"gift_key_panel_activate": "Активировать",
 	"gift_key_main_label": "Введите Ваш подарочный ключ",
-	"gift_key_input_placeholder": "Ключ"
+	"gift_key_input_placeholder": "Ключ",
+	"gift_key_message_title": "Подарочный ключ",
+	"gift_key_message_fail": "Не удалось активировать данный ключ",
+	"gift_key_message_success": "Вы успешно активировали свой подарочный ключ!",	
 }

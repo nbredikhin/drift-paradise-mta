@@ -103,9 +103,13 @@ end)
 addEvent("dpCore.keyActivation", true)
 addEventHandler("dpCore.keyActivation", root, function (success, info)
 	if success then
-		UI:showMessageBox("Success", "Success")
+		UI:showMessageBox(
+			exports.dpLang:getString("gift_key_message_title"), 
+			exports.dpLang:getString("gift_key_message_success"))
 		setVisible(false)
 	else
-		UI:showMessageBox("Gift keys", "Failed to activate key")
+		UI:showMessageBox(
+			exports.dpLang:getString("gift_key_message_title"), 
+			exports.dpLang:getString("gift_key_message_fail"))
 	end
 end)

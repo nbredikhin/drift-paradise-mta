@@ -48,7 +48,6 @@ addEventHandler("dpAdmin.removeGiftKeys", resourceRoot, function (keys)
 		return
 	end	
 	for i, key in ipairs(keys) do
-		outputDebugString("Remove key: " .. tostring(key))
 		exports.dpCore:removeGiftKey(key)
 	end
 	triggerClientEvent(client, "dpAdmin.updatedKeys", resourceRoot)

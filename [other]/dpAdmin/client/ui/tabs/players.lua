@@ -203,7 +203,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		end
 		local name = exports.dpUtils:removeHexFromString(selectedPlayer.name)
 		admin.ui.showValueWindow("Give money", "Give money to player " .. name, 0, function (value)
-			if type(value) ~= "number" then
+			if type(value) ~= "number" or value <= 0 then
 				return
 			end
 			triggerServerEvent("dpAdmin.executeCommand", resourceRoot, "givemoney", selectedPlayer, value)
@@ -216,7 +216,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		end
 		local name = exports.dpUtils:removeHexFromString(selectedPlayer.name)
 		admin.ui.showValueWindow("Give XP", "Give XP to player " .. name, 0, function (value)
-			if type(value) ~= "number" then
+			if type(value) ~= "number" or value <= 0 then
 				return
 			end
 			triggerServerEvent("dpAdmin.executeCommand", resourceRoot, "givexp", selectedPlayer, value)

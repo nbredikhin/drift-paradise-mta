@@ -396,5 +396,11 @@
 	"handling_switching_message_street": "Включение Стрит-режима...",
 	"handling_switching_message_no_upgrade": "На машине не установлено улучшение для дрифта!",
 	"handling_switching_message_moving": "Вы должны стоять на месте, чтобы менять режим!",
-	"handling_switching_message_forced": "Здесь запрещено включать другой режим!"
+	"handling_switching_message_forced": "Здесь запрещено включать другой режим!",
+
+	// Gift keys
+	"gift_key_panel_back": "Назад",
+	"gift_key_panel_activate": "Активировать",
+	"gift_key_main_label": "Введите Ваш подарочный ключ",
+	"gift_key_input_placeholder": "Ключ"
 }

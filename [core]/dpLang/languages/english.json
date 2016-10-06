@@ -422,5 +422,11 @@
 	"handling_switching_message_street": "Switching to Street mode...",
 	"handling_switching_message_no_upgrade": "You don't have drift upgrade installed!",
 	"handling_switching_message_moving": "You have to stop your car to change mode!",	
-	"handling_switching_message_forced": "You are not allowed to change mode here"
+	"handling_switching_message_forced": "You are not allowed to change mode here",
+
+	// Gift panel
+	"gift_key_panel_back": "Back",
+	"gift_key_panel_activate": "Activate key",
+	"gift_key_main_label": "Enter your gift key",
+	"gift_key_input_placeholder": "Gift key"
 }

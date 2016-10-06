@@ -15,7 +15,11 @@ function admin.ui.showCarSelection(callback)
 	ui.vehiclesList:clear()
 	for name, model in pairs(exports.dpShared:getVehiclesTable()) do
 		local readableName = exports.dpShared:getVehicleReadableName(name)
-		local price = unpack(exports.dpShared:getVehiclePrices(name))
+		local priceInfo = exports.dpShared:getVehiclePrices(name)
+		local price = 0
+		if type(priceInfo) == "table" then
+			price = unpack(exports.dpShared:getVehiclePrices(name))
+		end
 		local rowIndex = ui.vehiclesList:addRow(readableName, "$" .. tostring(price))
 		ui.vehiclesList:setItemData(rowIndex, 1, name)	
 	end

@@ -27,10 +27,11 @@ local startupResources = {
 	"dpNametags",
 	"dpHideUI",
 	"dpChat",
-
+	
 	"dpLoginPanel",
 	"dpMainPanel",
 	"dpTabPanel",
+	"dpGiftsPanel",
 
 	-- Gameplay
 	"dpParticles",

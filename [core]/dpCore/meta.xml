@@ -75,6 +75,7 @@
 	<export type="server" function="activateGiftKey"/>
 	<export type="server" function="removeGiftKey"/>
 	<export type="server" function="getGiftKeys"/>
+	<export type="server" function="isGiftKeyValid"/>
 
 	<!-- CLIENT -->
 

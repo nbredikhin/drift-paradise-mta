@@ -9,6 +9,10 @@ function createGiftKey(...)
 	return GiftKeys.add(...)
 end
 
+function isGiftKeyValid(...)
+	return GiftKeys.isKeyValid(...)
+end
+
 -- Активирует ключ
 -- string key
 -- element player

@@ -1,6 +1,7 @@
 local ui = {}
 local carNamesList = {}
 local addDiffToCreated = false
+local selectOnChange = false
 
 local function onTabOpened()
 	ui.carsSelect:clear()
@@ -45,9 +46,16 @@ addEventHandler("dpAdmin.requireGiftKeysList", resourceRoot, function (keysList)
 				ui.createdKeysList.text = ui.createdKeysList.text .. key.key .. "\n"
 			end
 		end
-		ui.keysList:addRow(key.key, user, key.money, key.xp, key.car)
+		local carName = exports.dpShared:getVehicleReadableName(key.car) or key.car
+		ui.keysList:addRow(key.key, key.money, key.xp, carName)
 	end	
 
+	if type(selectOnChange) == "number" then
+		selectOnChange = math.min(selectOnChange, #keysList - 1)
+		ui.keysList:setSelectedItem(selectOnChange, 1)
+	end
+
+	selectOnChange = false
 	addDiffToCreated = false
 end)
 
@@ -62,14 +70,14 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 
 	ui.keysList = GuiGridList(0.34, 0.07, 0.65, 0.84, true, ui.panel)
 	ui.keysList:addColumn("Key", 0.18)
-	ui.keysList:addColumn("User ID", 0.2)
 	ui.keysList:addColumn("Money", 0.2)
 	ui.keysList:addColumn("XP", 0.2)
-	ui.keysList:addColumn("Car", 0.15)
+	ui.keysList:addColumn("Car", 0.35)
 	ui.keysList:setSelectionMode(1)
 
 	ui.searchKeyEdit = GuiEdit(0.34, 0.01, 0.65, 0.05, "", true, ui.panel)
-	ui.removeButton = GuiButton(0.34, 0.84 + 0.07, 0.65, 0.07, "Remove", true, ui.panel)
+	ui.refreshButton = GuiButton(0.34, 0.84 + 0.07, 0.325, 0.07, "Refresh", true, ui.panel)
+	ui.removeButton = GuiButton(0.34 + 0.325, 0.84 + 0.07, 0.325, 0.07, "Remove key", true, ui.panel)
 
 	local y = 0.015
 	GuiLabel(0.02, y, 0.5, 0.05, "Money", true, ui.panel)
@@ -112,9 +120,9 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	end, false)
 
 	addEventHandler("onClientGUIClick", ui.createButton, function ()
-		local money = tonumber(moneyEdit) or 0
+		local money = tonumber(ui.moneyEdit.text) or 0
 		if money == 0 then money = nil end
-		local xp = tonumber(xpEdit) or 0
+		local xp = tonumber(ui.xpEdit.text) or 0
 		if xp == 0 then xp = nil end
 		local car
 		if ui.carsSelect.selected >= 0 then
@@ -129,18 +137,16 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	end, false)	
 
 	addEventHandler("onClientGUIClick", ui.removeButton, function ()
-		local selectedItems = guiGridListGetSelectedItems(ui.keysList)
-		if not selectedItems then
+		local row = ui.keysList:getSelectedItem()
+		if row < 0 then
 			return
 		end
-		local keys = {}
-		for i, item in pairs(selectedItems) do
-			for k, v in pairs(item) do
-				outputDebugString(k .. "=" .. tostring(v))
-			end
-		end
+		local keys = {ui.keysList:getItemText(row, 1)}
 		if #keys > 0 then			
+			selectOnChange = row
 			triggerServerEvent("dpAdmin.removeGiftKeys", resourceRoot, keys)
 		end
 	end, false)
+
+	addEventHandler("onClientGUIClick", ui.refreshButton, onTabOpened)	
 end)

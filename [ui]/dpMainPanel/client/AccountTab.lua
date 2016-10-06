@@ -170,35 +170,37 @@ function AccountTab.create()
 	end)
 
 	-------------------------- Нижние кнопки ------------------------------
-	-- Кнопка доната
+	-- Кнопка "Дополнительно"
 	local bottomButtonsHeight = 70
-	local donatButton = UI:createDpButton {
+	local moreButton = UI:createDpButton {
 		x = 0, 
 		y = height - bottomButtonsHeight,
 		width = width / 2,
 		height = bottomButtonsHeight,
-		locale = "main_panel_account_donat",
+		locale = "main_panel_account_more",
 		--type = "lig"h
 	}
-	UI:addChild(panel, donatButton)
+	UI:addChild(panel, moreButton)
 
-	-- Кнопка "Дополнительно"
-	local moreButton = UI:createDpButton {
+	-- Кнопка "Донат"
+	local donateButton = UI:createDpButton {
 		x = width / 2, 
 		y = height - bottomButtonsHeight,
 		width = width / 2,
 		height = bottomButtonsHeight,
-		locale = "main_panel_account_more",
+		locale = "main_panel_account_donat",
 		type = "primary"
 	}
-	UI:addChild(panel, moreButton)	
+	UI:addChild(panel, donateButton)	
 
 	ui = {
 		levelProgressBg = levelProgressBg,
 		levelProgress = levelProgress,
 
 		levelLabelCurrent = levelLabelCurrent,
-		levelLabelNext = levelLabelNext
+		levelLabelNext = levelLabelNext,
+
+		donateButton = donateButton
 	}
 end
 
@@ -227,3 +229,11 @@ function AccountTab.refresh()
 		UI:setText(ui.levelLabelNext, "MAX")
 	end
 end
+
+addEvent("dpUI.click", false)
+addEventHandler("dpUI.click", resourceRoot, function (widget)
+	if widget == ui.donateButton then
+		Panel.setVisible(false)
+		exports.dpGiftsPanel:setVisible(true)
+	end
+end)

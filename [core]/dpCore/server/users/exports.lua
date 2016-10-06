@@ -31,7 +31,7 @@ function givePlayerMoney(player, money)
 		return false
 	end
 	money = math.floor(money)
-	local currentXP = player:getData("money")
+	local currentMoney = player:getData("money")
 	if type(currentMoney) ~= "number" then
 		return false
 	end

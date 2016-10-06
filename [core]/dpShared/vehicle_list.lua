@@ -11,6 +11,7 @@ local vehiclesTable = {
 	nissan_r34 			= 587,
 	nissan_s13 			= 401,
 	toyota_ae86 		= 589,
+	toyota_altezza 		= 402,
 }
 
 -- Названия в том виде, в котором они будут отображаться
@@ -26,6 +27,7 @@ local vehiclesReadableNames = {
 	nissan_r34 			= "Nissan Skyline R34",
 	nissan_s13 			= "Nissan Silvia S13",
 	toyota_ae86 		= "Toyota AE86",
+	toyota_altezza 		= "Toyota Altezza",
 }
 
 -- Функции

@@ -1,5 +1,6 @@
 ColorMenu = TuningMenu:subclass "ColorMenu"
 local COLOR_CHANGE_SPEED = 1
+local SLOW_SPEED_MUL = 0.14
 
 function ColorMenu:init(headerText, position, rotation)
 	self.super:init(position, rotation, Vector2(1.4, 1.4))
@@ -109,14 +110,22 @@ function ColorMenu:selectPreviousBar()
 end
 
 function ColorMenu:increase(dt)
-	self.bars[self.activeBar].value = self.bars[self.activeBar].value + COLOR_CHANGE_SPEED * dt
+	local speedMul = 1
+	if getKeyState("lalt") then
+		speedMul = SLOW_SPEED_MUL
+	end
+	self.bars[self.activeBar].value = self.bars[self.activeBar].value + COLOR_CHANGE_SPEED * speedMul * dt
 	if self.bars[self.activeBar].value > 1 then
 		self.bars[self.activeBar].value = 1
 	end
 end
 
 function ColorMenu:decrease(dt)
-	self.bars[self.activeBar].value = self.bars[self.activeBar].value - COLOR_CHANGE_SPEED * dt
+	local speedMul = 1
+	if getKeyState("lalt") then
+		speedMul = SLOW_SPEED_MUL
+	end	
+	self.bars[self.activeBar].value = self.bars[self.activeBar].value - COLOR_CHANGE_SPEED * speedMul * dt
 	if self.bars[self.activeBar].value < 0 then
 		self.bars[self.activeBar].value = 0
 	end

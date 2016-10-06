@@ -116,6 +116,11 @@
 	"garage_menu_settings_bumper": "Снять задний бампер",
 	"garage_menu_back": "Назад",
 
+	"garage_sell_text": "Продать этот автомобиль за",
+	"garage_sell_confirm": "подтвердить",
+	"garage_sell_last_car": "Вы не можете продать свой единственный автомобиль!",
+
+
 	// Тюнинг в гараже
 	"garage_tuning_component_front_bump": "Передний бампер",
 	"garage_tuning_component_rear_bump": "Задний бампер",

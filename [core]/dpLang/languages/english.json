@@ -134,6 +134,10 @@
 	"garage_menu_settings_bumper": "Remove rear bumper",
 	"garage_menu_back": "Back",
 
+	"garage_sell_text": "Sell this car for",
+	"garage_sell_confirm": "confirm",	
+	"garage_sell_last_car": "You can't sell your last car!",
+
 	// ========================================
 	// ================ Tuning ================
 	// ========================================

@@ -67,7 +67,7 @@ function MainScreen:onKey(key)
 		if self.mainMenu:getItem() == "garage_menu_go_city" then
 			exitGarage(GarageCar.getId())
 		elseif self.mainMenu:getItem() == "garage_menu_sell" then
-
+			self.screenManager:showScreen(SellCarScreen())
 		elseif self.mainMenu:getItem() == "garage_menu_customize" then
 			self.screenManager:showScreen(TuningScreen(true))
 		elseif self.mainMenu:getItem() == "garage_menu_exit" then

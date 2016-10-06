@@ -14,6 +14,9 @@ local playerEconomics = {
 
 	-- Количество денег за 1000 очков дрифта
 	drift_money = 25,
+
+	-- Процент от цены авто при продаже
+	vehicle_sell_price = 0.5,
 }
 
 function getEconomicsProperty(name)

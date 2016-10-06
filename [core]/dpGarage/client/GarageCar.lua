@@ -42,6 +42,7 @@ local function setData(key, value)
 end
 
 local function updateVehicle()
+	currentVehicle = math.min(#vehiclesList, math.max(1, currentVehicle))
 	if not vehiclesList[currentVehicle] then
 		outputDebugString("Could not load vehicle: " .. tostring(currentVehicle))
 		return
@@ -108,6 +109,10 @@ end
 
 function GarageCar.getVehicle()
 	return vehicle
+end
+
+function GarageCar.getCarsCount()
+	return #vehiclesList
 end
 
 function GarageCar.showNextCar()
@@ -300,3 +305,19 @@ end
 function GarageCar.getName()
 	return exports.dpShared:getVehicleNameFromModel(vehicle.model)
 end
+
+function GarageCar.sell()
+	if #vehiclesList == 1 then
+		return false
+	end
+	return triggerServerEvent("dpGarage.sellVehicle", resourceRoot, vehiclesList[currentVehicle]._id)
+end
+
+addEvent("dpGarage.updateVehiclesList", true)
+addEventHandler("dpGarage.updateVehiclesList", resourceRoot, function (vehicles)
+	if type(vehicles) ~= "table" then
+		return
+	end
+	vehiclesList = vehicles
+	updateVehicle()
+end)

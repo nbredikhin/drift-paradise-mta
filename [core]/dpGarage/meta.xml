@@ -15,6 +15,7 @@
 	<script type="server" src="server/enter_exit.lua"/>
 	<script type="server" src="server/tuning_server.lua"/>
 	<script type="server" src="server/handling.lua"/>
+	<script type="server" src="server/sell.lua"/>
 	
 	<!-- Клиент -->
 	<script type="client" src="client/colors_utils.lua"/>
@@ -38,6 +39,7 @@
 	<script type="client" src="client/ui/screens/WheelsScreen.lua"/>
 	<script type="client" src="client/ui/screens/NumberplateScreen.lua"/>
 	<script type="client" src="client/ui/screens/UpgradesScreen.lua"/>
+	<script type="client" src="client/ui/screens/SellCarScreen.lua"/>
 	<!-- Элементы интерфейса -->
 	<script type="client" src="client/ui/ComponentNameText.lua"/>
 	<script type="client" src="client/ui/ComponentSelection.lua"/>

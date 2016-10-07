@@ -78,6 +78,9 @@ end
 function SellCarScreen:onKey(key)
 	self.super:onKey(key)
 	if key == "enter" then
+		if not self.canSell then
+			return
+		end
 		GarageCar.sell()
 		self.screenManager:showScreen(MainScreen(2))		
 	elseif key == "backspace" then

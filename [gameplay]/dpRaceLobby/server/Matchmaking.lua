@@ -33,6 +33,11 @@ function Matchmaking.addPlayer(player)
 	if not player.vehicle then
 		return false
 	end
+	local vehicleOwner = player.vehicle:getData("owner_id")
+	local playerId = player:getData("_id")
+	if not vehicleOwner or not playerId or vehicleOwner ~= playerId then
+		return false
+	end
 	local vehicleClass = exports.dpShared:getVehicleClass(player.vehicle.model)
 
 	playersInSearch[player] = {

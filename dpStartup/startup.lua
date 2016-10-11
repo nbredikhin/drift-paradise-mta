@@ -19,6 +19,7 @@ local startupResources = {
 	"dpMarkers",
 	"dpGameTime",
 	"dpCore",
+	"dpRaceManager",
 
 	-- UI
 	"dpUI",
@@ -43,7 +44,7 @@ local startupResources = {
 	"dpHouses",
 	"dpGarage",
 	"dpCarshop",
-	"dpRaceManager",
+	"dpRaceLobby",
 	"dpDuels",
 	"dpSkinSelect",
 	"dpVehicleSelect",

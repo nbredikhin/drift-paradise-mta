@@ -316,6 +316,9 @@
 	"chat_close_tab": "To close this tab, click it with right mouse button",
 
 	// Race
+	"race_error_title": "Race",
+	"race_error_no_vehicle": "You must be in a car to start race",
+	"race_error_not_owner": "You must be in a car owned by you!",
 	"race_lobby_close_button": "Close",
 	"race_lobby_play_button": "Start race",
 	"race_lobby_mode_classic": "Classic",

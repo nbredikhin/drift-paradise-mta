@@ -291,6 +291,9 @@
 	"chat_close_tab": "Чтобы закрыть вкладку, кликните по ней правой кнопкой мыши",	
 
 	// Race
+	"race_error_title": "Гонки",
+	"race_error_no_vehicle": "Вы должны находиться в автомобиле, чтобы начать гонку",
+	"race_error_not_owner": "Вы должны находиться в автомобиле, который принадлежит вам",
 	"race_lobby_close_button": "Закрыть",
 	"race_lobby_play_button": "Найти гонку",
 	"race_lobby_mode_classic": "Классический",

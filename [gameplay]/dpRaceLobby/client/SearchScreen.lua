@@ -45,6 +45,20 @@ local function updateTime()
 end
 
 function SearchScreen.startSearch()
+	if not localPlayer.vehicle then
+		exports.dpUI:showMessageBox(
+			exports.dpLang:getString("race_error_title"), 
+			exports.dpLang:getString("race_error_no_vehicle"))
+		return false
+	end
+	local vehicleOwner = localPlayer.vehicle:getData("owner_id")
+	local playerId = localPlayer:getData("_id")
+	if not vehicleOwner or not playerId or vehicleOwner ~= playerId then
+		exports.dpUI:showMessageBox(
+			exports.dpLang:getString("race_error_title"), 
+			exports.dpLang:getString("race_error_not_owner"))
+		return false
+	end	
 	SearchScreen.setVisible(true)
 	triggerServerEvent("dpRaceLobby.startSearch", resourceRoot)
 end

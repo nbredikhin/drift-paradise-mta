@@ -46,12 +46,16 @@ local function draw()
 end
 
 local function answerCall(accepted)
+	if not isVisible then
+		return false
+	end
 	AcceptWindow.setVisible(false)
 	if accepted then
 		triggerServerEvent("dpDuels.answerCall", resourceRoot, targetPlayer, true, currentBet)
 	else
 		triggerServerEvent("dpDuels.answerCall", resourceRoot, targetPlayer, false)
 	end
+	return true
 end
 
 local function onKey(key, state)
@@ -62,6 +66,12 @@ local function onKey(key, state)
 	if key == string.lower(acceptKey) then
 		answerCall(true)
 	elseif key == string.lower(cancelKey) then
+		answerCall(false)
+	end
+end
+
+local function vehicleStartExit(player)
+	if player == localPlayer and source == localPlayer.vehicle then
 		answerCall(false)
 	end
 end
@@ -82,11 +92,17 @@ function AcceptWindow.setVisible(visible)
 		themeColor = {exports.dpUI:getThemeColor()}
 		addEventHandler("onClientRender", root, draw)
 		addEventHandler("onClientKey", root, onKey)
+		if isElement(localPlayer.vehicle) then
+			addEventHandler("onClientVehicleStartExit", localPlayer.vehicle, vehicleStartExit)
+		end
 		font = exports.dpAssets:createFont("Roboto-Regular.ttf", 16)
 		font2 = exports.dpAssets:createFont("Roboto-Regular.ttf", 14)
 	else
 		removeEventHandler("onClientRender", root, draw)
 		removeEventHandler("onClientKey", root, onKey)
+		if isElement(localPlayer.vehicle) then
+			removeEventHandler("onClientVehicleStartExit", localPlayer.vehicle, vehicleStartExit)
+		end
 		if isElement(font) then
 			destroyElement(font)
 		end

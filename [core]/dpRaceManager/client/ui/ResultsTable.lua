@@ -34,13 +34,6 @@ function FinishScreen:init()
 	}
 	self.playersList = {}
 	self:setPlayersList(Race.getFinishedPlayers())
-	-- self.playersList = {
-	-- 	{name = "Wherry", prize = 1500, time = "01:15", isLocal = true},
-	-- 	{name = "flusha", prize = 1000, time = "01:17"},
-	-- 	{name = "olofmeister", prize = 500, time = "01:25"},
-	-- 	{name = "dno", prize = 200, time = "01:60"},
-	-- 	{name = "LONG_TEXT_LONG", prize = 200, time = "01:60"},
-	-- }
 	self.columns = {
 		{source = "name", size = 0.5, icon = self.rankIcon},
 		{source = "prize", size = 0.25, icon = self.dollarIcon, space = 0},

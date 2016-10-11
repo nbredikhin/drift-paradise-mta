@@ -21,10 +21,18 @@ function InviteWindow.show(player)
 		exports.dpUI:showMessageBox(exports.dpLang:getString("duel_invite_error_title"), exports.dpLang:getString("duel_invite_local_nocar"))
 		return
 	end
+	if localPlayer.vehicle:getData("owner_id") ~= localPlayer:getData("_id") then
+		exports.dpUI:showMessageBox(exports.dpLang:getString("duel_invite_error_title"), exports.dpLang:getString("duel_invite_local_not_owner"))
+		return
+	end
 	if not targetPlayer.vehicle or targetPlayer.vehicle.controller ~= targetPlayer then
 		exports.dpUI:showMessageBox(exports.dpLang:getString("duel_invite_error_title"), exports.dpLang:getString("duel_invite_remote_nocar"))
 		return
 	end
+	if targetPlayer.vehicle:getData("owner_id") ~= targetPlayer:getData("_id") then
+		exports.dpUI:showMessageBox(exports.dpLang:getString("duel_invite_error_title"), exports.dpLang:getString("duel_invite_remote_not_owner"))
+		return
+	end	
 	if (targetPlayer.position - localPlayer.position):getLength() > 14 then
 		exports.dpUI:showMessageBox(exports.dpLang:getString("duel_invite_error_title"), exports.dpLang:getString("duel_invite_too_far"))
 		return 

@@ -370,7 +370,9 @@
 	"duel_invite_error_title": "Ошибка",
 	"duel_invite_duel_title": "Дуэль",
 	"duel_invite_local_nocar": "Вы должны быть в автомобиле",
+	"duel_invite_local_not_owner": "Вы должны быть в своём автомобиле",
 	"duel_invite_remote_nocar": "Игрок должен быть в автомобиле",
+	"duel_invite_remote_not_owner": "Игрок находится в чужом автомобиле",
 	"duel_invite_too_far": "Игрок слишком далеко",
 
 	"duel_invite_duel_with": "Дуэль с %s",

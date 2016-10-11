@@ -394,8 +394,10 @@
 	// Duels
 	"duel_invite_error_title": "Error",
 	"duel_invite_duel_title": "Duel",
-	"duel_invite_local_nocar": "You must be in a vehicle",
+	"duel_invite_local_nocar": "You must be in a car",
+	"duel_invite_local_not_owner": "You must be in your own car",
 	"duel_invite_remote_nocar": "Player must be in a car",
+	"duel_invite_remote_not_owner": "Player must be in his own car",
 	"duel_invite_too_far": "Player is too far from you",
 
 	"duel_invite_duel_with": "Duel with %s",

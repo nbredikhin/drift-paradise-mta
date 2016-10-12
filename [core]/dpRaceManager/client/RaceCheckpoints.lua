@@ -23,7 +23,7 @@ local function onMarkerHit(player)
 	if settings.checkpointsVisible then
 		playSoundFrontEnd(43)
 	end
-	-- Чекпойнты ещё не кончились
+	RaceClient.checkpointHit(RaceCheckpoints.getCurrentCheckpoint())
 	if currentCheckpoint < #checkpointsList then
 		RaceCheckpoints.showNext()
 	else

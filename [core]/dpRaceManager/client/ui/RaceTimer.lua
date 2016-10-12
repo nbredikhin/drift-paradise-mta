@@ -43,7 +43,7 @@ local function draw()
 	dxDrawText(posText, x, y, x + posTextWidth, y + panelHeight, whiteColor, 1, font, "left", "center")
 	x = x + posTextWidth + 5
 
-	local posValueText = tostring(0) .. "/" .. tostring(99)
+	local posValueText = tostring(RaceClient.gamemode.rank) .. "/" .. tostring(#RaceClient.getPlayers())
 	local posValueTextWidth = dxGetTextWidth(posValueText, 1, font, false)
 	dxDrawText(posValueText, x, y, x + posTextWidth, y + panelHeight, primaryColor, 1, font, "left", "center") 
 	x = x + posValueTextWidth + 10

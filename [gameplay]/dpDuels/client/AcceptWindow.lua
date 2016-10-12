@@ -71,7 +71,9 @@ local function onKey(key, state)
 end
 
 local function vehicleStartExit(player)
-	if player == localPlayer and source == localPlayer.vehicle then
+	if  player == localPlayer and source == localPlayer.vehicle or
+		player == targetPlayer and source == targetPlayer.vehicle 
+	then
 		answerCall(false)
 	end
 end
@@ -93,16 +95,14 @@ function AcceptWindow.setVisible(visible)
 		addEventHandler("onClientRender", root, draw)
 		addEventHandler("onClientKey", root, onKey)
 		if isElement(localPlayer.vehicle) then
-			addEventHandler("onClientVehicleStartExit", localPlayer.vehicle, vehicleStartExit)
+			addEventHandler("onClientVehicleStartExit", root, vehicleStartExit)
 		end
 		font = exports.dpAssets:createFont("Roboto-Regular.ttf", 16)
 		font2 = exports.dpAssets:createFont("Roboto-Regular.ttf", 14)
 	else
 		removeEventHandler("onClientRender", root, draw)
 		removeEventHandler("onClientKey", root, onKey)
-		if isElement(localPlayer.vehicle) then
-			removeEventHandler("onClientVehicleStartExit", localPlayer.vehicle, vehicleStartExit)
-		end
+		removeEventHandler("onClientVehicleStartExit", root, vehicleStartExit)
 		if isElement(font) then
 			destroyElement(font)
 		end

@@ -7,6 +7,7 @@ RaceClient.settings = {}
 RaceClient.map = {}
 
 local raceDimension = 0
+local updateTimer
 
 addEvent("Race.addedToRace", true)
 addEvent("Race.stateChanged", true)
@@ -21,9 +22,17 @@ local function onStateChanged(state)
 	-- dunno
 end
 
+local function update()
+	RaceClient.gamemode:updatePosition()
+end
+
 local function onRemovedFromRace()
 	outputDebugString("RaceClient: Client removed from race. Stopping race...")
 	RaceClient.stopRace()
+end
+
+function RaceClient.checkpointHit(checkpointId)
+	RaceClient.gamemode:checkpointHit(checkpointId)
 end
 
 function RaceClient.clientFinished()
@@ -76,7 +85,20 @@ function RaceClient.startRace(raceElement, settings, map)
 	gamemode:addEventHandler("Race.playerAdded", 	RaceClient.raceElement, gamemode.playerAdded)
 	gamemode:addEventHandler("Race.playerRemoved", 	RaceClient.raceElement, gamemode.playerRemoved)
 	RaceClient.gamemode = gamemode
+
+	updateTimer = setTimer(update, 1000, 0)
 	outputDebugString("Client race started")
+end
+
+function RaceClient.getPlayers()
+	if not RaceClient.isActive then
+		outputDebugString("RaceClient.getPlayers: Race is not active")
+		return false
+	end
+	if not isElement(RaceClient.raceElement) then
+		return false
+	end
+	return RaceClient.raceElement:getChildren("player")
 end
 
 function RaceClient.stopRace()
@@ -111,5 +133,9 @@ function RaceClient.stopRace()
 	RaceClient.settings = nil
 	RaceClient.map = nil
 	raceDimension = 0
+
+	if isTimer(updateTimer) then
+		killTimer(updateTimer)
+	end
 	outputDebugString("Client race stopped")
 end	

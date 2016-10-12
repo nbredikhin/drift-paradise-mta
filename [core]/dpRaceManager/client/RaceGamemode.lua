@@ -1,7 +1,38 @@
 RaceGamemode = newclass "RaceGamemode"
 
 function RaceGamemode:init()
+	self.rank = 0
+end
 
+function RaceGamemode:checkpointHit(checkpointId)
+	localPlayer:setData("Race.currentCheckpoint", checkpointId)
+end
+
+function RaceGamemode:updatePosition()
+	local players = RaceClient.getPlayers()
+	if type(players) ~= "table" then
+		return false
+	end
+	local currentCheckpoint = RaceCheckpoints.getCurrentCheckpoint()
+	local checkpointPosition = RaceCheckpoints.getCheckpointPosition()
+	local myDistance = (checkpointPosition - localPlayer.position):getLength()
+
+	local rank = 1
+	for i, player in ipairs(players) do
+		local playerCheckpoint = player:getData("Race.currentCheckpoint")
+		if type(playerCheckpoint) == "number" then
+			if playerCheckpoint > currentCheckpoint then
+				rank = rank + 1
+			elseif currentCheckpoint == playerCheckpoint then
+				local distance = (checkpointPosition - player.position):getLength()
+				if distance < myDistance then
+					rank = rank + 1
+				end
+			end
+		end
+	end
+
+	self.rank = rank
 end
 
 function RaceGamemode:addEventHandler(name, source, handler)

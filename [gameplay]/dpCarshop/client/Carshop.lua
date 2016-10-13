@@ -1,6 +1,7 @@
 Carshop = {}
 Carshop.isActive = false
 Carshop.currentVehicleInfo = {}
+Carshop.hasDriftHandling = false
 
 local LOCAL_DIMENSION = 1
 local CARSHOP_POSITION = Vector3(1230.2, -1788.7, 120.156)
@@ -265,6 +266,9 @@ function Carshop.showVehicle(id)
 		vehicle.alpha = 255
 		vehicle:setColor(212, 0, 40)
 	end, 250, 1)
+
+	local vehicleName = exports.dpShared:getVehicleNameFromModel(vehicle.model)
+	Carshop.hasDriftHandling = exports.dpVehicles:hasVehicleHandling(vehicleName, "drift", 1)
 end
 
 function Carshop.buy()

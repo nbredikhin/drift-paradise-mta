@@ -351,6 +351,9 @@
 	"carshop_no_money": "Not enough money",
 	"carshop_buy_error_title": "Failed to buy car",
 	"carshop_buy_error_unknown": "Unknown error",
+	"carshop_drift_label": "Drift upgrade available",
+	"carshop_drift_label_yes": "Yes",
+	"carshop_drift_label_no": "No",
 
 	// Context menu
 	"context_menu_vehicle_door_lf_open": "Open left front door",

@@ -2,7 +2,7 @@ CarshopMenu = {}
 local renderTarget
 local MENU_OFFSET = Vector3(-7.5, -7, -0.7)
 local position = Vector3()
-local size = Vector2(1.5, 1.7)
+local size = Vector2(1.5, 1.9)
 local rotation = 280
 local resolution = size * 250
 
@@ -19,8 +19,10 @@ local barsList = {
 
 local headerFont
 local labelFont
+local hasDriftHandling = false
 
 local themeColor = {0, 0, 0}
+local themeColorHex = "#FFFFFF"
 
 local function draw()
 	dxSetRenderTarget(renderTarget)
@@ -72,6 +74,14 @@ local function draw()
 		bar.value = bar.value + (Carshop.currentVehicleInfo.specs[bar.param] - bar.value) * 0.2
 		y = y + barHeight * 2
 	end
+	local labelText = exports.dpLang:getString("carshop_drift_label")
+	local valueText = ""
+	if Carshop.hasDriftHandling then
+		valueText = exports.dpLang:getString("carshop_drift_label_yes")
+	else
+		valueText = exports.dpLang:getString("carshop_drift_label_no")
+	end
+	dxDrawText(labelText .. ": " .. themeColorHex .. valueText, 0, y, resolution.x, y + labelHeight, tocolor(255, 255, 255), 1, labelFont, "center", "center", false, false, false, true)
 
 	dxSetRenderTarget()
 
@@ -96,6 +106,7 @@ function CarshopMenu.start(basePosition)
 	labelFont = exports.dpAssets:createFont("Roboto-Regular.ttf", 18)
 
 	themeColor = {exports.dpUI:getThemeColor()}
+	themeColorHex = tostring(exports.dpUtils:RGBToHex(unpack(themeColor)))
 
 	for i, bar in ipairs(barsList) do
 		bar.text = exports.dpLang:getString(bar.locale)

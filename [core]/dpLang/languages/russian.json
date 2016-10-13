@@ -326,6 +326,9 @@
 	"carshop_no_money": "Недостаточно денег",
 	"carshop_buy_error_title": "Не удалось купить машину",
 	"carshop_buy_error_unknown": "Неизвестная ошибка",	
+	"carshop_drift_label": "Улучшение для дрифта",
+	"carshop_drift_label_yes": "Есть",
+	"carshop_drift_label_no": "Нет",
 
 	// Context menu
 	"context_menu_vehicle_door_lf_open": "Открыть левую переднюю дверь",

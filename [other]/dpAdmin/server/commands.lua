@@ -40,6 +40,10 @@ addCommand("removecar", function (player, id)
 	return exports.dpCore:removePlayerVehicle(player, id)
 end)
 
+addCommand("removehouse", function (player)
+	return exports.dpCore:removePlayerHouse(player)
+end)
+
 addEvent("dpAdmin.executeCommand", true)
 addEventHandler("dpAdmin.executeCommand", resourceRoot, function (commandName, ...)
 	executeCommand(client, commandName, ...)

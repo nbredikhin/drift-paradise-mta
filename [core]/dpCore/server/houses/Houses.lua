@@ -1,6 +1,21 @@
 Houses = {}
 local HOUSES_TABLE_NAME = "houses"
 
+local function getHouseDataTable(houseData)
+	if type(houseData) ~= "table" then
+		return false
+	end
+	houseData.interior = tonumber(houseData.interior)
+	if not houseData.interior then
+		return false
+	end
+	local interiorData = interiorsList[houseData.interior]
+	for k, v in pairs(interiorData) do
+		houseData[k] = v
+	end
+	return houseData
+end
+
 function Houses.setup()
 	DatabaseTable.create(HOUSES_TABLE_NAME, {
 		{ name="owner_id", type=DatabaseTable.ID_COLUMN_TYPE, options="UNIQUE" },
@@ -16,7 +31,7 @@ function Houses.setup()
 			local status = DatabaseTable.insert(HOUSES_TABLE_NAME, {
 				_id = id, 
 				price = house.price, 
-				data = toJSON(house.data)
+				data = toJSON(getHouseDataTable(house.data))
 			})
 			if status then
 				counter = counter + 1
@@ -25,7 +40,7 @@ function Houses.setup()
 			if row[1].price ~= house.price then
 				if DatabaseTable.update(HOUSES_TABLE_NAME, {
 						price = house.price, 
-						data = toJSON(house.data)
+						data = toJSON((house.data))
 					}, {_id = id}) 
 				then
 					updatedCounter = updatedCounter + 1
@@ -46,8 +61,8 @@ function Houses.setup()
 			return
 		end
 		for i, house in ipairs(result) do
-			local data = fromJSON(house.data)
-			local marker = exports.dpMarkers:createMarker("house", Vector3(unpack(data.enter)) - Vector3(0, 0, 0.5))
+			local data = getHouseDataTable(fromJSON(house.data))
+			local marker = exports.dpMarkers:createMarker("house", Vector3(unpack(data.enter)) - Vector3(0, 0, 0.9))
 			local dimension = exports.dpHouses:getHouseDimension(i)
 			marker:setData("_id", house._id)
 			marker:setData("owner_id", house.owner_id)
@@ -57,14 +72,12 @@ function Houses.setup()
 			marker.id = "house_enter_marker_" .. tostring(house._id)
 			marker:setData("dpMarkers.text", "")
 
-			local exitMarker = exports.dpMarkers:createMarker("exit", Vector3(unpack(data.exit)) - Vector3(0, 0, 0.5))
+			local exitMarker = exports.dpMarkers:createMarker("exit", Vector3(unpack(data.exit)) - Vector3(0, 0, 0.9))
 			exitMarker.interior = data.interior
 			exitMarker.dimension = dimension
 			exitMarker:setData("house_exit_position", data.enter)
 			exitMarker:setData("house_exit_rotation", data.enter_rotation)
 			exitMarker.id = "house_exit_marker_" .. tostring(house._id)
-
-			--local garageMarker = exports.dpMarkers:createMarker("garage", Vector3(unpack(data.garage)))
 		end
 	end)
 end
@@ -154,7 +167,7 @@ function Houses.setupPlayerHouseData(player, callback, ...)
 	return DatabaseTable.select(HOUSES_TABLE_NAME, {"_id", "data"}, {owner_id = userId}, function(result)
 		if type(result) == "table" and result[1] then
 			player:setData("house_id", result[1]._id)
-			player:setData("house_data", fromJSON(result[1].data))
+			player:setData("house_data", getHouseDataTable(fromJSON(result[1].data)))
 			local marker = getElementByID("house_enter_marker_" .. tostring(result[1]._id))
 			if isElement(marker) then
 				marker:setData("owner_id", userId)

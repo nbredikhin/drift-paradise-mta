@@ -32,6 +32,7 @@
 	<script type="server" src="server/vehicles/VehicleSpawn.lua"/>
 	<script type="server" src="server/vehicles/exports.lua"/>
 	<!-- Дома -->
+	<script type="server" src="server/houses/interiors_list.lua"/>
 	<script type="server" src="server/houses/houses_list.lua"/>
 	<script type="server" src="server/houses/Houses.lua"/>
 	<script type="server" src="server/houses/exports.lua"/>

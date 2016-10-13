@@ -92,11 +92,11 @@ local function updateSelectedPlayer()
 			return math.floor(tonumber(v) / 60) 
 		end)
 
-	ui.player.giveXP.enabled 	= not not player
-	ui.player.giveMoney.enabled = not not player
-	ui.player.setHouse.enabled  = not not player
-	ui.player.giveCar.enabled 	= not not player
-	ui.player.removeCar.enabled = false
+	ui.player.giveXP.enabled 	 = not not player
+	ui.player.giveMoney.enabled  = not not player
+	ui.player.resetHouse.enabled = not not player
+	ui.player.giveCar.enabled 	 = not not player
+	ui.player.removeCar.enabled  = false
 
 	ui.player.vehiclesCount.text = string.format("Garage cars: %s", defaultData(player, "garage_cars_count"))
 end
@@ -171,7 +171,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	y = y + buttonHeight
 	ui.player.giveMoney = GuiButton(x, y, buttonWidth, buttonHeight, "Give money", true, ui.panel)
 	y = y + buttonHeight
-	ui.player.setHouse = GuiButton(x, y, buttonWidth, buttonHeight, "Set house", true, ui.panel)
+	ui.player.resetHouse = GuiButton(x, y, buttonWidth, buttonHeight, "Reset house", true, ui.panel)
 	y = y + buttonHeight * 2
 	ui.player.banAccount = GuiButton(x, y, buttonWidth, buttonHeight, "Ban account", true, ui.panel)	
 	ui.player.banAccount.enabled = false
@@ -250,4 +250,16 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 			triggerServerEvent("dpAdmin.executeCommand", resourceRoot, "removecar", selectedPlayer, id)
 		end)
 	end, false)			
+
+	addEventHandler("onClientGUIClick", ui.player.resetHouse, function ()
+		if not selectedPlayer then
+			return
+		end
+		admin.ui.showConfirmWindow("Reset player house", "Are you sure?", function (accepted)
+			if not accepted then
+				return
+			end
+			triggerServerEvent("dpAdmin.executeCommand", resourceRoot, "removehouse", selectedPlayer)
+		end)
+	end, false)		
 end)

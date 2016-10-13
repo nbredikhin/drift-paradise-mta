@@ -13,6 +13,7 @@
 	<script type="client" src="client/ui/tabs/players.lua"/>
 	<script type="client" src="client/ui/tabs/server.lua"/>
 	<script type="client" src="client/ui/tabs/gift_keys.lua"/>
+	<script type="client" src="client/ui/tabs/houses.lua"/>
 	<!-- Server -->
 	<script type="server" src="server/utils.lua"/>
 	<script type="server" src="server/commands.lua"/>

@@ -10,9 +10,9 @@ local scriptString = [[    {
         data = {
             interior = %s,
             enter = {%s},
-            enter_rotation = {%s},
+            enter_rotation = %s,
             garage = {%s},
-            garage_rotation = {%s}
+            garage_rotation = %s
         }   
     },
 ]]

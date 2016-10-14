@@ -62,6 +62,9 @@ local function drawPlayer(player)
 end
 
 local function drawBlip(blip)
+	if blip:getData("hiddenOnWorldMap") then
+		return
+	end
 	local x, y, z = getElementPosition(blip)
 	x, y, z = MapWorld.convertPositionToMap(x, y, z)
 	x, y = getScreenFromWorldPosition(x, y, z)

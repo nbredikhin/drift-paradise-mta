@@ -10,6 +10,7 @@
 	<script type="client" src="client/garage_marker.lua"/>
 	<script type="client" src="client/house_entering.lua"/>
 	<script type="client" src="client/buying.lua"/>
+	<script type="client" src="client/houses_blips.lua"/>
 
 	<script type="server" src="server/house_entering.lua"/>
 	<script type="server" src="server/buying.lua"/>

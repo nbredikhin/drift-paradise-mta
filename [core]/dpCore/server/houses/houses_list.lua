@@ -18,4 +18,14 @@ housesList = {
             garage_rotation = 270
         }   
     },
+    {
+        price = 250,
+        data = {
+            interior = 3,
+            enter = {1859.7387695313,-1354.6580810547,13.549164772034},
+            enter_rotation = 91,
+            garage = {1852.1823730469,-1354.9884033203,13.391132354736},
+            garage_rotation = 1
+        }   
+    },    
 }

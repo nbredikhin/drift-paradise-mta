@@ -108,6 +108,11 @@ addEventHandler("dpMarkers.use", root, function ()
 	end
 end)
 
+addEvent("dpHouses.kickedFromHouse", true)
+addEventHandler("dpHouses.kickedFromHouse", resourceRoot, function ()
+	exports.dpHUD:setVisible(true)
+end)
+
 addEventHandler("onClientElementDataChange", root, function(dataName)
 	if source.type ~= "marker" then
 		return

@@ -16,7 +16,7 @@ local tuningFieldsList = {
 
     {data="WheelsAngleF",   type="ScrollBar"},
     {data="WheelsAngleR",   type="ScrollBar"},
-    {data="WheelsSize",     type="ScrollBar"},
+    {data="WheelsSize",     type="ScrollBar", default=0.6},
     {data="WheelsWidthF",   type="ScrollBar"},
     {data="WheelsWidthR",   type="ScrollBar"},
     {data="WheelsOffsetF",  type="ScrollBar"},
@@ -47,6 +47,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
         windowSize.y, 
         "Tuning editor", 
         false)
+    ui.window.visible = false
 
     local y = 0.05
     local x = 0.05
@@ -62,6 +63,9 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
             end
         elseif field.type == "ScrollBar" then
             guiElement = GuiScrollBar(x, y, width, 0.05, true, true, ui.window)
+            if field.default then
+                guiElement:setScrollPosition(100 * field.default)
+            end
         end
         y = y + 0.05
         if y > 0.9 then

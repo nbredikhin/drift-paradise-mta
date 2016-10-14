@@ -60,6 +60,7 @@ function removePlayerFromHouse(player, houseMarkerId)
 	player.position = position
 
 	player:setData("activeMap", false)
+	triggerClientEvent(player, "dpHouses.kickedFromHouse", resourceRoot)
 end
 
 addEvent("dpHouses.house_exit", true)

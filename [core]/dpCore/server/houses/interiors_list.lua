@@ -6,7 +6,9 @@ interiorsList[3] = {
     spawn_rotation = 180,
     -- Выход
     exit = {2496.0500, -1693.9260, 1014.5},
-    exit_rotation = 180
+    exit_rotation = 180,
+
+    rooms_count = 3,
 }
 
 interiorsList[2] = {
@@ -14,5 +16,7 @@ interiorsList[2] = {
     spawn_rotation = 90,
 
     exit = {225.756, 1240.000, 1082.1},
-    exit_rotation = 90           
+    exit_rotation = 90,
+
+    rooms_count = 3,   
 }

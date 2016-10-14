@@ -20,9 +20,11 @@ function BuyWindow.show(marker)
 	if not marker:getData("house_price") then
 		return
 	end
+	local houseData = marker:getData("house_data") or {}
+
 	showCursor(true)
 	-- TODO: Информация о количестве комнат
-	UI:setText(window.labels.rooms, "3")
+	UI:setText(window.labels.rooms, tostring(houseData.rooms_count or 3))
 	UI:setText(window.labels.price, exports.dpUtils:format_num(marker:getData("house_price"), 0, "$"))
 	-- TODO: Заполнить поля с информацией о доме
 	UI:setText(window.labels.tv, exports.dpLang:getString("houses_info_no"))

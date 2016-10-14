@@ -38,8 +38,8 @@ function WheelsScreen:init(wheelsSide)
 	end
 
 	local vehicle = GarageCar.getVehicle()
-	self.menu.bars[1].value = vehicle:getData(self.dataNames[1]) * 3
-	self.menu.bars[2].value = vehicle:getData(self.dataNames[2]) / (-20)
+	self.menu.bars[1].value = vehicle:getData(self.dataNames[1])
+	self.menu.bars[2].value = vehicle:getData(self.dataNames[2])
 	self.menu.bars[3].value = vehicle:getData(self.dataNames[3])
 
 	self.super:init()
@@ -79,11 +79,11 @@ function WheelsScreen:updatePreview()
 	local bar, value = self.menu:getBarValue()
 	local dataName = self.dataNames[bar]
 	if string.find(dataName, "WheelsOffset") then
-		value = value * 0.3
+		value = value
 	elseif string.find(dataName, "WheelsAngle") then
-		value = value * -20
+		value = value
 	elseif string.find(dataName, "WheelsWidth") then
-		value = value * 1
+		value = value
 	end
 	GarageCar.previewTuning(dataName, value)
 end

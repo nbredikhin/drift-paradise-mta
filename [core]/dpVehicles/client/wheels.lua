@@ -35,6 +35,13 @@ local dataNames = {
 local shaderReflectionTexture
 local wheelsHiddenPosition = Vector3(0, 0, -10)
 
+local WHEELS_SIZE_MIN = 0.55
+local WHEELS_SIZE_MAX = 0.75
+
+local WHEELS_RAZVAL_MAX = 16
+local WHEELS_WIDTH_MIN = 0.15
+local WHEELS_WIDTH_MAX = 0.62
+
 -- Удаление кастомных колёс и шейдера
 local function removeVehicleWheels(vehicle)
 	if not vehicleWheels[vehicle] then
@@ -75,9 +82,11 @@ local function updateVehicleWheels(vehicle)
 		-- Если кастомные колёса - применить настройки
 		if type(wheelId) == "number" and wheelId > 0 then
 			-- Получение параметров колеса из даты
-			local wheelSize = vehicle:getData("WheelsSize") or 0.7
-			wheelSize = math.max(0.1, wheelSize)
-			local wheelRazval = -10
+			local totalSize = WHEELS_SIZE_MAX - WHEELS_SIZE_MIN
+			local sizeMul = vehicle:getData("WheelsSize") or 0.5
+			local wheelSize = WHEELS_SIZE_MIN + totalSize * sizeMul
+
+			local wheelRazval = 10
 			local wheelWidth = 0.15
 			local wheelColor = {255, 255, 255}
 			if frontWheels[name] then
@@ -97,12 +106,12 @@ local function updateVehicleWheels(vehicle)
 			if isElement(wheel.object) then
 				wheel.object.alpha = 255
 				wheel.object.model = wheelsModels[wheelId]
-				wheel.object.scale = wheelSize
+				wheel.object.scale = wheelSize				
 			end
 			-- Обновить развал и толщину
 			if isElement(wheel.shader) then
-				wheel.shader:setValue("sRazval", wheelRazval)
-				wheel.shader:setValue("sWidth", wheelWidth)
+				wheel.shader:setValue("sRazval", -wheelRazval * WHEELS_RAZVAL_MAX)
+				wheel.shader:setValue("sWidth", WHEELS_WIDTH_MIN + wheelWidth * (WHEELS_WIDTH_MAX - WHEELS_WIDTH_MIN))
 				-- Цвет колеса
 				for i = 1, 3 do
 					wheelColor[i] = wheelColor[i] / 255 
@@ -265,7 +274,7 @@ addEventHandler("onClientPreRender", root, function ()
 					currentSteering = localVehicleSteering[name]
 				end
 				wheel.object.alpha = vehicle.alpha
-				wheel.object.position = position
+				wheel.object.position = position + Vector3(0, 0, (wheel.object.scale - WHEELS_SIZE_MIN - 0.1) * 0.5)
 				wheel.object.rotation = vehicle.rotation
 				if wheel.object.dimension ~= vehicle.dimension then
 					wheel.object.dimension = vehicle.dimension

@@ -4,6 +4,8 @@
 local frontWheels = {"wheel_lf_dummy", "wheel_rf_dummy"}
 local rearWheels = {"wheel_lb_dummy", "wheel_rb_dummy"}
 
+local WHEELS_OFFSET_MAX = 0.23
+
 local function updateVehicleWheelsOffset(vehicle)
 	-- Вынос передних колёс
 	local offsetFront = vehicle:getData("WheelsOffsetF")
@@ -14,7 +16,7 @@ local function updateVehicleWheelsOffset(vehicle)
 			end
 			vehicle:resetComponentPosition(name)
 			local x, y, z = vehicle:getComponentPosition(name)
-			local offsetMul = 1 + offsetFront
+			local offsetMul = 1 + offsetFront * WHEELS_OFFSET_MAX
 			vehicle:setComponentPosition(name, x * offsetMul, y, z)
 		end
 	end
@@ -27,7 +29,7 @@ local function updateVehicleWheelsOffset(vehicle)
 			end			
 			vehicle:resetComponentPosition(name)
 			local x, y, z = vehicle:getComponentPosition(name)
-			local offsetMul = 1 + offsetRear
+			local offsetMul = 1 + offsetRear * WHEELS_OFFSET_MAX
 			vehicle:setComponentPosition(name, x * offsetMul, y, z)
 		end
 	end

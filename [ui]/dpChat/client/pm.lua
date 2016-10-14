@@ -96,6 +96,7 @@ addEventHandler("dpChat.pm", root, function (player, message)
 	local tabName = TAB_NAME_PREFIX .. tostring(playerId)
 	if not Chat.getTabFromName(tabName) then
 		Chat.createTab(tabName, player.name, false)
+		setWindowFlashing(true)
 	end
 	if message then
 		Chat.message(tabName, player.name .. "#FFFFFF: " .. tostring(message))

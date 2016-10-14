@@ -40,6 +40,13 @@ addCommand("removecar", function (player, id)
 	return exports.dpCore:removePlayerVehicle(player, id)
 end)
 
+addCommand("sethouse", function (player, id)
+	if not tonumber(id) then
+		return false
+	end
+	return exports.dpCore:setPlayerHouse(player, tonumber(id))
+end)
+
 addCommand("removehouse", function (player)
 	return exports.dpCore:removePlayerHouse(player)
 end)

@@ -69,6 +69,7 @@
 	<export type="server" function="removePlayerVehicle"/>
 	<export type="server" function="getVehicleById"/>
 	<!-- Функции для работы с домами -->
+	<export type="server" function="setPlayerHouse"/>
 	<export type="server" function="buyPlayerHouse"/>
 	<export type="server" function="removePlayerHouse"/>
 	<!-- Функции для работы с подарочными ключами -->

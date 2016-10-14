@@ -171,6 +171,8 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	y = y + buttonHeight
 	ui.player.giveMoney = GuiButton(x, y, buttonWidth, buttonHeight, "Give money", true, ui.panel)
 	y = y + buttonHeight
+	ui.player.setHouse = GuiButton(x, y, buttonWidth, buttonHeight, "Set house", true, ui.panel)	
+	y = y + buttonHeight
 	ui.player.resetHouse = GuiButton(x, y, buttonWidth, buttonHeight, "Reset house", true, ui.panel)
 	y = y + buttonHeight * 2
 	ui.player.banAccount = GuiButton(x, y, buttonWidth, buttonHeight, "Ban account", true, ui.panel)	
@@ -250,6 +252,22 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 			triggerServerEvent("dpAdmin.executeCommand", resourceRoot, "removecar", selectedPlayer, id)
 		end)
 	end, false)			
+
+	addEventHandler("onClientGUIClick", ui.player.setHouse, function ()
+		if not selectedPlayer then
+			return
+		end
+		if not localPlayer:getData("dpHouses.standingOnHouseId") then
+			return
+		end
+		admin.ui.showConfirmWindow("Set player house", "Are you sure?", function (accepted)
+			if not accepted then
+				return
+			end
+			local id = localPlayer:getData("dpHouses.standingOnHouseId")
+			triggerServerEvent("dpAdmin.executeCommand", resourceRoot, "sethouse", selectedPlayer, tonumber(id))
+		end)
+	end, false)	
 
 	addEventHandler("onClientGUIClick", ui.player.resetHouse, function ()
 		if not selectedPlayer then

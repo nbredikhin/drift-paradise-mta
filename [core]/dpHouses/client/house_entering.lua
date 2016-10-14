@@ -52,6 +52,7 @@ addEventHandler("dpMarkers.enter", root, function ()
 		local playerId = localPlayer:getData("_id")
 		local houseId = localPlayer:getData("house_id")
 		local ownerId = marker:getData("owner_id")
+
 		if not ownerId and houseId then
 			marker:setData("dpMarkers.text", "", false)
 		elseif ownerId and ownerId ~= playerId then
@@ -63,6 +64,7 @@ addEventHandler("dpMarkers.enter", root, function ()
 				marker:setData("dpMarkers.text", exports.dpLang:getString("markers_house_enter_text"), false)
 			end
 		elseif not ownerId and not houseId then
+			localPlayer:setData("dpHouses.standingOnHouseId", marker:getData("_id"))
 			marker:setData("dpMarkers.text", "markers_house_buy_text", false)
 		else
 			marker:setData("dpMarkers.text", exports.dpLang:getString("markers_house_enter_text"), false)

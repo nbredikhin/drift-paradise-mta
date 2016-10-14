@@ -82,6 +82,45 @@ function Houses.setup()
 	end)
 end
 
+function Houses.setPlayerHouse(player, houseId)
+	if not isElement(player) then
+		return false
+	end
+	local playerId = player:getData("_id")
+	if not playerId then
+		outputDebugString("Houses.setPlayerHouse: not authorized")
+		return false
+	end
+	if not houseId then
+		return
+	end
+	if player:getData("house_id") then
+		-- Уже есть дом
+		return false
+	end
+	return DatabaseTable.select(HOUSES_TABLE_NAME, {}, {_id = houseId}, function (house)
+		if type(house) ~= "table" then
+			-- Дом не найден
+			return
+		end
+		if not house[1] then
+			-- Дом не найден
+			return
+		end
+		house = house[1]
+
+		if house.owner_id then
+			-- Уже есть владелец
+			return
+		end
+		DatabaseTable.update(HOUSES_TABLE_NAME, {owner_id = playerId}, {_id = house._id}, function(result)
+			if result then
+				Houses.setupPlayerHouseData(player)
+			end
+		end)
+	end)
+end
+
 function Houses.buyPlayerHouse(player, houseId)
 	if not isElement(player) then
 		return false

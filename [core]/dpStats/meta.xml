@@ -1,4 +1,8 @@
 <meta>
 	<!-- Ресурс для сбора статистики сервера -->
 	<oop>true</oop>
+    
+    <script type="shared" src="shared/utils.lua"/>
+    <script type="server" src="server/StatsManager.lua"/>
+    <script type="server" src="server/stats/players_online.lua"/>
 </meta>

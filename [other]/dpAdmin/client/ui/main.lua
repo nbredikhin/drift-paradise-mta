@@ -12,6 +12,7 @@ addEvent("dpAdmin.panelClosed", false)
 function admin.ui.addTab(name, label)
 	local tab = GuiTab(label, ui.tabPanel)
 	tab.id = "dpAdminTab_" .. name
+	tab:setData("tabName", name)
 	return tab
 end
 
@@ -21,6 +22,18 @@ function admin.ui.getTab(name)
 		return false
 	end
 	return Element.getByID("dpAdminTab_" .. name)
+end
+
+function admin.isPanelVisible()
+	return not not ui.window.visible
+end
+
+function admin.getActiveTab()
+	return ui.tabPanel.selectedTab:getData("tabName")
+end
+
+function admin.getWindow()
+	return ui.window
 end
 
 function admin.togglePanel()

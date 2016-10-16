@@ -111,6 +111,10 @@ function GarageCar.getVehicle()
 	return vehicle
 end
 
+function GarageCar.getVehicleModel()
+	return vehiclesList[currentVehicle].model
+end
+
 function GarageCar.getCarsCount()
 	return #vehiclesList
 end

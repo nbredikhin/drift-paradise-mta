@@ -33,7 +33,7 @@ local function draw()
 	local timeLeft = getTimerDetails(acceptTimer)
 	timeLeft = math.floor(timeLeft / 1000)
 
-	local str = string.format(exports.dpLang:getString("duel_accept_message"), tostring(targetPlayer.name), tostring(currentBet), tostring(timeLeft))
+	local str = string.format(exports.dpLang:getString("duel_accept_message"), exports.dpUtils:removeHexFromString(tostring(targetPlayer.name)), tostring(currentBet), tostring(timeLeft))
 	dxDrawText(str, x, y, x + panelWidth, y + panelHeight - buttonsHeight, tocolor(0, 0, 0, alpha), 1, font, "center", "center", false, true)
 	y = y + panelHeight - buttonsHeight
 	dxDrawRectangle(x, y, panelWidth / 2, buttonsHeight, tocolor(42, 40, 41, alpha))

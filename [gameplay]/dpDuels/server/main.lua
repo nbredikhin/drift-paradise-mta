@@ -1,5 +1,5 @@
 -- Максимальное количество чекпойнтов в дуэли
-local DUEL_CHECKPOINTS_COUNT = 1
+local DUEL_CHECKPOINTS_COUNT = 15
 -- Максимальная длительность дуэли в секундах
 local DUEL_DURATION = 180
 
@@ -63,7 +63,8 @@ function startDuel(player1, player2, bet)
 
 	activeDuels[race] = {
 		players = {player1, player2},
-		bet = bet
+		bet = bet,
+		race = race
 	}
 
 	setTimer(function () 
@@ -82,22 +83,22 @@ end)
 
 addEvent("RaceDuel.duelFinished", false)
 addEventHandler("RaceDuel.duelFinished", root, function (player, timePassed)
-	if not isElement(player) then
-		return false
-	end
 	local duel = activeDuels[source]
 	if not duel then
 		outputDebugString("Duel finished, but not active")
 		return false
 	end
-	exports.dpCore:givePlayerMoney(player, duel.bet * 2)
-	exports.dpVehicles:unforceVehicleHandling(player.vehicle)
+	if players then
+		exports.dpCore:givePlayerMoney(player, duel.bet * 2)
+		exports.dpVehicles:unforceVehicleHandling(player.vehicle)
+	end
 	for i, p in ipairs(duel.players) do
 		if isElement(p) then
 			exports.dpVehicles:unforceVehicleHandling(p.vehicle)
 			triggerClientEvent(p, "dpDuels.showWinner", resourceRoot, player, duel.bet * 2, timePassed)
 		end
 	end
+	exports.dpRaceManager:destroyRace(duel.race)
 end)
 
 addEvent("dpRaceManager.raceDestroyed", false)

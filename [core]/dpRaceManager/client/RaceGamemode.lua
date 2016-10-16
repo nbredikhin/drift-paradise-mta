@@ -5,7 +5,7 @@ function RaceGamemode:init()
 end
 
 function RaceGamemode:checkpointHit(checkpointId)
-	localPlayer:setData("Race.currentCheckpoint", checkpointId)
+	localPlayer:setData("Race.currentCheckpoint", checkpointId, true)
 end
 
 function RaceGamemode:updatePosition()
@@ -19,14 +19,16 @@ function RaceGamemode:updatePosition()
 
 	local rank = 1
 	for i, player in ipairs(players) do
-		local playerCheckpoint = player:getData("Race.currentCheckpoint")
-		if type(playerCheckpoint) == "number" then
-			if playerCheckpoint > currentCheckpoint then
-				rank = rank + 1
-			elseif currentCheckpoint == playerCheckpoint then
-				local distance = (checkpointPosition - player.position):getLength()
-				if distance < myDistance then
+		if player ~= localPlayer then
+			local playerCheckpoint = player:getData("Race.currentCheckpoint")
+			if type(playerCheckpoint) == "number" then
+				if playerCheckpoint > currentCheckpoint then
 					rank = rank + 1
+				elseif currentCheckpoint == playerCheckpoint then
+					local distance = (checkpointPosition - player.position):getLength()
+					if distance < myDistance then
+						rank = rank + 1
+					end
 				end
 			end
 		end
@@ -85,6 +87,9 @@ end
 
 function RaceGamemode:raceStarted(source)
 	-- Начало гонки. Разморозка игроков, появление чекпойнтов
+	-- Сбросить текущий чекпойнт
+	localPlayer:setData("Race.currentCheckpoint", RaceCheckpoints.getCurrentCheckpoint(), true)
+	-- Запустить GUI таймера
 	RaceTimer.start()
 end
 

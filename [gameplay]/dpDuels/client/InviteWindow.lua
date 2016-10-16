@@ -40,7 +40,7 @@ function InviteWindow.show(player)
 
 	UI:setText(ui.mainLabel, string.format(
 		exports.dpLang:getString("duel_invite_duel_with"),
-		tostring(targetPlayer.name)))
+		exports.dpUtils:removeHexFromString(tostring(targetPlayer.name))))
 	UI:setText(ui.betInput, tostring(tonumber(exports.dpShared:getEconomicsProperty("duel_bet_min"))))
 	InviteWindow.setVisible(true)
 end

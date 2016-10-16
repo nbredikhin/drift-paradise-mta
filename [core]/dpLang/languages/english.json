@@ -428,6 +428,7 @@
 	"duel_winner_screen_you_lost": "You lost",
 	"duel_winner_screen_prize": "Prize",
 	"duel_winner_screen_time": "Time",	
+	"duel_winner_screen_timeout": "Time is out!",	
 
 	// Handling switching
 	"handling_switching_message_drift": "Switching to Drift mode...",

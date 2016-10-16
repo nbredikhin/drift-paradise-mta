@@ -21,8 +21,7 @@ function MainScreen:init(item)
 		0
 	)		
 	self.carNamePanel.text = ""
-
-	self:updateCarName()
+	
 	local this = self
 	setTimer(function()
 		this:updateCarName()
@@ -39,7 +38,7 @@ function MainScreen:updateCarName()
 	if not isElement(GarageCar.getVehicle()) then
 		return
 	end
-	self.carNamePanel.text = exports.dpShared:getVehicleReadableName(GarageCar.getVehicle().model)
+	self.carNamePanel.text = exports.dpShared:getVehicleReadableName(GarageCar.getVehicleModel())
 end
 
 function MainScreen:hide()

@@ -7,6 +7,8 @@ RaceClient.settings = {}
 RaceClient.map = {}
 
 local raceDimension = 0
+
+local UPDATE_INTERVAL = 1000
 local updateTimer
 
 addEvent("Race.addedToRace", true)
@@ -86,7 +88,7 @@ function RaceClient.startRace(raceElement, settings, map)
 	gamemode:addEventHandler("Race.playerRemoved", 	RaceClient.raceElement, gamemode.playerRemoved)
 	RaceClient.gamemode = gamemode
 
-	updateTimer = setTimer(update, 1000, 0)
+	updateTimer = setTimer(update, UPDATE_INTERVAL, 0)
 	outputDebugString("Client race started")
 end
 

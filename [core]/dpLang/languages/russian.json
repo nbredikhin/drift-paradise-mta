@@ -403,6 +403,7 @@
 	"duel_winner_screen_you_lost": "Вы проиграли!",
 	"duel_winner_screen_prize": "Выигрыш",
 	"duel_winner_screen_time": "Время",
+	"duel_winner_screen_timeout": "Время вышло!",
 
 	// Handling switching
 	"handling_switching_message_drift": "Включение Дрифт-режима...",

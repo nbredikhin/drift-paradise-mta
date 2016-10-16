@@ -14,9 +14,7 @@ function Duel:raceFinished(timeout)
 	self.super:raceFinished(timeout)
 	
 	if timeout then
-		for i, player in ipairs(self.race:getPlayers()) do
-			self.race:removePlayer(player)
-		end
+		triggerEvent("RaceDuel.duelFinished", self.race.element, false, self:getTimePassed())
 	end
 end
 

@@ -62,14 +62,20 @@ end
 function WinnerScreen.show(player, bet, timePassed)
 	themeColorHEX = exports.dpUtils:RGBToHex(exports.dpUI:getThemeColor())
 
-	local timeString = exports.dpLang:getString("duel_winner_screen_time") .. ": " .. themeColorHEX .. tostring(getTimeString(math.floor(timePassed / 1000)))
-	if player == localPlayer then
+	local timeString = ""
+	if type(timePassed) == "number" then
+		timeString = exports.dpLang:getString("duel_winner_screen_time") .. ": " .. themeColorHEX .. tostring(getTimeString(math.floor(timePassed / 1000)))
+	end
+	if player and player == localPlayer then
 		mainText = exports.dpLang:getString("duel_winner_screen_you_won")
 		moneyText = exports.dpLang:getString("duel_winner_screen_prize") .. ": " .. themeColorHEX .. "$" .. tostring(bet) 
 		infoText = timeString
-	else
+	elseif player and player ~= localPlayer then
 		mainText = exports.dpLang:getString("duel_winner_screen_you_lost")
 		moneyText = timeString
+	elseif not player then
+		mainText = exports.dpLang:getString("duel_winner_screen_timeout")
+		moneyText = ""
 	end
 	WinnerScreen.start()
 end
@@ -113,8 +119,5 @@ end
 
 addEvent("dpDuels.showWinner", true)
 addEventHandler("dpDuels.showWinner", resourceRoot, function(winner, bet, timePassed)
-	if not isElement(winner) then
-		return
-	end
 	WinnerScreen.show(winner, bet, timePassed)
 end)

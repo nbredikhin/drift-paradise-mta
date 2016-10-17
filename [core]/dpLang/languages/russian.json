@@ -13,6 +13,11 @@
 	"skin_select_text": "Выберите персонажа",
 	"player_level": "Уровень",
 
+	"race_type_drift": "Дрифт",
+	"race_type_drag": "Драг",
+	"race_type_sprint": "Спринт",
+	"race_type_circle": "Кольцо",
+
 	"quit_reason_unknown": "выход",
 	"quit_reason_quit": "выход",
 	"quit_reason_kicked": "kick",
@@ -249,6 +254,7 @@
 	"markers_house_knock_text": "Нажмите %q чтобы постучаться в дверь",
 	"markers_house_buy_text": "Нажмите %q чтобы открыть меню покупки дома",
 	"markers_strip_enter_text": "Нажмите %q чтобы войти в стрипклуб",
+	"markers_race_enter_text": "Нажмите %q чтобы войти в лобби",
 
 	// House system
 	"houses_info_price": "Цена",
@@ -420,4 +426,14 @@
 	"gift_key_message_title": "Подарочный ключ",
 	"gift_key_message_fail": "Не удалось активировать данный ключ",
 	"gift_key_message_success": "Вы успешно активировали свой подарочный ключ!",	
+
+	// Lobby screen
+	"lobby_screen_field_title": "Гонка",
+
+	"lobby_screen_field_prize": "Деньги за победу",
+	"lobby_screen_field_xp": "Опыт за победу",
+	"lobby_screen_field_players": "Игроки в лобби",
+	"lobby_screen_field_class": "Класс автомобиля",
+
+	"lobby_screen_enter_button": "Войти",
 }

@@ -5,7 +5,7 @@ local height = 380
 local panel
 -- Табы
 local TABS_HEIGHT = 50
-local tabsNames = {"account", "teleport", "settings", "garage", "races"}
+local tabsNames = {"account", "teleport", "settings", "garage"}
 local tabsButtons = {}
 local tabs = {}
 local tabsHandlers = {}
@@ -133,11 +133,6 @@ tabsHandlers.garage = function ()
 	exports.dpGarage:enterGarage()
 	localPlayer:setData("dpCore.state", "loading_garage", false)
 	Panel.setVisible(false)
-end
-
-tabsHandlers.races = function ()
-	Panel.setVisible(false)
-	exports.dpRaceLobby:setVisible(true)
 end
 
 tabsHandlers.teleport = function ()

@@ -10,7 +10,14 @@ function createMarker(markerType, position, direction)
 	if type(direction) ~= "number" then
 		direction = 0
 	end
-	local marker = Marker(position, "cylinder", MARKER_COLLISION_RADIUS, 0, 0, 0, 0)
+	local radius = getMarkerProperties(markerType).iconSize
+	if radius then
+		radius = radius * 0.5
+	else
+		radius = MARKER_COLLISION_RADIUS
+	end
+
+	local marker = Marker(position, "cylinder", radius, 0, 0, 0, 0)
 	marker:setData("dpMarkers.type", markerType)
 	if isElement(sourceResourceRoot) then
 		if not markersByResource[sourceResourceRoot] then

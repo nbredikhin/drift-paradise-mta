@@ -13,7 +13,6 @@ local MARKER_TEXT_ANIMATION_SIZE = 0.1
 local MARKER_TEXT_OFFSET = Vector3(0, 0, 2)
 
 local markersToDraw = {}
-local markerTypes = {}
 
 -- Текст на экране
 local screenTextFont
@@ -23,6 +22,7 @@ local screenTextBottomOffset = 60
 local currentMarker
 local markerKey = "g"
 
+local markerTypes = {}
 markerTypes.garage = {
 	color = {212, 0, 40},
 	icon = "assets/garage_icon.png",
@@ -60,11 +60,24 @@ markerTypes.stripclub = {
 	string = "markers_strip_enter_text"
 }
 
+markerTypes.race = {
+	color = {255, 255, 255},
+	icon = "assets/race_icon.png",
+	iconSize = 12.5,
+	text = "assets/race_text.png",
+	string = "markers_race_enter_text",
+	noPaint = true
+}
+
 markerTypes.exit = {
 	color = {212, 0, 40},
 	text = "assets/exit_icon.png",
 	string = "markers_house_exit_text"
 }
+
+function getMarkerProperties(type)
+	return markerTypes[type]
+end
 
 local function dxDrawShadowText(text, x1, y1, x2, y2, color, scale, font, alignX, alignY)
 	dxDrawText(text, x1 - 1, y1, x2 - 1, y2, tocolor(0, 0, 0, 150), scale, font, alignX, alignY)
@@ -123,12 +136,14 @@ local function drawMarker(marker)
 	if localPlayer:isWithinMarker(marker) or 
 		(localPlayer.vehicle and localPlayer.vehicle:isWithinMarker(marker))
 	then
-		color = {
-			232 + math.sin(t * MARKER_ANIMATION_SPEED) * 23, 
-			20 + math.sin(t * MARKER_ANIMATION_SPEED) * 20,
-			60 + math.sin(t * MARKER_ANIMATION_SPEED) * 30,
-			255
-		}
+		if not markerProperties.noPaint then
+			color = {
+				232 + math.sin(t * MARKER_ANIMATION_SPEED) * 23, 
+				20 + math.sin(t * MARKER_ANIMATION_SPEED) * 20,
+				60 + math.sin(t * MARKER_ANIMATION_SPEED) * 30,
+				255
+			}
+		end
 		local markerText = marker:getData("dpMarkers.text")
 		if not markerText then
 			markerText = markerProperties.string

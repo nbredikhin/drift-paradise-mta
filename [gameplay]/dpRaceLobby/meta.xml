@@ -4,6 +4,8 @@
 	<script type="shared" src="shared/GlobalConfig.lua"/>
 	<!-- Client -->
 	<script type="client" src="client/SearchScreen.lua"/>
+	<script type="client" src="client/LobbyScreen.lua"/>
+	<script type="client" src="client/race_markers.lua"/>
 	<!-- Server -->
 	<script type="server" src="server/RaceManager.lua"/>
 	<script type="server" src="server/Matchmaking.lua"/>

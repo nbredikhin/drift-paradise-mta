@@ -71,6 +71,13 @@ local function drawBlip(blip)
 	if x then
 		local textX, textY = x, y - BLIP_SIZE - BLIP_NAME_OFFSET
 		local blipText = blip:getData("text")
+		local blipColor = blip:getData("color")
+		if blipColor == "primary" then
+			blipColor = themePrimaryColor
+		end
+		if not blipColor then
+			blipColor = {255, 255, 255}
+		end
 		if blipText then
 			blipText = exports.dpLang:getString(blipText)
 			dxDrawText(
@@ -85,7 +92,7 @@ local function drawBlip(blip)
 				blipText, 
 				textX, textY, 
 				textX, textY, 
-				tocolor(255, 255, 255, 255 * cameraHeightMul), 
+				tocolor(blipColor[1], blipColor[2], blipColor[3], 255 * cameraHeightMul), 
 				BLIP_NAME_SCALE, 
 				"default", "center", "center"
 			)
@@ -96,7 +103,7 @@ local function drawBlip(blip)
 			BLIP_SIZE, BLIP_SIZE, 
 			textures.blip, 
 			0, 0, 0,
-			tocolor(255, 255, 255)
+			tocolor(blipColor[1], blipColor[2], blipColor[3])
 		)
 	end
 end

@@ -1,6 +1,9 @@
 function createRaceMarker(position, gamemode)
     local marker = exports.dpMarkers:createMarker("race", position - Vector3(0, 0, 0.9), 180)
-    
+    local blip = createBlip(0, 0, 0, 33)
+    blip:attach(marker)
+    blip:setData("color", "primary")
+    blip:setData("text", "race_type_drift")
     return marker
 end
 

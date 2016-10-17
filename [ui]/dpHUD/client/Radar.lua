@@ -36,7 +36,8 @@ local allowedIcons = {
 	[27] = true, 
 	[21] = true, 
 	[55] = true,
-	[31] = true
+	[31] = true,
+	[33] = true
 }
 local blipTextures = {}
 

@@ -1,0 +1,20 @@
+{
+    "resourcePrefix": "dp",
+
+    "enableScriptCache": false,
+    "enableShaderCache": false,
+    "enableCompilation": false,
+    "enablePathEncrypt": true, 
+    "enableReadmeFiles": true,
+
+    "only": [],
+    "include": [
+        "geoip",
+        "blur_box",
+        "car_reflections",
+        "water_reflections",
+        "dynamic_lighting",
+        "dynamic_lighting_vehicles",
+        "shader_dynamic_sky"
+    ]
+}

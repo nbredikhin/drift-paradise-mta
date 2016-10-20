@@ -3,7 +3,10 @@ StatsManager = {}
 local statsSources = {}
 
 local function getStats(name)
-    local path = "data/" .. tostring(name)
+    local path = "data/" .. tostring(name) .. ".json"
+    if not fileExists(path) then
+        return {}
+    end
     local file = fileOpen(path)
     data = fromJSON(tostring(file:read(file.size)))
     file:close()
@@ -11,7 +14,7 @@ local function getStats(name)
 end
 
 local function putStatsValue(name, value, maxCount)
-    local path = "data/" .. tostring(name)
+    local path = "data/" .. tostring(name) .. ".json"
     local data = {}
     if fileExists(path) then
         data = getStats(name)

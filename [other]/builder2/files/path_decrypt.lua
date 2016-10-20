@@ -28,6 +28,9 @@
         local fn = _G[name]
         if fn then
             _G[name] = function (path, ...)
+                if type(path) ~= "string" then
+                    return fn(path, ...)
+                end
                 for i,p in ipairs(excludePaths) do
                     if string.find(path, p) then
                         return fn(path, ...)

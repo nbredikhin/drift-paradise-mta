@@ -8,7 +8,7 @@
     "enableExportEncrypt": true, 
     "enableReadmeFiles": false,
 
-    "only": [],
+    "only": ["dpStats"],
     "include": [
         "geoip",
         "blur_box",

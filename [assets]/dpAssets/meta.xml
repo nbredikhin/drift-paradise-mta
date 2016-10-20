@@ -12,8 +12,8 @@
 	<export type="client" function="createTextureCached"/>
 	<export type="client" function="createFontCached"/>
 
-	<file src="assets/shaders/include/tex_matrix.fx"/>
-	<file src="assets/shaders/include/texture.fx"/>
+	<file src="assets/shaders/tex_matrix.fx"/>
+	<file src="assets/shaders/texture.fx"/>
 	<file src="assets/shaders/mask3d.fx"/>
 	<file src="assets/shaders/texture3d.fx"/>
 	<file src="assets/shaders/texture_replace.fx"/>

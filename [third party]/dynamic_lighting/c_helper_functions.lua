@@ -159,12 +159,12 @@ function createLightShaderFiles(currLightNr, currVertLightNr, isLayer, isWrdSobe
 	-- due to instruction limit for sm2.0 we need to restrict vehicle specular when using nightMod or vertex lights
 	if (not isSM3 and not isLayer[2] and (isNightMod or isDirLight or isDiffuse or isNightSpot)) then isTex1 = false end
 	if currLightNr > 0 then
-		isValid = createEffectFile('shaders/dynamic_wrd.fx', currLightNr, currVertLightNr, isLayer[1], isWrdSobel, isNightMod, false, isShading[1], isDirLight, isDiffuse, false, false, isNightSpot, isForceVertex[1]) and isValid
+		isValid = createEffectFile('dynamic_wrd.fx', currLightNr, currVertLightNr, isLayer[1], isWrdSobel, isNightMod, false, isShading[1], isDirLight, isDiffuse, false, false, isNightSpot, isForceVertex[1]) and isValid
 	else
-		isValid = createEffectFile('shaders/dynamic_wrd.fx', currLightNr, currVertLightNr, isLayer[1], false, isNightMod, false, isShading[1], isDirLight, isDiffuse, false, false, isNightSpot, isForceVertex[1]) and isValid
+		isValid = createEffectFile('dynamic_wrd.fx', currLightNr, currVertLightNr, isLayer[1], false, isNightMod, false, isShading[1], isDirLight, isDiffuse, false, false, isNightSpot, isForceVertex[1]) and isValid
 	end
-	isValid = createEffectFile('shaders/dynamic_veh.fx', currLightNr, currVertLightNr, isLayer[2], false, isNightMod, true, isShading[2], isDirLight, isDiffuse, true, isTex1, isNightSpot, isForceVertex[2]) and isValid
-	isValid = createEffectFile('shaders/dynamic_ped.fx', currLightNr, currVertLightNr, isLayer[3], false, isNightMod, isPedDiffuse, isShading[3], isDirLight, isDiffuse, false, false, isNightSpot, isForceVertex[3]) and isValid
+	isValid = createEffectFile('dynamic_veh.fx', currLightNr, currVertLightNr, isLayer[2], false, isNightMod, true, isShading[2], isDirLight, isDiffuse, true, isTex1, isNightSpot, isForceVertex[2]) and isValid
+	isValid = createEffectFile('dynamic_ped.fx', currLightNr, currVertLightNr, isLayer[3], false, isNightMod, isPedDiffuse, isShading[3], isDirLight, isDiffuse, false, false, isNightSpot, isForceVertex[3]) and isValid
 	if isValid then
 		outputDebugString('Created effects for: '..(currLightNr+1)..' lights.')
 		outputDebugString('Pixel lights: '..(currLightNr+1-currVertLightNr)..' Vertex lighs: '..currVertLightNr)
@@ -198,11 +198,11 @@ function createEffectFile(filePath, lightNr, verLightNr, isLayer, isSobel, isNig
 			writeFileLine( theFile, ' bool gNightSpotEnable = false;\n float3 gNightSpotPosition = float3(0,0,0);\n float gNightSpotRadius = 0; ')
 		end		
 		writeFileLine( theFile, ' float4x4 gWorld : WORLD;\n float4x4 gView : VIEW;\n float4x4 gProjection : PROJECTION;\n float4x4 gWorldViewProjection : WORLDVIEWPROJECTION;\n float4x4 gWorldInverseTranspose : WORLDINVERSETRANSPOSE;\n float3 gCameraPosition : CAMERAPOSITION; ')
-		writeFileLine( theFile, ' #include \"common.txt\" ')
+		writeFileLine( theFile, ' #include \"common.fx\" ')
 		if isShading then
-			writeFileLine( theFile, ' #include \"light1.txt\" ')
+			writeFileLine( theFile, ' #include \"light1.fx\" ')
 		else
-			writeFileLine( theFile, ' #include \"light0.txt\" ')
+			writeFileLine( theFile, ' #include \"light0.fx\" ')
 		end
 		writeFileLine( theFile, ' texture gTexture0 < string textureState="0,Texture"; >;\n sampler Sampler0 = sampler_state\n {\n Texture = (gTexture0);\n };\n  texture gTexture1 < string textureState="1,Texture"; >;\n sampler Sampler1 = sampler_state\n {\n Texture = (gTexture1);\n }; ')
 		writeFileLine( theFile, ' struct VSInput{\n float4 Position : POSITION0;\n float3 TexCoord : TEXCOORD0;\n float2 TexCoord1 : TEXCOORD1;\n float4 Normal : NORMAL0;\n float4 Diffuse : COLOR0;\n }; ')

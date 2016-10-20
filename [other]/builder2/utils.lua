@@ -8,6 +8,22 @@ function print(...)
         end
     end
     outputDebugString(output)
+    outputChatBox(output)
+end
+
+function arrayToString(array)
+    local str = "{"
+    for i, v in ipairs(array) do
+        if type(v) == "number" or type(v) == "boolean" then
+            str = str .. tostring(v)
+        else
+            str = str .. "\"" .. tostring(v) .. "\""
+        end
+        if i < #array then
+            str = str .. ","
+        end
+    end
+    return str .. "}"
 end
 
 function defaultValue(value, default)

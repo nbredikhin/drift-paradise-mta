@@ -3,9 +3,9 @@
 	<script src="c_main.lua" type="client" />
 	<script src="c_helper_functions.lua" type="client" />
 	<script src="c_exported_functions.lua" type="client" />
-	<file src="shaders/light1.txt" type="client" />
-	<file src="shaders/light0.txt" type="client" />
-	<file src="shaders/common.txt" type="client" />
+	<file src="light1.fx" type="client" />
+	<file src="light0.fx" type="client" />
+	<file src="common.fx" type="client" />
 	<export function="createPointLight" type="client" />
 	<export function="createSpotLight" type="client" />
 	<export function="destroyLight" type="client" />

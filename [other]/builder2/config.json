@@ -5,7 +5,8 @@
     "enableShaderCache": false,
     "enableCompilation": false,
     "enablePathEncrypt": true, 
-    "enableReadmeFiles": true,
+    "enableExportEncrypt": true, 
+    "enableReadmeFiles": false,
 
     "only": [],
     "include": [
@@ -16,5 +17,16 @@
         "dynamic_lighting",
         "dynamic_lighting_vehicles",
         "shader_dynamic_sky"
+    ],
+
+    "pathEncryptExclude": [
+        "mta-helper.fx",
+        "tex_matrix.fx",
+        "light1.fx",
+        "light0.fx",
+        "common.fx",
+        ".json",
+        ".txt",
+        "@"
     ]
 }

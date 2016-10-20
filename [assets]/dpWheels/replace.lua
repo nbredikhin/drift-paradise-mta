@@ -15,7 +15,7 @@ local wheels = {
 	[1074] = "wheel_sr3.dff", 
 	[1081] = "wheel_sr4.dff", 
 	[1080] = "wheel_sr5.dff", 
-	[1073] = "wheel_sr6.dff", 
+	-- [1073] = "wheel_sr6.dff", 
 }
 
 function replaceModel()

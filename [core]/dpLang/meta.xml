@@ -1,8 +1,7 @@
 <meta>
 	<oop>true</oop>
 	<download_priority_group>5</download_priority_group>
-
-	<script type="shared" src="shared/import.lua"/>
+	
 	<script type="shared" src="shared/Locales.lua"/>
 	<script type="client" src="client/Language.lua"/>
 	<script type="client" src="client/exports.lua"/>

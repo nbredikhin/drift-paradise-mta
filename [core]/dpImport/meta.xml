@@ -1,8 +1,0 @@
-<meta>
-	<oop>true</oop>
-
-	<download_priority_group>100</download_priority_group>
-
-	<script src="import.lua" type="shared"/>
-	<export function="get" type="shared"/>
-</meta>

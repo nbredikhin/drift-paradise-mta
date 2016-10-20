@@ -23,6 +23,12 @@ local function compileScript(path)
     end, data, false)
 end
 
+local function isPathExcluded(path)
+    return underscore.any(config.pathEncryptExclude, function (pattern)
+        return not not string.find(path, pattern, 1, true)
+    end)
+end
+
 local function processResource(resource)
     local resourcePath = ":" .. resource.name .. "/"
     local resourceMeta = XML.load(resourcePath .. "meta.xml")
@@ -30,8 +36,6 @@ local function processResource(resource)
         print("Failed to open resource '" .. tostring(resource.name) .. "'")
         return
     end
-    local buildPath = "build/" .. resource.name .. "/" 
-    local buildMeta = XML(buildPath .. "meta.xml", "meta")
 
     local concatScripts = {
         client = "",
@@ -39,9 +43,16 @@ local function processResource(resource)
         shared = ""
     }
 
+    local buildPath = "build/" .. resource.name .. "/" 
     if config.enablePathEncrypt then
-        concatScripts.shared = concatScripts.shared .. loadFile("files/path_decrypt.lua") .. "\n\n"
+        concatScripts.shared = concatScripts.shared .. "_exclude_paths=" .. arrayToString(config.pathEncryptExclude) .. ";\n"
+        concatScripts.shared = concatScripts.shared .. loadFile("files/path_decrypt.lua") .. "\n\n"        
     end
+    if config.enableExportEncrypt then
+        buildPath = "build/" .. md5(resource.name) .. "/"
+        concatScripts.shared = concatScripts.shared .. loadFile("files/export_decrypt.lua") .. "\n\n"
+    end
+    local buildMeta = XML(buildPath .. "meta.xml", "meta")    
 
     local resourceHasClientFiles = false
     underscore.each(resourceMeta.children, function (child)
@@ -67,7 +78,17 @@ local function processResource(resource)
                     buildChild:setAttribute("cache", "false")
                 end
                 if config.enablePathEncrypt then
-                    targetPath = md5("dp" .. sourcePath)
+                    if isPathExcluded(sourcePath) then
+                        -- Переместить шейдеры в корень
+                        if sourcePath:find(".fx") then
+                            targetPath = sourcePath:match(".+/(.+)")
+                            if not targetPath then
+                                targetPath = sourcePath
+                            end
+                        end
+                    else
+                        targetPath = md5("dp" .. sourcePath)                        
+                    end
                     buildChild:setAttribute("src", targetPath)
                 end
                 copyFile(resourcePath .. sourcePath, buildPath .. targetPath)               
@@ -75,11 +96,19 @@ local function processResource(resource)
             if child.name == "file" then
                 resourceHasClientFiles = true
             end
+            if config.enableExportEncrypt and child.name == "include" then
+                local name = buildChild:getAttribute("resource")
+                if name then
+                    buildChild:setAttribute("resource", md5(name))
+                end
+            end
         end
     end)
     resourceMeta:unload()
 
-    for type, data in pairs(concatScripts) do
+    local scriptsIncludeOrder = {"shared", "server", "client"}
+    underscore.each(scriptsIncludeOrder, function(type)
+        local data = concatScripts[type]
         if #data > 0 then
             local child = buildMeta:createChild("script")
             local filename = md5(resource.name .. type)
@@ -92,7 +121,7 @@ local function processResource(resource)
                 compileScript(buildPath .. filename)
             end
         end
-    end
+    end)
     -- Readme
     if config.enableReadmeFiles then
         copyFile("files/readme.txt", buildPath .. "readme.txt")
@@ -110,13 +139,22 @@ addCommandHandler("build", function ()
     compileDone = 0
     compileTotal = 0
     -- Чтение конфига
-    local configJSON = loadFile("config.json") or "[]"
-    config = fromJSON(configJSON) or {}
+    local configJSON = loadFile("config.json")
+    if not configJSON then
+        print("Failed to open config.json")
+        return
+    end
+    config = fromJSON(configJSON)
+    if not config then
+        print("Failed to read config.json")
+        return
+    end
 
     -- Сборка
     local resources = getResources()
     config.only = config.only or {}    
     config.include = config.include or {}
+    config.pathEncryptExclude = config.pathEncryptExclude or {}
     -- Если не задан список ресурсов, которые нужно собрать - собрать всё
     if not config.only or #config.only == 0 then
         config.resourcePrefix = config.resourcePrefix or "dp"

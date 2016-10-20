@@ -1,6 +1,3 @@
-import("Chat", "dpChat")
-import("Config", "dpConfig")
-
 Language = {}
 local DEFAULT_LANGUAGE = Locales.languages[1]
 local currentLanguage
@@ -63,17 +60,17 @@ function Language.chatMessage(name, ...)
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
-	local language = Config.getProperty("ui.language")
+	local language = exports.dpConfig:getProperty("ui.language")
 
 	if not Locales.isValid(language) then
-		Config.setProperty("ui.language", Language.getLocalization())
+		exports.dpConfig:setProperty("ui.language", Language.getLocalization())
 		return
 	end
 
 	-- Если язык не установлен в конфиге
 	if not language then
 		language = Language.getLocalization()
-		Config.setProperty("ui.language", language)
+		exports.dpConfig:setProperty("ui.language", language)
 	else
 		Language.set(language)
 	end

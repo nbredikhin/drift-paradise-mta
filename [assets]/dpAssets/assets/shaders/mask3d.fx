@@ -2,7 +2,7 @@
 // Example shader - hud_mask.fx
 //
 
-#include "include/tex_matrix.fx"
+#include "tex_matrix.fx"
 
 ///////////////////////////////////////////////////////////////////////////////
 // Global variables

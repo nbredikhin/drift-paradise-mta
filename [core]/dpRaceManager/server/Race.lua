@@ -56,6 +56,7 @@ end)
 ---------------------------------------------------------------
 
 addEvent("Race.clientFinished", true)
+addEvent("Race.clientLeave", true)
 
 local RACE_LOG_SERVER = true
 local RACE_LOG_DEBUG = true
@@ -125,6 +126,11 @@ function Race:init(settings, map)
 		outputDebugString("Vehicle exit")
 		self:removePlayer(source)
 	end)
+	addEventHandler("Race.clientLeave", self.element, function ()
+		if client.parent == self.element then
+			self:removePlayer(client)
+		end
+	end)	
 	addEventHandler("Race.clientFinished", self.element, function ()
 		if client.parent == self.element then
 			self:playerFinish(client)

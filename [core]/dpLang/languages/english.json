@@ -348,6 +348,10 @@
 	"race_drift_score": "Score",
 	"race_waiting_for_players": "Waiting for other players...",
 
+	"race_ui_quit_prompt_text": "Are you sure you want to leave this race?",
+	"race_ui_quit_prompt_leave": "Leave",
+	"race_ui_quit_prompt_cancel": "Cancel",
+
 	// Carshop
 	"carshop_label_speed": "Speed",
 	"carshop_label_acceleration": "Acceleration",

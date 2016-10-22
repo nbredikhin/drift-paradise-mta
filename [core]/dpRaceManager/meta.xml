@@ -17,6 +17,7 @@
 
 	<!-- Client-side scripts -->
 	<script type="client" src="client/ui/Countdown.lua"/>
+	<script type="client" src="client/ui/QuitPrompt.lua"/>
 	<script type="client" src="client/ui/RaceTimer.lua"/>
 <!-- 	<script type="client" src="client/ui/ResultsTable.lua"/> -->
 <!--<script type="client" src="client/gamemodes/RaceDefault.lua"/>

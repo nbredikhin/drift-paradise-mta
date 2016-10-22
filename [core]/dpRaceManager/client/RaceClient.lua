@@ -34,11 +34,24 @@ local function onRemovedFromRace()
 end
 
 function RaceClient.checkpointHit(checkpointId)
+	if not RaceClient.isActive then
+		return false
+	end
 	RaceClient.gamemode:checkpointHit(checkpointId)
 end
 
 function RaceClient.clientFinished()
+	if not RaceClient.isActive then
+		return false
+	end
 	RaceClient.gamemode:clientFinished()
+end
+
+function RaceClient.leaveRace()
+	if not RaceClient.isActive then
+		return false
+	end
+	triggerServerEvent("Race.clientLeave", RaceClient.raceElement)
 end
 
 function RaceClient.startRace(raceElement, settings, map)
@@ -89,6 +102,17 @@ function RaceClient.startRace(raceElement, settings, map)
 	RaceClient.gamemode = gamemode
 
 	updateTimer = setTimer(update, UPDATE_INTERVAL, 0)
+
+	-- Скрыть интерфейс
+	local guiToHide = { "dpMainPanel", "dpGiftsPanel", "dpTabPanel", "dpWorldMap" }
+	for i, name in ipairs(guiToHide) do
+		if exports[name].setVisible then
+			exports[name]:setVisible(false)
+		end
+	end
+	localPlayer:setData("activeUI", "raceUI")
+	bindKey("F1", "down", QuitPrompt.toggle)
+	bindKey("f", "down", QuitPrompt.toggle)
 	outputDebugString("Client race started")
 end
 
@@ -139,5 +163,12 @@ function RaceClient.stopRace()
 	if isTimer(updateTimer) then
 		killTimer(updateTimer)
 	end
+	
+	-- Интерфейс
+	localPlayer:setData("activeUI", false)
+
+	unbindKey("F1", "down", QuitPrompt.toggle)
+	unbindKey("f", "down", QuitPrompt.toggle)
+	
 	outputDebugString("Client race stopped")
 end	

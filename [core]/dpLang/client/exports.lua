@@ -1,5 +1,5 @@
 function set(language)
-	return Config.setProperty("ui.language", language)
+	return exports.dpConfig:setProperty("ui.language", language)
 end
 setLanguage = set
 

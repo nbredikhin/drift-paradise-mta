@@ -1,0 +1,16 @@
+addEventHandler("onResourceStart", resourceRoot, function ()
+    local raceMap = exports.dpRaceManager:loadRaceMap("hello-world")
+    local raceSettings = {
+        separateDimension = true,
+        gamemode = "sprint",
+        duration = 15
+    }
+    local race = exports.dpRaceManager:createRace(raceSettings, raceMap)
+    if not race then
+        return false
+    end
+    exports.dpRaceManager:raceAddPlayer(race, getRandomPlayer())
+    setTimer(function ()
+        exports.dpRaceManager:startRace(race)
+    end, 3000, 1)
+end)

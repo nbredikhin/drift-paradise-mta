@@ -10,6 +10,14 @@ function QuitPrompt.isVisible()
 	return not not UI:getVisible(ui.panel)
 end
 
+function QuitPrompt.toggle()
+	if QuitPrompt.isVisible() then
+		QuitPrompt.hide()
+	else
+		QuitPrompt.show()
+	end
+end
+
 function QuitPrompt.show()
 	if QuitPrompt.isVisible() then
 		return false
@@ -45,7 +53,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		y = panelHeight - BUTTON_HEIGHT,
 		width = panelWidth / 2,
 		height = BUTTON_HEIGHT,
-		locale = "Отмена",
+		locale = "race_ui_quit_prompt_cancel",
 		type = "default_dark"
 	})
 	UI:addChild(ui.panel, ui.cancelButton)
@@ -55,7 +63,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		y = panelHeight - BUTTON_HEIGHT,
 		width = panelWidth / 2,
 		height = BUTTON_HEIGHT,
-		locale = "Покинуть",
+		locale = "race_ui_quit_prompt_leave",
 		type = "primary"
 	})
 	UI:addChild(ui.panel, ui.acceptButton)	
@@ -65,7 +73,8 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		width = panelWidth, height = panelHeight - BUTTON_HEIGHT,
 		type = "light",
 		fontType = "defaultSmall",
-		text = "Вы уверены, что хотите покинуть гонку?",
+		text = "",
+		locale = "race_ui_quit_prompt_text",
 		wordBreak = true,
 		alignX = "center",
 		alignY = "center"
@@ -81,6 +90,6 @@ addEventHandler("dpUI.click", resourceRoot, function (widget)
 		QuitPrompt.hide()
 	elseif widget == ui.acceptButton then
 		QuitPrompt.hide()
-		triggerServerEvent("leaveRace", resourceRoot)
+		RaceClient.leaveRace()
 	end
 end)

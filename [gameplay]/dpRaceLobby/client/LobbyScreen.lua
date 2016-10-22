@@ -1,5 +1,6 @@
 LobbyScreen = {}
 LobbyScreen.isVisible = false
+LobbyScreen.gamemode = ""
 
 local screenSize = Vector2(guiGetScreenSize())
 local fonts = {}
@@ -122,7 +123,7 @@ function LobbyScreen.setVisible(visible)
         titleText = 
             exports.dpLang:getString("lobby_screen_field_title") .. 
             ": " .. themeColorHEX ..
-            exports.dpLang:getString("race_type_drift")
+            exports.dpLang:getString("race_type_" .. LobbyScreen.gamemode)
 
         titleWidth = dxGetTextWidth(titleText, 1, fonts.title, true)
         titleHeight = dxGetFontHeight(1, fonts.title)

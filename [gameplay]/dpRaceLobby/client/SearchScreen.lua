@@ -44,7 +44,7 @@ local function updateTime()
 	UI:setType(ui.acceptButton, "default_dark")
 end
 
-function SearchScreen.startSearch()
+function SearchScreen.startSearch(gamemode)
 	if not localPlayer.vehicle then
 		exports.dpUI:showMessageBox(
 			exports.dpLang:getString("race_error_title"), 
@@ -60,7 +60,7 @@ function SearchScreen.startSearch()
 		return false
 	end	
 	SearchScreen.setVisible(true)
-	triggerServerEvent("dpRaceLobby.startSearch", resourceRoot)
+	triggerServerEvent("dpRaceLobby.startSearch", resourceRoot, gamemode)
 end
 
 function SearchScreen.cancelSearch()

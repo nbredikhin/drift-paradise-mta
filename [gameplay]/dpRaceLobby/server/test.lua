@@ -1,4 +1,9 @@
-addEventHandler("onResourceStart", resourceRoot, function ()
+local TEST_RACE_ENABLED = false
+
+addEventHandler("onResourceStart", resourceRoot, function ()    
+    if not TEST_RACE_ENABLED then
+        return false
+    end
     local raceMap = exports.dpRaceManager:loadRaceMap("hello-world")
     local raceSettings = {
         separateDimension = true,

@@ -23,7 +23,7 @@ local blurBox
 
 -- Отрисовка в 3D
 local function draw()
-	dxDrawRectangle(0, 0, screenWidth, screenHeight, tocolor(0, 0, 0, 200 * currentFadeVal))
+	dxDrawRectangle(0, 0, screenWidth, screenHeight, tocolor(0, 0, 0, 230 * currentFadeVal))
 	-- Сброс цвета
 	Drawing.setColor()
 	-- Сброс системы координат

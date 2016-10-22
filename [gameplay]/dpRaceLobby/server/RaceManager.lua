@@ -46,15 +46,16 @@ local function cancelPendingRace(id, cancelPlayer)
 	return true
 end
 
-local function selectRandomMap()
+local function selectRandomMap(gamemode)
 	return "hello-world"
 end
 
-function RaceManager.raceReady(playersList)
+function RaceManager.raceReady(playersList, gamemode)
 	local raceId = racesCounter
 	table.insert(pendingRaces, {
 		id = raceId, 
-		map = selectRandomMap(),
+		map = selectRandomMap(gamemode),
+		gamemode = gamemode,
 		players = playersList,
 		readyCount = 0
 	})
@@ -77,7 +78,7 @@ function RaceManager.startRace(raceInfo)
 	local raceMap = exports.dpRaceManager:loadRaceMap(raceInfo.map)
 	local raceSettings = {
 		separateDimension = true,
-		gamemode = "sprint",
+		gamemode = raceInfo.gamemode,
 		duration = 15
 	}
 	local race = exports.dpRaceManager:createRace(raceSettings, raceMap)

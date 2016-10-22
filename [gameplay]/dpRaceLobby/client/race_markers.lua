@@ -1,17 +1,42 @@
+local raceMarkers = {
+    { position = Vector3(1258.229, -1400.719, 13.008), gamemode = "sprint" }
+}
+
 function createRaceMarker(position, gamemode)
+    if not position then
+        return false
+    end
+    if type(gamemode) ~= "string" then
+        return false
+    end
     local marker = exports.dpMarkers:createMarker("race", position - Vector3(0, 0, 0.9), 180)
     local blip = createBlip(0, 0, 0, 33)
     blip:attach(marker)
     blip:setData("color", "primary")
     blip:setData("text", "race_type_drift")
+
+    marker:setData("RaceMarker.gamemode", gamemode)
     return marker
 end
 
-local testMarker = createRaceMarker(Vector3 { x = 1258.229, y = -1400.719, z = 13.008 }, "sprint")
-
 addEvent("dpMarkers.use", false)
 addEventHandler("dpMarkers.use", root, function()
-    if source == testMarker then
-        LobbyScreen.toggle()
+    local gamemode = source:getData("RaceMarker.gamemode")
+    if type(gamemode) ~= "string" then
+        return 
+    end
+    LobbyScreen.gamemode = gamemode
+    LobbyScreen.toggle()
+end)
+
+addEventHandler("onClientMarkerLeave", root, function ()
+    if source:getData("RaceMarker.gamemode") then
+        LobbyScreen.setVisible(false)
+    end
+end)
+
+addEventHandler("onClientResourceStart", resourceRoot, function ()
+    for i, m in ipairs(raceMarkers) do
+        createRaceMarker(m.position, m.gamemode)
     end
 end)

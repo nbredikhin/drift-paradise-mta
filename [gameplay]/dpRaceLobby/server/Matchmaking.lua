@@ -4,19 +4,19 @@ local ROOM_TIME_ENOUGH_PLAYERS = 10
 local rooms = {}
 local players = {}
 
-local function findRoom(rank, driftAllowed)
+local function findRoom(rank, gamemode)
 	for i, room in ipairs(rooms) do
-		if room.rank == rank and (room.driftAllowed == driftAllowed or not room.driftAllowed) then
+		if room.rank == rank and room.gamemode == gamemode then
 			return room
 		end
 	end
 	return false
 end
 
-local function createRoom(rank, driftAllowed)
+local function createRoom(rank, gamemode)
 	local room = {
 		rank = rank,
-		driftAllowed = driftAllowed,
+		gamemode = gamemode,
 		time = ROOM_TIME_NOPLAYERS,
 		players = {}
 	}
@@ -63,14 +63,17 @@ local function updateRoom(room)
 			for i, p in ipairs(playersList) do
 				Matchmaking.removePlayer(p)
 			end
-			RaceManager.raceReady(playersList)
+			RaceManager.raceReady(playersList, room.gamemode)
 			removeRoom(room)
 		end
 	end
 end
 
-function Matchmaking.addPlayer(player)
+function Matchmaking.addPlayer(player, gamemode)
 	if not isElement(player) then
+		return false
+	end
+	if type(gamemode) ~= "string" then
 		return false
 	end
 	if not player.vehicle then
@@ -85,10 +88,10 @@ function Matchmaking.addPlayer(player)
 		return false
 	end
 	local rank = exports.dpShared:getVehicleClass(player.vehicle.model)
-	local driftAllowed = player.vehicle:getData("DriftHandling") > 0
-	local room = findRoom(rank, driftAllowed)
+
+	local room = findRoom(rank, gamemode)
 	if not room then
-		room = createRoom(rank, driftAllowed)
+		room = createRoom(rank, gamemode)
 	end
 	room.players[player] = true
 	players[player] = room
@@ -139,8 +142,8 @@ local addClientEventHandler = function(event, handler)
 	return addEventHandler(event, resourceRoot, handler)
 end
 
-addClientEventHandler("dpRaceLobby.startSearch", function ()
-	Matchmaking.addPlayer(client)
+addClientEventHandler("dpRaceLobby.startSearch", function (gamemode)
+	Matchmaking.addPlayer(client, gamemode)
 end)
 
 addClientEventHandler("dpRaceLobby.cancelSearch", function ()

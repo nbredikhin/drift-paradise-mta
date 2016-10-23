@@ -1,6 +1,9 @@
 local SHOW_MESSAGE = true
 local KICK_PLAYERS = false
 
+local DISCORD_URL = "https://discordapp.com/api/webhooks/239880086801743872/JRfmTJxiZpeH4go0DU0yJE2JaOEcAhgLSOd35S8Mm2cPf5-ZSSbFexJWxyBeG3FzNwLO/slack"
+local DISCORD_INFO_INTERVAL = 15
+
 local startupResources = {
 	-- Important 
 	"geoip",
@@ -92,7 +95,15 @@ local function processResourceByName(resourceName, start)
 	end
 end
 
+local function showDiscordMessage(message)
+	fetchRemote(
+		DISCORD_URL, 
+		function ()end, 
+		'{"text": "' .. tostring(message) ..'", "username": "' .. tostring(getServerName()) ..'"}')	
+end
+
 addEventHandler("onResourceStart", resourceRoot, function ()
+	showDiscordMessage("Сервер снова **запущен**!")
 	local startedResourcesCount = 0
 	for i, resourceName in ipairs(startupResources) do
 		if processResourceByName(resourceName, true) then
@@ -104,6 +115,7 @@ addEventHandler("onResourceStart", resourceRoot, function ()
 end)
 
 function shutdownGamemode(showMessage, kickPlayers)
+	showDiscordMessage("Сервер **выключен**.")
 	if showMessage then
 		for i = 1, 20 do
 			outputChatBox(" ", root, 255, 0, 0)
@@ -126,7 +138,7 @@ addEventHandler("onResourceStop", resourceRoot, function ()
 	shutdownGamemode(SHOW_MESSAGE, KICK_PLAYERS)
 end)
 
-function shutdownServer()
+function shutdownServer()	
 	shutdownGamemode(true, true)
 	setServerPassword("pls_dont_connect_or_everything_could_fuck_up")
 	outputServerLog("startup: Shutdown after 3 seconds...")
@@ -135,3 +147,8 @@ function shutdownServer()
 		shutdown("Server shutdown/restarting")
 	end, 3000, 1)
 end
+
+setTimer(function ()
+	local playersCount = tostring(#getElementsByType("player")) .. "/" .. tostring(getMaxPlayers())
+	showDiscordMessage("Количество игроков на сервере: **" .. playersCount .. "**")
+end, DISCORD_INFO_INTERVAL * 60 * 1000, 0)

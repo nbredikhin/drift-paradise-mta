@@ -200,5 +200,5 @@ function FinishScreen.stop()
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
-    FinishScreen.start()
+    --FinishScreen.start()
 end)

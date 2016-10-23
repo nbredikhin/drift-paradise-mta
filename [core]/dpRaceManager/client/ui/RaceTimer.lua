@@ -102,6 +102,10 @@ function RaceTimer.setTimeLeft(time)
 	raceTimeLeft = time
 end
 
+function RaceTimer.getTimeLeft()
+	return raceTimeLeft
+end
+
 function RaceTimer.stop()
 	if not RaceTimer.isActive then
 		return false

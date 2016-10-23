@@ -91,6 +91,7 @@ function RaceManager.startRace(raceInfo)
 		duration = 15
 	}
 	local race = exports.dpRaceManager:createRace(raceSettings, raceMap)
+	race:setData("dpRaceLobby.raceInfo", raceInfo)
 	if not race then
 		return false
 	end

@@ -7,7 +7,8 @@ RaceClient.settings = {}
 RaceClient.map = {}
 
 local raceGamemodes = {
-	drift = Drift
+	drift = Drift,
+	duel  = Duel
 }
 
 local raceDimension = 0
@@ -163,6 +164,7 @@ function RaceClient.stopRace()
 
 	Countdown.stop()
 	RaceTimer.stop()
+	FinishScreen.stop()
 	RaceCheckpoints.stop()
 
 	for i, object in ipairs(resource:getDynamicElementRoot():getChildren("object")) do

@@ -1,4 +1,4 @@
-local TEST_RACE_ENABLED = false
+local TEST_RACE_ENABLED = true
 
 addEventHandler("onResourceStart", resourceRoot, function ()    
     if not TEST_RACE_ENABLED then
@@ -7,8 +7,8 @@ addEventHandler("onResourceStart", resourceRoot, function ()
     local raceMap = exports.dpRaceManager:loadRaceMap("hello-world")
     local raceSettings = {
         separateDimension = true,
-        gamemode = "drift",
-        duration = 50
+        gamemode = "sprint",
+        duration = 30
     }
     local race = exports.dpRaceManager:createRace(raceSettings, raceMap)
     if not race then

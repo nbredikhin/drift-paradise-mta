@@ -22,6 +22,12 @@ function Sprint:raceFinished(timeout)
 	end
 end
 
+function Sprint:playerFinished(player, timeout)
+    self.super:playerFinished(player, timeout)
+
+    triggerEvent("RaceLobby.playerFinished", self.race.element, player)
+end
+
 -- function RaceDefault:playerFinished(player, timeout)
 -- 	if not self.super:playerFinished(player, timeout) then
 -- 		return false

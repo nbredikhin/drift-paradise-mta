@@ -75,6 +75,7 @@ function RaceGamemode:playerFinished(raceElement, player)
 end
 
 function RaceGamemode:clientFinished()
+	FinishScreen.show(false)
 	toggleAllControls(false)
 	triggerServerEvent("Race.clientFinished", RaceClient.raceElement)
 end

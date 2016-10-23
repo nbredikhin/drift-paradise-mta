@@ -15,3 +15,9 @@ function Drift:raceStopped()
 
     DriftPoints.stop()
 end
+
+function Drift:clientFinished()
+    FinishScreen.show(true)
+    toggleAllControls(false)
+    triggerServerEvent("Race.clientFinished", RaceClient.raceElement)
+end

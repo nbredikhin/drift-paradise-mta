@@ -16,31 +16,6 @@ local defaultSettings = {
 }
 local settings = {}
 
-local function onMarkerHit(player)
-	if source ~= hitMarker or player ~= localPlayer then
-		return
-	end
-	if settings.checkpointsVisible then
-		playSoundFrontEnd(43)
-	end
-	if currentCheckpoint < #checkpointsList then
-		RaceCheckpoints.showNext()
-	else
-		-- Круг был последний
-		if currentLap >= settings.lapsCount then
-			destroyElement(hitMarker)
-			currentCheckpoint = currentCheckpoint + 1
-			RaceClient.clientFinished()
-		else
-			-- Следующий круг
-			currentLap = currentLap + 1
-			currentCheckpoint = 0
-			RaceCheckpoints.showNext()
-		end
-	end	
-	RaceClient.checkpointHit(RaceCheckpoints.getCurrentCheckpoint())
-end
-
 local function destroyMarkers()
 	if isElement(currentMarker) then
 		destroyElement(currentMarker)
@@ -53,6 +28,30 @@ local function destroyMarkers()
 	if isElement(hitMarker) then
 		destroyElement(hitMarker)
 	end
+end
+
+local function onMarkerHit(player)
+	if source ~= hitMarker or player ~= localPlayer then
+		return
+	end
+	if settings.checkpointsVisible then
+		playSoundFrontEnd(43)
+	end
+	if currentCheckpoint < #checkpointsList then
+		RaceCheckpoints.showNext()
+	else
+		-- Круг был последний
+		if currentLap >= settings.lapsCount then
+			currentCheckpoint = currentCheckpoint + 1
+			RaceClient.clientFinished()
+		else
+			-- Следующий круг
+			currentLap = currentLap + 1
+			currentCheckpoint = 0
+			RaceCheckpoints.showNext()
+		end
+	end	
+	RaceClient.checkpointHit(RaceCheckpoints.getCurrentCheckpoint())
 end
 
 function RaceCheckpoints.start(checkpoints, settingsTable)
@@ -108,6 +107,9 @@ function RaceCheckpoints.showNext()
 			local isLast = currentCheckpoint + 1 == #checkpointsList
 			if isLast then
 				nextMarker.icon = "finish"
+				if isLastLap then
+					nextMarker:setColor(255, 255, 255)
+				end
 			end
 		else
 			if not isLastLap then
@@ -118,6 +120,7 @@ function RaceCheckpoints.showNext()
 				nextMarker.dimension = localPlayer.dimension
 			end
 			currentMarker.icon = "finish"
+			currentMarker:setColor(255, 255, 255)
 		end		
 	end
 end

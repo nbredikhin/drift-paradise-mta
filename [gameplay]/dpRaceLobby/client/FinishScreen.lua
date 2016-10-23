@@ -1,10 +1,13 @@
 FinishScreen = {}
 local isActive = false
-local screenSize = Vector2(guiGetScreenSize())
+local realScreenSize = Vector2(guiGetScreenSize())
+local screenWidth, screenHeight
 
 local cameraStartOffset = Vector3(5, 5, 2)
 local cameraEndOffset = Vector3(-5, 5, 1)
 local animationProgress = 0
+local fadeProgress = 0
+local fadeSpeed = 1
 local animationSpeed = 0.02
 
 local pedsRandomRadius = 2
@@ -14,8 +17,11 @@ local pedsRadius = 4
 local peds = {}
 local finishPosition = Vector3()
 
+local renderTarget
+
 local mainTextFont
-local listTextFont
+local itemFont
+
 local mainText = "Вы заняли 3 место"
 local playersList = {
     "Player1",
@@ -23,23 +29,100 @@ local playersList = {
     "Player3"
 }
 
+local themeColor = {212, 0, 40}
+local ranksColors = {
+    {255, 200, 0},
+    {200, 200, 230},
+    {200, 70, 30}
+}
+local columns = {
+    {source = "name", size = 0.5, icon = "rankIcon"},
+    {source = "prize", size = 0.25, icon = "dollarIcon", space = 0},
+    {source = "time", size = 0.25, icon = "timeIcon", space = 5},
+}
+local playersList = {
+    {name = "Sosaiti", prize = "$5000", time = "20:20"},
+    {name = "Sosaiti", prize = "$5000", time = "20:20"},
+    {name = "Sosaiti", prize = "$5000", time = "20:20"},
+    {name = "Sosaiti", prize = "$5000", time = "20:20"},
+}
+
+local icons = {}
+
+local panelWidth = 405
+local panelHeight = 300
+
+local logoWidth, logoHeight, logoTexture
+
+local itemHeight = 60
+local buttonsHeight = 60
+
+local iconsSize = 20
+
 local function draw()
-    dxDrawRectangle(0, 0, screenSize.x, screenSize.y, tocolor(0, 0, 0, 200))
-    local y = screenSize.y * 0.2
-    dxDrawText(mainText, 0, y, screenSize.x, y, tocolor(255, 255, 255, 255), 1, mainTextFont, "center", "top", false, false, false, true)
-    y = y + 100
-    dxDrawText("Участники гонки:", 0, y, screenSize.x, y, tocolor(255, 255, 255, 255), 1, listTextFont, "center", "top", false, false, false, true)
-    y = y + 40
-    for i, p in ipairs(playersList) do
-        dxDrawText(p, 0, y, screenSize.x, y, tocolor(255, 255, 255, 255), 1, listTextFont, "center", "top", false, false, false, true)
-        y = y + 40
+    dxDrawRectangle(0, 0, realScreenSize.x, realScreenSize.y, tocolor(0, 0, 0, 200 * fadeProgress))
+    dxSetRenderTarget(renderTarget)
+    local x = (screenWidth - panelWidth) / 2
+    local y = screenHeight / 2 - (panelHeight / 2 + logoHeight / 2 + 30) 
+    dxDrawImage(screenWidth / 2 - logoWidth / 2, y, logoWidth, logoHeight, logoTexture, 0, 0, 0, tocolor(255, 255, 255, 255 * fadeProgress))
+    y = y + logoHeight + 16
+    dxDrawRectangle(x, y, panelWidth, panelHeight, tocolor(29, 29, 29, 255 * fadeProgress))
+    for i, item in ipairs(playersList) do
+        local color = tocolor(29, 29, 29, 255 * fadeProgress)
+        if item.isLocal then
+            color = tocolor(42, 40, 41, 255 * fadeProgress)
+        end
+        dxDrawRectangle(x, y, panelWidth, itemHeight, color)
+
+        local cx = x
+        for j, column in ipairs(columns) do
+            local iconColor = tocolor(themeColor[1], themeColor[2], themeColor[3], 255 * fadeProgress)
+            if j == 1 then
+                if i <= 3 and not item.nowin then
+                    iconColor = tocolor(ranksColors[i][1], ranksColors[i][2], ranksColors[i][3])
+                else
+                    iconColor = false
+                end
+            end
+            local text = item[column.source]
+            local width = panelWidth * column.size
+            if iconColor then
+                dxDrawImage(cx + 10, y + itemHeight / 2 - iconsSize / 2, iconsSize, iconsSize, icons[column.icon], 0, 0, 0, iconColor)
+            end
+            local space = 10
+            if column.space then
+                space = column.space
+            end
+            dxDrawText(text, cx + 10 + iconsSize + space, y, cx + width, y + itemHeight, tocolor(255, 255, 255), 1, itemFont, "left", "center", true)
+            cx = cx + width
+        end
+        y = y + itemHeight
     end
+
+    y = y + (6 - #playersList) * itemHeight - buttonsHeight
+    local buttonColor = tocolor(212, 0, 40, 255 * fadeProgress)
+    local mx, my = getCursorPosition()
+    if  mx and 
+        mx * realScreenSize.x > x and 
+        mx * realScreenSize.x < x + panelWidth and 
+        my * realScreenSize.y > y and 
+        my * realScreenSize.y < y + buttonsHeight 
+    then
+        buttonColor = tocolor(222, 20, 60, 255 * fadeProgress)
+        --self.mouseOver = true
+    else
+        --self.mouseOver = false
+    end
+    dxDrawRectangle(x, y, panelWidth, buttonsHeight, buttonColor)
+    dxDrawText("Завершить гонку", x, y, x + panelWidth, y + buttonsHeight, tocolor(255, 255, 255), 1, itemFont, "center", "center")
+    dxSetRenderTarget()
 end
 
 local function update(dt)
     dt = dt / 1000
 
     animationProgress = math.min(1, animationProgress + animationSpeed * dt)
+    fadeProgress = math.min(1, fadeProgress + fadeSpeed * dt)
 
     local shake = Vector3(math.sin(animationProgress * 200), math.cos(animationProgress * 100), math.sin(animationProgress * 150)) * 0.01
     local offset = cameraStartOffset + (cameraEndOffset - cameraStartOffset) * animationProgress
@@ -52,11 +135,27 @@ function FinishScreen.start()
     end
     isActive = true
 
+    screenWidth, screenHeight = exports.dpUI:getScreenSize()
     addEventHandler("onClientRender", root, draw)
     addEventHandler("onClientPreRender", root, update)
 
     finishPosition = localPlayer.vehicle.position
     localPlayer.rotation = Vector3(0, 0, 0)
+
+    animationProgress = 0
+    fadeProgress = 0
+
+    renderTarget = exports.dpUI:getRenderTarget()
+
+    icons = {}
+    icons["rankIcon"] = dxCreateTexture("assets/rank.png")
+    icons["dollarIcon"] = dxCreateTexture("assets/dollar.png")
+    icons["timeIcon"] = dxCreateTexture("assets/timer.png")
+
+    logoTexture = exports.dpAssets:createTexture("logo.png")
+    local textureWidth, textureHeight = dxGetMaterialSize(logoTexture)
+    logoWidth = 415
+    logoHeight = textureHeight * 415 / textureWidth 
 
     peds = {}
     for i = 1, pedsCount do
@@ -68,9 +167,10 @@ function FinishScreen.start()
     end
 
     mainTextFont = exports.dpAssets:createFont("Roboto-Regular.ttf", 52)
-    listTextFont = exports.dpAssets:createFont("Roboto-Regular.ttf", 23)
+    itemFont = exports.dpAssets:createFont("Roboto-Regular.ttf", 14)
 
     exports.dpHUD:setVisible(false)
+    showCursor(true)
 end
 
 function FinishScreen.stop()
@@ -85,8 +185,8 @@ function FinishScreen.stop()
     if isElement(mainTextFont) then
         destroyElement(mainTextFont)
     end
-    if isElement(listTextFont) then
-        destroyElement(listTextFont)
+    if isElement(itemFont) then
+        destroyElement(itemFont)
     end
 
     for i, ped in ipairs(peds) do
@@ -96,8 +196,9 @@ function FinishScreen.stop()
     end
 
     exports.dpHUD:setVisible(true)
+    showCursor(false)
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
-    --FinishScreen.start()
+    FinishScreen.start()
 end)

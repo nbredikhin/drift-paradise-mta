@@ -2,13 +2,6 @@ RaceGamemode = newclass "RaceGamemode"
 
 function RaceGamemode:init()
 	self.rank = 0
-
-	self:addEventHandler("Race.launch", 		RaceClient.raceElement, self.raceLaunched)
-	self:addEventHandler("Race.start", 			RaceClient.raceElement, self.raceStarted)
-	self:addEventHandler("Race.finish", 		RaceClient.raceElement, self.raceFinished)
-	self:addEventHandler("Race.playerFinished", RaceClient.raceElement, self.playerFinished)
-	self:addEventHandler("Race.playerAdded", 	RaceClient.raceElement, self.playerAdded)
-	self:addEventHandler("Race.playerRemoved", 	RaceClient.raceElement, self.playerRemoved)	
 end
 
 function RaceGamemode:checkpointHit(checkpointId)
@@ -44,41 +37,6 @@ function RaceGamemode:updatePosition()
 	self.rank = rank
 end
 
-function RaceGamemode:addEventHandler(name, source, handler)
-	if not check("RaceGamemode:addEventHandler", "name", "string", name) then return false end
-	if not check("RaceGamemode:addEventHandler", "source", "element", source) then return false end
-	if not check("RaceGamemode:addEventHandler", "handler", "function", handler) then return false end
-
-	if not self.eventHandlers then
-		self.eventHandlers = {}
-	end
-	if self.eventHandlers[name] then
-		outputDebugString("RaceGamemode:addEventHandler error: Event '" .. tostring(name) .. "' is already handled")
-		return false
-	end
-	self.eventHandlers[name] = source
-	addEvent(name, true)
-	return addEventHandler(name, source, function (...)
-		handler(self, source, ...)
-	end)
-end
-
--- Удаляет все добавленные event handler'ы 
-function RaceGamemode:removeEventHandlers()
-	if not self.eventHandlers then
-		return false
-	end
-	for name, source in pairs(self.eventHandlers) do
-		if isElement(source) then
-			local handlers = getEventHandlers(name, source)
-			for i, handler in ipairs(handlers) do
-				removeEventHandler(name, source, handler)
-			end
-		end
-	end
-	return true
-end
-
 function RaceGamemode:playerAdded(source)
 	-- Другой игрок добавлен в гонку
 end
@@ -92,12 +50,17 @@ function RaceGamemode:raceLaunched(source)
 	Countdown.start()
 end
 
-function RaceGamemode:raceStarted(source)
+function RaceGamemode:raceStarted()	
 	-- Начало гонки. Разморозка игроков, появление чекпойнтов
 	-- Сбросить текущий чекпойнт
 	localPlayer:setData("Race.currentCheckpoint", RaceCheckpoints.getCurrentCheckpoint(), true)
 	-- Запустить GUI таймера
+	toggleAllControls(true)
 	RaceTimer.start()
+end
+
+function RaceGamemode:raceStopped()
+
 end
 
 function RaceGamemode:raceFinished(source)

@@ -6,6 +6,10 @@ RaceClient.gamemode = nil
 RaceClient.settings = {}
 RaceClient.map = {}
 
+local raceGamemodes = {
+	drift = Drift
+}
+
 local raceDimension = 0
 
 local UPDATE_INTERVAL = 1000
@@ -15,6 +19,13 @@ addEvent("Race.addedToRace", true)
 addEvent("Race.stateChanged", true)
 addEvent("Race.updateTimeLeft", true)
 addEvent("Race.removedFromRace", true)
+
+addEvent("Race.launch", true)
+addEvent("Race.start", true)
+addEvent("Race.finish", true)
+addEvent("Race.playerFinished", true)
+addEvent("Race.playerAdded", true)
+addEvent("Race.playerRemoved", true)
 
 addEventHandler("Race.addedToRace", root, function (settings, map)
 	outputDebugString("RaceClient: Client added to race. Starting race...")
@@ -98,8 +109,18 @@ function RaceClient.startRace(raceElement, settings, map)
 	addEventHandler("Race.updateTimeLeft",	RaceClient.raceElement, updateTimeLeft)
 	addEventHandler("onClientElementDestroy", RaceClient.raceElement, RaceClient.stopRace)
 
-	local gamemode = RaceGamemode()
-	RaceClient.gamemode = gamemode
+	local gamemodeClass = raceGamemodes[RaceClient.settings.gamemode]
+	if not gamemodeClass then
+		gamemodeClass = RaceGamemode
+	end
+	RaceClient.gamemode = gamemodeClass()
+
+	addEventHandler("Race.launch", 			RaceClient.raceElement, function (...) RaceClient.gamemode 	:raceLaunched(source, ...) end)
+	addEventHandler("Race.start", 			RaceClient.raceElement, function (...) RaceClient.gamemode 	:raceStarted(source, ...) end)
+	addEventHandler("Race.finish", 			RaceClient.raceElement, function (...) RaceClient.gamemode 	:raceFinished(source, ...) end)
+	addEventHandler("Race.playerFinished", 	RaceClient.raceElement, function (...)  RaceClient.gamemode :playerFinished(source, ...) end)
+	addEventHandler("Race.playerAdded", 	RaceClient.raceElement, function (...) RaceClient.gamemode 	:playerAdded(source, ...) end)
+	addEventHandler("Race.playerRemoved", 	RaceClient.raceElement, function (...)  RaceClient.gamemode :playerRemove(source, ...) end)		
 
 	updateTimer = setTimer(update, UPDATE_INTERVAL, 0)
 
@@ -134,11 +155,11 @@ function RaceClient.stopRace()
 	end
 	RaceClient.isActive = false
 
+	RaceClient.gamemode:raceStopped()
 	removeEventHandler("Race.removedFromRace", RaceClient.raceElement, onRemovedFromRace)
 	removeEventHandler("Race.stateChanged", RaceClient.raceElement, onStateChanged)
 	removeEventHandler("Race.updateTimeLeft",	RaceClient.raceElement, updateTimeLeft)
 	removeEventHandler("onClientElementDestroy", RaceClient.raceElement, RaceClient.stopRace)
-	RaceClient.gamemode:removeEventHandlers()
 
 	Countdown.stop()
 	RaceTimer.stop()

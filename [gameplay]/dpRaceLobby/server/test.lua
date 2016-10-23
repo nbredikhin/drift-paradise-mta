@@ -7,7 +7,7 @@ addEventHandler("onResourceStart", resourceRoot, function ()
     local raceMap = exports.dpRaceManager:loadRaceMap("hello-world")
     local raceSettings = {
         separateDimension = true,
-        gamemode = "sprint",
+        gamemode = "drift",
         duration = 50
     }
     local race = exports.dpRaceManager:createRace(raceSettings, raceMap)

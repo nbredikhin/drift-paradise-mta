@@ -4,6 +4,7 @@
 	<!-- Shared scripts -->
 	<script type="shared" src="shared/lib/yaci.lua"/>
 	<script type="shared" src="shared/check.lua"/>
+	<script type="shared" src="shared/utils.lua"/>
 
 	<!-- Server-side scripts -->
 	<script type="server" src="server/MapLoader.lua"/>
@@ -20,6 +21,7 @@
 	<script type="client" src="client/ui/Countdown.lua"/>
 	<script type="client" src="client/ui/QuitPrompt.lua"/>
 	<script type="client" src="client/ui/RaceTimer.lua"/>
+	<script type="client" src="client/ui/DriftPoints.lua"/>
 <!-- 	<script type="client" src="client/ui/ResultsTable.lua"/> -->
 <!--<script type="client" src="client/gamemodes/RaceDefault.lua"/>
 	<script type="client" src="client/gamemodes/RaceDrag.lua"/>
@@ -27,6 +29,7 @@
 	<script type="client" src="client/gamemodes/RaceDuel.lua"/> -->
 	<script type="client" src="client/RaceCheckpoints.lua"/>
 	<script type="client" src="client/RaceGamemode.lua"/>
+	<script type="client" src="client/gamemodes/Drift.lua"/>
 	<script type="client" src="client/RaceClient.lua"/>
 
 	<!-- Server-side exports -->

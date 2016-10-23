@@ -100,3 +100,8 @@ addEventHandler("dpLang.languageChanged", root, function ()
 	setupGlobalTabTitle()
 	setupLocalTabTitle()
 end)
+
+addEvent("dpChat.serverMessage", true)
+addEventHandler("dpChat.serverMessage", resourceRoot, function (tabName, message)
+	Chat.message(tabName, message)
+end)

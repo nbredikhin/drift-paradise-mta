@@ -61,6 +61,7 @@ local startupResources = {
 
 	-- Other
 	"dpGreetings",
+	"dpTelegramChat",
 
 	-- Third party
 	"blur_box",

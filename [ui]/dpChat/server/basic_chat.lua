@@ -7,6 +7,7 @@ local languageChats = {
 addEvent("dpChat.broadcastMessage", true)
 addEventHandler("dpChat.broadcastMessage", root, function (tabName, rawMessage)
 	local message = client.name .. "#FFFFFF: " .. tostring(rawMessage)
+	triggerEvent("dpChat.message", resourceRoot, client, tabName, rawMessage)
 	if tabName == "global" then		
 		triggerClientEvent("dpChat.broadcastMessage", root, "global", message, client)
 	elseif tabName == "lang" then
@@ -69,3 +70,7 @@ addEventHandler("onResourceStart", resourceRoot, function ()
 		setupPlayerCountry(p)
 	end
 end)
+
+function message(element, tabName, message)
+	triggerClientEvent(element, "dpChat.serverMessage", root, tabName, message)
+end

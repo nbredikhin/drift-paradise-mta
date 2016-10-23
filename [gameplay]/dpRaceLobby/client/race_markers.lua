@@ -1,5 +1,6 @@
 local raceMarkers = {
-    { position = Vector3(1258.229, -1400.719, 13.008), gamemode = "sprint" }
+    { position = Vector3(1258.229, -1400.719, 13.008), gamemode = "sprint" },
+    { position = Vector3(1988.054, -1463.851, 13.391), gamemode = "drift" }
 }
 
 function createRaceMarker(position, gamemode)
@@ -25,8 +26,7 @@ addEventHandler("dpMarkers.use", root, function()
     if type(gamemode) ~= "string" then
         return 
     end
-    LobbyScreen.gamemode = gamemode
-    LobbyScreen.toggle()
+    LobbyScreen.toggle(gamemode)
 end)
 
 addEventHandler("onClientMarkerLeave", root, function ()

@@ -72,6 +72,15 @@ function RaceManager.startRace(raceInfo)
 	for i, player in ipairs(raceInfo.players) do
 		player:setData("MatchmakingRaceId", false)
 		triggerClientEvent(player, "dpRaceLobby.raceStart", resourceRoot)
+
+		-- Выкинуть пассажиров
+		if player.vehicle then
+			for _, p in pairs(player.vehicle.occupants) do
+				if p ~= player then
+					p.vehicle = nil
+				end
+			end
+		end
 	end
 
 	-- Создание карты и настройки

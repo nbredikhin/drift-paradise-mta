@@ -92,6 +92,16 @@ function RaceTimer.start()
 	raceTimeLeft = RaceClient.settings.duration
 end
 
+function RaceTimer.setTimeLeft(time)
+	if not RaceTimer.isActive then
+		return false
+	end	
+	if type(time) ~= "number" then
+		return false
+	end
+	raceTimeLeft = time
+end
+
 function RaceTimer.stop()
 	if not RaceTimer.isActive then
 		return false

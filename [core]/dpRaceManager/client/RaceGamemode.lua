@@ -97,14 +97,14 @@ function RaceGamemode:raceFinished(source)
 	-- Конец гонки
 end
 
-function RaceGamemode:playerFinished(source)
+function RaceGamemode:playerFinished(raceElement, player)
 	-- Игрок финишировал
-	if source == localPlayer then
-		-- Если финишировал клиент - скрыть таймер и отобразить таблицу
-		RaceTimer.stop()
+	if player == localPlayer then		
+		-- 
 	end
 end
 
 function RaceGamemode:clientFinished()
+	toggleAllControls(false)
 	triggerServerEvent("Race.clientFinished", RaceClient.raceElement)
 end

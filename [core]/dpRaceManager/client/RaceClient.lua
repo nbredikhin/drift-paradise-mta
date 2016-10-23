@@ -13,6 +13,7 @@ local updateTimer
 
 addEvent("Race.addedToRace", true)
 addEvent("Race.stateChanged", true)
+addEvent("Race.updateTimeLeft", true)
 addEvent("Race.removedFromRace", true)
 
 addEventHandler("Race.addedToRace", root, function (settings, map)
@@ -26,6 +27,10 @@ end
 
 local function update()
 	RaceClient.gamemode:updatePosition()
+end
+
+local function updateTimeLeft(time)
+	RaceTimer.setTimeLeft(time)
 end
 
 local function onRemovedFromRace()
@@ -90,6 +95,7 @@ function RaceClient.startRace(raceElement, settings, map)
 	-- Обработка событий
 	addEventHandler("Race.removedFromRace", RaceClient.raceElement, onRemovedFromRace)
 	addEventHandler("Race.stateChanged", 	RaceClient.raceElement, onStateChanged)
+	addEventHandler("Race.updateTimeLeft",	RaceClient.raceElement, updateTimeLeft)
 	addEventHandler("onClientElementDestroy", RaceClient.raceElement, RaceClient.stopRace)
 
 	local gamemode = RaceGamemode()
@@ -136,6 +142,7 @@ function RaceClient.stopRace()
 
 	removeEventHandler("Race.removedFromRace", RaceClient.raceElement, onRemovedFromRace)
 	removeEventHandler("Race.stateChanged", RaceClient.raceElement, onStateChanged)
+	removeEventHandler("Race.updateTimeLeft",	RaceClient.raceElement, updateTimeLeft)
 	removeEventHandler("onClientElementDestroy", RaceClient.raceElement, RaceClient.stopRace)
 	RaceClient.gamemode:removeEventHandlers()
 
@@ -169,6 +176,7 @@ function RaceClient.stopRace()
 
 	unbindKey("F1", "down", QuitPrompt.toggle)
 	unbindKey("f", "down", QuitPrompt.toggle)
-	
+		
+	toggleAllControls(true)
 	outputDebugString("Client race stopped")
 end	

@@ -16,11 +16,14 @@ local buttonText = ""
 local buttonWidth = 220
 local buttonHeight = 60
 
+local buttonEnabled = false
+local buttonMessage = ""
+
 local infoFields = {
-    { name = "", locale ="lobby_screen_field_prize",   value = "$11232"},
-    { name = "", locale ="lobby_screen_field_xp",      value = "1500"},
-    { name = "", locale ="lobby_screen_field_players", value = "15"},
-    { name = "", locale ="lobby_screen_field_class",   value = "S1"},
+    { name = "", locale ="lobby_screen_field_prize",   value = "$0"},
+    { name = "", locale ="lobby_screen_field_xp",      value = "0"},
+    { name = "", locale ="lobby_screen_field_players", value = "0"},
+    { name = "", locale ="lobby_screen_field_class",   value = "-"},
 }
 
 local function draw()
@@ -71,15 +74,36 @@ local function draw()
     end
     y = y + 20
     local buttonAlpha = 200
-    if mx >= x and my >=y and mx <= x + buttonWidth and my <= y + buttonHeight then
-        buttonAlpha = 255
+    local buttonColor = tocolor(255, 255, 255)
+    if buttonEnabled then
+        if mx >= x and my >=y and mx <= x + buttonWidth and my <= y + buttonHeight then
+            buttonAlpha = 255
 
-        if getKeyState("mouse1") then
-            LobbyScreen.setVisible(false)
-            SearchScreen.startSearch()
+            if getKeyState("mouse1") then
+                LobbyScreen.setVisible(false)
+                SearchScreen.startSearch()
+            end
         end
+        buttonColor = tocolor(themeColor[1], themeColor[2], themeColor[3], buttonAlpha)
+    else
+        buttonColor = tocolor(40, 42, 41)
+        dxDrawText(
+            buttonMessage, 
+            x, 
+            y + buttonHeight, 
+            x + buttonWidth, 
+            y + buttonHeight * 1.8, 
+            tocolor(255, 255, 255), 
+            1, 
+            fonts.buttonMessage, 
+            "left", 
+            "bottom",
+            false,
+            false,
+            true,
+            true)        
     end
-    dxDrawRectangle(x, y, buttonWidth, buttonHeight, tocolor(themeColor[1], themeColor[2], themeColor[3], buttonAlpha), true) 
+    dxDrawRectangle(x, y, buttonWidth, buttonHeight, buttonColor, true) 
     dxDrawText(
         buttonText, 
         x, 
@@ -95,11 +119,19 @@ local function draw()
         false,
         true,
         true)
-
-
 end
 
-function LobbyScreen.toggle()
+local function onVehicleExit(player)
+    if player == localPlayer then
+        return
+    end
+end
+
+function LobbyScreen.toggle(gamemode)
+    if not LobbyScreen.isVisible then
+        LobbyScreen.gamemode = gamemode
+    end    
+
     LobbyScreen.setVisible(not LobbyScreen.isVisible)
 end
 
@@ -109,13 +141,28 @@ function LobbyScreen.setVisible(visible)
         return 
     end
     LobbyScreen.isVisible = visible
-
     if LobbyScreen.isVisible then
+        if not localPlayer.vehicle or localPlayer.vehicle.controller ~= localPlayer then
+            exports.dpUI:showMessageBox(
+                exports.dpLang:getString("race_error_title"), 
+                exports.dpLang:getString("race_error_no_vehicle"))
+            LobbyScreen.isVisible = false
+            return
+        end
+        if localPlayer.vehicle:getData("owner_id") ~= localPlayer:getData("_id") then
+            exports.dpUI:showMessageBox(
+                exports.dpLang:getString("race_error_title"), 
+                exports.dpLang:getString("race_error_not_owner"))
+            LobbyScreen.isVisible = false
+            return
+        end
         localPlayer:setData("activeUI", "lobbyScreen")
         addEventHandler("onClientRender", root, draw)
+        addEventHandler("onClientVehicleExit", localPlayer.vehicle, onVehicleExit)
         fonts.title = exports.dpAssets:createFont("Roboto-Regular.ttf", 52)
         fonts.info = exports.dpAssets:createFont("Roboto-Regular.ttf", 21)
         fonts.button = exports.dpAssets:createFont("Roboto-Regular.ttf", 22)
+        fonts.buttonMessage = exports.dpAssets:createFont("Roboto-Regular.ttf", 16)
 
         themeColor = {exports.dpUI:getThemeColor()}
         themeColorHEX = exports.dpUtils:RGBToHex(exports.dpUI:getThemeColor())
@@ -135,6 +182,23 @@ function LobbyScreen.setVisible(visible)
         end
 
         bindKey("backspace", "down", LobbyScreen.toggle)
+
+        buttonMessage = ""
+        buttonEnabled = true
+
+        if LobbyScreen.gamemode == "drift" then
+            local handlingLevel = localPlayer.vehicle:getData("DriftHandling") 
+            if not handlingLevel or handlingLevel < 1 then
+                buttonMessage = exports.dpLang:getString("handling_switching_message_no_upgrade")
+                buttonEnabled = false
+            end
+        end
+
+        infoFields[1].value = "$0"
+        infoFields[2].value = "0"
+        infoFields[3].value = "0"
+        local vehicleClass = exports.dpShared:getVehicleClass(localPlayer.vehicle.model)
+        infoFields[4].value = tostring(exports.dpShared:getVehicleClassName(vehicleClass))
     else
         localPlayer:setData("activeUI", false)
         for font in pairs(fonts) do
@@ -143,10 +207,12 @@ function LobbyScreen.setVisible(visible)
             end
         end
         removeEventHandler("onClientRender", root, draw)
-
+        removeEventHandler("onClientVehicleExit", localPlayer.vehicle, onVehicleExit)
+        LobbyScreen.gamemode = nil
         unbindKey("backspace", "down", LobbyScreen.toggle)
     end
 
+    exports.dpHUD:setVisible(not LobbyScreen.isVisible)
     exports.dpUI:fadeScreen(LobbyScreen.isVisible)
     showCursor(LobbyScreen.isVisible)
 end

@@ -11,6 +11,7 @@
 	<script type="server" src="server/gamemodes/Sprint.lua"/>
 	<script type="server" src="server/gamemodes/Duel.lua"/>
 	<script type="server" src="server/gamemodes/Drag.lua"/>
+	<script type="server" src="server/gamemodes/Drift.lua"/>
 	<script type="server" src="server/gamemodes/Circle.lua"/>
 	<script type="server" src="server/Race.lua"/>
 	<script type="server" src="server/exports.lua"/>

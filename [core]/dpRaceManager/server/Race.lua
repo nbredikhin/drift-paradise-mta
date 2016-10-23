@@ -65,8 +65,9 @@ local RACE_LOG_FORMAT = "Race [%s]: %s"
 -- Режиы гонок
 local raceGamemodes = {
 	sprint 	= Sprint,
-	drag 	= Drag,
-	circle 	= Circle,
+	drift	= Drift,
+	-- drag 	= Drag,
+	-- circle 	= Circle,
 	duel 	= Duel
 }
 
@@ -240,7 +241,7 @@ function Race:addPlayer(player)
 		self:log("Failed to add player. Player must be the only vehicle occupant")
 		return false
 	end
-
+	
 	player.vehicle.dimension = self.dimension
 	player.vehicle.frozen = true
 	player.vehicle:setData("Race.player", player)
@@ -349,7 +350,7 @@ function Race:start()
 	
 	killTimer(self.countdownTimer)
 	self:setState(RaceState.running)
-	self.durationTimer = setTimer(function() self:finish(true) end, self.settings.duration * 1000, 1)
+	self:setTimeLeft(self.settings.duration)
 	triggerClientEvent(self.element, "Race.start", self.element)
 
 	for _, player in ipairs(self:getPlayers()) do
@@ -386,6 +387,32 @@ function Race:playerFinish(player)
 	return self.gamemode:playerFinished(player)
 end
 
+-- Время в секундах
+function Race:setTimeLeft(time)
+	if self:getState() ~= RaceState.running then
+		self:log("Failed to set time left. Race is not running")
+		return false
+	end
+	if type(time) ~= "number" then
+		self:log("Failed to set time left. Time must be number")
+		return false
+	end
+	if isTimer(self.durationTimer) then
+		killTimer(self.durationTimer)
+	end
+	self.durationTimer = setTimer(function() self:finish(true) end, math.floor(time * 1000), 1)
+	triggerClientEvent(self.element, "Race.updateTimeLeft", self.element, time)
+	return true
+end
+
+-- Время в секундах
+function Race:getTimeLeft()
+	if not isTimer(self.durationTimer) then
+		return false
+	end
+	local timeLeft = getTimerDetails(self.durationTimer)
+	return timeLeft / 1000
+end
 
 ---------------------------------------------------------------
 --------------------------- Прочее ----------------------------

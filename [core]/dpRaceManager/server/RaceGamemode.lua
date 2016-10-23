@@ -1,5 +1,7 @@
 RaceGamemode = newclass "RaceGamemode"
 
+local FIRST_PLAYER_FINISHED_TIMEOUT = 30
+
 function RaceGamemode:init(race)
 	self.race = race
 	self.forceHandling = "street"
@@ -65,9 +67,21 @@ function RaceGamemode:playerFinished(player, timeout)
 	if self.finishedPlayers[player] or player:getData("Race.finished") then
 		return false
 	end
+	if not next(self.finishedPlayers) then
+		-- Первый игрок финишировал
+		self.race:log("First player finished")
+		local timeLeft = self.race:getTimeLeft()
+		if not timeLeft then
+			timeLeft = 0
+		end
+
+		if timeLeft > FIRST_PLAYER_FINISHED_TIMEOUT then
+			self.race:setTimeLeft(FIRST_PLAYER_FINISHED_TIMEOUT)
+		end
+	end
 	self.finishedPlayers[player] = true
 	player:setData("Race.finished", true)
 	self.race:log("Player finished: '" .. tostring(player.name) .. "'")
-	triggerClientEvent(self.race.element, "Race.playerFinished", player)
+	triggerClientEvent(self.race.element, "Race.playerFinished", self.race.element, player)
 	return true
 end

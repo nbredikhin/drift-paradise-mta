@@ -8,7 +8,7 @@ addEventHandler("onResourceStart", resourceRoot, function ()
     local raceSettings = {
         separateDimension = true,
         gamemode = "sprint",
-        duration = 15
+        duration = 50
     }
     local race = exports.dpRaceManager:createRace(raceSettings, raceMap)
     if not race then

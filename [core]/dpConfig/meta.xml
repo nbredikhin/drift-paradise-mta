@@ -1,6 +1,6 @@
 <meta>
 	<oop>true</oop>
-	<download_priority_group>100</download_priority_group>
+	<download_priority_group>999</download_priority_group>
 
 	<script type="shared" src="shared/PropsStorage.lua"/>
 	<script type="client" src="client/player_preferences.lua"/>

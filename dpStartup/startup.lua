@@ -13,13 +13,11 @@ local startupResources = {
 	"dpSounds",
 	
 	-- Core	
-	"dpImport",
 	"dpUtils",
 	"dpLang",
 	"dpMarkers",
 	"dpGameTime",
 	"dpCore",
-	"dpRaceManager",
 
 	-- UI
 	"dpUI",
@@ -30,11 +28,12 @@ local startupResources = {
 	"dpChat",
 	
 	"dpLoginPanel",
-	"dpMainPanel",
 	"dpTabPanel",
+	"dpMainPanel",
 	"dpGiftsPanel",
 
 	-- Gameplay
+	"dpRaceManager",
 	"dpParticles",
 	"dpAnims",
 	"dpVehicles",

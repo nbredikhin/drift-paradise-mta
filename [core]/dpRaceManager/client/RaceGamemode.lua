@@ -2,6 +2,13 @@ RaceGamemode = newclass "RaceGamemode"
 
 function RaceGamemode:init()
 	self.rank = 0
+
+	self:addEventHandler("Race.launch", 		RaceClient.raceElement, self.raceLaunched)
+	self:addEventHandler("Race.start", 			RaceClient.raceElement, self.raceStarted)
+	self:addEventHandler("Race.finish", 		RaceClient.raceElement, self.raceFinished)
+	self:addEventHandler("Race.playerFinished", RaceClient.raceElement, self.playerFinished)
+	self:addEventHandler("Race.playerAdded", 	RaceClient.raceElement, self.playerAdded)
+	self:addEventHandler("Race.playerRemoved", 	RaceClient.raceElement, self.playerRemoved)	
 end
 
 function RaceGamemode:checkpointHit(checkpointId)

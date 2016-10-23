@@ -99,12 +99,6 @@ function RaceClient.startRace(raceElement, settings, map)
 	addEventHandler("onClientElementDestroy", RaceClient.raceElement, RaceClient.stopRace)
 
 	local gamemode = RaceGamemode()
-	gamemode:addEventHandler("Race.launch", 		RaceClient.raceElement, gamemode.raceLaunched)
-	gamemode:addEventHandler("Race.start", 			RaceClient.raceElement, gamemode.raceStarted)
-	gamemode:addEventHandler("Race.finish", 		RaceClient.raceElement, gamemode.raceFinished)
-	gamemode:addEventHandler("Race.playerFinished", RaceClient.raceElement, gamemode.playerFinished)
-	gamemode:addEventHandler("Race.playerAdded", 	RaceClient.raceElement, gamemode.playerAdded)
-	gamemode:addEventHandler("Race.playerRemoved", 	RaceClient.raceElement, gamemode.playerRemoved)
 	RaceClient.gamemode = gamemode
 
 	updateTimer = setTimer(update, UPDATE_INTERVAL, 0)

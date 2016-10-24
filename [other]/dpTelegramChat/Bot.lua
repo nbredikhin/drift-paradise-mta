@@ -1,7 +1,7 @@
 Bot = {}
 
 local API_URL = "https://api.telegram.org/bot%s/%s?%s"
-local POLLING_INTERVAL = 2000
+local POLLING_INTERVAL = 1000
 
 Bot.token = ""
 local connected = false

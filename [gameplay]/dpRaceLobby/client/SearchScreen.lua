@@ -179,6 +179,8 @@ addEventHandler("dpUI.click", resourceRoot, function (widget)
 				exports.dpLang:getString("race_search_players_ready_count"),
 				"0", "0"
 			))			
+
+			FinishScreen.clearPlayers()
 		end
 	end
 end)

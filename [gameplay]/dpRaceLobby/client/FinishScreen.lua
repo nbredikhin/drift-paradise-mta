@@ -19,15 +19,7 @@ local finishPosition = Vector3()
 
 local renderTarget
 
-local mainTextFont
 local itemFont
-
-local mainText = "Вы заняли 3 место"
-local playersList = {
-    "Player1",
-    "Player2",
-    "Player3"
-}
 
 local themeColor = {212, 0, 40}
 local ranksColors = {
@@ -35,17 +27,11 @@ local ranksColors = {
     {200, 200, 230},
     {200, 70, 30}
 }
-local columns = {
-    {source = "name", size = 0.5, icon = "rankIcon"},
-    {source = "prize", size = 0.25, icon = "dollarIcon", space = 0},
-    {source = "time", size = 0.25, icon = "timeIcon", space = 5},
-}
-local playersList = {
-    {name = "Sosaiti", prize = "$5000", time = "20:20"},
-    {name = "Sosaiti", prize = "$5000", time = "20:20"},
-    {name = "Sosaiti", prize = "$5000", time = "20:20"},
-    {name = "Sosaiti", prize = "$5000", time = "20:20"},
-}
+
+local columns = {}
+
+--{name = "Wherry", prize = "5000", time = "20:20", score = "125112"},
+local playersList = {}
 
 local icons = {}
 
@@ -58,6 +44,23 @@ local itemHeight = 60
 local buttonsHeight = 60
 
 local iconsSize = 20
+
+local function getTimeString(value)
+    local seconds = math.floor(value)
+    local minutes = math.floor(seconds / 60)
+    seconds = seconds - minutes * 60
+    if minutes < 10 then
+        minutes = "0" .. tostring(minutes)
+    else
+        minutes = tostring(minutes)
+    end
+    if seconds < 10 then
+        seconds = "0" .. tostring(seconds)
+    else
+        seconds = tostring(seconds)
+    end
+    return tostring(minutes) .. ":" .. tostring(seconds)
+end
 
 local function draw()
     dxDrawRectangle(0, 0, realScreenSize.x, realScreenSize.y, tocolor(0, 0, 0, 200 * fadeProgress))
@@ -84,7 +87,7 @@ local function draw()
                     iconColor = false
                 end
             end
-            local text = item[column.source]
+            local text = tostring(item[column.source])
             local width = panelWidth * column.size
             if iconColor then
                 dxDrawImage(cx + 10, y + itemHeight / 2 - iconsSize / 2, iconsSize, iconsSize, icons[column.icon], 0, 0, 0, iconColor)
@@ -109,7 +112,11 @@ local function draw()
         my * realScreenSize.y < y + buttonsHeight 
     then
         buttonColor = tocolor(222, 20, 60, 255 * fadeProgress)
-        --self.mouseOver = true
+        
+        if getKeyState("mouse1") then
+            FinishScreen.stop()
+            return
+        end
     else
         --self.mouseOver = false
     end
@@ -140,7 +147,8 @@ function FinishScreen.start()
     addEventHandler("onClientPreRender", root, update)
 
     finishPosition = localPlayer.vehicle.position
-    localPlayer.rotation = Vector3(0, 0, 0)
+    localPlayer.vehicle.velocity = Vector3(0, 0, 0)
+    toggleAllControls(false)
 
     animationProgress = 0
     fadeProgress = 0
@@ -148,9 +156,10 @@ function FinishScreen.start()
     renderTarget = exports.dpUI:getRenderTarget()
 
     icons = {}
-    icons["rankIcon"] = dxCreateTexture("assets/rank.png")
-    icons["dollarIcon"] = dxCreateTexture("assets/dollar.png")
-    icons["timeIcon"] = dxCreateTexture("assets/timer.png")
+    icons["rank"] = dxCreateTexture("assets/rank.png")
+    icons["dollar"] = dxCreateTexture("assets/dollar.png")
+    icons["time"] = dxCreateTexture("assets/timer.png")
+    icons["score"] = dxCreateTexture("assets/score.png")
 
     logoTexture = exports.dpAssets:createTexture("logo.png")
     local textureWidth, textureHeight = dxGetMaterialSize(logoTexture)
@@ -166,7 +175,6 @@ function FinishScreen.start()
         table.insert(peds, ped)
     end
 
-    mainTextFont = exports.dpAssets:createFont("Roboto-Regular.ttf", 52)
     itemFont = exports.dpAssets:createFont("Roboto-Regular.ttf", 14)
 
     exports.dpHUD:setVisible(false)
@@ -182,9 +190,6 @@ function FinishScreen.stop()
     removeEventHandler("onClientRender", root, draw)
     removeEventHandler("onClientPreRender", root, update)
 
-    if isElement(mainTextFont) then
-        destroyElement(mainTextFont)
-    end
     if isElement(itemFont) then
         destroyElement(itemFont)
     end
@@ -195,10 +200,49 @@ function FinishScreen.stop()
         end
     end
 
+    toggleAllControls(true)
+
     exports.dpHUD:setVisible(true)
     showCursor(false)
+    setCameraTarget(localPlayer)
 end
 
-addEventHandler("onClientResourceStart", resourceRoot, function ()
-    --FinishScreen.start()
+function FinishScreen.show(gridType)
+    if not gridType then
+        gridType = "default"
+    end
+
+    columns = {
+        {source = "name", size = 0.5, icon = "rank"},
+        {source = "prize", size = 0.25, icon = "dollar", space = 0}
+    }
+
+    if gridType == "drift" then
+        table.insert(columns, {source = "time", size = 0.25, icon = "time", space = 5})
+    else
+        table.insert(columns, {source = "score", size = 0.25, icon = "score", space = 5})
+    end
+
+    FinishScreen.start()
+end
+
+function FinishScreen.addPlayer(player)
+    table.insert(playersList, player)
+end
+
+function FinishScreen.clearPlayers()
+    playersList = {}
+end
+
+addEvent("RaceLobby.playerFinished", true)
+addEventHandler("RaceLobby.playerFinished", resourceRoot, function (player, prize, exp, time, score)
+    FinishScreen.addPlayer({
+        name = exports.dpUtils:removeHexFromString(player.name),
+        prize = prize,
+        time = getTimeString(time),
+        score = score
+    })
+    if player == localPlayer then
+        FinishScreen.show("default")
+    end
 end)

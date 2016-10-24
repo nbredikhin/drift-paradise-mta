@@ -30,7 +30,7 @@ local function updatePolling()
 		for i, update in ipairs(updates) do
 			if tonumber(lastUpdateId) < tonumber(update.update_id) then
 				lastUpdateId = tonumber(update.update_id)
-				if tonumber(update.message.date) >= lastMessageDate then
+				if update.message and tonumber(update.message.date) >= lastMessageDate then
 					lastMessageDate = tonumber(update.message.date)				
 					triggerEvent("Bot.message", resourceRoot, update.message)
 				end

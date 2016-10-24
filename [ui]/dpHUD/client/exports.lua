@@ -9,13 +9,13 @@ end
 
 function setVisible(visible)
 	if not visible then
-		states.radar = Radar.visible
-		states.speedometer = Speedometer.visible
+		--states.radar = Radar.visible
+		--states.speedometer = Speedometer.visible
 		Radar.setVisible(false)
 		Speedometer.setVisible(false)		
 	else
-		Radar.setVisible(states.radar)
-		Speedometer.setVisible(states.speedometer)		
+		Radar.setVisible(true)
+		Speedometer.setVisible(true)		
 	end
 end
 

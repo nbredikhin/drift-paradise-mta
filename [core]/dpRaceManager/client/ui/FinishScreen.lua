@@ -3,7 +3,7 @@ local isActive = false
 
 local screenSize = Vector2(guiGetScreenSize())
 local animationProgress = 0
-local animationSpeed = 3
+local animationSpeed = 0.4
 
 local mainText = ""
 local bottomText = ""
@@ -17,10 +17,8 @@ local themeColorHEX = "#FFAA00"
 local isTimeoutVisible = false
 
 local function draw()
-    dxDrawRectangle(0, 0, screenSize.x, screenSize.y, tocolor(0, 0, 0, 200 * animationProgress))
     local scale1 = math.min(1, animationProgress * 2)
     local scale2 = math.min(1, animationProgress * 1.5)
-    local scale3 = math.min(1, animationProgress * 1)
     dxDrawText(mainText, 0, 0, screenSize.x, screenSize.y / 2, tocolor(255, 255, 255, 255 * animationProgress), scale1, mainTextFont, "center", "bottom", false, false, false, true)
     if isTimeoutVisible then
         local timeLeft = tostring(math.floor(RaceTimer.getTimeLeft()))
@@ -55,6 +53,7 @@ function FinishScreen.start()
     bottomTextFont = exports.dpAssets:createFont("Roboto-Regular.ttf", 28)
 
     bottomTextFontHeight = dxGetFontHeight(1, mainTextFont)
+    animationProgress = 0
     return true
 end
 

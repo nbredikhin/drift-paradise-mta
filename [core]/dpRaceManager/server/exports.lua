@@ -14,7 +14,7 @@ local function exportRaceFunction(exportedName, functionName)
 		local race = getRaceByElement(raceElement)
 		if race then
 			return safeCall(function(...)
-				race[functionName](race, ...)
+				return race[functionName](race, ...)
 			end, ...)
 		else
 			return false

@@ -86,7 +86,10 @@ addCommand("help", "помощь", function ()
         .. "Все сообщения, из этого чата видны на сервере и наоборот.\n\n"
         .. "Доступные команды:\n\n"
     for name, command in pairs(commands) do
-        text = text .. "/" .. tostring(name) .. " - " .. tostring(command.description) .. "\n"
+        text = text .. "/" .. tostring(name) .. " - " .. tostring(command.description)
+        if next(commands, name) then
+            text = text .. " \n"
+        end
     end
     return urlencode(text)
 end)

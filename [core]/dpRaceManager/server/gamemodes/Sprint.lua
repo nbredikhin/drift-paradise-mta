@@ -18,7 +18,7 @@ function Sprint:raceFinished(timeout)
 	self.super:raceFinished(timeout)
 	
 	if timeout then
-		self.race:destroy()
+		triggerEvent("RaceLobby.playerFinished", self.race.element, player)
 	end
 end
 

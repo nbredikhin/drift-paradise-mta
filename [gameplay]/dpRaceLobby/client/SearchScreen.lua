@@ -60,6 +60,7 @@ function SearchScreen.startSearch(gamemode)
 		return false
 	end	
 	SearchScreen.setVisible(true)
+	outputDebugString(tostring(gamemode))
 	triggerServerEvent("dpRaceLobby.startSearch", resourceRoot, gamemode)
 end
 

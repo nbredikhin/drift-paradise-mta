@@ -8,6 +8,9 @@ local currentMarker
 local nextMarker
 local hitMarker
 
+local currentBlip
+local nextBlip
+
 local currentLap = 1
 
 local defaultSettings = {
@@ -27,6 +30,14 @@ local function destroyMarkers()
 
 	if isElement(hitMarker) then
 		destroyElement(hitMarker)
+	end
+
+	if isElement(currentBlip) then
+		destroyElement(currentBlip)
+	end
+
+	if isElement(nextBlip) then
+		destroyElement(nextBlip)
 	end
 end
 
@@ -122,6 +133,13 @@ function RaceCheckpoints.showNext()
 			currentMarker.icon = "finish"
 			currentMarker:setColor(255, 255, 255)
 		end		
+	end
+
+	if isElement(currentMarker) then
+		currentBlip = createBlipAttachedTo(currentMarker, 0)
+	end
+	if isElement(nextMarker) then
+		nextBlip = createBlipAttachedTo(nextMarker, 0)
 	end
 end
 

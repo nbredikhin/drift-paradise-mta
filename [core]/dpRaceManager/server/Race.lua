@@ -139,7 +139,7 @@ function Race:init(settings, map)
 	end)
 
 	self:setState(RaceState.waiting)
-
+	self.allPlayers = {}
 	local gamemodeClass = raceGamemodes[self.settings.gamemode]
 	if not gamemodeClass then
 		self:log("Failed to create race. Gamemode '" .. tostring(self.settings.gamemode) .. "' does not exist")
@@ -255,6 +255,7 @@ function Race:addPlayer(player)
 	triggerClientEvent(self.element, "Race.playerAdded", player)
 
 	self.gamemode:spawnPlayer(player)
+	self.allPlayers = self:getPlayers()
 	self:log("Player added: '" .. tostring(player.name) .. "'")
 	return true
 end
@@ -310,6 +311,14 @@ function Race:getPlayers()
 	return self.element:getChildren("player")
 end
 
+function Race:getAllPlayers()
+	if type(self.allPlayers) ~= "table" then
+		return {}
+	else
+		return self.allPlayers
+	end
+end
+
 ---------------------------------------------------------------
 ----------------------- Геймплей гонки ------------------------
 ---------------------------------------------------------------
@@ -356,6 +365,8 @@ function Race:start()
 	for _, player in ipairs(self:getPlayers()) do
 		player.vehicle.frozen = false
 	end
+
+	self.allPlayers = self:getPlayers()
 
 	self.gamemode:raceStarted()
 	self:log("Race started")

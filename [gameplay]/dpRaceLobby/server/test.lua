@@ -1,4 +1,4 @@
-local TEST_RACE_ENABLED = false
+local TEST_RACE_ENABLED = true
 
 addEventHandler("onResourceStart", resourceRoot, function ()    
     if not TEST_RACE_ENABLED then
@@ -14,7 +14,10 @@ addEventHandler("onResourceStart", resourceRoot, function ()
     if not race then
         return false
     end
-    exports.dpRaceManager:raceAddPlayer(race, getRandomPlayer())
+    for i, v in ipairs(getElementsByType("player")) do
+        exports.dpRaceManager:raceAddPlayer(race, v)
+    end
+    
     setTimer(function ()
         exports.dpRaceManager:startRace(race)
     end, 3000, 1)

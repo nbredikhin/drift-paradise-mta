@@ -1,7 +1,7 @@
 -- Максимальное количество чекпойнтов в дуэли
-local DUEL_CHECKPOINTS_COUNT = 15
+local DUEL_CHECKPOINTS_COUNT = 1
 -- Максимальная длительность дуэли в секундах
-local DUEL_DURATION = 180
+local DUEL_DURATION = 25
 
 local activeDuels = {}
 
@@ -61,11 +61,9 @@ function startDuel(player1, player2, bet)
 	exports.dpRaceManager:raceAddPlayer(race, player1)
 	exports.dpRaceManager:raceAddPlayer(race, player2)
 
-	activeDuels[race] = {
-		players = {player1, player2},
-		bet = bet,
-		race = race
-	}
+	race:setData("dpDuels.duelInfo", {
+		bet = bet
+	})
 
 	setTimer(function () 
 		exports.dpRaceManager:startRace(race)
@@ -81,41 +79,36 @@ addCommandHandler("duel", function (player)
 	startDuel(players[1], players[1], 100)
 end)
 
-addEvent("RaceDuel.duelFinished", false)
-addEventHandler("RaceDuel.duelFinished", root, function (player, timePassed)
-	local duel = activeDuels[source]
-	if not duel then
-		outputDebugString("Duel finished, but not active")
-		return false
+addEvent("RaceDuel.finished", false)
+addEventHandler("RaceDuel.finished", root, function (playerWinner, timePassed)
+	local duelInfo = source:getData("dpDuels.duelInfo")
+	if type(duelInfo) ~= "table" then
+		return
 	end
-	if players then
-		exports.dpCore:givePlayerMoney(player, duel.bet * 2)
-		exports.dpVehicles:unforceVehicleHandling(player.vehicle)
+	source:setData("dpDuels.duelInfo", true)
+	if type(duelInfo.bet) ~= "number" then
+		duelInfo.bet = 0
 	end
-	for i, p in ipairs(duel.players) do
-		if isElement(p) then
-			exports.dpVehicles:unforceVehicleHandling(p.vehicle)
-			triggerClientEvent(p, "dpDuels.showWinner", resourceRoot, player, duel.bet * 2, timePassed)
-		end
+	-- Выдача приза победителю
+	local prize = duelInfo.bet * 2
+	if isElement(playerWinner) then
+		exports.dpCore:givePlayerMoney(playerWinner, prize)
 	end
-	exports.dpRaceManager:destroyRace(duel.race)
-end)
 
-addEvent("dpRaceManager.raceDestroyed", false)
-addEventHandler("dpRaceManager.raceDestroyed", root, function()
-	if activeDuels[source] then
-		triggerClientEvent("dpDuels.showWinner", resourceRoot, false)
-		for i, player in ipairs(activeDuels[source].players) do
-			if isElement(player) then
-				exports.dpVehicles:unforceVehicleHandling(player.vehicle)
-				triggerClientEvent(player, "dpDuels.showWinner", resourceRoot, false)
-			end
-		end
+	-- Отображение экрана финиша
+	local players = exports.dpRaceManager:raceGetAllPlayers(source)
+	if type(players) ~= "table" then
+		return
+	end
+	for i, player in ipairs(players) do
+		triggerClientEvent(player, "dpDuels.showWinner", resourceRoot, playerWinner, prize, timePassed)
 	end
 end)
 
 addEventHandler("onResourceStop", resourceRoot, function ()
-	for duel in pairs(activeDuels) do
-		exports.dpRaceManager:destroyRace(duel)
+	for race in ipairs(getElementsByType("race")) do
+		if race:getData("dpDuels.duelInfo") then
+			exports.dpRaceManager:destroyRace(race)
+		end
 	end
 end)

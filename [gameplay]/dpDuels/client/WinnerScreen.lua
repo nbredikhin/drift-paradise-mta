@@ -66,17 +66,21 @@ function WinnerScreen.show(player, bet, timePassed)
 	if type(timePassed) == "number" then
 		timeString = exports.dpLang:getString("duel_winner_screen_time") .. ": " .. themeColorHEX .. tostring(getTimeString(math.floor(timePassed / 1000)))
 	end
-	if player and player == localPlayer then
-		mainText = exports.dpLang:getString("duel_winner_screen_you_won")
-		moneyText = exports.dpLang:getString("duel_winner_screen_prize") .. ": " .. themeColorHEX .. "$" .. tostring(bet) 
-		infoText = timeString
-	elseif player and player ~= localPlayer then
-		mainText = exports.dpLang:getString("duel_winner_screen_you_lost")
-		moneyText = timeString
-	elseif not player then
+	outputDebugString("WinnerScreen.show: Winner - " .. tostring(player))
+	if isElement(player) then
+		if player == localPlayer then
+			mainText = exports.dpLang:getString("duel_winner_screen_you_won")
+			moneyText = exports.dpLang:getString("duel_winner_screen_prize") .. ": " .. themeColorHEX .. "$" .. tostring(bet) 
+			infoText = timeString
+		else
+			mainText = exports.dpLang:getString("duel_winner_screen_you_lost")
+			moneyText = timeString
+		end
+	else
 		mainText = exports.dpLang:getString("duel_winner_screen_timeout")
 		moneyText = ""
 	end
+
 	WinnerScreen.start()
 end
 
@@ -115,9 +119,9 @@ function WinnerScreen.stop()
 	return true
 end
 
--- bindKey("5", "down", function() WinnerScreen.show(localPlayer, 500, 126123) end)
+--bindKey("5", "down", function() WinnerScreen.show(localPlayer, 500, 126123) end)
 
 addEvent("dpDuels.showWinner", true)
-addEventHandler("dpDuels.showWinner", resourceRoot, function(winner, bet, timePassed)
-	WinnerScreen.show(winner, bet, timePassed)
+addEventHandler("dpDuels.showWinner", resourceRoot, function(player, prize, timePassed)
+	WinnerScreen.show(player, prize, timePassed)
 end)

@@ -80,8 +80,9 @@ local function draw()
             buttonAlpha = 255
 
             if getKeyState("mouse1") then
+                local gamemode = LobbyScreen.gamemode
                 LobbyScreen.setVisible(false)
-                SearchScreen.startSearch()
+                SearchScreen.startSearch(gamemode)
             end
         end
         buttonColor = tocolor(themeColor[1], themeColor[2], themeColor[3], buttonAlpha)

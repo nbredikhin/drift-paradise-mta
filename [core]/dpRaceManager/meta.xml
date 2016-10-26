@@ -35,6 +35,7 @@
 	<export type="server" function="raceAddPlayer"/>
 	<export type="server" function="raceRemovePlayer"/>
 	<export type="server" function="raceGetPlayers"/>
+	<export type="server" function="raceGetAllPlayers"/>
 	<export type="server" function="startRace"/>
 	<export type="server" function="finishRace"/>
 	<export type="server" function="raceLogMessage"/>

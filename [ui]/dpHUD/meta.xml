@@ -33,6 +33,7 @@
 	<file src="assets/textures/radar/arrow.png"/>
 	<file src="assets/textures/radar/mask.png"/>
 
+	<file src="assets/textures/radar/icons/0.png"/>
 	<file src="assets/textures/radar/icons/21.png"/>
 	<file src="assets/textures/radar/icons/27.png"/>
 	<file src="assets/textures/radar/icons/31.png"/>

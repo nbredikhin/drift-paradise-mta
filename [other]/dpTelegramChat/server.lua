@@ -77,7 +77,7 @@ Bot.connect(token)
 
 addCommand("server", "количество игроков онлайн", function ()
     local playersCount = tostring(#getElementsByType("player")) .. "/" .. tostring(getMaxPlayers())
-    return urlencode("*"..tostring(getServerName()).. "*\nИгроки онлайн: *" .. tostring(playersCount) .. "*")
+    return "*"..tostring(getServerName()).. "*\nИгроки онлайн: *" .. tostring(playersCount) .. "*"
 end)
 
 addCommand("help", "помощь", function ()
@@ -90,7 +90,7 @@ addCommand("help", "помощь", function ()
             text = text .. " \n"
         end
     end
-    return urlencode(text)
+    return text
 end)
 
 addCommand("player", "информация об игроке", function (name)

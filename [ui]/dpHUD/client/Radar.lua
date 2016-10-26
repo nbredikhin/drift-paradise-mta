@@ -33,6 +33,7 @@ local chunksTextures = {}
 local players = {}
 local blips = {}
 local allowedIcons = {
+	[0] = true, 
 	[27] = true, 
 	[21] = true, 
 	[55] = true,

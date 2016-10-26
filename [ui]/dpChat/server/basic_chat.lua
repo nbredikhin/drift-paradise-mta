@@ -10,6 +10,8 @@ addEventHandler("dpChat.broadcastMessage", root, function (tabName, rawMessage)
 	triggerEvent("dpChat.message", resourceRoot, client, tabName, rawMessage)
 	if tabName == "global" then		
 		triggerClientEvent("dpChat.broadcastMessage", root, "global", message, client)
+	elseif tabName == "web" then
+		triggerClientEvent("dpChat.broadcastMessage", root, "web", message, client)
 	elseif tabName == "lang" then
 		local lang = client:getData("langChat")
 		if not lang then

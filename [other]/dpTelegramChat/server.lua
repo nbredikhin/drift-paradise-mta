@@ -14,7 +14,7 @@ addEventHandler("dpChat.message", root, function (player, tabName, text)
     if not isElement(player) then
         return
     end
-    if tabName ~= "global" then
+    if tabName ~= "web" then
         return false
     end
     if player.type ~= "player" then
@@ -22,10 +22,9 @@ addEventHandler("dpChat.message", root, function (player, tabName, text)
     end
     
     local playerName = exports.dpUtils:removeHexFromString(player.name)
-
     Bot.message({
         chat_id = chatId,
-        text = "*" .. playerName .. "*: " .. urlencode(text),
+        text = urlencode("*" .. playerName .. "*: " .. text),
         parse_mode = "Markdown"
     })    
 end) 
@@ -71,7 +70,7 @@ addEventHandler("Bot.message", resourceRoot, function (data)
     elseif data.from.last_name then
         name = data.from.first_name .. " " .. data.from.last_name
     end
-    exports.dpChat:message(root, "global", "#24C8FF" .. tostring(name) .. "#FFFFFF: " .. tostring(data.text), root, 255, 255, 255, true)
+    exports.dpChat:message(root, "web", "#24C8FF" .. tostring(name) .. "#FFFFFF: " .. tostring(data.text), root, 255, 255, 255, true)
 end)
 
 Bot.connect(token)

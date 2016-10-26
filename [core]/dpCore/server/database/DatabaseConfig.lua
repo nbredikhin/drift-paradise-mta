@@ -14,11 +14,11 @@ DatabaseConfig = {
 
 	host = "127.0.0.1",
 	port = 3306,
-	dbName = "mta_server_dev",
+	dbName = "mta_server",
 
 	-- Auth
 	username = "root",
-	password = "",
+	password = "BHbQ3n9FBr3Z",
 
 	options = {
 		autoreconnect = 1		

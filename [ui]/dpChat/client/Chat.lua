@@ -3,6 +3,7 @@ Chat = {}
 local MAX_CHAT_LINES = 8
 local MAX_VISIBLE_TABS = 6
 local MAX_TAB_WIDTH = 72
+local MAX_LINE_LENGTH = 80
 
 local isVisible = false
 local chatTabs = {}
@@ -112,6 +113,12 @@ function Chat.message(tabName, text, r, g, b, colorCoded)
 	else
 		colorCoded = not not colorCoded
 	end
+	text = string.gsub(text, "\n", " ")
+	local rest
+	if #text:gsub("#%x%x%x%x%x%x", "") > MAX_LINE_LENGTH then
+		rest = text:sub(MAX_LINE_LENGTH + 1, -1)
+		text = text:sub(1, MAX_LINE_LENGTH)		
+	end
 	local message = {
 		text = text,
 		textWithoutColors = text:gsub("#%x%x%x%x%x%x", ""),
@@ -120,6 +127,9 @@ function Chat.message(tabName, text, r, g, b, colorCoded)
 	}
 
 	table.insert(tab.messages, message)
+	if rest then
+		Chat.message(tabName, rest, r, g, b, colorCoded)
+	end
 end
 
 function Chat.setActiveTab(name)

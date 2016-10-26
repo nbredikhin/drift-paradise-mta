@@ -198,11 +198,11 @@ function createEffectFile(filePath, lightNr, verLightNr, isLayer, isSobel, isNig
 			writeFileLine( theFile, ' bool gNightSpotEnable = false;\n float3 gNightSpotPosition = float3(0,0,0);\n float gNightSpotRadius = 0; ')
 		end		
 		writeFileLine( theFile, ' float4x4 gWorld : WORLD;\n float4x4 gView : VIEW;\n float4x4 gProjection : PROJECTION;\n float4x4 gWorldViewProjection : WORLDVIEWPROJECTION;\n float4x4 gWorldInverseTranspose : WORLDINVERSETRANSPOSE;\n float3 gCameraPosition : CAMERAPOSITION; ')
-		writeFileLine( theFile, ' #include \"common.fx\" ')
+		writeFileLine( theFile, ' #include \"common.txt\" ')
 		if isShading then
-			writeFileLine( theFile, ' #include \"light1.fx\" ')
+			writeFileLine( theFile, ' #include \"light1.txt\" ')
 		else
-			writeFileLine( theFile, ' #include \"light0.fx\" ')
+			writeFileLine( theFile, ' #include \"light0.txt\" ')
 		end
 		writeFileLine( theFile, ' texture gTexture0 < string textureState="0,Texture"; >;\n sampler Sampler0 = sampler_state\n {\n Texture = (gTexture0);\n };\n  texture gTexture1 < string textureState="1,Texture"; >;\n sampler Sampler1 = sampler_state\n {\n Texture = (gTexture1);\n }; ')
 		writeFileLine( theFile, ' struct VSInput{\n float4 Position : POSITION0;\n float3 TexCoord : TEXCOORD0;\n float2 TexCoord1 : TEXCOORD1;\n float4 Normal : NORMAL0;\n float4 Diffuse : COLOR0;\n }; ')

@@ -2,7 +2,7 @@ local SHOW_MESSAGE = true
 local KICK_PLAYERS = false
 
 local DISCORD_URL = "https://discordapp.com/api/webhooks/239880086801743872/JRfmTJxiZpeH4go0DU0yJE2JaOEcAhgLSOd35S8Mm2cPf5-ZSSbFexJWxyBeG3FzNwLO/slack"
-local DISCORD_INFO_INTERVAL = 15
+local DISCORD_INFO_INTERVAL = 60
 
 local startupResources = {
 	-- Important 

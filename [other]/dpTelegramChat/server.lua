@@ -57,7 +57,7 @@ addEventHandler("Bot.message", resourceRoot, function (data)
         if message then
             Bot.message({
                 chat_id = data.chat.id,
-                text = message,
+                text = urlencode(message),
                 parse_mode = "Markdown"
             })  
         end
@@ -112,5 +112,5 @@ addCommand("player", "информация об игроке", function (name)
         .. "Деньги: *$" .. tostring(player:getData("money")) .. "*\n"
         .. "Кол-во машин: *" .. tostring(player:getData("garage_cars_count")) .. "*\n"
         .. "Часов в игре: *" .. hours .. "*\n"
-    return urlencode(text)
+    return text
 end)

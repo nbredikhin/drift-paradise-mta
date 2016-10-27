@@ -20,7 +20,7 @@ local function getLevelMul(player)
     return 1 + level / 99 * LEVEL_MUL
 end
 
-local function showPlayerRaceFinish(player, race, time)
+local function showPlayerRaceFinish(player, race, time, rank, score)
     if not isElement(player) then
         return 
     end 
@@ -30,7 +30,9 @@ local function showPlayerRaceFinish(player, race, time)
     if type(raceInfo) ~= "table" then
         raceInfo = { rank = 1 }
     end
-    local score = math.random(90000, 800000)
+
+    outputDebugString("Rank: " .. tostring(rank))
+    outputDebugString("Score: " .. tostring(score))
 
     local players = exports.dpRaceManager:raceGetAllPlayers(race)
     local mul = getVehicleClassMul(raceInfo.rank) * getLevelMul(player)
@@ -48,7 +50,7 @@ local function showPlayerRaceFinish(player, race, time)
 end
 
 addEvent("RaceLobby.playerFinished", false)
-addEventHandler("RaceLobby.playerFinished", root, function (player, time)
+addEventHandler("RaceLobby.playerFinished", root, function (player, time, rank, score)
     if not isElement(player) then
         return false
     end
@@ -59,5 +61,5 @@ addEventHandler("RaceLobby.playerFinished", root, function (player, time)
         time = time / 1000
     end
     setTimer(fadeCamera, 2000, 1, player, false, 1)
-    setTimer(showPlayerRaceFinish, 3000, 1, player, race, time)
+    setTimer(showPlayerRaceFinish, 3000, 1, player, race, time, rank, score)
 end)

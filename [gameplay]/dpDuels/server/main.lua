@@ -1,7 +1,7 @@
 -- Максимальное количество чекпойнтов в дуэли
-local DUEL_CHECKPOINTS_COUNT = 1
+local DUEL_CHECKPOINTS_COUNT = 15
 -- Максимальная длительность дуэли в секундах
-local DUEL_DURATION = 25
+local DUEL_DURATION = 300
 
 local activeDuels = {}
 

@@ -211,16 +211,15 @@ function FinishScreen.show(gridType)
     if not gridType then
         gridType = "default"
     end
-
     columns = {
         {source = "name", size = 0.5, icon = "rank"},
         {source = "prize", size = 0.25, icon = "dollar", space = 0}
     }
 
     if gridType == "drift" then
-        table.insert(columns, {source = "time", size = 0.25, icon = "time", space = 5})
-    else
         table.insert(columns, {source = "score", size = 0.25, icon = "score", space = 5})
+    else
+        table.insert(columns, {source = "time", size = 0.25, icon = "time", space = 5})
     end
 
     FinishScreen.start()
@@ -243,7 +242,7 @@ addEventHandler("RaceLobby.playerFinished", resourceRoot, function (player, priz
         score = score
     })
     if player == localPlayer then
-        if score then
+        if type(score) == "number" then
             FinishScreen.show("drift")
         else
             FinishScreen.show("default")

@@ -40,6 +40,12 @@ function RaceGamemode:spawnPlayer(player)
 	return true
 end
 
+function RaceGamemode:raceDestroyed()
+	for _, player in ipairs(self.race:getPlayers()) do
+		exports.dpVehicles:unforceVehicleHandling(player.vehicle)
+	end
+end
+
 function RaceGamemode:raceStarted()
 	if not self.race then
 		outputDebugString("ЗАБЫЛ ВЫЗВАТЬ КОНСТРУКТОР СУКА")

@@ -3,7 +3,7 @@ local isActive = false
 
 local screenSize = Vector2(guiGetScreenSize())
 local animationProgress = 0
-local animationSpeed = 0.4
+local animationSpeed = 0.7
 
 local mainText = ""
 local bottomText = ""

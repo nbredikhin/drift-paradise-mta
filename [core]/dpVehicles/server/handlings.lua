@@ -90,7 +90,10 @@ function forceVehicleHandling(vehicle, handlingName)
 		return unforceVehicleHandling(vehicle)
 	end
 	local handlingLevel = vehicle:getData(handlingData[handlingName])
-	if type(handlingLevel) ~= "number" or handlingLevel == 0 then
+	if type(handlingLevel) ~= "number" then
+		return false
+	end
+	if handlingName == "drift" and handlingLevel <= 0 then
 		return false
 	end
 	vehicle:setData("activeHandling", handlingName)	

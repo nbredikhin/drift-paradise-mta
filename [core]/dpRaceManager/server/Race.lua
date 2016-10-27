@@ -160,6 +160,8 @@ function Race:destroy()
 		self:log("Failed to destroy race. It's being destroyed.")
 		return false
 	end
+	self.gamemode:raceDestroyed()
+	
 	self.isBeingDestroyed = true
 	triggerEvent("dpRaceManager.raceDestroyed", self.element)
 	-- Принудительно финишировать гонку

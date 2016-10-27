@@ -1,5 +1,5 @@
 local raceMarkers = {
-    { position = Vector3(1258.229, -1400.719, 13.008), gamemode = "sprint" },
+    { position = Vector3(1258.229, -1400.719, 13.008), gamemode = "drift" },
     { position = Vector3(1988.054, -1463.851, 13.391), gamemode = "sprint" }
 }
 

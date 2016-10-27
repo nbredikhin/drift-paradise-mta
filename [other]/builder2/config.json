@@ -8,7 +8,7 @@
     "enableExportEncrypt": false, 
     "enableReadmeFiles": false,
 
-    "only": ["dpTelegramChat"],
+    "only": ["dpRaceManager"],
     "include": [
         "geoip",
         "blur_box",
@@ -27,6 +27,7 @@
         "common.fx",
         ".json",
         ".txt",
+        ".map",
         "@"
     ]
 }

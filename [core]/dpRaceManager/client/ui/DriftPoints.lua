@@ -49,7 +49,8 @@ function DriftPoints.stop()
 
 	isActive = false
 	removeEventHandler("onClientRender", root, draw)
-	removeEventHandler("dpDriftPoints.earnedPoints", resourceRoot, earnedPoints)
+	removeEventHandler("dpDriftPoints.earnedPoints", root, earnedPoints)
+	localPlayer:setData("raceDriftScore", false)
 end
 
 function DriftPoints.addScore(points)

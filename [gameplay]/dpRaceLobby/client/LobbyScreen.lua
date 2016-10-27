@@ -24,6 +24,8 @@ local infoFields = {
     { name = "", locale ="lobby_screen_field_class",   value = "-"},
 }
 
+addEvent("dpRaceLobby.countPlayers", true)
+
 local function draw()
     local mx, my = getCursorPosition()
     if not mx then
@@ -34,15 +36,15 @@ local function draw()
     local x = math.max(screenSize.x * 0.2, screenSize.x / 2 - titleWidth * 0.75)
     local y = screenSize.y * 0.2
     dxDrawText(
-        titleText, 
-        x, 
-        y, 
-        x, 
-        y, 
-        tocolor(255, 255, 255), 
-        1, 
-        fonts.title, 
-        "left", 
+        titleText,
+        x,
+        y,
+        x,
+        y,
+        tocolor(255, 255, 255),
+        1,
+        fonts.title,
+        "left",
         "top",
         false,
         false,
@@ -52,39 +54,39 @@ local function draw()
     y = y + titleHeight * 1.1
 
     dxDrawText(
-        field.name .. ": " .. themeColorHEX .. field.value, 
-        x, 
-        y, 
-        x, 
-        y, 
-        tocolor(255, 255, 255), 
-        1, 
-        fonts.info, 
-        "left", 
+        exports.dpLang:getString("race_lobby_text"),
+        x,
+        y,
+        x,
+        y,
+        tocolor(255, 255, 255),
+        1,
+        fonts.info,
+        "left",
         "top",
         false,
         false,
         true,
-        true)    
+        true)
 
-    y = y + 50
+    y = y + 90   
 
     for i, field in ipairs(infoFields) do
         dxDrawText(
-            field.name .. ": " .. themeColorHEX .. field.value, 
-            x, 
-            y, 
-            x, 
-            y, 
-            tocolor(255, 255, 255), 
-            1, 
-            fonts.info, 
-            "left", 
+            field.name .. ": " .. themeColorHEX .. field.value,
+            x,
+            y,
+            x,
+            y,
+            tocolor(255, 255, 255),
+            1,
+            fonts.info,
+            "left",
             "top",
             false,
             false,
             true,
-            true)    
+            true)
 
         y = y + 50
     end
@@ -98,39 +100,39 @@ local function draw()
             if getKeyState("mouse1") then
                 local gamemode = LobbyScreen.gamemode
                 LobbyScreen.setVisible(false)
-                SearchScreen.startSearch(gamemode)
+                SearchScreen.startSearch(gamemode, infoFields[1].value)
             end
         end
         buttonColor = tocolor(themeColor[1], themeColor[2], themeColor[3], buttonAlpha)
     else
         buttonColor = tocolor(40, 42, 41)
         dxDrawText(
-            buttonMessage, 
-            x, 
-            y + buttonHeight, 
-            x + buttonWidth, 
-            y + buttonHeight * 1.8, 
-            tocolor(255, 255, 255), 
-            1, 
-            fonts.buttonMessage, 
-            "left", 
+            buttonMessage,
+            x,
+            y + buttonHeight,
+            x + buttonWidth,
+            y + buttonHeight * 1.8,
+            tocolor(255, 255, 255),
+            1,
+            fonts.buttonMessage,
+            "left",
             "bottom",
             false,
             false,
             true,
-            true)        
+            true)
     end
-    dxDrawRectangle(x, y, buttonWidth, buttonHeight, buttonColor, true) 
+    dxDrawRectangle(x, y, buttonWidth, buttonHeight, buttonColor, true)
     dxDrawText(
-        buttonText, 
-        x, 
-        y, 
-        x + buttonWidth, 
-        y + buttonHeight, 
-        tocolor(255, 255, 255, buttonAlpha), 
-        1, 
-        fonts.button, 
-        "center", 
+        buttonText,
+        x,
+        y,
+        x + buttonWidth,
+        y + buttonHeight,
+        tocolor(255, 255, 255, buttonAlpha),
+        1,
+        fonts.button,
+        "center",
         "center",
         false,
         false,
@@ -142,6 +144,10 @@ local function onVehicleExit(player)
     if player == localPlayer then
         return
     end
+end
+
+local function updateCounter(count)
+    infoFields[1].value = tostring(count)
 end
 
 function LobbyScreen.toggle(gamemode)
@@ -176,6 +182,7 @@ function LobbyScreen.setVisible(visible)
         localPlayer:setData("activeUI", "lobbyScreen")
         addEventHandler("onClientRender", root, draw)
         addEventHandler("onClientVehicleExit", localPlayer.vehicle, onVehicleExit)
+        addEventHandler("dpRaceLobby.countPlayers", resourceRoot, updateCounter)
         fonts.title = exports.dpAssets:createFont("Roboto-Regular.ttf", 52)
         fonts.info = exports.dpAssets:createFont("Roboto-Regular.ttf", 21)
         fonts.button = exports.dpAssets:createFont("Roboto-Regular.ttf", 22)
@@ -184,8 +191,8 @@ function LobbyScreen.setVisible(visible)
         themeColor = {exports.dpUI:getThemeColor()}
         themeColorHEX = exports.dpUtils:RGBToHex(exports.dpUI:getThemeColor())
 
-        titleText = 
-            exports.dpLang:getString("lobby_screen_field_title") .. 
+        titleText =
+            exports.dpLang:getString("lobby_screen_field_title") ..
             ": " .. themeColorHEX ..
             exports.dpLang:getString("race_type_" .. LobbyScreen.gamemode)
 
@@ -211,11 +218,11 @@ function LobbyScreen.setVisible(visible)
             end
         end
 
-        infoFields[1].value = "$0"
-        infoFields[2].value = "0"
-        infoFields[3].value = "0"
+        infoFields[1].value = "0"
         local vehicleClass = exports.dpShared:getVehicleClass(localPlayer.vehicle.model)
-        infoFields[4].value = tostring(exports.dpShared:getVehicleClassName(vehicleClass))
+        infoFields[2].value = tostring(exports.dpShared:getVehicleClassName(vehicleClass))
+
+        triggerServerEvent("dpRaceLobby.countPlayers", resourceRoot, LobbyScreen.gamemode)
     else
         localPlayer:setData("activeUI", false)
         for font in pairs(fonts) do
@@ -225,6 +232,7 @@ function LobbyScreen.setVisible(visible)
         end
         removeEventHandler("onClientRender", root, draw)
         removeEventHandler("onClientVehicleExit", localPlayer.vehicle, onVehicleExit)
+        removeEventHandler("dpRaceLobby.countPlayers", resourceRoot, updateCounter)
         LobbyScreen.gamemode = nil
         unbindKey("backspace", "down", LobbyScreen.toggle)
     end

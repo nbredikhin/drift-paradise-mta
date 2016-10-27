@@ -256,7 +256,7 @@ addEventHandler("onClientKey", root, function (key, state)
 		if not isElement(currentMarker) then
 			return
 		end
-		if localPlayer:getData("dpCore.state") then
+		if localPlayer:getData("dpCore.state") or localPlayer:getData("activeUI") then
 			return
 		end	
 		if localPlayer:isWithinMarker(currentMarker) or 

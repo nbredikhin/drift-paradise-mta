@@ -44,7 +44,7 @@ local function updateTime()
 	UI:setType(ui.acceptButton, "default_dark")
 end
 
-function SearchScreen.startSearch(gamemode)
+function SearchScreen.startSearch(gamemode, count)
 	if not localPlayer.vehicle then
 		exports.dpUI:showMessageBox(
 			exports.dpLang:getString("race_error_title"), 
@@ -62,16 +62,12 @@ function SearchScreen.startSearch(gamemode)
 	SearchScreen.setVisible(true)
 	outputDebugString(tostring(gamemode))
 	triggerServerEvent("dpRaceLobby.startSearch", resourceRoot, gamemode)
+	UI:setText(ui.infoLabel, exports.dpLang:getString("race_search_players_in_search")  .. " " .. tostring(count))	
 end
 
 function SearchScreen.cancelSearch()
 	SearchScreen.setVisible(false)
 	triggerServerEvent("dpRaceLobby.cancelSearch", resourceRoot)
-end
-
-local function updatePlayersCountText()
-	local playersCount = root:getData("MatchmakingSearchingPlayersCount") or 12
-	UI:setText(ui.infoLabel, exports.dpLang:getString("race_search_players_in_search")  .. " " .. tostring(playersCount))	
 end
 
 function SearchScreen.setVisible(visible)
@@ -99,8 +95,10 @@ function SearchScreen.setVisible(visible)
 		updateTime()
 
 		UI:setText(ui.mainLabel, exports.dpLang:getString("race_search_searching_label"))	
-		updatePlayersCountText()
-		setTimer(updatePlayersCountText, 1000, 1)
+
+		localPlayer:setData("activeUI", "SearchScreen")
+	else
+		localPlayer:setData("activeUI", false)
 	end
 end
 

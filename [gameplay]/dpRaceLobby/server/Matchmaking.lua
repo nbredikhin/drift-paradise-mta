@@ -3,6 +3,7 @@ local ROOM_TIME_NOPLAYERS = 20
 local ROOM_TIME_ENOUGH_PLAYERS = 10
 local rooms = {}
 local players = {}
+local playersCount = {} 
 
 local function findRoom(rank, gamemode)
 	for i, room in ipairs(rooms) do
@@ -137,6 +138,16 @@ setTimer(function ()
 	--outputDebugString("Rooms count: " .. tostring(#rooms))
 end, 1000, 0)
 
+setTimer(function ()
+	playersCount = {}
+	for i, room in ipairs(rooms) do
+		if not playersCount[room.gamemode] then
+			playersCount[room.gamemode] = 0
+		end
+		playersCount[room.gamemode] = playersCount[room.gamemode] + #getRoomPlayers(room)
+	end
+end, 10000, 0)
+
 local addClientEventHandler = function(event, handler) 
 	addEvent(event, true)
 	return addEventHandler(event, resourceRoot, handler)
@@ -152,4 +163,13 @@ end)
 
 addEventHandler("onPlayerQuit", root, function ()
 	Matchmaking.removePlayer(source)
+end)
+
+addEvent("dpRaceLobby.countPlayers", true)
+addEventHandler("dpRaceLobby.countPlayers", resourceRoot, function (gamemode)
+	local count = playersCount[gamemode]
+	if not count then
+		count = 0
+	end
+	triggerClientEvent(client, "dpRaceLobby.countPlayers", resourceRoot, count)
 end)

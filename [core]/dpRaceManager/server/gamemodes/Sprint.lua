@@ -25,7 +25,7 @@ end
 function Sprint:playerFinished(player, timeout)
     self.super:playerFinished(player, timeout)
 
-    triggerEvent("RaceLobby.playerFinished", self.race.element, player)
+    triggerEvent("RaceLobby.playerFinished", self.race.element, player, self:getTimePassed())
 end
 
 -- function RaceDefault:playerFinished(player, timeout)

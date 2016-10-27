@@ -10,6 +10,6 @@ end
 
 function Drift:raceFinished(timeout)
     for i, player in ipairs(self.race:getPlayers()) do
-        triggerEvent("RaceLobby.playerFinished", self.race.element, player)
+        triggerEvent("RaceLobby.playerFinished", self.race.element, player, self:getTimePassed())
     end
 end

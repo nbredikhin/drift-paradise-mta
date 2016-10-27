@@ -50,13 +50,14 @@ local function selectRandomMap(gamemode)
 	return "hello-world"
 end
 
-function RaceManager.raceReady(playersList, gamemode)
+function RaceManager.raceReady(playersList, gamemode, rank)
 	local raceId = racesCounter
 	table.insert(pendingRaces, {
 		id = raceId, 
 		map = selectRandomMap(gamemode),
 		gamemode = gamemode,
 		players = playersList,
+		rank = rank,
 		readyCount = 0
 	})
 	racesCounter = racesCounter + 1

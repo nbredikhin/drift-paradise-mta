@@ -63,7 +63,7 @@ local function updateRoom(room)
 			for i, p in ipairs(playersList) do
 				Matchmaking.removePlayer(p)
 			end
-			RaceManager.raceReady(playersList, room.gamemode)
+			RaceManager.raceReady(playersList, room.gamemode, room.rank)
 			removeRoom(room)
 		end
 	end

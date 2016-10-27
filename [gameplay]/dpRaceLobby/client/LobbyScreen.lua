@@ -20,8 +20,6 @@ local buttonEnabled = false
 local buttonMessage = ""
 
 local infoFields = {
-    { name = "", locale ="lobby_screen_field_prize",   value = "$0"},
-    { name = "", locale ="lobby_screen_field_xp",      value = "0"},
     { name = "", locale ="lobby_screen_field_players", value = "0"},
     { name = "", locale ="lobby_screen_field_class",   value = "-"},
 }
@@ -52,6 +50,24 @@ local function draw()
         true)
 
     y = y + titleHeight * 1.1
+
+    dxDrawText(
+        field.name .. ": " .. themeColorHEX .. field.value, 
+        x, 
+        y, 
+        x, 
+        y, 
+        tocolor(255, 255, 255), 
+        1, 
+        fonts.info, 
+        "left", 
+        "top",
+        false,
+        false,
+        true,
+        true)    
+
+    y = y + 50
 
     for i, field in ipairs(infoFields) do
         dxDrawText(

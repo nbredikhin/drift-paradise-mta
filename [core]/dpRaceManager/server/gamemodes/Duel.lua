@@ -19,15 +19,6 @@ function Duel:raceFinished(timeout)
 	self.race:destroy()
 end
 
-function Duel:getTimePassed()
-	if isTimer(self.race.durationTimer) then
-		local timeLeft = getTimerDetails(self.race.durationTimer)
-		return self.race.settings.duration * 1000 - timeLeft
-	else
-		return 0
-	end
-end
-
 function Duel:playerRemoved(player)
 	self.super:playerRemoved(player)
 	local players = self.race:getPlayers()

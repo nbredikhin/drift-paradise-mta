@@ -61,6 +61,15 @@ function RaceGamemode:playerRemoved(player)
 	end
 end
 
+function RaceGamemode:getTimePassed()
+	if isTimer(self.race.durationTimer) then
+		local timeLeft = getTimerDetails(self.race.durationTimer)
+		return self.race.settings.duration * 1000 - timeLeft
+	else
+		return 0
+	end
+end
+
 function RaceGamemode:playerFinished(player, timeout)
 	if not check("RaceGamemode:playerFinished", "player", "player", player) then return false end
 	-- Игрок уже финишировал

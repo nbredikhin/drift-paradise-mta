@@ -243,6 +243,10 @@ addEventHandler("RaceLobby.playerFinished", resourceRoot, function (player, priz
         score = score
     })
     if player == localPlayer then
-        FinishScreen.show("default")
+        if score then
+            FinishScreen.show("drift")
+        else
+            FinishScreen.show("default")
+        end
     end
 end)

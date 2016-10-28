@@ -26,14 +26,21 @@ local function showPlayerRaceFinish(player, race, time, rank, score)
     end 
 
     local raceInfo = race:getData("dpRaceLobby.raceInfo")
-    outputDebugString(tostring(raceInfo))
     if type(raceInfo) ~= "table" then
         raceInfo = { rank = 1 }
     end
 
     local players = exports.dpRaceManager:raceGetAllPlayers(race)
-    local rankMul = math.max(0, 1 - (rank - 1) / 3)
+    local rankMul = 0
+    if rank then
+        rankMul = math.max(0, 1 - (rank - 1) / 3)
+    else
+        rank = 4
+    end
     local mul = rankMul * getVehicleClassMul(raceInfo.rank) * getLevelMul(player)
+    if score and score == 0 then
+        mul = 0
+    end
     local prize = math.floor((PRIZE_INITIAL + (#players * PRIZE_PLAYER_ADD)) * mul / 250) * 250
     local exp = math.floor((EXP_INITIAL + (#players * EXP_PLAYER_ADD)) * mul / 50) * 50
 
@@ -41,7 +48,7 @@ local function showPlayerRaceFinish(player, race, time, rank, score)
     exports.dpCore:givePlayerXP(player, exp)
 
     for i, p in ipairs(players) do
-        triggerClientEvent(p, "RaceLobby.playerFinished", resourceRoot, player, prize, exp, time, score)
+        triggerClientEvent(p, "RaceLobby.playerFinished", resourceRoot, player, prize, exp, rank, time, score)
     end
     exports.dpRaceManager:raceRemovePlayer(race, player)
     fadeCamera(player, true, 2)

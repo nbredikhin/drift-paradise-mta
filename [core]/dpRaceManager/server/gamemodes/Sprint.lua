@@ -7,13 +7,13 @@ end
 function Sprint:raceFinished(timeout)
 	self.super:raceFinished(timeout)
 	
-	if timeout then
-		triggerEvent("RaceLobby.playerFinished", self.race.element, player)
+	for i, player in ipairs(self.race:getPlayers()) do
+		triggerEvent("RaceLobby.playerFinished", self.race.element, player, self:getTimePassed(), false)
 	end
 end
 
 function Sprint:playerFinished(player, timeout)
     self.super:playerFinished(player, timeout)
 
-    triggerEvent("RaceLobby.playerFinished", self.race.element, player, self:getTimePassed())
+    triggerEvent("RaceLobby.playerFinished", self.race.element, player, self:getTimePassed(), #self.finishedPlayers)
 end

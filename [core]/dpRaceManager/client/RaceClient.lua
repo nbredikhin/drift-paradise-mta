@@ -132,6 +132,7 @@ function RaceClient.startRace(raceElement, settings, map)
 			exports[name]:setVisible(false)
 		end
 	end
+	exports.dpUI:hideMessageBox()
 	localPlayer:setData("activeUI", "raceUI")
 	bindKey("F1", "down", QuitPrompt.toggle)
 	bindKey("f", "down", QuitPrompt.toggle)
@@ -197,3 +198,7 @@ function RaceClient.stopRace()
 	toggleAllControls(true)
 	outputDebugString("Client race stopped")
 end	
+
+if localPlayer:getData("activeUI") == "raceUI" then
+	localPlayer:setData("activeUI", false)
+end

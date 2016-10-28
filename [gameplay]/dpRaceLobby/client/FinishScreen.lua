@@ -235,6 +235,9 @@ end
 
 function FinishScreen.addPlayer(player)
     table.insert(playersList, player)
+    table.sort(playersList, function (a, b)
+        return a.rank < b.rank
+    end)
 end
 
 function FinishScreen.clearPlayers()
@@ -242,12 +245,13 @@ function FinishScreen.clearPlayers()
 end
 
 addEvent("RaceLobby.playerFinished", true)
-addEventHandler("RaceLobby.playerFinished", resourceRoot, function (player, prize, exp, time, score)
+addEventHandler("RaceLobby.playerFinished", resourceRoot, function (player, prize, exp, rank, time, score)
     FinishScreen.addPlayer({
         name = exports.dpUtils:removeHexFromString(player.name),
         prize = prize,
         time = getTimeString(time),
-        score = score
+        score = score,
+        rank = rank
     })
     if player == localPlayer then
         if type(score) == "number" then

@@ -105,6 +105,11 @@ function Matchmaking.addPlayer(player, gamemode)
 		room.time = 0
 		updateRoom(room)
 	end
+
+	if not playersCount[room.gamemode] then
+		playersCount[room.gamemode] = 0
+	end
+	playersCount[room.gamemode] = playersCount[room.gamemode] + 1
 	return true
 end
 
@@ -127,6 +132,11 @@ function Matchmaking.removePlayer(player)
 	elseif #roomPlayers <= 0 then
 		removeRoom(room)
 	end
+
+	if not playersCount[room.gamemode] then
+		playersCount[room.gamemode] = 0
+	end
+	playersCount[room.gamemode] = playersCount[room.gamemode] - 1	
 	return true
 end
 
@@ -137,16 +147,6 @@ setTimer(function ()
 
 	--outputDebugString("Rooms count: " .. tostring(#rooms))
 end, 1000, 0)
-
-setTimer(function ()
-	playersCount = {}
-	for i, room in ipairs(rooms) do
-		if not playersCount[room.gamemode] then
-			playersCount[room.gamemode] = 0
-		end
-		playersCount[room.gamemode] = playersCount[room.gamemode] + #getRoomPlayers(room)
-	end
-end, 10000, 0)
 
 local addClientEventHandler = function(event, handler) 
 	addEvent(event, true)

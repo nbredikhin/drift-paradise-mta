@@ -114,6 +114,7 @@ local function draw()
         buttonColor = tocolor(222, 20, 60, 255 * fadeProgress)
         
         if getKeyState("mouse1") then
+            exports.dpSounds:playSound("ui_change.wav")
             FinishScreen.stop()
             return
         end

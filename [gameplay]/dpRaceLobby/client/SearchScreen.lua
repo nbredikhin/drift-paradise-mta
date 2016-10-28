@@ -13,6 +13,8 @@ local secoundsCount = 0
 local foundGame = false
 local acceptedGame = false
 
+local searchGamemode
+
 local function onGameFound()
 	foundGame = true
 	acceptedGame = false
@@ -42,6 +44,12 @@ local function updateTime()
 
 	UI:setText(ui.acceptButton, exports.dpLang:getString("race_search_searching") .. " " .. time)
 	UI:setType(ui.acceptButton, "default_dark")
+
+	triggerServerEvent("dpRaceLobby.countPlayers", resourceRoot, searchGamemode)
+end
+
+local function updateCounter(count)
+	UI:setText(ui.infoLabel, exports.dpLang:getString("race_search_players_in_search")  .. " " .. tostring(count))	
 end
 
 function SearchScreen.startSearch(gamemode, count)
@@ -60,9 +68,9 @@ function SearchScreen.startSearch(gamemode, count)
 		return false
 	end	
 	SearchScreen.setVisible(true)
-	outputDebugString(tostring(gamemode))
 	triggerServerEvent("dpRaceLobby.startSearch", resourceRoot, gamemode)
-	UI:setText(ui.infoLabel, exports.dpLang:getString("race_search_players_in_search")  .. " " .. tostring(count))	
+	searchGamemode = gamemode
+	updateCounter(count)
 end
 
 function SearchScreen.cancelSearch()
@@ -97,8 +105,10 @@ function SearchScreen.setVisible(visible)
 		UI:setText(ui.mainLabel, exports.dpLang:getString("race_search_searching_label"))	
 
 		localPlayer:setData("activeUI", "SearchScreen")
+		addEventHandler("dpRaceLobby.countPlayers", resourceRoot, updateCounter)
 	else
 		localPlayer:setData("activeUI", false)
+		removeEventHandler("dpRaceLobby.countPlayers", resourceRoot, updateCounter)
 	end
 end
 

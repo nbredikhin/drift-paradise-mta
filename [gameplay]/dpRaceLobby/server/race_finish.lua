@@ -31,11 +31,9 @@ local function showPlayerRaceFinish(player, race, time, rank, score)
         raceInfo = { rank = 1 }
     end
 
-    outputDebugString("Rank: " .. tostring(rank))
-    outputDebugString("Score: " .. tostring(score))
-
     local players = exports.dpRaceManager:raceGetAllPlayers(race)
-    local mul = getVehicleClassMul(raceInfo.rank) * getLevelMul(player)
+    local rankMul = math.max(0, 1 - (rank - 1) / 3)
+    local mul = rankMul * getVehicleClassMul(raceInfo.rank) * getLevelMul(player)
     local prize = math.floor((PRIZE_INITIAL + (#players * PRIZE_PLAYER_ADD)) * mul / 250) * 250
     local exp = math.floor((EXP_INITIAL + (#players * EXP_PLAYER_ADD)) * mul / 50) * 50
 

@@ -101,6 +101,7 @@ local function draw()
                 local gamemode = LobbyScreen.gamemode
                 LobbyScreen.setVisible(false)
                 SearchScreen.startSearch(gamemode, infoFields[1].value)
+                exports.dpSounds:playSound("ui_change.wav")
             end
         end
         buttonColor = tocolor(themeColor[1], themeColor[2], themeColor[3], buttonAlpha)

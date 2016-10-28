@@ -17,7 +17,7 @@ local function startCameraView(cameraView)
 	if cameraView and localPlayer.vehicle.controller == localPlayer then
 		cameraView.start()
 		currentCameraView = cameraView
-		toggleControl("change_camera", false)
+		--toggleControl("change_camera", false)
 	else
 		if currentCameraView then
 			setCameraTarget(localPlayer)
@@ -28,14 +28,17 @@ local function startCameraView(cameraView)
 		if localPlayer.vehicle then
 			setCameraViewMode(2)
 		else
-			toggleControl("change_camera", true)
+			--toggleControl("change_camera", true)
 		end
 	end
 	return true
 end
 
-bindKey("change_camera","down", function ()
-	if localPlayer:getData("activeUI") then
+addEventHandler("onClientKey", root, function (key, down)
+	if not down then
+		return
+	end
+	if key ~= "v" then
 		return
 	end
 	if not localPlayer.vehicle then
@@ -50,6 +53,7 @@ bindKey("change_camera","down", function ()
 		currentCameraViewIndex = 1
 	end
 	startCameraView(cameraViews[currentCameraViewIndex])
+	cancelEvent()
 end)
 
 addEventHandler("onClientPlayerVehicleEnter", localPlayer, function ()

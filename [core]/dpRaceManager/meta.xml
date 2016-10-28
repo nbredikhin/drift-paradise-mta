@@ -49,5 +49,5 @@
 	<file src="assets/countdown1.png"/>
 	<file src="assets/countdown0.png"/>
 
-	<file src="maps/hello-world.map" type="server"/>
+	<dp-map src="maps/hello-world.map" type="server"/>
 </meta>

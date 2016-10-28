@@ -19,13 +19,17 @@ local isTimeoutVisible = false
 local function draw()
     local scale1 = math.min(1, animationProgress * 2)
     local scale2 = math.min(1, animationProgress * 1.5)
+    dxDrawText(mainText, 1, 0, screenSize.x + 1, screenSize.y / 2, tocolor(0, 0, 0, 255 * animationProgress), scale1, mainTextFont, "center", "bottom", false, false, false, true)
+    dxDrawText(mainText, -1, 0, screenSize.x - 1, screenSize.y / 2, tocolor(0, 0, 0, 255 * animationProgress), scale1, mainTextFont, "center", "bottom", false, false, false, true)
+    dxDrawText(mainText, 0, 1, screenSize.x, screenSize.y / 2 + 1, tocolor(0, 0, 0, 255 * animationProgress), scale1, mainTextFont, "center", "bottom", false, false, false, true)
+    dxDrawText(mainText, 0, -1, screenSize.x, screenSize.y / 2 - 1, tocolor(0, 0, 0, 255 * animationProgress), scale1, mainTextFont, "center", "bottom", false, false, false, true)
     dxDrawText(mainText, 0, 0, screenSize.x, screenSize.y / 2, tocolor(255, 255, 255, 255 * animationProgress), scale1, mainTextFont, "center", "bottom", false, false, false, true)
     if isTimeoutVisible then
         local timeLeft = tostring(math.floor(RaceTimer.getTimeLeft()))
         if timeLeft == "0" then
             isTimeoutVisible = false
         end
-        dxDrawText("Ожидание конца гонки: " .. themeColorHEX .. timeLeft, 0, screenSize.y / 2, screenSize.x, screenSize.y, tocolor(255, 255, 255, 255 * animationProgress), scale2, bottomTextFont, "center", "top", false, false, false, true)
+        dxDrawText(exports.dpLang:getString("race_waiting_for_finish") .. ": " .. themeColorHEX .. timeLeft, 0, screenSize.y / 2, screenSize.x, screenSize.y, tocolor(255, 255, 255, 255 * animationProgress), scale2, bottomTextFont, "center", "top", false, false, false, true)
     end
 end
 
@@ -36,7 +40,7 @@ end
 
 function FinishScreen.show(showTimeout)
     themeColorHEX = exports.dpUtils:RGBToHex(exports.dpUI:getThemeColor())
-    mainText = exports.dpLang:getString("Вы финишировали!")
+    mainText = exports.dpLang:getString("race_you_finished")
     isTimeoutVisible = not not showTimeout
     FinishScreen.start()
 end

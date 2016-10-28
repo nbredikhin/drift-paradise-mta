@@ -44,6 +44,7 @@ local itemHeight = 60
 local buttonsHeight = 60
 
 local iconsSize = 20
+local freezeTimer
 
 local function getTimeString(value)
     local seconds = math.floor(value)
@@ -122,7 +123,7 @@ local function draw()
         --self.mouseOver = false
     end
     dxDrawRectangle(x, y, panelWidth, buttonsHeight, buttonColor)
-    dxDrawText("Завершить гонку", x, y, x + panelWidth, y + buttonsHeight, tocolor(255, 255, 255), 1, itemFont, "center", "center")
+    dxDrawText(exports.dpLang:getString("race_finish_race_button"), x, y, x + panelWidth, y + buttonsHeight, tocolor(255, 255, 255), 1, itemFont, "center", "center")
     dxSetRenderTarget()
 end
 
@@ -150,6 +151,7 @@ function FinishScreen.start()
     finishPosition = localPlayer.vehicle.position
     localPlayer.vehicle.velocity = Vector3(0, 0, 0)
     toggleAllControls(false)
+    freezeTimer = setTimer(function () localPlayer.vehicle.frozen = true end, 50, 3)
 
     animationProgress = 0
     fadeProgress = 0
@@ -201,6 +203,11 @@ function FinishScreen.stop()
         end
     end
 
+    if isTimer(freezeTimer) then
+        killTimer(freezeTimer)
+        freezeTimer = nil
+    end
+    localPlayer.vehicle.frozen = false
     toggleAllControls(true)
 
     exports.dpHUD:setVisible(true)

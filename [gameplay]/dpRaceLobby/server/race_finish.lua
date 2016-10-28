@@ -58,6 +58,6 @@ addEventHandler("RaceLobby.playerFinished", root, function (player, time, rank, 
     else
         time = time / 1000
     end
-    setTimer(fadeCamera, 2000, 1, player, false, 1)
-    setTimer(showPlayerRaceFinish, 3000, 1, player, race, time, rank, score)
+    setTimer(fadeCamera, 1000, 1, player, false, 1)
+    setTimer(showPlayerRaceFinish, 2000, 1, player, race, time, rank, score)
 end)

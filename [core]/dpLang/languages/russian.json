@@ -322,10 +322,13 @@
 
 	"race_drift_score": "Очки",
 	"race_waiting_for_players": "Ожидание остальных игроков...",
+	"race_you_finished": "Вы финишировали!",
+	"race_waiting_for_finish": "Ожидание конца гонки",
 
 	"race_ui_quit_prompt_text": "Вы уверены, что хотите покинуть текущую гонку?",
 	"race_ui_quit_prompt_leave": "Покинуть",
 	"race_ui_quit_prompt_cancel": "Отмена",
+	"race_finish_race_button": "Завершить гонку",
 
 	// Carshop
 	"carshop_label_speed": "Скорость",

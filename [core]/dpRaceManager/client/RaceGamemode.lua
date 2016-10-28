@@ -77,5 +77,6 @@ end
 function RaceGamemode:clientFinished()
 	FinishScreen.show(false)
 	toggleAllControls(false)
+	setControlState("handbrake", true)
 	triggerServerEvent("Race.clientFinished", RaceClient.raceElement)
 end

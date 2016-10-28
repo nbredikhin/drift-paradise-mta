@@ -149,6 +149,9 @@ end
 function hideMenu()
 	localPlayer:setData("activeUI", false)
 	setTimer(function() toggleControl("fire", true) end, 200, 1)
+	if currentMenu then
+		showCursor(false)
+	end
 	currentMenu = false
 end
 

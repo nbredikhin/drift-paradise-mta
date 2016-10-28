@@ -34,9 +34,11 @@ addEventHandler("onClientClick", root, function(button, state, x, y, worldX, wor
 end)
 
 bindKey(CURSOR_BUTTON, "down", function() 
-	if localPlayer:getData("dpCore.state") or localPlayer:getData("activeUI") then
+	if localPlayer:getData("dpCore.state") or (localPlayer:getData("activeUI") and localPlayer:getData("activeUI") ~= "contextMenu") then
 		return
 	end
-	hideMenu()
 	showCursor(not isCursorShowing(), false) 
+	if not isCursorShowing() then
+		hideMenu()
+	end
 end)

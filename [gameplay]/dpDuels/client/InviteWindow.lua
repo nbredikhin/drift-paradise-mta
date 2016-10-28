@@ -204,6 +204,7 @@ addEventHandler("dpDuels.answerCall", resourceRoot, function (player, status)
 	if player ~= targetPlayer then
 		return
 	end
+	exports.dpUI:hideMessageBox()
 	if not status then
 		exports.dpUI:showMessageBox(exports.dpLang:getString("duel_invite_duel_title"), exports.dpLang:getString("duel_invite_invite_player_cancelled"))
 	end

@@ -161,6 +161,10 @@ function PathGenerator.generateCheckpointsFromPoint(x, y, z, checkpointsCount)
 	return checkpoints
 end
 
+function PathGenerator.getNearestCheckpoint(player)
+	return getStartCheckpoint(player.position.x, player.position.y, player.position.z, player.rotation.z)
+end
+
 function PathGenerator.generateCheckpointsForPlayer(player, checkpointsCount)
 	if not player.vehicle then
 		return false

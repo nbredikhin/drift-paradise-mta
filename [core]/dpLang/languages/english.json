@@ -430,10 +430,12 @@
 	"duel_invite_error_bet_too_big": "You can't bet more than $%s",
 	"duel_invite_error_not_enough_money": "Not enough money",
 	"duel_invite_error_player_not_enough_money": "Player has not enough money",
+	"duel_invite_invite_road_too_far": "You are too far from any road",
 
 	"duel_invite_invite_sent_body": "Duel invintation sent",
 	"duel_invite_invite_sent_chatmsg": "Duel invintation sent. Waiting for the response...",
 	"duel_invite_invite_player_cancelled": "Player didn't accept the duel",
+	"duel_invite_invite_server_cancelled": "Duel error",
 
 	"duel_accept_message": "Player %s wants to duel with you.\nBet: $%s",
 	"duel_accept_key_accept": "%s - accept (%s)",

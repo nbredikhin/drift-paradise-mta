@@ -21,6 +21,12 @@ addEventHandler("dpDuels.callPlayer", resourceRoot, function (targetPlayer, bet)
 		return false
 	end	
 
+	local checkpoint = PathGenerator.getNearestCheckpoint(client)
+	local distance = getDistanceBetweenPoints3D(checkpoint.x, checkpoint.y, checkpoint.z,client.position.x,client.position.y,client.position.z)
+	if distance > 350 then
+		triggerClientEvent(client, "dpDuels.answerCall", resourceRoot, targetPlayer, false, "distance")
+		return false
+	end
 	triggerClientEvent(targetPlayer, "dpDuels.callPlayer", resourceRoot, client, bet)
 end)
 

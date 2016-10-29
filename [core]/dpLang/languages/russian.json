@@ -404,10 +404,12 @@
 	"duel_invite_error_bet_too_big": "Нельзя поставить больше $%s",
 	"duel_invite_error_not_enough_money": "У вас недостаточно денег",
 	"duel_invite_error_player_not_enough_money": "У игрока недостаточно денег",
+	"duel_invite_invite_road_too_far": "Вы находитесь слишком далеко от подходящей дороги",
 
 	"duel_invite_invite_sent_body": "Вызов отправлен",
 	"duel_invite_invite_sent_chatmsg": "Вызов отправлен. Ожидание ответа игрока...",
 	"duel_invite_invite_player_cancelled": "Игрок не принял вызов",
+	"duel_invite_invite_server_cancelled": "Не удалось создать дуэль",
 
 	"duel_accept_message": "Игрок %s вызвал вас на дуэль.\nСтавка: $%s",
 	"duel_accept_key_accept": "%s - принять (%s)",

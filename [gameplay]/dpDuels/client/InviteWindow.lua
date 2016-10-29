@@ -194,7 +194,7 @@ addEventHandler("dpUI.click", resourceRoot, function (widget)
 end)
 
 addEvent("dpDuels.answerCall", true)
-addEventHandler("dpDuels.answerCall", resourceRoot, function (player, status)
+addEventHandler("dpDuels.answerCall", resourceRoot, function (player, status, message)
 	if not isElement(targetPlayer) then
 		return
 	end
@@ -206,6 +206,10 @@ addEventHandler("dpDuels.answerCall", resourceRoot, function (player, status)
 	end
 	exports.dpUI:hideMessageBox()
 	if not status then
-		exports.dpUI:showMessageBox(exports.dpLang:getString("duel_invite_duel_title"), exports.dpLang:getString("duel_invite_invite_player_cancelled"))
+		if not message then
+			exports.dpUI:showMessageBox(exports.dpLang:getString("duel_invite_duel_title"), exports.dpLang:getString("duel_invite_invite_player_cancelled"))
+		elseif message == "distance" then
+			exports.dpUI:showMessageBox(exports.dpLang:getString("duel_invite_invite_server_cancelled"), exports.dpLang:getString("duel_invite_invite_road_too_far"))
+		end
 	end
 end)

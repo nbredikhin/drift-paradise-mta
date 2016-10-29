@@ -1,5 +1,4 @@
 VehicleTuning = {}
-local REMOVE_ZERO_FIELDS = true
 
 VehicleTuning.defaultTuningTable = {
 	-- Цвета
@@ -95,15 +94,6 @@ function VehicleTuning.updateVehicleTuning(vehicleId, tuning, stickers)
 	end
 	local update = {}
 	if tuning then
-		-- Удаление нулевых полей
-		if REMOVE_ZERO_FIELDS then
-			for k, v in pairs(tuning) do
-				if not v or tonumber(v) == 0 then
-					tuning[k] = nil
-				end
-			end
-		end		
-
 		local tuningJSON = toJSON(tuning)
 		if tuningJSON then
 			update.tuning = tuningJSON

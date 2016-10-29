@@ -181,7 +181,7 @@ end
 function GarageCar.resetTuning()
 	-- Сброс компонентов
 	local componentNames = exports.dpVehicles:getComponentsNames()
-
+	--outputDebugString("LOAD WheelsSize = " .. tostring(currentTuningTable.WheelsSize))
 	for i, name in ipairs(componentNames) do
 		setData(name, currentTuningTable[name])
 	end
@@ -250,7 +250,7 @@ function GarageCar.getTuningTable()
 	for i, name in ipairs(configurationData) do
 		tuningTable[name] = vehicle:getData(name)
 		if type(tuningTable[name]) == "number" then
-			tuningTable[name] = math.ceil(tuningTable[name] * 100) / 100
+			tuningTable[name] = math.ceil(tuningTable[name] * 1000) / 1000
 		end
 	end	
 
@@ -278,6 +278,7 @@ function GarageCar.save()
 	vehiclesList[currentVehicle].tuning = toJSON(tuningTable)
 	vehiclesList[currentVehicle].stickers = toJSON(vehicle:getData("stickers"))
 
+	--outputDebugString("SAVE WheelsSize = " .. tostring(tuningTable.WheelsSize))
 	triggerServerEvent("dpGarage.saveCar", resourceRoot,
 		currentVehicle, 
 		tuningTable,

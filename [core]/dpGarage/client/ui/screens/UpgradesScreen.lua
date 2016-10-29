@@ -35,7 +35,6 @@ function UpgradesScreen:onKey(key)
 		end
 		local upgradeName, price = self.menu:getSelectedUpgrade()
 		if not upgradeName or not price then
-			outputDebugString("NOT GONNA BUY GTFO")
 			return
 		end
 		local this = self
@@ -45,7 +44,7 @@ function UpgradesScreen:onKey(key)
 				GarageCar.applyTuning(upgradeName, 1)
 				GarageCar.resetTuning()
 				this.screenManager:showScreen(ConfigurationsScreen("Upgrades"))
-			end			
+			end
 		end)
 	elseif key == "backspace" then
 		self.disabled = true

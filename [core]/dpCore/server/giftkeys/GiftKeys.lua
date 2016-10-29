@@ -121,21 +121,21 @@ end
 function GiftKeys.activate(key, player)
 	if type(key) ~= "string" or not isElement(player) then
 		outputDebugString("ERROR: Failed to activate gift key '" .. tostring(key) .. "' for player '" .. tostring(player) .. "'")
-		triggerClientEvent("dpCore.keyActivation", resourceRoot, false)
+		triggerClientEvent(player, "dpCore.keyActivation", resourceRoot, false)
 		return false
 	end
 
 	return not not DatabaseTable.select(GIFT_KEYS_TABLE_NAME, {}, { key = key }, function (result)
 		if type(result) ~= "table" or #result == 0 then
-			triggerClientEvent("dpCore.keyActivation", resourceRoot, false)
+			triggerClientEvent(player, "dpCore.keyActivation", resourceRoot, false)
 		else
 			local key = result[1]
 			if giveKeyGiftsToPlayer(player, key) then
 				outputDebugString("GiftKeys: Key activated: " .. tostring(key.key) .. " for " .. tostring(player.name))
 				GiftKeys.remove(key.key)
-				triggerClientEvent("dpCore.keyActivation", resourceRoot, true, key)				
+				triggerClientEvent(player, "dpCore.keyActivation", resourceRoot, true, key)				
 			else
-				triggerClientEvent("dpCore.keyActivation", resourceRoot, false)
+				triggerClientEvent(player, "dpCore.keyActivation", resourceRoot, false)
 			end
 		end
 	end)

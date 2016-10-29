@@ -52,7 +52,7 @@ addEventHandler("dpCore.loginResponse", root, function (success, err)
 end)
 
 function registerClick(username, password, passwordConfirm, ...)
-	if not username or string.len(username) < 1 then
+  	if not username or string.len(username) < 1 then
 		isAuthInProgress = false
 		exports.dpUI:showMessageBox(
 			exports.dpLang:getString("login_panel_register_error"), 

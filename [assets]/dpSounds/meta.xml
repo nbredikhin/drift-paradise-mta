@@ -9,4 +9,5 @@
 	<file src="sounds/ui_change.wav"/>
 	<file src="sounds/error.wav"/>
 	<file src="sounds/sell.wav"/>
+    <file src="sounds/crowd.wav"/>
 </meta>

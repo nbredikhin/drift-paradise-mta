@@ -14,9 +14,9 @@
 	<script type="server" src="server/test.lua"/>
 	<!-- Exports -->
 	<export type="client" function="setVisible"/>
-	<!-- Files -->
+    <!-- Files -->
 	<file src="assets/timer.png"/>
 	<file src="assets/rank.png"/>
-	<file src="assets/dollar.png"/>	
-	<file src="assets/score.png"/>	
+	<file src="assets/dollar.png"/>
+	<file src="assets/score.png"/>
 </meta>

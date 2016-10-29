@@ -158,7 +158,7 @@ local function setupVehicleWheels(vehicle)
 		local x, y, z = vehicle:getComponentPosition(name)
 		wheel.position = Vector3(x, y, z)
 		-- Шейдер
-		wheel.shader = DxShader("assets/shaders/wheel.fx", 0, 20, false, "object")
+		wheel.shader = DxShader("assets/shaders/wheel.fx", 0, 100, false, "object")
 		wheel.shader:setValue("sReflectionTexture", shaderReflectionTexture)
 
 		wheel.shader:applyToWorldTexture("*", wheel.object)

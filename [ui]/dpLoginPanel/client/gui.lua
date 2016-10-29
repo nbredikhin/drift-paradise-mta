@@ -162,27 +162,6 @@ local function createLoginPanel()
 	})
 	UI:addChild(panel, passwordInput)
 
-	-- local quoteImage = UI:createImage({
-	-- 	x = 0,
-	-- 	y = panelHeight + 40,
-	-- 	width = 20,
-	-- 	height = 18,
-	-- 	texture = dxCreateTexture("assets/quote.png"),
-	-- 	color = tocolor(255, 255, 255, 180)
-	-- })
-	-- UI:addChild(panel, quoteImage)
-
-	-- local quoteLabel = UI:createDpLabel({
-	-- 	x = 22,
-	-- 	y = panelHeight + 40 + 15,
-	-- 	width = panelWidth - 44,
-	-- 	height = 20,
-	-- 	text = "Пиздатая цитатка про дрифт",
-	-- 	fontType = "default",
-	-- 	color = tocolor(255, 255, 255, 220)
-	-- })
-	-- UI:addChild(panel, quoteLabel)
-
 	UI:setVisible(panel, false)
 	loginPanel.registerButton = registerButton
 	loginPanel.startGameButton = startGameButton
@@ -193,7 +172,7 @@ end
 
 local function createRegisterPanel()
 	local panelWidth = 550
-	local panelHeight = 380
+	local panelHeight = 460
 
 	local logoTexture = exports.dpAssets:createTexture("logo.png")
 	local textureWidth, textureHeight = dxGetMaterialSize(logoTexture)
@@ -291,6 +270,17 @@ local function createRegisterPanel()
 	UI:addChild(panel, colorLabel)
 
 	local y = 100
+	local betaKeyInput = UI:createDpInput({
+		x = 50,
+		y = y,
+		width = 450,
+		height = 50,
+		type = "dark",
+		locale = "login_panel_beta_key_label"
+	})
+	UI:addChild(panel, betaKeyInput)
+
+	y = y + 70	
 	local usernameInput = UI:createDpInput({
 		x = 50,
 		y = y,
@@ -354,6 +344,7 @@ local function createRegisterPanel()
 	registerPanel.password = passwordInput
 	registerPanel.passwordConfirm = passwordConfirmInput
 	registerPanel.username = usernameInput
+	registerPanel.betaKey = betaKeyInput
 	registerPanel.langButtons = {
 		en = languageEn,
 		ru = languageRu
@@ -408,7 +399,8 @@ addEventHandler("dpUI.click", resourceRoot, function(widget)
 		registerClick(
 			UI:getText(registerPanel.username),
 			UI:getText(registerPanel.password),
-			UI:getText(registerPanel.passwordConfirm)
+			UI:getText(registerPanel.passwordConfirm),
+			UI:getText(registerPanel.betaKey)
 		)
 	elseif widget == registerPanel.colorButtons.red then
 		exports.dpSounds:playSound("ui_change.wav")

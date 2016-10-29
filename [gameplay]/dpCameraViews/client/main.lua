@@ -41,6 +41,9 @@ addEventHandler("onClientKey", root, function (key, down)
 	if key ~= "v" then
 		return
 	end
+	if localPlayer:getData("activeUI") and localPlayer:getData("activeUI") ~= "raceUI" then
+		return 
+	end
 	if not localPlayer.vehicle then
 		startCameraView()
 		return

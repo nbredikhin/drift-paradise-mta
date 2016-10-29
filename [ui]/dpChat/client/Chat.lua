@@ -96,7 +96,7 @@ function Chat.createTab(name, title, unremovable)
 end
 
 function Chat.message(tabName, text, r, g, b, colorCoded)
-	if type(tabName) ~= "string" or type("message") ~= "string" then
+	if type(tabName) ~= "string" or type(text) ~= "string" then
 		return false
 	end
 	local tab = Chat.getTabFromName(tabName)
@@ -113,21 +113,26 @@ function Chat.message(tabName, text, r, g, b, colorCoded)
 	else
 		colorCoded = not not colorCoded
 	end
-	text = string.gsub(text, "\n", " ")
+	-- Удаление переносов строк
+	text = utf8.gsub(text, "\n", " ")
 	local rest
-	if #text:gsub("#%x%x%x%x%x%x", "") > MAX_LINE_LENGTH then
-		rest = text:sub(MAX_LINE_LENGTH + 1, -1)
-		text = text:sub(1, MAX_LINE_LENGTH)		
+
+	-- outputDebugString("Text = " .. tostring(text))
+	-- outputDebugString("Gsub = " .. tostring(utf8.gsub(text, "#%x%x%x%x%x%x", "")))
+	local textWithoutColors = utf8.gsub(text, "#%x%x%x%x%x%x", "")
+	if utf8.len(textWithoutColors) > MAX_LINE_LENGTH then
+		rest = utf8.sub(text, MAX_LINE_LENGTH + 1, -1)
+		text = utf8.sub(text, 1, MAX_LINE_LENGTH)		
+		textWithoutColors = utf8.gsub(text, "#%x%x%x%x%x%x", "")
 	end
 	local message = {
 		text = text,
-		textWithoutColors = text:gsub("#%x%x%x%x%x%x", ""),
+		textWithoutColors = textWithoutColors,
 		color = color,
 		colorCoded = colorCoded
 	}
-
 	table.insert(tab.messages, message)
-	if rest then
+	if rest and utf8.len(rest) > 0 then
 		Chat.message(tabName, rest, r, g, b, colorCoded)
 	end
 end
@@ -231,7 +236,7 @@ function drawInput()
 		return
 	end
 	local text = exports.dpLang:getString("chat_input_message") .. ": " .. Input.getText()
-	local right = 32 + dxGetTextWidth(text:sub(1, 96), 1, "default-bold")
+	local right = 32 + dxGetTextWidth(utf8.sub(text, 1, 96), 1, "default-bold")
 	dxDrawText(text, 33, 33 + MAX_CHAT_LINES * 20, right + 1, 0, 0xFF000000, 1.0, "default-bold", "left", "top", false, true, false, false, true)
 	dxDrawText(text, 32, 32 + MAX_CHAT_LINES * 20, right, 0, 0xFFFFFFFF, 1.0, "default-bold", "left", "top", false, true, false, false, true)
 end

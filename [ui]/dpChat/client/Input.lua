@@ -69,7 +69,7 @@ local function insert(character)
 	if not firstCharSkipped then
 		firstCharSkipped = true
 	else
-		if #inputText < MAX_MESSAGE_LENGTH then -- Limit message length
+		if utf8.len(inputText) < MAX_MESSAGE_LENGTH then -- Limit message length
 			inputText = inputText .. character
 		end
 	end
@@ -86,7 +86,7 @@ function Input.open()
 	inputActive = true
 
 	addEventHandler("onClientCharacter", root, insert)
-
+	localPlayer:setData("activeUI", "chatInput")
 	return true
 end
 
@@ -105,7 +105,7 @@ function Input.close()
 	currentInputText = nil
 
 	removeEventHandler("onClientCharacter", root, insert)
-
+	localPlayer:setData("activeUI", false)
 	return true
 end
 
@@ -137,7 +137,7 @@ local function send()
 	-- Send only if text is not empty
 	if inputText ~= "" then
 		if Chat.getActiveTab() then
-			if string.sub(inputText, 1, 1) == "/" then				
+			if utf8.sub(inputText, 1, 1) == "/" then				
 				processCommand(inputText)
 			else
 				triggerEvent("dpChat.message", root, Chat.getActiveTab(), inputText)

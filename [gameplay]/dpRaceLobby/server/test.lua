@@ -1,4 +1,4 @@
-local TEST_RACE_ENABLED = false
+local TEST_RACE_ENABLED = true
 
 addEventHandler("onResourceStart", resourceRoot, function ()    
     if not TEST_RACE_ENABLED then

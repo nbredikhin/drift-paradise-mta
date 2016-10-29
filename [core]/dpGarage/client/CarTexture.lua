@@ -5,7 +5,7 @@ local bodyColor = {0, 0, 0}
 local editorStickers = {}
 local DEFAULT_STICKER_SIZE = 300
 local selectedSticker = false
-local stickerMirroringEnabled = true
+local stickerMirroringEnabled = false
 
 function CarTexture.start()
 	vehicle = GarageCar.getVehicle()

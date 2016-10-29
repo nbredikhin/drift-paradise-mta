@@ -45,6 +45,7 @@ local buttonsHeight = 60
 
 local iconsSize = 20
 local freezeTimer
+local crowdSound
 
 local function getTimeString(value)
     local seconds = math.floor(value)
@@ -213,6 +214,10 @@ function FinishScreen.stop()
     exports.dpHUD:setVisible(true)
     showCursor(false)
     setCameraTarget(localPlayer)
+
+    if isElement(crowdSound) then
+        destroyElement(crowdSound)
+    end
 end
 
 function FinishScreen.show(gridType)
@@ -231,6 +236,7 @@ function FinishScreen.show(gridType)
     end
 
     FinishScreen.start()
+    crowdSound = exports.dpSounds:playSound("crowd.wav")
 end
 
 function FinishScreen.addPlayer(player)

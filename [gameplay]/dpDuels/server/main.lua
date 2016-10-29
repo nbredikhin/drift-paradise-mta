@@ -106,7 +106,7 @@ addEventHandler("RaceDuel.finished", root, function (playerWinner, timePassed)
 end)
 
 addEventHandler("onResourceStop", resourceRoot, function ()
-	for race in ipairs(getElementsByType("race")) do
+	for i, race in ipairs(getElementsByType("race")) do
 		if race:getData("dpDuels.duelInfo") then
 			exports.dpRaceManager:destroyRace(race)
 		end

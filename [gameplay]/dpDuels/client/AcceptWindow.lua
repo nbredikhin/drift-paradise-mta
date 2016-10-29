@@ -114,6 +114,10 @@ function AcceptWindow.setVisible(visible)
 	isVisible = visible
 end
 
+function AcceptWindow.isVisible()
+	return isVisible
+end
+
 function AcceptWindow.show(player, bet)
 	if isVisible then
 		return false
@@ -130,3 +134,7 @@ addEvent("dpDuels.callPlayer", true)
 addEventHandler("dpDuels.callPlayer", resourceRoot, function(player, bet)
 	AcceptWindow.show(player, bet)
 end)
+
+function isAcceptWindowActive()
+	return AcceptWindow.isVisible()
+end

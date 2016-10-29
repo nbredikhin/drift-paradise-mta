@@ -17,6 +17,9 @@ function InviteWindow.show(player)
 	end
 	targetPlayer = player
 
+	if AcceptWindow.isVisible() then
+		return
+	end
 	if not localPlayer.vehicle or localPlayer.vehicle.controller ~= localPlayer then
 		exports.dpUI:showMessageBox(exports.dpLang:getString("duel_invite_error_title"), exports.dpLang:getString("duel_invite_local_nocar"))
 		return

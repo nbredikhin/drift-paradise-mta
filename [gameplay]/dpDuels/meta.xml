@@ -14,4 +14,5 @@
 	<script type="client" src="client/calling.lua"/>
 
 	<export type="client" function="callPlayer"/>
+	<export type="client" function="isAcceptWindowActive"/>
 </meta>

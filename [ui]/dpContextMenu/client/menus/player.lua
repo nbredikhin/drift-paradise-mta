@@ -8,6 +8,7 @@ remotePlayerMenu = {
 	{ locale = "context_menu_player_duel", 
 		enabled = function(element) 
 			if not isElement(element) then return false end 
+			if exports.dpDuels:isAcceptWindowActive() then return false end
 			return element.type == "vehicle" 
 		end,
 

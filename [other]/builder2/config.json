@@ -3,12 +3,12 @@
 
     "enableScriptCache": false,
     "enableShaderCache": false,
-    "enableCompilation": false,
-    "enablePathEncrypt": true, 
-    "enableExportEncrypt": false, 
+    "enableCompilation": true,
+    "enablePathEncrypt": true,
+    "enableExportEncrypt": false,
     "enableReadmeFiles": false,
 
-    "only": ["dpHUD"],
+    "only": ["dpChat"],
     "include": [
         "geoip",
         "blur_box",

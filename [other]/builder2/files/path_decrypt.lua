@@ -36,7 +36,7 @@
                     return fn(path, ...)
                 end
                 for i,p in ipairs(excludePaths) do
-                    if string.find(path, p, 1, false) then
+                    if string.find(path, p, 1, true) then
                         return fn(path, ...)
                     end
                 end           

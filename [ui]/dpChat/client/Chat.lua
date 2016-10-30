@@ -84,7 +84,7 @@ function Chat.createTab(name, title, unremovable)
 	end
 	local tab = {
 		name = name, 
-		title = title,
+		title = exports.dpUtils:removeHexFromString(title),
 		unremovable = not not unremovable,
 		messages = {}
 	}

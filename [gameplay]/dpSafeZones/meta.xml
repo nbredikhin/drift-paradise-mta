@@ -1,4 +1,5 @@
 <meta>
 	<oop>true</oop>
 	<script type="client" src="dpSafeZones.lua"/>
+    <export type="client" function="createSafeZone"/>
 </meta>

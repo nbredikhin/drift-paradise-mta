@@ -36,13 +36,13 @@ local startupResources = {
 	"dpGiftsPanel",
 
 	-- Gameplay
+	"dpSafeZones",
 	"dpRaceManager",
 	"dpParticles",
 	"dpAnims",
 	"dpVehicles",
 	"dpPhotoMode",
-	"dpDriftPoints",
-	"dpSafeZones",
+	"dpDriftPoints",	
 	"dpHouses",
 	"dpGarage",
 	"dpCarshop",

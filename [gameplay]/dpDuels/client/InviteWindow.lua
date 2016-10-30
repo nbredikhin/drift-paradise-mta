@@ -1,5 +1,5 @@
 InviteWindow = {}
-local screenSize = Vector2(guiGetScreenSize())
+local screenSize = Vector2()
 local UI = exports.dpUI
 local ui = {}
 
@@ -72,6 +72,8 @@ function InviteWindow.setVisible(visible)
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
+	screenSize = Vector2(exports.dpUI:getScreenSize())
+
 	ui.panel = UI:createDpPanel {
 		x = (screenSize.x - panelWidth) / 2,
 		y = (screenSize.y - panelHeight) / 1.7,

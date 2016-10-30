@@ -3,6 +3,8 @@ local raceMarkers = {
     { position = Vector3(1988.054, -1463.851, 13.391), gamemode = "sprint" }
 }
 
+local SAFE_ZONE_SIZE = 10
+
 function createRaceMarker(position, gamemode)
     if not position then
         return false
@@ -17,6 +19,7 @@ function createRaceMarker(position, gamemode)
     blip:setData("text", "race_type_" .. gamemode)
 
     marker:setData("RaceMarker.gamemode", gamemode)
+    exports.dpSafeZones:createSafeZone(position - Vector3(SAFE_ZONE_SIZE, SAFE_ZONE_SIZE, 0), position + Vector3(SAFE_ZONE_SIZE, SAFE_ZONE_SIZE, 0))
     return marker
 end
 

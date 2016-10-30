@@ -7,7 +7,7 @@ local safeZonesList = {
 	{Vector2( { x = 1287.114, y = -1841.375} ), Vector2( { x = 1190.152, y = -1722.41 })},
 }
 
-local function createSafeZone(pos1, pos2)
+function createSafeZone(pos1, pos2)
 	local rectMin = Vector2(0, 0)
 	rectMin.x = math.min(pos1.x, pos2.x)
 	rectMin.y = math.min(pos1.y, pos2.y)

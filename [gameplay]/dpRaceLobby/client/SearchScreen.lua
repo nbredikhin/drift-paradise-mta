@@ -1,5 +1,5 @@
 SearchScreen = {}
-local screenSize = Vector2(guiGetScreenSize())
+local screenSize = Vector2()
 local UI = exports.dpUI
 local ui = {}
 
@@ -82,7 +82,7 @@ function SearchScreen.setVisible(visible)
 	local isVisible = UI:getVisible(ui.panel)
 	if not not isVisible == not not visible then
 		return false
-	end 
+	end 	
 
 	UI:setVisible(ui.panel, visible)
 	showCursor(visible)
@@ -113,6 +113,7 @@ function SearchScreen.setVisible(visible)
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
+	screenSize = Vector2(exports.dpUI:getScreenSize())
 	ui.panel = UI:createDpPanel {
 		x = (screenSize.x - panelWidth) / 2,
 		y = (screenSize.y - panelHeight) / 1.7,

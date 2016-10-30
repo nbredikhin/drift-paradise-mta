@@ -619,9 +619,9 @@ function funcTable.createWorldLightShader(ligNumber,vertLigNumber,isLayer,isWrdS
 		end
 	end
 	shaderTable.isConfigChanged = false
-	shaderTable.worldShader[1] = dxCreateShader ( "shaders/dynamic_wrd.fx",1,effectRange,isLayer[1],"world,object")
-	shaderTable.worldShader[2] = dxCreateShader ( "shaders/dynamic_veh.fx",1,effectRange,isLayer[2],"vehicle")
-	shaderTable.worldShader[3] = dxCreateShader ( "shaders/dynamic_ped.fx",1,effectRange,isLayer[3],"ped")
+	shaderTable.worldShader[1] = dxCreateShader("dynamic_wrd.fx",1,effectRange,isLayer[1],"world,object")
+	shaderTable.worldShader[2] = dxCreateShader("dynamic_veh.fx",1,effectRange,isLayer[2],"vehicle")
+	shaderTable.worldShader[3] = dxCreateShader("dynamic_ped.fx",1,effectRange,isLayer[3],"ped")
 	shaderTable.isStarted = shaderTable.worldShader[1] and shaderTable.worldShader[2] and shaderTable.worldShader[3]
 	if not shaderTable.isStarted then 
 		return false 

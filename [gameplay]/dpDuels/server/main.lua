@@ -112,3 +112,8 @@ addEventHandler("onResourceStop", resourceRoot, function ()
 		end
 	end
 end)
+
+-- Export
+function getNearestCheckpoint(...)
+	return PathGenerator.getNearestCheckpoint(...)
+end

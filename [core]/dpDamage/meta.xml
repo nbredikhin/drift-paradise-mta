@@ -1,0 +1,7 @@
+<meta>
+    <oop>true</oop>
+
+    <script type="client" src="client/main.lua"/>    
+    <script type="client" src="client/respawn.lua"/>    
+    <script type="server" src="server/respawn.lua"/>    
+</meta>

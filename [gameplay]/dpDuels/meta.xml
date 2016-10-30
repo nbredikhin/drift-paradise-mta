@@ -15,4 +15,5 @@
 
 	<export type="client" function="callPlayer"/>
 	<export type="client" function="isAcceptWindowActive"/>
+	<export type="client" function="getNearestCheckpoint"/>
 </meta>

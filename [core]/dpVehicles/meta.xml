@@ -10,7 +10,6 @@
 	<script type="client" src="client/colors.lua"/>
 	<script type="client" src="client/components.lua"/>
 	<script type="client" src="client/configuration.lua"/>
-	<script type="client" src="client/damage.lua"/>
 	<script type="client" src="client/lights_sync.lua"/>
 	<script type="client" src="client/mileage.lua"/>
 	<script type="client" src="client/neon.lua"/>

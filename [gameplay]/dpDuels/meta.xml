@@ -13,7 +13,7 @@
 	<script type="client" src="client/WinnerScreen.lua"/>
 	<script type="client" src="client/calling.lua"/>
 
+	<export type="server" function="getNearestCheckpoint"/>
 	<export type="client" function="callPlayer"/>
 	<export type="client" function="isAcceptWindowActive"/>
-	<export type="client" function="getNearestCheckpoint"/>
 </meta>

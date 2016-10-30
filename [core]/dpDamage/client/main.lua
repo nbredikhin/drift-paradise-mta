@@ -53,8 +53,12 @@ end
 
 local blinkTimer
 local blinkVehicle
-local function flipMyVehicle()
-    if vehicle.blown then
+
+function flipMyVehicle()
+    if not localPlayer.vehicle then
+        return
+    end
+    if localPlayer.vehicle.blown then
         return false
     end      
     localPlayer.vehicle.alpha = 255

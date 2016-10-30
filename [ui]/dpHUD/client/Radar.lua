@@ -232,17 +232,10 @@ function Radar.start()
 
 	players = {}
 	for i,v in ipairs(getElementsByType("player")) do
-		if isElementStreamedIn(v) then 
+		if isElementStreamedIn(v) then
 			players[v] = true
 		end
 	end
-
-	-- blips = {}
-	-- for i,v in ipairs(getElementsByType("blip")) do
-	-- 	if isElementStreamedIn(v) then 
-	-- 		blips[v] = true
-	-- 	end
-	-- end	
 end
 
 function Radar.setRotation(x, y, z)

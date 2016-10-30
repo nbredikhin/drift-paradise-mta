@@ -16,7 +16,11 @@
         "engineLoadTXD",
         "EngineTXD",
         "engineLoadCOL",
-        "EngineCOL"
+        "EngineCOL",
+        "playSound",
+        "playSound3D",
+        "Sound",
+        "Sound3D"
     }
 
     local excludePaths = _exclude_paths
@@ -32,10 +36,10 @@
                     return fn(path, ...)
                 end
                 for i,p in ipairs(excludePaths) do
-                    if string.find(path, p) then
+                    if string.find(path, p, 1, false) then
                         return fn(path, ...)
                     end
-                end
+                end           
                 return fn(md5("dp" .. path), ...)
             end
         end

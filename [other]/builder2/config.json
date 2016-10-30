@@ -3,12 +3,12 @@
 
     "enableScriptCache": false,
     "enableShaderCache": false,
-    "enableCompilation": true,
+    "enableCompilation": false,
     "enablePathEncrypt": true, 
     "enableExportEncrypt": false, 
     "enableReadmeFiles": false,
 
-    "only": [],
+    "only": ["dpHUD"],
     "include": [
         "geoip",
         "blur_box",

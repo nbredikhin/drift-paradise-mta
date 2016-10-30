@@ -21,7 +21,7 @@ function CarTexture.start()
 	CarTexture.redraw()
 
 	addEventHandler("onClientRestore", root, CarTexture.handleRestore)
-	stickerMirroringEnabled = true
+	stickerMirroringEnabled = false
 end
 
 function CarTexture.stop()

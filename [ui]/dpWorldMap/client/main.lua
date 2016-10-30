@@ -8,6 +8,9 @@ function setVisible(visible)
 	if visible and localPlayer:getData("dpCore.state") then
 		return
 	end	
+	if visible and localPlayer:getData("activeUI") then
+		return
+	end
 	if exports.dpMainPanel:isVisible() or exports.dpTabPanel:isVisible() then
 		return
 	end	
@@ -15,7 +18,7 @@ function setVisible(visible)
 	if visible then
 		localPlayer:setData("dpCore.state", "map")
 	end
-	fadeCamera(false, 0.5)
+	fadeCamera(false, 0.25)
 	setTimer(function ()
 		exports.dpHUD:setVisible(not visible)
 		exports.dpNametags:setVisible(not visible)
@@ -31,8 +34,8 @@ function setVisible(visible)
 			setCameraTarget(localPlayer)
 			localPlayer:setData("dpCore.state", false)
 		end
-		fadeCamera(true, 0.5)
-	end, 600, 1)
+		fadeCamera(true, 0.25)
+	end, 260, 1)
 	return true
 end
 

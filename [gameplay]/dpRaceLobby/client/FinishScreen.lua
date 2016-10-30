@@ -108,10 +108,10 @@ local function draw()
     local buttonColor = tocolor(212, 0, 40, 255 * fadeProgress)
     local mx, my = getCursorPosition()
     if  mx and 
-        mx * realScreenSize.x > x and 
-        mx * realScreenSize.x < x + panelWidth and 
-        my * realScreenSize.y > y and 
-        my * realScreenSize.y < y + buttonsHeight 
+        mx * screenWidth > x and 
+        mx * screenWidth < x + panelWidth and 
+        my * screenHeight > y and 
+        my * screenHeight < y + buttonsHeight 
     then
         buttonColor = tocolor(222, 20, 60, 255 * fadeProgress)
         

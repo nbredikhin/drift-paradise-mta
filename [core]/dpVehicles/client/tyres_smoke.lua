@@ -43,7 +43,7 @@ local function update()
 		exports.dpParticles:setEmitterOption(emitters.leftEmitter, "density", 0)
 		exports.dpParticles:setEmitterOption(emitters.rightEmitter, "density", 0)
 
-		if vehicle.onGround and checkVehicleOnGround(vehicle) then
+		if vehicle.dimension == localPlayer.dimension and vehicle.onGround and checkVehicleOnGround(vehicle) then
 			local driftAngle = detectVehicleDrift(vehicle)
 			if driftAngle then
 				local smokeMul = (driftAngle - MIN_DRIFT_ANGLE) / MAX_DRIFT_ANGLE

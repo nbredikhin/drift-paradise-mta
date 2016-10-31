@@ -28,7 +28,7 @@ local MIN_DRIFT_ANGLE = 20
 -- Minimum speed, required to start drift
 local MIN_DRIFT_SPEED = 0.18
 -- Скорость, за которую даётся максимальное количество очков
-local MAX_DRIFT_SPEED = 0.6
+local MAX_DRIFT_SPEED = 0.5
 -- Time player have to drift before multiplier raises
 local LONG_DRIFT_TIME = 5000
 -- Time player can non-drift before multiplier resets

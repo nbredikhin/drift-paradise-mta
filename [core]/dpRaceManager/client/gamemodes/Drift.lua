@@ -17,9 +17,12 @@ function Drift:raceStopped()
 end
 
 function Drift:clientFinished()
+    exports.dpDriftPoints:finishCurrentDrift()
     FinishScreen.show(true)
     toggleAllControls(false)
-    triggerServerEvent("Race.clientFinished", RaceClient.raceElement)
+    setTimer(function ()
+        triggerServerEvent("Race.clientFinished", RaceClient.raceElement)
+    end, 100, 1)
 end
 
 function Drift:updatePosition()

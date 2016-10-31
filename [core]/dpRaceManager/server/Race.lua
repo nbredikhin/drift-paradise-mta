@@ -413,7 +413,7 @@ function Race:setTimeLeft(time)
 	if isTimer(self.durationTimer) then
 		killTimer(self.durationTimer)
 	end
-	self.durationTimer = setTimer(function() self:finish(true) end, math.floor(time * 1000), 1)
+	self.durationTimer = setTimer(function() self:finish(true) end, math.max(50, math.floor(time * 1000)), 1)
 	triggerClientEvent(self.element, "Race.updateTimeLeft", self.element, time)
 	return true
 end

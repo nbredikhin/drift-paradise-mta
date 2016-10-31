@@ -1,4 +1,4 @@
-local TEST_RACE_ENABLED = false
+local TEST_RACE_ENABLED = true
 
 addEventHandler("onResourceStart", resourceRoot, function ()    
     if not TEST_RACE_ENABLED then
@@ -6,8 +6,8 @@ addEventHandler("onResourceStart", resourceRoot, function ()
     end
     RaceManager.startRace({
         id = 1, 
-        map = "hello-world",
-        gamemode = "sprint",
+        map = "drift-test",
+        gamemode = "drift",
         players = getElementsByType("player"),
         rank = 1,
         readyCount = 1

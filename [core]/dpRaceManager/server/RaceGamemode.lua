@@ -76,6 +76,14 @@ function RaceGamemode:getTimePassed()
 	end
 end
 
+function RaceGamemode:getFinishedPlayers()
+	local t = {}
+	for player in pairs(self.finishedPlayers) do
+		table.insert(t, player)
+	end
+	return t
+end
+
 function RaceGamemode:playerFinished(player, timeout)
 	if not check("RaceGamemode:playerFinished", "player", "player", player) then return false end
 	-- Игрок уже финишировал
@@ -95,6 +103,9 @@ function RaceGamemode:playerFinished(player, timeout)
 		end
 	end
 	self.finishedPlayers[player] = true
+	if #self:getFinishedPlayers() >= #self.race:getPlayers() then
+		self.race:setTimeLeft(0)
+	end	
 	player:setData("Race.finished", true)
 	self.race:log("Player finished: '" .. tostring(player.name) .. "'")
 	triggerClientEvent(self.race.element, "Race.playerFinished", self.race.element, player)

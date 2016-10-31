@@ -142,7 +142,19 @@ function CarTexture.addSticker(id, x, y, rotation)
 	if not x then x = 0 end
 	if not y then y = 0 end
 	if not rotation then rotation = 0 end
-	local sticker = {x, y, DEFAULT_STICKER_SIZE, DEFAULT_STICKER_SIZE, id, rotation, tocolor(255, 255, 255), stickerMirroringEnabled, false}
+	local width, height = DEFAULT_STICKER_SIZE, DEFAULT_STICKER_SIZE
+	local color = tocolor(255, 255, 255)
+	-- Скопировать параметры с предыдущего стикера
+	local previousSticker = CarTexture.getSelectedSticker()
+	if previousSticker then
+		x = previousSticker[1]
+		y = previousSticker[2]
+		width = previousSticker[3]
+		height = previousSticker[4]
+		rotation = previousSticker[6]
+		color = previousSticker[7]
+	end
+	local sticker = {x, y, width, height, id, rotation, color, stickerMirroringEnabled, false}
 	table.insert(editorStickers, sticker)
 	selectedSticker = #editorStickers
 	CarTexture.redraw()

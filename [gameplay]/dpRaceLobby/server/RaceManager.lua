@@ -47,7 +47,11 @@ local function cancelPendingRace(id, cancelPlayer)
 end
 
 local function selectRandomMap(gamemode)
-	return "hello-world"
+	if gamemode == "drift" then
+		return "drift-test"
+	else
+		return "sprint-test"
+	end
 end
 
 function RaceManager.raceReady(playersList, gamemode, rank)
@@ -89,7 +93,7 @@ function RaceManager.startRace(raceInfo)
 	local raceSettings = {
 		separateDimension = true,
 		gamemode = raceInfo.gamemode,
-		duration = 15
+		duration = 300
 	}
 	local race = exports.dpRaceManager:createRace(raceSettings, raceMap)
 	race:setData("dpRaceLobby.raceInfo", raceInfo)

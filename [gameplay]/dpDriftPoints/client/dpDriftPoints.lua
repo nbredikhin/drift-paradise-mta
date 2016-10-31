@@ -26,7 +26,9 @@ local MIN_DRIFT_POINTS = 2
 -- Minimum angle, required to start drift
 local MIN_DRIFT_ANGLE = 20
 -- Minimum speed, required to start drift
-local MIN_DRIFT_SPEED = 0.2
+local MIN_DRIFT_SPEED = 0.18
+-- Скорость, за которую даётся максимальное количество очков
+local MAX_DRIFT_SPEED = 0.6
 -- Time player have to drift before multiplier raises
 local LONG_DRIFT_TIME = 5000
 -- Time player can non-drift before multiplier resets
@@ -36,6 +38,9 @@ local MAX_NON_DRIFT_TIME = 2000
 local driftRestrictedTimer = 0
 -- Time drift is restricted after collision
 local DRIFT_RESTRICT_TIME = 1000
+
+local MIN_COLLISION_FORCE = 350
+local MIN_DIRECTION_DRIFT_TIME = 1500
 
 local function isDriftingClose()
 	local pos = localPlayer.vehicle.position
@@ -70,8 +75,12 @@ local function detectDrift()
 		direction = -1
 	end
 	angle = math.abs(angle)
+	-- if true then
+	-- 	return 30, true, 1
+	-- end
 	if angle > MIN_DRIFT_ANGLE and angle < 90 then
 		isPreventedByCollision = false
+		
 		return angle, true, direction
 	else
 		return angle, false, direction
@@ -95,6 +104,24 @@ end
 -- 		return angle, false
 -- 	end
 -- end
+
+function finishCurrentDrift(restrictTime)
+	-- Reset multipliers
+	if driftPoints > 0 then
+		--outputChatBox("Finished drift: " .. tostring(driftTimer/1000) .. "s")
+		triggerEvent("dpDriftPoints.earnedPoints", resourceRoot, driftPoints, pointsMultiplier, driftTimer)
+	end
+	if driftPoints > 0 then
+		directionDriftTimer = 0
+	end
+	driftPoints = 0
+	driftTimer = 0
+	pointsMultiplier = 1
+	if type(restrictTime) ~= "number" then
+		driftRestrictedTimer = DRIFT_RESTRICT_TIME
+	end
+	PointsDrawing.hide()
+end
 
 local function update(dt)
 	if not isElement(localPlayer.vehicle) then
@@ -120,9 +147,10 @@ local function update(dt)
 	driftAngle, isDrifting, direction = detectDrift()
 
 	local isChangingDirectionBonusAllowed = false
+	local speedMultiplier = math.min(1, localPlayer.vehicle.velocity.length / MAX_DRIFT_SPEED)
 	if isDrifting then
-		 -- Add points and drift time, reset non-drift time
-		 driftPoints = driftPoints + MIN_DRIFT_POINTS * pointsMultiplier
+		 -- Add points and drift time, reset non-drift time		 
+		 driftPoints = driftPoints + math.ceil(MIN_DRIFT_POINTS * speedMultiplier * pointsMultiplier * dt * 0.05)
 		 driftTimer = driftTimer + dt
 		 directionDriftTimer = directionDriftTimer + dt
 
@@ -138,18 +166,7 @@ local function update(dt)
 		PointsDrawing.setShaking(false)
 		nonDriftTimer = nonDriftTimer + dt
 		if nonDriftTimer > MAX_NON_DRIFT_TIME then
-			-- Reset multipliers
-			if driftPoints > 0 then
-				--outputChatBox("Finished drift: " .. tostring(driftTimer/1000) .. "s")
-				triggerEvent("dpDriftPoints.earnedPoints", resourceRoot, driftPoints, pointsMultiplier, driftTimer)
-			end
-			if driftPoints > 0 then
-				directionDriftTimer = 0
-			end
-			driftPoints = 0
-			driftTimer = 0
-			pointsMultiplier = 1
-			PointsDrawing.hide()
+			finishCurrentDrift(0)
 			return
 		end
 		--dxDrawText("Points: " .. driftPoints .. " MULT: x" .. pointsMultiplier, 300, 10, 500, 500, 0xffb57900, 2, "pricedown")
@@ -173,22 +190,26 @@ local function update(dt)
 	end
 	--outputDebugString(tostring(driftTimer / LONG_DRIFT_TIME))
 
-	if direction ~= driftDirection and isChangingDirectionBonusAllowed then		
+	if direction ~= driftDirection and isChangingDirectionBonusAllowed then	
 		driftDirection = direction
-		local scoreValue = math.floor(DIRECTION_CHANGE_POINTS * math.min(1, directionDriftTimer / 3000) / 5) * 5
-		driftPoints = driftPoints + scoreValue
-		PointsDrawing.drawBonus(scoreValue)
+		if directionDriftTimer >= MIN_DIRECTION_DRIFT_TIME then			
+			local scoreValue = math.floor(DIRECTION_CHANGE_POINTS * math.min(1, directionDriftTimer / 3000) / 5 * speedMultiplier) * 5
+			driftPoints = driftPoints + scoreValue
+			PointsDrawing.drawBonus(scoreValue)
+		end
 		directionDriftTimer = 0
 	end
 
 	PointsDrawing.updatePointsCount(driftPoints, driftAngle * direction)
 end
 
-local function onCollision()
+local function onCollision(hitElement, force)
 	if source ~= localPlayer.vehicle then
 		return
 	end
-	-- outputChatBox("LOOOOOL")
+	if force < MIN_COLLISION_FORCE then
+		return
+	end
 	-- If we collided, we reset all drift multipliers
 	isDrifting = false
 	isPreventedByCollision = true

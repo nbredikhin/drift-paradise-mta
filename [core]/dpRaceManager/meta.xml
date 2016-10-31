@@ -50,5 +50,7 @@
 	<file src="assets/countdown0.png"/>
 	<file src="assets/timer.png"/>
 
-	<dp-map src="maps/hello-world.map" type="server"/>
+    <dp-map src="maps/example.map"/>
+    <dp-map src="maps/drift-test.map"/>
+	<dp-map src="maps/sprint-test.map"/>
 </meta>

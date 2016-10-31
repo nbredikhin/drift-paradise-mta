@@ -3,6 +3,7 @@ Drift = RaceGamemode:subclass "Drift"
 function Drift:init(...)
     self.super:init(...)
     self.forceHandling = "drift"
+    self.FIRST_PLAYER_FINISHED_TIMEOUT = 10
 end
 
 function Drift:playerFinished(player)

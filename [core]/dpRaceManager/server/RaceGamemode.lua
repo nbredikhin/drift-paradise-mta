@@ -1,11 +1,11 @@
 RaceGamemode = newclass "RaceGamemode"
 
-local FIRST_PLAYER_FINISHED_TIMEOUT = 30
-
 function RaceGamemode:init(race)
 	self.race = race
 	self.forceHandling = "street"
 	self.finishedPlayers = {}
+
+	self.FIRST_PLAYER_FINISHED_TIMEOUT = 30
 end 
 
 function RaceGamemode:spawnPlayer(player)
@@ -90,8 +90,8 @@ function RaceGamemode:playerFinished(player, timeout)
 			timeLeft = 0
 		end
 
-		if timeLeft > FIRST_PLAYER_FINISHED_TIMEOUT then
-			self.race:setTimeLeft(FIRST_PLAYER_FINISHED_TIMEOUT)
+		if timeLeft > self.FIRST_PLAYER_FINISHED_TIMEOUT then
+			self.race:setTimeLeft(self.FIRST_PLAYER_FINISHED_TIMEOUT)
 		end
 	end
 	self.finishedPlayers[player] = true

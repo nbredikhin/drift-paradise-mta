@@ -4,6 +4,8 @@
 	<script src="client/PointsDrawing.lua" type="client" />
 	<script src="client/dpDriftPoints.lua" type="client" />
 	<script src="client/money.lua" type="client" />
+	
+    <script src="server/money.lua" type="server" />
 
-	<script src="server/money.lua" type="server" />
+    <export type="client" function="finishCurrentDrift"/> 
 </meta>

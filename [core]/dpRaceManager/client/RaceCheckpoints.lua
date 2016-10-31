@@ -98,7 +98,7 @@ function RaceCheckpoints.showNext()
 	currentCheckpoint = currentCheckpoint + 1
 
 	local x, y, z = unpack(checkpointsList[currentCheckpoint])
-	hitMarker = createMarker(x, y, z - 1, "cylinder", 7, 0, 0, 0, 0)
+	hitMarker = createMarker(x, y, z - 1, "cylinder", 9, 0, 0, 0, 0)
 	hitMarker.dimension = localPlayer.dimension
 
 	if settings.checkpointsVisible then

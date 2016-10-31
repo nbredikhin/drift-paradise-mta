@@ -10,6 +10,7 @@ local startupResources = {
 	
 	-- Assets
 	"dpAssets",
+	"dpArrows",
 	-- Configuration
 	"dpConfig",
 	"dpShared",
@@ -48,6 +49,7 @@ local startupResources = {
 	"dpCarshop",
 	"dpRaceLobby",
 	"dpDuels",
+	"dpDamage",
 	"dpSkinSelect",
 	"dpVehicleSelect",
 	"dpCameraViews",

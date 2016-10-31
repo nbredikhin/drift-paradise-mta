@@ -6,7 +6,7 @@ addEventHandler("onResourceStart", resourceRoot, function ()
     end
     RaceManager.startRace({
         id = 1, 
-        map = "drift-test",
+        map = "drift-ls-1",
         gamemode = "drift",
         players = getElementsByType("player"),
         rank = 1,

@@ -63,7 +63,7 @@ local function updateScoreList()
     end)
 
     playersScoreList = {}
-    local isFirst = trie
+    local isFirst = true
     for i, player in ipairs(players) do
     	if players[i + 1] and players[i + 1] == localPlayer then
     		isFirst = false
@@ -126,6 +126,3 @@ end
 function DriftPoints.getScore()
 	return totalScore
 end
-
-
-DriftPoints.start()

@@ -51,7 +51,7 @@ local function showPlayerRaceFinish(player, race, time, rank, score)
         triggerClientEvent(p, "RaceLobby.playerFinished", resourceRoot, player, prize, exp, rank, time, score)
     end
     exports.dpRaceManager:raceRemovePlayer(race, player)
-    fadeCamera(player, true, 2)
+    fadeCamera(player, true, 1)
 end
 
 addEvent("RaceLobby.playerFinished", false)
@@ -65,6 +65,6 @@ addEventHandler("RaceLobby.playerFinished", root, function (player, time, rank, 
     else
         time = time / 1000
     end
-    setTimer(fadeCamera, 1000, 1, player, false, 1)
-    setTimer(showPlayerRaceFinish, 2000, 1, player, race, time, rank, score)
+    fadeCamera(player, false, 1)
+    setTimer(showPlayerRaceFinish, 1000, 1, player, race, time, rank, score)
 end)

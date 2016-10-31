@@ -10,7 +10,7 @@ function Drift:playerFinished(player)
     self.super:playerFinished(player)
 end
 
-function Drift:raceFinished(timeout)
+function Drift:afterFinish()
     local players = self.race:getPlayers()
     table.sort(players, function (player1, player2)
         local score1 = player1:getData("raceDriftScore") or 0
@@ -20,4 +20,11 @@ function Drift:raceFinished(timeout)
     for i, player in ipairs(players) do
         triggerEvent("RaceLobby.playerFinished", self.race.element, player, self:getTimePassed(), i, player:getData("raceDriftScore"))
     end
+end
+
+function Drift:raceFinished(timeout)
+    local this = self
+    setTimer(function ()
+        this:afterFinish() 
+    end, 1500, 1)
 end

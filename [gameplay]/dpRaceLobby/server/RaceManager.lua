@@ -2,6 +2,7 @@ RaceManager = {}
 
 local pendingRaces = {}
 local racesCounter = 1
+local lastMapId = 1
 
 local function removePendingRace(id)
 	if type(id) ~= "number" then
@@ -48,7 +49,12 @@ end
 
 local function selectRandomMap(gamemode)
 	if gamemode == "drift" then
-		return "drift-test"
+		if lastMapId == 1 then
+			lastMapId = 2
+		else
+			lastMapId = 1
+		end
+		return "drift-ls-" .. lastMapId
 	else
 		return "sprint-test"
 	end
@@ -93,7 +99,7 @@ function RaceManager.startRace(raceInfo)
 	local raceSettings = {
 		separateDimension = true,
 		gamemode = raceInfo.gamemode,
-		duration = 300
+		duration = 10
 	}
 	local race = exports.dpRaceManager:createRace(raceSettings, raceMap)
 	race:setData("dpRaceLobby.raceInfo", raceInfo)

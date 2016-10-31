@@ -25,6 +25,11 @@ function Drift:clientFinished()
     end, 100, 1)
 end
 
+function Drift:raceFinished(...)
+    self.super:raceFinished(...)
+    exports.dpDriftPoints:finishCurrentDrift()
+end
+
 function Drift:updatePosition()
     local players = RaceClient.getPlayers()
     if type(players) ~= "table" then

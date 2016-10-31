@@ -51,6 +51,7 @@
 	<file src="assets/timer.png"/>
 
     <dp-map src="maps/example.map"/>
-    <dp-map src="maps/drift-test.map"/>
+    <dp-map src="maps/drift-ls-1.map"/>
+    <dp-map src="maps/drift-ls-2.map"/>
 	<dp-map src="maps/sprint-test.map"/>
 </meta>

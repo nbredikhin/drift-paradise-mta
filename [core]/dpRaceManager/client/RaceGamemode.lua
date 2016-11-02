@@ -2,6 +2,7 @@ RaceGamemode = newclass "RaceGamemode"
 
 function RaceGamemode:init()
 	self.rank = 0
+	self.ghostmodeEnabled = false
 end
 
 function RaceGamemode:checkpointHit(checkpointId)
@@ -57,10 +58,25 @@ function RaceGamemode:raceStarted()
 	-- Запустить GUI таймера
 	toggleAllControls(true)
 	RaceTimer.start()
+
+	-- Отключить коллизии
+	if self.ghostmodeEnabled and localPlayer.vehicle then
+		outputDebugString("Turn ghostmode on")
+		for i, player in ipairs(RaceClient.getPlayers()) do
+			if isElement(player.vehicle) then
+				localPlayer.vehicle:setCollidableWith(player.vehicle, false)
+			end
+		end		
+	end
 end
 
 function RaceGamemode:raceStopped()
-
+	if self.ghostmodeEnabled and isElement(localPlayer.vehicle) then
+		outputDebugString("Turn ghostmode off")
+		for i, vehicle in ipairs(getElementsByType("vehicle")) do
+			localPlayer.vehicle:setCollidableWith(vehicle, true)
+		end
+	end
 end
 
 function RaceGamemode:raceFinished(source)

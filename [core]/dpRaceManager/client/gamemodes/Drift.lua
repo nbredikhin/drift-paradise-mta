@@ -2,6 +2,7 @@ Drift = RaceGamemode:subclass "Drift"
 
 function Drift:init(...)
     self.super:init(...)
+    self.ghostmodeEnabled = true
 end
 
 function Drift:raceStarted(...)

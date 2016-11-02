@@ -99,7 +99,7 @@ function RaceManager.startRace(raceInfo)
 	local raceSettings = {
 		separateDimension = true,
 		gamemode = raceInfo.gamemode,
-		duration = 10
+		duration = 300
 	}
 	local race = exports.dpRaceManager:createRace(raceSettings, raceMap)
 	race:setData("dpRaceLobby.raceInfo", raceInfo)

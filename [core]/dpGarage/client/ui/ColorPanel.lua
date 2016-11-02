@@ -1,5 +1,6 @@
 ColorPanel = newclass "ColorPanel"
 local COLOR_CHANGE_SPEED = 1
+local SLOW_SPEED_MUL = 0.14
 
 function ColorPanel:init(headerText)
 	self.x = 0 
@@ -106,14 +107,22 @@ function ColorPanel:selectPreviousBar()
 end
 
 function ColorPanel:increase(dt)
-	self.bars[self.activeBar].value = self.bars[self.activeBar].value + COLOR_CHANGE_SPEED * dt
+	local speedMul = COLOR_CHANGE_SPEED
+	if getKeyState("lalt") then
+		speedMul = SLOW_SPEED_MUL
+	end	
+	self.bars[self.activeBar].value = self.bars[self.activeBar].value + speedMul * dt
 	if self.bars[self.activeBar].value > 1 then
 		self.bars[self.activeBar].value = 1
 	end
 end
 
 function ColorPanel:decrease(dt)
-	self.bars[self.activeBar].value = self.bars[self.activeBar].value - COLOR_CHANGE_SPEED * dt
+	local speedMul = COLOR_CHANGE_SPEED
+	if getKeyState("lalt") then
+		speedMul = SLOW_SPEED_MUL
+	end	
+	self.bars[self.activeBar].value = self.bars[self.activeBar].value - speedMul * dt
 	if self.bars[self.activeBar].value < 0 then
 		self.bars[self.activeBar].value = 0
 	end

@@ -1,6 +1,6 @@
 LobbyScreen = {}
 LobbyScreen.isVisible = false
-LobbyScreen.gamemode = ""
+LobbyScreen.mapName = ""
 
 local screenSize = Vector2(guiGetScreenSize())
 local fonts = {}
@@ -98,9 +98,9 @@ local function draw()
             buttonAlpha = 255
 
             if getKeyState("mouse1") then
-                local gamemode = LobbyScreen.gamemode
+                local mapName = LobbyScreen.mapName
                 LobbyScreen.setVisible(false)
-                SearchScreen.startSearch(gamemode, infoFields[1].value)
+                SearchScreen.startSearch(mapName, infoFields[1].value)
                 exports.dpSounds:playSound("ui_change.wav")
             end
         end
@@ -151,11 +151,11 @@ local function updateCounter(count)
     infoFields[1].value = tostring(count)
 end
 
-function LobbyScreen.toggle(gamemode)
+function LobbyScreen.toggle(mapName)
     if not LobbyScreen.isVisible then
-        LobbyScreen.gamemode = gamemode
+        LobbyScreen.mapName = mapName
     end    
-
+    outputDebugString("Toggle: " .. mapName)
     LobbyScreen.setVisible(not LobbyScreen.isVisible)
 end
 
@@ -166,6 +166,8 @@ function LobbyScreen.setVisible(visible)
     end
     LobbyScreen.isVisible = visible
     if LobbyScreen.isVisible then
+        local mapInfo = exports.dpRaceManager:getMapInfo(LobbyScreen.mapName) or {}
+        local mapGamemode = mapInfo.gamemode
         if not localPlayer.vehicle or localPlayer.vehicle.controller ~= localPlayer then
             exports.dpUI:showMessageBox(
                 exports.dpLang:getString("race_error_title"), 
@@ -195,7 +197,7 @@ function LobbyScreen.setVisible(visible)
         titleText =
             exports.dpLang:getString("lobby_screen_field_title") ..
             ": " .. themeColorHEX ..
-            exports.dpLang:getString("race_type_" .. LobbyScreen.gamemode)
+            exports.dpLang:getString("race_type_" .. mapGamemode)
 
         titleWidth = dxGetTextWidth(titleText, 1, fonts.title, true)
         titleHeight = dxGetFontHeight(1, fonts.title)
@@ -211,7 +213,7 @@ function LobbyScreen.setVisible(visible)
         buttonMessage = ""
         buttonEnabled = true
 
-        if LobbyScreen.gamemode == "drift" then
+        if mapGamemode == "drift" then
             local handlingLevel = localPlayer.vehicle:getData("DriftHandling") 
             if not handlingLevel or handlingLevel < 1 then
                 buttonMessage = exports.dpLang:getString("handling_switching_message_no_upgrade")
@@ -223,7 +225,7 @@ function LobbyScreen.setVisible(visible)
         local vehicleClass = exports.dpShared:getVehicleClass(localPlayer.vehicle.model)
         infoFields[2].value = tostring(exports.dpShared:getVehicleClassName(vehicleClass))
 
-        triggerServerEvent("dpRaceLobby.countPlayers", resourceRoot, LobbyScreen.gamemode)
+        triggerServerEvent("dpRaceLobby.countPlayers", resourceRoot, LobbyScreen.mapName)
     else
         localPlayer:setData("activeUI", false)
         for font in pairs(fonts) do
@@ -234,7 +236,7 @@ function LobbyScreen.setVisible(visible)
         removeEventHandler("onClientRender", root, draw)
         removeEventHandler("onClientVehicleExit", localPlayer.vehicle, onVehicleExit)
         removeEventHandler("dpRaceLobby.countPlayers", resourceRoot, updateCounter)
-        LobbyScreen.gamemode = nil
+        LobbyScreen.mapName = nil
         unbindKey("backspace", "down", LobbyScreen.toggle)
     end
 

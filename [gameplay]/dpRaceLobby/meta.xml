@@ -11,6 +11,7 @@
 	<script type="server" src="server/RaceManager.lua"/>
 	<script type="server" src="server/Matchmaking.lua"/>
 	<script type="server" src="server/race_finish.lua"/>
+	<script type="server" src="server/race_markers.lua"/>
 	<script type="server" src="server/test.lua"/>
 	<!-- Exports -->
 	<export type="client" function="setVisible"/>

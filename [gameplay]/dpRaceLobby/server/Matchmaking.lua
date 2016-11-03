@@ -5,19 +5,19 @@ local rooms = {}
 local players = {}
 local playersCount = {} 
 
-local function findRoom(rank, gamemode)
+local function findRoom(rank, mapName)
 	for i, room in ipairs(rooms) do
-		if room.rank == rank and room.gamemode == gamemode then
+		if room.rank == rank and room.mapName == mapName then
 			return room
 		end
 	end
 	return false
 end
 
-local function createRoom(rank, gamemode)
+local function createRoom(rank, mapName)
 	local room = {
 		rank = rank,
-		gamemode = gamemode,
+		mapName = mapName,
 		time = ROOM_TIME_NOPLAYERS,
 		players = {}
 	}
@@ -64,17 +64,17 @@ local function updateRoom(room)
 			for i, p in ipairs(playersList) do
 				Matchmaking.removePlayer(p)
 			end
-			RaceManager.raceReady(playersList, room.gamemode, room.rank)
+			RaceManager.raceReady(playersList, room.mapName, room.rank)
 			removeRoom(room)
 		end
 	end
 end
 
-function Matchmaking.addPlayer(player, gamemode)
+function Matchmaking.addPlayer(player, mapName)
 	if not isElement(player) then
 		return false
 	end
-	if type(gamemode) ~= "string" then
+	if type(mapName) ~= "string" then
 		return false
 	end
 	if not player.vehicle then
@@ -90,9 +90,9 @@ function Matchmaking.addPlayer(player, gamemode)
 	end
 	local rank = exports.dpShared:getVehicleClass(player.vehicle.model)
 
-	local room = findRoom(rank, gamemode)
+	local room = findRoom(rank, mapName)
 	if not room then
-		room = createRoom(rank, gamemode)
+		room = createRoom(rank, mapName)
 	end
 	room.players[player] = true
 	players[player] = room
@@ -106,10 +106,10 @@ function Matchmaking.addPlayer(player, gamemode)
 		updateRoom(room)
 	end
 
-	if not playersCount[room.gamemode] then
-		playersCount[room.gamemode] = 0
+	if not playersCount[room.mapName] then
+		playersCount[room.mapName] = 0
 	end
-	playersCount[room.gamemode] = playersCount[room.gamemode] + 1
+	playersCount[room.mapName] = playersCount[room.mapName] + 1
 	return true
 end
 
@@ -133,10 +133,10 @@ function Matchmaking.removePlayer(player)
 		removeRoom(room)
 	end
 
-	if not playersCount[room.gamemode] then
-		playersCount[room.gamemode] = 0
+	if not playersCount[room.mapName] then
+		playersCount[room.mapName] = 0
 	end
-	playersCount[room.gamemode] = playersCount[room.gamemode] - 1	
+	playersCount[room.mapName] = playersCount[room.mapName] - 1	
 	return true
 end
 
@@ -153,8 +153,8 @@ local addClientEventHandler = function(event, handler)
 	return addEventHandler(event, resourceRoot, handler)
 end
 
-addClientEventHandler("dpRaceLobby.startSearch", function (gamemode)
-	Matchmaking.addPlayer(client, gamemode)
+addClientEventHandler("dpRaceLobby.startSearch", function (mapName)
+	Matchmaking.addPlayer(client, mapName)
 end)
 
 addClientEventHandler("dpRaceLobby.cancelSearch", function ()
@@ -166,8 +166,8 @@ addEventHandler("onPlayerQuit", root, function ()
 end)
 
 addEvent("dpRaceLobby.countPlayers", true)
-addEventHandler("dpRaceLobby.countPlayers", resourceRoot, function (gamemode)
-	local count = playersCount[gamemode]
+addEventHandler("dpRaceLobby.countPlayers", resourceRoot, function (mapName)
+	local count = playersCount[mapName]
 	if not count then
 		count = 0
 	end

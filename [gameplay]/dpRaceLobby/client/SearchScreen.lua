@@ -13,7 +13,7 @@ local secoundsCount = 0
 local foundGame = false
 local acceptedGame = false
 
-local searchGamemode
+local searchMapName
 
 local function onGameFound()
 	foundGame = true
@@ -45,14 +45,14 @@ local function updateTime()
 	UI:setText(ui.acceptButton, exports.dpLang:getString("race_search_searching") .. " " .. time)
 	UI:setType(ui.acceptButton, "default_dark")
 
-	triggerServerEvent("dpRaceLobby.countPlayers", resourceRoot, searchGamemode)
+	triggerServerEvent("dpRaceLobby.countPlayers", resourceRoot, searchMapName)
 end
 
 local function updateCounter(count)
 	UI:setText(ui.infoLabel, exports.dpLang:getString("race_search_players_in_search")  .. " " .. tostring(count))	
 end
 
-function SearchScreen.startSearch(gamemode, count)
+function SearchScreen.startSearch(mapName, count)
 	if not localPlayer.vehicle then
 		exports.dpUI:showMessageBox(
 			exports.dpLang:getString("race_error_title"), 
@@ -68,8 +68,8 @@ function SearchScreen.startSearch(gamemode, count)
 		return false
 	end	
 	SearchScreen.setVisible(true)
-	triggerServerEvent("dpRaceLobby.startSearch", resourceRoot, gamemode)
-	searchGamemode = gamemode
+	triggerServerEvent("dpRaceLobby.startSearch", resourceRoot, mapName)
+	searchMapName = mapName
 	updateCounter(count)
 end
 

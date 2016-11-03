@@ -55,12 +55,11 @@ local function selectRandomMap(gamemode)
 	end
 end
 
-function RaceManager.raceReady(playersList, gamemode, rank)
+function RaceManager.raceReady(playersList, mapName, rank)
 	local raceId = racesCounter
 	table.insert(pendingRaces, {
 		id = raceId, 
-		map = selectRandomMap(gamemode),
-		gamemode = gamemode,
+		map = mapName,
 		players = playersList,
 		rank = rank,
 		readyCount = 0
@@ -93,8 +92,8 @@ function RaceManager.startRace(raceInfo)
 	local raceMap = exports.dpRaceManager:loadRaceMap(raceInfo.map)
 	local raceSettings = {
 		separateDimension = true,
-		gamemode = raceInfo.gamemode,
-		duration = 10
+		gamemode = raceMap.gamemode,
+		duration = raceMap.duration
 	}
 	local race = exports.dpRaceManager:createRace(raceSettings, raceMap)
 	race:setData("dpRaceLobby.raceInfo", raceInfo)

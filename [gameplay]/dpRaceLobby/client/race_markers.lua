@@ -1,45 +1,23 @@
-local raceMarkers = {
-    { position = Vector3(1258.229, -1400.719, 13.008), gamemode = "drift" },
-    { position = Vector3(1988.054, -1463.851, 13.391), gamemode = "sprint" }
-}
-
-local SAFE_ZONE_SIZE = 10
-
-function createRaceMarker(position, gamemode)
-    if not position then
-        return false
-    end
-    if type(gamemode) ~= "string" then
-        return false
-    end
-    local marker = exports.dpMarkers:createMarker("race", position - Vector3(0, 0, 0.9), 180)
-    local blip = createBlip(0, 0, 0, 33)
-    blip:attach(marker)
-    blip:setData("color", "primary")
-    blip:setData("text", "race_type_" .. gamemode)
-
-    marker:setData("RaceMarker.gamemode", gamemode)
-    exports.dpSafeZones:createSafeZone(position - Vector3(SAFE_ZONE_SIZE, SAFE_ZONE_SIZE, 0), position + Vector3(SAFE_ZONE_SIZE, SAFE_ZONE_SIZE, 0))
-    return marker
-end
-
 addEvent("dpMarkers.use", false)
 addEventHandler("dpMarkers.use", root, function()
-    local gamemode = source:getData("RaceMarker.gamemode")
-    if type(gamemode) ~= "string" then
+    local mapName = source:getData("RaceMarker.map")
+    if type(mapName) ~= "string" then
         return 
     end
-    LobbyScreen.toggle(gamemode)
+    LobbyScreen.toggle(mapName)
 end)
 
-addEventHandler("onClientMarkerLeave", root, function ()
-    if source:getData("RaceMarker.gamemode") then
+addEventHandler("onClientMarkerLeave", root, function (player)
+    if player ~= localPlayer then
+        return
+    end
+    if source:getData("RaceMarker.map") then
         LobbyScreen.setVisible(false)
     end
 end)
 
-addEventHandler("onClientResourceStart", resourceRoot, function ()
-    for i, m in ipairs(raceMarkers) do
-        createRaceMarker(m.position, m.gamemode)
+addEventHandler("onClientElementDestroy", root, function ()
+    if source:getData("RaceMarker.map") then
+        LobbyScreen.setVisible(false)
     end
 end)

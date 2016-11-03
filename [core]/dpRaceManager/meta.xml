@@ -5,6 +5,7 @@
 	<script type="shared" src="shared/lib/yaci.lua"/>
 	<script type="shared" src="shared/check.lua"/>
 	<script type="shared" src="shared/utils.lua"/>
+	<script type="shared" src="shared/maps_list.lua"/>
 
 	<!-- Server-side scripts -->
 	<script type="server" src="server/MapLoader.lua"/>
@@ -28,6 +29,7 @@
 	<script type="client" src="client/gamemodes/Drift.lua"/>
 	<script type="client" src="client/gamemodes/Duel.lua"/>
 	<script type="client" src="client/RaceClient.lua"/>
+	<script type="client" src="client/exports.lua"/>
 
 	<!-- Server-side exports -->
 	<export type="server" function="createRace"/>
@@ -42,6 +44,11 @@
 	
 	<export type="server" function="loadRaceMap"/>
 	<export type="server" function="createRaceMap"/>
+	<export type="server" function="getMapsList"/>
+	<export type="server" function="getMapStartPosition"/>
+
+	<!-- Client-side exports -->
+	<export type="client" function="getMapInfo"/>
 
 	<!-- Assets -->
 	<file src="assets/countdown3.png"/>

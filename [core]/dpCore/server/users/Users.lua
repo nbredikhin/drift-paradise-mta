@@ -1,6 +1,6 @@
 Users = {}
 -- Время автосохранения в минутах
-local AUTOSAVE_INTERVAL = 3 
+local AUTOSAVE_INTERVAL = 5
 local USERS_TABLE_NAME = "users"
 local PASSWORD_SECRET = "s9abBUIg090j21aASGzc90avj1l"
 local BETA_KEY_CHECK_ENABLED = true
@@ -166,8 +166,10 @@ function Users.logoutPlayer(player, callback)
 	Users.saveAccount(player)
 	Sessions.stop(player)
 
+	local playerName = player.name
 	local username = player:getData("username")
 	return DatabaseTable.update(USERS_TABLE_NAME, {online=0}, {username=username}, function(result)
+		outputDebugString("Logout player " .. tostring(playerName))
 		if type(callback) == "function" then
 			callback(not not result)
 		end
@@ -281,8 +283,29 @@ addEventHandler("onResourceStop", resourceRoot, function ()
 	end
 end)
 
+function logoutOfflineUsers()
+	return DatabaseTable.select(USERS_TABLE_NAME, { "username" }, { online = 1 }, function (result)
+		local count = 0
+		if not result then
+			return
+		end
+		for i, user in ipairs(result) do
+			local player = Users.getPlayerByUsername(user.username)
+			if not player then
+				DatabaseTable.update(USERS_TABLE_NAME, {online=0}, {username=user.username}, function()end)
+				count = count + 1
+			end
+		end
+		if count > 0 then
+			outputDebugString("Logged out " .. tostring(count) .. " user(s)")
+		end		
+	end)
+end
+
 setTimer(function ()
 	for i, player in ipairs(getElementsByType("player")) do
 		Users.saveAccount(player)
 	end
+
+	logoutOfflineUsers()
 end, AUTOSAVE_INTERVAL * 60 * 1000, 0)

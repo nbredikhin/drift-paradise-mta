@@ -56,6 +56,7 @@
 	<export type="server" function="getUserPlayer"/>
 	<export type="server" function="givePlayerMoney"/>
 	<export type="server" function="givePlayerXP"/>
+	<export type="server" function="logoutOfflineUsers"/>
 	<!-- Функции для работы с автомобилями -->
 	<export type="shared" function="generateDefaultNumberplate"/>
 	<export type="server" function="spawnVehicle"/>

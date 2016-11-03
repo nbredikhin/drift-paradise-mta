@@ -65,6 +65,9 @@ function RaceGamemode:playerRemoved(player)
 	if isElement(player.vehicle) then
 		exports.dpVehicles:unforceVehicleHandling(player.vehicle)
 	end
+	if #self.race:getPlayers() == 1 then
+		self.race:destroy()
+	end
 end
 
 function RaceGamemode:getTimePassed()

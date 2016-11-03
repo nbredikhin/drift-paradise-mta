@@ -68,7 +68,7 @@ function playerMenu:init(player)
 	end
 	self.title = string.format("%s %s", 
 		exports.dpLang:getString("context_menu_title_player"),
-		tostring(player.name))
+		exports.dpUtils:removeHexFromString(tostring(player.name)))
 
 	if player.vehicle then
 		return

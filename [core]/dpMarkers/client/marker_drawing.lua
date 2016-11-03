@@ -133,8 +133,19 @@ local function drawMarker(marker)
 	}
 
 	-- Текст маркера
-	if localPlayer:isWithinMarker(marker) or 
-		(localPlayer.vehicle and localPlayer.vehicle:isWithinMarker(marker))
+	local restrictElement = marker:getData("dpMarkers.restrictElement")
+	local canEnter = false
+	if restrictElement then
+		if restrictElement == "vehicle" and localPlayer.vehicle then
+			canEnter = true
+		elseif restrictElement == "player" and not localPlayer.vehicle then
+			canEnter = true
+		end
+	else
+		canEnter = true
+	end
+	if (localPlayer:isWithinMarker(marker) or 
+		(localPlayer.vehicle and localPlayer.vehicle:isWithinMarker(marker))) and canEnter
 	then
 		if not markerProperties.noPaint then
 			color = {

@@ -62,21 +62,27 @@ function RaceGamemode:raceStarted()
 	-- Отключить коллизии
 	if self.ghostmodeEnabled and localPlayer.vehicle then
 		outputDebugString("Turn ghostmode on")
-		for i, player in ipairs(RaceClient.getPlayers()) do
-			if isElement(player.vehicle) then
-				localPlayer.vehicle:setCollidableWith(player.vehicle, false)
+		for i, player1 in ipairs(RaceClient.getPlayers()) do
+			for j, player2 in ipairs(RaceClient.getPlayers()) do
+				if player1 ~= player2 then
+					player1.vehicle:setCollidableWith(player2.vehicle, false)
+				end
 			end
-		end		
-	end
+		end
+		setCameraClip(true, false)		
+	end	
 end
 
 function RaceGamemode:raceStopped()
 	if self.ghostmodeEnabled and isElement(localPlayer.vehicle) then
 		outputDebugString("Turn ghostmode off")
-		for i, vehicle in ipairs(getElementsByType("vehicle")) do
-			localPlayer.vehicle:setCollidableWith(vehicle, true)
+		for i, vehicle1 in ipairs(getElementsByType("vehicle")) do
+			for j, vehicle2 in ipairs(getElementsByType("vehicle")) do
+				vehicle1:setCollidableWith(vehicle2, true)
+			end
 		end
-	end
+		setCameraClip(true, true)		
+	end	
 end
 
 function RaceGamemode:raceFinished(source)

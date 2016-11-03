@@ -49,14 +49,9 @@ end
 
 local function selectRandomMap(gamemode)
 	if gamemode == "drift" then
-		if lastMapId == 1 then
-			lastMapId = 2
-		else
-			lastMapId = 1
-		end
-		return "drift-ls-" .. lastMapId
+		return "drift-" .. tostring(math.random(1, 3))
 	else
-		return "sprint-test"
+		return "sprint-1"
 	end
 end
 

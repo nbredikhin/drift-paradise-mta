@@ -50,8 +50,8 @@
 	<file src="assets/countdown0.png"/>
 	<file src="assets/timer.png"/>
 
-    <dp-map src="maps/example.map"/>
-    <dp-map src="maps/drift-ls-1.map"/>
-    <dp-map src="maps/drift-ls-2.map"/>
-	<dp-map src="maps/sprint-test.map"/>
+	<dp-map src="maps/drift-1.map"/>
+	<dp-map src="maps/drift-2.map"/>
+	<dp-map src="maps/drift-3.map"/>
+	<dp-map src="maps/sprint-1.map"/>
 </meta>

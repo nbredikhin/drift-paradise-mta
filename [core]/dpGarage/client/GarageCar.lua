@@ -52,6 +52,7 @@ local function updateVehicle()
 
 	vehicle:setColor(255, 0, 0, 255, 255, 255)
 	vehicle.position = CAR_POSITION
+	vehicle.rotation = Vector3(0, 0, -90)
 
 	currentTuningTable = {}
 	if type(vehiclesList[currentVehicle].tuning) == "string" then
@@ -60,12 +61,14 @@ local function updateVehicle()
 
 	if isTimer(unfreezeTimer) then killTimer(unfreezeTimer) end
 	unfreezeTimer = setTimer(function ()
+		vehicle.position = CAR_POSITION
+		vehicle.rotation = Vector3(0, 0, -90)
 		if currentTuningTable.Suspension and tonumber(currentTuningTable.Suspension) > 0.5 then
 			vehicle.velocity = Vector3(0, 0, 0.01)
 		else
 			vehicle.velocity = Vector3(0, 0, -0.01)
 		end
-	end, 250, 2)	
+	end, 250, 3)	
 	
 	-- Наклейки
 	local stickersJSON = vehiclesList[currentVehicle].stickers

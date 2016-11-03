@@ -15,5 +15,9 @@ end
 function Sprint:playerFinished(player, timeout)
     self.super:playerFinished(player, timeout)
 
-    triggerEvent("RaceLobby.playerFinished", self.race.element, player, self:getTimePassed(), #self.finishedPlayers)
+    local rank = #self:getFinishedPlayers()
+    if timeout then
+        rank = false
+    end
+    triggerEvent("RaceLobby.playerFinished", self.race.element, player, self:getTimePassed(), rank)
 end

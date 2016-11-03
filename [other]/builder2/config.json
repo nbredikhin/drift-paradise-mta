@@ -8,7 +8,7 @@
     "enableExportEncrypt": false,
     "enableReadmeFiles": false,
 
-    "only": ["dpRaceManager", "dpRaceLobby"],
+    "only": [],
     "include": [
         "geoip",
         "blur_box",

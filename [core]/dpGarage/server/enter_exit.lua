@@ -28,7 +28,9 @@ addEventHandler("dpGarage.enter", resourceRoot, function ()
 	client.dimension = tonumber(client:getData("_id")) or (math.random(1000, 9999) + 5000) + 4000
 	client.frozen = true
 	client.interior = 0
-	local vehicle = createVehicle(411, Vector3 { x = 2915.438, y = -3186.282, z = 2535.244 })
+	local vehicle = createVehicle(411, Vector3 { x = 2915.438, y = -3186.282, z = 2535.3 })
+	vehicle:setSyncer(client)
+	vehicle.rotation = Vector3(0, 0, -90)
 	vehicle.dimension = client.dimension
 	vehicle.interior = client.interior
 	client:setData("garageVehicle", vehicle)

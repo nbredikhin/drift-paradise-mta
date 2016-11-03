@@ -1,13 +1,13 @@
 StickerSelectionScreen = Screen:subclass "StickerSelectionScreen"
 
 function StickerSelectionScreen:init(sideName)
-	self.super:init()
+	self.super:init()	
 	self.stickersGrid = StickersGrid()
 	self.sideName = sideName
 end
 
 function StickerSelectionScreen:show()
-	self.super:show()
+	self.super:show()	
 	GarageUI.setHelpText(string.format(
 		exports.dpLang:getString("garage_help_sticker_selection"), 
 		exports.dpLang:getString("controls_arrows"), 

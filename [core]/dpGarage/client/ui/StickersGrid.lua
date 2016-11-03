@@ -71,7 +71,7 @@ function StickersGrid:changeSection(sectionId)
 			item.level = 1
 		end
 		if item.id then
-			item.texture = Assets.textures["sticker_" .. tostring(item.id)]
+			item.texture = Assets.loadSticker(item.id)
 			if item.texture then
 				table.insert(self.stickersList, item)
 			end

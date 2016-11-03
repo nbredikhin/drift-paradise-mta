@@ -1,7 +1,7 @@
 -- Выбор автомобиля
 GarageCar = {}
 
-addEvent("dpGarage.loaded", false)
+addEvent("dpGarage.assetsLoaded", false)
 
 local CAR_POSITION = Vector3 { x = 2915.438, y = -3186.282, z = 2535.2 }
 local vehicle
@@ -53,6 +53,7 @@ local function updateVehicle()
 	vehicle:setColor(255, 0, 0, 255, 255, 255)
 	vehicle.position = CAR_POSITION
 	vehicle.rotation = Vector3(0, 0, -90)
+	vehicle.velocity = Vector3(0, 0, 0)
 
 	currentTuningTable = {}
 	if type(vehiclesList[currentVehicle].tuning) == "string" then
@@ -61,8 +62,6 @@ local function updateVehicle()
 
 	if isTimer(unfreezeTimer) then killTimer(unfreezeTimer) end
 	unfreezeTimer = setTimer(function ()
-		vehicle.position = CAR_POSITION
-		vehicle.rotation = Vector3(0, 0, -90)
 		if currentTuningTable.Suspension and tonumber(currentTuningTable.Suspension) > 0.5 then
 			vehicle.velocity = Vector3(0, 0, 0.01)
 		else
@@ -96,10 +95,10 @@ function GarageCar.start(car, vehicles)
 	vehicle = car
 	vehicle.position = CAR_POSITION
 	vehicle.rotation = Vector3(0, 0, -90)
+	vehicle.velocity = Vector3(0, 0, 0)
 	vehicle.dimension = localPlayer.dimension
 
-	addEventHandler("dpGarage.loaded", resourceRoot, updateVehicle)
-
+	updateVehicle()
 	setData("LightsState", false)
 end
 
@@ -107,7 +106,6 @@ function GarageCar.stop()
 	if isElement(vehicle) then
 		destroyElement(vehicle)
 	end
-	removeEventHandler("dpGarage.loaded", resourceRoot, updateVehicle)
 end
 
 function GarageCar.getVehicle()

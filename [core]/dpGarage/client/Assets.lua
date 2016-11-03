@@ -1,4 +1,5 @@
 Assets = {}
+local stickersLoaded = false
 
 function Assets.start()
 	Assets.textures = {
@@ -32,12 +33,6 @@ function Assets.start()
 		stickersSection6 = DxTexture("assets/images/icons/section6.png"),
 	}
 
-	for i, section in ipairs(TuningConfig.stickers) do
-		for i, sticker in ipairs(section) do
-			Assets.textures["sticker_" .. tostring(sticker.id)] = exports.dpAssets:createTexture("stickers/" .. sticker.id .. ".png")
-		end
-	end
-
 	Assets.fonts = {
 		menu = exports.dpAssets:createFont("Roboto-Regular.ttf", 22),
 		carNameText = exports.dpAssets:createFont("Roboto-Regular.ttf", 48),
@@ -57,6 +52,25 @@ function Assets.start()
 		componentItemInfo = exports.dpAssets:createFont("Roboto-Regular.ttf", 13),
 		stickerPreviewHelp = exports.dpAssets:createFont("Roboto-Regular.ttf", 12),
 	}
+	-- for i, section in ipairs(TuningConfig.stickers) do
+	-- 	for i, sticker in ipairs(section) do
+	-- 		Assets.textures["sticker_" .. tostring(sticker.id)] = exports.dpAssets:createTexture("stickers/" .. sticker.id .. ".png")
+	-- 	end
+	-- end
+	triggerEvent("dpGarage.assetsLoaded", resourceRoot)
+end
+
+function Assets.loadSticker(id)
+	local assetName = "sticker_" .. tostring(id)
+	if Assets.textures[assetName] then
+		return Assets.textures[assetName]
+	end
+	Assets.textures[assetName] = exports.dpAssets:createTexture("stickers/" .. id .. " (Custom).png")
+	if not isElement(Assets.textures[assetName]) then
+		outputDebugString("No preview for sticker " .. tostring(id))
+		Assets.textures[assetName] = exports.dpAssets:createTexture("stickers/" .. id .. ".png")
+	end
+	return Assets.textures[assetName]
 end
 
 function Assets.stop()

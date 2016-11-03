@@ -23,12 +23,14 @@ addEventHandler("dpGarage.enter", resourceRoot, function ()
 		client:removeFromVehicle()
 	end
 
-	-- Перенос игрока в уникальный dimension
-	client.position = Vector3(0, 0, 0)
+	-- Перенос игрока в уникальный dimension	
 	client.dimension = tonumber(client:getData("_id")) or (math.random(1000, 9999) + 5000) + 4000
+	local garagePosition = Vector3 { x = 2915.438, y = -3186.282, z = 2535.3 }
+	client.position = Vector3(garagePosition + Vector3(0, 5, 0))
 	client.frozen = true
 	client.interior = 0
-	local vehicle = createVehicle(411, Vector3 { x = 2915.438, y = -3186.282, z = 2535.3 })
+	client.alpha = 0
+	local vehicle = createVehicle(411, garagePosition)
 	vehicle:setSyncer(client)
 	vehicle.rotation = Vector3(0, 0, -90)
 	vehicle.dimension = client.dimension
@@ -66,6 +68,7 @@ addEventHandler("dpGarage.exit", resourceRoot, function (selectedCarId)
 	client.frozen = false
 	client.dimension = 0
 	client.interior = 0
+	client.alpha = 255
 	-- Если игрок выбрал машину в гараже
 	if selectedCarId then
 		local vehicle = exports.dpCore:spawnVehicle(selectedCarId, client.position, client.rotation)

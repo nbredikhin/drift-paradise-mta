@@ -51,6 +51,18 @@ addEventHandler("onVehicleStartExit", root, function (player)
 	cancelEvent()
 end)
 
+addEventHandler("onResourceStart", resourceRoot, function ()
+	for i, player in ipairs(getElementsByType("player")) do
+		if player:getData("activeUI") == "raceUI" then
+			player:setData("activeUI", false)
+			if player.vehicle then
+				player.vehicle.dimension = 0
+			end
+			player.dimension = 0
+		end
+	end
+end)
+
 ---------------------------------------------------------------
 ----------------------- Создание гонки ------------------------
 ---------------------------------------------------------------
@@ -245,7 +257,15 @@ function Race:addPlayer(player)
 	end
 	
 	player.vehicle.dimension = self.dimension
-	player.vehicle.frozen = true
+	toggleAllControls(player, false)
+	local race = self
+	setTimer(function ()
+		toggleAllControls(player, true)
+		if not race.element then 
+			return
+		end
+		player.vehicle.frozen = true		
+	end, 1500, 1)
 	player.vehicle:setData("Race.player", player)
 	player.vehicle.parent = player
 

@@ -26,7 +26,7 @@ addEventHandler("dpGarage.enter", resourceRoot, function ()
 	-- Перенос игрока в уникальный dimension	
 	client.dimension = tonumber(client:getData("_id")) or (math.random(1000, 9999) + 5000) + 4000
 	local garagePosition = Vector3 { x = 2915.438, y = -3186.282, z = 2535.3 }
-	client.position = Vector3(garagePosition + Vector3(0, 5, 0))
+	client.position = Vector3(garagePosition + Vector3(0, 5, 3))
 	client.frozen = true
 	client.interior = 0
 	client.alpha = 0

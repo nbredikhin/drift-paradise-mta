@@ -46,30 +46,16 @@ function Garage.start(vehicles, enteredVehicleId, vehicle)
 	-- 	addEventHandler("onClientSoundStopped", resourceRoot, Garage.playRandomMusic)
 	-- end	
 	Assets.start()
-	GarageCar.start(vehicle, vehicles)	
-	CameraManager.start()
+	GarageCar.start(vehicle, vehicles)		
 	GarageUI.start()
 
 	setTimer(function ()
+		CameraManager.start()
 		fadeCamera(true, 0.5)
 		GarageCar.showCarById(enteredVehicleId)		
 		CarTexture.start()
 	end, 500, 1)
-	-- Assets.start()
-	-- setTimer(function () 
-	-- 	GarageCar.start(vehicle, vehicles)
-	-- 	GarageCar.showCarById(enteredVehicleId)
-	-- 	CameraManager.start()
-	-- 	GarageUI.start()		
-	-- 	setTimer(function () 			
-	-- 		CarTexture.start()
-	-- 		triggerEvent("dpGarage.loaded", resourceRoot)
-	-- 		fadeCamera(true)
-	-- 	end, 500, 1)
-	-- end, 500, 1)
 end
-
--- Garage.start({{model=562}, {model=411}})
 
 function Garage.stop()
 	if not isActive then

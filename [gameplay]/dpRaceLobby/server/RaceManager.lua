@@ -100,13 +100,32 @@ function RaceManager.startRace(raceInfo)
 	if not race then
 		return false
 	end
-	-- Добавить игроков в гонку
+	
 	for i, player in ipairs(raceInfo.players) do
-		exports.dpRaceManager:raceAddPlayer(race, player)
+		fadeCamera(player, false, 0.5)
 	end
+	-- Добавить игроков в гонку
 	setTimer(function ()
-		exports.dpRaceManager:startRace(race)
-	end, 3000, 1)
+		for i, player in ipairs(raceInfo.players) do
+			if isElement(player) then
+				exports.dpRaceManager:raceAddPlayer(race, player)
+			end
+		end
+	end, 1000, 1)
+	-- Камера
+	setTimer(function ()
+		for i, player in ipairs(raceInfo.players) do
+			if isElement(player) then
+				fadeCamera(player, true)
+			end
+		end
+	end, 2000, 1)
+	-- Запуск гонки
+	setTimer(function ()
+		if isElement(race) then
+			exports.dpRaceManager:startRace(race)
+		end
+	end, 6000, 1)
 end
 
 addEvent("dpRaceLobby.cancelSearch", true)

@@ -90,15 +90,18 @@ function setVisible(visible)
 			UI:setText(loginPanel.username, fields.username)
 			UI:setText(loginPanel.password, fields.password)
 		end
-		backgroundTexture = DxTexture("assets/background.jpg")
+		backgroundTexture = DxTexture("assets/background.jpg", "dxt5")
 	else
+		if isElement(backgroundTexture) then
+			destroyElement(backgroundTexture)
+		end
 		removeEventHandler("onClientRender", root, draw)
 	end
 	showCursor(visible)
 end
 
 local function createLoginPanel()
-	local logoTexture = exports.dpAssets:createTexture("logo.png")
+	local logoTexture = exports.dpAssets:createTexture("logo.png", "dxt5")
 	local textureWidth, textureHeight = dxGetMaterialSize(logoTexture)
 	local logoWidth = 415
 	local logoHeight = textureHeight * 415 / textureWidth

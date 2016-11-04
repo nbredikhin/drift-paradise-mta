@@ -192,7 +192,7 @@ addEventHandler("onClientElementDestroy", root, function ()
 end)
 
 addEventHandler("onClientResourceStart", resourceRoot, function()
-	shaderReflectionTexture = dxCreateTexture("assets/reflection_cubemap.dds")
+	shaderReflectionTexture = dxCreateTexture("assets/reflection_cubemap.dds", "dxt5")
 	
 	for i, vehicle in ipairs(getElementsByType("vehicle")) do
 		setupVehicleWheels(vehicle)

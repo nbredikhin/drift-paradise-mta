@@ -140,10 +140,10 @@ end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
 	-- Загрузить нужные текстуры при запуске ресурса
-	textures.map = DxTexture("assets/map.png")
+	textures.map = DxTexture("assets/map.png", "dxt5")
 	textures.fill = DxTexture("assets/pixel.png")
-	textures.building = DxTexture("assets/building.png")
-	textures.top = DxTexture("assets/top.png")
+	textures.building = DxTexture("assets/building.png", "dxt5")
+	textures.top = DxTexture("assets/top.png", "dxt5")
 end)
 
 MapWorld.drawHorizontalPlane = drawHorizontalPlane

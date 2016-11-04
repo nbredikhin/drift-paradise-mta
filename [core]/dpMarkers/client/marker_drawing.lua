@@ -249,10 +249,10 @@ end)
 addEventHandler("onClientResourceStart", resourceRoot, function ()
 	for name, markerProperties in pairs(markerTypes) do
 		if markerProperties.icon then
-			markerProperties.icon = dxCreateTexture(markerProperties.icon)
+			markerProperties.icon = dxCreateTexture(markerProperties.icon, "dxt5")
 		end
 		if markerProperties.text then
-			markerProperties.text = dxCreateTexture(markerProperties.text)
+			markerProperties.text = dxCreateTexture(markerProperties.text, "dxt5")
 		end
 	end
 

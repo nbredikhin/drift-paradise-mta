@@ -16,7 +16,6 @@ local blipTextureSize = 32
 local maskShader
 local renderTarget
 local maskTexture
-local mapTexture
 
 local arrowTexture
 local playerTexture
@@ -216,11 +215,10 @@ function Radar.start()
 		return
 	end
 	maskTexture = dxCreateTexture("assets/textures/radar/mask.png")
-	mapTexture = dxCreateTexture("assets/textures/radar/map.png", "argb", true, "clamp")
 	maskShader:setValue("gUVRotCenter", 0.5, 0.5)
 	maskShader:setValue("sMaskTexture", maskTexture)
 	for i = 0, 143 do
-		chunksTextures[i] = dxCreateTexture("assets/textures/radar/map/radar" .. i .. ".png", "argb", true, "clamp")
+		chunksTextures[i] = dxCreateTexture("assets/textures/radar/map/radar" .. i .. ".png", "dxt5", true, "clamp")
 	end
 	camera = getCamera()
 	arrowTexture = DxTexture("assets/textures/radar/arrow.png")

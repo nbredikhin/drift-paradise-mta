@@ -4,6 +4,17 @@ local types = {
 	smoke = 3 
 }
 
+local textureCache = {}
+
+local function getCachedTexture(name)
+	if textureCache[name] then
+		return textureCache[name]
+	end
+
+	textureCache[name] = dxCreateTexture(name, "dxt5")
+	return textureCache[name]
+end
+
 local DEFAULT_OPTIONS = {
 	type = "smoke",
 	speed = {-0.5, 0.5},
@@ -41,7 +52,7 @@ function ParticlesEmitter:init(options)
 	self.textures = {}
 	self.currentTexture = 1
 	for i = 1, types[options.type] do
-		self.textures[i] = dxCreateTexture("assets/" .. tostring(self.options.type) .. tostring(i) .. ".png")
+		self.textures[i] = getCachedTexture("assets/" .. tostring(self.options.type) .. tostring(i) .. ".png")
 	end
 
 	self.delay = 0

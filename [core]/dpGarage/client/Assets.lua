@@ -3,7 +3,7 @@ local stickersLoaded = false
 
 function Assets.start()
 	Assets.textures = {
-		logo = exports.dpAssets:createTexture("logo_square_simple.png"),
+		logo = exports.dpAssets:createTexture("logo_square_simple.png", "dxt5"),
 		arrow = exports.dpAssets:createTexture("arrow.png"),
 		circle = DxTexture("assets/images/circle_button.png"),
 		slider = DxTexture("assets/images/slider.png"),
@@ -33,31 +33,42 @@ function Assets.start()
 		stickersSection6 = DxTexture("assets/images/icons/section6.png"),
 	}
 
-	Assets.fonts = {
-		menu = exports.dpAssets:createFont("Roboto-Regular.ttf", 22),
-		carNameText = exports.dpAssets:createFont("Roboto-Regular.ttf", 48),
-		colorMenuHeader = exports.dpAssets:createFont("Roboto-Regular.ttf", 20),
-		colorMenuPrice = exports.dpAssets:createFont("Roboto-Regular.ttf", 18),
-		componentName = exports.dpAssets:createFont("Roboto-Regular.ttf", 30),
-		componentNameInfo = exports.dpAssets:createFont("Roboto-Regular.ttf", 15),
-		menuLabel = exports.dpAssets:createFont("Roboto-Regular.ttf", 18),
-		helpText = exports.dpAssets:createFont("Roboto-Regular.ttf", 16),
-		moneyText = exports.dpAssets:createFont("Roboto-Regular.ttf", 24),
-		levelText = exports.dpAssets:createFont("Roboto-Regular.ttf", 14),
-		controlIconButton = exports.dpAssets:createFont("Roboto-Regular.ttf", 18),
-		stickersGridText = exports.dpAssets:createFont("Roboto-Regular.ttf", 12),
+	Assets.fonts = {}
+	local fontsBySize = {}
+	local function loadFont(name, size)
+		if fontsBySize[size] then
+			Assets.fonts[name] = fontsBySize[size]
+			return fontsBySize[size]
+		end
+		Assets.fonts[name] = exports.dpAssets:createFont("Roboto-Regular.ttf", size)
+		fontsBySize[size] = Assets.fonts[name]
+		return Assets.fonts[name]
+	end
 
-		tuningPanelText = exports.dpAssets:createFont("Roboto-Regular.ttf", 14),
-		componentItem = exports.dpAssets:createFont("Roboto-Regular.ttf", 16),
-		componentItemInfo = exports.dpAssets:createFont("Roboto-Regular.ttf", 13),
-		stickerPreviewHelp = exports.dpAssets:createFont("Roboto-Regular.ttf", 12),
-	}
-	-- for i, section in ipairs(TuningConfig.stickers) do
-	-- 	for i, sticker in ipairs(section) do
-	-- 		Assets.textures["sticker_" .. tostring(sticker.id)] = exports.dpAssets:createTexture("stickers/" .. sticker.id .. ".png")
-	-- 	end
-	-- end
+	loadFont("menu", 22)
+	loadFont("carNameText", 48)
+	loadFont("colorMenuHeader", 20)
+	loadFont("colorMenuPrice", 18)
+	loadFont("componentName", 30)
+	loadFont("componentNameInfo", 15)
+	loadFont("menuLabel", 18)
+	loadFont("helpText", 16)
+	loadFont("moneyText", 24)
+	loadFont("levelText", 14)
+	loadFont("controlIconButton", 18)
+	loadFont("stickersGridText", 12)
+	loadFont("tuningPanelText", 14)
+	loadFont("componentItem", 16)
+	loadFont("componentItemInfo", 13)
+	loadFont("stickerPreviewHelp", 12)
+
 	triggerEvent("dpGarage.assetsLoaded", resourceRoot)
+
+	local texturesCount = 0
+	for k, v in pairs(Assets.textures) do
+		texturesCount = texturesCount + 1
+	end
+	outputDebugString("Garage Assets: Created " .. tostring(texturesCount) .. " textures")
 end
 
 function Assets.loadSticker(id)
@@ -74,11 +85,14 @@ function Assets.loadSticker(id)
 end
 
 function Assets.stop()
+	local texturesCount = 0
 	for name, texture in pairs(Assets.textures) do
 		if isElement(texture) then
 			destroyElement(texture)
+			texturesCount = texturesCount + 1
 		end
 	end
+	outputDebugString("Garage Assets: Destroyed " .. tostring(texturesCount) .. " textures")
 
 	for name, font in pairs(Assets.fonts) do
 		if isElement(font) then

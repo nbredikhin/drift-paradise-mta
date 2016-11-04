@@ -28,8 +28,7 @@
 	<file src="assets/textures/speedometer/circle3.png"/>
 	<file src="assets/textures/speedometer/numbers.png"/>
 	<file src="assets/textures/speedometer/mask.png"/>
-
-	<file src="assets/textures/radar/map.png"/>
+	
 	<file src="assets/textures/radar/arrow.png"/>
 	<file src="assets/textures/radar/mask.png"/>
 

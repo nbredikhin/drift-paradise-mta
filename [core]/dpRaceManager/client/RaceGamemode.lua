@@ -60,6 +60,7 @@ function RaceGamemode:raceStarted()
 	RaceTimer.start()
 
 	-- Отключить коллизии
+	exports.dpSafeZones:leaveSafeZones()
 	if self.ghostmodeEnabled and localPlayer.vehicle then
 		outputDebugString("Turn ghostmode on")
 		for i, player1 in ipairs(RaceClient.getPlayers()) do

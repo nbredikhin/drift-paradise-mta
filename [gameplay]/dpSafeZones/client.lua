@@ -43,7 +43,7 @@ local function handleColShapeHit(colshape, element, matchingDimension)
 end
 
 local function handleColShapeOut(colshape, element, matchingDimension)
-	if not source:getData("dpSafeZone") then
+	if not matchingDimension or not colshape:getData("dpSafeZone") then
 		return
 	end
 	if element == localPlayer then
@@ -51,10 +51,10 @@ local function handleColShapeOut(colshape, element, matchingDimension)
 		outputDebugString("Leave safe zone")
 	end
 	if element.type == "player" or element.type == "vehicle" then		
-		for i, e in ipairs(source:getElementsWithin("player")) do
+		for i, e in ipairs(colshape:getElementsWithin("player")) do
 			element:setCollidableWith(e, true)
 		end
-		for i, e in ipairs(source:getElementsWithin("vehicle")) do
+		for i, e in ipairs(colshape:getElementsWithin("vehicle")) do
 			element:setCollidableWith(e, true)
 		end
 	end
@@ -67,6 +67,14 @@ end)
 addEventHandler("onClientColShapeHit", resourceRoot, function (element, matchingDimension)
 	handleColShapeHit(source, element, matchingDimension)
 end)
+
+function leaveSafeZones()
+	for _, colshape in ipairs(getElementsByType("colshape")) do
+		for _, element in ipairs(colshape:getElementsWithin()) do
+			handleColShapeOut(colshape, element, true)
+		end
+	end
+end
 
 for _, colshape in ipairs(getElementsByType("colshape")) do
 	for _, element in ipairs(colshape:getElementsWithin()) do

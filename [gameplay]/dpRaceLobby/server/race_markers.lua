@@ -1,5 +1,5 @@
 local MAX_MARKERS_COUNT = 3
-local RESPAWN_TIME = 30
+local RESPAWN_TIME = 60
 
 local SAFE_ZONE_SIZE = 15
 
@@ -93,4 +93,5 @@ end
 addEventHandler("onResourceStart", resourceRoot, respawnRaceMarkers)
 addEventHandler("onResourceStop", resourceRoot, clearRaceMarkers)
 
+-- Автоматический респавн
 setTimer(respawnRaceMarkers, RESPAWN_TIME * 1000 * 60, 0)

@@ -137,6 +137,8 @@ function RaceClient.startRace(raceElement, settings, map)
 	bindKey("F1", "down", QuitPrompt.toggle)
 	bindKey("f", "down", QuitPrompt.toggle)
 	outputDebugString("Client race started")
+
+	exports.dpSafeZones:leaveSafeZones()
 end
 
 function RaceClient.getPlayers()

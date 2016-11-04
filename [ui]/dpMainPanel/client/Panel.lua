@@ -87,6 +87,10 @@ function Panel.showTab(name)
 	end	
 end
 
+function Panel.getCurrentTab()
+	return currentTab
+end
+
 function Panel.setVisible(visible)
 	visible = not not visible
 	if UI:getVisible(panel) == visible or exports.dpTabPanel:isVisible() then

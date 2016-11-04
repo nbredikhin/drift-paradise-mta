@@ -42,6 +42,7 @@ local startupResources = {
 	"dpParticles",
 	"dpAnims",
 	"dpVehicles",
+	"dpWheelsManager",
 	"dpPhotoMode",
 	"dpDriftPoints",	
 	"dpHouses",
@@ -58,8 +59,11 @@ local startupResources = {
 	"dpContextMenu",
 
 	-- World
-	"dpMapfiles",
-	"dpMap",
+	"MAPPING-MAIN",
+	"TD-INT",
+	"TD-MAPFILES",
+	"TD-RACEMAPS",
+	"TX-VILLA",
 
 	-- Admin
 	"dpAdmin",

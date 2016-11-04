@@ -321,6 +321,10 @@ function Race:getAllPlayers()
 	end
 end
 
+function Race:getFinishedPlayers()
+	return self.gamemode:getFinishedPlayers()
+end
+
 ---------------------------------------------------------------
 ----------------------- Геймплей гонки ------------------------
 ---------------------------------------------------------------

@@ -17,7 +17,6 @@
 	<script type="client" src="client/spoiler_color.lua"/>
 	<script type="client" src="client/tyres_smoke.lua"/>
 	<script type="client" src="client/VehicleShaders.lua"/>
-	<script type="client" src="client/wheels.lua"/>
 	<script type="client" src="client/windows.lua"/>
 	<script type="client" src="client/actions.lua"/>
 	<script type="client" src="client/handling.lua"/>
@@ -46,10 +45,5 @@
 	<file src="assets/numberplate.png"/>
 	<file src="assets/numberplate.ttf"/>
 	<file src="assets/reflection.dds"/>
-
-	<file src="assets/wheels/reflection_cubemap.dds"/>
-
-	<file src="assets/shaders/mta-helper.fx"/>
-	<file src="assets/shaders/wheel.fx"/>
 	<file src="assets/shaders/windows.fx"/>
 </meta>

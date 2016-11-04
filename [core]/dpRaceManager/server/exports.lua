@@ -36,16 +36,17 @@ end
 
 -- Экспорт методов класса Race
 --
--- 				   Название экспорта	Название метода класса
-exportRaceFunction("destroyRace",		"destroy")
-exportRaceFunction("getRaceState",		"getState")
-exportRaceFunction("raceAddPlayer",		"addPlayer")
-exportRaceFunction("raceRemovePlayer",	"removePlayer")
-exportRaceFunction("raceGetPlayers",	"getPlayers")
-exportRaceFunction("raceGetAllPlayers",	"getAllPlayers")
-exportRaceFunction("startRace",			"launch")
-exportRaceFunction("finishRace",		"finish")
-exportRaceFunction("raceLogMessage",	"log")
+-- 				   Название экспорта		 Название метода класса
+exportRaceFunction("destroyRace",			 "destroy")
+exportRaceFunction("getRaceState",			 "getState")
+exportRaceFunction("raceAddPlayer",			 "addPlayer")
+exportRaceFunction("raceRemovePlayer",		 "removePlayer")
+exportRaceFunction("raceGetPlayers",		 "getPlayers")
+exportRaceFunction("raceGetAllPlayers",		 "getAllPlayers")
+exportRaceFunction("startRace",				 "launch")
+exportRaceFunction("finishRace",			 "finish")
+exportRaceFunction("raceLogMessage",		 "log")
+exportRaceFunction("raceGetFinishedPlayers", "getFinishedPlayers")
 
 -- Экспорт методов MapLoader
 loadRaceMap 		= function(...) return safeCall(function(...) return MapLoader.load(...) 	    end, ...) end

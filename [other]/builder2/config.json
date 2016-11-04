@@ -8,7 +8,7 @@
     "enableExportEncrypt": false,
     "enableReadmeFiles": false,
 
-    "only": ["dpRaceManager"],
+    "only": ["dpVehicles", "dpWheelsManager", "dpTeleports"],
     "include": [
         "geoip",
         "blur_box",
@@ -16,7 +16,12 @@
         "water_reflections",
         "dynamic_lighting",
         "dynamic_lighting_vehicles",
-        "shader_dynamic_sky"
+        "shader_dynamic_sky",
+        "MAPPING-MAIN",
+        "TD-INT",
+        "TD-MAPFILES",
+        "TD-RACEMAPS",
+        "TX-VILLA",
     ],
 
     "pathEncryptExclude": [

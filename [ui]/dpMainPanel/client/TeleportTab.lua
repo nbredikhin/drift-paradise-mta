@@ -1,9 +1,26 @@
 TeleportTab = {}
 local panel
 local list
+local offset = 1
+local showCount = 6
 
 local teleports = {
-	"Primring"
+	{ "Akina", 				"akina" },
+	{ "Hakone Nanamagari", 	"hakone" },
+	{ "YZ Circuit", 		"yz_circuit" },
+	{ "Transfagarasan", 	"transfagarasan" },
+	{ "Suzuka Circuit", 	"suzuka_circuit" },
+	{ "Sekia", 				"sekia" },
+	{ "Project Touge", 		"project_touge" },
+	{ "Mikawa", 			"mikawa" },
+	{ "Mazda Raceway", 		"mazda_raceway" },
+	{ "Hero Shinoi", 		"hero_shinoi" },
+	{ "Honjo Circuit", 		"honjo_circuit" },
+	{ "Gateway International Raceway", "gateway_raceway" },
+	{ "GoKart ver.2", 		"gokart2" },
+	{ "Ebisu West", 		"ebisu_west" },
+	{ "Ebisu Minami", 		"ebisu_minami" },
+	{ "Bihoku", 			"bihoku" },
 }
 
 function TeleportTab.create()
@@ -28,10 +45,11 @@ end
 
 function TeleportTab.refresh()
 	local items = {}
-	for i, name in ipairs(teleports) do
+	for i = offset, math.min(#teleports, offset + showCount) do
+		local name = teleports[i][1]
 		local count = 0
-		for i, player in ipairs(getElementsByType("player")) do
-			if string.lower(tostring(player:getData("activeMap"))) == string.lower(name) then
+		for j, player in ipairs(getElementsByType("player")) do
+			if string.lower(tostring(player:getData("activeMap"))) == teleports[i][2] then
 				count = count + 1
 			end
 		end
@@ -46,9 +64,33 @@ addEventHandler("dpUI.click", resourceRoot, function (widget)
 		local items = exports.dpUI:getItems(list)
 		local selectedItem = exports.dpUI:getActiveItem(list)
 		-- outputChatBox("Selected: " .. tostring(items[selectedItem][1]))
-		if items[selectedItem][1] == "Primring" then
-			exports.dpTeleports:teleportToMap("primring")
+		for i, teleport in ipairs(teleports) do
+			if items[selectedItem][1] == teleport[1] then
+				exports.dpTeleports:teleportToMap(teleport[2])
+			end
 		end
 		Panel.setVisible(false)
+	end
+end)
+
+addEventHandler("onClientKey", root, function (button, down)
+	if not down then
+		return
+	end
+	if not Panel.isVisible() or Panel.getCurrentTab() ~= "teleport" then
+		return
+	end
+	if button == "mouse_wheel_up" then
+		offset = offset - 1
+		if offset < 1 then
+			offset = 1
+		end
+		TeleportTab.refresh()
+	elseif button == "mouse_wheel_down" then
+		offset = offset + 1
+		if offset + showCount > #teleports then
+			offset = #teleports - showCount
+		end
+		TeleportTab.refresh()
 	end
 end)

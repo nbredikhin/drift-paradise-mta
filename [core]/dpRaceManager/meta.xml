@@ -38,6 +38,7 @@
 	<export type="server" function="raceRemovePlayer"/>
 	<export type="server" function="raceGetPlayers"/>
 	<export type="server" function="raceGetAllPlayers"/>
+	<export type="server" function="raceGetFinishedPlayers"/>
 	<export type="server" function="startRace"/>
 	<export type="server" function="finishRace"/>
 	<export type="server" function="raceLogMessage"/>
@@ -61,4 +62,5 @@
 	<dp-map src="maps/drift-2.map"/>
 	<dp-map src="maps/drift-3.map"/>
 	<dp-map src="maps/sprint-1.map"/>
+	<dp-map src="maps/sprint-2.map"/>
 </meta>

@@ -17,6 +17,9 @@ addEventHandler("onClientMarkerLeave", root, function (player)
 end)
 
 addEventHandler("onClientElementDestroy", root, function ()
+    if not isElement(source) or not source.getData then
+        return
+    end 
     if source:getData("RaceMarker.map") then
         LobbyScreen.setVisible(false)
     end

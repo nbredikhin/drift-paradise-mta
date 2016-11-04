@@ -23,8 +23,7 @@ end
 local function showPlayerRaceFinish(player, race, time, rank, score)
     if not isElement(player) then
         return 
-    end 
-
+    end
     local raceInfo = race:getData("dpRaceLobby.raceInfo")
     if type(raceInfo) ~= "table" then
         raceInfo = { rank = 1 }
@@ -35,6 +34,12 @@ local function showPlayerRaceFinish(player, race, time, rank, score)
     if rank then
         rankMul = math.max(0, 1 - (rank - 1) / 3)
     else
+        rank = 4
+    end
+    local finishedPlayers = exports.dpRaceManager:raceGetFinishedPlayers(race) or 0
+    local currentPlayers = exports.dpRaceManager:raceGetPlayers(race) or 0
+    if #finishedPlayers == 0 and #currentPlayers == 0 then
+        rankMul = 0
         rank = 4
     end
     local mul = rankMul * getVehicleClassMul(raceInfo.rank) * getLevelMul(player)

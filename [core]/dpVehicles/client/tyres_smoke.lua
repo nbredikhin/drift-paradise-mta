@@ -24,8 +24,9 @@ end
 
 local function checkVehicleOnGround(vehicle)
 	local ox, oy, oz = vehicle:getComponentPosition("wheel_lb_dummy")
-	local centerPosition1 = vehicle.matrix:transformPosition(0, oy, oz)
-	local centerPosition2 = vehicle.matrix:transformPosition(0, oy, oz - 0.5)
+	local vehicleMatrix = vehicle.matrix
+	local centerPosition1 = vehicleMatrix:transformPosition(0, oy, oz)
+	local centerPosition2 = vehicleMatrix:transformPosition(0, oy, oz - 0.5)
 	return not isLineOfSightClear(centerPosition1, centerPosition2, true, false, false, true, false)
 end
 
@@ -33,11 +34,12 @@ local function update()
 	for vehicle, emitters in pairs(smokeVehicles) do
 		-- Left wheel
 		local ox, oy, oz = vehicle:getComponentPosition("wheel_lb_dummy")
-		local leftPosition = vehicle.matrix:transformPosition(ox, oy, oz)						
+		local vehicleMatrix = vehicle.matrix
+		local leftPosition = vehicleMatrix:transformPosition(ox, oy, oz)						
 		exports.dpParticles:setEmitterPosition(emitters.leftEmitter, leftPosition.x, leftPosition.y, leftPosition.z)
 		-- Right wheel
 		ox, oy, oz = vehicle:getComponentPosition("wheel_rb_dummy")
-		local rightPosition = vehicle.matrix:transformPosition(ox, oy, oz)
+		local rightPosition = vehicleMatrix:transformPosition(ox, oy, oz)
 		exports.dpParticles:setEmitterPosition(emitters.rightEmitter, rightPosition.x, rightPosition.y, rightPosition.z)
 
 		exports.dpParticles:setEmitterOption(emitters.leftEmitter, "density", 0)

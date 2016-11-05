@@ -256,10 +256,11 @@ addEventHandler("onClientPreRender", root, function ()
 			steeringMul = 0
 		end
 		local rotationX, rotationY, rotationZ = getElementRotation(vehicle)
+		local vehicleMatrix = vehicle.matrix
 		for name, wheel in pairs(wheels) do
 			if wheel.custom then
 				local rx, ry, rz = vehicle:getComponentRotation(name)
-				local position = vehicle.matrix:transformPosition(wheel.position[1], wheel.position[2], wheel.position[3])
+				local position = vehicleMatrix:transformPosition(wheel.position[1], wheel.position[2], wheel.position[3])
 				local steering = 0
 				if name == "wheel_rf_dummy" then
 					local angleOffset = wrapAngle(rz + 180) - 180

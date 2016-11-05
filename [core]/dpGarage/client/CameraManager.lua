@@ -54,19 +54,20 @@ function CameraManager.setState(name, noAnimation, animationSpeed)
 	else
 		currentAnimationSpeed = ANIMATION_SPEED
 	end
+	local vehicle = GarageCar.getVehicle()
+	local vehicleMatrix = vehicle.matrix
 	for k, v in pairs(cameraPresets[name]) do
 		if k == "targetPosition" then
 			if type(v) == "string" then
 				if v == "car" then				
 					targetCamera.targetPosition = Vector3(GarageCar.getVehicle().position)
 				else
-					local vehicle = GarageCar.getVehicle()
 					local componentOffset = Vector3(vehicle:getComponentPosition(v))
-					targetCamera.targetPosition = vehicle.matrix:transformPosition(componentOffset)
+					targetCamera.targetPosition = vehicleMatrix:transformPosition(componentOffset)
 				end
 			else
-				local vehicle = GarageCar.getVehicle()
-				targetCamera.targetPosition = vehicle.matrix:transformPosition(v)
+				vehicle = GarageCar.getVehicle()
+				targetCamera.targetPosition = vehicleMatrix:transformPosition(v)
 			end
 			if noAnimation then
 				camera.targetPosition = Vector3(targetCamera.targetPosition)

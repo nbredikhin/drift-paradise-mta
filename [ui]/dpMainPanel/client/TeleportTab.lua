@@ -8,7 +8,6 @@ local teleports = {
 	{ "Akina", 				"akina" },
 	{ "Hakone Nanamagari", 	"hakone" },
 	{ "YZ Circuit", 		"yz_circuit" },
-	{ "Transfagarasan", 	"transfagarasan" },
 	{ "Suzuka Circuit", 	"suzuka_circuit" },
 	{ "Sekia", 				"sekia" },
 	{ "Project Touge", 		"project_touge" },

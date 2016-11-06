@@ -1,0 +1,7 @@
+<meta>
+    <oop>true</oop>
+    <download_priority_group>1000</download_priority_group>
+
+    <script type="client" src="game.lua"/>
+    <export type="client" function="hideGame"/>
+</meta>

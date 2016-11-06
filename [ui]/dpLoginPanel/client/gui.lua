@@ -367,6 +367,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	if not localPlayer:getData("username") then
 		fadeCamera(false, 0)
 		setVisible(true)
+		exports.dpLoadingScreen:hideGame()
 	end
 end)
 

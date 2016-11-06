@@ -1,0 +1,33 @@
+{
+    "global": {
+        "type": "table",
+        "fields": {
+            "dxDrawText": {
+                "type": "function",
+                "args": [
+                    { "name": "text" },
+                    { "name": "left" },
+                    { "name": "top" }
+                ],
+                "argsDisplay": "text, left, top [, right, bottom, color, scale, font, alignX, alignY, clip, wordBreak, postGUI, colorCoded, subPixelPositioning, fRotation, fRotationCenterX, fRotationCenterY]",
+                "description": "Draws a string of text on the screen for one frame. In order for the text to stay visible continuously, you need to call this function with the same parameters on each frame update (see onClientRender)."
+            },
+            "dxDrawImage": {
+                "type": "function",
+                "args": [
+                    { "name": "posX" },
+                    { "name": "posY" },
+                    { "name": "width" },
+                    { "name": "height" },
+                    { "name": "image" }
+                ],
+                "argsDisplay": "posX, posY, width, height, image [, rotation, rotationCenterX, rotationCenterY, color, postGUI]",
+                "description": "Draws an image on the screen for a single frame. In order for the image to stay visible continuously, you need to call this function with the same parameters on each frame update (see onClientRender)."
+            },
+            "showCursor": {
+                "type": "function",
+                "args:": [ {"name": "visible"} ]
+            }
+        }
+    }
+}

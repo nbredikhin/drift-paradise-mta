@@ -12,6 +12,7 @@ local function destroyVehicleShaders(vehicle)
 			destroyElement(shader)
 		end
 	end
+	triggerEvent("dpVehicles.shadersDestroyed", vehicle)
 end
 
 function VehicleShaders.hasTexture(vehicle, textureName)

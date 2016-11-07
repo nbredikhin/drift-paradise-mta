@@ -5,8 +5,9 @@ local bodyColor = {0, 0, 0}
 local editorStickers = {}
 local DEFAULT_STICKER_SIZE = 300
 local selectedSticker = false
+local previousSticker = false
 local stickerMirroringEnabled = false
-local MAX_STICKER_COUNT = 5
+local MAX_STICKER_COUNT = 1000
 
 function CarTexture.start()
 	vehicle = GarageCar.getVehicle()
@@ -96,6 +97,27 @@ function CarTexture.getSelectedSticker()
 	return editorStickers[selectedSticker]
 end
 
+function CarTexture.copyPreviousStickerStyle()
+	if not selectedSticker then
+		return false
+	end
+	if not previousSticker then
+		return false
+	end
+	local prevSticker = editorStickers[previousSticker]
+	local currentSticker = editorStickers[selectedSticker]
+	if not prevSticker or not currentSticker then
+		return false
+	end
+	--currentSticker[1] = prevSticker[1]
+	--currentSticker[2] = prevSticker[2]
+	currentSticker[3] = prevSticker[3]
+	currentSticker[4] = prevSticker[4]
+	currentSticker[6] = prevSticker[6]
+	currentSticker[7] = prevSticker[7]
+	return true
+end
+
 function CarTexture.setStickerColor(color)
 	if not selectedSticker then
 		return
@@ -153,15 +175,6 @@ function CarTexture.addSticker(id, x, y, rotation)
 	local width, height = DEFAULT_STICKER_SIZE, DEFAULT_STICKER_SIZE
 	local color = tocolor(255, 255, 255)
 	-- Скопировать параметры с предыдущего стикера
-	local previousSticker = CarTexture.getSelectedSticker()
-	if previousSticker then
-		x = previousSticker[1]
-		y = previousSticker[2]
-		width = previousSticker[3]
-		height = previousSticker[4]
-		rotation = previousSticker[6]
-		color = previousSticker[7]
-	end
 	local sticker = {x, y, width, height, id, rotation, color, stickerMirroringEnabled, false}
 	table.insert(editorStickers, sticker)
 	selectedSticker = #editorStickers
@@ -281,7 +294,10 @@ function CarTexture.selectNextSticker()
 end
 
 function CarTexture.unselectSticker()
-	selectedSticker = false
+	if selectedSticker then
+		previousSticker = selectedSticker
+		selectedSticker = false
+	end
 	CarTexture.redraw()	
 end
 

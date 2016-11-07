@@ -62,7 +62,7 @@ function ComponentScreen:show()
 	self.super:show()
 	if self.componentName == "FrontLights" or self.componentName == "RearLights" then
 		GarageCar.getVehicle():setData("LightsState", true, false)
-	end
+	end	
 end
 
 function ComponentScreen:hide()
@@ -82,7 +82,23 @@ function ComponentScreen:update(deltaTime)
 end
 
 function ComponentScreen:onItemChanged()
-	GarageCar.previewTuning(self.componentName, self.menu.activeItem - 1)
+	GarageCar.resetTuning()
+	local componentId = self.menu.activeItem - 1
+	GarageCar.previewTuning(self.componentName, componentId)
+	if self.componentName == "WheelsF" or self.componentName == "WheelsR" then
+		local letter = "F"
+		if self.componentName == "WheelsR" then
+			letter = "R"
+		end
+		if componentId == 0 then
+			-- Сбросить развал и т д
+			GarageCar.previewTuning("WheelsOffset" .. letter, 0)
+			GarageCar.previewTuning("WheelsAngle" .. letter, 0)
+			GarageCar.previewTuning("WheelsWidth" .. letter, 0)
+		end
+		-- Сбросить цвет
+		GarageCar.previewTuning("WheelsColor" .. letter, {255, 255, 255})
+	end	
 end
 
 function ComponentScreen:onKey(key)
@@ -101,8 +117,24 @@ function ComponentScreen:onKey(key)
 		local this = self
 		Garage.buy(item.price, item.level, function(success)
 			if success then
-				GarageCar.applyTuning(this.componentName, this.menu.activeItem  - 1)
+				local componentId =  this.menu.activeItem - 1
+				GarageCar.applyTuning(this.componentName, componentId)
 				this.screenManager:showScreen(ComponentsScreen(this.componentName))
+
+				if this.componentName == "WheelsF" or this.componentName == "WheelsR" then
+					local letter = "F"
+					if this.componentName == "WheelsR" then
+						letter = "R"
+					end
+					if componentId == 0 then
+						-- Сбросить развал и т д
+						GarageCar.applyTuning("WheelsOffset" .. letter, 0)
+						GarageCar.applyTuning("WheelsAngle" .. letter, 0)
+						GarageCar.applyTuning("WheelsWidth" .. letter, 0)
+					end
+					-- Сбросить цвет
+					GarageCar.applyTuning("WheelsColor" .. letter, {255, 255, 255})
+				end
 			end
 		end)
 	end

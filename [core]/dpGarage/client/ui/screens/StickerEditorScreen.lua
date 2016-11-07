@@ -47,17 +47,17 @@ function StickerEditorScreen:init(sideName)
 	CameraManager.setState("side" .. tostring(sideName), false, 2)
 
 	self.helpPanel = HelpPanel({
-		{ keys = {"A"}, locale = "garage_sticker_editor_help_add" },
-		{ keys = {"D"}, locale = "garage_sticker_editor_help_remove" },
-		{ keys = {"F"}, locale = "garage_sticker_editor_help_clone"},
-		{ keys = {"C"}, locale = "garage_sticker_editor_help_copy_style"},
-		{ keys = {"Q", "W", "E", "R"}, locale = "garage_sticker_editor_help_change_mode" },
-		{ keys = {"ALT", "SHIFT"}, locale = "garage_sticker_editor_help_speed"},
-		{ keys = {"CTRL"}, locale = "garage_sticker_editor_help_scale"},
-		{ keys = {"controls_arrows"}, locale = "garage_sticker_editor_help_transform" },
-		{ keys = {"1", "2"}, locale = "garage_sticker_editor_help_mirroring"},
-		{ keys = {"K", "L"}, locale = "garage_sticker_editor_help_next_prev"},		
-		{ keys = {"Z"}, locale = "garage_sticker_editor_help_toggle"},
+		{ keys = {"A"}, 				locale = "garage_sticker_editor_help_add" },
+		{ keys = {"D"}, 				locale = "garage_sticker_editor_help_remove" },
+		{ keys = {"C"}, 				locale = "garage_sticker_editor_help_clone"},
+		{ keys = {"F"}, 				locale = "garage_sticker_editor_help_copy_style"},
+		{ keys = {"Q", "W", "E", "R"}, 	locale = "garage_sticker_editor_help_change_mode" },
+		{ keys = {"ALT", "SHIFT"}, 		locale = "garage_sticker_editor_help_speed"},
+		{ keys = {"CTRL"}, 				locale = "garage_sticker_editor_help_scale"},
+		{ keys = {"controls_arrows"}, 	locale = "garage_sticker_editor_help_transform" },
+		{ keys = {"1", "2"}, 			locale = "garage_sticker_editor_help_mirroring"},
+		{ keys = {"K", "L"}, 			locale = "garage_sticker_editor_help_next_prev"},		
+		{ keys = {"Z"}, 				locale = "garage_sticker_editor_help_toggle"},
 	})
 end
 
@@ -208,6 +208,8 @@ function StickerEditorScreen:onKey(key)
 		self.screenManager:showScreen(StickersSideScreen(self.sideName))
 	elseif key == "z" then
 		self.helpPanel:toggle()
+	elseif key == "f" then
+		CarTexture.copyPreviousStickerStyle()
 	elseif key == "1" then
 		CarTexture.toggleStickerMirroring()
 		exports.dpSounds:playSound("ui_change.wav")
@@ -234,7 +236,7 @@ function StickerEditorScreen:onKey(key)
 	elseif key == "l" then
 		CarTexture.selectNextSticker()
 		self:updateSelectedSticker()
-	elseif key == "f" then
+	elseif key == "c" then
 		if not CarTexture.canAddSticker() then
 			exports.dpSounds:playSound("error.wav")
 			return

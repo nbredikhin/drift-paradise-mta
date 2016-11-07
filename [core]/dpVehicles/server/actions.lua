@@ -1,9 +1,9 @@
 addEvent("dpVehicles.vehicleAction", true)
-addEventHandler("dpVehicles.vehicleAction", root, function (action, value)
-	if not isElement(source) or source.type ~= "vehicle" then
+addEventHandler("dpVehicles.vehicleAction", root, function (action, value)	
+	if not isElement(client.vehicle) then
 		return
 	end
-	local vehicle = source
+	local vehicle = client.vehicle
 	local player = client
 	if vehicle.controller ~= player then
 		return

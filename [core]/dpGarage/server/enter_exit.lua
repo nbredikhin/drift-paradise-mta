@@ -16,11 +16,12 @@ addEventHandler("dpGarage.enter", resourceRoot, function ()
 	-- Выкинуть игрока из машины
 	if client.vehicle then
 		-- Отправить машину игрока в гараж, если игрок является водителем и владельцем
-		if client.vehicle.controller == client and exports.dpCore:isPlayerOwningVehicle(client, client.vehicle) then
-			enteredVehicleId = client.vehicle:getData("_id")
-			exports.dpCore:returnVehicleToGarage(client.vehicle)
-		end
-		client:removeFromVehicle()
+		local playerVehicle = client.vehicle
+		client.vehicle = nil
+		if playerVehicle.controller == client and exports.dpCore:isPlayerOwningVehicle(client, playerVehicle) then
+			enteredVehicleId = playerVehicle:getData("_id")
+			exports.dpCore:returnVehicleToGarage(playerVehicle)
+		end		
 	end
 
 	-- Перенос игрока в уникальный dimension	
@@ -30,6 +31,7 @@ addEventHandler("dpGarage.enter", resourceRoot, function ()
 	client.frozen = true
 	client.interior = 0
 	client.alpha = 0
+	removePedFromVehicle(client)
 	local vehicle = createVehicle(411, garagePosition)
 	vehicle:setSyncer(client)
 	vehicle.rotation = Vector3(0, 0, -90)

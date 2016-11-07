@@ -92,3 +92,7 @@ addEventHandler("onClientResourceStop", resourceRoot, function ()
 		currentCameraView.stop()
 	end
 end)
+
+function resetCameraView()
+	startCameraView()
+end

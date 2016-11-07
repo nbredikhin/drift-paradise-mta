@@ -5,5 +5,12 @@ function toggleVehicleParam(action, value)
 	if localPlayer.vehicle.controller ~= localPlayer then
 		return false
 	end
-	triggerServerEvent("dpVehicles.vehicleAction", localPlayer.vehicle, action, value)
+	triggerServerEvent("dpVehicles.vehicleAction", resourceRoot, action, value)
 end
+
+bindKey("1", "down", function ()
+    if not isElement(localPlayer.vehicle) then
+        return
+    end
+    triggerServerEvent("dpVehicles.vehicleAction", resourceRoot, "lights")
+end)

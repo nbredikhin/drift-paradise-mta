@@ -40,7 +40,7 @@ local function update(deltaTime)
 	local yaw = math.rad(camera.rotationHorizontal)
 	local cameraOffset = Vector3(math.cos(yaw) * math.cos(pitch), math.sin(yaw) * math.cos(pitch), math.sin(pitch))
 	cameraOffset = cameraOffset + shakeOffset / 8
-	Camera.setMatrix(
+	local works = Camera.setMatrix(
 		camera.targetPosition + cameraOffset * camera.distance, 
 		camera.targetPosition - shakeOffset * 4, 
 		camera.roll, 
@@ -132,6 +132,8 @@ function CameraManager.start()
 	addEventHandler("onClientCursorMove", root, mouseMove)
 	bindKey("mouse1", "down", startMouseLook)
 	bindKey("mouse1", "up", stopMouseLook)
+
+	exports.dpCameraViews:resetCameraView()
 end
 
 function CameraManager.stop()

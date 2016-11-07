@@ -6,6 +6,7 @@ local editorStickers = {}
 local DEFAULT_STICKER_SIZE = 300
 local selectedSticker = false
 local stickerMirroringEnabled = false
+local MAX_STICKER_COUNT = 5
 
 function CarTexture.start()
 	vehicle = GarageCar.getVehicle()
@@ -135,7 +136,14 @@ function CarTexture.rotateSticker(r)
 	CarTexture.redraw()
 end
 
+function CarTexture.canAddSticker()
+	return #editorStickers < MAX_STICKER_COUNT
+end
+
 function CarTexture.addSticker(id, x, y, rotation)
+	if not CarTexture.canAddSticker() then
+		return false
+	end
 	if type(id) ~= "number" then
 		return false
 	end
@@ -164,6 +172,9 @@ function CarTexture.cloneSticker()
 	if not selectedSticker then
 		return
 	end
+	if not CarTexture.canAddSticker() then
+		return
+	end	
 	local sticker = editorStickers[selectedSticker]
 	if not sticker then
 		return false

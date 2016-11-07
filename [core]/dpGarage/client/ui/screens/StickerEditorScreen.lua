@@ -130,6 +130,9 @@ function StickerEditorScreen:update(deltaTime)
 end
 
 function StickerEditorScreen:addSticker(id)
+	if not CarTexture.canAddSticker() then
+		return
+	end
 	CarTexture.addSticker(id, bodySides[self.sideName].px, bodySides[self.sideName].py, bodySides[self.sideName].rot)
 	self:updateSelectedSticker()
 	GarageCar.save()
@@ -204,6 +207,10 @@ function StickerEditorScreen:onKey(key)
 		CarTexture.unselectSticker()
 		self:updateSelectedSticker()
 	elseif key == "a" then
+		if not CarTexture.canAddSticker() then
+			exports.dpSounds:playSound("error.wav")
+			return
+		end
 		self.screenManager:showScreen(StickerSelectionScreen(self.sideName))
 		exports.dpSounds:playSound("ui_select.wav")
 	elseif key == "d" or key == "delete" then
@@ -217,6 +224,10 @@ function StickerEditorScreen:onKey(key)
 		CarTexture.selectNextSticker()
 		self:updateSelectedSticker()
 	elseif key == "f" then
+		if not CarTexture.canAddSticker() then
+			exports.dpSounds:playSound("error.wav")
+			return
+		end		
 		CarTexture.cloneSticker()
 		self:updateSelectedSticker()
 	else

@@ -94,7 +94,7 @@ end
 
 function StickerPreview:showSticker(stickerId)
 	if stickerId then
-		self.texture = Assets.textures["sticker_" .. tostring(stickerId)]
+		self.texture = Assets.loadSticker(stickerId)
 	end
 end
 

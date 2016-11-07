@@ -16,7 +16,7 @@ end
 
 local function loadModel(modelType, model, data)
     outputDebugString("Load model " .. #data)
-    local path = "tmp/" .. md5(tostring(model) .. "-" .. tostring(modelType))
+    local path = md5(tostring(model) .. "-" .. tostring(modelType))
     local file = fileCreate(path)
     file:write(data)
     file:close()

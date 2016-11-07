@@ -5,7 +5,9 @@ local DISCORD_URL = "https://discordapp.com/api/webhooks/239880086801743872/JRfm
 local DISCORD_INFO_INTERVAL = 60
 
 local startupResources = {
+	-- Экран загрузки должен загружаться раньше всех ресурсов
 	"dpLoadingScreen",
+
 	-- Important 
 	"geoip",
 	

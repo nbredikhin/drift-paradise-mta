@@ -226,6 +226,18 @@
 	"garage_sticker_editor_scale": "Scale",
 	"garage_sticker_editor_color": "Change color",
 
+	"garage_sticker_editor_help_add": "Add sticker",
+	"garage_sticker_editor_help_remove": "Remove sticker",
+	"garage_sticker_editor_help_clone": "Clone selected sticker",
+	"garage_sticker_editor_help_copy_style": "Apply previous sticker style",
+	"garage_sticker_editor_help_change_mode": "Change edit mode",
+	"garage_sticker_editor_help_speed": "Move slower/faster",
+	"garage_sticker_editor_help_scale": "Scale by one axis",
+	"garage_sticker_editor_help_transform": "Move, scale and rotate",
+	"garage_sticker_editor_help_mirroring": "Toggle mirroring",
+	"garage_sticker_editor_help_next_prev": "Select next/previous sticker",
+	"garage_sticker_editor_help_toggle": "Toggle help",	
+
 	"garage_tuning_sticker_color": "Sticker color",
 	"garage_tuning_sticker_prev": "%s - previous",
 	"garage_tuning_sticker_next": "%s - next",

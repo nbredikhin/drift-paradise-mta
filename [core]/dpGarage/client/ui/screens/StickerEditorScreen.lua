@@ -23,10 +23,10 @@ function StickerEditorScreen:init(sideName)
 	self.super:init()
 	self.sideName = sideName
 	self.panel = TuningPanel({
-		{icon = Assets.textures.stickersMoveIcon, text = exports.dpLang:getString("garage_sticker_editor_move")},
-		{icon = Assets.textures.stickersScaleIcon, text = exports.dpLang:getString("garage_sticker_editor_scale")},
-		{icon = Assets.textures.stickersRotateIcon, text = exports.dpLang:getString("garage_sticker_editor_rotate")},
-		{icon = Assets.textures.stickersColorIcon, text = exports.dpLang:getString("garage_sticker_editor_color")},
+		{icon = Assets.textures.stickersMoveIcon, text = exports.dpLang:getString("garage_sticker_editor_move"), key = "Q"},
+		{icon = Assets.textures.stickersScaleIcon, text = exports.dpLang:getString("garage_sticker_editor_scale"), key = "W"},
+		{icon = Assets.textures.stickersRotateIcon, text = exports.dpLang:getString("garage_sticker_editor_rotate"), key = "E"},
+		{icon = Assets.textures.stickersColorIcon, text = exports.dpLang:getString("garage_sticker_editor_color"), key = "R"},
 	})
 
 	self.mode = "move"
@@ -45,6 +45,20 @@ function StickerEditorScreen:init(sideName)
 	self:updateSelectedSticker()
 
 	CameraManager.setState("side" .. tostring(sideName), false, 2)
+
+	self.helpPanel = HelpPanel({
+		{ keys = {"A"}, locale = "garage_sticker_editor_help_add" },
+		{ keys = {"D"}, locale = "garage_sticker_editor_help_remove" },
+		{ keys = {"F"}, locale = "garage_sticker_editor_help_clone"},
+		{ keys = {"C"}, locale = "garage_sticker_editor_help_copy_style"},
+		{ keys = {"Q", "W", "E", "R"}, locale = "garage_sticker_editor_help_change_mode" },
+		{ keys = {"ALT", "SHIFT"}, locale = "garage_sticker_editor_help_speed"},
+		{ keys = {"CTRL"}, locale = "garage_sticker_editor_help_scale"},
+		{ keys = {"controls_arrows"}, locale = "garage_sticker_editor_help_transform" },
+		{ keys = {"1", "2"}, locale = "garage_sticker_editor_help_mirroring"},
+		{ keys = {"K", "L"}, locale = "garage_sticker_editor_help_next_prev"},		
+		{ keys = {"Z"}, locale = "garage_sticker_editor_help_toggle"},
+	})
 end
 
 function StickerEditorScreen:draw()
@@ -57,11 +71,13 @@ function StickerEditorScreen:draw()
 	end
 
 	self.stickerPreview:draw(self.fadeProgress)
+	self.helpPanel:draw(self.fadeProgress)
 end
 
 function StickerEditorScreen:update(deltaTime)
 	self.super:update(deltaTime)
 	self.panel:update(deltaTime)
+	self.helpPanel:update(deltaTime)
 	self.colorPanel.x = self.colorPanel.x + (self.colorPanelX - self.colorPanel.x) * deltaTime * 20
 
 	if not isMTAWindowActive() then
@@ -141,14 +157,7 @@ end
 function StickerEditorScreen:show()
 	self.super:show()
 
-	-- TODO: Локализация подсказок
-	GarageUI.setHelpText(string.format(
-		exports.dpLang:getString("garage_help_sticker_editor"), 
-		exports.dpLang:getString("controls_arrows"), 
-		"Q", "W", "E", "R", 
-		"A", "D",
-		"BACKSPACE"
-	))	
+	GarageUI.setHelpText("")
 end
 
 function StickerEditorScreen:hide()
@@ -197,6 +206,8 @@ function StickerEditorScreen:onKey(key)
 		GarageCar.save()
 		CarTexture.reset()
 		self.screenManager:showScreen(StickersSideScreen(self.sideName))
+	elseif key == "z" then
+		self.helpPanel:toggle()
 	elseif key == "1" then
 		CarTexture.toggleStickerMirroring()
 		exports.dpSounds:playSound("ui_change.wav")

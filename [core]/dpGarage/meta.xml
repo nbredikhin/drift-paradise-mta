@@ -45,6 +45,7 @@
 	<script type="client" src="client/ui/ComponentSelection.lua"/>
 	<script type="client" src="client/ui/TuningMenu.lua"/>
 	<script type="client" src="client/ui/TuningPanel.lua"/>
+	<script type="client" src="client/ui/HelpPanel.lua"/>
 	<script type="client" src="client/ui/ItemsMenu.lua"/>
 	<script type="client" src="client/ui/ComponentsMenu.lua"/>
 	<script type="client" src="client/ui/ConfigurationMenu.lua"/>
@@ -74,6 +75,7 @@
 	<file src="assets/images/circle_button.png"/>
 	<file src="assets/images/slider.png"/>
 	<file src="assets/images/slider_circle.png"/>
+	<file src="assets/images/button_circle.png"/>
 
 	<file src="assets/images/hue.png"/>
 	<file src="assets/images/saturation.png"/>

@@ -206,6 +206,18 @@
 	"garage_sticker_editor_rotate": "Вращение",
 	"garage_sticker_editor_color": "Выбор цвета",
 
+	"garage_sticker_editor_help_add": "Добавить наклейку",
+	"garage_sticker_editor_help_remove": "Удалить наклейку",
+	"garage_sticker_editor_help_clone": "Дублировать наклейку",
+	"garage_sticker_editor_help_copy_style": "Скопировать стиль предыдущей наклейки",
+	"garage_sticker_editor_help_change_mode": "Переключение режима редактирования",
+	"garage_sticker_editor_help_speed": "Медленнее/быстрее",
+	"garage_sticker_editor_help_scale": "Масштабирование только по одной оси",
+	"garage_sticker_editor_help_transform": "Двигать, масштабировать или вращать наклейку",
+	"garage_sticker_editor_help_mirroring": "Включить/выключить отзеркаливание",
+	"garage_sticker_editor_help_next_prev": "Выбрать следующую/предыдущую наклейку",
+	"garage_sticker_editor_help_toggle": "Показать/скрыть подсказки",
+
 	"garage_tuning_sticker_color": "Цвет наклейки",
 	"garage_tuning_sticker_prev": "%s - следующая",
 	"garage_tuning_sticker_next": "%s - предыдущая",

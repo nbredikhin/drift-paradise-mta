@@ -8,11 +8,12 @@ local PADDING_X = 12
 local PADDING_Y = 8
 local ICON_SIZE = 36
 local ICON_SPACE = 30
+local CIRCLE_SIZE = 24
 
 function TuningPanel:init(items, draw3d)
 	self.items = {}
 	for i, item in ipairs(items) do
-		table.insert(self.items, {icon = item.icon, text = item.text})
+		table.insert(self.items, {icon = item.icon, text = item.text, key = item.key})
 	end
 	self.draw3d = not not draw3d
 	self.screenSize = Vector2(guiGetScreenSize())
@@ -29,11 +30,12 @@ function TuningPanel:init(items, draw3d)
 	self.textBoxWidthTarget = 0
 	--
 	self.font = Assets.fonts.tuningPanelText
+	self.keyFont = Assets.fonts.tuningPanelKey
 	self.activeItemColor = Garage.themePrimaryColor
 	self:updateTextBox() 
 	self.textBackgroundAlpha = 30
 	self.backgroundAlpha = 230
-	self.highlightSelection = false
+	self.highlightSelection = false	
 end
 
 function TuningPanel:getActiveItem()
@@ -108,6 +110,37 @@ function TuningPanel:draw(fadeProgress)
 			if self.highlightSelection then
 				dxDrawRectangle(x, y, ICON_SIZE, ICON_SIZE, tocolor(50, 50, 50, 255 * fadeProgress))
 			end			
+		end
+
+		if item.key then
+			local cx = x - PADDING_X - CIRCLE_SIZE / 2
+			local cy = y - PADDING_Y - CIRCLE_SIZE / 2
+			dxDrawImage(
+				cx,
+				cy,
+				CIRCLE_SIZE,
+				CIRCLE_SIZE,
+				Assets.textures.buttonCircle,
+				0, 0, 0,
+				tocolor(BACKGROUND_COLOR[1], BACKGROUND_COLOR[2], BACKGROUND_COLOR[3], 255 * fadeProgress)
+			)
+			dxDrawText(
+				item.key, 
+				cx, 
+				cy, 
+				cx + CIRCLE_SIZE, 
+				cy + CIRCLE_SIZE, 
+				tocolor(255, 255, 255, 255 * fadeProgress),
+				1, 
+				self.keyFont,
+				"center",
+				"center",
+				true,
+				false,
+				false,
+				false,
+				true
+			)
 		end
 		dxDrawImage(x, y, ICON_SIZE, ICON_SIZE, item.icon, 0, 0, 0, color)
 		x = x + ICON_SIZE + ICON_SPACE

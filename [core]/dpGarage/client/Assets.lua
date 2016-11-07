@@ -23,6 +23,7 @@ function Assets.start()
 		tuningVinylsIcon = DxTexture("assets/images/icons/vinyls.png"),
 		tuningSettingsIcon = DxTexture("assets/images/icons/settings.png"),
 
+		buttonCircle = DxTexture("assets/images/button_circle.png"),
 		levelIcon = exports.dpAssets:createTexture("level.png"),
 
 		stickersSection1 = DxTexture("assets/images/icons/section1.png"),
@@ -58,9 +59,11 @@ function Assets.start()
 	loadFont("controlIconButton", 18)
 	loadFont("stickersGridText", 12)
 	loadFont("tuningPanelText", 14)
+	loadFont("tuningPanelKey", 11)
 	loadFont("componentItem", 16)
 	loadFont("componentItemInfo", 13)
 	loadFont("stickerPreviewHelp", 12)
+	loadFont("helpPanelText", 14)
 
 	triggerEvent("dpGarage.assetsLoaded", resourceRoot)
 

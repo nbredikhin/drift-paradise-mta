@@ -29,7 +29,7 @@ function Garage.start(vehicles, enteredVehicleId, vehicle)
 
 	Garage.themePrimaryColor = {exports.dpUI:getThemeColor()}
 	localPlayer.dimension = 0
-	exports.dpGameTime:forceTime(12, 0)
+	exports.dpTime:forceTime(12, 0)
 
 	exports.dpChat:setVisible(false)
 	exports.dpMainPanel:setVisible(false)
@@ -67,7 +67,7 @@ function Garage.stop()
 	CarTexture.stop()
 	GarageCar.stop()
 	Assets.stop()
-	exports.dpGameTime:restoreTime()
+	exports.dpTime:restoreTime()
 	exports.dpChat:setVisible(true)
 	exports.dpHUD:showAll()
 	toggleAllControls(true)

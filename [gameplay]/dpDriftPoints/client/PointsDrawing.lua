@@ -204,7 +204,9 @@ end
 
 function PointsDrawing.updatePointsCount(count, angle)
 	pointsCount = tostring(count)
-	targetPointsAngle = angle * 0.15
+	if angle then
+		targetPointsAngle = angle * 0.15
+	end
 end
 
 function PointsDrawing.drawBonus(amount)

@@ -51,6 +51,11 @@ addCommand("removehouse", function (player)
 	return exports.dpCore:removePlayerHouse(player)
 end)
 
+addCommand("settime", function (hh, mm)
+	return exports.dpTime:setServerTime(hh, mm)
+end)
+
+
 addEvent("dpAdmin.executeCommand", true)
 addEventHandler("dpAdmin.executeCommand", resourceRoot, function (commandName, ...)
 	executeCommand(client, commandName, ...)

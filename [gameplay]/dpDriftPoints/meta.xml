@@ -8,4 +8,5 @@
     <script src="server/money.lua" type="server" />
 
     <export type="client" function="finishCurrentDrift"/> 
+    <export type="client" function="giveBonusPoints"/> 
 </meta>

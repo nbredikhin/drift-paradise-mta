@@ -55,6 +55,9 @@ function RaceClient.checkpointHit(checkpointId)
 		return false
 	end
 	RaceClient.gamemode:checkpointHit(checkpointId)
+	if RaceClient.settings.gamemode == "drift" then
+		exports.dpDriftPoints:giveBonusPoints(2500)
+	end
 end
 
 function RaceClient.clientFinished()

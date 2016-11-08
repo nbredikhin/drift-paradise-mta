@@ -78,6 +78,14 @@ local function updateSelectedPlayer()
 				return state
 			end
 		end)
+	ui.player.house.text      = "House: " .. defaultData(player, "house_id", 
+		function (houseId)
+			if not houseId or houseId == 0 then
+				return "none"
+			else
+				return "id" .. tostring(houseId) .. ""
+			end	
+		end)
 
 	ui.player.account.text    = "Account name: "    .. defaultData(player, "username")
 	ui.player.group.text      = "Account type: "    .. defaultData(player, "aclGroup")
@@ -133,6 +141,8 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	ui.player.nickname = GuiLabel(x, y, width, height, "", true, ui.panel)
 	y = y + height
 	ui.player.state = GuiLabel(x, y, width, height, "", true, ui.panel)
+	y = y + height
+	ui.player.house = GuiLabel(x, y, width, height, "", true, ui.panel)	
 	y = y + height * 2
 
 	ui.player.account = GuiLabel(x, y, width, height, "", true, ui.panel)
@@ -149,8 +159,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	ui.player.money = GuiLabel(x, y, width, height, "", true, ui.panel)
 	y = y + height
 	ui.player.playtime = GuiLabel(x, y, width, height, "", true, ui.panel)
-
-	y = 0.5
+	y = y + height
 	ui.player.vehiclesCount = GuiLabel(x, y, width, height, "", true, ui.panel)
 	y = y + 0.05
 	x = playersListWidth + 0.02

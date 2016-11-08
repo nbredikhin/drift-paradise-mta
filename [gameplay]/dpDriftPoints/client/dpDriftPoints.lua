@@ -194,8 +194,7 @@ local function update(dt)
 		driftDirection = direction
 		if directionDriftTimer >= MIN_DIRECTION_DRIFT_TIME then			
 			local scoreValue = math.floor(DIRECTION_CHANGE_POINTS * math.min(1, directionDriftTimer / 3000) / 5 * speedMultiplier) * 5
-			driftPoints = driftPoints + scoreValue
-			PointsDrawing.drawBonus(scoreValue)
+			giveBonusPoints(scoreValue)
 		end
 		directionDriftTimer = 0
 	end
@@ -236,4 +235,18 @@ end
 
 function DriftPoints.isDriftingClose()
 	return false--isDriftingClose()
+end
+
+function giveBonusPoints(points)
+	if type(points) ~= "number" then
+		return false
+	end
+	if not isDrifting and driftPoints == 0 then
+		return false
+	end
+	driftPoints = driftPoints + points
+	PointsDrawing.drawBonus(points)
+	if not isDrifting then
+		PointsDrawing.updatePointsCount(driftPoints)
+	end
 end

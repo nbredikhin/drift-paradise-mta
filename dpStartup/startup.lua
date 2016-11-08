@@ -23,7 +23,6 @@ local startupResources = {
 	"dpUtils",
 	"dpLang",
 	"dpMarkers",
-	"dpGameTime",
 	"dpCore",
 
 	-- UI
@@ -40,6 +39,7 @@ local startupResources = {
 	"dpGiftsPanel",
 
 	-- Gameplay
+	"dpTime",
 	"dpSafeZones",
 	"dpRaceManager",
 	"dpParticles",

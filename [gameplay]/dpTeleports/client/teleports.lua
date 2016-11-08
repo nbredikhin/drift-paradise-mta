@@ -35,7 +35,7 @@ local mapsTeleports = {
 }
 local isTeleporting = false
 
-local function teleportPlayer(position)
+local function teleportPlayer(position, loadMap)
 	if isTeleporting then
 		return
 	end
@@ -51,6 +51,8 @@ local function teleportPlayer(position)
 		else
 			localPlayer.position = position
 		end
+		exports["TD-RACEMAPS"]:unloadMap()
+		exports["TD-RACEMAPS"]:loadMap(loadMap)
 		fadeCamera(true)
 		isTeleporting = false
 	end, 1000, 1)
@@ -63,13 +65,15 @@ function teleportToMap(name)
 	if not mapsTeleports[name] then
 		return
 	end
-	teleportPlayer(mapsTeleports[name])
+	teleportPlayer(mapsTeleports[name], name)
 	localPlayer:setData("activeMap", name)
 end
 
 local function teleportToCity()
 	teleportPlayer(cityPosition)
-	localPlayer:setData("activeMap", false)
+	setTimer(function ()
+		localPlayer:setData("activeMap", false)
+	end, 1100, 1)
 end
 
 addEvent("dpMarkers.use", false)
@@ -77,5 +81,13 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	for i, pos in ipairs(cityTeleports) do
 		local marker = exports.dpMarkers:createMarker("city", pos, 180)
 		addEventHandler("dpMarkers.use", marker, teleportToCity)
+	end
+end)
+
+addEventHandler("onClientElementDataChange", localPlayer, function (dataName)
+	if dataName == "activeMap" then
+		if not localPlayer:getData("activeMap") then
+			exports["TD-RACEMAPS"]:unloadMap()
+		end
 	end
 end)

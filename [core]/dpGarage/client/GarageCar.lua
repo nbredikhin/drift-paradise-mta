@@ -62,6 +62,10 @@ local function updateVehicle()
 
 	if isTimer(unfreezeTimer) then killTimer(unfreezeTimer) end
 	unfreezeTimer = setTimer(function ()
+		if not isElement(vehicle) then
+			killTimer(unfreezeTimer)
+			return
+		end
 		if currentTuningTable.Suspension and tonumber(currentTuningTable.Suspension) > 0.5 then
 			vehicle.velocity = Vector3(0, 0, 0.01)
 		else

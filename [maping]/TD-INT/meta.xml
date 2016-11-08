@@ -1,0 +1,37 @@
+<meta>
+    <info author="BPAN_1992" description="texture_home" version="1.3" type="script" />
+    <script src="script.lua" type="client" />
+    <file src="CJHOME.txd" />
+    <file src="CJHOME2.txd" />
+    <file src="SHOUSE1.txd" />
+    <file src="SHOUSE1-BED.txd" />
+    <file src="SHOUSE1-SOFA1.txd" />
+    <file src="DOORS1.txd" />
+    <file src="DOORS2.txd" />
+    <file src="DOORS4.txd" />
+    <file src="zabor1.txd" />
+    <file src="TV.txd" />
+    <file src="TV.dff" />
+    <file src="TV.col" />
+    <file src="PS4.txd" />
+    <file src="PS4.dff" />
+    <file src="PS4.col" />
+    <file src="PS3.txd" />
+    <file src="PS3.dff" />
+    <file src="PS3.col" />
+    <file src="WIU.txd" />
+    <file src="WIU.dff" />
+    <file src="WIU.col" />
+    <file src="xbox.txd" />
+    <file src="xbox.dff" />
+    <file src="xbox.col" />
+    <file src="PC.txd" />
+    <file src="PC.dff" />
+    <file src="PC.col" />
+    <file src="SHOUSE2.txd" />
+    <file src="SHOUSE3.txd" />
+    <file src="DOORS3.txd" />
+    <file src="COLABUY.txd" />
+    <file src="COLABUY.dff" />
+    <file src="COLABUY.col" />
+</meta>

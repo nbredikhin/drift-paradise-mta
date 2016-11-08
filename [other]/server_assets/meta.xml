@@ -3,5 +3,8 @@
     <script type="client" src="lib/struct.lua"/>
     <script type="client" src="client.lua"/>
 
+    <export type="client" function="loadPack"/>
+    <export type="client" function="unloadPack"/>
+
     <file src="packs/cars.pack"/>
 </meta>

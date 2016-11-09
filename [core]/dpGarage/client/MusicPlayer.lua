@@ -1,5 +1,5 @@
 MusicPlayer = {}
-local MUSIC_VOLUME = 0.7
+local MUSIC_VOLUME = 0.45
 local TRACKS_COUNT = 10
 local currentTrack = 1
 local sound
@@ -14,7 +14,8 @@ local function playNextTrack()
 	if isElement(sound) then
 		destroyElement(sound)
 	end
-	sound = playSound("assets/music/" .. tostring(currentTrack) .. ".mp3", false)
+	sound = playSound("assets/music/" .. tostring(currentTrack) .. ".mp3", false)	
+	sound:setEffectEnabled("reverb", true)
 end
 
 local function update(dt)
@@ -31,9 +32,8 @@ function MusicPlayer.start()
 	playNextTrack()
 
 	if isElement(sound) then
-		sound.playbackPosition = math.random(0, sound.length * 0.7)
 		sound.volume = 0
-		sound:setEffectEnabled("reverb", true)
+		sound.playbackPosition = math.random(0, sound.length * 0.7)
 	end
 
 	soundVolume = MUSIC_VOLUME

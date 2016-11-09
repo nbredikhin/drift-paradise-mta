@@ -8,21 +8,22 @@
     "enableExportEncrypt": false,
     "enableReadmeFiles": false,
 
-    "only": [],
+    "only": ["dpGarage"],
     "include": [
-        // "geoip",
-        // "server_assets",
-        // "blur_box",
-        // "car_reflections",
-        // "water_reflections",
-        // "dynamic_lighting",
-        // "dynamic_lighting_vehicles",
-        // "shader_dynamic_sky",
-        // "MAPPING-MAIN",
-        // "TD-INT",
-        // "TD-MAPFILES",
-        // "TD-RACEMAPS",
-        // "TX-VILLA",
+        "geoip",        
+        "blur_box",
+        "car_reflections",
+        "water_reflections",
+        "dynamic_lighting",
+        "dynamic_lighting_vehicles",
+        "shader_dynamic_sky",
+        
+        "server_assets",
+        "MAPPING-MAIN",
+        "TD-INT",
+        "TD-MAPFILES",
+        "TD-RACEMAPS",
+        "TX-VILLA",
     ],
 
     "pathEncryptExclude": [
@@ -34,6 +35,7 @@
         ".json",
         ".txt",
         ".map",
+        "_DPASSET",
         "@"
     ]
 }

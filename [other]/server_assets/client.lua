@@ -17,7 +17,7 @@ local function compareArrays(a1, a2)
 end
 
 local function loadModel(modelType, model, data)
-    local path = md5(tostring(model) .. "-" .. tostring(modelType))
+    local path = md5(tostring(model) .. "-" .. tostring(modelType)) .. "_DPASSET"
     local file = fileCreate(path)
     file:write(data)
     file:close()

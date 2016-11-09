@@ -54,6 +54,7 @@ local function teleportPlayer(position, loadMap)
 		exports["TD-RACEMAPS"]:unloadMap()
 		exports["TD-RACEMAPS"]:loadMap(loadMap)
 		fadeCamera(true)
+		triggerServerEvent("dpTeleports.resetDimension", resourceRoot)
 		isTeleporting = false
 	end, 1000, 1)
 end

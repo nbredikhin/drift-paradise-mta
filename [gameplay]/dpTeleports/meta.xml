@@ -1,6 +1,7 @@
 <meta>
 	<oop>true</oop>
 
+    <script type="server" src="server/server.lua"/>
 	<script type="client" src="client/teleports.lua"/>
 	<export type="client" function="teleportToMap"/>
 </meta>

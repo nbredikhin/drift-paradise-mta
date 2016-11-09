@@ -17,8 +17,9 @@ addEventHandler("dpGarage.enter", resourceRoot, function ()
 	if client.vehicle then
 		-- Отправить машину игрока в гараж, если игрок является водителем и владельцем
 		local playerVehicle = client.vehicle
+		local isPlayerVehicle = playerVehicle.controller == client and exports.dpCore:isPlayerOwningVehicle(client, playerVehicle)
 		client.vehicle = nil
-		if playerVehicle.controller == client and exports.dpCore:isPlayerOwningVehicle(client, playerVehicle) then
+		if isPlayerVehicle then
 			enteredVehicleId = playerVehicle:getData("_id")
 			exports.dpCore:returnVehicleToGarage(playerVehicle)
 		end		

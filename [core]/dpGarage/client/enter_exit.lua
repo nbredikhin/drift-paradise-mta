@@ -52,6 +52,7 @@ function enterGarage()
 end
 
 function exitGarage(selectedCarId)
+	MusicPlayer.fadeOut()
 	enterExitGarage(false, selectedCarId)
 end
 

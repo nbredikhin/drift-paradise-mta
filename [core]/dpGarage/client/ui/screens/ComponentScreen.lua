@@ -26,22 +26,25 @@ function ComponentScreen:init(name)
 	local menuInfo = menuInfos[name]
 	local items = {}
 	local itemName = exports.dpLang:getString(menuInfo.item_locale)
+	local vehicleComponents = getVehicleComponents(self.vehicle)
 	for i = 1, TuningConfig.getComponentsCount(self.vehicle.model, self.componentName) + 1 do
 		local componentConfig = TuningConfig.getComponentConfig(self.vehicle.model, self.componentName, i - 1)
-		-- Обновить цену
-		local price = componentConfig.price
-		if type(price) ~= "number" then
-			price = 0
+		if i == 1 or GarageCar.hasComponent(self.componentName, i - 1) then
+			-- Обновить цену
+			local price = componentConfig.price
+			if type(price) ~= "number" then
+				price = 0
+			end
+			local level = componentConfig.level
+			if type(level) ~= "number" then
+				level = 1
+			end
+			local name = itemName .. " " .. tostring(i - 1)
+			if i == 1 then
+				name = exports.dpLang:getString("garage_tuning_stock_text")
+			end
+			table.insert(items, {name = name, price = price, level = level})
 		end
-		local level = componentConfig.level
-		if type(level) ~= "number" then
-			level = 1
-		end
-		local name = itemName .. " " .. tostring(i - 1)
-		if i == 1 then
-			name = exports.dpLang:getString("garage_tuning_stock_text")
-		end
-		table.insert(items, {name = name, price = price, level = level})
 	end
 	-- 3D меню
 	self.menu = ComponentsMenu(

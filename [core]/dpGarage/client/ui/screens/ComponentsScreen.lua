@@ -28,7 +28,7 @@ function ComponentsScreen:init(componentName)
 		if component.name == "Numberplate" then
 			count = 1
 		end
-		if count <= 0 then
+		if count <= 0 or not GarageCar.hasComponent(component.name) then
 			table.insert(toRemove, i)
 		end
 	end

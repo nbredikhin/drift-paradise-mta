@@ -12,4 +12,5 @@ addEventHandler("dpDamage.respawn", resourceRoot, function ()
         return
     end
     client.vehicle.position = Vector3(spawnPos.x, spawnPos.y, spawnPos.z)
+    client:setData("activeMap", false)
 end)

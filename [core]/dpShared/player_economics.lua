@@ -1,6 +1,6 @@
 local playerEconomics = {
 	-- Начальные деньги
-	start_money = 3000,
+	start_money = 11000,
 	-- Стартовые автомобили
 	start_vehicles = {
 		"nissan_240sx", 
@@ -9,14 +9,16 @@ local playerEconomics = {
 	},
 
 	-- Дуэли
-	duel_bet_min = 500,
-	duel_bet_max = 5000,
+	duel_bet_min = 50,
+	duel_bet_max = 500,
 
-	-- Количество денег за 1000 очков дрифта
-	drift_money = 25,
+	-- Количество денег за 100000 очков дрифта
+	drift_money = 90,
+	-- Количество опыта за 100000 очков дрифта
+	drift_xp = 50,
 
 	-- Процент от цены авто при продаже
-	vehicle_sell_price = 0.5,
+	vehicle_sell_price = 0.35,
 }
 
 function getEconomicsProperty(name)

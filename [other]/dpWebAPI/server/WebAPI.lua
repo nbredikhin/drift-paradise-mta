@@ -44,3 +44,7 @@ function WebAPI.callMethod(name, ...)
 	end
 	return result
 end
+
+WebAPI.registerMethod("system.status", function ()
+	return "API is running"
+end)

@@ -291,6 +291,23 @@ function GarageCar.save()
 	)
 end
 
+function GarageCar.hasComponent(name, id)
+	if not name then
+		return false
+	end
+	if 	name == "Spoilers" or 
+		name == "Numberplate" or
+		name == "WheelsF" or
+		name == "WheelsR"
+	then
+		return true
+	end	
+	if not id then
+		id = 1
+	end
+	return not not  vehicle:getComponentPosition(name .. tostring(id)) 
+end
+
 function GarageCar.getComponentsCount(name)
 	if not name then
 		return 0

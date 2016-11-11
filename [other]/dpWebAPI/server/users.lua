@@ -8,9 +8,9 @@ WebAPI.registerMethod("users.get", function (username)
 		return "User not found"
 	end
 	-- Вернуть только некоторые поля
-	return toJSON({
+	return {
 		id 			= user._id,
 		username 	= user.username,
 		money 		= user.money
-	})
+	}
 end)

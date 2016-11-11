@@ -1,33 +1,69 @@
 -- Краткие названия для использования в коде вместо ID
 local vehiclesTable = {
-	bmw_e46 			= 436,
-	bmw_e60				= 540,
-	honda_s2000 		= 429,
-	lamborghini_huracan = 415,
-	mazda_mx5miata 		= 411,
-	nissan_240sx 		= 602,
-	nissan_er34 		= 445,
-	nissan_gtr 			= 558,
-	nissan_r34 			= 587,
-	nissan_s13 			= 401,
+	-- 1 класс
 	toyota_ae86 		= 589,
+	nissan_skyline2000	= nil,
+	honda_civic			= nil,
+	-- 2 класс
+	mazda_mx5miata 		= 411,
+	nissan_180sx 		= 602,
+	mitsubishi_eclipse	= nil,
+	nissan_silvia_s13	= 401,	
+	-- 3 класс
+	bmw_e30				= nil,
+	nissan_skyline_er34 = 445,
+	toyota_mark2_100	= nil,	
 	toyota_altezza 		= 402,
+	-- 4 класс
+	honda_s2000 		= 429,
+	bmw_e34 			= nil,
+	nissan_silvia_s14	= nil,
+	nissan_silvia_s15	= nil,
+	-- 5 класс
+	bmw_e60				= 540,
+	toyota_supra		= nil,
+	bmw_m3_e46 			= 436,
+	nissan_skyline_gtr34 = nil,
+	subaru_brz 			= nil,
+	-- 6 класс
+	nissan_gtr35 		= 558,
+	lamborghini_huracan = 415,
+	ferrari_458_italia	= nil,
+	lamborghini_aventador = nil	
 }
 
 -- Названия в том виде, в котором они будут отображаться
 local vehiclesReadableNames = {
-	bmw_e46 			= "BMW E46",
-	bmw_e60 			= "BMW E60",
-	honda_s2000 		= "Honda S2000",
-	lamborghini_huracan = "Lamborghini Huracan",
-	mazda_mx5miata 		= "Mazda MX-5",
-	nissan_240sx 		= "Nissan 180SX",
-	nissan_er34 		= "Nissan Skyline ER34",
-	nissan_gtr 			= "Nissan GT-R",
-	nissan_r34 			= "Nissan Skyline R34",
-	nissan_s13 			= "Nissan Silvia S13",
+	-- 1 класс
 	toyota_ae86 		= "Toyota AE86",
+	nissan_skyline2000	= "Nissan Skyline 2000",
+	honda_civic			= "Honda Civic",
+	-- 2 класс
+	mazda_mx5miata 		= "Mazda MX5 Miata",
+	nissan_180sx 		= "Nissan 180SX",
+	mitsubishi_eclipse	= "Mitsubishi Eclipse",
+	nissan_silvia_s13	= "Nissan Silvia S13",
+	-- 3 класс
+	bmw_e30				= "BMW E30",
+	nissan_skyline_er34 = "Nissan Skyline ER34",
+	toyota_mark2_100	= "Toyota Mark II 100",	
 	toyota_altezza 		= "Toyota Altezza",
+	-- 4 класс
+	honda_s2000 		= "Honda S2000",
+	bmw_e34 			= "BMW E34",
+	nissan_silvia_s14	= "Nissan Silvia S14",
+	nissan_silvia_s15	= "Nissan Silvia S15",
+	-- 5 класс
+	bmw_e60				= "BMW E60",
+	toyota_supra		= "Toyota Supra",
+	bmw_m3_e46 			= "BMW M3 E46",
+	nissan_skyline_gtr34 = "Nissan Skyline GTR34",
+	subaru_brz 			= "Subaru BRZ",
+	-- 6 класс
+	nissan_gtr35 		= "Nissan GTR35",
+	lamborghini_huracan = "Lamborghini Huracan",
+	ferrari_458_italia	= "Ferrari 458 Italia",
+	lamborghini_aventador = "Lamborghini Aventador"
 }
 
 -- Функции

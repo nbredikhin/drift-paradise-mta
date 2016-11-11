@@ -205,7 +205,6 @@ function Users.getPlayerByUsername(username)
 	if type(username) ~= "string" then
 		return false
 	end
-	username = string.lower(username)
 	for i, player in ipairs(getElementsByType("player")) do
 		local name = player:getData("username") 
 		if name and name == username then

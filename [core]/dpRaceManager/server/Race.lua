@@ -259,13 +259,20 @@ function Race:addPlayer(player)
 	player.vehicle.dimension = self.dimension
 	toggleAllControls(player, false)
 	local race = self
+	player.vehicle.frozen = true
+	setTimer(function ()
+		if not race.element then 
+			return
+		end
+		player.vehicle.frozen = false
+	end, 1500, 1)
 	setTimer(function ()
 		toggleAllControls(player, true)
 		if not race.element then 
 			return
 		end
 		player.vehicle.frozen = true		
-	end, 1500, 1)
+	end, 3000, 1)
 	player.vehicle:setData("Race.player", player)
 	player.vehicle.parent = player
 

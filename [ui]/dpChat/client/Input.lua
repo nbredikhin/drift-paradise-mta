@@ -80,7 +80,7 @@ function Input.open()
 		return false
 	end
 
-	--showCursor(true)
+	showCursor(true)
 	guiSetInputMode("no_binds")
 
 	inputActive = true

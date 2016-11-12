@@ -66,6 +66,9 @@ local function updateVehicle()
 			killTimer(unfreezeTimer)
 			return
 		end
+		if vehicle.position.z - CAR_POSITION.z > 0.5 then
+			vehicle.position = CAR_POSITION
+		end
 		if currentTuningTable.Suspension and tonumber(currentTuningTable.Suspension) > 0.5 then
 			vehicle.velocity = Vector3(0, 0, 0.01)
 		else

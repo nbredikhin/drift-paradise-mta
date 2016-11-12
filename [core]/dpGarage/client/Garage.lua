@@ -25,13 +25,12 @@ function Garage.start(vehicles, enteredVehicleId, vehicle)
 	GarageUI.start()
 
 	setTimer(function ()
+		GarageCar.showCarById(enteredVehicleId)
 		CameraManager.start()
 		fadeCamera(true, 0.5)
-		outputDebugString(tostring(enteredVehicleId))
-		GarageCar.showCarById(enteredVehicleId)		
 		CarTexture.start()
 		MusicPlayer.start()
-	end, 500, 1)
+	end, 1000, 1)
 end
 
 function Garage.stop()

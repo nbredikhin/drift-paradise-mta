@@ -72,7 +72,7 @@ end)
 
 addEvent("switchPlayerHandling", true)
 addEventHandler("switchPlayerHandling", resourceRoot, function ()
-	if not client.vehicle then
+	if not client.vehicle or client.vehicle.controller ~= client then
 		return 
 	end
 	if client.vehicle:getData("activeHandling") == "street" then

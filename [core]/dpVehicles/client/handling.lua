@@ -71,6 +71,9 @@ function stopSwitching()
 end
 
 function switchHandling()
+	if not localPlayer.vehicle or localPlayer.vehicle.controller ~= localPlayer then
+		return
+	end
 	if isSwitching then
 		stopSwitching()
 		return

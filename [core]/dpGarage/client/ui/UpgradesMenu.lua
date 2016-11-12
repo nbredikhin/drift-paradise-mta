@@ -12,16 +12,14 @@ function UpgradesMenu:init(position, rotation)
 
 	self.buttons = {}
 
-	local _, vehiclePrice = exports.dpShared:getVehiclePrices(GarageCar.getName())
-	if type(vehiclePrice) ~= "number" then
-		vehiclePrice = 30000
-	end
+	local streetUpgradePrice = exports.dpShared:getTuningPrices("upgrade_price_street")
+	local driftUpgradePrice = exports.dpShared:getTuningPrices("upgrade_price_drift")
 	
 	table.insert(self.buttons, {
 		upgrade 	= "StreetHandling",
 		name 		= exports.dpLang:getString("garage_tuning_config_street_upgrade"), 
 		description = exports.dpLang:getString("garage_tuning_config_street_description"), 
-		price 		= math.floor(vehiclePrice * 0.1),
+		price 		= streetUpgradePrice,
 		enabled 	= exports.dpVehicles:hasVehicleHandling(GarageCar.getName(), "street", 2)
 	})
 
@@ -30,7 +28,7 @@ function UpgradesMenu:init(position, rotation)
 			upgrade 	= "DriftHandling",
 			name 		= exports.dpLang:getString("garage_tuning_config_drift_upgrade"), 
 			description = exports.dpLang:getString("garage_tuning_config_drift_description"), 
-			price 		= math.floor(vehiclePrice * 0.2),
+			price 		= driftUpgradePrice,
 			enabled 	= exports.dpVehicles:hasVehicleHandling(GarageCar.getName(), "drift")
 		})
 	end

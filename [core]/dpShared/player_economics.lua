@@ -3,7 +3,7 @@ local playerEconomics = {
 	start_money = 11000,
 	-- Стартовые автомобили
 	start_vehicles = {
-		"nissan_240sx", 
+		"nissan_180sx", 
 		"toyota_ae86", 
 		"mazda_mx5miata"
 	},

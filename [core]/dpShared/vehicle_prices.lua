@@ -6,7 +6,7 @@ local vehiclesPrices = {
 	honda_civic				= {10300,	1},
 	-- 2 класс
 	mazda_mx5miata 			= {18700,	5},
-	nissan_240sx 			= {24600,	6},
+	nissan_180sx 			= {24600,	6},
 	mitsubishi_eclipse		= {28300,	7},
 	nissan_silvia_s13		= {32700,	9},
 	-- 3 класс

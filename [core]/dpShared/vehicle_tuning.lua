@@ -350,7 +350,7 @@ tuningTable.bmw_e60 = {
 		RearLights	 = { {715, 54}, {730, 55}, {745, 55}, {760, 56}, {775, 56}, },	
 	}	
 }	
-tuningTable.nissan_240sx = {	
+tuningTable.nissan_180sx = {	
 	components = {	
 		SideSkirts	 = { {65, 8}, {70, 8}, {75, 9}, {80, 9}, {85, 10}, },	
 		Bonnets	 	 = { {230, 8}, {270, 8}, {320, 9}, {370, 9}, {420, 10}, },	

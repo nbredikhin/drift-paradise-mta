@@ -5,7 +5,7 @@ local vehicleClasses = {
 	honda_civic				= 1,
 	-- 2 класс
 	mazda_mx5miata 			= 2,
-	nissan_240sx 			= 2,
+	nissan_180sx 			= 2,
 	mitsubishi_eclipse		= 2,
 	nissan_silvia_s13		= 2,
 	-- 3 класс

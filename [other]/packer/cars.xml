@@ -1,6 +1,6 @@
 <pack>
-    <file replace="602" src="cars/nissan_240sx.txd"/>
-    <file replace="602" src="cars/nissan_240sx.dff"/>
+    <file replace="602" src="cars/nissan_180sx.txd"/>
+    <file replace="602" src="cars/nissan_180sx.dff"/>
     <file replace="589" src="cars/toyota_ae86.txd"/> 
     <file replace="589" src="cars/toyota_ae86.dff"/> 
     <file replace="436" src="cars/bmw_e46.txd"/> 

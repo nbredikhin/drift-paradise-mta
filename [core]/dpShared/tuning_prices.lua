@@ -52,7 +52,11 @@ local tuningPrices = {
 		{1590, 27},
 		{1630, 29},
 		{1700, 30}
-	}
+	},
+	-- Улучшения
+	upgrades_level = 4,
+	upgrade_price_drift = 4000,
+	upgrade_price_street = 2500,
 }
 
 function getTuningPrices(name)
@@ -60,7 +64,7 @@ function getTuningPrices(name)
 		if tuningPrices[name] then
 			return tuningPrices[name]
 		else
-			return {0, 1}
+			return {999, 1}
 		end
 	end
 end

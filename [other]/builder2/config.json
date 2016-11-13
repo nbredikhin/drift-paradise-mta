@@ -8,7 +8,7 @@
     "enableExportEncrypt": false,
     "enableReadmeFiles": false,
 
-    "only": ["dpWebAPI"],
+    "only": ["dpTeleports"],
     "include": [
         "geoip",        
         "blur_box",

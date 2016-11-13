@@ -24,6 +24,7 @@ local startupResources = {
 	"dpLang",
 	"dpMarkers",
 	"dpCore",
+	"dpWebAPI",
 
 	-- UI
 	"dpUI",

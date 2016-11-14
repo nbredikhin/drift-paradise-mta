@@ -14,15 +14,15 @@ local tabs = {
     },
     {
         name = "Гараж",
-        text = "Тест"
+        text = "Чото про гараж оч интересно"
     },    
     {
         name = "Гонки",
-        text = "Тест"
+        text = "Чото про гонки ваще интересно"
     },
     {
         name = "Разработчики",
-        text = "Никита Бредихин всё сделал а остальные - пидоры"
+        text = "Тут всякие геи"
     }    
 }
 
@@ -38,7 +38,7 @@ local function showTab(index)
     end
     local tab = tabs[index]
     UI:setType(tab.button, "primary")
-    UI:setText(ui.textLabel, tab.text)
+    UI:setText(ui.textLabel, exports.dpLang:getString(tab.text))
 end
 
 function show()
@@ -129,3 +129,11 @@ addEventHandler("dpUI.click", resourceRoot, function (widget)
         end
     end 
 end)
+
+function setVisible(visible)
+    if visible then
+        return show()
+    else
+        return hide()
+    end
+end

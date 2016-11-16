@@ -48,3 +48,22 @@ end
 WebAPI.registerMethod("system.status", function ()
 	return "API is running"
 end)
+
+function processRequest(url, requestHeaders, cookies, hostname)
+	local query = urlParser.parse(url).query
+	if not query.method then
+		return false
+	end
+	if not query.args then
+		query.args = ""
+	end
+	local result = WebAPI.callMethod(query.method, split(query.args))
+	return {
+		data = toJSON(result),
+		headers = {
+			["Access-Control-Allow-Origin"] = "*",
+			["Access-Control-Allow-Methods"] = "GET,PUT,POST,DELETE,OPTIONS",
+			["Access-Control-Allow-Headers"] = "X-Requested-With,Content-Type,Cache-Control",
+		}
+	}
+end

@@ -1,10 +1,13 @@
 <meta>
 	<oop>true</oop>
 	<script type="shared" src="shared/check.lua"/>
+	<script type="shared" src="shared/url.lua"/>
 
 	<script type="server" src="server/WebAPI.lua"/>
 	<script type="server" src="server/users.lua"/>
 	<script type="server" src="server/donations.lua"/>
 
 	<export function="api" http="true"/>
+	<export type="server" function="processRequest"/>
+	<html src="api"/>
 </meta>

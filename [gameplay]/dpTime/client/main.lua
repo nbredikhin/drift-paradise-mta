@@ -1,9 +1,6 @@
 local timeForced = false
 
 function forceTime(hh, mm)
-	if timeForced then
-		return false
-	end
 	setTime(hh, mm)
 	setMinuteDuration(60 * 1000 * 60)
 

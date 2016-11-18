@@ -61,7 +61,8 @@ local function update(deltaTime)
 end
 
 local function draw()
-	dxDrawRectangle(0, 0, screenWidth, screenHeight, tocolor(0, 54, 56, 230 * bgAnim))
+	local colorMul = 0.3
+	dxDrawRectangle(0, 0, screenWidth, screenHeight, tocolor(0, 0, 0, 100 * bgAnim))
 	local w = logoWidth * (logoAnim * 0.1 + 0.9)
 	local h = logoHeight * (logoAnim * 0.1 + 0.9)
 	dxDrawImage(
@@ -92,6 +93,7 @@ local function showLogo()
 	targetCameraFOV = 60
 
 	setTimer(function ()
+		exports.dpTime:forceTime(getTime())
 		textAnimTarget = 1
 	end, 2500, 1)
 end
@@ -106,16 +108,18 @@ function IntroCutscene.start()
 	font = exports.dpAssets:createFont("Roboto-Regular.ttf", 18)
 
 	exports.dpTime:restoreTime()
-	exports.dpTime:forceTime(0, 0)
+	exports.dpTime:forceTime(15, 0)
+	setMinuteDuration(500)
+
 	addEventHandler("onClientPreRender", root, update)
 	addEventHandler("onClientRender", root, draw)
 
 	currentCameraPosition = Vector3 { x =  558.043, y = -966.229, z = 106.204 }
 	targetCameraPosition = Vector3 { x = 1141.950, y = -1092.399, z = 60.909 } 
 	currentCameraLookPosition = Vector3 { x =  558.043, y = -966.229, z = 0 }
-	targetCameraLookPosition = Vector3 { x = 1447.834, y = -1160.533, z = 109.864  }
-	cameraMovingSpeed = 0.2
-	cameraLookMovingSpeed = 0.2
+	targetCameraLookPosition = Vector3 { x = 1347.834, y = -1160.533, z = 109.864  }
+	cameraMovingSpeed = 0.08
+	cameraLookMovingSpeed = 0.06
 
 	bindKey("space", "down", IntroCutscene.stop)
 

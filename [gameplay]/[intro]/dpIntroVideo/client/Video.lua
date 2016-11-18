@@ -42,6 +42,8 @@ end
 addEvent("_dpIntroVideo.ended")
 addEventHandler("_dpIntroVideo.ended", root, function ()
 	Video.stop()
+
+	triggerEvent("dpIntroVideo.finish", resourceRoot)
 end)
 
 function Video.start()
@@ -73,8 +75,12 @@ function Video.stop()
 	destroyElement(browser)
 	browser = nil
 	removeEventHandler("onClientRender", root, draw)	
+
+	if isElement(logoTexture) then
+		destroyElement(logoTexture)
+	end	
 end
 
-addEventHandler("onClientResourceStart", resourceRoot, function ()
-	Video.start()
-end)
+function start()
+	return Video.start()
+end

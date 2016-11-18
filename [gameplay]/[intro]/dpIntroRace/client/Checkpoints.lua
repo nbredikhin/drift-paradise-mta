@@ -1,4 +1,0 @@
-Checkpoints = {}
-local raceCheckpoints = {
-	
-}

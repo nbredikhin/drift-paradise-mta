@@ -2,21 +2,21 @@ Video = {}
 Video.active = false
 local screenWidth, screenHeight = guiGetScreenSize()
 local browser
-local videoQuality = 0.5
 local isBrowserVisible = false
 local skipTextAlpha = 0
-local isSkipTextVisible = false
+local isLogoVisible = false
+local videoScale = 0.7
+local logoTexture
+local logoWidth, logoHeight
 
 local function draw()
 	if isBrowserVisible then
 		dxDrawImage(0, 0, screenWidth, screenHeight, browser)
+		if isLogoVisible then
+			dxDrawImage(screenWidth / 2 - logoWidth / 2, screenHeight * 0.55 - logoHeight / 2, logoWidth, logoHeight, logoTexture)
+		end
 	else
 		dxDrawRectangle(0, 0, screenWidth, screenHeight, tocolor(0, 0, 0))
-	end
-
-	if isSkipTextVisible then
-		skipTextAlpha = math.min(1, skipTextAlpha + 0.01) 
-		dxDrawText("Нажмите ПРОБЕЛ, чтобы пропустить видео", 0, screenHeight * 0.8, screenWidth, screenHeight, tocolor(255, 255, 255, 255 * skipTextAlpha), 2, "default", "center", "center")
 	end
 
 	if getKeyState("space") then
@@ -24,15 +24,25 @@ local function draw()
 	end
 end
 
-local function setupBrowser()
-	loadBrowserURL(browser, "https://www.youtube.com/embed/oq7saCsnOfI?autoplay=1")
+local function startVideo()
+	setTimer(function ()
+		isLogoVisible = false
+	end, 2150, 1)
 	setTimer(function ()
 		isBrowserVisible = true
-		setTimer(function ()
-			isSkipTextVisible = true
-		end, 5000, 1)
-	end, 5000, 1)
+		isLogoVisible = true
+	end, 250, 1)
 end
+
+local function setupBrowser()
+	loadBrowserURL(browser, "http://mta/local/html/video.html")
+	addEventHandler("onClientBrowserDocumentReady", browser, startVideo)
+end
+
+addEvent("_dpIntroVideo.ended")
+addEventHandler("_dpIntroVideo.ended", root, function ()
+	Video.stop()
+end)
 
 function Video.start()
 	if Video.active then
@@ -42,7 +52,13 @@ function Video.start()
 	isBrowserVisible = false
 	isSkipTextVisible = false
 	skipTextAlpha = 0
-	browser = Browser(screenWidth * videoQuality, screenHeight * videoQuality, false, false)
+	browser = Browser(screenWidth * videoScale, screenHeight * videoScale, true, false)
+
+	logoTexture = exports.dpAssets:createTexture("logo_red.png")
+	local textureWidth, textureHeight = dxGetMaterialSize(logoTexture)
+	logoWidth = screenWidth * 0.6
+	logoHeight = logoWidth
+
 	addEventHandler("onClientBrowserCreated", browser, setupBrowser)
 	addEventHandler("onClientRender", root, draw)
 	return true
@@ -52,10 +68,11 @@ function Video.stop()
 	if not Video.active then
 		return false
 	end
+	removeEventHandler("onClientBrowserDocumentReady", browser, startVideo)
 	Video.active = false
 	destroyElement(browser)
 	browser = nil
-	removeEventHandler("onClientRender", root, draw)
+	removeEventHandler("onClientRender", root, draw)	
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()

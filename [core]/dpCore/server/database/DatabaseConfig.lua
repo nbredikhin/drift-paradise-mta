@@ -12,13 +12,13 @@
 DatabaseConfig = {
 	dbType = "mysql",
 
-	host = "127.0.0.1",
+	host = "localhost", -- "database"
 	port = 3306,
-	dbName = "mta_server",
+	dbName = "drift_paradise",
 
 	-- Auth
 	username = "root",
-	password = "BHbQ3n9FBr3Z",
+	password = "",
 
 	options = {
 		autoreconnect = 1		

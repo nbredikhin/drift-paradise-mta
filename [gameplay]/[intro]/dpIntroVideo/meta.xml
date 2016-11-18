@@ -2,4 +2,7 @@
 	<oop>true</oop>
 
 	<script type="client" src="client/Video.lua"/>
+	<file type="client" src="html/video.ogv"/>
+	<file type="client" src="html/video.html"/>	
+	<file type="client" src="html/script.js"/>	
 </meta>

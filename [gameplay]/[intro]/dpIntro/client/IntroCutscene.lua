@@ -28,9 +28,21 @@ local textAnim = 0
 local textAnimTarget = 0
 local bgAnim = 0
 local bgAnimTarget = 0
+local creditsAnim = 0
+local creditsAnimTarget = 0
 
 local font
+local creditsFont
 local bordersHeight = screenHeight / 10
+
+local currentCreditsText = 1
+local currentCreditsString = ""
+local creditsTexts = {
+	"intro_credits_1",
+	"intro_credits_2",
+	"intro_credits_3",
+	"intro_credits_4"
+}
 
 local function update(deltaTime)
 	deltaTime = deltaTime / 1000
@@ -59,6 +71,7 @@ local function update(deltaTime)
 	logoAnim = logoAnim + (logoAnimTarget - logoAnim) * deltaTime * 0.5
 	textAnim = textAnim + (textAnimTarget - textAnim) * deltaTime * 2
 	bgAnim = bgAnim + (bgAnimTarget - bgAnim) * deltaTime * 0.2
+	creditsAnim = creditsAnim + (creditsAnimTarget - creditsAnim) * deltaTime * 5
 end
 
 local function draw()
@@ -77,11 +90,17 @@ local function draw()
 		0, 0, 0,
 		tocolor(255, 255, 255, 255 * logoAnim))
 
-	dxDrawText("Нажмите ПРОБЕЛ, чтобы продолжить", 
-		0, screenHeight * 0.45, screenWidth, screenHeight - 100,
+	dxDrawText(exports.dpLang:getString("intro_press_to_start"), 
+		0, screenHeight * 0.45, screenWidth, screenHeight * 0.85,
 		tocolor(255, 255, 255, 255 * textAnim),
 		1, font,
 		"center", "bottom")
+
+	dxDrawText(currentCreditsString, 
+		0, 0, screenWidth, screenHeight,
+		tocolor(255, 255, 255, 255 * creditsAnim),
+		1, creditsFont,
+		"center", "center")	
 
 	local hh, mm = getTime()
 	if hh <= 14 and hh >= 3 and mm > 0 then
@@ -96,6 +115,22 @@ local function preLogo()
 	bgAnimTarget = 1
 end
 
+local function showCredits()
+	creditsAnimTarget = 1
+	currentCreditsString = utf8.upper(exports.dpLang:getString(creditsTexts[currentCreditsText]))
+
+	local hideTime = 3000
+	setTimer(function ()
+		creditsAnimTarget = 0
+	end, hideTime, 1)
+	if currentCreditsText < #creditsTexts then
+		setTimer(function ()
+			currentCreditsText = currentCreditsText + 1
+			showCredits()
+		end, hideTime + 1000, 1)
+	end
+end
+
 local function showLogo()
 	logoAnimTarget = 1
 	cameraFOVSpeed = 2
@@ -107,13 +142,13 @@ local function showLogo()
 end
 
 function IntroCutscene.start()
-
 	logoTexture = exports.dpAssets:createTexture("logo_red.png")
 	local textureWidth, textureHeight = dxGetMaterialSize(logoTexture)
 	logoWidth = screenWidth * 0.6
 	logoHeight = logoWidth
 
 	font = exports.dpAssets:createFont("Roboto-Regular.ttf", 18)
+	creditsFont = exports.dpAssets:createFont("Roboto-Regular.ttf", 36)
 
 	exports.dpTime:forceTime(15, 0)
 	setMinuteDuration(500)
@@ -131,6 +166,7 @@ function IntroCutscene.start()
 
 	bindKey("space", "down", IntroCutscene.stop)
 
+	setTimer(showCredits, 3000, 1)
 	setTimer(preLogo, 18000, 1)
 	setTimer(showLogo, 22000, 1)
 end

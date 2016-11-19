@@ -26,11 +26,11 @@
 	"quit_reason_timed out": "ошибка подключения",
 
 	// Tutorial
-	"beta_tutorial_1": "Привет",
-	"beta_tutorial_2": "Добро пожаловать на Drift Paradise!",
-	"beta_tutorial_3": "Данный проект является незаконченным",
-	"beta_tutorial_4": "Не стоит оценивать сервер по текущей версии",
-	"beta_tutorial_5": "Желаем вам приятной игры",
+	"intro_credits_1": "От создателей Drift Allstars",
+	"intro_credits_2": "Fuck The Clearance",
+	"intro_credits_3": "Russian Racing Club",
+	"intro_credits_4": "",
+	"intro_press_to_start": "Нажмите ПРОБЕЛ чтобы продолжить",
 
 	// PhotoMode
 	"photo_mode_help_roll": "Поворот влево/вправо",

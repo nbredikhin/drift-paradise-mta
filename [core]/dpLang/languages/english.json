@@ -29,14 +29,13 @@
 	"quit_reason_timed out": "timed out",
 
 	// =============================================
-	// ================= Tutorial ==================
+	// =================== Intro ===================
 	// =============================================
-	"beta_tutorial_1": "Hello",
-	"beta_tutorial_2": "Добро пожаловать на Drift Paradise!",
-	"beta_tutorial_2": "Welcome to Drift Paradise server!",
-	"beta_tutorial_3": "This project is still in development",
-	"beta_tutorial_4": "It's not a final version",
-	"beta_tutorial_5": "Good luck and have fun!",
+	"intro_credits_1": "Drift Allstars",
+	"intro_credits_2": "Fuck The Clearance",
+	"intro_credits_3": "and Russian Racing Club",
+	"intro_credits_4": "present",
+	"intro_press_to_start": "Press SPACE to start",
 
 	// =============================================
 	// ================= PhotoMode =================

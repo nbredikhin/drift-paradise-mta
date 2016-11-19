@@ -30,6 +30,7 @@ local bgAnim = 0
 local bgAnimTarget = 0
 
 local font
+local bordersHeight = screenHeight / 10
 
 local function update(deltaTime)
 	deltaTime = deltaTime / 1000
@@ -61,6 +62,8 @@ local function update(deltaTime)
 end
 
 local function draw()
+	dxDrawRectangle(0, 0, screenWidth, bordersHeight - bordersHeight * logoAnim * 2, tocolor(0, 0, 0, 255))
+	dxDrawRectangle(0, screenHeight - bordersHeight + bordersHeight * logoAnim * 2, screenWidth, bordersHeight, tocolor(0, 0, 0, 255))
 	local colorMul = 0.3
 	dxDrawRectangle(0, 0, screenWidth, screenHeight, tocolor(0, 0, 0, 100 * bgAnim))
 	local w = logoWidth * (logoAnim * 0.1 + 0.9)
@@ -79,6 +82,12 @@ local function draw()
 		tocolor(255, 255, 255, 255 * textAnim),
 		1, font,
 		"center", "bottom")
+
+	local hh, mm = getTime()
+	if hh <= 14 and hh >= 3 and mm > 0 then
+		setTime(3, 0)
+		setMinuteDuration(1000 * 60 * 60)
+	end
 end
 
 local function preLogo()
@@ -92,8 +101,7 @@ local function showLogo()
 	cameraFOVSpeed = 2
 	targetCameraFOV = 60
 
-	setTimer(function ()
-		exports.dpTime:forceTime(getTime())
+	setTimer(function ()		
 		textAnimTarget = 1
 	end, 2500, 1)
 end
@@ -107,9 +115,9 @@ function IntroCutscene.start()
 
 	font = exports.dpAssets:createFont("Roboto-Regular.ttf", 18)
 
-	exports.dpTime:restoreTime()
 	exports.dpTime:forceTime(15, 0)
 	setMinuteDuration(500)
+	setGameSpeed(10)
 
 	addEventHandler("onClientPreRender", root, update)
 	addEventHandler("onClientRender", root, draw)
@@ -130,6 +138,7 @@ end
 function IntroCutscene.stop()
 	unbindKey("space", "down", IntroCutscene.stop)
 	exports.dpTime:restoreTime()
+	setGameSpeed(1)
 	removeEventHandler("onClientPreRender", root, update)
 	removeEventHandler("onClientRender", root, draw)
 	setCameraTarget(localPlayer)

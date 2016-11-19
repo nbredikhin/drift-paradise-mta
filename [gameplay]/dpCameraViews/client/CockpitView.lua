@@ -177,8 +177,7 @@ function CockpitView.start()
 	addEventHandler("onClientPreRender", root, update)
 	addEventHandler("onClientVehicleCollision", localPlayer.vehicle, updateShake)
 	addEventHandler("onClientCursorMove", root, onCursorMove)
-	exports.dpHUD:setSpeedometerVisible(false)
-	--speedometerState = exports.dpHUD:isSpeedometerVisible()
+	localPlayer:setData("dpHUD.hideSpeedometer", true, false)
 	skipFrame = true
 	return true
 end
@@ -196,5 +195,5 @@ function CockpitView.stop()
 		removeEventHandler("onClientVehicleCollision", localPlayer.vehicle, updateShake)
 	end
 
-	exports.dpHUD:setSpeedometerVisible(true)
+	localPlayer:setData("dpHUD.hideSpeedometer", false, false)
 end

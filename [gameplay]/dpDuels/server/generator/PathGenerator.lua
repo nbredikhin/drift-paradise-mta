@@ -195,3 +195,9 @@ function PathGenerator.generateCheckpointsForPlayer(player, checkpointsCount)
 	end]]
 	return checkpoints
 end
+
+local cps = PathGenerator.generateCheckpointsForPlayer(getRandomPlayer(), 2000)
+outputDebugString("da: " .. tostring(#cps))
+for i, v in ipairs(cps) do	
+	createMarker(v[1], v[2], v[3])
+end

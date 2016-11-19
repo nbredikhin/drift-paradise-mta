@@ -46,6 +46,9 @@ local function getVehicleMileageString()
 end
 
 local function drawSpeedometer(x, y, width, height)
+	if localPlayer:getData("dpHUD.hideSpeedometer") then
+		return
+	end
 	-- Круг скорости
 	dxDrawImage(x, y, width, height, assetsTextures.circle, 0, 0, 0, tocolor(255, 255, 255, 200))
 

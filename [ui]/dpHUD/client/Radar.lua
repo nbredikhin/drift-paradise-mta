@@ -71,9 +71,10 @@ local function drawRadarSection(x, y)
 end
 
 local function drawBlips()
+	local px, py, pz = getElementPosition(localPlayer)
 	for i,blip in ipairs(getElementsByType("blip")) do
-		if allowedIcons[blip.icon] then
-			local x, y, z = getElementPosition(blip)
+		local x, y, z = getElementPosition(blip)
+		if allowedIcons[blip.icon] and getDistanceBetweenPoints2D(x, y, px, py) < 100 then			
 			Radar.drawImageOnMap(
 				x, y, camera.rotation.z,
 				blipTextures[blip.icon],
@@ -86,7 +87,7 @@ end
 
 local function drawPlayers()
 	for player in pairs(players) do
-		if player ~= localPlayer then
+		if player ~= localPlayer and player.streamedIn then
 
 			local color = tocolor(255, 255, 255, 255)
 			if player.vehicle then

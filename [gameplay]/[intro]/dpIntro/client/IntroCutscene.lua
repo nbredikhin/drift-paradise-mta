@@ -24,15 +24,18 @@ local logoTexture
 local logoWidth, logoHeight
 local logoAnim = 0
 local logoAnimTarget = 0
+local logoAnimSpeed = 0
 local textAnim = 0
 local textAnimTarget = 0
 local bgAnim = 0
 local bgAnimTarget = 0
+local bgAnimSpeed = 0
 local creditsAnim = 0
 local creditsAnimTarget = 0
 
 local font
 local creditsFont
+local bordersVisible = false
 local bordersHeight = screenHeight / 10
 
 local currentCreditsText = 1
@@ -68,15 +71,17 @@ local function update(deltaTime)
 		currentCameraFOV
 	)
 
-	logoAnim = logoAnim + (logoAnimTarget - logoAnim) * deltaTime * 0.5
+	logoAnim = logoAnim + (logoAnimTarget - logoAnim) * deltaTime * logoAnimSpeed
 	textAnim = textAnim + (textAnimTarget - textAnim) * deltaTime * 2
-	bgAnim = bgAnim + (bgAnimTarget - bgAnim) * deltaTime * 0.2
+	bgAnim = bgAnim + (bgAnimTarget - bgAnim) * deltaTime * bgAnimSpeed
 	creditsAnim = creditsAnim + (creditsAnimTarget - creditsAnim) * deltaTime * 5
 end
 
 local function draw()
-	dxDrawRectangle(0, 0, screenWidth, bordersHeight - bordersHeight * logoAnim * 2, tocolor(0, 0, 0, 255))
-	dxDrawRectangle(0, screenHeight - bordersHeight + bordersHeight * logoAnim * 2, screenWidth, bordersHeight, tocolor(0, 0, 0, 255))
+	if bordersVisible then
+		dxDrawRectangle(0, 0, screenWidth, bordersHeight - bordersHeight * logoAnim * 2, tocolor(0, 0, 0, 255))
+		dxDrawRectangle(0, screenHeight - bordersHeight + bordersHeight * logoAnim * 2, screenWidth, bordersHeight, tocolor(0, 0, 0, 255))
+	end
 	local colorMul = 0.3
 	dxDrawRectangle(0, 0, screenWidth, screenHeight, tocolor(0, 0, 0, 100 * bgAnim))
 	local w = logoWidth * (logoAnim * 0.1 + 0.9)
@@ -141,7 +146,25 @@ local function showLogo()
 	end, 2500, 1)
 end
 
+local function gotoSkinSelection()
+	unbindKey("space", "down", gotoSkinSelection)
+	textAnimTarget = 0
+	logoAnimTarget = 0
+	creditsAnimTarget = 0
+	bgAnimTarget = 0
+	bordersVisible = false
+	logoAnimSpeed = 2
+	bgAnimSpeed = 2
+	setTimer(function ()
+		IntroCutscene.stop()
+		exports.dpSkinSelect:show()
+	end, 2000, 1)
+end
+
 function IntroCutscene.start()
+	logoAnimSpeed = 0.5
+	bgAnimSpeed = 0.2
+
 	logoTexture = exports.dpAssets:createTexture("logo_red.png")
 	local textureWidth, textureHeight = dxGetMaterialSize(logoTexture)
 	logoWidth = screenWidth * 0.6
@@ -164,20 +187,20 @@ function IntroCutscene.start()
 	cameraMovingSpeed = 0.08
 	cameraLookMovingSpeed = 0.06
 
-	bindKey("space", "down", IntroCutscene.stop)
+	bindKey("space", "down", gotoSkinSelection)
 
 	setTimer(showCredits, 3000, 1)
 	setTimer(preLogo, 18000, 1)
 	setTimer(showLogo, 22000, 1)
+
+	bordersVisible = true
 end
 
 function IntroCutscene.stop()
-	unbindKey("space", "down", IntroCutscene.stop)
-	exports.dpTime:restoreTime()
+	unbindKey("space", "down", gotoSkinSelection)	
 	setGameSpeed(1)
 	removeEventHandler("onClientPreRender", root, update)
 	removeEventHandler("onClientRender", root, draw)
-	setCameraTarget(localPlayer)
 
 	if isElement(logoTexture) then
 		destroyElement(logoTexture)

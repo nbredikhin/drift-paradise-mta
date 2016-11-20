@@ -1,4 +1,7 @@
 local function repairVehicle(vehicle, closeDoors, serverSide)
+    if not isElement(vehicle) then
+        return
+    end
     if vehicle.blown then
         return
     end    

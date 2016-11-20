@@ -1,0 +1,9 @@
+<meta>
+	<oop>true</oop>
+
+	<script type="client" src="client.lua"/>
+	<file src="info_icon.png"/>
+
+	<export type="client" function="showMessage"/>
+	<export type="client" function="hideMessage"/>
+</meta>

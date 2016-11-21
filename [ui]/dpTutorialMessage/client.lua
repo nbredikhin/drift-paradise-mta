@@ -117,6 +117,7 @@ local function startHiding()
 	if isHiding then
 		return
 	end
+	exports.dpSounds:playSound("ui_back.wav")
 	isHiding = true
 	animationSpeed = 15
 	animationTarget = 0
@@ -175,6 +176,8 @@ function showMessage(title, text, ...)
 
 	isHiding = false
 	bindKey("backspace", "down", startHiding)
+
+	localPlayer:setData("activeUI", "tutorialMessage")
 end
 
 function hideMessage()
@@ -196,6 +199,8 @@ function hideMessage()
 	removeEventHandler("onClientRender", root, draw)
 	removeEventHandler("onClientPreRender", root, update)
 	unbindKey("backspace", "down", startHiding)
+
+	localPlayer:setData("activeUI", false)
 end
 
 function isMessageVisible()

@@ -37,6 +37,7 @@ local startupResources = {
 	"dpLoginPanel",
 	"dpTabPanel",
 	"dpMainPanel",
+	"dpHelpPanel",
 	"dpGiftsPanel",
 
 	-- Gameplay

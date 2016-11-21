@@ -5,11 +5,12 @@ addEventHandler("dpCore.login", root, function (success)
 		return
 	end
 	-- Если не выбран персонаж - перекинуть на экран выбора персонажа
-	local player = source
+	local player = source	
 	UserVehicles.getVehiclesIds(player:getData("_id"), function(vehicles)
 		if type(vehicles) == "table" and #vehicles > 0 then
 			PlayerSpawn.spawn(player)
 		else
+			player.dimension = 1
 			triggerClientEvent(player, "dpIntro.start", resourceRoot)				
 		end			
 	end)
@@ -22,6 +23,7 @@ addEventHandler("dpSkinSelect.selectedSkin", root, function (skin)
 	client:setData("dpCore.state", false)
 	client:setData("skin", skin)
 	client.model = skin
+	client.dimension = 0
 
 	-- Дать денег и отправить в магазин
 	local startMoney = exports.dpShared:getEconomicsProperty("start_money")

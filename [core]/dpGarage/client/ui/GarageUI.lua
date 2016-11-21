@@ -75,6 +75,9 @@ local function onKey(button, isDown)
 	if not isDown or CameraManager.isMouseLookEnabled() or isMTAWindowActive() then
 		return
 	end
+	if exports.dpTutorialMessage:isMessageVisible() then
+		return 
+	end	
 	if screenManager then
 		screenManager:onKey(button)
 		if button == "enter" then
@@ -106,6 +109,15 @@ function GarageUI.start()
 	addEventHandler("onClientRender", root, draw)
 	addEventHandler("onClientPreRender", root, update)
 	addEventHandler("onClientKey", root, onKey)
+
+	if localPlayer:getData("tutorialActive") then
+		setTimer(function ()
+		exports.dpTutorialMessage:showMessage(
+			exports.dpLang:getString("tutorial_garage_title"), 
+			exports.dpLang:getString("tutorial_garage_text"),
+			utf8.lower(exports.dpLang:getString("player_level")))
+		end, 1000, 1)
+	end
 end
 
 function GarageUI.stop()

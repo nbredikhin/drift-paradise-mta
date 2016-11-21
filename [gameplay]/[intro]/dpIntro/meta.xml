@@ -5,5 +5,7 @@
 	<script type="client" src="client/IntroCutscene.lua"/>
 	<script type="client" src="client/main.lua"/>
 
+	<export type="client" function="stopMusic"/>
+
 	<file src="assets/background_music.mp3"/>
 </meta>

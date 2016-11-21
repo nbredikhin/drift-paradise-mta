@@ -117,6 +117,10 @@ local function onKey(key, down)
 		return false
 	end
 
+	if exports.dpTutorialMessage:isMessageVisible() then
+		return 
+	end
+
 	if key == "a" or key == "arrow_l" then
 		currentVehicleId = currentVehicleId - 1
 		if currentVehicleId < 1 then
@@ -134,7 +138,7 @@ local function onKey(key, down)
 		exports.dpUI:hideMessageBox()
 		exports.dpSounds:playSound("ui_change.wav")
 	elseif key == "backspace" then
-		if localPlayer:getData("tutorialActive") or exports.dpTutorialMessage:isMessageVisible() then
+		if localPlayer:getData("tutorialActive") then
 			return
 		end
 		if exports.dpUI:isMessageBoxVisible() then

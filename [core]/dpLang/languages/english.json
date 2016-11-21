@@ -37,6 +37,16 @@
 	"intro_credits_4": "present",
 	"intro_press_to_start": "Press SPACE to start",
 
+	"tutorial_skin_select_title": "Welcome to Drift Paradise!",
+	"tutorial_skin_select_text": "We are happy to see you here! Here you will find funny races, awesome car customization system and lots of other unique features. Now it's time to choose your character! Use %s to select.",
+	"tutorial_car_shop_title": "Car shop",
+	"tutorial_car_shop_text": "Welcome to car shop! We gave you %s, so you can buy your first car! Use %s, to select cars. Look around with your %s. Press %s to buy selected car.",
+	"tutorial_garage_title": "Garage",
+	"tutorial_garage_text": "This is your garage. Here you can always access your cars. There is also a tuning section where you can upgrade and customize your vehicle. Most of upgrades are unlocked with new level. To get new %s you need to race against other players.",
+	"tutorial_city_title": "City",
+	"tutorial_city_text": "Welcome to Los Santos! Now you are able to open main menu by pressing %s. There you will find a lot of useful info. If you need help, you can open the %s menu. Now try to press %s to open map and %s. Good luck!",
+	"tutorial_city_race": "find your first race",	
+
 	// =============================================
 	// ================= PhotoMode =================
 	// =============================================

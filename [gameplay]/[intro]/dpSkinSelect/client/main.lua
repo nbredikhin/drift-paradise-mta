@@ -132,6 +132,8 @@ function show()
 
 	localPlayer:setData("dpCore.state", "skinSelect")
 	localPlayer:setData("activeUI", "skinSelect")
+
+	localPlayer.dimension = 0
 end
 
 function hide()

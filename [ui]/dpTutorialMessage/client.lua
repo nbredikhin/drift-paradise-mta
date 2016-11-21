@@ -122,7 +122,7 @@ local function startHiding()
 	animationTarget = 0
 end
 
-function showMessage(title, text)
+function showMessage(title, text, ...)
 	if isVisible then
 		return
 	end
@@ -133,11 +133,21 @@ function showMessage(title, text)
 
 	messageFont = exports.dpAssets:createFont("Roboto-Regular.ttf", 16)
 	messageFontHeight = dxGetFontHeight(1, messageFont)
+
 	infoFont = exports.dpAssets:createFont("Roboto-Regular.ttf", 18)
 	infoFontHeight = dxGetFontHeight(1, infoFont)
 	infoIconSize = infoFontHeight * 0.7
+	
 	textLines = {}
-	local words = split(tostring(text), " ")
+	local formatArgs = {...}
+	local themeColorHEX = exports.dpUtils:RGBToHex(exports.dpUI:getThemeColor())
+	if not themeColorHEX then
+		themeColorHEX = "#FFFFFF"
+	end
+	for i, v in ipairs(formatArgs) do
+		formatArgs[i] = themeColorHEX .. tostring(formatArgs[i])  .. "#FFFFFF"
+	end
+	local words = split(string.format(tostring(text), unpack(formatArgs)), " ")
 	local currentLine = ""
 	while #words > 0 do
 		local word = table.remove(words, 1)		
@@ -188,4 +198,6 @@ function hideMessage()
 	unbindKey("backspace", "down", startHiding)
 end
 
-showMessage("Как играть на парадусе", "Добро пожаловать на #D40028Drift Paradise#FFFFFF! Ето сервер тут интересна. Вы карочи можити использовать всякии кнопки напремир #D40028F1#FFFFFF, чтобы актрыткть понел или #D40028F2#FFFFFF, чтобы актырктыь курсор. А ищо тут есть #D40028гонки#FFFFFF, где вы можеит зарботывать вфсякие деньги и прочии штуки))))")
+function isMessageVisible()
+	return isVisible
+end

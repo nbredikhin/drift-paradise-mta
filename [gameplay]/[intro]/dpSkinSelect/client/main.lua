@@ -15,7 +15,7 @@ local cars = {}
 local carsInfo = {
 	{ model = 411, position = Vector3(1360.719, -1116.2, 23.380), rotation = 125 },
 	{ model = 411, position = Vector3(1357.931, -1120.721, 23.365), rotation = 71 },
-	{ model = 411, position = Vector3(1358.115, -1110.498, 23.436), rotation = 170 },
+	{ model = 411, position = Vector3(1358.115, -1110.498, 23.436), rotation = 170 }
 }
 
 local cameraStartPosition = Vector3()
@@ -37,6 +37,12 @@ local function finishAnimation()
 	if cameraAnimationFinished then
 		return
 	end
+	exports.dpTutorialMessage:hideMessage()
+	exports.dpTutorialMessage:showMessage(
+		exports.dpLang:getString("tutorial_skin_select_title"), 
+		exports.dpLang:getString("tutorial_skin_select_text"), 
+		utf8.lower(exports.dpLang:getString("controls_arrows")))
+
 	cameraAnimationFinished = true
 end
 
@@ -80,9 +86,11 @@ local function onKey(key, down)
 			selectedSkinIndex = 1
 		end
 	elseif key == "enter" or key == "space" then
+		exports.dpTutorialMessage:hideMessage()
 		peds[selectedSkinIndex]:setControlState("backwards", true)
 		fadeCamera(false, 0.5)
 		setTimer(function ()
+			triggerServerEvent("dpSkinSelect.selectedSkin", localPlayer, peds[selectedSkinIndex].model)
 			hide()
 		end, 1000, 1, true)
 	end
@@ -120,7 +128,10 @@ function show()
 	end
 
 	addEventHandler("onClientPreRender", root, update)
-	addEventHandler("onClientKey", root, onKey)	
+	addEventHandler("onClientKey", root, onKey)		
+
+	localPlayer:setData("dpCore.state", "skinSelect")
+	localPlayer:setData("activeUI", "skinSelect")
 end
 
 function hide()
@@ -147,7 +158,10 @@ function hide()
 			destroyElement(ped)
 		end
 	end	
+
+	localPlayer:setData("dpCore.state", false)
+	localPlayer:setData("activeUI", false)
 end
 
-setCameraMatrix(1141.950, -1092.399, 60.909, 1347.834, -1160.533, 109.864)
-setTimer(show, 1000, 1)
+-- setCameraMatrix(1141.950, -1092.399, 60.909, 1347.834, -1160.533, 109.864)
+-- setTimer(show, 1000, 1)

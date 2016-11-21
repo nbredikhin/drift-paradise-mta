@@ -3,8 +3,9 @@ function startIntro()
 	exports.dpChat:setVisible(false)
 	fadeCamera(false, 0)
 	exports.dpIntroVideo:start()
-end
 
+	localPlayer:setData("activeUI", "intro")
+end
 
 local function onVideoFinish()
 	exports.dpHUD:setVisible(false)
@@ -16,14 +17,13 @@ local function onVideoFinish()
 	end, 1000, 1)
 end
 
-
 function stopIntro()
 
 end
 
-addEventHandler("onClientResourceStart", resourceRoot, function ()
-	startIntro()
-	--onVideoFinish()
+addEvent("dpIntro.start", true)
+addEventHandler("dpIntro.start", root, function ()
+	setTimer(startIntro, 1000, 1)
 end)
 
 addEvent("dpIntroVideo.finish")

@@ -65,3 +65,8 @@ addEventHandler("dpMarkers.use", enteranceMarker, enterCarshop)
 local blip = createBlip(0, 0, 0, 55)
 blip:attach(enteranceMarker)
 blip:setData("text", "blip_carshop")
+
+addEvent("dpCarshop.forceEnter", true)
+addEventHandler("dpCarshop.forceEnter", root, function ()
+	enterCarshop()
+end)

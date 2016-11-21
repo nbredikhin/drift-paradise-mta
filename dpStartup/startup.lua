@@ -40,6 +40,7 @@ local startupResources = {
 	"dpGiftsPanel",
 
 	-- Gameplay
+	"dpTutorialMessage",
 	"dpTime",
 	"dpSafeZones",
 	"dpRaceManager",
@@ -55,12 +56,13 @@ local startupResources = {
 	"dpRaceLobby",
 	"dpDuels",
 	"dpDamage",
-	"dpSkinSelect",
-	"dpVehicleSelect",
 	"dpCameraViews",
 	"dpStripClub",
 	"dpTeleports",
 	"dpContextMenu",
+	"dpSkinSelect",
+	"dpIntroVideo",
+	"dpIntro",
 
 	-- World
 	"MAPPING-MAIN",

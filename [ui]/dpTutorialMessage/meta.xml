@@ -6,4 +6,5 @@
 
 	<export type="client" function="showMessage"/>
 	<export type="client" function="hideMessage"/>
+	<export type="client" function="isMessageVisible"/>
 </meta>

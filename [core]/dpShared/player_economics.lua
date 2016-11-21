@@ -1,12 +1,6 @@
 local playerEconomics = {
 	-- Начальные деньги
 	start_money = 11000,
-	-- Стартовые автомобили
-	start_vehicles = {
-		"nissan_180sx", 
-		"toyota_ae86", 
-		"mazda_mx5miata"
-	},
 
 	-- Дуэли
 	duel_bet_min = 50,

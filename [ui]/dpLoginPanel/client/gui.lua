@@ -175,7 +175,7 @@ end
 
 local function createRegisterPanel()
 	local panelWidth = 550
-	local panelHeight = 460
+	local panelHeight = 385
 
 	local logoTexture = exports.dpAssets:createTexture("logo.png")
 	local textureWidth, textureHeight = dxGetMaterialSize(logoTexture)
@@ -272,16 +272,16 @@ local function createRegisterPanel()
 	})
 	UI:addChild(panel, colorLabel)
 
-	local y = 100
-	local betaKeyInput = UI:createDpInput({
-		x = 50,
-		y = y,
-		width = 450,
-		height = 50,
-		type = "dark",
-		locale = "login_panel_beta_key_label"
-	})
-	UI:addChild(panel, betaKeyInput)
+	local y = 30
+	-- local betaKeyInput = UI:createDpInput({
+	-- 	x = 50,
+	-- 	y = y,
+	-- 	width = 450,
+	-- 	height = 50,
+	-- 	type = "dark",
+	-- 	locale = "login_panel_beta_key_label"
+	-- })
+	-- UI:addChild(panel, betaKeyInput)
 
 	y = y + 70	
 	local usernameInput = UI:createDpInput({
@@ -403,8 +403,8 @@ addEventHandler("dpUI.click", resourceRoot, function(widget)
 		registerClick(
 			UI:getText(registerPanel.username),
 			UI:getText(registerPanel.password),
-			UI:getText(registerPanel.passwordConfirm),
-			UI:getText(registerPanel.betaKey)
+			UI:getText(registerPanel.passwordConfirm)
+			--UI:getText(registerPanel.betaKey)
 		)
 	elseif widget == registerPanel.colorButtons.red then
 		exports.dpSounds:playSound("ui_change.wav")

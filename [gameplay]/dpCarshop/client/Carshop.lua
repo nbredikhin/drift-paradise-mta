@@ -134,6 +134,9 @@ local function onKey(key, down)
 		exports.dpUI:hideMessageBox()
 		exports.dpSounds:playSound("ui_change.wav")
 	elseif key == "backspace" then
+		if localPlayer:getData("tutorialActive") or exports.dpTutorialMessage:isMessageVisible() then
+			return
+		end
 		if exports.dpUI:isMessageBoxVisible() then
 			exports.dpUI:hideMessageBox()
 		else
@@ -171,6 +174,10 @@ function Carshop.start()
 		end
 	end
 
+	table.sort(vehiclesList, function (v1, v2)
+		return v1.price < v2.price
+	end)
+
 	localPlayer.dimension = LOCAL_DIMENSION
 
 	-- Создать автомобиль
@@ -203,6 +210,16 @@ function Carshop.start()
 	Carshop.showVehicle(currentVehicleId)
 	CarshopMenu.start(CARSHOP_POSITION)
 	CameraManager.start()
+
+	if localPlayer:getData("tutorialActive") then
+		exports.dpTutorialMessage:showMessage(
+			exports.dpLang:getString("tutorial_car_shop_title"), 
+			exports.dpLang:getString("tutorial_car_shop_text"), 
+			"$" .. tostring(localPlayer:getData("money")), 
+			utf8.lower(exports.dpLang:getString("controls_arrows")), 
+			utf8.lower(exports.dpLang:getString("controls_mouse")),
+			"ENTER")
+	end
 end
 
 function Carshop.stop()

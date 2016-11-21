@@ -33,6 +33,8 @@ local bgAnimSpeed = 0
 local creditsAnim = 0
 local creditsAnimTarget = 0
 
+local isSpaceEnabled = false
+
 local font
 local creditsFont
 local bordersVisible = false
@@ -137,6 +139,7 @@ local function showCredits()
 end
 
 local function showLogo()
+	isSpaceEnabled = true
 	logoAnimTarget = 1
 	cameraFOVSpeed = 2
 	targetCameraFOV = 60
@@ -147,6 +150,9 @@ local function showLogo()
 end
 
 local function gotoSkinSelection()
+	if not isSpaceEnabled then
+		return
+	end
 	unbindKey("space", "down", gotoSkinSelection)
 	textAnimTarget = 0
 	logoAnimTarget = 0
@@ -162,6 +168,8 @@ local function gotoSkinSelection()
 end
 
 function IntroCutscene.start()
+	isSpaceEnabled = false
+
 	logoAnimSpeed = 0.5
 	bgAnimSpeed = 0.2
 
@@ -209,4 +217,6 @@ function IntroCutscene.stop()
 	if isElement(font) then
 		destroyElement(font)
 	end
+
+	localPlayer:setData("activeUI", false)
 end

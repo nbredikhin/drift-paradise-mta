@@ -293,6 +293,9 @@ function Carshop.showVehicle(id)
 end
 
 function Carshop.buy()
+	if exports.dpTutorialMessage:isMessageVisible() then
+		return 
+	end	
 	if Carshop.currentVehicleInfo.level > localPlayer:getData("level") then
 		exports.dpSounds:playSound("error.wav")
 		exports.dpUI:showMessageBox(

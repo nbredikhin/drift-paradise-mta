@@ -22,6 +22,7 @@ addEventHandler("dpSkinSelect.selectedSkin", root, function (skin)
 	client:setData("tutorialActive", true)
 	client:setData("dpCore.state", false)
 	client:setData("skin", skin)
+	client:spawn(0, 0, 0, 0, skin, 0)
 	client.model = skin
 	client.dimension = 0
 

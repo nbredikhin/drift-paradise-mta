@@ -8,7 +8,7 @@
     "enableExportEncrypt": false,
     "enableReadmeFiles": false,
 
-    "only": ["dpTeleports"],
+    "only": ["dpTuningEditor"],
     "include": [
         "geoip",        
         "blur_box",

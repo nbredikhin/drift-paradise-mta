@@ -119,6 +119,12 @@ bindKey("f9", "down", function ()
     end
 end)
 
+bindKey("f1", "down", function ()
+    if isVisible then
+        hide()
+    end
+end)
+
 addEvent("dpUI.click", false)
 addEventHandler("dpUI.click", resourceRoot, function (widget)
     for i, tab in ipairs(tabs) do

@@ -23,7 +23,10 @@ local infoOffset = 5
 
 local animationProgress = 0
 local animationTarget = 0
-local animationSpeed = 6
+local animationSpeed = 0
+
+local SHOW_ANIMATION_SPEED = 2
+local HIDE_ANIMATION_SPEED = 15
 
 local isHiding = false
 
@@ -119,7 +122,7 @@ local function startHiding()
 	end
 	exports.dpSounds:playSound("ui_back.wav")
 	isHiding = true
-	animationSpeed = 15
+	animationSpeed = HIDE_ANIMATION_SPEED
 	animationTarget = 0
 end
 
@@ -127,6 +130,7 @@ function showMessage(title, text, ...)
 	if isVisible then
 		return
 	end
+	animationSpeed = SHOW_ANIMATION_SPEED
 	isVisible = true
 
 	infoText = tostring(title)
@@ -172,7 +176,7 @@ function showMessage(title, text, ...)
 	addEventHandler("onClientPreRender", root, update)
 
 	animationProgress = 0
-	animationTarget = 1
+	setTimer(function () animationTarget = 1 end, 500, 1)
 
 	isHiding = false
 	bindKey("backspace", "down", startHiding)
@@ -205,4 +209,8 @@ end
 
 function isMessageVisible()
 	return isVisible
+end
+
+if localPlayer:getData("activeUI") == "tutorialMessage" then
+	localPlayer:setData("activeUI", false)
 end

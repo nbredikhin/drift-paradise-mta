@@ -1,5 +1,6 @@
 local isActive = false
 
+local screenSize = Vector2(guiGetScreenSize())
 local selectedSkinIndex = 2
 
 local cameraAnimationFinished = false
@@ -33,6 +34,13 @@ local cameraAnimationTime = 6
 local lookAnimationProgress = 0
 local lookAnimationTime = 5.6
 
+local font
+local arrowTexture
+local arrowSize = 100
+local arrowsAnimation = 0
+local guiAlpha = 0
+local guiAlphaTarget = 0
+
 local function finishAnimation()
 	if cameraAnimationFinished then
 		return
@@ -44,6 +52,7 @@ local function finishAnimation()
 		utf8.lower(exports.dpLang:getString("controls_arrows")))
 
 	cameraAnimationFinished = true
+	guiAlphaTarget = 1
 end
 
 local function update(deltaTime)
@@ -66,6 +75,39 @@ local function update(deltaTime)
 		0, 
 		cameraStartFOV + (cameraEndFOV - cameraStartFOV) * fovProgress
 	)
+
+	arrowsAnimation = arrowsAnimation + deltaTime
+	if arrowsAnimation > math.pi * 2 then
+		arrowsAnimation = 0
+	end
+
+	guiAlpha = guiAlpha + (guiAlphaTarget - guiAlpha) * deltaTime * 1
+end
+
+local function draw()
+	dxDrawText(
+		exports.dpLang:getString("skin_select_text"),
+		20, 
+		20,
+		screenSize.x,
+		screenSize.y,
+		tocolor(255, 255, 255, 255 * guiAlpha),
+		1,
+		font,
+		"center",
+		"top")	
+
+	local offset = math.sin(arrowsAnimation * 5) * 10
+	local a = 255 * guiAlpha
+	if selectedSkinIndex == 1 then
+		a = a * 0.3
+	end
+	dxDrawImage(arrowSize + offset, screenSize.y / 2 - arrowSize / 2, -arrowSize, arrowSize, arrowTexture, 0, 0, 0, tocolor(255, 255, 255, a))
+	a = 255 * guiAlpha
+	if selectedSkinIndex == #peds then
+		a = a * 0.3
+	end
+	dxDrawImage(screenSize.x - arrowSize - offset, screenSize.y / 2 - arrowSize / 2, arrowSize, arrowSize, arrowTexture, 0, 0, 0, tocolor(255, 255, 255, a))
 end
 
 local function onKey(key, down)
@@ -89,6 +131,7 @@ local function onKey(key, down)
 		exports.dpTutorialMessage:hideMessage()
 		peds[selectedSkinIndex]:setControlState("backwards", true)
 		fadeCamera(false, 0.5)
+		guiAlphaTarget = 0
 		setTimer(function ()
 			triggerServerEvent("dpSkinSelect.selectedSkin", localPlayer, peds[selectedSkinIndex].model)
 			hide()
@@ -102,6 +145,9 @@ function show()
 	if isActive then
 		return
 	end
+
+	font = exports.dpAssets:createFont("Roboto-Regular.ttf", 24)
+	arrowTexture = exports.dpAssets:createTexture("arrow.png")
 	fadeCamera(true)
 	isActive = true
 
@@ -128,12 +174,19 @@ function show()
 	end
 
 	addEventHandler("onClientPreRender", root, update)
+	addEventHandler("onClientRender", root, draw)
 	addEventHandler("onClientKey", root, onKey)		
 
 	localPlayer:setData("dpCore.state", "skinSelect")
 	localPlayer:setData("activeUI", "skinSelect")
 
+	exports.dpHUD:setVisible(false)
+	exports.dpChat:setVisible(false)
+
 	localPlayer.dimension = 0
+
+	guiAlpha = 0
+	guiAlphaTarget = 0
 end
 
 function hide()
@@ -142,7 +195,15 @@ function hide()
 	end
 	isActive = false
 
+	if isElement(font) then
+		destroyElement(font)
+	end
+	if isElement(arrowTexture) then
+		destroyElement(arrowTexture)
+	end
+
 	removeEventHandler("onClientPreRender", root, update)
+	removeEventHandler("onClientRender", root, draw)
 	removeEventHandler("onClientKey", root, onKey)
 
 	if isElement(ped) then
@@ -165,5 +226,5 @@ function hide()
 	localPlayer:setData("activeUI", false)
 end
 
--- setCameraMatrix(1141.950, -1092.399, 60.909, 1347.834, -1160.533, 109.864)
--- setTimer(show, 1000, 1)
+setCameraMatrix(1141.950, -1092.399, 60.909, 1347.834, -1160.533, 109.864)
+setTimer(show, 1000, 1)

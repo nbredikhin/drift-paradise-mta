@@ -225,6 +225,3 @@ function hide()
 	localPlayer:setData("dpCore.state", false)
 	localPlayer:setData("activeUI", false)
 end
-
-setCameraMatrix(1141.950, -1092.399, 60.909, 1347.834, -1160.533, 109.864)
-setTimer(show, 1000, 1)

@@ -47,6 +47,21 @@
 	"tutorial_city_text": "Welcome to Los Santos! Now you are able to open main menu by pressing %s. There you will find a lot of useful info. If you need help, you can open the %s menu. Now try to press %s to open map and %s. Good luck!",
 	"tutorial_city_race": "find your first race",	
 
+	"help_panel_general_title": "General",
+	"help_panel_general_text": "-",
+	
+	"help_panel_garage_title": "Garage",
+	"help_panel_garage_text": "-",
+
+	"help_panel_races_title": "Races",
+	"help_panel_races_text": "-",
+
+	"help_panel_more_title": "Other",
+	"help_panel_more_text": "-",
+
+	"help_panel_devs_title": "Developers",
+	"help_panel_devs_text": "-",
+
 	// =============================================
 	// ================= PhotoMode =================
 	// =============================================

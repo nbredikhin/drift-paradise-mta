@@ -8,7 +8,7 @@
     "enableExportEncrypt": false,
     "enableReadmeFiles": false,
 
-    "only": ["blur_box"],
+    "only": ["dpWebAPI"],
 
     "include": [
         "geoip",        
@@ -19,7 +19,6 @@
         "dynamic_lighting_vehicles",
         "shader_dynamic_sky",
         
-        "server_assets",
         "MAPPING-MAIN",
         "TD-INT",
         "TD-MAPFILES",
@@ -37,6 +36,7 @@
         ".txt",
         ".map",
         "_DPASSET",
-        "@"
+        "@",
+        "api"
     ]
 }

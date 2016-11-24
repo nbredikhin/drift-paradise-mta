@@ -9,5 +9,7 @@
 
 	<export function="api" http="true"/>
 	<export type="server" function="processRequest"/>
+	<export type="server" function="processCallback"/>
 	<html src="api"/>
+	<html src="callback"/>
 </meta>

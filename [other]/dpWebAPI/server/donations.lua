@@ -1,5 +1,6 @@
 local DONATIONS_KEY = "CHANGE_ME_PLEASE"
 local SHOP_ID = 26365
+local SHOP_KEY = "01423B68AA245C73D8"
 local shopPrices = {}
 
 local function checkDonationsKey(key)
@@ -89,3 +90,23 @@ addEventHandler("onResourceStart", resourceRoot, function ()
 		end
 	end)
 end)
+
+function processCallback(url, requestHeaders, cookies, hostname)
+	local query = urlParser.parse(url).query
+	local args = { 
+		tostring(query.amount), 
+		tostring(query.nickname), 
+		tostring(query.shop), 
+		tostring(query.time), 
+		tostring(SHOP_KEY)
+	}
+	local hash = md5(table.concat(args, ":"))
+
+	if hash == query.hash then
+		outputDebugString("BAD HASH GTFO")
+		return false
+	end
+
+	outputDebugString("Payment: " .. tostring(query.nickname) .. " " .. tostring(query.amount))
+	return WebAPI.callMethod("donations.buyMoney", "CHANGE_ME_PLEASE", query.nickname, query.amount)
+end

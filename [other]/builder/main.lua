@@ -87,7 +87,7 @@ local function processResource(resource)
                             end
                         end
                     else
-                        targetPath = md5("dp" .. sourcePath)                        
+                        targetPath = md5("dp" .. sourcePath)                      
                     end
                     buildChild:setAttribute("src", targetPath)
                 end
@@ -111,7 +111,10 @@ local function processResource(resource)
         local data = concatScripts[type]
         if #data > 0 then
             local child = buildMeta:createChild("script")
-            local filename = md5(resource.name .. type)
+            local filename = tostring(type) .. ".bin"
+            if config.enablePathEncrypt then
+                filename = md5("dp" .. tostring(type)) .. ".bin"
+            end
             child:setAttribute("src", filename)
             child:setAttribute("type", type)
             child:setAttribute("cache", tostring(not not config.enableScriptCache))            

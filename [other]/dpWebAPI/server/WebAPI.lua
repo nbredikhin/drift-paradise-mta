@@ -57,7 +57,7 @@ function processRequest(url, requestHeaders, cookies, hostname)
 	if not query.args then
 		query.args = ""
 	end
-	local result = WebAPI.callMethod(query.method, split(query.args))
+	local result = WebAPI.callMethod(query.method, unpack(split(query.args, ",")))
 	return {
 		data = toJSON(result),
 		headers = {

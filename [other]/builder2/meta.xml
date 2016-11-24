@@ -1,7 +1,0 @@
-<meta>
-    <oop>true</oop>
-
-    <script type="server" src="lib/underscore.lua"/>
-    <script type="server" src="utils.lua"/>
-    <script type="server" src="main.lua"/>
-</meta>

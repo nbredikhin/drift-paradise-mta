@@ -10,13 +10,13 @@ local vehiclesTable = {
 	mitsubishi_eclipse	= nil,
 	nissan_silvia_s13	= 401,	
 	-- 3 класс
-	bmw_e30				= nil,
+	bmw_e30				= 410,
 	nissan_skyline_er34 = 445,
 	toyota_mark2_100	= nil,	
 	toyota_altezza 		= 402,
 	-- 4 класс
 	honda_s2000 		= 429,
-	bmw_e34 			= nil,
+	bmw_e34 			= 529,
 	nissan_silvia_s14	= nil,
 	nissan_silvia_s15	= nil,
 	-- 5 класс

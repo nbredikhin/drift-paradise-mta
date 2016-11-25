@@ -21,6 +21,8 @@ local infoIcon
 local infoIconSize
 local infoOffset = 5
 
+local closeText = ""
+
 local animationProgress = 0
 local animationTarget = 0
 local animationSpeed = 0
@@ -77,7 +79,7 @@ local function draw()
 
 	-- Подсказка	
 	dxDrawText(
-		"BACKPACE - закрыть",
+		closeText,
 		textBlockX, 
 		textBlockY + textBlockHeight + BORDER_LINE_OFFSET,
 		textBlockX + textBlockWidth,
@@ -144,6 +146,7 @@ function showMessage(title, text, ...)
 	infoIconSize = infoFontHeight * 0.7
 	
 	textLines = {}
+	closeText = "BACKPACE - " .. utf8.lower(tostring(exports.dpLang:getString("message_box_close")))
 	local formatArgs = {...}
 	local themeColorHEX = exports.dpUtils:RGBToHex(exports.dpUI:getThemeColor())
 	if not themeColorHEX then

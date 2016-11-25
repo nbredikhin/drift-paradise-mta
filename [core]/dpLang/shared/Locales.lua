@@ -5,7 +5,8 @@ local DEBUG = true
 local locales = {}
 Locales.languages = {
 	"english",
-	"russian"
+	"russian",
+	"portuguese"
 }
 
 Locales.byCode = {
@@ -18,17 +19,21 @@ Locales.byCode = {
 function Locales.load(lang)
 	local file = File("languages/" .. tostring(lang) .. ".json")
 	if not file then
+		outputDebugString("Failed to load locale '" .. tostring(lang) .. "': failed to open language file")
 		return false
 	end
 	local jsonData = file:read(file.size)
 	file:close()
 	if not jsonData then
+		outputDebugString("Failed to load locale '" .. tostring(lang) .. "': failed to read JSON")
 		return false
 	end
 	locales[lang] = fromJSON(jsonData)
 	if not locales[lang] then
+		outputDebugString("Failed to load locale '" .. tostring(lang) .. "': bad JSON")
 		return false
 	end
+	outputDebugString("Loaded locale '" .. tostring(lang) .. "'")
 	return true
 end
 

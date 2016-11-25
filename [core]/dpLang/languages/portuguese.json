@@ -1,0 +1,512 @@
+{
+	// Drift Paradise 2.0
+	// Portuguese BR language
+	// Created by Equipe DriftShow (DS_Matias)
+
+	// =============================================
+	// ================== General ==================
+	// =============================================
+	"message_box_close": "Fechar",
+	"controls_arrows": "Setas",
+	"controls_mouse": "Mouse",
+	"controls_space": "Espaco",
+	"controls_mouse_wheel": "Controle pelo mouse",
+	"price_free": "Gratis",
+	"skin_select_text": "Selecione seu personagem",
+	"player_level": "Nivel do jogador",
+
+	"race_type_drift": "Drift",
+	"race_type_drag": "Racha",
+	"race_type_sprint": "Corrida",
+	"race_type_circle": "Circuito",
+
+
+	"quit_reason_unknown": "Desconectou",
+	"quit_reason_quit": "Desconectou",
+	"quit_reason_kicked": "Chutado",
+	"quit_reason_banned": "Banido",
+	"quit_reason_bad connection": "Conexao ruim",
+	"quit_reason_timed out": "timed out",
+
+	// =============================================
+	// =================== Intro ===================
+	// =============================================
+	"intro_credits_1": "Drift Allstars",
+	"intro_credits_2": "Fuck The Clearance",
+	"intro_credits_3": "and Russian Racing Club",
+	"intro_credits_4": "present",
+	"intro_press_to_start": "Clique espaco para comecar",
+
+	"tutorial_skin_select_title": "Seja Bem-Vindo ao Drift Paradise!",
+	"tutorial_skin_select_text": "Estamos felizes em ve-los aqui! Aqui voce vai se divertir e desfrutar de otimos sistemas, tambem voce vai encontrar um otimo sistema de costumizacao e muitas outras funcionalidades unicas, agora escolha seu personagem! Use %s para selecionar.",
+	"tutorial_car_shop_title": "Loja de Carro",
+	"tutorial_car_shop_text": "Seja bem vindo a loja de carros! Demos-lhe %s, para que possa adquirir seu primeiro veiculo! Use %s, para selecionar seu carro. Olhe ao redor com seu %s. Pressione %s para comprar seu carro selecionado.",
+	"tutorial_garage_title": "Garagem",
+	"tutorial_garage_text": "Esta e a sua garagem. Aqui voce sempre vai poder acessar seus carros. Ha tambem uma secao de ajuste onde voce pode atualizar e personalizar seu veiculo. A maioria dos upgrades sao desbloqueados com novos niveis. Para obter novos %s voce precisa competir contra outros jogadores.",
+	"tutorial_city_title": "Cidade",
+	"tutorial_city_text": "Seja bem vindo a Los Santos! Agora voce pode abrir o menu principal pressionando %s. La voce vai encontrar diversas informacoes uteis. Se precisar de ajuda, pode abrir o menu %s. Agora tente pressionar para abrir o mapa e %s. Boa sorte!",
+	"tutorial_city_race": "Encontre sua primeira corrida",	
+
+	"help_panel_general_title": "Geral",
+	"help_panel_general_text": "-",
+	
+	"help_panel_garage_title": "Garagem",
+	"help_panel_garage_text": "-",
+
+	"help_panel_races_title": "Corridas",
+	"help_panel_races_text": "-",
+
+	"help_panel_more_title": "Outros",
+	"help_panel_more_text": "-",
+
+	"help_panel_devs_title": "Desenvolvedores",
+	"help_panel_devs_text": "-",
+
+	// =============================================
+	// ================= PhotoMode =================
+	// =============================================
+	"photo_mode_help_roll": "Rolar left/right",
+	"photo_mode_help_move": "Mover",
+	"photo_mode_help_speed": "Mover slower/faster",
+	"photo_mode_help_look": "Veja",
+	"photo_mode_help_zoom": "Zoom in/out",
+	"photo_mode_help_updown": "Mover up/down",
+	"photo_mode_help_tips": "Alterar interface e ajuda",
+	"photo_mode_help_smooth": "Alterar movimento suave",
+
+	// =============================================
+	// ================ Login panel ================
+	// =============================================
+	"login_panel_username_label": "Nome de usuario",
+	"login_panel_password_label": "Senha",
+	"login_panel_password_confirm_label": "Confirme sua senha",
+	"login_panel_beta_key_label": "Chave de acesso BETA",
+	"login_panel_start_game_button": "Começar jogo",
+	"login_panel_register_button_toggle": "Registrar",
+	"login_panel_register_button": "Registrar",
+	"login_panel_language": "Selecione o idioma",
+	"login_panel_color": "Cor",
+	"login_panel_back": "Voltar",
+	"login_panel_server_not_available": "O servidor Paradise Drift nao esta disponivel no momento",
+	"login_panel_server_error": "Erro de Servidor",
+
+	// ==============================================
+	// ================= World map ==================
+	// ==============================================
+	"world_map_help_text": "%s - mover camera, %s - zoom in/out, %s - sair",
+	"blip_garage": "Garagem",
+	"blip_strip_club": "Club de strip",
+	"blip_carshop": "Loja de carro",
+
+	// ==============================================
+	// ================= Tab panel ==================
+	// ==============================================
+	"tab_panel_column_id": "ID",
+	"tab_panel_column_nickname": "Nome",
+	"tab_panel_column_money": "Dinheiro",
+	"tab_panel_column_level": "Nivel",
+	"tab_panel_players_online": "Jogadores online",
+
+	// =============================================
+	// ================ Message box ================
+	// =============================================
+	"login_panel_auth_error": "Erro de autorizacao",
+	"login_panel_register_error": "Erro de Registro",
+
+	"login_panel_err_enter_username": "Coloque seu nome",
+	"login_panel_err_enter_password": "Coloque sua senha",
+	"login_panel_err_login_unknown": "Falha para logar",
+	"login_panel_err_register_unknown": "Falha para registrar",
+	"login_panel_err_bad_password": "Senha incorreta",
+	"login_panel_err_user_not_found": "Usuario nao encontrado",
+	"login_panel_err_account_in_use": "Essa conta ja esta em uso",
+	"login_panel_err_username_taken": "Este nome de usuario ja em uso",
+	"login_panel_register_success": "Registrado com sucesso!",
+
+	"login_panel_err_username_too_short": "Nome de usuario muito curto",
+	"login_panel_err_username_too_long": "Nome de usuario muito longo",
+	"login_panel_err_password_too_short": "Senha muito curta",
+	"login_panel_err_password_too_long": "Senha muito longa",
+	"login_panel_err_username_invalid": "Nome de usuario contem caracteres ilegais",
+	"login_panel_err_enter_password_confirm": "Confirme sua senha",
+	"login_panel_err_passwords_do_not_match": "Suas senha nao coincidem!",
+	"login_panel_err_beta_key_invalid": "Sua chave de acesso e invalida",
+
+	// ======================================================
+	// ================== Chat messages =====================
+	// ======================================================
+	"chat_message_login_success": "Voce logou com sucesso",
+	"chat_message_player_join": "O Jogador %s Entrou no servidor ",
+	"chat_message_player_quit": "O Jogador %s saiu do servidor (%s)",
+	"chat_adminsay_admin": "Admin",
+
+	// =====================================
+	// ============= Garage ================
+	// =====================================
+	"garage_no_vehicle_error": "Voce deve ter em um carro para entrar na Garagem",
+	"garage_not_driver": "Voce deve esta dirigindo este carro para entrar na Garagem",
+	"garage_has_occupants": "Voce deve ser o unico ocupante no veiculo para entrar na Garagem",
+	"garage_not_owner": "Voce deve ser o propietario do veiculo para entrar na Garagem",
+	"garage_not_logged_in": "Voce precisa esta logado no servidor para entrar na Garagem",
+	"garage_enter_failed": "Falha ao entrar na Garagem",
+
+	"garage_menu_go_city": "Pegue o carro",
+	"garage_menu_customize": "Modificacao",
+	"garage_menu_settings": "Opcoes",
+	"garage_menu_sell": "Vender veiculo",
+	"garage_menu_exit": "Sair da garagem",
+
+	"garage_menu_customize_components": "Componentes",
+	"garage_menu_customize_paint": "Pintura",
+	"garage_menu_customize_stickers": "Adesivos",
+	"garage_menu_customize_config": "Configuracao",
+
+	"garage_menu_settings_bumper": "Remover Para Choque Traseiro",
+	"garage_menu_back": "Voltar",
+
+	"garage_sell_text": "Venda esse veiculo por",
+	"garage_sell_confirm": "Confirmar",	
+	"garage_sell_last_car": "Voce nao pode vender seu ultimo carro!",
+
+	// ========================================
+	// ================ Tuning ================
+	// ========================================
+	"garage_tuning_component_front_bump": "Para Choque Dianteiro",
+	"garage_tuning_component_rear_bump": "Para Choque Traseiro",
+	"garage_tuning_component_side_skirts": "Saias laterais",
+	"garage_tuning_component_wheels_front": "Roda frontal",
+	"garage_tuning_component_wheels_rear": "Roda traseira",
+	"garage_tuning_component_wheels": "Rodas",
+	"garage_tuning_component_spoilers": "Aerofolio",
+	"garage_tuning_component_rear_fends": "Para Lama traseiro",
+	"garage_tuning_component_front_fends": "Para Lama dianteiro",
+	"garage_tuning_component_bonnet": "Capo",
+	"garage_tuning_component_rear_lights": "Farois traseiro",
+	"garage_tuning_component_front_lights": "Farois dianteiro",
+	"garage_tuning_component_exhaust": "Escapamento",
+	"garage_tuning_component_numberplate": "Numero da placa",
+
+	"garage_tuning_paint_body": "Cor do carro",
+	"garage_tuning_paint_wheels_front": "Cor das roda dianteira",
+	"garage_tuning_paint_wheels_rear": "Cor das roda traseira",
+	"garage_tuning_paint_wheels": "Cor das roda",
+	"garage_tuning_paint_spoiler": "Cor do aerofolio",
+
+	"garage_tuning_paint_hue": "Barra de cor",
+	"garage_tuning_paint_saturation": "Saturacao",
+	"garage_tuning_paint_brightness": "Brilho",
+
+	"garage_tuning_item_bumper": "Para choques",
+	"garage_tuning_item_spoiler": "Aerofolio",
+	"garage_tuning_item_wheel": "Rodas",
+	"garage_tuning_item_skirt": "Saias",
+	"garage_tuning_item_fender": "Para lama",
+	"garage_tuning_item_bonnet": "Capo",
+	"garage_tuning_item_exhaust": "Escapamento",
+	"garage_tuning_item_lights": "Luzes",
+
+	"garage_tuning_side_top": "Lado superior",
+	"garage_tuning_side_right": "Lado direito",
+	"garage_tuning_side_left": "Lado esquerdo",
+	"garage_tuning_side_front": "Parte frontal",
+	"garage_tuning_side_back": "Parte traseira",
+
+	"garage_tuning_stickers_figures": "Figuras",
+	"garage_tuning_stickers_letters": "Letras",
+	"garage_tuning_stickers_flags": "Bandeiras",
+	"garage_tuning_stickers_numbers": "Numeros",
+	"garage_tuning_stickers_brands": "Marcas",
+	"garage_tuning_stickers_other": "Outros",
+
+	"garage_tuning_config_front_wheels": "Rodas frontal",
+	"garage_tuning_config_rear_wheels": "Rodas traseira",
+	"garage_tuning_config_suspension": "Suspensao",
+	"garage_tuning_config_upgrades": "Melhorias",
+	"garage_tuning_config_wheels_size": "Raio das rodas",
+
+	"garage_tuning_config_suspension_label": "Altura da suspensao",
+	"garage_tuning_config_wheels_size_label": "Raio das rodas",
+
+	"garage_tuning_config_wheels_offset": "Deslocamento",
+	"garage_tuning_config_wheels_angle": "Angulo",
+	"garage_tuning_config_wheels_width": "Largura",
+
+	"garage_tuning_config_street_upgrade": "\"Rua\" configuracao",
+	"garage_tuning_config_street_description": "Maior velocidade e aceleracao, controles melhorados",
+	"garage_tuning_config_drift_upgrade": "\"Drift\" configuracao",
+	"garage_tuning_config_drift_description": "Modo de Drift pode ser ativado ou desativado em qualquer momento",
+
+	"garage_tuning_buy_button": "Comprar",
+	"garage_tuning_stock_text": "Padrao",
+	"garage_tuning_install_button": "Aplicar",
+
+	"garage_help_text": "%s - mudar, %s - selecionar, %s - voltar, %s - visao livre",
+	"garage_help_sticker_selection": "%s - mudar, %s - comprar, %s - cancelar",
+	"garage_help_sticker_editor": "%s - controle, %s, %s, %s, %s - mudar modo, %s/%s - adc/remover adesivo, %s - voltar",
+	"garage_help_numberplate": "Inserir texto, %s - deletar texto, %s - salvar, %s - cancelar",
+
+	"garage_sticker_editor_move": "Mover",
+	"garage_sticker_editor_rotate": "Rodar",
+	"garage_sticker_editor_scale": "Tamanho",
+	"garage_sticker_editor_color": "Mudar cor",
+
+	"garage_sticker_editor_help_add": "Adc adesivo",
+	"garage_sticker_editor_help_remove": "Remover adesivo",
+	"garage_sticker_editor_help_clone": "Clonar adesivo selecionado",
+	"garage_sticker_editor_help_copy_style": "Aplicar estilo de adesivo anterior",
+	"garage_sticker_editor_help_change_mode": "Mudar modo de edicao",
+	"garage_sticker_editor_help_speed": "Mover lento/rapido",
+	"garage_sticker_editor_help_scale": "Escola de um eixo",
+	"garage_sticker_editor_help_transform": "Mover, tamanho e rodar",
+	"garage_sticker_editor_help_mirroring": "Ativar reflexo",
+	"garage_sticker_editor_help_next_prev": "Selecionar proximo/anterior adesivo",
+	"garage_sticker_editor_help_toggle": "Ativar ajuda",	
+
+	"garage_tuning_sticker_color": "Cor do adesivo",
+	"garage_tuning_sticker_prev": "%s - anterior",
+	"garage_tuning_sticker_next": "%s - proximo",
+	"garage_tuning_sticker_mirror": "%s - reflexo",
+	"garage_tuning_sticker_mirror_text": "%s - espelhamento do texto",
+
+	// ====================================
+	// ============ Main panel ============
+	// ====================================
+	"main_panel_tab_account": "Conta",
+	"main_panel_tab_teleport": "Teleportes",
+	"main_panel_tab_settings": "Opcoes",
+	"main_panel_tab_garage": "Garagem",
+	"main_panel_tab_races": "Corridas",
+
+	"main_panel_teleport_players": "Jogadores",
+
+	"main_panel_account_donat": "Donate",
+	"main_panel_account_help": "Ajuda",
+	"main_panel_account_money": "Dinheiro",
+	"main_panel_account_admin": "Administrador",
+	"main_panel_account_player": "Jogador",
+	"main_panel_account_level": "Nivel de progresso",
+	"main_panel_account_regtime": "Data de registro",
+	"main_panel_account_playtime": "Horas de jogo",
+	"main_panel_account_cars_count": "Carros na Garagem",
+	"main_panel_account_house": "Casa",
+	"main_panel_account_house_yes": "Sim",
+	"main_panel_account_house_no": "Nenhum",
+
+	"main_panel_settings_section_game": "Opcoes do jogo",
+	"main_panel_settings_section_graphics": "Opcoes graficas",
+	"main_panel_settings_language": "Linguagem",
+	"main_panel_settings_color": "Cor do IU",
+	"main_panel_settings_reflections_cars": "Reflexo do carro",
+	"main_panel_settings_reflections_water": "Reflexo da agua",
+	"main_panel_settings_improved_car_lights": "Melhorar luz do carro",
+	"main_panel_settings_improved_sky": "Melhorar ceu",
+	"main_panel_settings_screen_blur": "Borrao da tela",
+	"main_panel_settings_tyres_smoke": "Fumaca dos pneus",
+
+	// ==========================================
+	// ================ Markers =================
+	// ==========================================
+	"markers_garage_text": "Aperte %q para entrar na Garagem",
+	"markers_city_text": "Aperte %q para ser teleportado a cidade",
+	"markers_showroom_text": "Aperte %q para abrir a loja de carros",
+	"markers_house_enter_text": "Aperte %q para entrar na casa",
+	"markers_house_exit_text": "Aperte %q para sair",
+	"markers_house_knock_text": "Aperte %q para bater na porta",
+	"markers_house_buy_text": "Aperte %q para abrir o menu de vendas de casa",
+	"markers_strip_enter_text": "Aperte %q para entrar no club de strip",
+	"markers_race_enter_text": "Aperte %q para entrar na sala de corrida",
+
+	// ====================================
+	// =========== House system ===========
+	// ====================================
+	"houses_info_price": "Preco",
+	"houses_info_rooms_count": "Contagem de quartos",
+	"houses_info_tv": "TV",
+	"houses_info_radio": "Radio",
+	"houses_info_console": "Video game",
+	"houses_info_yes": "Sim",
+	"houses_info_no": "Nao",
+
+	"houses_menu_sell": "Vender casa",
+	"houses_menu_open_door": "Destrancar porta",
+	"houses_menu_close_door": "Trancar porta",
+	"houses_menu_kick": "Expulsar todos os jogadores",
+	"houses_menu_close": "Fechar",
+
+	"houses_buy_cancel": "Cancelar",
+	"houses_buy_confirm": "Comprar",
+
+	"houses_message_title": "Casa",
+	"houses_message_cant_buy": "Voce nao pode essa casa",
+	"houses_message_no_money": "Voce nao tem dinheiro para comprar essa casa",
+	"houses_message_already_have_house": "Para comprar esta casa, voce primeiro precisa vender a antiga",
+	"houses_message_buy_success": "Voce teve efetuou a compra desta casa com sucesso!",
+	"houses_message_buy_fail": "Falha ao comprar esta casa. Por favor, tente mais tarde",
+	"houses_message_sell_success": "Voce teve sucesso ao vender sua casa!",
+	"houses_message_sell_fail": "Falha ao vender sua casa. Por favor, tente mais tarde",
+	"houses_message_buy_confirm": "Voce tem certeza que quer comprar essa casa por %s?",
+	"houses_message_sell_confirm": "Voce tem certeza que quer vender essa casa por %s?",
+
+	// Chat
+	"chat_tab_global": "Global",
+	"chat_tab_local": "Local",
+	"chat_input_message": "Messagem",
+
+	"chat_tab_russian": "Russian",
+	"chat_tab_english": "English",
+    "chat_tab_portuguese": "Portuguese",
+
+	"chat_pm_started": "Aqui voce pode enviar mensagem privada para %s",
+	"chat_close_tab": "Para fechar essa aba, clique com o botao direito do mouse",
+
+	// Race
+	"race_error_title": "Corrida",
+	"race_error_no_vehicle": "Voce precisa esta no carro para comecar a corrida",
+	"race_error_not_owner": "Voce precisa ser o proprietario do carro!",
+	"race_lobby_close_button": "Fechar",
+	"race_lobby_play_button": "Comecar a corrida",
+	"race_lobby_mode_classic": "Classico",
+	"race_lobby_mode_drift": "Drift",
+	"race_lobby_mode_drag": "Racha",
+	"race_lobby_text": "Corra novamente com jogadores aleatorios.\nVenca para ganhar dinheiro e experiencia.",
+
+	"race_search_accept": "Aceitar",
+	"race_search_race_fount": "Sua corrida esta pronta!",
+	"race_search_press_accept": "Aperte \"Aceitar\", Para comecar o jogo",
+	"race_search_searching": "Procurando:",
+	"race_search_searching_label": "Encontrando uma corrida",
+	"race_search_players_in_search": "Procurando jogadores:",
+	"race_search_cancel": "Cancelar",
+	"race_search_waiting_button": "Esperando...",
+	"race_search_waiting_label": "Esperando por jogadores",
+	"race_search_players_ready_count": "Jogadores prontos: %s de %s",
+	"race_search_reject_error_title": "A procura de corridas",
+	"race_search_reject_error_body": "Alguem nao aceitou a corrida",
+
+	"race_drift_score": "Pontos",
+	"race_waiting_for_players": "Esperando por outros jogadores...",
+	"race_you_finished": "Voce terminou!",
+	"race_waiting_for_finish": "Esperando os outros jogadores terminarem",
+
+	"race_ui_quit_prompt_text": "Voce tem certeza que deseja sair desta corrida?",
+	"race_ui_quit_prompt_leave": "Sair",
+	"race_ui_quit_prompt_cancel": "Cancelar",
+	"race_finish_race_button": "Continuar",
+
+	// Carshop
+	"carshop_label_speed": "Velocidade",
+	"carshop_label_acceleration": "Aceleracao",
+	"carshop_label_control": "Controle",
+
+	"carshop_buy_button": "Comprar",
+	"carshop_required_level": "Nivel necessario %s",
+	"carshop_no_money": "Dinheiro nao suficiente",
+	"carshop_buy_error_title": "Falha ao comprar o carro",
+	"carshop_buy_error_unknown": "Erro desconhecido",
+	"carshop_drift_label": "Atualizacao de Drift disponivel",
+	"carshop_drift_label_yes": "Sim",
+	"carshop_drift_label_no": "Nao",
+
+	// Context menu
+	"context_menu_vehicle_door_lf_open": "Abrir porta frontal esquerda",
+	"context_menu_vehicle_door_rf_open": "Abrir porta frontal direita",
+	"context_menu_vehicle_door_lb_open": "Abrir porta traseira esquerda",
+	"context_menu_vehicle_door_rb_open": "Abrir porta traseira direita",
+	"context_menu_vehicle_door_lf_close": "Fechar porta frontal esquerda",
+	"context_menu_vehicle_door_rf_close": "Fechar porta frontal direita",
+	"context_menu_vehicle_door_lb_close": "Fechar porta traseira esquerda",
+	"context_menu_vehicle_door_rb_close": "Fechar porta traseira direita",
+
+	"context_menu_vehicle_enable_drift_mode": "Ativa modo de Drift",
+	"context_menu_vehicle_disable_drift_mode": "Desativar modo de Drift",	
+
+	"context_menu_vehicle_lights_on": "Ligar as luzes",
+	"context_menu_vehicle_lights_off": "Desligar as luzes",
+
+	"context_menu_vehicle_handbrake_on": "Ativar o freio de mao",
+	"context_menu_vehicle_handbrake_off": "Desativar o freio de mao",	
+
+	"context_menu_vehicle_engine_on": "Ligar motor",
+	"context_menu_vehicle_engine_off": "Desligar motor",
+
+	"context_menu_player_profile": "Mostrar perfil do jogador",
+	"context_menu_player_pm": "Mandar PM",
+	"context_menu_player_duel": "Duelo...",
+	"context_menu_player_report": "Denunciar jogador",
+
+	"context_menu_title_car": "Carro",
+	"context_menu_title_player": "Jogador",
+
+	"context_menu_anim_hello": "Ssaudacoes",
+	"context_menu_anim_no": "Negativo",
+	"context_menu_anim_bye": "Tchau",
+	"context_menu_anim_wave": "Torcendo",
+	"context_menu_anim_lay": "Deitar",
+	"context_menu_anim_sit": "Sentar",
+	"context_menu_anim_fucku": "Vai se Fu..",
+	"context_menu_anim_serious": "Cruzar os bracos",
+
+	// Duels
+	"duel_invite_error_title": "Falha",
+	"duel_invite_duel_title": "Duelo",
+	"duel_invite_local_nocar": "Voce precisa esta no carro",
+	"duel_invite_local_not_owner": "Voce deve esta em seu proprio carro",
+	"duel_invite_remote_nocar": "O Jogador deve esta em um carro",
+	"duel_invite_remote_not_owner": "O Jogador deve esta em seu carro",
+	"duel_invite_too_far": "O Jogador esta muito distante",
+
+	"duel_invite_duel_with": "Duelar com %s",
+	"duel_invite_call": "Ligar",
+	"duel_invite_cancel": "Cancelar",
+	"duel_invite_bet_placeholder": "Valor da aposta",
+	"duel_invite_info_label": "Para comecar o duelo com este jogador, faca o valor da aposta e aperta em'Ligar'",
+
+	"duel_invite_error_player_left": "Jogador nao esta conectado",
+	"duel_invite_error_bad_bet_amount": "Valor da aposta invalido",
+	"duel_invite_error_bet_too_small": "Voce nao pode apostar menor que $%s",
+	"duel_invite_error_bet_too_big": "Voce nao pode apostar mais que $%s",
+	"duel_invite_error_not_enough_money": "Dinheiro insuficiente",
+	"duel_invite_error_player_not_enough_money": "O jogador nao tem dinheiro suficiente",
+	"duel_invite_invite_road_too_far": "Voce esta muito longe de qualquer estrada",
+
+	"duel_invite_invite_sent_body": "Convite de duelo enviado",
+	"duel_invite_invite_sent_chatmsg": "Convite enviado. Esperando por resposta...",
+	"duel_invite_invite_player_cancelled": "O jogador nao aceitou o duelo",
+	"duel_invite_invite_server_cancelled": "Falha ao duelar",
+
+	"duel_accept_message": "Jogador %s quer duelar com voce.\nAposta: $%s",
+	"duel_accept_key_accept": "%s - Aceitar (%s)",
+	"duel_accept_key_decline": "%s - Recusar",	
+
+	"duel_winner_screen_you_won": "Voce venceu!",
+	"duel_winner_screen_you_lost": "Voce perdeu",
+	"duel_winner_screen_prize": "Preco",
+	"duel_winner_screen_time": "Tempo",	
+	"duel_winner_screen_timeout": "O tempo terminou!",	
+
+	// Handling switching
+	"handling_switching_message_drift": "Mudando para o modo de Drift...",
+	"handling_switching_message_street": "Mudando para o modo de Rua...",
+	"handling_switching_message_no_upgrade": "Voce nao tem a atuazalicao de Drift instalada!",
+	"handling_switching_message_moving": "Voce tem que parar seu carro para alterar!",	
+	"handling_switching_message_forced": "Voce nao tem permisao para mudar de modo aqui",
+
+	// Gift panel
+	"gift_key_panel_back": "Voltar",
+	"gift_key_panel_activate": "Ativar chave",
+	"gift_key_main_label": "Coloque sua chave de presente",
+	"gift_key_input_placeholder": "Chave de presente",
+	"gift_key_message_title": "Presentei chaves",
+	"gift_key_message_fail": "Falha ao ativar sua chave",
+	"gift_key_message_success": "Voce teve sucesso ao ativar sua chave!",
+
+	// Lobby screen
+	"lobby_screen_field_title": "Corrida",
+
+	"lobby_screen_field_prize": "Ganhar dinheiro",
+	"lobby_screen_field_xp": "Ganhar xp",
+	"lobby_screen_field_players": "Jogadores na sala",
+	"lobby_screen_field_class": "Vidro do carro",
+
+	"lobby_screen_enter_button": "Entrar",	
+}

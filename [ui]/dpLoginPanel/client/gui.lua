@@ -14,6 +14,13 @@ local registerPanel = {}
 local USERNAME_REGEXP = "^[A-Za-z0-9_]$"
 local KEY_REGEXP = "^[A-Za-z0-9_]$"
 
+local languageButtonsList = {
+	{ name = "en", language = "english" },
+	{ name = "ru", language = "russian" },
+	{ name = "ua", language = "ukrainian" },
+	{ name = "pt", language = "portuguese" },
+}
+
 local function draw()
 	animationProgress = math.min(1, animationProgress + ANIMATION_SPEED)
 	dxDrawImage(0, 0, backgroundWidth, backgroundHeight, backgroundTexture, 0, 0, 0, tocolor(255, 255, 255, 255 * animationProgress))
@@ -216,19 +223,18 @@ local function createRegisterPanel()
 	})
 	UI:addChild(panel, languageLabel)
 
-	local languageEn = UI:createDpImageButton({
-		x = 50 + languageLabelWidth + 7, y = 40,
-		width = 27, height = 27,
-		texture = exports.dpAssets:createTexture("buttons/en.png") 
-	})
-	UI:addChild(panel, languageEn)
-
-	local languageRu = UI:createDpImageButton({
-		x = 50 + languageLabelWidth + 7 + 27 + 10, y = 40,
-		width = 27, height = 27,
-		texture = exports.dpAssets:createTexture("buttons/ru.png")
-	})
-	UI:addChild(panel, languageRu)
+	-- Кнопки языков
+	local langX = 50 + languageLabelWidth + 7
+	for i, languageButton in ipairs(languageButtonsList) do
+		local button = UI:createDpImageButton({
+			x = langX, y = 40,
+			width = 27, height = 27,
+			texture = exports.dpAssets:createTexture("buttons/" .. tostring(languageButton.name) .. ".png")
+		})
+		UI:addChild(panel, button)
+		languageButton.button = button
+		langX = langX + 27 + 5
+	end	
 
 	local circleTexture = dxCreateTexture("assets/circle.png", "argb", false, "clamp")
 	local colorPurple = UI:createDpImageButton({
@@ -260,13 +266,13 @@ local function createRegisterPanel()
 
 	local colorLabelWidth = 50
 	local colorLabel = UI:createDpLabel({
-		x = panelWidth - colorLabelWidth - 30 - (37 * 3),
+		x = panelWidth - colorLabelWidth - 30 - (37 * 3) - 10,
 		y = 40,
 		width = colorLabelWidth,
 		wordBreak = false,
 		clip = true,
 		height = 50,
-		alignX = "left",
+		alignX = "right",
 		alignY = "top",
 		locale = "login_panel_color"
 	})
@@ -348,10 +354,6 @@ local function createRegisterPanel()
 	registerPanel.passwordConfirm = passwordConfirmInput
 	registerPanel.username = usernameInput
 	registerPanel.betaKey = betaKeyInput
-	registerPanel.langButtons = {
-		en = languageEn,
-		ru = languageRu
-	}
 
 	registerPanel.colorButtons = {
 		red = colorRed,
@@ -373,6 +375,13 @@ end)
 
 addEvent("dpUI.click", false)
 addEventHandler("dpUI.click", resourceRoot, function(widget)
+	-- Переключение языка
+	for i, languageButton in ipairs(languageButtonsList) do
+		if languageButton.button and languageButton.button == widget then
+			exports.dpSounds:playSound("ui_change.wav")
+			exports.dpLang:setLanguage(languageButton.language)
+		end
+	end	
 	-- Переключение панелей
 	if widget == loginPanel.registerButton then
 		UI:setVisible(loginPanel.panel, false)
@@ -382,15 +391,6 @@ addEventHandler("dpUI.click", resourceRoot, function(widget)
 		UI:setVisible(loginPanel.panel, true)
 		UI:setVisible(registerPanel.panel, false)
 		exports.dpSounds:playSound("ui_back.wav")
-	-- Переключение языка
-	elseif widget == registerPanel.langButtons.en then
-		exports.dpSounds:playSound("ui_change.wav")
-		--exports.dpLang:setLanguage("english")
-		exports.dpConfig:setProperty("ui.language", "english")
-	elseif widget == registerPanel.langButtons.ru then
-		--exports.dpLang:setLanguage("russian")
-		exports.dpConfig:setProperty("ui.language", "russian")
-		exports.dpSounds:playSound("ui_change.wav")
 	-- Кнопка входа
 	elseif widget == loginPanel.startGameButton and not isAuthInProgress then
 		exports.dpSounds:playSound("ui_select.wav")

@@ -21,4 +21,5 @@
 	<!-- Языки -->
 	<file src="languages/english.json"/>
 	<file src="languages/russian.json"/>
+	<file src="languages/portuguese.json"/>
 </meta>

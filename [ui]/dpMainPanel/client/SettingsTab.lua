@@ -2,6 +2,13 @@ SettingsTab = {}
 local panel
 local widgets = {}
 
+local languageButtonsList = {
+	{ name = "en", language = "english" },
+	{ name = "ru", language = "russian" },
+	{ name = "ua", language = "ukrainian" },
+	{ name = "pt", language = "portuguese" },
+}
+
 function SettingsTab.create()
 	panel = Panel.addTab("settings")
 	local width = UI:getWidth(panel)
@@ -31,19 +38,17 @@ function SettingsTab.create()
 
 	y = y + 20
 	-- Кнопки языков
-	local languageEn = UI:createDpImageButton({
-		x = 20, y = y + 5,
-		width = 20, height = 20,
-		texture = exports.dpAssets:createTexture("buttons/en.png")
-	})
-	UI:addChild(panel, languageEn)
-
-	local languageRu = UI:createDpImageButton({
-		x = 45, y = y + 5,
-		width = 20, height = 20,
-		texture = exports.dpAssets:createTexture("buttons/ru.png")
-	})
-	UI:addChild(panel, languageRu)
+	local langX = 20
+	for i, languageButton in ipairs(languageButtonsList) do
+		local button = UI:createDpImageButton({
+			x = langX, y = y + 5,
+			width = 20, height = 20,
+			texture = exports.dpAssets:createTexture("buttons/" .. tostring(languageButton.name) .. ".png")
+		})
+		UI:addChild(panel, button)
+		languageButton.button = button
+		langX = langX + 25
+	end
 
 	-- Цвет
 	y = y + 30
@@ -203,10 +208,6 @@ function SettingsTab.create()
 	})	
 
 	widgets = {
-		langButtons = {
-			en = languageEn,
-			ru = languageRu
-		},
 		colorButtons = {
 			red = colorRed,
 			blue = colorBlue,
@@ -223,15 +224,18 @@ end
 
 addEvent("dpUI.click", false)
 addEventHandler("dpUI.click", resourceRoot, function(widget)
-	-- Переключение языка
+	
 	local checkboxClicked = false
-	if widget == widgets.langButtons.en then
-		exports.dpLang:setLanguage("english")
-		checkboxClicked = true
-	elseif widget == widgets.langButtons.ru then
-		checkboxClicked = true
-		exports.dpLang:setLanguage("russian")
-	elseif widget == widgets.colorButtons.red then
+
+	-- Переключение языка
+	for i, languageButton in ipairs(languageButtonsList) do
+		if languageButton.button and languageButton.button == widget then
+			checkboxClicked = true
+			exports.dpLang:setLanguage(languageButton.language)
+		end
+	end
+
+	if widget == widgets.colorButtons.red then
 		checkboxClicked = true
 		UI:setTheme("red")
 	elseif widget == widgets.colorButtons.purple then

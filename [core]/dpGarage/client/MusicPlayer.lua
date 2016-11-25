@@ -7,6 +7,9 @@ local soundVolume = 0
 local soundVolumeSpeed = 5
 
 local function playNextTrack()
+	if not exports.dpConfig:getProperty("game.background_music") then
+		return
+	end
 	currentTrack = currentTrack + 1
 	if currentTrack > TRACKS_COUNT then
 		currentTrack = 1
@@ -20,6 +23,10 @@ end
 
 local function update(dt)
 	dt = dt / 1000
+
+	if not isElement(sound) then
+		return
+	end
 
 	sound.volume = sound.volume + (soundVolume - sound.volume) * dt * soundVolumeSpeed
 end

@@ -21,6 +21,8 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	PropsStorage.setDefault("graphics.improved_car_lights", false)
 	PropsStorage.setDefault("graphics.improved_sky", false)
 	PropsStorage.setDefault("graphics.tyres_smoke", true)
+	-- Параметры игры
+	PropsStorage.setDefault("game.background_music", true)
 	PropsStorage.save()
 end)
 

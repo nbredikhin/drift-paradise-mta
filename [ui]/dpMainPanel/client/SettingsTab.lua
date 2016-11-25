@@ -201,10 +201,29 @@ function SettingsTab.create()
 	UI:addChild(panel, UI:createDpLabel {
 		x = x + 30, y = y,
 		width = width / 3, height = 30,
-		text = "размытие экрана",
+		text = "",
 		fontType = "defaultSmall",
 		type = "dark",
 		locale = "main_panel_settings_tyres_smoke"
+	})
+
+	-- Музыка
+	local x = width * 0.6
+	y = y + 30
+	local musicCheckbox = UI:createDpCheckbox {
+		x = x, y = y + 4,
+		width = 20, height = 20
+	}
+	UI:addChild(panel, musicCheckbox)
+	UI:setState(musicCheckbox, exports.dpConfig:getProperty("game.background_music"))
+
+	UI:addChild(panel, UI:createDpLabel {
+		x = x + 30, y = y,
+		width = width / 3, height = 30,
+		text = "",
+		fontType = "defaultSmall",
+		type = "dark",
+		locale = "main_panel_settings_background_music"
 	})	
 
 	widgets = {
@@ -218,7 +237,8 @@ function SettingsTab.create()
 		carLightsCheckbox = carLightsCheckbox,
 		waterCheckbox = waterCheckbox,
 		reflectionsCheckbox = reflectionsCheckbox,
-		smokeCheckbox = smokeCheckbox
+		smokeCheckbox = smokeCheckbox,
+		musicCheckbox = musicCheckbox
 	}
 end
 
@@ -262,6 +282,9 @@ addEventHandler("dpUI.click", resourceRoot, function(widget)
 	elseif widget == widgets.smokeCheckbox then
 		checkboxClicked = true
 		exports.dpConfig:setProperty("graphics.tyres_smoke", UI:getState(widget))
+	elseif widget == widgets.musicCheckbox then
+		checkboxClicked = true
+		exports.dpConfig:setProperty("game.background_music", UI:getState(widget))
 	end
 
 	if checkboxClicked then

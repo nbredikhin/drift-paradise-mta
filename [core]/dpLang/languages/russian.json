@@ -20,7 +20,7 @@
 
 	"quit_reason_unknown": "выход",
 	"quit_reason_quit": "выход",
-	"quit_reason_kicked": "kick",
+	"quit_reason_kicked": "кик",
 	"quit_reason_banned": "бан",
 	"quit_reason_bad connection": "ошибка подключения",
 	"quit_reason_timed out": "ошибка подключения",

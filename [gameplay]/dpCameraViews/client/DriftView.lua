@@ -73,6 +73,8 @@ local function update(deltaTime)
 	local targetCameraFOV = 70 + math.abs(driftAngle) * 20
 	currentCameraFOV = currentCameraFOV + (targetCameraFOV - currentCameraFOV) * deltaTime * 3	
 
+
+	local disableHotkeys = localPlayer:getData("activeUI") and localPlayer:getData("activeUI") ~= "raceUI"
 	local bothDown = false
 	if math.abs(driftAngle) > math.pi * 0.6 and #vehicle.velocity > 0.2 then
 		local lookRotation = 0
@@ -81,7 +83,7 @@ local function update(deltaTime)
 		currentCameraFOV = 70
 		currentCameraRoll = 0
 	else
-		if getKeyState("e") and getKeyState("q") then
+		if getKeyState("e") and getKeyState("q") and not disableHotkeys then
 			bothDown = true
 			local lookRotation = 0
 			targetCameraPosition = Vector3(math.sin(lookRotation) * len, math.cos(lookRotation) * len, cameraHeight)
@@ -91,7 +93,7 @@ local function update(deltaTime)
 		end				
 	end
 
-	if not bothDown then
+	if not bothDown and not disableHotkeys then
 		if getKeyState("e") then
 			local lookRotation = -math.pi / 2
 			targetCameraPosition = Vector3(math.sin(lookRotation) * len, math.cos(lookRotation) * len, cameraHeight)

@@ -90,6 +90,7 @@ local startupResources = {
 
 	-- Non-important assets
 	"dpWheels",
+	"dpCacheLock",
 }
 
 local function processResourceByName(resourceName, start)

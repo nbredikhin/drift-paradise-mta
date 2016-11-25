@@ -14,6 +14,7 @@ local vehiclesTable = {
 	nissan_skyline_er34 = 445,
 	toyota_mark2_100	= nil,	
 	toyota_altezza 		= 402,
+	nissan_datsun_240z	= nil,
 	-- 4 класс
 	honda_s2000 		= 429,
 	bmw_e34 			= 529,

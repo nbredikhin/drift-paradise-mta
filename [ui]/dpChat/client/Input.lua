@@ -125,7 +125,7 @@ local function processCommand(inputText)
 	table.remove(arguments, 1)
 
 	triggerEvent("dpChat.command", root, Chat.getActiveTab(), command, unpack(arguments))
-	triggerServerEvent("dpChat.command", root, Chat.getActiveTab(), command, unpack(arguments))
+	triggerServerEvent("dpChat.command", localPlayer, Chat.getActiveTab(), command, unpack(arguments))
 	executeCommandHandler(command, table.concat(arguments, " "))
 end
 

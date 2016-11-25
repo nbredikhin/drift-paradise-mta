@@ -6,6 +6,7 @@ local locales = {}
 Locales.languages = {
 	"english",
 	"russian",
+	"ukrainian",
 	"portuguese"
 }
 

@@ -13,6 +13,7 @@ local vehicleClasses = {
 	nissan_skyline_er34 	= 3,
 	toyota_mark2_100		= 3,		
 	toyota_altezza			= 3,
+	nissan_datsun_240z		= 3,
 	-- 4 класс
 	honda_s2000 			= 4,
 	bmw_e34 				= 4,

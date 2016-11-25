@@ -13,6 +13,7 @@ local vehiclesPrices = {
 	bmw_e30					= {36300,	14},
 	nissan_skyline_er34 	= {41500,	17},
 	toyota_mark2_100		= {45000,	20},
+	nissan_datsun_240z		= {45800,	22},
 	toyota_altezza			= {47000,	24},
 	-- 4 класс
 	honda_s2000 			= {48400,	28},

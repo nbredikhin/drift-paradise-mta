@@ -37,14 +37,14 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	setupGlobalTabTitle()
 
 	Chat.createTab("local", "Local", true)
-	setupLocalTabTitle()
-
-	Chat.createTab("web", "Web", true)	
+	setupLocalTabTitle()	
 
 	if getLang() ~= "en" then
 		Chat.createTab("lang", "Lang", true)
 		setupLangTabTitle()
 	end
+
+	-- Chat.createTab("web", "Web", true)
 end)
 
 addEvent("dpChat.message")

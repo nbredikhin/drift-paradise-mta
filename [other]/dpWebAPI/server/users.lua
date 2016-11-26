@@ -1,4 +1,7 @@
 WebAPI.registerMethod("users.get", function (username)
+	if not isDonationsAPIAvailable() then
+		return "Donations not available"
+	end
 	if type(username) ~= "string" then
 		return "Invalid username"
 	end

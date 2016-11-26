@@ -14,6 +14,10 @@ local function checkDonationsKey(key)
 	return nil
 end
 
+function isDonationsAPIAvailable()
+	return not not next(shopPrices)
+end
+
 WebAPI.registerMethod("donations.buyMoney", function (key, username, amount)
 	local err = checkDonationsKey(key)
 	if err then return err end

@@ -28,7 +28,7 @@ tuningTable.default = {
 		Exhaust 	= {{0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}, {0, 1}},
 	}
 }
-tuningTable.bmw_m3_e46 = {	
+tuningTable.bmw_e46 = {	
 	components = {	
 		SideSkirts	 = { {580, 65}, {590, 66}, {600, 66}, {610, 67}, {620, 67}, },	
 		Bonnets	 	 = { {2598, 65}, {2640, 66}, {2682, 66}, {2724, 67}, {2766, 67}, },	

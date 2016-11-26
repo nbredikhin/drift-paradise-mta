@@ -22,7 +22,7 @@ local vehicleClasses = {
 	-- 5 класс
 	bmw_e60					= 5,
 	toyota_supra			= 5,
-	bmw_m3_e46 				= 5,
+	bmw_e46 				= 5,
 	nissan_skyline_gtr34 	= 5,
 	subaru_brz 				= 5,
 	-- 6 класс

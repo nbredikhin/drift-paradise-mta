@@ -3,7 +3,7 @@ local vehiclesTable = {
 	-- 1 класс
 	toyota_ae86 		= 589,
 	nissan_skyline2000	= nil,
-	honda_civic			= nil,
+	honda_civic			= 565,
 	-- 2 класс
 	mazda_mx5miata 		= 411,
 	nissan_180sx 		= 602,
@@ -14,7 +14,7 @@ local vehiclesTable = {
 	nissan_skyline_er34 = 445,
 	toyota_mark2_100	= nil,	
 	toyota_altezza 		= 402,
-	nissan_datsun_240z	= nil,
+	nissan_datsun_240z	= 475,
 	-- 4 класс
 	honda_s2000 		= 429,
 	bmw_e34 			= 529,
@@ -23,7 +23,7 @@ local vehiclesTable = {
 	-- 5 класс
 	bmw_e60				= 540,
 	toyota_supra		= nil,
-	bmw_m3_e46 			= 436,
+	bmw_e46 			= 436,
 	nissan_skyline_gtr34 = nil,
 	subaru_brz 			= nil,
 	-- 6 класс
@@ -49,6 +49,7 @@ local vehiclesReadableNames = {
 	nissan_skyline_er34 = "Nissan Skyline ER34",
 	toyota_mark2_100	= "Toyota Mark II 100",	
 	toyota_altezza 		= "Toyota Altezza",
+	nissan_datsun_240z 	= "Nissan Datsun 240Z",
 	-- 4 класс
 	honda_s2000 		= "Honda S2000",
 	bmw_e34 			= "BMW E34",
@@ -57,7 +58,7 @@ local vehiclesReadableNames = {
 	-- 5 класс
 	bmw_e60				= "BMW E60",
 	toyota_supra		= "Toyota Supra",
-	bmw_m3_e46 			= "BMW M3 E46",
+	bmw_e46 			= "BMW M3 E46",
 	nissan_skyline_gtr34 = "Nissan Skyline GTR34",
 	subaru_brz 			= "Subaru BRZ",
 	-- 6 класс

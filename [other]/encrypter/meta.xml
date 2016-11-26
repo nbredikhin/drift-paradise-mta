@@ -1,6 +1,7 @@
 <meta>
 	<oop>true</oop>
-	<script type="server" src="Encrypter.lua"/>
-	<script type="server" src="FileUtils.lua"/>
-	<script type="server" src="main.lua"/>	
+	<include resource="dpShared"/>
+	<script type="server" src="lib/underscore.lua"/>
+	<script type="server" src="lib/utils.lua"/>
+	<script type="server" src="main.lua"/>
 </meta>

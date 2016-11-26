@@ -1,98 +1,136 @@
--- Название DFF и TXD файлов
-local fileName = "1"
+local config = {}
+local OUT_RESOURCE_NAME = "server_assets"
+local BUILD_FOLDER = ":"
 
--- Список ресурсов, который нужно залочить при запуске
--- Название и модель, которую нужно заменить
-local lockResources = {
-	{"bmw_e30", 410},
-	{"bmw_e34", 529},
-	{"bmw_e46", 436},
-	{"bmw_e60", 540},
-}
+local builtVehicles = {}
 
--- for name, model in pairs(exports.dpShared:getVehiclesTable()) do
--- 	table.insert(lockResources, {"enc_" .. tostring(name), model})
--- end
-local counter = 0
-
--- Расширения файлов, которые нужно лочить
-local fileExtensions = { "dff", "txd" }
-
-local function lockFile(path, lockedPath)
-	if not fileExists(path) then
-		return false
+local function randomBytes(count, seed)
+	if seed then
+		math.randomseed(seed)
 	end
-	if not lockedPath then
-		lockedPath = path .. ".locked"
+	local str = ""
+	for i = 1, count do
+		str = str .. string.char(math.random(0, 255))
 	end
-	local data = FileUtils.loadFile(path)
-	outputConsole("Locked file: " .. tostring(path))
-	FileUtils.saveFile(lockedPath, Encrypter.encode(data))
+	return str
+end
+
+local function encryptVehicleResource(resource, model)
+	local resourcePath = ":" .. resource.name .. "/"
+	local resourceMeta = XML.load(resourcePath .. "meta.xml")
+    if not resourceMeta then
+        print("Failed to open resource '" .. tostring(resource.name) .. "'")
+        return
+    end	
+
+    local paths = {}
+    underscore.each(resourceMeta.children, function (child)
+    	if child.name ~= "file" then
+    		return
+    	end
+    	local path = child:getAttribute("src")
+    	if not path then
+    		return
+    	end
+    	if string.find(path, "dff") then
+    		paths.dff = path
+    	elseif string.find(path, "txd") then
+    		paths.txd = path
+    	end
+    end)
+
+    if not paths.dff then 
+    	print("Missing DFF for '" .. tostring(resource.name) .. "'")
+    	return false
+    end
+    if not paths.txd then 
+    	print("Missing TXD for '" .. tostring(resource.name) .. "'")
+    	return false
+    end
+
+    local buildPath = BUILD_FOLDER .. OUT_RESOURCE_NAME .. "/"
+    local dff = loadFile(resourcePath .. paths.dff)
+    local txd = loadFile(resourcePath .. paths.txd)
+
+    local seed = #dff + #txd
+
+    local randomHeader = randomBytes(8, seed) .. "DRIFT_PARADISE_ASSET" .. randomBytes(math.random(1024, 1024 * 4), seed)
+
+    local outputFileData = randomHeader .. dff .. txd
+    local outputFileName = tostring("dp_" .. tostring(model)) .. ".bin"
+    saveFile(buildPath .. outputFileName, outputFileData)
+
+    table.insert(builtVehicles, {
+    	model,
+    	outputFileName,
+    	#randomHeader,
+    	#dff,
+    	#txd
+    })
+
+    print("Built '" .. tostring(resource.name) .. "'")
 	return true
-end
+end 
 
-local function buildScript(fileData, outPath)
-	fetchRemote("http://luac.mtasa.com/?compile=1&debug=0&obfuscate=1", function(data, err, path)
-		if not data or err > 0 then
-			return
-		end
-		FileUtils.saveFile(outPath, data)
-		counter = counter + 1
-		if counter >= #lockResources then
-			outputServerLog("DONE")
-		else
-			outputServerLog(string.format("Locking... %s/%s", counter, #lockResources))
-		end
-	end, fileData, false)	
-end
+addCommandHandler("encrypt", function ()
+    print("Car enctypter started")
+    -- Чтение конфига
+    local configJSON = loadFile("config.json")
+    if not configJSON then
+        print("Failed to open config.json")
+        return
+    end
+    config = fromJSON(configJSON)
+    if not config then
+        print("Failed to read config.json")
+        return
+    end
 
-local function processResource(resource, model)
-	if not resource then
-		return false
-	end
-	local meta = "<meta>\n<oop>true</oop>\n"
-	local lockedFiles = {}
-	for i, ext in ipairs(fileExtensions) do
-		local sourceFilePath = ":" .. tostring(resource.name) .. "/" .. tostring(fileName) .. "." .. tostring(ext)
-		local lockedFileName = md5(tostring(fileName) .. tostring(locked) .. "." .. tostring(ext))
-		local lockedFilePath = ":" .. tostring(resource.name) .. "/" .. lockedFileName
-		-- Шифруем файл
-		local result = lockFile(sourceFilePath, lockedFilePath)
-		if result then
-			meta = meta .. "<file src=\"" .. lockedFileName .. "\"/>\n"
-			table.insert(lockedFiles, 
-				string.format(
-					"\t{data=\"%s\", type=\"%s\"}", lockedFilePath, ext))
-		else
-			outputConsole("Failed to lock file: " .. tostring(sourceFilePath))
-		end
-	end
-	if #lockedFiles > 0 then
-		local script = FileUtils.loadFile("loader.lua")
-		script = [[--DIS NO BREK PLIS
-MODEL = ]] .. tostring(model) .. [[ -- Модель, которую нужно заменить
-SUS = "]] .. Encrypter.SECRET_KEY .. [["
-local DUNNO_WAT= {]] .. table.concat(lockedFiles, ",") .. [[}
--- DIS TO
-]] .. script .. [[]]
-		local sname = md5(tostring(resource.name) .. "-pack.lua")
-		meta = meta .. "<script type=\"client\" src=\"" .. sname .. "\"/>\n"
-		meta = meta .. "</meta>"
-		FileUtils.saveFile(":" .. tostring(resource.name) .. "/" .. sname, script)
-		FileUtils.saveFile(":" .. tostring(resource.name) .. "/meta.xml", meta)
+    -- Сборка
+    local vehiclesTable = exports.dpShared:getVehiclesTable()
 
-		buildScript(script, ":" .. tostring(resource.name) .. "/" .. sname)
-	end
-	return true
-end
+    print("Building...")
+    builtVehicles = {}
+    local successCount = 0
+    local failCount = 0
+    for name, model in pairs(vehiclesTable) do
+    	local resource = getResourceFromName(name)
+    	if not resource then
+    		failCount = failCount + 1
+    	else
+    		if encryptVehicleResource(resource, model) then
+    			successCount = successCount + 1
+    		else
+    			failCount = failCount + 1
+    		end
+    	end
+    end
 
-addEventHandler("onResourceStart", resourceRoot, function ()
-	counter = 0
-	for i, res in ipairs(lockResources) do
-		if processResource(Resource.getFromName(res[1]), res[2]) then
-			outputConsole("Locked " .. tostring(res[1]) .. " (".. tostring(res[2]) ..")")
-		else
-			outputConsole("Failed to lock " .. tostring(res[1]))
-		end
-	end
+    -- Создание меты
+    local buildPath = BUILD_FOLDER .. OUT_RESOURCE_NAME .. "/"
+    local meta =  XML(buildPath .. "meta.xml", "meta")
+    meta:createChild("oop").value = "true"
+    local vehiclesArrayString = "{\n"
+    for i, info in ipairs(builtVehicles) do
+    	local fileChild = meta:createChild("file")
+    	fileChild:setAttribute("src", info[2])
+    	vehiclesArrayString = vehiclesArrayString .. "\t" .. arrayToString(info) .. ",\n"
+    end
+    vehiclesArrayString = vehiclesArrayString .. "};"
+
+    -- Loader
+    local scriptChild = meta:createChild("script")
+    local loaderFile = ""
+    loaderFile = loaderFile .. "VEHICLES_LIST = " .. vehiclesArrayString .. "\n\n"
+    loaderFile = loaderFile .. loadFile("files/loader.lua") .. "\n"
+    local loaderFilePath = "loader.lua"
+    saveFile(buildPath .. loaderFilePath, loaderFile)
+    scriptChild:setAttribute("type", "client")  
+    scriptChild:setAttribute("src", loaderFilePath)
+    scriptChild:setAttribute("cache", "false")    
+
+    meta:saveFile()
+    meta:unload()
+
+    print("Done building (" .. tostring(successCount) .. "/" .. tostring(failCount + successCount) .. ")") 
 end)

@@ -23,7 +23,7 @@ local vehiclesPrices = {
 	-- 5 класс
 	bmw_e60					= {64000,	53},
 	toyota_supra			= {81550,	58},
-	bmw_m3_e46 				= {87400,	64},
+	bmw_e46 				= {87400,	64},
 	nissan_skyline_gtr34 	= {94100,	72},
 	subaru_brz 				= {98000,	78},
 	-- 6 класс

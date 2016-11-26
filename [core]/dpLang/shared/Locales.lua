@@ -1,8 +1,9 @@
 Locales = {}
 -- Если DEBUG включен, вместо отсутствующих строк будут отображаться их названия
-local DEBUG = true
+local DEBUG = false
 
 local locales = {}
+local fallbackLocale = ""
 Locales.languages = {
 	"english",
 	"russian",
@@ -13,11 +14,11 @@ Locales.languages = {
 Locales.byCode = {
 	en = "english",
 	ru = "russian",
-	uk = "russian",
-	be = "russian"
+	ua = "russian",
+	by = "russian"
 }
 
-function Locales.load(lang)
+function Locales.load(lang, fallback)
 	local file = File("languages/" .. tostring(lang) .. ".json")
 	if not file then
 		outputDebugString("Failed to load locale '" .. tostring(lang) .. "': failed to open language file")
@@ -35,6 +36,9 @@ function Locales.load(lang)
 		return false
 	end
 	outputDebugString("Loaded locale '" .. tostring(lang) .. "'")
+	if fallback then
+		fallbackLocale = lang
+	end
 	return true
 end
 
@@ -55,7 +59,7 @@ function Locales.getLang(lang)
 end
 
 function Locales.unload(lang)
-	if not locales[lang] then
+	if not lang or not locales[lang] or fallbackLocale == lang then
 		return false
 	end
 	locales[lang] = nil

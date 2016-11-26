@@ -1,5 +1,6 @@
 Language = {}
 local DEFAULT_LANGUAGE = Locales.languages[1]
+local FALLBACK_TO_DEFAULT = true
 local currentLanguage
 
 function Language.set(lang)
@@ -33,9 +34,8 @@ end
 
 function Language.getString(name)
 	local localizedString = Locales.getString(currentLanguage, name)
-	if not localizedString then
-		outputDebugString("Language.getString: no localized string for: " .. tostring(name))
-		return false
+	if not localizedString and FALLBACK_TO_DEFAULT then
+		return Locales.getString(DEFAULT_LANGUAGE, name)
 	end
 	return localizedString
 end
@@ -60,6 +60,8 @@ function Language.chatMessage(name, ...)
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
+	Locales.load(DEFAULT_LANGUAGE, true)
+
 	local language = exports.dpConfig:getProperty("ui.language")
 
 	if not Locales.isValid(language) then

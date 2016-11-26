@@ -484,4 +484,8 @@
 	"lobby_screen_field_class": "Класс автомобиля",
 
 	"lobby_screen_enter_button": "Войти",
+
+	// Donation
+	"donation_message_title": "Покупка доната",
+	"donation_message_text": "Вы успешно купили %s!",
 }

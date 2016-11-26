@@ -26,6 +26,9 @@ WebAPI.registerMethod("donations.buyMoney", function (key, username, amount)
 	end
 	amount = math.floor(amount)
 
+	if not shopPrices or not shopPrices[1] then
+		return "Failed to connect to shop"
+	end
 	local money = shopPrices[1].money
 	for i, item in ipairs(shopPrices) do
 		if amount >= item.price then
@@ -45,6 +48,7 @@ WebAPI.registerMethod("donations.buyMoney", function (key, username, amount)
 		if not exports.dpCore:givePlayerMoney(player, money) then
 			return "Failed to give player money"
 		end
+		triggerClientEvent(player, "dpWebAPI.donationSuccess", player, money)
 	else
 		local userAccount = exports.dpCore:getUserAccount(username)
 		if type(userAccount) ~= "table" then
@@ -69,10 +73,12 @@ WebAPI.registerMethod("donations.buyMoney", function (key, username, amount)
 end)
 
 addEventHandler("onResourceStart", resourceRoot, function ()
-	fetchRemote("https://api.trademc.org/shop.getItems?params[shop]=" .. tostring(SHOP_ID), function (data, err)
+	outputDebugString("Connecting to TradeMC...")
+	fetchRemote("http://api.trademc.org/shop.getItems?params[shop]=" .. tostring(SHOP_ID), function (data, err)
 		if err == 0 then
 			data = fromJSON(data)
 			if not data then
+				outputDebugString("Error connecting to TradeMC shop (failed to read JSON)")
 				return
 			end
 			shopPrices = {}
@@ -87,12 +93,18 @@ addEventHandler("onResourceStart", resourceRoot, function ()
 				return a.price < b.price
 			end)
 			outputDebugString("Loaded prices. Items count: " .. tostring(#shopPrices))
+		else
+			outputDebugString("Error connecting to TradeMC shop (" .. tostring(err) .. ")")
 		end
 	end)
 end)
 
 function processCallback(url, requestHeaders, cookies, hostname)
+	outputDebugString("Incoming donation from " .. tostring(hostname))
 	local query = urlParser.parse(url).query
+	if not query.nickname then
+		return "Bad query"
+	end
 	local args = { 
 		tostring(query.amount), 
 		tostring(query.nickname), 
@@ -103,8 +115,7 @@ function processCallback(url, requestHeaders, cookies, hostname)
 	local hash = md5(table.concat(args, ":"))
 
 	if hash == query.hash then
-		outputDebugString("BAD HASH GTFO")
-		return false
+		return "Invalid query"
 	end
 
 	outputDebugString("Payment: " .. tostring(query.nickname) .. " " .. tostring(query.amount))

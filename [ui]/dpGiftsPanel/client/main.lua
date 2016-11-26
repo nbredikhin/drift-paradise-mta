@@ -113,3 +113,10 @@ addEventHandler("dpCore.keyActivation", root, function (success, info)
 			exports.dpLang:getString("gift_key_message_fail"))
 	end
 end)
+
+addEvent("dpWebAPI.donationSuccess", true)
+addEventHandler("dpWebAPI.donationSuccess", root, function (amount)
+	UI:showMessageBox(
+		exports.dpLang:getString("donation_message_title"), 
+		string.format(exports.dpLang:getString("donation_message_text"), "$" .. tostring(amount)))
+end)

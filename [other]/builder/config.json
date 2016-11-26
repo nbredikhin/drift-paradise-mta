@@ -10,7 +10,7 @@
 
     "enableReadmeFiles": true,
 
-    "only": [],
+    "only": ["dpLang", "dpWebAPI", "dpGiftsPanel"],
 
     "include": [
         "geoip",        

@@ -509,4 +509,8 @@
 	"lobby_screen_field_class": "Car class",
 
 	"lobby_screen_enter_button": "Enter",	
+
+	// Donation
+	"donation_message_title": "Donation",
+	"donation_message_text": "You have successfully purchased %s!",
 }

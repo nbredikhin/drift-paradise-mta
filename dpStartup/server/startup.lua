@@ -90,7 +90,7 @@ local startupResources = {
 	"shader_dynamic_sky",
 
 	-- Non-important assets
-	"dpWheels",
+	"dpCarParts",
 	"dpCacheLock"
 }
 

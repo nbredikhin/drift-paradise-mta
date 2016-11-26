@@ -29,8 +29,8 @@ local vehiclesTable = {
 	-- 6 класс
 	nissan_gtr35 		= 558,
 	lamborghini_huracan = 415,
-	ferrari_458_italia	= nil,
-	lamborghini_aventador = nil	
+	ferrari_458_italia	= 451,
+	lamborghini_aventador = 506	
 }
 
 -- Названия в том виде, в котором они будут отображаться

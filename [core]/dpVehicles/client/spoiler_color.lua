@@ -4,7 +4,7 @@ function setupSpoilerColor(vehicle)
 		return
 	end
 	local r, g, b = unpack(color)
-	VehicleShaders.replaceColor(vehicle, "*spoiler*", r, g, b)
+	VehicleShaders.replaceColor(vehicle, "tws-spoiler*", r, g, b)
 end
 
 -- Обновить текстуры всех видимых машин при запуске скрипта

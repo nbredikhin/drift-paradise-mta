@@ -1,7 +1,7 @@
 local cameraViews = {
 	false, -- Обычная камера
 	DriftView,
-	CockpitView
+	--CockpitView
 }
 local currentCameraViewIndex = 1
 local currentCameraView

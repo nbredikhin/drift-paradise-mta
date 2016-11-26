@@ -16,7 +16,7 @@ local rearWheels = {
 local wheelsNames = {"wheel_rf_dummy", "wheel_lf_dummy", "wheel_rb_dummy", "wheel_lb_dummy"}
 
 -- Модели объектов колёс
-local wheelsModels = {1025, 1073, 1074, 1075, 1076, 1077, 1078, 1079, 1080, 1081, 1082, 1083, 1084, 1085, 1096, 1097, 1098}
+local wheelsModels = {1025, 1074, 1075, 1076, 1077, 1078, 1079, 1080, 1081, 1082, 1083, 1084, 1085, 1096, 1097, 1098}
 
 -- Дата, изменение которой вызывает обновление колёс
 local dataNames = {

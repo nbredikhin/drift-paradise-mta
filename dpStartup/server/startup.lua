@@ -79,6 +79,7 @@ local startupResources = {
 	"dpGreetings",
 	"dpTelegramChat",
 	"dpStats",
+	"server_assets",
 
 	-- Third party
 	"blur_box",
@@ -90,7 +91,7 @@ local startupResources = {
 
 	-- Non-important assets
 	"dpWheels",
-	"dpCacheLock",
+	"dpCacheLock"
 }
 
 local function processResourceByName(resourceName, start)

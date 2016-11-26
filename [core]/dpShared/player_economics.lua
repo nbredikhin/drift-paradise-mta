@@ -13,6 +13,14 @@ local playerEconomics = {
 
 	-- Процент от цены авто при продаже
 	vehicle_sell_price = 0.35,
+
+	race_prizes = {
+		{ xp = 350, money = 700 },
+		{ xp = 300, money = 500 },
+		{ xp = 250, money = 300 },
+		{ xp = 200, money = 150 },
+		{ xp = 150, money = 75 },
+	}
 }
 
 function getEconomicsProperty(name)

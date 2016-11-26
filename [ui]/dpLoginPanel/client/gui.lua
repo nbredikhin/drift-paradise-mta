@@ -236,7 +236,7 @@ local function createRegisterPanel()
 		langX = langX + 27 + 5
 	end	
 
-	local circleTexture = dxCreateTexture("assets/circle.png", "argb", false, "clamp")
+	local circleTexture = exports.dpAssets:createTexture("buttons/circle.png", "argb", false, "clamp")
 	local colorPurple = UI:createDpImageButton({
 		x = panelWidth - 50 - 27,
 		y = 40,

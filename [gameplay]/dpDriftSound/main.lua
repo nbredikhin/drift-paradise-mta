@@ -8,6 +8,9 @@ local targetVolume = 0
 local targetSpeed = 0
 
 local function detectDrift()
+	if not localPlayer.vehicle then 
+		return 0, false
+	end
 	local vehicle = localPlayer.vehicle
 	if vehicle.velocity.length < MIN_DRIFT_SPEED then
 		return 0, false
@@ -42,12 +45,9 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 end)
 
 addEventHandler("onClientPreRender", root, function (dt)
-	if not isElement(sound) or not localPlayer.vehicle then
+	if not isElement(sound) then
 		return
 	end
-	if not localPlayer.vehicle:isOnGround() then
-		return
-	end	
 	dt = dt / 1000
 
 	local driftAngle, isDrifting = detectDrift()
@@ -61,7 +61,7 @@ addEventHandler("onClientPreRender", root, function (dt)
 		mul = 1
 	end
 
-	if localPlayer.vehicle.controller == localPlayer and getControlState("accelerate") and getControlState("brake_reverse") then
+	if localPlayer.vehicle and localPlayer.vehicle.controller == localPlayer and getControlState("accelerate") and getControlState("brake_reverse") then
 		local velocityMul = 0.5 + (0.5 - #localPlayer.vehicle.velocity * 20)
 		if velocityMul > 0.8 then
 			targetVolume = 1 * velocityMul
@@ -71,8 +71,15 @@ addEventHandler("onClientPreRender", root, function (dt)
 		targetVolume = mul * MAX_VOLUME
 		targetSpeed = 0.75 + 0.25 * mul
 	end
+
+	if not localPlayer.vehicle or not localPlayer.vehicle:isOnGround() then
+		targetSpeed = 0
+		targetVolume = 0
+		sound.speed = 0
+		sound.volume = 0
+	end	
 	sound.speed = sound.speed + (targetSpeed - sound.speed) * dt * 5
-	sound.volume = sound.volume + (targetVolume - sound.volume) * dt * 5
+	sound.volume = sound.volume + (targetVolume - sound.volume) * dt * 10
 	if sound.playbackPosition > 2.1 then
 		sound.playbackPosition = 0.6
 	end

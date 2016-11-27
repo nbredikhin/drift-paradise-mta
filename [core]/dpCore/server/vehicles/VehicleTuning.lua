@@ -38,7 +38,7 @@ VehicleTuning.defaultTuningTable = {
 	Acces			= 0, -- Аксессуары
 
 	-- Настройки
-	Suspension 		= 0, -- Высота подвески
+	Suspension 		= 0.4, -- Высота подвески
 
 	-- Улучшения
 	StreetHandling 	= 0, -- Уровень стрит-хандлинга

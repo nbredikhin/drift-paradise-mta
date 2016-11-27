@@ -4,8 +4,8 @@ local LIGHTS_STATE_DATA = "LightsState"
 local ANGLE_OPENED = 60
 local ANGLE_CLOSED = 0
 local overrideAngleOpened = {
-	[602] = 40,
-	[589] = 40
+	nissan_180sx = 40,
+	toyota_ae86 = 40
 }
 -- Скорость открывания/закрывания фар
 local LIGHTS_ROTATION_SPEED = 60
@@ -23,8 +23,9 @@ local function updateVehicleLightsState(vehicle)
 	local angle = ANGLE_CLOSED
 	if state then
 		angle = ANGLE_OPENED
-		if overrideAngleOpened[vehicle.model] then
-			angle = overrideAngleOpened[vehicle.model]
+		local vehicleName = exports.dpShared:getVehicleNameFromModel(vehicle.model)
+		if vehicleName and overrideAngleOpened[vehicleName] then
+			angle = overrideAngleOpened[vehicleName]
 		end
 	end	
 	local stateId = 1

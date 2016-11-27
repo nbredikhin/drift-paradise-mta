@@ -10,10 +10,10 @@ local vehiclesPrices = {
 	-- mitsubishi_eclipse		= {28300,	7},
 	nissan_silvia_s13		= {32700,	9},
 	-- 3 класс
-	bmw_e30					= {36300,	14},
+	bmw_e30					= {45800,	22},
 	-- nissan_skyline_er34 	= {41500,	17},
 	-- toyota_mark2_100		= {45000,	20},
-	nissan_datsun_240z		= {45800,	22},
+	nissan_datsun_240z		= {36300,	14},
 	-- toyota_altezza			= {47000,	24},
 	-- 4 класс
 	-- honda_s2000 			= {48400,	28},

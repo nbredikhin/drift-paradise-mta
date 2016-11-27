@@ -222,6 +222,9 @@ function GarageCar.resetTuning()
 
 	-- Высота подвески	
 	local suspensionHeight = currentTuningTable["Suspension"]
+	if not suspensionHeight then
+		suspensionHeight = 0.5
+	end
 	if type(suspensionHeight) == "number" then
 		GarageCar.applyHandling("Suspension", suspensionHeight)
 	end

@@ -42,6 +42,26 @@ local WHEELS_RAZVAL_MAX = 16
 local WHEELS_WIDTH_MIN = 0.15
 local WHEELS_WIDTH_MAX = 0.62
 
+local overrideWheelsScale = {
+	toyota_ae86 		= 0.85,
+	nissan_skyline2000 	= 0.91,
+	honda_civic 		= 0.8,
+	nissan_180sx 		= 0.9,
+	nissan_silvia_s13 	= 0.9,
+	bmw_e30				= 0.88,
+	nissan_datsun_240z 	= 0.84,
+	bmw_e34				= 0.95,
+	nissan_silvia_s14   = 0.87,
+	mazda_rx8			= 0.9,
+	bmw_e60				= 0.95,
+	bmw_e46				= 0.97,
+	nissan_skyline_gtr34 = 0.98,
+	nissan_gtr35 		= 1,
+	lamborghini_huracan = 1,
+	ferrari_458_italia 	= 1.06,
+	lamborghini_aventador = 1.01,
+}
+
 -- Удаление кастомных колёс и шейдера
 local function removeVehicleWheels(vehicle)
 	if not vehicleWheels[vehicle] then
@@ -70,6 +90,11 @@ end
 local function updateVehicleWheels(vehicle)
 	if not vehicleWheels[vehicle] then
 		return false
+	end
+	local wheelsScale = 1
+	local vehicleName = exports.dpShared:getVehicleNameFromModel(vehicle.model)
+	if vehicleName and overrideWheelsScale[vehicleName] then
+		wheelsScale = overrideWheelsScale[vehicleName]
 	end
 	local wheels = vehicleWheels[vehicle]
 	for name, wheel in pairs(wheels) do
@@ -106,7 +131,7 @@ local function updateVehicleWheels(vehicle)
 			if isElement(wheel.object) then
 				wheel.object.alpha = 255
 				wheel.object.model = wheelsModels[wheelId]
-				wheel.object.scale = wheelSize				
+				wheel.object.scale = wheelSize * wheelsScale		
 			end
 			-- Обновить развал и толщину
 			if isElement(wheel.shader) then

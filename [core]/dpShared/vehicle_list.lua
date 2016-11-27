@@ -20,12 +20,12 @@ local vehiclesTable = {
 	bmw_e34 			= 529,
 	nissan_silvia_s14	= 576,
 	-- nissan_silvia_s15	= nil,
-	mazda_rx8 			= nil,
+	mazda_rx8 			= 550,
 	-- 5 класс
 	bmw_e60				= 540,
 	-- toyota_supra		= nil,
 	bmw_e46 			= 436,
-	nissan_skyline_gtr34 = nil,
+	nissan_skyline_gtr34 = 562,
 	-- subaru_brz 			= nil,
 	-- 6 класс
 	nissan_gtr35 		= 558,

@@ -33,7 +33,7 @@ local dataNames = {
 }
 
 local shaderReflectionTexture
-local wheelsHiddenPosition = Vector3(0, 0, -10)
+local wheelsHiddenOffset = Vector3(0, 0, -1000)
 
 local WHEELS_SIZE_MIN = 0.55
 local WHEELS_SIZE_MAX = 0.75
@@ -120,11 +120,16 @@ local function updateVehicleWheels(vehicle)
 				wheel.shader:setValue("sColor", wheelColor)
 			end
 			wheels[name] = wheel
+
+			setElementAttachedOffsets(wheel.object, 
+				wheel.position[1],
+				wheel.position[2],
+				wheel.position[3] + (wheel.object.scale - WHEELS_SIZE_MIN - 0.1) * 0.5)			
 		else
 			wheel.custom = false
 			wheel.object.alpha = 0
-			detachElements(wheel.object)
-			wheel.object.position = wheelsHiddenPosition
+			setElementAttachedOffsets(wheel.object, wheelsHiddenOffset)
+			--wheel.object.position = wheelsHiddenPosition
 		end
 		-- Скрыть/отобразить стандартное колесо
 		setVehicleComponentVisible(vehicle, name, not wheel.custom)		

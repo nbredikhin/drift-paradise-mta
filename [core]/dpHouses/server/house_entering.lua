@@ -13,7 +13,6 @@ addEventHandler("dpHouses.house_enter", resourceRoot, function (markerId)
 	if houseData.exit_rotation then
 		client.rotation = Vector3(0, 0, houseData.exit_rotation)
 	end
-	client.interior = houseData.interior
 	client.dimension = houseMarker:getData("house_dimension")
 	client:setData("activeMap", "house")
 	client:setData("currentHouse", houseMarker:getData("_id"))

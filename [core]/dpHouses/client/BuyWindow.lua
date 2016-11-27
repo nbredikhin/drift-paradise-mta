@@ -64,23 +64,27 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	UI:addChild(window.panel)
 
 	-- Картинки
+	local texture = dxCreateTexture("assets/textures/icon.png")
+	local w, h = dxGetMaterialSize(texture)
+	w = w * 0.7
+	h = h * 0.7
 	local image1 = UI:createImage({
-		x = 0,
+		x = panelWidth / 2 - w / 2,
 		y = 0,
-		width = panelWidth / 2,
-		height = panelWidth / 2,
-		texture = dxCreateTexture("assets/textures/houses/1-1.png")
+		width = w,
+		height = h,
+		texture = texture
 	})
 	UI:addChild(window.panel, image1)
 
-	local image2 = UI:createImage({
-		x = panelWidth / 2,
-		y = 0,
-		width = panelWidth / 2,
-		height = panelWidth / 2,
-		texture = dxCreateTexture("assets/textures/houses/1-2.png")
-	})
-	UI:addChild(window.panel, image2)	
+	-- local image2 = UI:createImage({
+	-- 	x = panelWidth / 2,
+	-- 	y = 0,
+	-- 	width = panelWidth / 2,
+	-- 	height = panelWidth / 2,
+	-- 	texture = dxCreateTexture("assets/textures/houses/1-2.png")
+	-- })
+	-- UI:addChild(window.panel, image2)	
 
 	-- Информация о доме
 	local y = panelWidth / 2

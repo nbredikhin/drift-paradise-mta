@@ -19,9 +19,8 @@
 	<export type="shared" function="getPlayerHouseLocation"/>
 	<export type="shared" function="getHouseDimension"/>
 
-	<file src="assets/textures/houses/1-1.png"/>
-	<file src="assets/textures/houses/1-2.png"/>
 	<file src="assets/textures/house_menu.png"/>
+	<file src="assets/textures/icon.png"/>
 
 	<file src="assets/sounds/knocking.wav"/>
 </meta>

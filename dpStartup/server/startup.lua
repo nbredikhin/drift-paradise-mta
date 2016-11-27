@@ -91,7 +91,9 @@ local startupResources = {
 
 	-- Non-important assets
 	"dpCarParts",
-	"dpCacheLock"
+	"dpCacheLock",
+	"dpCarSound",
+	"dpRadio"
 }
 
 local function processResourceByName(resourceName, start)

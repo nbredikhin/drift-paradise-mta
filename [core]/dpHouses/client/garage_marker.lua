@@ -1,33 +1,31 @@
--- TODO: Анимированный вход в гараж
-local HOTEL_GARAGE_POSITION = Vector3 { x = 1823.5, y = -1412, z = 12.6 }
-
--- Создание маркера гаража
-local houseData = localPlayer:getData("house_data")
-local position = HOTEL_GARAGE_POSITION
-if houseData then
-	position = Vector3(unpack(houseData.garage)) - Vector3(0, 0, 0.9)	
-end
-local garageMarker = exports.dpMarkers:createMarker("garage", position, 180)
+local garageMarker
 addEvent("dpMarkers.use", false)
-addEventHandler("dpMarkers.use", garageMarker, function()
-	exports.dpGarage:enterGarage()
+
+local function updateGarageMarker()
+	local houseLocation = getPlayerHouseLocation(localPlayer)
+	if not houseLocation then
+		return
+	end
+	garageMarker.position = houseLocation.garage.position - Vector3(0, 0, 0.4)
+end
+
+-- Перемещение маркера гаража при покупке/продаже дома или входе на сервер
+addEventHandler("onClientElementDataChange", localPlayer, function (dataName)
+	if dataName == "house_data" or dataName == "_id" then
+		updateGarageMarker()
+	end
 end)
 
-local garageBlip = createBlip(0, 0, 0, 27)
-garageBlip:attach(garageMarker)
-garageBlip:setData("text", "blip_garage")
+addEventHandler("onClientResourceStart", resourceRoot, function ()
+	garageMarker = exports.dpMarkers:createMarker("garage", Vector3(0, 0, 0), 180)
 
--- Перемещение маркера гаража при покупке/продаже дома
-addEventHandler("onClientElementDataChange", localPlayer, function (dataName)
-	if dataName == "house_data" then
-		if exports.dpHouses:hasPlayerHouse(localPlayer) then
-			local houseData = localPlayer:getData("house_data")
-			local position = Vector3(unpack(houseData.garage))
-			if position then
-				garageMarker.position = position - Vector3(0, 0, 0.9)	
-			end
-		else
-			garageMarker.position = HOTEL_GARAGE_POSITION
-		end
-	end
+	addEventHandler("dpMarkers.use", garageMarker, function()
+		exports.dpGarage:enterGarage()
+	end)
+	-- Метка на радаре
+	local garageBlip = createBlip(0, 0, 0, 27)
+	garageBlip:attach(garageMarker)
+	garageBlip:setData("text", "blip_garage")
+
+	updateGarageMarker()
 end)

@@ -123,6 +123,7 @@ local function updateVehicleWheels(vehicle)
 		else
 			wheel.custom = false
 			wheel.object.alpha = 0
+			detachElements(wheel.object)
 			wheel.object.position = wheelsHiddenPosition
 		end
 		-- Скрыть/отобразить стандартное колесо

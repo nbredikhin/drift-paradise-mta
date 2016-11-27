@@ -8,15 +8,15 @@ local cameraAnimationFinished = false
 local peds = {}
 local pedsInfo = {	
 	{ model = 1, position = Vector3(1356, -1111.7, 23.775), rotation = 140},
-	{ model = 0, position = Vector3(1359, -1115.355, 23.775), rotation = 90},
-	{ model = 2, position = Vector3(1357, -1118.7, 23.775), rotation = 50}
+	{ model = 2, position = Vector3(1359, -1115.355, 23.775), rotation = 90},
+	{ model = 22, position = Vector3(1357, -1118.7, 23.775), rotation = 50}
 }
 
 local cars = {}
 local carsInfo = {
-	{ model = 411, position = Vector3(1360.719, -1116.2, 23.380), rotation = 125 },
-	{ model = 411, position = Vector3(1357.931, -1120.721, 23.365), rotation = 71 },
-	{ model = 411, position = Vector3(1358.115, -1110.498, 23.436), rotation = 170 }
+	{ model = 558, position = Vector3(1360.719, -1116.2, 23.380), rotation = 125 },
+	{ model = 451, position = Vector3(1357.931, -1120.721, 23.365), rotation = 71 },
+	{ model = 415, position = Vector3(1358.115, -1110.498, 23.436), rotation = 170 }
 }
 
 local cameraStartPosition = Vector3()

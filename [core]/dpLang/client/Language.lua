@@ -34,8 +34,17 @@ end
 
 function Language.getString(name)
 	local localizedString = Locales.getString(currentLanguage, name)
-	if not localizedString and FALLBACK_TO_DEFAULT then
-		return Locales.getString(DEFAULT_LANGUAGE, name)
+	if not localizedString then
+		if FALLBACK_TO_DEFAULT then
+			local fallbackString = Locales.getString(DEFAULT_LANGUAGE, name)
+			if type(fallbackString) == "string" then
+				return fallbackString
+			else
+				return tostring(name)
+			end
+		else
+			return tostring(name)
+		end
 	end
 	return localizedString
 end

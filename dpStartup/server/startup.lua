@@ -62,15 +62,19 @@ local startupResources = {
 	"dpTeleports",
 	"dpContextMenu",
 	"dpSkinSelect",
-	"dpIntroVideo",
 	"dpIntro",
 
 	-- World
 	"MAPPING-MAIN",
 	"TD-INT",
+	"TD-BILLBOARD",
+	"TD-CARSHOP",
 	"TD-MAPFILES",
 	"TD-RACEMAPS",
+	"TD-VILLA",
 	"TX-VILLA",
+	"MAP2017",
+	"DESTROY-MAP",
 
 	-- Admin
 	"dpAdmin",
@@ -93,7 +97,11 @@ local startupResources = {
 	"dpCarParts",
 	"dpCacheLock",
 	"dpCarSound",
-	"dpRadio"
+	"dpRadio",
+	"dpDriftSound",
+	"dpSkins",
+	"fara",
+	"svet"
 }
 
 local function processResourceByName(resourceName, start)

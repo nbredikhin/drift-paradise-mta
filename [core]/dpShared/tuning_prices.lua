@@ -1,13 +1,13 @@
 -- Цены на тюнинг
 local tuningPrices = {
 	-- Покраска кузова
-	body_color = {500, 2},
+	body_color = {350, 1},
 	-- Смена номерного знака
 	numberplate = {100, 5},
 	-- Смена высоты подвески
 	suspension = {150, 4},
 	-- Спойлеры
-	spoiler_color = {650, 3},
+	spoiler_color = {500, 3},
 	spoilers = {
 		{0, 1}, 
 		{0, 1}, 
@@ -53,8 +53,8 @@ local tuningPrices = {
 		{1630, 29}
 	},
 	-- Улучшения
-	upgrades_level = 4,
-	upgrade_price_drift = 4000,
+	upgrades_level = 1,
+	upgrade_price_drift = 3000,
 	upgrade_price_street = 2500,
 }
 

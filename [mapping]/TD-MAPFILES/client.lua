@@ -1,19 +1,20 @@
-local ID = 964 -- Айди объекта на который заменяется клуб
+local ID = 5854 -- Айди объекта на который заменяется клуб
  
 addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуске ресурса подгружаем и заменяем модель
     function ( )
-        local txd = engineLoadTXD ( 'primring.txd' ) -- txd файл
+        local txd = engineLoadTXD ( '2.txd' ) -- txd файл
         engineImportTXD ( txd, ID ) -- заменяем текстуру
  
-        local dff = engineLoadDFF ( 'primring.dff', 0 ) -- dff файл
+        local dff = engineLoadDFF ( '2.dff', 3000 ) -- dff файл
         engineReplaceModel ( dff, ID ) -- заменяем модель
  
-        local col = engineLoadCOL ( 'primring.col' ) -- col файл
+     local col = engineLoadCOL ( '2.col' ) -- col файл
         engineReplaceCOL ( col, ID ) -- заменяем коллизию модели
-		engineSetModelLODDistance(964, 3000)
+		engineSetModelLODDistance(5854, 3000)
     end
 )
 
+    
 local ID = 11326 -- Айди объекта на который заменяется клуб
  
 addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуске ресурса подгружаем и заменяем модель
@@ -440,6 +441,149 @@ addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуск�
     end
 )
 
+local ID = 13831 -- Айди объекта на который заменяется клуб
+ 
+addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуске ресурса подгружаем и заменяем модель
+    function ( )
+        local txd = engineLoadTXD ( 'vinewood.txd' ) -- txd файл
+        engineImportTXD ( txd, ID ) -- заменяем текстуру
+ 
+        local dff = engineLoadDFF ( 'vinewood.dff', 0 ) -- dff файл
+        engineReplaceModel ( dff, ID ) -- заменяем модель
+ 
+        local col = engineLoadCOL ( 'vinewood.col' ) -- col файл
+        engineReplaceCOL ( col, ID ) -- заменяем коллизию модели
+		engineSetModelLODDistance(13831 , 3000)
+    end
+)
+
+local ID = 13722 -- Айди объекта на который заменяется клуб
+ 
+addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуске ресурса подгружаем и заменяем модель
+    function ( )
+        local txd = engineLoadTXD ( 'vinewood.txd' ) -- txd файл
+        engineImportTXD ( txd, ID ) -- заменяем текстуру
+ 
+        local dff = engineLoadDFF ( 'vinewood1.dff', 0 ) -- dff файл
+        engineReplaceModel ( dff, ID ) -- заменяем модель
+ 
+        local col = engineLoadCOL ( 'vinewood1.col' ) -- col файл
+        engineReplaceCOL ( col, ID ) -- заменяем коллизию модели
+		engineSetModelLODDistance(13722 , 3000)
+    end
+)
+
+local ID = 5896 -- Айди объекта на который заменяется клуб
+ 
+addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуске ресурса подгружаем и заменяем модель
+    function ( )
+        local txd = engineLoadTXD ( 'eclipsetower.txd' ) -- txd файл
+        engineImportTXD ( txd, ID ) -- заменяем текстуру
+ 
+        local dff = engineLoadDFF ( 'eclipsetower.dff', 0 ) -- dff файл
+        engineReplaceModel ( dff, ID ) -- заменяем модель
+ 
+        local col = engineLoadCOL ( 'eclipsetower.col' ) -- col файл
+        engineReplaceCOL ( col, ID ) -- заменяем коллизию модели
+		engineSetModelLODDistance(5896 , 3000)
+    end
+)
+
+local ID = 8493 -- Айди объекта на который заменяется клуб
+ 
+addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуске ресурса подгружаем и заменяем модель
+    function ( )
+        local txd = engineLoadTXD ( 'eclipsetower1.txd' ) -- txd файл
+        engineImportTXD ( txd, ID ) -- заменяем текстуру
+
+        local dff = engineLoadDFF ( 'eclipsetower1.dff', 0 ) -- dff файл
+        engineReplaceModel ( dff, ID ) -- заменяем модель
+ 
+        local col = engineLoadCOL ( 'eclipsetower1.col' ) -- col файл
+        engineReplaceCOL ( col, ID ) -- заменяем коллизию модели
+		engineSetModelLODDistance(8493 , 3000)
+    end
+)
+
+local ID = 8493 -- Айди объекта на который заменяется клуб
+ 
+addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуске ресурса подгружаем и заменяем модель
+    function ( )
+        local txd = engineLoadTXD ( 'eclipsetower2.txd' ) -- txd файл
+        engineImportTXD ( txd, ID ) -- заменяем текстуру
+
+        local dff = engineLoadDFF ( 'eclipsetower1.dff', 0 ) -- dff файл
+        engineReplaceModel ( dff, ID ) -- заменяем модель
+ 
+        local col = engineLoadCOL ( 'eclipsetower1.col' ) -- col файл
+        engineReplaceCOL ( col, ID ) -- заменяем коллизию модели
+		engineSetModelLODDistance(8493 , 3000)
+    end
+)
+
+local ID = 8493 -- Айди объекта на который заменяется клуб
+ 
+addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуске ресурса подгружаем и заменяем модель
+    function ( )
+        local txd = engineLoadTXD ( 'eclipsetower3.txd' ) -- txd файл
+        engineImportTXD ( txd, ID ) -- заменяем текстуру
+
+        local dff = engineLoadDFF ( 'eclipsetower1.dff', 0 ) -- dff файл
+        engineReplaceModel ( dff, ID ) -- заменяем модель
+ 
+        local col = engineLoadCOL ( 'eclipsetower1.col' ) -- col файл
+        engineReplaceCOL ( col, ID ) -- заменяем коллизию модели
+		engineSetModelLODDistance(8493 , 3000)
+    end
+)
+
+local ID = 8493 -- Айди объекта на который заменяется клуб
+ 
+addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуске ресурса подгружаем и заменяем модель
+    function ( )
+        local txd = engineLoadTXD ( 'eclipsetower4.txd' ) -- txd файл
+        engineImportTXD ( txd, ID ) -- заменяем текстуру
+
+        local dff = engineLoadDFF ( 'eclipsetower1.dff', 0 ) -- dff файл
+        engineReplaceModel ( dff, ID ) -- заменяем модель
+ 
+        local col = engineLoadCOL ( 'eclipsetower1.col' ) -- col файл
+        engineReplaceCOL ( col, ID ) -- заменяем коллизию модели
+		engineSetModelLODDistance(8493 , 3000)
+    end
+)
 
 
+local ID = 7234 -- Айди объекта на который заменяется клуб
+ 
+addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуске ресурса подгружаем и заменяем модель
+    function ( )
+        local txd = engineLoadTXD ( 'eclipsetower1.txd' ) -- txd файл
+        engineImportTXD ( txd, ID ) -- заменяем текстуру
+
+        local dff = engineLoadDFF ( 'eclipsetower2.dff', 0 ) -- dff файл
+        engineReplaceModel ( dff, ID ) -- заменяем модель
+ 
+        local col = engineLoadCOL ( 'eclipsetower2.col' ) -- col файл
+        engineReplaceCOL ( col, ID ) -- заменяем коллизию модели
+		engineSetModelLODDistance(7234 , 3000)
+    end
+)
+
+
+local ID = 9078 -- Айди объекта на который заменяется клуб
+ 
+addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуске ресурса подгружаем и заменяем модель
+    function ( )
+        local txd = engineLoadTXD ( 'eclipsetower4.txd' ) -- txd файл
+        engineImportTXD ( txd, ID ) -- заменяем текстуру
+
+        local dff = engineLoadDFF ( 'eclipsetower3.dff', 0 ) -- dff файл
+        engineReplaceModel ( dff, ID ) -- заменяем модель
+ 
+        local col = engineLoadCOL ( 'eclipsetower3.col' ) -- col файл
+        engineReplaceCOL ( col, ID ) -- заменяем коллизию модели
+		engineSetModelLODDistance(9078 , 3000)
+    end
+)
 

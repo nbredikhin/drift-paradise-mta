@@ -152,6 +152,7 @@ function Race:init(settings, map)
 
 	self:setState(RaceState.waiting)
 	self.allPlayers = {}
+	self.totalPlayersCount = 0
 	local gamemodeClass = raceGamemodes[self.settings.gamemode]
 	if not gamemodeClass then
 		self:log("Failed to create race. Gamemode '" .. tostring(self.settings.gamemode) .. "' does not exist")
@@ -202,6 +203,7 @@ function Race:destroy()
 		self:log("Failed to destroy race")
 	end
 	self.isBeingDestroyed = false
+	self.totalPlayersCount = 0	
 end
 
 ---------------------------------------------------------------
@@ -286,6 +288,7 @@ function Race:addPlayer(player)
 	self.gamemode:spawnPlayer(player)
 	self.allPlayers = self:getPlayers()
 	self:log("Player added: '" .. tostring(player.name) .. "'")
+	self.totalPlayersCount = #self.allPlayers
 	return true
 end
 
@@ -352,6 +355,10 @@ function Race:getFinishedPlayers()
 	return self.gamemode:getFinishedPlayers()
 end
 
+function Race:getTotalPlayersCount()
+	return self.totalPlayersCount
+end
+
 ---------------------------------------------------------------
 ----------------------- Геймплей гонки ------------------------
 ---------------------------------------------------------------
@@ -400,6 +407,7 @@ function Race:start()
 	end
 
 	self.allPlayers = self:getPlayers()
+	self.totalPlayersCount = #self.allPlayers
 
 	self.gamemode:raceStarted()
 	self:log("Race started")

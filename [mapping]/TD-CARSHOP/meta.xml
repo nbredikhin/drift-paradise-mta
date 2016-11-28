@@ -1,0 +1,8 @@
+<meta>
+    <info author="ECLIPSE[RU]" description="bikohu" version="1.0" type="map" />
+<script src="client.lua" type="client" />
+    <file src="1.txd" />
+    <file src="2.col" />
+    <file src="2.dff" />
+    <file src="1.dff" />
+</meta>

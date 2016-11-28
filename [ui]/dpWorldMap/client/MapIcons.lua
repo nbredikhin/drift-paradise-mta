@@ -11,6 +11,9 @@ local cameraHeightMul = 0
 local themePrimaryColor = {255, 255, 255}
 
 local function drawPlayer(player)
+	if player.dimension ~= localPlayer.dimension then
+		return
+	end
 	local x, y, z = getElementPosition(player)
 	x, y, z = MapWorld.convertPositionToMap(x, y, z)
 	x, y = getScreenFromWorldPosition(x, y, z)

@@ -10,7 +10,11 @@
 
     "enableReadmeFiles": true,
 
-    "only": ["dpLang", "dpWebAPI", "dpGiftsPanel"],
+    "only": [
+        // "dpRaceLobby",
+        // "dpRaceManager",
+        "dpSafeZones"
+    ],
 
     "include": [
         "geoip",        
@@ -24,9 +28,14 @@
         "server_assets",
         "MAPPING-MAIN",
         "TD-INT",
+        "TD-BILLBOARD",
+        "TD-CARSHOP",
         "TD-MAPFILES",
         "TD-RACEMAPS",
+        "TD-VILLA",
         "TX-VILLA",
+        "MAP2017",
+        "DESTROY-MAP"
     ],
 
     "pathEncryptExclude": [

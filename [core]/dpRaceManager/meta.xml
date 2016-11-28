@@ -28,6 +28,7 @@
 	<script type="client" src="client/RaceGamemode.lua"/>
 	<script type="client" src="client/gamemodes/Drift.lua"/>
 	<script type="client" src="client/gamemodes/Duel.lua"/>
+	<script type="client" src="client/gamemodes/Sprint.lua"/>
 	<script type="client" src="client/RaceClient.lua"/>
 	<script type="client" src="client/exports.lua"/>
 
@@ -38,6 +39,7 @@
 	<export type="server" function="raceRemovePlayer"/>
 	<export type="server" function="raceGetPlayers"/>
 	<export type="server" function="raceGetAllPlayers"/>
+	<export type="server" function="getTotalPlayersCount"/>
 	<export type="server" function="raceGetFinishedPlayers"/>
 	<export type="server" function="startRace"/>
 	<export type="server" function="finishRace"/>

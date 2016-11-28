@@ -1,4 +1,4 @@
-local MAX_MARKERS_COUNT = 3
+local MAX_MARKERS_COUNT = 4
 local RESPAWN_TIME = 60
 
 local SAFE_ZONE_SIZE = 15
@@ -20,7 +20,6 @@ function createMapMarker(map)
     local colshape = exports.dpSafeZones:createSafeZone(position - safeZoneVector, position + safeZoneVector)
     local blip = createBlip(0, 0, 0, 33)
     blip:attach(marker)
-    blip:setData("color", "primary")
     blip:setData("text", "race_type_" .. map.gamemode) 
     marker:setData("RaceMarker.map", map.name)
 

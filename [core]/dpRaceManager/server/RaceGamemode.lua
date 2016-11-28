@@ -103,7 +103,7 @@ function RaceGamemode:playerFinished(player, timeout)
 		end
 	end
 	self.finishedPlayers[player] = true
-	if #self:getFinishedPlayers() >= #self.race:getPlayers() then
+	if #self:getFinishedPlayers() >= self.race.totalPlayersCount then
 		self.race:setTimeLeft(0)
 	end	
 	player:setData("Race.finished", true)

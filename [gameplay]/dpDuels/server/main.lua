@@ -70,15 +70,6 @@ function startDuel(player1, player2, bet)
 	end, 3000, 1)
 end
 
-addCommandHandler("duel", function (player)
-	if not player.vehicle then
-		exports.dpChat:output("general", "No vehicle")
-		return false
-	end
-	local players = getElementsByType("player")
-	startDuel(players[1], players[1], 100)
-end)
-
 addEvent("RaceDuel.finished", false)
 addEventHandler("RaceDuel.finished", root, function (playerWinner, timePassed)
 	local duelInfo = source:getData("dpDuels.duelInfo")

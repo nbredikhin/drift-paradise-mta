@@ -1,0 +1,29 @@
+<meta>
+	<info name ="06BillBoardEffects" description="06BillBoardEffects" version="1.0.0" type="script" author="Samake"/>
+	<min_mta_version client="1.4" server="1.4"/>
+	<oop>true</oop>
+	
+	<!-- client scripts -->
+	<script src="client/BillBoardsC.lua" type="client" cache="false"/>
+
+	<!-- server scripts -->
+	<script src="server/BillBoardsS.lua" type="server"/>
+
+	<!-- shared scripts -->
+	<script src="shared/classlib.lua" type="shared" cache="false"/>
+	
+	<!-- textures -->
+	<file src="res/Textures/ad1.png" type="client"/>
+	<file src="res/Textures/ad2.png" type="client"/>
+	<file src="res/Textures/ad3.png" type="client"/>
+	<file src="res/Textures/ad4.png" type="client"/>
+	<file src="res/Textures/ad5.png" type="client"/>
+	<file src="res/Textures/ad6.png" type="client"/>
+	<file src="res/Textures/ad7.png" type="client"/>
+	<file src="res/Textures/ad8.png" type="client"/>
+	<file src="res/Textures/ad9.png" type="client"/>
+	<file src="res/Textures/ad10.png" type="client"/>
+	
+	<!-- shaders -->
+	<file src="res/Shaders/fadeEffects.fx" type="client"/>
+</meta>

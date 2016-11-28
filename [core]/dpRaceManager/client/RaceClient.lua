@@ -8,7 +8,8 @@ RaceClient.map = {}
 
 local raceGamemodes = {
 	drift = Drift,
-	duel  = Duel
+	duel  = Duel,
+	sprint = Sprint
 }
 
 local raceDimension = 0

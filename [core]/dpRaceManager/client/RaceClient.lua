@@ -39,6 +39,9 @@ local function onStateChanged(state)
 end
 
 local function update()
+	if not isElement(RaceClient.raceElement) then
+		RaceClient.stopRace()
+	end
 	RaceClient.gamemode:updatePosition()
 end
 
@@ -49,6 +52,12 @@ end
 local function onRemovedFromRace()
 	outputDebugString("RaceClient: Client removed from race. Stopping race...")
 	RaceClient.stopRace()
+end
+
+local function onElementDestroy()
+	if source and source == RaceClient.raceElement then
+		RaceClient.stopRace()
+	end
 end
 
 function RaceClient.checkpointHit(checkpointId)
@@ -72,7 +81,7 @@ function RaceClient.leaveRace()
 	if not RaceClient.isActive then
 		return false
 	end
-	triggerServerEvent("Race.clientLeave", RaceClient.raceElement)
+	triggerServerEvent("Race.clientLeave", resourceRoot)
 end
 
 function RaceClient.startRace(raceElement, settings, map)
@@ -109,7 +118,7 @@ function RaceClient.startRace(raceElement, settings, map)
 	end
 
 	-- Обработка событий
-	addEventHandler("Race.removedFromRace", RaceClient.raceElement, onRemovedFromRace)
+	addEventHandler("Race.removedFromRace", resourceRoot, onRemovedFromRace)
 	addEventHandler("Race.stateChanged", 	RaceClient.raceElement, onStateChanged)
 	addEventHandler("Race.updateTimeLeft",	RaceClient.raceElement, updateTimeLeft)
 	addEventHandler("onClientElementDestroy", RaceClient.raceElement, RaceClient.stopRace)
@@ -123,9 +132,9 @@ function RaceClient.startRace(raceElement, settings, map)
 	addEventHandler("Race.launch", 			RaceClient.raceElement, function (...) RaceClient.gamemode 	:raceLaunched(source, ...) end)
 	addEventHandler("Race.start", 			RaceClient.raceElement, function (...) RaceClient.gamemode 	:raceStarted(source, ...) end)
 	addEventHandler("Race.finish", 			RaceClient.raceElement, function (...) RaceClient.gamemode 	:raceFinished(source, ...) end)
-	addEventHandler("Race.playerFinished", 	RaceClient.raceElement, function (...)  RaceClient.gamemode :playerFinished(source, ...) end)
+	addEventHandler("Race.playerFinished", 	RaceClient.raceElement, function (...) RaceClient.gamemode :playerFinished(source, ...) end)
 	addEventHandler("Race.playerAdded", 	RaceClient.raceElement, function (...) RaceClient.gamemode 	:playerAdded(source, ...) end)
-	addEventHandler("Race.playerRemoved", 	RaceClient.raceElement, function (...)  RaceClient.gamemode :playerRemove(source, ...) end)		
+	addEventHandler("Race.playerRemoved", 	RaceClient.raceElement, function (...) RaceClient.gamemode :playerRemove(source, ...) end)		
 
 	updateTimer = setTimer(update, UPDATE_INTERVAL, 0)
 

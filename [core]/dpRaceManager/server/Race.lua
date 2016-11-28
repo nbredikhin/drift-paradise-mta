@@ -127,26 +127,27 @@ function Race:init(settings, map)
 	end
 
 	-- Корректное удаление игрока из гонки при выходе с сервера
+	local this = self
 	addEventHandler("onPlayerQuit", self.element, function ()
-		self:removePlayer(source)
+		this:removePlayer(source)
 	end)
 	-- Удалить игрока при взрыве автомобиля
 	addEventHandler("onVehicleExplode", self.element, function ()
 		local player = vehicle:getData("Race.player")
-		self:removePlayer(player)
+		this:removePlayer(player)
 	end)
 	addEventHandler("onPlayerVehicleExit", self.element, function ()
 		outputDebugString("Vehicle exit")
-		self:removePlayer(source)
+		this:removePlayer(source)
 	end)
-	addEventHandler("Race.clientLeave", self.element, function ()
-		if client.parent == self.element then
-			self:removePlayer(client)
+	addEventHandler("Race.clientLeave", resourceRoot, function ()
+		if client.parent == this.element then
+			this:removePlayer(client)
 		end
 	end)	
 	addEventHandler("Race.clientFinished", self.element, function ()
-		if client.parent == self.element then
-			self:playerFinish(client)
+		if client.parent == this.element then
+			this:playerFinish(client)
 		end
 	end)
 
@@ -319,13 +320,14 @@ function Race:removePlayer(player)
 	player.parent = root
 	player.dimension = 0
 	player:removeData("Race.finished")
+	player:setData("activeUI", false)
 
 	if not self.isBeingDestroyed then
 		self.gamemode:playerRemoved(player)
 	end
 
 	if self.element and isElement(self.element) then
-		triggerClientEvent(player, "Race.removedFromRace", self.element)
+		triggerClientEvent(player, "Race.removedFromRace", resourceRoot)
 		triggerClientEvent(self.element, "Race.playerRemoved", player)
 		self:log("Player removed: '" .. tostring(player.name) .. "'")
 	end
@@ -389,6 +391,7 @@ function Race:start()
 	-- Гонка не должна быть без игроков
 	if #self:getPlayers() == 0 then
 		self:log("Failed to start race. No players in race")
+		self:destroy()
 		return false
 	end
 	-- Не был запущен countdown

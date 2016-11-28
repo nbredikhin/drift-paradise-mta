@@ -11,9 +11,9 @@
     "enableReadmeFiles": true,
 
     "only": [
-        // "dpRaceLobby",
-        // "dpRaceManager",
-        "dpSafeZones"
+        "dpRaceLobby",
+        "dpRaceManager",
+        "dpContextMenu"
     ],
 
     "include": [
@@ -33,7 +33,7 @@
         "TD-MAPFILES",
         "TD-RACEMAPS",
         "TD-VILLA",
-        "TX-VILLA",
+        "TX-VILLA", 
         "MAP2017",
         "DESTROY-MAP"
     ],

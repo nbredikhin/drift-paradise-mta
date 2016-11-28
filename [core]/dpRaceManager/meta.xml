@@ -39,7 +39,7 @@
 	<export type="server" function="raceRemovePlayer"/>
 	<export type="server" function="raceGetPlayers"/>
 	<export type="server" function="raceGetAllPlayers"/>
-	<export type="server" function="getTotalPlayersCount"/>
+	<export type="server" function="raceGetTotalPlayersCount"/>
 	<export type="server" function="raceGetFinishedPlayers"/>
 	<export type="server" function="startRace"/>
 	<export type="server" function="finishRace"/>

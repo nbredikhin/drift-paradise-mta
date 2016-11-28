@@ -37,9 +37,12 @@ function Drift:updatePosition()
         return false
     end
     local myScore = localPlayer:getData("raceDriftScore")
+    if not myScore then
+        return false
+    end
     local rank = 1
     for i, player in ipairs(players) do
-        if player ~= localPlayer then
+        if isElement(player) and player ~= localPlayer then
             local playerScore = player:getData("raceDriftScore")
             if playerScore and playerScore > myScore then
                 rank = rank + 1

@@ -166,6 +166,8 @@ function LobbyScreen.setVisible(visible)
     end
     LobbyScreen.isVisible = visible
     if LobbyScreen.isVisible then
+        FinishScreen.clearPlayers()
+        
         local mapInfo = exports.dpRaceManager:getMapInfo(LobbyScreen.mapName) or {}
         local mapGamemode = mapInfo.gamemode
         if not localPlayer.vehicle or localPlayer.vehicle.controller ~= localPlayer then

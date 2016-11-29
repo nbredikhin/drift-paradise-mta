@@ -13,9 +13,11 @@ function SellCarScreen:init(callback)
 		self.text = exports.dpLang:getString("garage_sell_last_car")
 		self.confirm = utf8.fold(exports.dpLang:getString("garage_menu_back"))
 	end
-	local _, vehiclePrice = exports.dpShared:getVehiclePrices(GarageCar.getName())
-	if type(vehiclePrice) ~= "number" then
-		vehiclePrice = 0
+	local priceTable =  exports.dpShared:getVehiclePrices(GarageCar.getName())
+
+	local vehiclePrice = 0
+	if type(priceTable) == "table" then
+		vehiclePrice = priceTable[1]
 	end
 	self.price = math.floor(vehiclePrice * exports.dpShared:getEconomicsProperty("vehicle_sell_price"))
 	self.colorHex = exports.dpUtils:RGBToHex(exports.dpUI:getThemeColor())

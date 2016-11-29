@@ -5,7 +5,6 @@ local offset = 1
 local showCount = 6
 
 local teleports = {
-	{ "Akina", 				"akina" },
 	{ "Hakone Nanamagari", 	"hakone" },
 	{ "YZ Circuit", 		"yz_circuit" },
 	{ "Suzuka Circuit", 	"suzuka_circuit" },

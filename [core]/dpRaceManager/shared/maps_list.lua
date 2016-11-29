@@ -15,6 +15,11 @@ MapsList = {
         gamemode = "drift",        
         src = "drift-3.map",
     },
+    ["drift-4"] = {
+        duration = 300,
+        gamemode = "drift",        
+        src = "drift-4.map",
+    },    
     -- Sprint
     ["sprint-1"] = {
         duration = 300,
@@ -25,5 +30,10 @@ MapsList = {
         duration = 300,
         gamemode = "sprint",        
         src = "sprint-2.map",
-    }    
+    },
+    ["sprint-3"] = {
+        duration = 300,
+        gamemode = "sprint",        
+        src = "sprint-3.map",
+    }        
 }

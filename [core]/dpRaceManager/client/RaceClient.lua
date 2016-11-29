@@ -152,6 +152,8 @@ function RaceClient.startRace(raceElement, settings, map)
 	outputDebugString("Client race started")
 
 	exports.dpSafeZones:leaveSafeZones()
+
+	triggerServerEvent("Race.clientReady", RaceClient.raceElement)
 end
 
 function RaceClient.getPlayers()
@@ -173,7 +175,7 @@ function RaceClient.stopRace()
 	RaceClient.isActive = false
 
 	RaceClient.gamemode:raceStopped()
-	removeEventHandler("Race.removedFromRace", RaceClient.raceElement, onRemovedFromRace)
+	removeEventHandler("Race.removedFromRace", resourceRoot, onRemovedFromRace)
 	removeEventHandler("Race.stateChanged", RaceClient.raceElement, onStateChanged)
 	removeEventHandler("Race.updateTimeLeft",	RaceClient.raceElement, updateTimeLeft)
 	removeEventHandler("onClientElementDestroy", RaceClient.raceElement, RaceClient.stopRace)

@@ -1,4 +1,4 @@
-local TEST_RACE_ENABLED = true
+local TEST_RACE_ENABLED = false
 
 addCommandHandler("racetest", function ()
     if not TEST_RACE_ENABLED then
@@ -6,7 +6,7 @@ addCommandHandler("racetest", function ()
     end
     RaceManager.startRace({
         id = 1, 
-        map = "sprint-2",
+        map = "drift-4",
         gamemode = "sprint",
         players = getElementsByType("player"),
         rank = 1,

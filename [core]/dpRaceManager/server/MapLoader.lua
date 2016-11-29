@@ -28,7 +28,7 @@ function MapLoader.load(mapName)
 	for i, node in ipairs(mapXML.children) do
 		local x, y, z = node:getAttribute("posX"), node:getAttribute("posY"), node:getAttribute("posZ")
 		local rx, ry, rz = node:getAttribute("rotX"), node:getAttribute("rotY"), node:getAttribute("rotZ")
-		if node.name == "checkpoint" then
+		if node.name == "checkpoint" then			
 			table.insert(map.checkpoints, {x, y, z})
 		elseif node.name == "spawnpoint" then
 			table.insert(map.spawnpoints, {x, y, z, rx, ry, rz})

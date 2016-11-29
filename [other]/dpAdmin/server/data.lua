@@ -44,7 +44,7 @@ addEventHandler("dpAdmin.removeGiftKeys", resourceRoot, function (keys)
 	if type(keys) ~= "table" then
 		return
 	end
-	if not isPlayerAdmin(client) then
+	if not exports.dpUtils:isPlayerAdmin(client) then
 		return
 	end	
 	for i, key in ipairs(keys) do
@@ -54,7 +54,7 @@ addEventHandler("dpAdmin.removeGiftKeys", resourceRoot, function (keys)
 end)
 
 addEventHandler("onPlayerLogin", root, function ()
-	if isPlayerAdmin(source) then
+	if exports.dpUtils:isPlayerAdmin(source) then
 		source:setData("aclGroup", "admin")
 	else
 		source:setData("aclGroup", "user")
@@ -67,7 +67,7 @@ end)
 
 addEventHandler("onResourceStart", resourceRoot, function ()
 	for i, p in ipairs(getElementsByType("player")) do
-		if isPlayerAdmin(p) then
+		if exports.dpUtils:isPlayerAdmin(p) then
 			p:setData("aclGroup", "admin")
 		end
 	end

@@ -1,5 +1,6 @@
 raceRoot = Element("race-root", "raceRoot")
 local races = {}
+local raceDimension = 0
 
 -- Возможные состояния гонки
 local RaceState = {
@@ -7,6 +8,15 @@ local RaceState = {
 	running 	= "running",
 	ended 		= "ended"		
 }
+
+setTimer(function ()
+	for id, race in pairs(races) do
+		local racePlayers = race:getPlayers()
+		if not racePlayers or #racePlayers == 0 then
+			race:destroy()
+		end
+	end
+end, 60 * 1000 * 5, 0)
 
 local function isRaceState(state)
 	if not state then return false end
@@ -69,6 +79,7 @@ end)
 
 addEvent("Race.clientFinished", true)
 addEvent("Race.clientLeave", true)
+addEvent("Race.clientReady", true)
 
 local RACE_LOG_SERVER = true
 local RACE_LOG_DEBUG = true
@@ -113,11 +124,14 @@ function Race:init(settings, map)
 
 	-- Выбор уникального dimension'а в зависимости от настроек
 	if self.settings.separateDimension then
-		self.dimension = id + 120000
+		self.dimension = 12000 + raceDimension
 	else
 		self.dimension = 0
 	end
-
+	raceDimension = raceDimension + 1
+	if raceDimension > 13000 then
+		raceDimension = 0
+	end
 	-- Маркер финиша
 	local x, y, z = unpack(self.map.checkpoints[#self.map.checkpoints])
 	if x and y and z then
@@ -150,10 +164,16 @@ function Race:init(settings, map)
 			this:playerFinish(client)
 		end
 	end)
+	addEventHandler("Race.clientReady", self.element, function ()
+		if client.parent == this.element then
+			this:playerReady(client)
+		end
+	end)	
 
 	self:setState(RaceState.waiting)
 	self.allPlayers = {}
 	self.totalPlayersCount = 0
+	self.readyPlayers = {}
 	local gamemodeClass = raceGamemodes[self.settings.gamemode]
 	if not gamemodeClass then
 		self:log("Failed to create race. Gamemode '" .. tostring(self.settings.gamemode) .. "' does not exist")
@@ -195,6 +215,9 @@ function Race:destroy()
 	end
 	if isTimer(self.countdownTimer) then
 		killTimer(self.countdownTimer)
+	end
+	if isTimer(self.waitingTimer) then
+		killTimer(self.waitingTimer)
 	end
 	-- Удалить саму гонку
 	races[self.element.id] = nil
@@ -332,7 +355,7 @@ function Race:removePlayer(player)
 		self:log("Player removed: '" .. tostring(player.name) .. "'")
 	end
 	-- Удалить гонку при удалении всех игроков
-	if not self.isBeingDestroyed and self:getState() ~= RaceState.waiting and #self:getPlayers() == 0 then
+	if self:getState() ~= RaceState.waiting and #self:getPlayers() == 0 then
 		self:destroy()
 	end
 	return true
@@ -366,8 +389,9 @@ end
 ---------------------------------------------------------------
 
 local COUNTDOWN_DELAY = 3000
+local WAITING_DELAY = 15000
 
--- Запуск countdown'а
+-- Запуск гонки, ожидание игроков и т. д.
 function Race:launch()
 	-- Гонка не должна быть запущена
 	if self:getState() ~= RaceState.waiting then
@@ -375,10 +399,52 @@ function Race:launch()
 		return false
 	end
 
+	if #self.readyPlayers >= #self:getPlayers() then
+		self:log("All players ready before start")
+		self:preStart()
+	else
+		self.waitingTimer = setTimer(function() self:preStart(true) end, WAITING_DELAY, 1)
+	end
+	return true
+end
+
+function Race:playerReady(player)
+	if self:isPlayerReady(player) then
+		return false
+	end
+	table.insert(self.readyPlayers, player)
+	self:log("Player ready " .. tostring(player.name))
+
+	if isTimer(self.waitingTimer) and #self.readyPlayers >= #self:getPlayers() then
+		self:log("All players are ready")
+		self:preStart()
+	end
+end
+
+function Race:isPlayerReady(player)
+	for i, p in ipairs(self.readyPlayers) do
+		if player == p then
+			return true
+		end
+	end
+	return false
+end
+
+-- Запуск отсчёта
+function Race:preStart(kickNotReady)
+	if isTimer(self.waitingTimer) then
+		killTimer(self.waitingTimer)
+	end
+	for i, p in ipairs(self:getPlayers()) do
+		if not self:isPlayerReady(p) then
+			self:removePlayer(p)
+			self:log("Player not ready " .. tostring(p.name))
+		end
+	end
+
 	triggerClientEvent(self.element, "Race.launch", self.element)
 	self.countdownTimer = setTimer(function() self:start() end, COUNTDOWN_DELAY, 1)
 	self:log("Starting race...")
-	return true
 end
 
 -- Старт гонки

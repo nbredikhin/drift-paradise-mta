@@ -6,9 +6,15 @@ local languageChats = {
 
 addEvent("dpChat.broadcastMessage", true)
 addEventHandler("dpChat.broadcastMessage", root, function (tabName, rawMessage)
+	if client.muted then
+		return
+	end
 	local message = client.name .. "#FFFFFF: " .. tostring(rawMessage)
 	triggerEvent("dpChat.message", resourceRoot, client, tabName, rawMessage)
 	if tabName == "global" then		
+		if exports.dpUtils:isPlayerAdmin(client) then
+			message = "#4DF7E6[Admin] #FFFFFF" .. message
+		end		
 		triggerClientEvent("dpChat.broadcastMessage", root, "global", message, client)
 	elseif tabName == "web" then
 		triggerClientEvent("dpChat.broadcastMessage", root, "web", message, client)

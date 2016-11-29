@@ -63,6 +63,8 @@
 	<dp-map src="maps/drift-1.map"/>
 	<dp-map src="maps/drift-2.map"/>
 	<dp-map src="maps/drift-3.map"/>
+	<dp-map src="maps/drift-4.map"/>
 	<dp-map src="maps/sprint-1.map"/>
 	<dp-map src="maps/sprint-2.map"/>
+	<dp-map src="maps/sprint-3.map"/>
 </meta>

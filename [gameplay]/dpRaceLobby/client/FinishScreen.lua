@@ -267,3 +267,6 @@ addEventHandler("RaceLobby.playerFinished", resourceRoot, function (player, priz
         end
     end
 end)
+
+addEvent("Race.addedToRace", true)
+addEventHandler("Race.addedToRace", root, FinishScreen.clearPlayers)

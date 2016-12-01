@@ -293,6 +293,7 @@
 	"markers_house_buy_text": "Нажмите %q чтобы открыть меню покупки дома",
 	"markers_strip_enter_text": "Нажмите %q чтобы войти в стрипклуб",
 	"markers_race_enter_text": "Нажмите %q чтобы войти в лобби",
+	"markers_tofu_text": "Нажмите %q чтобы забрать тофу",
 
 	// House system
 	"houses_info_price": "Цена",

@@ -11,12 +11,8 @@
     "enableReadmeFiles": true,
 
     "only": [
-        "dpStartup",
-        "dpRaceManager",
-        "dpRaceLobby",
-        "dpMainPanel",
-        "dpGarage",
-        "dpChat"
+        "dpVehicles",
+        "dpRaceLobby"
     ],
 
     "include": [

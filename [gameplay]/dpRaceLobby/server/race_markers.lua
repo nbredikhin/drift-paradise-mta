@@ -1,5 +1,5 @@
-local MAX_MARKERS_COUNT = 7
-local RESPAWN_TIME = 60
+local MAX_MARKERS_COUNT = 4
+local RESPAWN_TIME = 30
 
 local SAFE_ZONE_SIZE = 15
 

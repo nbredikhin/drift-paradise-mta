@@ -69,6 +69,14 @@ markerTypes.race = {
 	noPaint = true
 }
 
+markerTypes.tofu = {
+	color = {255, 255, 255},
+	icon = "assets/race_icon.png",
+	iconSize = 12.5,
+	string = "markers_tofu_text",
+	noPaint = true
+}
+
 markerTypes.exit = {
 	color = {212, 0, 40},
 	text = "assets/exit_icon.png",
@@ -197,6 +205,9 @@ local function drawMarker(marker)
 		)
 	end
 
+	if not markerProperties.text then
+		return
+	end
 	local textSize = MARKER_TEXT_SIZE
 	-- Вертикальная картинка
 	local textAnimationOffset = math.sin(t * MARKER_ANIMATION_SPEED) * MARKER_TEXT_ANIMATION_SIZE

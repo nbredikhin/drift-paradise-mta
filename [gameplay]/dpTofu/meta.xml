@@ -1,0 +1,7 @@
+<meta>
+	<oop>true</oop>
+	<script type="client" src="client.lua"/>
+	<file src="skin/1.dff"/>
+	<file src="skin/1.txd"/>
+	<file src="music/music.mp3"/>
+</meta>

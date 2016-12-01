@@ -19,6 +19,7 @@ local vehicleClasses = {
 	bmw_e34 				= 4,
 	nissan_silvia_s14		= 4,
 	nissan_silvia_s15		= 4,
+	mazda_rx8				= 4,
 	-- 5 класс
 	bmw_e60					= 5,
 	toyota_supra			= 5,

@@ -56,6 +56,7 @@ local vehiclesReadableNames = {
 	bmw_e34 			= "BMW E34",
 	nissan_silvia_s14	= "Nissan Silvia S14",
 	nissan_silvia_s15	= "Nissan Silvia S15",
+	mazda_rx8			= "Mazda RX-8",
 	-- 5 класс
 	bmw_e60				= "BMW E60",
 	toyota_supra		= "Toyota Supra",

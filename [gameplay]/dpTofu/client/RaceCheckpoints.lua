@@ -54,7 +54,7 @@ local function onMarkerHit(player)
 		-- Круг был последний
 		if currentLap >= settings.lapsCount then
 			currentCheckpoint = currentCheckpoint + 1
-			RaceClient.clientFinished()
+			finishTofu()
 		else
 			-- Следующий круг
 			currentLap = currentLap + 1
@@ -62,7 +62,7 @@ local function onMarkerHit(player)
 			RaceCheckpoints.showNext()
 		end
 	end	
-	RaceClient.checkpointHit(RaceCheckpoints.getCurrentCheckpoint())
+	-- Sraka
 end
 
 function RaceCheckpoints.start(checkpoints, settingsTable)
@@ -79,7 +79,6 @@ function RaceCheckpoints.start(checkpoints, settingsTable)
 	RaceCheckpoints.showNext()
 
 	addEventHandler("onClientMarkerHit", resourceRoot, onMarkerHit)
-	localPlayer:setData("race_checkpoint", 0)
 	isActive = true
 end
 
@@ -89,7 +88,6 @@ function RaceCheckpoints.stop()
 	end
 	destroyMarkers()
 	removeEventHandler("onClientMarkerHit", resourceRoot, onMarkerHit)
-	localPlayer:setData("race_checkpoint", 0)
 	isActive = false
 end
 

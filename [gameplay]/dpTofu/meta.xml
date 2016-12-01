@@ -1,6 +1,14 @@
 <meta>
 	<oop>true</oop>
-	<script type="client" src="client.lua"/>
+	<script type="client" src="client/generator/utils.lua"/>
+	<script type="client" src="client/generator/checkpointsTable"/>
+	<script type="client" src="client/generator/checkpoint.lua"/>
+	<script type="client" src="client/generator/PathGenerator.lua"/>
+	<script type="client" src="client/RaceCheckpoints.lua"/>
+	<script type="client" src="client/FinishScreen.lua"/>
+	<script type="client" src="client/main.lua"/>
+
+	<script type="server" src="server/server.lua"/>
 	<file src="skin/1.dff"/>
 	<file src="skin/1.txd"/>
 	<file src="music/music.mp3"/>

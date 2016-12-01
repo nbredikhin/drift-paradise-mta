@@ -1,4 +1,4 @@
-WinnerScreen = {}
+FinishScreen = {}
 local isActive = false
 
 local screenSize = Vector2(guiGetScreenSize())
@@ -51,7 +51,7 @@ local function update(dt)
 
 	visibleDelay = visibleDelay - dt
 	if visibleDelay < 0 then
-		WinnerScreen.stop()
+		FinishScreen.stop()
 	end
 	animationProgress = math.min(1, animationProgress + animationSpeed * dt)
 	if visibleDelay < 1 / animationSpeed then
@@ -59,32 +59,25 @@ local function update(dt)
 	end
 end
 
-function WinnerScreen.show(player, bet, timePassed)
+function FinishScreen.show(money, timePassed, bonus)
 	themeColorHEX = exports.dpUtils:RGBToHex(exports.dpUI:getThemeColor())
 
 	local timeString = ""
 	if type(timePassed) == "number" then
-		timeString = exports.dpLang:getString("duel_winner_screen_time") .. ": " .. themeColorHEX .. tostring(getTimeString(math.floor(timePassed / 1000)))
+		timeString = exports.dpLang:getString("tofu_time_text") .. ": " .. themeColorHEX .. tostring(getTimeString(math.floor(timePassed)))
 	end
-	outputDebugString("WinnerScreen.show: Winner - " .. tostring(player))
-	if isElement(player) then
-		if player == localPlayer then
-			mainText = exports.dpLang:getString("duel_winner_screen_you_won")
-			moneyText = exports.dpLang:getString("duel_winner_screen_prize") .. ": " .. themeColorHEX .. "$" .. tostring(bet) 
-			infoText = timeString
-		else
-			mainText = exports.dpLang:getString("duel_winner_screen_you_lost")
-			moneyText = timeString
-		end
-	else
-		mainText = exports.dpLang:getString("duel_winner_screen_timeout")
-		moneyText = ""
+	mainText = exports.dpLang:getString("tofu_finish_text")
+	moneyText = exports.dpLang:getString("tofu_prize_text") .. ": " .. themeColorHEX .. "$" .. tostring(money) 
+	if bonus and bonus > 0 then
+		infoText = "+" .. tostring(bonus) .. "% " .. themeColorHEX .. exports.dpLang:getString("tofu_perfect_text")
+	else 
+		infoText = timeString
 	end
 
-	WinnerScreen.start()
+	FinishScreen.start()
 end
 
-function WinnerScreen.start()
+function FinishScreen.start()
 	if isActive then
 		return false
 	end
@@ -101,7 +94,7 @@ function WinnerScreen.start()
 	return true
 end
 
-function WinnerScreen.stop()
+function FinishScreen.stop()
 	if not isActive then
 		return false
 	end
@@ -119,9 +112,4 @@ function WinnerScreen.stop()
 	return true
 end
 
---bindKey("5", "down", function() WinnerScreen.show(localPlayer, 500, 126123) end)
-
-addEvent("dpDuels.showWinner", true)
-addEventHandler("dpDuels.showWinner", resourceRoot, function(player, prize, timePassed)
-	WinnerScreen.show(player, prize, timePassed)
-end)
+-- bindKey("5", "down", function() FinishScreen.show(500 * 1.1, 1223, 10) end)

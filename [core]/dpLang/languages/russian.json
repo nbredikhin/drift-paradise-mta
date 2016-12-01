@@ -489,4 +489,11 @@
 	// Donation
 	"donation_message_title": "Покупка доната",
 	"donation_message_text": "Вы успешно купили %s!",
+
+	// Tofu delivery
+	"tofu_blip_text": "Доставка тофу",
+	"tofu_finish_text": "Вы успешно доставили тофу!",
+	"tofu_prize_text": "Ваш заработок",
+	"tofu_time_text": "Затраченное время",
+	"tofu_perfect_text": "за доставку без аварий"
 }

@@ -20,7 +20,11 @@ local playerEconomics = {
 		{ xp = 250, money = 300 },
 		{ xp = 200, money = 150 },
 		{ xp = 150, money = 75 },
-	}
+	},
+
+	tofu_prize = 500,
+	tofu_xp = 300,
+	tofu_perfect_mul = 1.1,
 }
 
 function getEconomicsProperty(name)

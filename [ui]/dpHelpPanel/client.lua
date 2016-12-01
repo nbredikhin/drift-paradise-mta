@@ -16,10 +16,6 @@ local tabs = {
     {
         name = "help_panel_garage_title",
         text = "help_panel_garage_text"
-    },    
-    {
-        name = "help_panel_races_title",
-        text = "help_panel_races_text"
     },
     {
         name = "help_panel_more_title",

@@ -5,32 +5,6 @@ local playerMenu = {
 
 remotePlayerMenu = {
 	{ locale = "context_menu_player_profile", enabled = false},
-	{ locale = "context_menu_player_duel", 
-		enabled = function(element) 
-			if true then
-				return false
-			end
-			if not isElement(element) then return false end 
-			if exports.dpDuels:isAcceptWindowActive() then return false end
-			return element.type == "vehicle" 
-		end,
-
-		click = function(vehicle)
-			if true then
-				return false
-			end
-			if not isElement(vehicle) then
-				return
-			end
-			local player
-			if vehicle.type == "player" then
-				player = vehicle
-			else
-				player = vehicle.controller
-			end
-			exports.dpDuels:callPlayer(player)
-		end
-	},
 	{ locale = "context_menu_player_pm", 
 		click = function (player)
 			if not isElement(player) then

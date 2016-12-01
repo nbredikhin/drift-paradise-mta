@@ -16,7 +16,9 @@ addEvent("dpMarkers.use", false)
 
 local function takeTofu()
 	if isRunning then
-		exports.dpUI:showMessageBox("Доставка тофу", "Вы уже взяли тофу! Следуйте маршруту")
+		exports.dpUI:showMessageBox(
+			exports.dpLang:getString("tofu_message_box_title"), 
+			exports.dpLang:getString("tofu_message_box_text"))
 		return 
 	end
 

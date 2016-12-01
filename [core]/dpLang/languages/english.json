@@ -514,4 +514,13 @@
 	// Donation
 	"donation_message_title": "Donation",
 	"donation_message_text": "You have successfully purchased %s!",
+
+	// Tofu delivery
+	"tofu_blip_text": "Tofu delivery",
+	"tofu_finish_text": "You have delivered tofu!",
+	"tofu_prize_text": "Earned money",
+	"tofu_time_text": "Time passed",
+	"tofu_perfect_text": "for delivery without damage",
+	"tofu_message_box_title": "Tofu delivery",
+	"tofu_message_box_text": "You have already taken tofu! Now follow the path"	
 }

@@ -495,5 +495,7 @@
 	"tofu_finish_text": "Вы успешно доставили тофу!",
 	"tofu_prize_text": "Ваш заработок",
 	"tofu_time_text": "Затраченное время",
-	"tofu_perfect_text": "за доставку без аварий"
+	"tofu_perfect_text": "за доставку без аварий",
+	"tofu_message_box_title": "Доставка тофу",
+	"tofu_message_box_text": "Вы уже взяли тофу! Теперь следуйте маршруту"
 }

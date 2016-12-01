@@ -89,7 +89,7 @@ function stopVehicleSound(vehicle)
 end
 
 function checkVehicles(vehicle)
-	if not lastVehicle then 
+	if not lastVehicle then
 		startSound(vehicle)
 		lastVehicle = vehicle
 		return true
@@ -115,7 +115,7 @@ addEventHandler("onClientElementDestroy", getRootElement(), function ()
 	end
 end)
 
-function disableSounds()	
+function disableSounds()
 	setWorldSoundEnabled ( 40, false )
 	setWorldSoundEnabled ( 12, false )
 	addEventHandler("onClientRender", getRootElement(), checkVehiclesRPM )
@@ -176,9 +176,9 @@ function checkVehiclesRPM()
 		end
 		local sound = carSounds[lastVehicle]
 		if isElement(sound) then
-			local tx, ty, tz = getElementPosition ( lastVehicle ) 
+			local tx, ty, tz = getElementPosition ( lastVehicle )
 			if getDistanceBetweenPoints3D (x,y,z,tx,ty,tz) < 40 then
-				local rpm = getVehicleRPM(lastVehicle) 
+				local rpm = getVehicleRPM(lastVehicle)
 				if not getVehicleEngineState(lastVehicle) then
 					--if not isSoundPaused ( sound ) then
 						setSoundPaused ( sound, true )
@@ -210,7 +210,7 @@ function checkVehiclesRPM()
 						--downgradingTimers[2] = setTimer (function() downgrading  = false end, vehiclesSounds[model].downTime, 1)
 						setElementData ( lastVehicle, "carsound:downgradingTimers", downgradingTimers, false )
 					else
-						if curGear > lastGear then
+						if vehiclesSounds[model].blowoff and curGear > lastGear then
 							playBlowoffSound(lastVehicle)
 						end
 						if downgrading then
@@ -263,14 +263,14 @@ function playGearSound(vehicle)
 	end
 end
 
-function getVehicleRPM(vehicle) 
-    if isElement(vehicle) then  
+function getVehicleRPM(vehicle)
+    if isElement(vehicle) then
 		local vehicleRPM = getElementData ( vehicle, "rpm" ) or 0
-        if (isVehicleOnGround(vehicle)) then     
+        if (isVehicleOnGround(vehicle)) then
             if (getVehicleEngineState(vehicle) == true) then
                 if(getVehicleCurrentGear(vehicle) > 0) then
                     vehicleRPM = math.floor(((getVehicleSpeed(vehicle)/getVehicleCurrentGear(vehicle))*180) + 0.5)
-                    
+
                     if (vehicleRPM < 650) then
                         vehicleRPM = math.random(650, 750)
                     elseif (vehicleRPM >= 9800) then
@@ -278,7 +278,7 @@ function getVehicleRPM(vehicle)
                     end
                 else
                     vehicleRPM = math.floor(((getVehicleSpeed(vehicle)/1)*180) + 0.5)
-                    
+
                     if (vehicleRPM < 650) then
                         vehicleRPM = math.random(650, 750)
                     elseif (vehicleRPM >= 9800) then
@@ -291,7 +291,7 @@ function getVehicleRPM(vehicle)
         else
             if (getVehicleEngineState(vehicle) == true) then
                 vehicleRPM = vehicleRPM - 150
-                    
+
                 if (vehicleRPM < 650) then
                     vehicleRPM = math.random(650, 750)
                 elseif (vehicleRPM >= 9800) then
@@ -308,10 +308,10 @@ function getVehicleRPM(vehicle)
     end
 end
 
-function getVehicleSpeed(vehicle)   
+function getVehicleSpeed(vehicle)
     if isElement(vehicle) then
         local vx, vy, vz = getElementVelocity(vehicle)
-        
+
         if (vx) and (vy)and (vz) then
             return math.sqrt(vx^2 + vy^2 + vz^2) * 180 -- km/h
         else

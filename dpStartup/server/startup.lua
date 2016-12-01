@@ -8,9 +8,9 @@ local startupResources = {
 	-- Экран загрузки должен загружаться раньше всех ресурсов
 	"dpLoadingScreen",
 
-	-- Important 
+	-- Important
 	"geoip",
-	
+
 	-- Assets
 	"dpAssets",
 	"dpArrows",
@@ -18,8 +18,8 @@ local startupResources = {
 	"dpConfig",
 	"dpShared",
 	"dpSounds",
-	
-	-- Core	
+
+	-- Core
 	"dpUtils",
 	"dpLang",
 	"dpMarkers",
@@ -33,7 +33,7 @@ local startupResources = {
 	"dpNametags",
 	"dpHideUI",
 	"dpChat",
-	
+
 	"dpLoginPanel",
 	"dpTabPanel",
 	"dpMainPanel",
@@ -50,7 +50,7 @@ local startupResources = {
 	"dpVehicles",
 	"dpWheelsManager",
 	"dpPhotoMode",
-	"dpDriftPoints",	
+	"dpDriftPoints",
 	"dpHouses",
 	"dpGarage",
 	"dpCarshop",
@@ -123,9 +123,9 @@ end
 
 local function showDiscordMessage(message)
 	fetchRemote(
-		DISCORD_URL, 
-		function ()end, 
-		'{"text": "' .. tostring(message) ..'", "username": "' .. tostring(getServerName()) ..'"}')	
+		DISCORD_URL,
+		function ()end,
+		'{"text": "' .. tostring(message) ..'", "username": "' .. tostring(getServerName()) ..'"}')
 end
 
 addEventHandler("onResourceStart", resourceRoot, function ()
@@ -165,7 +165,7 @@ addEventHandler("onResourceStop", resourceRoot, function ()
 	shutdownGamemode(SHOW_MESSAGE, KICK_PLAYERS)
 end)
 
-function shutdownServer()	
+function shutdownServer()
 	shutdownGamemode(true, true)
 	setServerPassword("pls_dont_connect_or_everything_could_fuck_up")
 	outputServerLog("startup: Shutdown after 3 seconds...")

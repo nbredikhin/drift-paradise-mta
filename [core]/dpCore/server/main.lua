@@ -1,7 +1,7 @@
 addEventHandler("onResourceStart", resourceRoot, function ()
 	if not Database.connect() then
 		outputDebugString("ERROR: Database connection failed")
-		return 
+		return
 	end
 	BetaKeys.start()
 

@@ -22,7 +22,7 @@ local function updateRotations()
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
-	showPlayerHudComponent("all", false)
+	setPlayerHudComponentVisible("all", false)
 
 	Speedometer.start()
 	Radar.start()

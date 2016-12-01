@@ -14,20 +14,20 @@ local unfreezeTimer
 
 -- Дата, которая округляется при сохранении
 local configurationData = {
-	"WheelsOffsetF", 
-	"WheelsOffsetR", 
-	"WheelsWidthF", 
-	"WheelsWidthR", 
-	"WheelsAngleF", 
-	"WheelsAngleR", 
+	"WheelsOffsetF",
+	"WheelsOffsetR",
+	"WheelsWidthF",
+	"WheelsWidthR",
+	"WheelsAngleF",
+	"WheelsAngleR",
 	"WheelsSize",
 	"Suspension"
 }
 -- Цвета, которые выставляются белыми по умолчанию и округляются
 local colorsData = {
-	"BodyColor", 
-	"WheelsColorR", 
-	"WheelsColorF", 
+	"BodyColor",
+	"WheelsColorR",
+	"WheelsColorF",
 	"SpoilerColor"
 }
 -- Дата, которая копируется как есть
@@ -74,8 +74,8 @@ local function updateVehicle()
 		else
 			vehicle.velocity = Vector3(0, 0, -0.01)
 		end
-	end, 250, 3)	
-	
+	end, 250, 3)
+
 	-- Наклейки
 	local stickersJSON = vehiclesList[currentVehicle].stickers
 	if stickersJSON then
@@ -83,11 +83,11 @@ local function updateVehicle()
 		if type(stickers) ~= "table" then
 			stickers = {}
 		end
-		setData("stickers", stickers)	
+		setData("stickers", stickers)
 	else
 		setData("stickers", {})
 	end
-	
+
 	GarageCar.resetTuning()
 	CarTexture.reset()
 end
@@ -166,7 +166,7 @@ end
 function GarageCar.applyTuning(name, value)
 	if not value then
 		value = vehicle:getData(name)
-	else		
+	else
 		vehicle:setData(name, value, false)
 	end
 	currentTuningTable[name] = value
@@ -220,7 +220,7 @@ function GarageCar.resetTuning()
 		setData(name, currentTuningTable[name])
 	end
 
-	-- Высота подвески	
+	-- Высота подвески
 	local suspensionHeight = currentTuningTable["Suspension"]
 	if not suspensionHeight then
 		suspensionHeight = 0.5
@@ -248,7 +248,7 @@ function GarageCar.resetTuning()
 
 	if not currentTuningTable["DriftHandling"] then
 		GarageCar.applyTuning("DriftHandling", 0)
-	end	
+	end
 end
 
 function GarageCar.getTuningTable()
@@ -263,7 +263,7 @@ function GarageCar.getTuningTable()
 		if type(tuningTable[name]) == "number" then
 			tuningTable[name] = math.ceil(tuningTable[name] * 1000) / 1000
 		end
-	end	
+	end
 
 	for i, name in ipairs(colorsData) do
 		tuningTable[name] = vehicle:getData(name)
@@ -279,7 +279,7 @@ function GarageCar.getTuningTable()
 	for i, name in ipairs(copyData) do
 		tuningTable[name] = vehicle:getData(name)
 	end
-	
+
 	return tuningTable
 end
 
@@ -291,7 +291,7 @@ function GarageCar.save()
 
 	--outputDebugString("SAVE WheelsSize = " .. tostring(tuningTable.WheelsSize))
 	triggerServerEvent("dpGarage.saveCar", resourceRoot,
-		currentVehicle, 
+		currentVehicle,
 		tuningTable,
 		vehicle:getData("stickers")
 	)
@@ -301,30 +301,30 @@ function GarageCar.hasComponent(name, id)
 	if not name then
 		return false
 	end
-	if 	name == "Spoilers" or 
+	if 	name == "Spoilers" or
 		name == "Numberplate" or
 		name == "WheelsF" or
 		name == "WheelsR"
 	then
 		return true
-	end	
+	end
 	if not id then
 		id = 1
 	end
-	return not not  vehicle:getComponentPosition(name .. tostring(id)) 
+	return not not  vehicle:getComponentPosition(name .. tostring(id))
 end
 
 function GarageCar.getComponentsCount(name)
 	if not name then
 		return 0
 	end
-	if 	name == "Spoilers" or 
+	if 	name == "Spoilers" or
 		name == "Numberplate" or
 		name == "WheelsF" or
 		name == "WheelsR"
 	then
 		return 1
-	end	
+	end
 	local count = 0
 	for i = 1, 50 do
 		if not vehicle:getComponentPosition(name .. tostring(i)) then

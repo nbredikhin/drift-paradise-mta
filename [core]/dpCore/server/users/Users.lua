@@ -39,10 +39,10 @@ end
 
 -- Проверка пароля, повторного входа и т. д.
 local function verifyLogin(player, username, password, account)
-	if 	type(player) 	~= "userdata" or 
-		type(username) 	~= "string" or 
-		type(password) 	~= "string" or 
-		type(account) 	~= "table" 
+	if 	type(player) 	~= "userdata" or
+		type(username) 	~= "string" or
+		type(password) 	~= "string" or
+		type(account) 	~= "table"
 	then
 		outputDebugString("ERROR: verifyLogin: User not found")
 		return false, "user_not_found"
@@ -62,11 +62,11 @@ local function verifyLogin(player, username, password, account)
 end
 
 function Users.registerPlayer(player, username, password, callback)
-	if not isElement(player) or type(username) ~= "string" or type(password) ~= "string" then	
+	if not isElement(player) or type(username) ~= "string" or type(password) ~= "string" then
 		outputDebugString("ERROR: Users.registerPlayer: bad arguments")
 		return false
 	end
-	
+
 	-- Проверка имени пользователя и пароля
 	if not checkUsername(username) or not checkPassword(password) then
 		outputDebugString("ERROR: Users.registerPlayer: bad username or password")
@@ -105,10 +105,10 @@ function Users.loginPlayer(player, username, password, callback)
 		if success then
 			-- Запустить сессию
 			success = Sessions.start(player)
-			if success then					
+			if success then
 				DatabaseTable.update(USERS_TABLE_NAME, {online=1}, {username=username})
 				PlayerData.set(player, account)
-				
+
 				-- Количество автомобилей игрока
 				UserVehicles.getVehiclesIds(account._id, function (result)
 					if type(result) == "table" then
@@ -123,7 +123,7 @@ function Users.loginPlayer(player, username, password, callback)
 			return
 		end
 		-- Получить дом игрока и вызывать callback
-		Houses.setupPlayerHouseData(player, callback, success, errorType)	
+		Houses.setupPlayerHouseData(player, callback, success, errorType)
 	end)
 end
 
@@ -132,7 +132,7 @@ function Users.get(userId, fields, callback)
 		executeCallback(callback, false)
 		return false
 	end
-	
+
 	return DatabaseTable.select(USERS_TABLE_NAME, fields, { _id = userId }, callback)
 end
 
@@ -148,7 +148,7 @@ function Users.getByUsername(username, fields)
 	if type(username) ~= "string" or type(fields) ~= "table" then
 		return false
 	end
-	
+
 	return DatabaseTable.select(USERS_TABLE_NAME, fields, { username = username })
 end
 
@@ -162,7 +162,7 @@ function Users.logoutPlayer(player, callback)
 	end
 	if not Sessions.isActive(player) then
 		return false
-	end	
+	end
 	Users.saveAccount(player)
 	Sessions.stop(player)
 
@@ -193,7 +193,7 @@ function Users.getPlayerById(id)
 		return false
 	end
 	for i, player in ipairs(getElementsByType("player")) do
-		local playerId = player:getData("_id") 
+		local playerId = player:getData("_id")
 		if playerId and playerId == id then
 			return player
 		end
@@ -206,7 +206,7 @@ function Users.getPlayerByUsername(username)
 		return false
 	end
 	for i, player in ipairs(getElementsByType("player")) do
-		local name = player:getData("username") 
+		local name = player:getData("username")
 		if name and name == username then
 			return player
 		end
@@ -223,7 +223,7 @@ addEventHandler("dpCore.registerRequest", resourceRoot, function(username, passw
 		if not BetaKeys.isKeyValid(betaKey) then
 			triggerClientEvent(player, "dpCore.registerResponse", resourceRoot, false, "beta_key_invalid")
 			triggerEvent("dpCore.register", player, false, "beta_key_invalid")
-			return		
+			return
 		end
 	end
 
@@ -297,7 +297,7 @@ function logoutOfflineUsers()
 		end
 		if count > 0 then
 			outputDebugString("Logged out " .. tostring(count) .. " user(s)")
-		end		
+		end
 	end)
 end
 

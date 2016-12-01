@@ -10,23 +10,23 @@ function MainScreen:init(item)
 			"garage_menu_customize",
 			"garage_menu_exit"
 		},
-		Vector3(2918.4, -3188.340, 2535.6), 
+		Vector3(2918.4, -3188.340, 2535.6),
 		45
-	)	
+	)
 
 	local position = GarageCar.getVehicle().matrix:transformPosition(-0.2, 3.5, 0)
 	position.z = 2534.8
 	self.carNamePanel = CarNamePanel(
-		position, 
+		position,
 		0
-	)		
+	)
 	self.carNamePanel.text = ""
-	
+
 	local this = self
 	setTimer(function()
 		this:updateCarName()
 	end, 500, 4)
-	
+
 	CameraManager.setState("startingCamera", false, 2)
 
 	if type(item) == "number" then

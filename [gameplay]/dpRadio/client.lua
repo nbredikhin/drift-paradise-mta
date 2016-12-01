@@ -61,12 +61,11 @@ function resetTimer ()
   textRadio = ""
 end
 
-addEventHandler("onClientResourceStart",getResourceRootElement(),
+addEventHandler("onClientResourceStart", getResourceRootElement(),
 function()
-  outputChatBox ("Добро пожаловать на наш сервер!")
-  showPlayerHudComponent ("radio",false)
-  setRadioChannel (0)
-  
+  setPlayerHudComponentVisible("radio", false)
+  setRadioChannel(0)
+
   bindKey ("radio_next","down",
     function(key,state)
 		color = tocolor(math.random(0,255),math.random(0,255),math.random(0,255))
@@ -85,14 +84,14 @@ function()
         end
       else
         setRadioChannel (0)
-        if playRadioThing then 
+        if playRadioThing then
           stopSound (playRadioThing)
         end
         playRadioThing = playSound (radio)
       end
     end
   )
-  
+
   bindKey ("radio_previous","down",
     function(key,state)
 		color = tocolor(math.random(0,255),math.random(0,255),math.random(0,255))
@@ -111,14 +110,14 @@ function()
         end
       else
         setRadioChannel (0)
-        if playRadioThing then 
+        if playRadioThing then
           stopSound (playRadioThing)
         end
         playRadioThing = playSound (radio)
       end
     end
   )
-  
+
 end)
 
 function renderRadio ()

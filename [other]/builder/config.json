@@ -16,14 +16,14 @@
     ],
 
     "include": [
-        "geoip",        
+        "geoip",
         "blur_box",
         "car_reflections",
         "water_reflections",
         "dynamic_lighting",
         "dynamic_lighting_vehicles",
         "shader_dynamic_sky",
-        
+
         "server_assets",
         "MAPPING-MAIN",
         "TD-INT",
@@ -32,7 +32,7 @@
         "TD-MAPFILES",
         "TD-RACEMAPS",
         "TD-VILLA",
-        "TX-VILLA", 
+        "TX-VILLA",
         "MAP2017",
         "DESTROY-MAP"
     ],

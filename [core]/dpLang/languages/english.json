@@ -528,5 +528,6 @@
 	"tofu_message_box_text": "You have already taken tofu! Now follow the path",
 
 	// Radio
-	"radio_off": "Radio Off"
+	"radio_off": "Radio Off",
+	"radio_user_tracks": "User Tracks"
 }

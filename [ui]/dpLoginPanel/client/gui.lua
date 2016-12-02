@@ -234,7 +234,7 @@ local function createRegisterPanel()
 		UI:addChild(panel, button)
 		languageButton.button = button
 		langX = langX + 27 + 5
-	end	
+	end
 
 	local circleTexture = exports.dpAssets:createTexture("buttons/circle.png", "argb", false, "clamp")
 	local colorPurple = UI:createDpImageButton({
@@ -289,7 +289,7 @@ local function createRegisterPanel()
 	-- })
 	-- UI:addChild(panel, betaKeyInput)
 
-	y = y + 70	
+	y = y + 70
 	local usernameInput = UI:createDpInput({
 		x = 50,
 		y = y,
@@ -381,7 +381,7 @@ addEventHandler("dpUI.click", resourceRoot, function(widget)
 			exports.dpSounds:playSound("ui_change.wav")
 			exports.dpLang:setLanguage(languageButton.language)
 		end
-	end	
+	end
 	-- Переключение панелей
 	if widget == loginPanel.registerButton then
 		UI:setVisible(loginPanel.panel, false)

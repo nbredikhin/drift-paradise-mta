@@ -503,5 +503,6 @@
 	"tofu_message_box_text": "Вы уже взяли тофу! Теперь следуйте маршруту",
 
 	// Radio
-	"radio_off": "Радио выкл."
+	"radio_off": "Радио выкл.",
+	"radio_user_tracks": "Пользовательское"
 }

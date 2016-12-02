@@ -1,6 +1,7 @@
 TURN_OFF_STATION_ID = 0
 
 local currentStationId = TURN_OFF_STATION_ID
+local changeStationId = TURN_OFF_STATION_ID
 local hideRadioNameTimer = nil
 local radioNameVisible = false
 
@@ -8,6 +9,12 @@ local screenSize = Vector2(guiGetScreenSize())
 local font = exports.dpAssets:createFont("Cuprum-Bold.ttf", 32, true)
 
 local radios = {
+    {localized_name = "radio_user_tracks", url = 12},
+    {name = "Radio Record", url = "http://stream.radiorecord.ru:8100/rr_aac"},
+    {name = "Europa Plus", url = "http://ep128.streamr.ru"},
+    {name = "D-FM", url = "http://striiming.trio.ee/dfm.mp3"},
+    {name = "Dubplate.fm Dub & Bass", url = "http://sc2.dubplate.fm:5000/dubstep/192"},
+    {name = "Dubplate.fm Drum 'n Bass", url = "http://sc2.dubplate.fm:5000/DnB/192"},
     {name = "YO.FM", url = "http://air.radiorecord.ru:8102/yo_320"},
     {name = "GOP.FM", url = "http://online.radiorecord.ru:8102/gop_128"},
     {name = "Dorojnoe Radio", url = "http://dorognoe48.streamr.ru"},
@@ -20,9 +27,6 @@ local radios = {
     {name = "Hay.FM Yerevan", url = "http://hayfm.am:8000/HayFm"},
     {name = "Big B Radio #JPOP", url = "http://62.75.253.56:8012/"},
     {name = "Maximum.FM", url = "http://maximum.fmtuner.ru/96kbit/s"},
-    {name = "Radio Record", url = "http://stream.radiorecord.ru:8100/rr_aac"},
-    {name = "Europa Plus", url = "http://ep128.streamr.ru"},
-    {name = "D-FM", url = "http://striiming.trio.ee/dfm.mp3"},
     {name = "Zaycev.FM", url = "http://zaycev.fm:9002/ZaycevFM(128)"},
     {name = "100hitz", url = "http://206.217.213.235:8170/"},
     {name = "DEFJAY", url = "http://212.45.104.39:8008/"},
@@ -32,10 +36,16 @@ local radios = {
 
 local radioSound = nil
 
+_setRadioChannel = setRadioChannel
+
+function setRadioChannel(index)
+    changeStationId = index
+    _setRadioChannel(index)
+end
+
 function resetTimer()
     radioNameVisible = false
 end
-
 
 local function stopRadio()
     if isElement(radioSound) then
@@ -55,7 +65,13 @@ local function setRadio(stationId)
 
     if stationId ~= TURN_OFF_STATION_ID then
         setRadioChannel(0)
-        radioSound = Sound(radios[stationId].url)
+        if type(radios[stationId].url) == "number" then
+            setRadioChannel(radios[stationId].url)
+        else
+            radioSound = Sound(radios[stationId].url)
+        end
+    else
+        setRadioChannel(0)
     end
 end
 
@@ -75,7 +91,6 @@ function ()
     bindKey("radio_previous", "down", function ()
         switchRadio(false)
     end)
-
 end)
 
 function dxDrawBorderedText(text, left, top, right, bottom, color, scale, font, alignX, alignY, clip, wordBreak, postGUI,
@@ -94,6 +109,8 @@ local function drawRadioName()
         local text
         if currentStationId == TURN_OFF_STATION_ID then
             text = exports.dpLang:getString("radio_off")
+        elseif radios[currentStationId].localized_name then
+            text = exports.dpLang:getString(radios[currentStationId].localized_name)
         else
             text = radios[currentStationId].name
         end
@@ -137,6 +154,14 @@ addEventHandler("onClientVehicleExplode", root,
             if source == localPlayer.vehicle then
                 stopRadio()
             end
+        end
+    end
+)
+
+addEventHandler("onClientPlayerRadioSwitch", localPlayer,
+    function (stationId)
+        if changeStationId ~= stationId then
+            cancelEvent()
         end
     end
 )

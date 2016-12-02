@@ -45,11 +45,11 @@
 	"tutorial_garage_text": "This is your garage. Here you can always access your cars. There is also a tuning section where you can upgrade and customize your vehicle. Most of upgrades are unlocked with new level. To get new %s you need to race against other players.",
 	"tutorial_city_title": "City",
 	"tutorial_city_text": "Welcome to Los Santos! Now you are able to open main menu by pressing %s. There you will find a lot of useful info. If you need help, you can open the %s menu. Now try to press %s to open map and %s. Good luck!",
-	"tutorial_city_race": "find your first race",	
+	"tutorial_city_race": "find your first race",
 
 	"help_panel_general_title": "General",
 	"help_panel_general_text": "Keys:\nF1 - main panel, teleports, settings\nF2 - cursor\n1 - toggle lights\n2 - toggle drift mode\nO - photo mode\nI toggle UI",
-	
+
 	"help_panel_garage_title": "Garage",
 	"help_panel_garage_text": "You can use garage to access all your cars. You can also use it to sell your car and to customize it. Some of tuning parts are unlocked when you reach a certain level.",
 
@@ -165,7 +165,7 @@
 	"garage_menu_back": "Back",
 
 	"garage_sell_text": "Sell this car for",
-	"garage_sell_confirm": "confirm",	
+	"garage_sell_confirm": "confirm",
 	"garage_sell_last_car": "You can't sell your last car!",
 
 	// ========================================
@@ -260,7 +260,7 @@
 	"garage_sticker_editor_help_transform": "Move, scale and rotate",
 	"garage_sticker_editor_help_mirroring": "Toggle mirroring",
 	"garage_sticker_editor_help_next_prev": "Select next/previous sticker",
-	"garage_sticker_editor_help_toggle": "Toggle help",	
+	"garage_sticker_editor_help_toggle": "Toggle help",
 
 	"garage_tuning_sticker_color": "Sticker color",
 	"garage_tuning_sticker_prev": "%s - previous",
@@ -419,13 +419,13 @@
 	"context_menu_vehicle_door_rb_close": "Close right rear door",
 
 	"context_menu_vehicle_enable_drift_mode": "Enable Drift Mode",
-	"context_menu_vehicle_disable_drift_mode": "Disable Drift Mode",	
+	"context_menu_vehicle_disable_drift_mode": "Disable Drift Mode",
 
 	"context_menu_vehicle_lights_on": "Turn lights on",
 	"context_menu_vehicle_lights_off": "Turn lights off",
 
 	"context_menu_vehicle_handbrake_on": "Enable hand brake",
-	"context_menu_vehicle_handbrake_off": "Disable hand brake",	
+	"context_menu_vehicle_handbrake_off": "Disable hand brake",
 
 	"context_menu_vehicle_engine_on": "Start engine",
 	"context_menu_vehicle_engine_off": "Stop engine",
@@ -477,19 +477,19 @@
 
 	"duel_accept_message": "Player %s wants to duel with you.\nBet: $%s",
 	"duel_accept_key_accept": "%s - accept (%s)",
-	"duel_accept_key_decline": "%s - decline",	
+	"duel_accept_key_decline": "%s - decline",
 
 	"duel_winner_screen_you_won": "You won!",
 	"duel_winner_screen_you_lost": "You lost",
 	"duel_winner_screen_prize": "Prize",
-	"duel_winner_screen_time": "Time",	
-	"duel_winner_screen_timeout": "Time is out!",	
+	"duel_winner_screen_time": "Time",
+	"duel_winner_screen_timeout": "Time is out!",
 
 	// Handling switching
 	"handling_switching_message_drift": "Switching to Drift mode...",
 	"handling_switching_message_street": "Switching to Street mode...",
 	"handling_switching_message_no_upgrade": "You don't have drift upgrade installed!",
-	"handling_switching_message_moving": "You have to stop your car to change mode!",	
+	"handling_switching_message_moving": "You have to stop your car to change mode!",
 	"handling_switching_message_forced": "You are not allowed to change mode here",
 
 	// Gift panel
@@ -509,7 +509,7 @@
 	"lobby_screen_field_players": "Players in lobby",
 	"lobby_screen_field_class": "Car class",
 
-	"lobby_screen_enter_button": "Enter",	
+	"lobby_screen_enter_button": "Enter",
 
 	// Donation
 	"donation_message_title": "Donation",
@@ -523,4 +523,7 @@
 	"tofu_perfect_text": "for delivery without damage",
 	"tofu_message_box_title": "Tofu delivery",
 	"tofu_message_box_text": "You have already taken tofu! Now follow the path"	
+
+	// Radio
+	"radio_off": "Radio Off"
 }

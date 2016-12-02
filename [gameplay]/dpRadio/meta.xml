@@ -1,5 +1,6 @@
 <meta>
-	<info author="JasperNL=D" type="script" name="js_radio" version="1" />
+	<info type="script" name="dpRadio" version="1" />
+
+	<oop>true</oop>
 	<script src="client.lua" type="client"/>
-	<file src="test.ttf" type="client"/>
 </meta>

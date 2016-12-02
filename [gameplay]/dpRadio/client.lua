@@ -76,7 +76,7 @@ local function setRadio(stationId)
 end
 
 local function switchRadio(next)
-    local nextStationId = (currentStationId + (next and 1 or -1)) % (#radios)
+    local nextStationId = (currentStationId + (next and 1 or -1)) % (#radios + 1)
     setRadio(nextStationId)
 end
 

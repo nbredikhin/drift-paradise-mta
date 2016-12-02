@@ -71,8 +71,9 @@
 	"photo_mode_help_look": "Look",
 	"photo_mode_help_zoom": "Zoom in/out",
 	"photo_mode_help_updown": "Move up/down",
-	"photo_mode_help_tips": "Toggle UI and help",
 	"photo_mode_help_smooth": "Toggle smooth movement",
+	"photo_mode_help_tips": "Toggle UI and help",
+	"photo_mode_help_exit": "Exit from photo mode",
 
 	// =============================================
 	// ================ Login panel ================

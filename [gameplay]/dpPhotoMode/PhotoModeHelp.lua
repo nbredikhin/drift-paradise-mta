@@ -7,7 +7,8 @@ local helpLines = {
 	{keys = {"Z", "X"}, 				text = "", locale = "photo_mode_help_zoom"},
 	{keys = {"controls_space", "Ctrl"}, text = "", locale = "photo_mode_help_updown"},
 	{keys = {"C"}, 						text = "", locale = "photo_mode_help_smooth"},
-	{keys = {"I"},						text = "", locale = "photo_mode_help_tips"}
+	{keys = {"I"},						text = "", locale = "photo_mode_help_tips"},
+	{keys = {"O"},						text = "", locale = "photo_mode_help_exit"}
 }
 local lineHeight = 25
 local font

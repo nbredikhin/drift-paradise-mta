@@ -64,8 +64,9 @@
 	"photo_mode_help_look": "Вращение",
 	"photo_mode_help_zoom": "Приближение/отдаление",
 	"photo_mode_help_updown": "Движение вверх/вниз",
-	"photo_mode_help_tips": "Показать/скрыть интерфейс и помощь",
 	"photo_mode_help_smooth": "Включить/выключить плавное перемещение",
+	"photo_mode_help_tips": "Показать/скрыть интерфейс и помощь",
+	"photo_mode_help_exit": "Выйти из фоторежима",
 
 	// UI
 	"login_panel_username_label": "Имя пользователя",

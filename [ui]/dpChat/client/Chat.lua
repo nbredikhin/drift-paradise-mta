@@ -83,7 +83,7 @@ function Chat.createTab(name, title, unremovable)
 		return false
 	end
 	local tab = {
-		name = name, 
+		name = name,
 		title = exports.dpUtils:removeHexFromString(title),
 		unremovable = not not unremovable,
 		messages = {}
@@ -122,7 +122,7 @@ function Chat.message(tabName, text, r, g, b, colorCoded)
 	local textWithoutColors = utf8.gsub(text, "#%x%x%x%x%x%x", "")
 	if utf8.len(textWithoutColors) > MAX_LINE_LENGTH then
 		rest = utf8.sub(text, MAX_LINE_LENGTH + 1, -1)
-		text = utf8.sub(text, 1, MAX_LINE_LENGTH)		
+		text = utf8.sub(text, 1, MAX_LINE_LENGTH)
 		textWithoutColors = utf8.gsub(text, "#%x%x%x%x%x%x", "")
 	end
 	local message = {
@@ -206,11 +206,12 @@ function drawTabs()
 
 		local color = tocolor(255, 255, 255, alpha)
 		if tab.name == activeTabName then
-			color = tocolor(212, 0, 40, alpha)
-		end		
+			local themeColor = {exports.dpUI:getThemeColor()}
+			color = tocolor(themeColor[1], themeColor[2], themeColor[3], alpha)
+		end
 		-- Текст
 		dxDrawText(tab.title, x, y, x + width, y + height, color, scale, font, "left", "center", true)
-		
+
 		x = x + 5 + width
 		if i == MAX_VISIBLE_TABS and limitTabs then
 			break

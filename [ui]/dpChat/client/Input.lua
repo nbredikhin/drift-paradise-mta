@@ -137,7 +137,7 @@ local function send()
 	-- Send only if text is not empty
 	if inputText ~= "" then
 		if Chat.getActiveTab() then
-			if utf8.sub(inputText, 1, 1) == "/" then				
+			if utf8.sub(inputText, 1, 1) == "/" then
 				processCommand(inputText)
 			else
 				triggerEvent("dpChat.message", root, Chat.getActiveTab(), inputText)

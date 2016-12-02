@@ -2,7 +2,7 @@ local function getDefaultLanguage()
 	local lang = getLocalization().code
 	if lang == "ru" then
 		return "russian"
-	else 
+	else
 		return "english"
 	end
 end
@@ -15,6 +15,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	PropsStorage.setDefault("ui.theme", "red")
 	PropsStorage.setDefault("ui.blur", true)
 	PropsStorage.setDefault("chat.timestamp", false)
+	PropsStorage.setDefault("chat.joinquit_messages", true)
 	-- Параметры графики
 	PropsStorage.setDefault("graphics.reflections_cars", false)
 	PropsStorage.setDefault("graphics.reflections_water", false)

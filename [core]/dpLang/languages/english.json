@@ -293,9 +293,12 @@
 	"main_panel_account_house_no": "none",
 
 	"main_panel_settings_section_game": "Game settings",
+	"main_panel_settings_section_chat": "Chat settings",
 	"main_panel_settings_section_graphics": "Graphics settings",
 	"main_panel_settings_language": "Language",
 	"main_panel_settings_color": "UI color",
+	"main_panel_settings_joinquit_messages": "join/quit messages",
+	"main_panel_settings_chat_timestamp": "sending time",
 	"main_panel_settings_reflections_cars": "cars reflections",
 	"main_panel_settings_reflections_water": "water reflections",
 	"main_panel_settings_improved_car_lights": "improved car lights",

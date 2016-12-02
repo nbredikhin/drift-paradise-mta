@@ -91,6 +91,54 @@ function SettingsTab.create()
 	UI:addChild(panel, colorRed)
 
 	y = y + 30
+
+	-- Раздел чата
+	UI:addChild(panel, UI:createDpLabel {
+		x = 20 , y = y,
+		width = width / 2, height = 30,
+		text = "Настройки чата",
+		color = tocolor(0, 0, 0, 100),
+		fontType = "defaultSmall",
+		locale = "main_panel_settings_section_chat"
+	})
+
+	-- Сообщения о подключениях
+	y = y + 30
+	local chatSectionY = y
+	local joinQuitMessagesCheckbox = UI:createDpCheckbox {
+		x = 20, y = y + 4,
+		width = 20, height = 20
+	}
+	UI:addChild(panel, joinQuitMessagesCheckbox)
+	UI:setState(joinQuitMessagesCheckbox, exports.dpConfig:getProperty("chat.joinquit_messages"))
+	UI:addChild(panel, UI:createDpLabel {
+		x = 50, y = y,
+		width = width / 3, height = 30,
+		text = "сообщения о подключениях",
+		fontType = "defaultSmall",
+		type = "dark",
+		locale = "main_panel_settings_joinquit_messages"
+	})
+
+	-- Время в чате
+	local chatTimestampX = width * 0.6
+	local chatTimestampCheckbox = UI:createDpCheckbox {
+		x = chatTimestampX, y = chatSectionY + 4,
+		width = 20, height = 20
+	}
+	UI:addChild(panel, chatTimestampCheckbox)
+	UI:setState(chatTimestampCheckbox, exports.dpConfig:getProperty("chat.timestamp"))
+	UI:addChild(panel, UI:createDpLabel {
+		x = chatTimestampX + 30, y = chatSectionY,
+		width = width / 3, height = 30,
+		text = "время отправки сообщения",
+		fontType = "defaultSmall",
+		type = "dark",
+		locale = "main_panel_settings_chat_timestamp"
+	})
+
+	y = y + 30
+
 	-- Раздел графики
 	UI:addChild(panel, UI:createDpLabel {
 		x = 20 , y = y,
@@ -190,16 +238,15 @@ function SettingsTab.create()
 
 	-- Дым
 	local x = width * 0.6
-	y = graphicsSectionY
 	local smokeCheckbox = UI:createDpCheckbox {
-		x = x, y = y + 4,
+		x = x, y = graphicsSectionY + 4,
 		width = 20, height = 20
 	}
 	UI:addChild(panel, smokeCheckbox)
 	UI:setState(smokeCheckbox, exports.dpConfig:getProperty("graphics.tyres_smoke"))
 
 	UI:addChild(panel, UI:createDpLabel {
-		x = x + 30, y = y,
+		x = x + 30, y = graphicsSectionY,
 		width = width / 3, height = 30,
 		text = "",
 		fontType = "defaultSmall",
@@ -209,22 +256,27 @@ function SettingsTab.create()
 
 	-- Музыка
 	local x = width * 0.6
-	y = y + 30
+	graphicsSectionY = graphicsSectionY + 30
 	local musicCheckbox = UI:createDpCheckbox {
-		x = x, y = y + 4,
+		x = x, y = graphicsSectionY + 4,
 		width = 20, height = 20
 	}
 	UI:addChild(panel, musicCheckbox)
 	UI:setState(musicCheckbox, exports.dpConfig:getProperty("game.background_music"))
 
 	UI:addChild(panel, UI:createDpLabel {
-		x = x + 30, y = y,
+		x = x + 30, y = graphicsSectionY,
 		width = width / 3, height = 30,
 		text = "",
 		fontType = "defaultSmall",
 		type = "dark",
 		locale = "main_panel_settings_background_music"
-	})	
+	})
+
+	-- bottom padding
+	y = y + 40
+
+	UI:setHeight(panel, y)
 
 	widgets = {
 		colorButtons = {
@@ -232,6 +284,8 @@ function SettingsTab.create()
 			blue = colorBlue,
 			purple = colorPurple
 		},
+		joinQuitMessagesCheckbox = joinQuitMessagesCheckbox,
+	 	chatTimestampCheckbox = chatTimestampCheckbox,
 		blurChechbox = blurChechbox,
 		improvedSkyCheckbox = improvedSkyCheckbox,
 		carLightsCheckbox = carLightsCheckbox,
@@ -244,7 +298,7 @@ end
 
 addEvent("dpUI.click", false)
 addEventHandler("dpUI.click", resourceRoot, function(widget)
-	
+
 	local checkboxClicked = false
 
 	-- Переключение языка
@@ -264,6 +318,12 @@ addEventHandler("dpUI.click", resourceRoot, function(widget)
 	elseif widget == widgets.colorButtons.blue then
 		checkboxClicked = true
 		UI:setTheme("blue")
+	elseif widget == widgets.joinQuitMessagesCheckbox then
+		checkboxClicked = true
+		exports.dpConfig:setProperty("chat.joinquit_messages", UI:getState(widget))
+	elseif widget == widgets.chatTimestampCheckbox then
+		checkboxClicked = true
+		exports.dpConfig:setProperty("chat.timestamp", UI:getState(widget))
 	elseif widget == widgets.blurChechbox then
 		checkboxClicked = true
 		exports.dpConfig:setProperty("ui.blur", UI:getState(widget))

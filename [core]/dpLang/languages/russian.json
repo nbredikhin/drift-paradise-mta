@@ -272,9 +272,12 @@
 	"main_panel_account_house_no": "нет",
 
 	"main_panel_settings_section_game": "Настройки игры",
+	"main_panel_settings_section_chat": "Настройки чата",
 	"main_panel_settings_section_graphics": "Настройки графики",
 	"main_panel_settings_language": "Язык",
 	"main_panel_settings_color": "Цвет интерфейса",
+	"main_panel_settings_joinquit_messages": "сообщения о подключениях",
+	"main_panel_settings_chat_timestamp": "время отправки",
 	"main_panel_settings_reflections_cars": "отражения на автомобилях",
 	"main_panel_settings_reflections_water": "отражения на воде",
 	"main_panel_settings_improved_car_lights": "улучшенный эффект фар",

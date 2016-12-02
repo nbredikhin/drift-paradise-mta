@@ -4,7 +4,7 @@ local width = 500
 local height = 380
 local panel
 -- Табы
-local TABS_HEIGHT = 50
+TABS_HEIGHT = 50
 local tabsNames = {"account", "teleport", "settings", "garage"}
 local tabsButtons = {}
 local tabs = {}
@@ -28,11 +28,11 @@ function Panel.create()
 		local logoTexture = exports.dpAssets:createTexture("logo.png")
 		local textureWidth, textureHeight = dxGetMaterialSize(logoTexture)
 		local logoWidth = 415
-		local logoHeight = textureHeight * 415 / textureWidth	
+		local logoHeight = textureHeight * 415 / textureWidth
 		local logoImage = UI:createImage({
 			x = (width - logoWidth) / 2,
 			y = -logoHeight - 25,
-			width = logoWidth, 
+			width = logoWidth,
 			height = logoHeight,
 			texture = logoTexture
 		})
@@ -60,7 +60,8 @@ function Panel.addTab(name)
 		x = 0, y = TABS_HEIGHT,
 		width = width,
 		height = height - TABS_HEIGHT,
-		type = "transparent"
+		type = "transparent",
+		scrollable = true
 	}
 	UI:addChild(panel, tab)
 	UI:setVisible(tab, false)
@@ -84,7 +85,7 @@ function Panel.showTab(name)
 	UI:setType(tabsButtons[currentTab], "primary")
 	if tabsHandlers[name] then
 		tabsHandlers[name]()
-	end	
+	end
 end
 
 function Panel.getCurrentTab()
@@ -130,7 +131,7 @@ addEventHandler("dpUI.click", resourceRoot, function (widget)
 			exports.dpSounds:playSound("ui_select.wav")
 			return
 		end
-	end 
+	end
 end)
 
 tabsHandlers.garage = function ()

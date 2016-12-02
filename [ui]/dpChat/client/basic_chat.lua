@@ -37,7 +37,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	setupGlobalTabTitle()
 
 	Chat.createTab("local", "Local", true)
-	setupLocalTabTitle()	
+	setupLocalTabTitle()
 
 	if getLang() ~= "en" then
 		Chat.createTab("lang", "Lang", true)
@@ -85,7 +85,7 @@ addEventHandler("dpChat.me", root, function (tabName, message, sender, distance)
 	else
 		local senderName = exports.dpUtils:removeHexFromString(tostring(sender.name))
 		message = exports.dpUtils:removeHexFromString(tostring(message))
-		message = "#FF00FF* " .. senderName .. " " .. message		
+		message = "#FF00FF* " .. senderName .. " " .. message
 		Chat.message(tabName, message)
 	end
 end)

@@ -128,6 +128,7 @@ function Chat.message(tabName, text, r, g, b, colorCoded)
 	local message = {
 		text = text,
 		textWithoutColors = textWithoutColors,
+		timestamp = getRealTime().timestamp,
 		color = color,
 		colorCoded = colorCoded
 	}
@@ -166,8 +167,17 @@ local function drawMessages()
 	local j = MAX_CHAT_LINES - 1
 	for i = messageCount, firstIndex, -1 do
 		local message = messages[i]
-		text = message.text
-		dxDrawText(message.textWithoutColors, 33, 33 + j * 20, 0, 0, 0xFF000000, 1.0, "default-bold", "left", "top", false, false, false, false, true)
+		local text = message.text
+		local textWithoutColors = message.textWithoutColors
+
+		if exports.dpConfig:getProperty("chat.timestamp") then
+			local time = getRealTime(message.timestamp, true)
+			local timeString = ("[%02d:%02d:%02d] "):format(time.hour, time.minute, time.second)
+			text = timeString .. text
+			textWithoutColors = timeString .. textWithoutColors
+		end
+
+		dxDrawText(textWithoutColors, 33, 33 + j * 20, 0, 0, 0xFF000000, 1.0, "default-bold", "left", "top", false, false, false, false, true)
 		dxDrawText(text, 32, 32 + j * 20, 0, 0, message.color, 1.0, "default-bold", "left", "top", false, false, false, message.colorCoded, true)
 		j = j - 1
 	end

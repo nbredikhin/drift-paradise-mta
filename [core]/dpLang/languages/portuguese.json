@@ -45,11 +45,11 @@
 	"tutorial_garage_text": "Esta é a sua garagem. Aqui você sempre vai poder acessar seus carros. Há também uma seção de ajuste onde você pode atualizar e personalizar seu veículo. A maioria dos upgrades sao desbloqueados com novos niveis. Para obter novos %s você precisa competir contra outros jogadores.",
 	"tutorial_city_title": "Cidade",
 	"tutorial_city_text": "Seja bem vindo a Los Santos! Agora você pode abrir o menu principal pressionando %s. Lá você vai encontrar diversas informações úteis. Se precisar de ajuda, pode abrir o menu %s. Agora tente pressionar para abrir o mapa e %s. Boa sorte!",
-	"tutorial_city_race": "Encontre sua primeira corrida",	
+	"tutorial_city_race": "Encontre sua primeira corrida",
 
 	"help_panel_general_title": "Geral",
 	"help_panel_general_text": "-",
-	
+
 	"help_panel_garage_title": "Garagem",
 	"help_panel_garage_text": "-",
 
@@ -165,7 +165,7 @@
 	"garage_menu_back": "Voltar",
 
 	"garage_sell_text": "Venda esse veículo por",
-	"garage_sell_confirm": "Confirmar",	
+	"garage_sell_confirm": "Confirmar",
 	"garage_sell_last_car": "Você não pode vender seu ultimo carro!",
 
 	// ========================================
@@ -260,7 +260,7 @@
 	"garage_sticker_editor_help_transform": "Mover, tamanho e rodar",
 	"garage_sticker_editor_help_mirroring": "Ativar reflexo",
 	"garage_sticker_editor_help_next_prev": "Selecionar próximo/anterior adesivo",
-	"garage_sticker_editor_help_toggle": "Ativar ajuda",	
+	"garage_sticker_editor_help_toggle": "Ativar ajuda",
 
 	"garage_tuning_sticker_color": "Cor do adesivo",
 	"garage_tuning_sticker_prev": "%s - Anterior",
@@ -418,13 +418,13 @@
 	"context_menu_vehicle_door_rb_close": "Fechar porta traseira direita",
 
 	"context_menu_vehicle_enable_drift_mode": "Ativa modo de Drift",
-	"context_menu_vehicle_disable_drift_mode": "Desativar modo de Drift",	
+	"context_menu_vehicle_disable_drift_mode": "Desativar modo de Drift",
 
 	"context_menu_vehicle_lights_on": "Ligar as luzes",
 	"context_menu_vehicle_lights_off": "Desligar as luzes",
 
 	"context_menu_vehicle_handbrake_on": "Ativar o freio de mão",
-	"context_menu_vehicle_handbrake_off": "Desativar o freio de mão",	
+	"context_menu_vehicle_handbrake_off": "Desativar o freio de mão",
 
 	"context_menu_vehicle_engine_on": "Ligar motor",
 	"context_menu_vehicle_engine_off": "Desligar motor",
@@ -476,19 +476,19 @@
 
 	"duel_accept_message": "Jogador %s quer duelar com você.\nAposta: $%s",
 	"duel_accept_key_accept": "%s - Aceitar (%s)",
-	"duel_accept_key_decline": "%s - Recusar",	
+	"duel_accept_key_decline": "%s - Recusar",
 
 	"duel_winner_screen_you_won": "Você venceu!",
 	"duel_winner_screen_you_lost": "Você perdeu",
 	"duel_winner_screen_prize": "Preço",
-	"duel_winner_screen_time": "Tempo",	
-	"duel_winner_screen_timeout": "O tempo terminou!",	
+	"duel_winner_screen_time": "Tempo",
+	"duel_winner_screen_timeout": "O tempo terminou!",
 
 	// Handling switching
 	"handling_switching_message_drift": "Mudando para o modo de Drift...",
 	"handling_switching_message_street": "Mudando para o modo de Rua...",
 	"handling_switching_message_no_upgrade": "Você não tem a atuazalição de Drift instalada!",
-	"handling_switching_message_moving": "Você tem que parar seu carro para alterar!",	
+	"handling_switching_message_moving": "Você tem que parar seu carro para alterar!",
 	"handling_switching_message_forced": "Você não tem permissão para mudar de modo aqui",
 
 	// Gift panel
@@ -508,5 +508,5 @@
 	"lobby_screen_field_players": "Jogadores na sala",
 	"lobby_screen_field_class": "Vidro do carro",
 
-	"lobby_screen_enter_button": "Entrar",	
+	"lobby_screen_enter_button": "Entrar",
 }

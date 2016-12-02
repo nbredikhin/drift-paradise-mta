@@ -41,10 +41,10 @@
 	"tutorial_city_title": "Перший вихід в місто",
 	"tutorial_city_text": "Ось Ти і в місті! Тепер ти можеш відкрити основне меню натиснувши %s. В ньому зібрана вся основна інформація. Допомогу по всім можливостям сервера можна знайти в меню %s. Тепер спробуй натиснути %s, щоб відкрити карту і %s. Удачі!",
 	"tutorial_city_race": "знайти свою першу гонку",
-	
+
 	"help_panel_general_title": "Основне",
 	"help_panel_general_text": "ОСНОВНІ КЛАВІШІ\nF1 - основна панель, телепорти, налаштування\nF2 - ввімкнути/вимкнути курсор.\n1 - ввімкнути/вимкнути фари\n2 - ввімкнути/вимкнути дріфт-режим (спочатку необхідно купити)\nO - фоторежим\nI - сховати/показати інтерфейс\n\nРІВЕНЬ ТА ПРОКАЧКА\nНа Drift Paradise у кожного гравця є рівень, від якого залежить кількість доступних для нього можливостей, таких як автомобілі, деталі тюнінгу, наклейки тощо. Для того, щоб швидко прокачати рівень, Вам необхідно брати участь в гонках проти інших гравців.",
-	
+
 	"help_panel_garage_title": "Гараж",
 	"help_panel_garage_text": "Гараж - місце, де завжди знаходятся всі Ваші автомобілі. Тут Ви також можете продати своє авто. В розділі тюнінгу Ви можете кастомізувати свій автомобіль: змінити колір, змінити елементи кузову, створити унікальний вініл чи покращити характеристики. Деякі розділи тюнінгу відкриваються післе досягнення певного рівня.\n\nТЮНІНГ\nКомпоненти - встановлення коліс, обвісу, спойлера, капота, заміна номерного знаку.\nФарбування - зміна кольору кузову, коліс, спойлера.\nСтікери - створення та редагування наклейок.\nКонфігурація - покращення характеристик автомобіля, зміна висоти підвіски, радіусу, виліту і развалу коліс.",
 
@@ -206,7 +206,7 @@
 	"garage_tuning_config_wheels_size": "Радіус коліс",
 
 	"garage_tuning_config_suspension_label": "Висота підвіски",
-	"garage_tuning_config_wheels_size_label": "Радіус",	
+	"garage_tuning_config_wheels_size_label": "Радіус",
 
 	"garage_tuning_config_wheels_offset": "Виліт",
 	"garage_tuning_config_wheels_angle": "Розвал",
@@ -272,6 +272,7 @@
 	"main_panel_account_house_no": "немає",
 
 	"main_panel_settings_section_game": "Налаштування гри",
+	"main_panel_settings_section_chat": "Налаштування чату",
 	"main_panel_settings_section_graphics": "Налаштування графіки",
 	"main_panel_settings_language": "Мова",
 	"main_panel_settings_color": "Колір інтерфейсу",
@@ -328,10 +329,10 @@
 	"chat_input_message": "Повідомлення",
 
 	"chat_tab_russian": "Російський",
-	"chat_tab_english": "Англійський",	
+	"chat_tab_english": "Англійський",
 
 	"chat_pm_started": "Тут Ви можете відправити особисте повідомлення гравцю %s",
-	"chat_close_tab": "Щоб закрити вкладку, клацніть по ній правою кнопкою миші",	
+	"chat_close_tab": "Щоб закрити вкладку, клацніть по ній правою кнопкою миші",
 
 	// Race
 	"race_error_title": "Гонки",
@@ -376,7 +377,7 @@
 	"carshop_required_level": "Необхідно рівень %s",
 	"carshop_no_money": "Недостатньо грошей",
 	"carshop_buy_error_title": "Не вдалось купити авто",
-	"carshop_buy_error_unknown": "Невідома помилка",	
+	"carshop_buy_error_unknown": "Невідома помилка",
 	"carshop_drift_label": "Конфігурація для дріфту",
 	"carshop_drift_label_yes": "Є",
 	"carshop_drift_label_no": "Немає",
@@ -398,7 +399,7 @@
 	"context_menu_vehicle_lights_off": "Вимкнути фари",
 
 	"context_menu_vehicle_handbrake_on": "Поставити на стоянкове гальмо",
-	"context_menu_vehicle_handbrake_off": "Зняти з стоянкового гальма",	
+	"context_menu_vehicle_handbrake_off": "Зняти з стоянкового гальма",
 
 	"context_menu_vehicle_engine_on": "Запустити двигун",
 	"context_menu_vehicle_engine_off": "Заглушити двигун",
@@ -472,7 +473,7 @@
 	"gift_key_input_placeholder": "Ключ",
 	"gift_key_message_title": "Подарунковий ключ",
 	"gift_key_message_fail": "Не вдалось активувати цей ключ",
-	"gift_key_message_success": "Ви успішно активували свій подарунковий ключ!",	
+	"gift_key_message_success": "Ви успішно активували свій подарунковий ключ!",
 
 	// Lobby screen
 	"lobby_screen_field_title": "Гонка",

@@ -6,7 +6,7 @@ local animationProgress = 0
 local animationSpeed = 3
 
 local visibleDelay = 0
-local VISIBLE_TIME = 4
+local VISIBLE_TIME = 7
 
 local mainText = ""
 local moneyText = ""

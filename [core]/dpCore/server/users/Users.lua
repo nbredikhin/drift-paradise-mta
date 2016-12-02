@@ -122,8 +122,7 @@ function Users.loginPlayer(player, username, password, callback)
 			executeCallback(callback, success, errorType)
 			return
 		end
-		-- Получить дом игрока и вызывать callback
-		Houses.setupPlayerHouseData(player, callback, success, errorType)
+		executeCallback(callback, success, errorType)
 	end)
 end
 

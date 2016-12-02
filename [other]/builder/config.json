@@ -11,8 +11,7 @@
     "enableReadmeFiles": true,
 
     "only": [
-        "dpVehicles",
-        "dpRaceLobby"
+        "dpStartup",
     ],
 
     "include": [

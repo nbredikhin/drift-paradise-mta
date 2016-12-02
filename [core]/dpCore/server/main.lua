@@ -9,7 +9,6 @@ addEventHandler("onResourceStart", resourceRoot, function ()
 	outputDebugString("Creating and setting up tables...")
 	Users.setup()
 	UserVehicles.setup()
-	Houses.setup()
 	GiftKeys.setup()
 end)
 

@@ -1,11 +1,11 @@
-local currentStationId = 1
-local sx, sy = guiGetScreenSize()
+TURN_OFF_STATION_ID = 0
+
+local currentStationId = TURN_OFF_STATION_ID
 local hideRadioNameTimer = nil
 local radioNameVisible = false
 
+local screenSize = Vector2(guiGetScreenSize())
 local font = exports.dpAssets:createFont("Cuprum-Bold.ttf", 32, true)
-
-local TURN_OFF_STATION = 0
 
 local radios = {
     {name = "YO.FM", url = "http://air.radiorecord.ru:8102/yo_320"},
@@ -30,10 +30,17 @@ local radios = {
     {name = "LIVE", url = "http://giss.tv:8000/allstars_channel.mp3"}
 }
 
-local playRadioThing = nil
+local radioSound = nil
 
 function resetTimer()
     radioNameVisible = false
+end
+
+
+local function stopRadio()
+    if isElement(radioSound) then
+        radioSound:stop()
+    end
 end
 
 local function setRadio(stationId)
@@ -41,16 +48,14 @@ local function setRadio(stationId)
     currentStationId = stationId
 
     if hideRadioNameTimer and isTimer(hideRadioNameTimer) then
-        killTimer(hideRadioNameTimer)
+        hideRadioNameTimer:destroy()
     end
-    hideRadioNameTimer = setTimer(resetTimer, 2000, 1)
-    if isElement(playRadioThing) then
-        stopSound(playRadioThing)
-    end
+    hideRadioNameTimer = Timer(resetTimer, 2000, 1)
+    stopRadio()
 
-    if stationId ~= TURN_OFF_STATION then
+    if stationId ~= TURN_OFF_STATION_ID then
         setRadioChannel(0)
-        playRadioThing = playSound(radios[stationId].url)
+        radioSound = Sound(radios[stationId].url)
     end
 end
 
@@ -73,26 +78,37 @@ function ()
 
 end)
 
-function renderRadio()
+function dxDrawBorderedText(text, left, top, right, bottom, color, scale, font, alignX, alignY, clip, wordBreak, postGUI,
+        colorCoded, subPixelPositioning, fRotation, fRotationCenterX, fRotationCenterY)
+    for oX = -1, 1 do
+        for oY = -1, 1 do
+            dxDrawText(text, left + oX, top + oY, right + oX, bottom + oY, tocolor(0, 0, 0, 255), scale, font,
+                alignX, alignY, clip, wordBreak, postGUI, colorCoded, subPixelPositioning, fRotation, fRotationCenterX, fRotationCenterY)
+        end
+    end
+    dxDrawText(text, left, top, right, bottom, color, scale, font, alignX, alignY, clip, wordBreak, postGUI)
+end
+
+local function drawRadioName()
     if radioNameVisible then
         local text
-        if currentStationId == TURN_OFF_STATION then
+        if currentStationId == TURN_OFF_STATION_ID then
             text = exports.dpLang:getString("radio_off")
         else
             text = radios[currentStationId].name
         end
-        dxDrawText(text, 0,0, sx, 96, tocolor(exports.dpUI:getThemeColor()), 1, font, "center", "center")
+
+        local x, y = screenSize.x, screenSize.y * 0.1
+        dxDrawBorderedText(text, 0, 0, x, y, tocolor(exports.dpUI:getThemeColor()), 1, font, "center", "center", false, false, true)
     end
 end
 
-addEventHandler("onClientRender", root, renderRadio)
+addEventHandler("onClientRender", root, drawRadioName)
 
 addEventHandler("onClientVehicleExit", root,
     function (player)
         if localPlayer == player then
-            if isElement(playRadioThing) then
-                stopSound(playRadioThing)
-            end
+            stopRadio()
         end
     end
 )
@@ -108,11 +124,8 @@ addEventHandler("onClientVehicleEnter", root,
 addEventHandler("onClientElementDestroy", root,
     function ()
         if source and getElementType(source) == "vehicle" then
-            if source == getPedOccupiedVehicle(localPlayer) then
-                if isElement(playRadioThing) then
-                    stopSound (playRadioThing)
-                end
-                setRadioChannel(0)
+            if source == localPlayer.o then
+                stopRadio()
             end
         end
     end
@@ -121,29 +134,9 @@ addEventHandler("onClientElementDestroy", root,
 addEventHandler("onClientVehicleExplode", root,
     function ()
         if source and getElementType(source) == "vehicle" then
-            if source == getPedOccupiedVehicle(localPlayer) then
-                if isElement(playRadioThing) then
-                    stopSound (playRadioThing)
-                end
-                setRadioChannel(0)
+            if source == localPlayer.vehicle then
+                stopRadio()
             end
         end
     end
 )
-
--- _setRadioChannel = setRadioChannel
-
--- addEventHandler ("onClientPlayerRadioSwitch",getRootElement(),
--- function()
---   if templol == true then
---     if not isPedInVehicle (localPlayer) then
---       setRadioChannel (0)
---     end
---     templol = false
---   else
---     cancelEvent (true)
---     if not isPedInVehicle (localPlayer) then
---       setRadioChannel (0)
---     end
---   end
--- end)

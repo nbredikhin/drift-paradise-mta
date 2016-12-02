@@ -522,7 +522,7 @@
 	"tofu_time_text": "Time passed",
 	"tofu_perfect_text": "for delivery without damage",
 	"tofu_message_box_title": "Tofu delivery",
-	"tofu_message_box_text": "You have already taken tofu! Now follow the path"	
+	"tofu_message_box_text": "You have already taken tofu! Now follow the path",
 
 	// Radio
 	"radio_off": "Radio Off"

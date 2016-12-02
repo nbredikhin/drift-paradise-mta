@@ -62,12 +62,12 @@ end
 
 function stopSwitching()
 	if not isSwitching then
-		return 
+		return
 	end
 	isSwitching = false
 
 	removeEventHandler("onClientRender", root, draw)
-	removeEventHandler("onClientPreRender", root, update)	
+	removeEventHandler("onClientPreRender", root, update)
 end
 
 function switchHandling()
@@ -86,7 +86,7 @@ function switchHandling()
 
 	addEventHandler("onClientRender", root, draw)
 	addEventHandler("onClientPreRender", root, update)
-	
+
 	if localPlayer.vehicle:getData("forceHandling") then
 		drawProgress = false
 		text = exports.dpLang:getString("handling_switching_message_forced")
@@ -96,7 +96,7 @@ function switchHandling()
 	elseif localPlayer.vehicle.velocity:getLength() > 0.001 then
 		drawProgress = false
 		text = exports.dpLang:getString("handling_switching_message_moving")
-	else		
+	else
 		local activeHandling = localPlayer.vehicle:getData("activeHandling")
 		if not activeHandling or activeHandling == "street" then
 			text = exports.dpLang:getString("handling_switching_message_drift")
@@ -120,7 +120,7 @@ end
 
 bindKey("2", "down", function ()
 	if not localPlayer.vehicle then
-		return 
+		return
 	end
 	switchHandling()
 end)

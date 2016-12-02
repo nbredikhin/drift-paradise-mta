@@ -497,7 +497,7 @@
 	"tofu_time_text": "Затраченное время",
 	"tofu_perfect_text": "за доставку без аварий",
 	"tofu_message_box_title": "Доставка тофу",
-	"tofu_message_box_text": "Вы уже взяли тофу! Теперь следуйте маршруту"
+	"tofu_message_box_text": "Вы уже взяли тофу! Теперь следуйте маршруту",
 
 	// Radio
 	"radio_off": "Радио выкл."

@@ -36,7 +36,7 @@ local function handleColShapeHit(colshape, element, matchingDimension)
 		setCameraClip(true, false)
 		outputDebugString("Enter safe zone")
 	end
-	if element.type == "player" or element.type == "vehicle" then		
+	if element.type == "player" or element.type == "vehicle" then
 		for i, e in ipairs(colshape:getElementsWithin("player")) do
 			if isElement(e) then
 				element:setCollidableWith(e, false)
@@ -58,7 +58,7 @@ local function handleColShapeOut(colshape, element, matchingDimension)
 		setCameraClip(true, true)
 		outputDebugString("Leave safe zone")
 	end
-	if element.type == "player" or element.type == "vehicle" then		
+	if element.type == "player" or element.type == "vehicle" then
 		for i, e in ipairs(colshape:getElementsWithin("player")) do
 			element:setCollidableWith(e, true)
 		end

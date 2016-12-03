@@ -10,9 +10,7 @@
 
     "enableReadmeFiles": true,
 
-    "only": [
-        "dpStartup",
-    ],
+    "only": ["dpStartup"],
 
     "include": [
         "geoip",
@@ -48,6 +46,7 @@
         "_DPASSET",
         "@",
         "api",
-        "html"
+        "html",
+        "serials.json"
     ]
 }

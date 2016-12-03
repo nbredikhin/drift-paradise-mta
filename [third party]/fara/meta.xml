@@ -1,0 +1,18 @@
+<meta>
+	<info description="GTA V Shader Effect" version="0.2.0" type="script" />
+	
+	<script src="chaticon.lua" type="client" />
+	
+	<file src="chaticon.fx" type="client" />
+	
+	
+<file src="img/1.png" type="client" />
+<file src="img/2.png" type="client" />
+<file src="img/3.png" type="client" />
+<file src="img/4.png" type="client" />
+<file src="img/5.png" type="client" />
+<file src="img/off.png" type="client" />
+<file src="img/on.png" type="client" />
+	
+	
+</meta>

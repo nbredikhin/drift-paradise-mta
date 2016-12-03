@@ -2,7 +2,7 @@ local MARKER_POSITION = Vector3(1821.247, -1842.192, 12.6)
 local PED_POSITION = Vector3(1828.649, -1842.192, 13.578)
 local PED_MODEL = 10
 local MUSIC_POSITION = Vector3(1835.613, -1842.073, 13.078)
-local CHECKPOINTS_COUNT = 40
+local CHECKPOINTS_COUNT = 34
 local MIN_COLLISION_FORCE = 350
 
 local marker
@@ -22,6 +22,10 @@ local function takeTofu()
 		return 
 	end
 
+	if not localPlayer.vehicle then
+		return
+	end
+	
 	local checkpointsList = PathGenerator.generateCheckpointsForPlayer(localPlayer, CHECKPOINTS_COUNT)
 	RaceCheckpoints.start(checkpointsList)
 	isRunning = true

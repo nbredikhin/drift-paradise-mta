@@ -1,3 +1,4 @@
+local PRIVATE_SLOTS_COUNT = 3
 local serialsList = {}
 
 local function reloadSerials()
@@ -30,7 +31,7 @@ local function isSerialReserved(serial)
 end
 
 addEventHandler("onPlayerConnect", root, function (nickname, ip, username, serial)
-	if getMaxPlayers() - getPlayerCount() <= #serialsList then
+	if getMaxPlayers() - getPlayerCount() <= PRIVATE_SLOTS_COUNT then
 		if not isSerialReserved(serial) then
 			cancelEvent(true, "The server is full / Сервер заполнен")
 		end

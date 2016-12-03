@@ -59,6 +59,7 @@ local startupResources = {
 	"dpTeleports",
 	"dpContextMenu",
 	"dpSkinSelect",
+	"dpTofu",
 	"dpIntro",
 
 	-- World
@@ -128,7 +129,7 @@ end
 addEventHandler("onResourceStart", resourceRoot, function ()
 	showDiscordMessage("Сервер снова **запущен**!")
 	local startedResourcesCount = 0
-	setMaxPlayers(150)
+	setMaxPlayers(250)
 	for i, resourceName in ipairs(startupResources) do
 		if processResourceByName(resourceName, true) then
 			startedResourcesCount = startedResourcesCount + 1

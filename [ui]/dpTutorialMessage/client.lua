@@ -146,7 +146,7 @@ function showMessage(title, text, ...)
 	infoIconSize = infoFontHeight * 0.7
 	
 	textLines = {}
-	closeText = "BACKPACE - " .. utf8.lower(tostring(exports.dpLang:getString("message_box_close")))
+	closeText = "BACKSPACE - " .. utf8.lower(tostring(exports.dpLang:getString("message_box_close")))
 	local formatArgs = {...}
 	local themeColorHEX = exports.dpUtils:RGBToHex(exports.dpUI:getThemeColor())
 	if not themeColorHEX then

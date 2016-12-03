@@ -21,13 +21,18 @@ addEventHandler("dpVehicles.vehicleAction", root, function (action, value)
 			vehicle:setDoorOpenRatio(value, 0, 500)
 			vehicle:setData("DoorState" .. tostring(value), false)
 		end
-	elseif action == "lock" then
-		for i = 2, 5 do
-			vehicle:setDoorOpenRatio(i, 0, 0)
-		end
-
-		setVehicleLocked(vehicle, not isVehicleLocked(vehicle))
 	elseif action == "engine" then
 		setVehicleEngineState(vehicle, not getVehicleEngineState(vehicle))
+	elseif action == "lock" then
+		vehicle:setData("locked", not vehicle:getData("locked"))
+	end
+end)
+
+addEventHandler("onVehicleStartEnter", root, function (player)
+	local vehicle = source
+	if vehicle:getData("locked") then
+		if vehicle:getData("owner_id") ~= player:getData("_id") then
+			cancelEvent()
+		end
 	end
 end)

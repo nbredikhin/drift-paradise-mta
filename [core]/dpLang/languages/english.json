@@ -422,6 +422,9 @@
 	"context_menu_vehicle_door_lb_close": "Close left rear door",
 	"context_menu_vehicle_door_rb_close": "Close right rear door",
 
+	"context_menu_vehicle_lock": "Lock doors",
+	"context_menu_vehicle_unlock": "Unlock doors",	
+
 	"context_menu_vehicle_enable_drift_mode": "Enable Drift Mode",
 	"context_menu_vehicle_disable_drift_mode": "Disable Drift Mode",
 

@@ -43,6 +43,12 @@ local function getActionString(name, value)
 			else
 				return exports.dpLang:getString(doorsLocales[value][2])
 			end
+		elseif name == "lock" then
+			if vehicle:getData("locked") then
+				return exports.dpLang:getString("context_menu_vehicle_unlock")
+			else
+				return exports.dpLang:getString("context_menu_vehicle_lock")
+			end
 		end
 	end
 end
@@ -58,6 +64,7 @@ local myVehicleMenu = {
 	{ getText = getActionString("engine"), 		click = vehicleAction("engine")},
 	{ getText = getActionString("handbrake"), 	click = vehicleAction("handbrake"), enabled = false},
 	{ getText = getActionString("lights"), 		click = vehicleAction("lights")}, 
+	{ getText = getActionString("lock"), 		click = vehicleAction("lock")}, 
 	{ getText = getActionString("door", 2), 	click = vehicleAction("door", 2)},
 	{ getText = getActionString("door", 3), 	click = vehicleAction("door", 3)},
 	{ getText = getActionString("door", 4),

@@ -315,6 +315,14 @@ function GarageCar.hasComponent(name, id)
 	return not not  vehicle:getComponentPosition(name .. tostring(id))
 end
 
+function GarageCar.hasDefaultSpoilers()
+	return not not vehicle:getComponentPosition("ug_spoiler")
+end
+
+function GarageCar.hasCustomSpoiler(id)
+	return not not vehicle:getComponentPosition("Spoilers" .. tostring(id))
+end
+
 function GarageCar.getComponentsCount(name)
 	if not name then
 		return 0

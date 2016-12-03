@@ -9,6 +9,7 @@ local tuningPrices = {
 	-- Спойлеры
 	spoiler_color = {500, 3},
 	spoilers = {
+		{100, 1}, 
 		{0, 1}, 
 		{0, 1}, 
 		{0, 1}, 
@@ -27,8 +28,7 @@ local tuningPrices = {
 		{0, 1}, 
 		{0, 1}, 
 		{0, 1}, 
-		{0, 1}, 
-		{0, 1}
+		{500, 1}
 	},
 	-- Колёса
 	wheels_size = {100, 4},

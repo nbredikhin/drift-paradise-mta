@@ -7,9 +7,6 @@
 	<!-- Общие -->
 	<script type="shared" src="shared/lib/yaci.lua"/>
 	<script type="shared" src="shared/lib/check.lua"/>
-	<!-- Настройки цен и уровней тюнинга -->
-	<script type="shared" src="shared/TuningConfig.lua"/>
-	<script type="shared" src="shared/stickers_list.lua"/>
 
 	<!-- Сервер -->
 	<script type="server" src="server/enter_exit.lua"/>
@@ -18,6 +15,8 @@
 	<script type="server" src="server/sell.lua"/>
 	
 	<!-- Клиент -->
+	<script type="client" src="client/TuningConfig.lua"/>
+	<script type="client" src="client/stickers_list.lua"/>
 	<script type="client" src="client/colors_utils.lua"/>
 	<script type="client" src="client/Assets.lua"/>
 	<!-- Интерфейс -->

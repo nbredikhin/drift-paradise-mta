@@ -26,9 +26,11 @@ function TuningConfig.getComponentConfig(model, name, id)
 	end
 	if name == "Spoilers" then
 		componentsList = {}
-		local spoilersPrices = exports.dpShared:getTuningPrices("spoilers")
-		for i, v in ipairs(spoilersPrices) do
-			table.insert(componentsList, v)
+		if GarageCar.hasDefaultSpoilers() then
+			local spoilersPrices = exports.dpShared:getTuningPrices("spoilers")
+			for i, v in ipairs(spoilersPrices) do
+				table.insert(componentsList, v)
+			end
 		end
 		if tuningTable.components[name] then
 			for i, v in ipairs(tuningTable.components[name]) do
@@ -64,9 +66,11 @@ function TuningConfig.getComponentsCount(model, name)
 	end	
 	if name == "Spoilers" then
 		componentsList = {}
-		local spoilersPrices = exports.dpShared:getTuningPrices("spoilers")
-		for i, v in ipairs(spoilersPrices) do
-			table.insert(componentsList, v)
+		if GarageCar.hasDefaultSpoilers() then
+			local spoilersPrices = exports.dpShared:getTuningPrices("spoilers")
+			for i, v in ipairs(spoilersPrices) do
+				table.insert(componentsList, v)
+			end
 		end
 		if tuningTable.components[name] then
 			for i, v in ipairs(tuningTable.components[name]) do

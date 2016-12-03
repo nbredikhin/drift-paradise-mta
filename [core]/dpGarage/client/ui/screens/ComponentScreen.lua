@@ -17,6 +17,22 @@ menuInfos["Exhaust"] 	= {position = Vector3(2915, -3184.2, 2535.4), 	angle = 190
 menuInfos["RearLights"] = {position = Vector3(2915, -3184.2, 2535.6), 	angle = 190,item_locale="garage_tuning_item_lights"}
 menuInfos["FrontLights"] = {position = Vector3(2917, -3188.3, 2535.6), 	angle = 20,	item_locale="garage_tuning_item_lights"}
 
+local function hasSpoiler(id)
+	if id == 0 then
+		return true
+	end
+	if not GarageCar.hasDefaultSpoilers() and GarageCar.hasCustomSpoiler(id) then
+		return true
+	end
+	local defaultSpoilersCount = #exports.dpShared:getTuningPrices("spoilers")
+	if id <= defaultSpoilersCount and GarageCar.hasDefaultSpoilers() then
+		return true
+	elseif GarageCar.hasCustomSpoiler(id - defaultSpoilersCount) then
+		return true
+	end
+	return false
+end
+
 function ComponentScreen:init(name)
 	self.super:init()
 	self.vehicle = GarageCar.getVehicle()
@@ -28,22 +44,24 @@ function ComponentScreen:init(name)
 	local itemName = exports.dpLang:getString(menuInfo.item_locale)
 	local vehicleComponents = getVehicleComponents(self.vehicle)
 	for i = 1, TuningConfig.getComponentsCount(self.vehicle.model, self.componentName) + 1 do
-		local componentConfig = TuningConfig.getComponentConfig(self.vehicle.model, self.componentName, i - 1)
-		if i == 1 or GarageCar.hasComponent(self.componentName, i - 1) then
-			-- Обновить цену
-			local price = componentConfig.price
-			if type(price) ~= "number" then
-				price = 0
+		if name == "Spoilers" and hasSpoiler(i - 1) then
+			local componentConfig = TuningConfig.getComponentConfig(self.vehicle.model, self.componentName, i - 1)
+			if i == 1 or GarageCar.hasComponent(self.componentName, i - 1) then
+				-- Обновить цену
+				local price = componentConfig.price
+				if type(price) ~= "number" then
+					price = 0
+				end
+				local level = componentConfig.level
+				if type(level) ~= "number" then
+					level = 1
+				end
+				local name = itemName .. " " .. tostring(i - 1)
+				if i == 1 then
+					name = exports.dpLang:getString("garage_tuning_stock_text")
+				end
+				table.insert(items, {name = name, price = price, level = level})
 			end
-			local level = componentConfig.level
-			if type(level) ~= "number" then
-				level = 1
-			end
-			local name = itemName .. " " .. tostring(i - 1)
-			if i == 1 then
-				name = exports.dpLang:getString("garage_tuning_stock_text")
-			end
-			table.insert(items, {name = name, price = price, level = level})
 		end
 	end
 	-- 3D меню
@@ -86,8 +104,7 @@ end
 
 function ComponentScreen:onItemChanged()
 	GarageCar.resetTuning()
-	local componentId = self.menu.activeItem - 1
-	GarageCar.previewTuning(self.componentName, componentId)
+	local componentId = self.menu.activeItem - 1	
 	if self.componentName == "WheelsF" or self.componentName == "WheelsR" then
 		local letter = "F"
 		if self.componentName == "WheelsR" then
@@ -101,7 +118,16 @@ function ComponentScreen:onItemChanged()
 		end
 		-- Сбросить цвет
 		GarageCar.previewTuning("WheelsColor" .. letter, {255, 255, 255})
-	end	
+	elseif self.componentName == "Spoilers" then
+		if not GarageCar.hasDefaultSpoilers() and componentId > 0 then
+			local defaultSpoilers = exports.dpShared:getTuningPrices("spoilers")
+			GarageCar.previewTuning(self.componentName, componentId + #defaultSpoilers)
+		else
+			GarageCar.previewTuning(self.componentName, componentId)
+		end
+	else
+		GarageCar.previewTuning(self.componentName, componentId)
+	end
 end
 
 function ComponentScreen:onKey(key)
@@ -137,6 +163,15 @@ function ComponentScreen:onKey(key)
 					end
 					-- Сбросить цвет
 					GarageCar.applyTuning("WheelsColor" .. letter, {255, 255, 255})
+				elseif this.componentName == "Spoilers" then
+					if not GarageCar.hasDefaultSpoilers() then
+						local defaultSpoilers = exports.dpShared:getTuningPrices("spoilers")
+						if componentId > 0 then
+							GarageCar.applyTuning(this.componentName, componentId + #defaultSpoilers)
+						end
+					else
+						GarageCar.applyTuning(this.componentName, componentId)
+					end
 				end
 			end
 		end)

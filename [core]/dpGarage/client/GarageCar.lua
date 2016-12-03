@@ -304,7 +304,8 @@ function GarageCar.hasComponent(name, id)
 	if 	name == "Spoilers" or
 		name == "Numberplate" or
 		name == "WheelsF" or
-		name == "WheelsR"
+		name == "WheelsR" or
+		name == "Exhaust"
 	then
 		return true
 	end

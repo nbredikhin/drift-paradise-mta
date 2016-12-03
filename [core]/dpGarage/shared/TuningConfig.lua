@@ -21,6 +21,9 @@ function TuningConfig.getComponentConfig(model, name, id)
 	if name == "WheelsR" or name == "WheelsF" then
 		componentsList = exports.dpShared:getTuningPrices("wheels")
 	end
+	if name == "Exhaust" then
+		componentsList = exports.dpShared:getTuningPrices("exhausts")
+	end
 	if name == "Spoilers" then
 		componentsList = {}
 		local spoilersPrices = exports.dpShared:getTuningPrices("spoilers")
@@ -56,6 +59,9 @@ function TuningConfig.getComponentsCount(model, name)
 	if name == "WheelsR" or name == "WheelsF" then
 		componentsList = exports.dpShared:getTuningPrices("wheels")
 	end
+	if name == "Exhaust" then
+		componentsList = exports.dpShared:getTuningPrices("exhausts")
+	end	
 	if name == "Spoilers" then
 		componentsList = {}
 		local spoilersPrices = exports.dpShared:getTuningPrices("spoilers")

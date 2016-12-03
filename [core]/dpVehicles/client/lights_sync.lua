@@ -5,7 +5,7 @@ local ANGLE_OPENED = 60
 local ANGLE_CLOSED = 0
 local overrideAngleOpened = {
 	nissan_180sx = 40,
-	toyota_ae86 = 40
+	toyota_ae86 = 45
 }
 -- Скорость открывания/закрывания фар
 local LIGHTS_ROTATION_SPEED = 60

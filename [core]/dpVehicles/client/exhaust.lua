@@ -72,7 +72,6 @@ end)
 addEventHandler("onClientElementStreamIn", root, function ()
 	if source.type == "vehicle" then
 		updateVehicleExhaust(source)
-		outputDebugString("STREAMED IN")
 	end
 end)
 
@@ -80,7 +79,6 @@ addEventHandler("onClientElementStreamOut", root, function ()
 	if source.type ~= "vehicle" then
 		return
 	end
-	outputDebugString("STREAMED OUT")
 	removeVehicleExhausts(source)
 end)
 

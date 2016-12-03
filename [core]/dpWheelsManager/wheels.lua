@@ -145,15 +145,10 @@ local function updateVehicleWheels(vehicle)
 				wheel.shader:setValue("sColor", wheelColor)
 			end
 			wheels[name] = wheel
-
-			setElementAttachedOffsets(wheel.object, 
-				wheel.position[1],
-				wheel.position[2],
-				wheel.position[3] + (wheel.object.scale - WHEELS_SIZE_MIN - 0.1) * 0.5)			
 		else
 			wheel.custom = false
 			wheel.object.alpha = 0
-			setElementAttachedOffsets(wheel.object, wheelsHiddenOffset)
+			--setElementAttachedOffsets(wheel.object, wheelsHiddenOffset)
 			--wheel.object.position = wheelsHiddenPosition
 		end
 		-- Скрыть/отобразить стандартное колесо
@@ -177,7 +172,7 @@ local function setupVehicleWheels(vehicle)
 	for i, name in ipairs(wheelsNames) do
 		local wheel = {}
 		-- Создать объект колеса
-		wheel.object = createObject(1025, 0, 0, -10)
+		wheel.object = createObject(1025, vehicle.position)
 		wheel.object.alpha = 0
 		wheel.object:setCollisionsEnabled(false)
 		if wheel.object.dimension ~= vehicle.dimension then

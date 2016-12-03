@@ -16,6 +16,7 @@
 	<script type="client" src="client/numberplate.lua"/>
 	<script type="client" src="client/spoiler_color.lua"/>
 	<script type="client" src="client/tyres_smoke.lua"/>
+	<script type="client" src="client/exhaust.lua"/>
 	<script type="client" src="client/VehicleShaders.lua"/>
 	<!-- <script type="client" src="client/windows.lua"/> -->
 	<script type="client" src="client/actions.lua"/>

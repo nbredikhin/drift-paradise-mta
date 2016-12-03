@@ -41,19 +41,38 @@ local spoilers = {
 	[1164] = "20"
 }
 
+local exhausts = {
+	1851,
+	1852,
+	1853,
+	1854,
+	1855,
+	1856,
+	1857,
+	1858,
+	1859,
+	1860	
+}
+
 addEventHandler("onClientResourceStart", resourceRoot, function ()
 	local wheelsTXD = engineLoadTXD("wheels/wheels.txd")
-	engineImportTXD(wheelsTXD, 1082)
-	local spoilersTXD = engineLoadTXD("spoilers/spoilers.txd")
-	engineImportTXD(spoilersTXD, 1000)
-
 	for model, src in pairs(wheels) do
 		local dff = engineLoadDFF("wheels/" .. src .. ".dff")
 		engineReplaceModel(dff, model)
+		engineImportTXD(wheelsTXD, model)
 	end
 
+	local spoilersTXD = engineLoadTXD("spoilers/spoilers.txd")
 	for model, src in pairs(spoilers) do
 		local dff = engineLoadDFF("spoilers/" .. src .. ".dff")
 		engineReplaceModel(dff, model)
+		engineImportTXD(spoilersTXD, model)
 	end	
+
+	local exhaustsTXD = engineLoadTXD("exhausts/exhausts.txd")
+	for src, model in pairs(exhausts) do
+		engineImportTXD(exhaustsTXD, model)
+		local dff = engineLoadDFF("exhausts/" .. tostring(src) .. ".dff")
+		engineReplaceModel(dff, model)		
+	end		
 end)

@@ -11,7 +11,6 @@ local componentsFromData = {
 	["FrontLights"] = true, 	-- Передние фары
 	["FrontFends"]	= true, 	-- Передние фендеры
 	["RearFends"]	= true, 	-- Задние фендеры
-	["Exhaust"]		= true, 	-- Глушитель
 	["Acces"]		= true, 	-- Аксессуары
 }
 
@@ -129,5 +128,6 @@ function getComponentsNames()
 	end
 	table.insert(l, "WheelsF")
 	table.insert(l, "WheelsR")
+	table.insert(l, "Exhaust")
 	return l
 end

@@ -41,4 +41,16 @@
     <file src="spoilers/19.dff"/>
     <file src="spoilers/20.dff"/>
     <file src="spoilers/spoilers.txd"/>
+
+    <file src="exhausts/1.dff"/>
+    <file src="exhausts/2.dff"/>
+    <file src="exhausts/3.dff"/>
+    <file src="exhausts/4.dff"/>
+    <file src="exhausts/5.dff"/>
+    <file src="exhausts/6.dff"/>
+    <file src="exhausts/7.dff"/>
+    <file src="exhausts/8.dff"/>
+    <file src="exhausts/9.dff"/>
+    <file src="exhausts/10.dff"/>    
+    <file src="exhausts/exhausts.txd"/>    
 </meta>

@@ -44,7 +44,7 @@ function ComponentScreen:init(name)
 	local itemName = exports.dpLang:getString(menuInfo.item_locale)
 	local vehicleComponents = getVehicleComponents(self.vehicle)
 	for i = 1, TuningConfig.getComponentsCount(self.vehicle.model, self.componentName) + 1 do
-		if name == "Spoilers" and hasSpoiler(i - 1) then
+		if name ~= "Spoilers" or (name == "Spoilers" and hasSpoiler(i - 1)) then
 			local componentConfig = TuningConfig.getComponentConfig(self.vehicle.model, self.componentName, i - 1)
 			if i == 1 or GarageCar.hasComponent(self.componentName, i - 1) then
 				-- Обновить цену

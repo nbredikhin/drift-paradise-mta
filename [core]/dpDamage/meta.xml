@@ -3,5 +3,10 @@
 
     <script type="client" src="client/main.lua"/>    
     <script type="client" src="client/respawn.lua"/>    
-    <script type="server" src="server/respawn.lua"/>    
+    
+	<script type="server" src="server/generator/utils.lua"/>
+	<script type="server" src="server/generator/checkpointsTable"/>
+	<script type="server" src="server/generator/checkpoint.lua"/>
+	<script type="server" src="server/generator/PathGenerator.lua"/>   
+	<script type="server" src="server/respawn.lua"/>    
 </meta>

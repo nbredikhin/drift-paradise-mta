@@ -7,7 +7,7 @@ addEventHandler("dpDamage.respawn", resourceRoot, function ()
         return
     end
 
-    local spawnPos = exports.dpDuels:getNearestCheckpoint(client)
+    local spawnPos = PathGenerator.getNearestCheckpoint(client)
     if not spawnPos then
         return
     end

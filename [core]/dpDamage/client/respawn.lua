@@ -14,4 +14,4 @@ setTimer(function ()
         flipMyVehicle()
         setTimer(restartVehicleEngine, 1000, 1)
     end
-end, 5000, 0)
+end, 3000, 0)

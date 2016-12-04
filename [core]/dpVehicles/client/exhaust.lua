@@ -1,16 +1,5 @@
 local DATA_NAME = "Exhaust"
-local MODELS = {
-	1851,
-	1852,
-	1853,
-	1854,
-	1855,
-	1856,
-	1857,
-	1858,
-	1859,
-	1860	
-}
+local MODELS = {1853, 1854, 1855, 1856, 1857, 1858, 1859, 1860, 1861, 1862}
 
 local vehicleExhausts = {}
 

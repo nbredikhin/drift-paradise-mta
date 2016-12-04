@@ -1,56 +1,12 @@
 <meta>
     <oop>true</oop>
-    <script src="replace.lua" type="client" />
+    <!-- <script src="replace.lua" type="client" /> -->
+    <script src="server/utils.lua"   type="server"/>
+    <script src="server/encrypt.lua" type="server"/>
 
-    <file src="wheels/wheel_gn1.dff" />
-    <file src="wheels/wheel_gn2.dff" />
-    <file src="wheels/wheel_gn3.dff" />
-    <file src="wheels/wheel_gn4.dff" />
-    <file src="wheels/wheel_gn5.dff" />
-    <file src="wheels/wheel_lr1.dff" />
-    <file src="wheels/wheel_lr2.dff" />
-    <file src="wheels/wheel_lr3.dff" />
-    <file src="wheels/wheel_lr4.dff" />
-    <file src="wheels/wheel_lr5.dff" />
-    <file src="wheels/wheel_or1.dff" />
-    <file src="wheels/wheel_sr1.dff" />
-    <file src="wheels/wheel_sr2.dff" />
-    <file src="wheels/wheel_sr3.dff" />
-    <file src="wheels/wheel_sr4.dff" />
-    <file src="wheels/wheel_sr5.dff" />
-    <file src="wheels/wheels.txd" />
-
-    <file src="spoilers/1.dff"/>
-    <file src="spoilers/2.dff"/>
-    <file src="spoilers/3.dff"/>
-    <file src="spoilers/4.dff"/>
-    <file src="spoilers/5.dff"/>
-    <file src="spoilers/6.dff"/>
-    <file src="spoilers/7.dff"/>
-    <file src="spoilers/8.dff"/>
-    <file src="spoilers/9.dff"/>
-    <file src="spoilers/10.dff"/>
-    <file src="spoilers/11.dff"/>
-    <file src="spoilers/12.dff"/>
-    <file src="spoilers/13.dff"/>
-    <file src="spoilers/14.dff"/>
-    <file src="spoilers/15.dff"/>
-    <file src="spoilers/16.dff"/>
-    <file src="spoilers/17.dff"/>
-    <file src="spoilers/18.dff"/>
-    <file src="spoilers/19.dff"/>
-    <file src="spoilers/20.dff"/>
-    <file src="spoilers/spoilers.txd"/>
-
-    <file src="exhausts/1.dff"/>
-    <file src="exhausts/2.dff"/>
-    <file src="exhausts/3.dff"/>
-    <file src="exhausts/4.dff"/>
-    <file src="exhausts/5.dff"/>
-    <file src="exhausts/6.dff"/>
-    <file src="exhausts/7.dff"/>
-    <file src="exhausts/8.dff"/>
-    <file src="exhausts/9.dff"/>
-    <file src="exhausts/10.dff"/>    
-    <file src="exhausts/exhausts.txd"/>    
+    <file src="packs/dp_exhausts.bin"/>   
+    <file src="packs/dp_wheels.bin"/>   
+    <file src="packs/dp_spoilers.bin"/>   
+    <script src="async.lua" type="client"/>
+    <script src="loader.lua" type="client"/>
 </meta>

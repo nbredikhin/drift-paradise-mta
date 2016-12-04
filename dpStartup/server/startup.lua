@@ -96,10 +96,12 @@ local startupResources = {
 	"dpCacheLock",
 	"dpCarSound",
 	"dpRadio",
+	"dpAntiAFK",
 	"dpDriftSound",
 	"dpSkins",
 	"fara",
-	"svet"
+	"svet",
+	"zapravki"
 }
 
 local function processResourceByName(resourceName, start)

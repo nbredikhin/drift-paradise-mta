@@ -10,7 +10,7 @@
 
     "enableReadmeFiles": true,
 
-    "only": ["dpStartup"],
+    "only": ["dpCore", "dpChat", "dpDamage", "dpTofu", "dpStartup", "dpAntiAFK"],
 
     "include": [
         "geoip",

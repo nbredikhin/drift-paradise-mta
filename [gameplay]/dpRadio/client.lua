@@ -1,4 +1,5 @@
 TURN_OFF_STATION_ID = 0
+HIDE_RADIO_NAME_DELAY = 2000
 
 local currentStationId = TURN_OFF_STATION_ID
 local changeStationId = TURN_OFF_STATION_ID
@@ -60,7 +61,7 @@ local function setRadio(stationId)
     if hideRadioNameTimer and isTimer(hideRadioNameTimer) then
         hideRadioNameTimer:destroy()
     end
-    hideRadioNameTimer = Timer(resetTimer, 2000, 1)
+    hideRadioNameTimer = Timer(resetTimer, HIDE_RADIO_NAME_DELAY, 1)
     stopRadio()
 
     if stationId ~= TURN_OFF_STATION_ID then

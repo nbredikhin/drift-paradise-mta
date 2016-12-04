@@ -65,6 +65,7 @@
 	// =============================================
 	// ================= PhotoMode =================
 	// =============================================
+	"photo_mode_help_shoot": "Take a screenshot",
 	"photo_mode_help_roll": "Roll left/right",
 	"photo_mode_help_move": "Move",
 	"photo_mode_help_speed": "Move slower/faster",
@@ -72,8 +73,13 @@
 	"photo_mode_help_zoom": "Zoom in/out",
 	"photo_mode_help_updown": "Move up/down",
 	"photo_mode_help_smooth": "Toggle smooth movement",
+	"photo_mode_help_time": "Change time",
+	"photo_mode_help_weather": "Change weather",
 	"photo_mode_help_tips": "Toggle UI and help",
 	"photo_mode_help_exit": "Exit from photo mode",
+	"photo_mode_param_time": "Time",
+	"photo_mode_param_weather": "Weather",
+	"photo_mode_param_weather_unknown": "Unknown",
 
 	// =============================================
 	// ================ Login panel ================
@@ -423,7 +429,7 @@
 	"context_menu_vehicle_door_rb_close": "Close right rear door",
 
 	"context_menu_vehicle_lock": "Lock doors",
-	"context_menu_vehicle_unlock": "Unlock doors",	
+	"context_menu_vehicle_unlock": "Unlock doors",
 
 	"context_menu_vehicle_enable_drift_mode": "Enable Drift Mode",
 	"context_menu_vehicle_disable_drift_mode": "Disable Drift Mode",
@@ -533,5 +539,26 @@
 
 	// Radio
 	"radio_off": "Radio Off",
-	"radio_user_tracks": "User Tracks"
+	"radio_user_tracks": "User Tracks",
+
+	// Weather
+	"weather_extrasunny_la": "Extra Sunny 1",
+	"weather_extrasunny_smog_la": "Extra Sunny 2",
+	"weather_extrasunny_sf": "Extra Sunny 3",
+	"weather_extrasunny_vegas": "Extra Sunny 4",
+	"weather_extrasunny_countryside": "Extra Sunny 5",
+	"weather_extrasunny_desert": "Extra Sunny 6",
+	"weather_sunny_la": "Sunny 1",
+	"weather_sunny_smog_la": "Sunny 2",
+	"weather_sunny_sf": "Sunny 3",
+	"weather_sunny_vegas": "Sunny 4",
+	"weather_sunny_countryside": "Sunny 5",
+	"weather_sunny_desert": "Sunny 6",
+	"weather_cloudy_la1": "Cloudy 1",
+	"weather_cloudy_sf2": "Cloudy 2",
+	"weather_cloudy_vegas3": "Cloudy 3",
+	"weather_cloudy_countryside4": "Cloudy 4",
+	"weather_rainy_sf": "Rainy",
+	"weather_foggy_sf": "Foggy",
+	"weather_sandstorm_desert": "Sandstorm"
 }

@@ -58,6 +58,7 @@
 	"help_panel_devs_text": "ОСНОВНЫЕ РАЗРАБОТЧИКИ\nDEFOLT - дизайн сервера и моделирование автомобилей\nElksnis - маппинг, экономика и настройка автомобилей\nWherry - скриптинг\n\nПЕРЕВОДЧИКИ\nWherry, DS_Matias, Romiz\n\nОТДЕЛЬНОЕ СПАСИБО\nMOTHERS_BL3ND3R и Strix - помощь в скриптинге\nKPoJIuK - помощь в настройке автомобилей",
 
 	// PhotoMode
+	"photo_mode_help_shoot": "Сделать снимок",
 	"photo_mode_help_roll": "Поворот влево/вправо",
 	"photo_mode_help_move": "Передвижение",
 	"photo_mode_help_speed": "Движение медленнее/быстрее",
@@ -65,8 +66,14 @@
 	"photo_mode_help_zoom": "Приближение/отдаление",
 	"photo_mode_help_updown": "Движение вверх/вниз",
 	"photo_mode_help_smooth": "Включить/выключить плавное перемещение",
+	"photo_mode_help_time": "Изменение времени",
+	"photo_mode_help_weather": "Изменение погоды",
 	"photo_mode_help_tips": "Показать/скрыть интерфейс и помощь",
 	"photo_mode_help_exit": "Выйти из фоторежима",
+
+	"photo_mode_param_time": "Время",
+	"photo_mode_param_weather": "Погода",
+	"photo_mode_param_weather_unknown": "Неизвестная",
 
 	// UI
 	"login_panel_username_label": "Имя пользователя",
@@ -508,5 +515,26 @@
 
 	// Radio
 	"radio_off": "Радио выкл.",
-	"radio_user_tracks": "Пользовательское"
+	"radio_user_tracks": "Пользовательское",
+
+	// Weather
+	"weather_extrasunny_la": "Очень солнечно 1",
+	"weather_extrasunny_smog_la": "Очень солнечно 2",
+	"weather_extrasunny_sf": "Очень солнечно 3",
+	"weather_extrasunny_vegas": "Очень солнечно 4",
+	"weather_extrasunny_countryside": "Очень солнечно 5",
+	"weather_extrasunny_desert": "Очень солнечно 6",
+	"weather_sunny_la": "Солнечно 1",
+	"weather_sunny_smog_la": "Солнечно 2",
+	"weather_sunny_sf": "Солнечно 3",
+	"weather_sunny_vegas": "Солнечно 4",
+	"weather_sunny_countryside": "Солнечно 5",
+	"weather_sunny_desert": "Солнечно 6",
+	"weather_cloudy_la1": "Облачно 1",
+	"weather_cloudy_sf2": "Облачно 2",
+	"weather_cloudy_vegas3": "Облачно 3",
+	"weather_cloudy_countryside4": "Облачно 4",
+	"weather_rainy_sf": "Дождь",
+	"weather_foggy_sf": "Туман",
+	"weather_sandstorm_desert": "Песчаная буря"
 }

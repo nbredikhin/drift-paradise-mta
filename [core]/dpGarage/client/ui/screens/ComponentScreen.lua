@@ -144,9 +144,9 @@ function ComponentScreen:onKey(key)
 	elseif key == "enter" then
 		local item = self.menu.items[self.menu.activeItem]
 		local this = self
+		local componentId = this.menu.activeItem - 1
 		Garage.buy(item.price, item.level, function(success)
 			if success then
-				local componentId =  this.menu.activeItem - 1
 				GarageCar.applyTuning(this.componentName, componentId)
 				this.screenManager:showScreen(ComponentsScreen(this.componentName))
 

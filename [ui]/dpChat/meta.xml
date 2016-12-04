@@ -1,5 +1,7 @@
 <meta>
 	<oop>true</oop>
+	<script type="client" src="client/AntiFlood.lua"/>
+	<script type="client" src="client/WordsFilter.lua"/>
 	<script type="client" src="client/Chat.lua"/>
 	<script type="client" src="client/Input.lua"/>
 	<script type="client" src="client/commands.lua"/>

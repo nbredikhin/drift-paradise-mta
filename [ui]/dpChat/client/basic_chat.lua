@@ -50,7 +50,14 @@ end)
 addEvent("dpChat.message")
 addEventHandler("dpChat.message", root, function (tabName, message)
 	if tabName == "global" or tabName == "lang" or tabName == "local" or tabName == "web" then
+		if AntiFlood.isMuted() then
+			AntiFlood.onMessage()
+			Chat.message(tabName, "#FF0000Don't spam!")			
+			return
+		end
+		message = WordsFilter.filter(message)
 		triggerServerEvent("dpChat.broadcastMessage", root, tabName, message)
+		AntiFlood.onMessage()
 	end
 end)
 

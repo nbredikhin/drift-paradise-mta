@@ -1,3 +1,10 @@
+SERVER_ID = 1
+if string.find(getServerName(), "#2", 1, true) then
+	SERVER_ID = 2
+elseif string.find(getServerName(), "Default") then
+	SERVER_ID = 3
+end
+
 addEventHandler("onResourceStart", resourceRoot, function ()
 	if not Database.connect() then
 		outputDebugString("ERROR: Database connection failed")
@@ -10,6 +17,7 @@ addEventHandler("onResourceStart", resourceRoot, function ()
 	Users.setup()
 	UserVehicles.setup()
 	GiftKeys.setup()
+	outputDebugString("Server started. SERVER_ID=" .. tostring(SERVER_ID))
 end)
 
 addEventHandler("onPlayerQuit", root, function ()

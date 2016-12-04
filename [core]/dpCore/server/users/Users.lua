@@ -1,6 +1,6 @@
 Users = {}
 -- Время автосохранения в минутах
-local AUTOSAVE_INTERVAL = 5
+local AUTOSAVE_INTERVAL = 7
 local USERS_TABLE_NAME = "users"
 local PASSWORD_SECRET = "s9abBUIg090j21aASGzc90avj1l"
 local BETA_KEY_CHECK_ENABLED = false
@@ -24,12 +24,12 @@ function Users.setup()
 		-- XP
 		{ name="xp", type="bigint", options="UNSIGNED NOT NULL DEFAULT 0" }
 	})
-	-- Очистка информации о входе
-	DatabaseTable.update(USERS_TABLE_NAME, {online=0}, {})
 	-- Очистка даты
 	for i, player in ipairs(getElementsByType("player")) do
 		PlayerData.clear(player)
 	end
+
+	logoutOfflineUsers()
 end
 
 -- Функция хэширования паролей пользователей
@@ -48,7 +48,7 @@ local function verifyLogin(player, username, password, account)
 		return false, "user_not_found"
 	end
 	-- Проверка повторного входа
-	if tonumber(account.online) == 1 then
+	if tonumber(account.online) > 0 then
 		outputDebugString("ERROR: verifyLogin: User already logged in")
 		return false, "already_logged_in"
 	end
@@ -106,7 +106,7 @@ function Users.loginPlayer(player, username, password, callback)
 			-- Запустить сессию
 			success = Sessions.start(player)
 			if success then
-				DatabaseTable.update(USERS_TABLE_NAME, {online=1}, {username=username})
+				DatabaseTable.update(USERS_TABLE_NAME, {online=SERVER_ID}, {username=username})
 				PlayerData.set(player, account)
 
 				-- Количество автомобилей игрока
@@ -282,7 +282,7 @@ addEventHandler("onResourceStop", resourceRoot, function ()
 end)
 
 function logoutOfflineUsers()
-	return DatabaseTable.select(USERS_TABLE_NAME, { "username" }, { online = 1 }, function (result)
+	return DatabaseTable.select(USERS_TABLE_NAME, { "username" }, { online = SERVER_ID }, function (result)
 		local count = 0
 		if not result then
 			return

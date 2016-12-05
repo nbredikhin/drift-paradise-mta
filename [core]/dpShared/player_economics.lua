@@ -7,9 +7,9 @@ local playerEconomics = {
 	duel_bet_max = 500,
 
 	-- Количество денег за 100000 очков дрифта
-	drift_money = 400,
+	drift_money = 250,
 	-- Количество опыта за 100000 очков дрифта
-	drift_xp = 300,
+	drift_xp = 370,
 
 	-- Процент от цены авто при продаже
 	vehicle_sell_price = 0.35,
@@ -22,9 +22,9 @@ local playerEconomics = {
 		{ xp = 150, money = 75 },
 	},
 
-	tofu_prize = 500,
-	tofu_xp = 300,
-	tofu_perfect_mul = 1.1,
+	tofu_prize = 300,
+	tofu_xp = 370,
+	tofu_perfect_mul = 1.5,
 }
 
 function getEconomicsProperty(name)

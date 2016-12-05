@@ -17,6 +17,8 @@ addEventHandler("dpTofu.finish", resourceRoot, function (isPerfect)
 	if not xp then
 		xp = 0
 	end
+	xp = xp * bonus
+	
 	exports.dpCore:givePlayerMoney(client, prize)
 	exports.dpCore:givePlayerXP(client, xp)
 end)

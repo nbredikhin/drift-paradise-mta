@@ -1,4 +1,4 @@
-local AFK_TIMEOUT = 10
+local AFK_TIMEOUT = 15
 local afkTimer
 
 local function reportAFK()

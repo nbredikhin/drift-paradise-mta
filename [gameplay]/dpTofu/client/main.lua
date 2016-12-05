@@ -27,15 +27,15 @@ addEvent("dpMarkers.use", false)
 local function takeTofu()
 	if isRunning then
 		exports.dpUI:showMessageBox(
-			exports.dpLang:getString("tofu_message_box_title"), 
+			exports.dpLang:getString("tofu_message_box_title"),
 			exports.dpLang:getString("tofu_message_box_text"))
-		return 
+		return
 	end
 
 	if not localPlayer.vehicle then
 		return
 	end
-	
+
 	local checkpointsList = PathGenerator.generateCheckpointsForPlayer(localPlayer, CHECKPOINTS_COUNT)
 	RaceCheckpoints.start(checkpointsList)
 	isRunning = true
@@ -54,7 +54,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 
 		local blip = createBlip(0, 0, 0, 27)
 		blip:attach(marker)
-		blip:setData("text", "tofu_blip_text")			
+		blip:setData("text", "tofu_blip_text")
 	end
 
 	local txd = engineLoadTXD("skin/1.txd")
@@ -101,7 +101,7 @@ function finishTofu()
 		prize = 0
 	end
 	if not isThereCollision then
-		bonus = exports.dpShared:getEconomicsProperty("tofu_perfect_mul") 
+		bonus = exports.dpShared:getEconomicsProperty("tofu_perfect_mul")
 		if not bonus then
 			bonus = 1
 		end
@@ -120,7 +120,7 @@ addEventHandler("onClientVehicleCollision", root, function (_, force)
 		return
 	end
 	if not isRunning then
-		return 
+		return
 	end
 	isThereCollision = true
 end)

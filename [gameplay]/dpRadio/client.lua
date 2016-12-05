@@ -17,6 +17,8 @@ local radios = {
     {name = "Radio Record", url = "http://stream.radiorecord.ru:8100/rr_aac"},
     {name = "Europa Plus", url = "http://ep128.streamr.ru"},
     {name = "D-FM", url = "http://striiming.trio.ee/dfm.mp3"},
+    {name = "Gangsta & Hip-Hop.101", url = "http://ic3.101.ru:8000/c14_11"},
+    {name = "Good Company Radio", url = "http://uk4.internet-radio.com:10104/"},
     {name = "Dubplate.fm Dub & Bass", url = "http://sc2.dubplate.fm:5000/dubstep/192"},
     {name = "Dubplate.fm Drum 'n Bass", url = "http://sc2.dubplate.fm:5000/DnB/192"},
     {name = "YO.FM", url = "http://air.radiorecord.ru:8102/yo_320"},

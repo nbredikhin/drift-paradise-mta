@@ -1,12 +1,12 @@
 local commandHandlers = {}
 
 commandHandlers["cleardebug"] = function (tabName, command, ...)
-	for i = 1, 25 do 
+	for i = 1, 25 do
 		local text = " "
 		for j = 1, i do
 			text = text .. " "
 		end
-		outputDebugString(text) 
+		outputDebugString(text)
 	end
 end
 

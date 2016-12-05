@@ -6,20 +6,28 @@ local languageChats = {
 
 addEvent("dpChat.broadcastMessage", true)
 addEventHandler("dpChat.broadcastMessage", root, function (tabName, rawMessage)
-	if client.muted then
+	local sender
+	if not client then
+		sender = source
+	else
+		sender = client
+	end
+
+	if sender.muted then
 		return
 	end
-	local message = client.name .. "#FFFFFF: " .. tostring(rawMessage)
-	triggerEvent("dpChat.message", resourceRoot, client, tabName, rawMessage)
-	if tabName == "global" then		
-		if exports.dpUtils:isPlayerAdmin(client) then
-			message = "#4DF7E6[Admin] #FFFFFF" .. message
-		end		
-		triggerClientEvent("dpChat.broadcastMessage", root, "global", message, client)
+
+	triggerEvent("dpChat.message", resourceRoot, sender, tabName, rawMessage)
+	if tabName == "global" then
+		local isAdmin = false
+		if exports.dpUtils:isPlayerAdmin(sender) then
+			isAdmin = true
+		end
+		triggerClientEvent("dpChat.broadcastMessage", root, tabName, rawMessage, sender, isAdmin)
 	elseif tabName == "web" then
-		triggerClientEvent("dpChat.broadcastMessage", root, "web", message, client)
+		triggerClientEvent("dpChat.broadcastMessage", root, tabName, rawMessage, sender)
 	elseif tabName == "lang" then
-		local lang = client:getData("langChat")
+		local lang = sender:getData("langChat")
 		if not lang then
 			lang = "en"
 		end
@@ -29,14 +37,14 @@ addEventHandler("dpChat.broadcastMessage", root, function (tabName, rawMessage)
 				playerLang = "Unknown"
 			end
 			if playerLang == lang then
-				triggerClientEvent(player, "dpChat.broadcastMessage", root, "lang", message, client)
+				triggerClientEvent(player, "dpChat.broadcastMessage", root, tabName, rawMessage, sender)
 			end
 		end
 	elseif tabName == "local" then
 		for i, player in ipairs(getElementsByType("player")) do
-			local distance = (player.position - client.position):getLength()
+			local distance = (player.position - sender.position):getLength()
 			if distance < 100 then
-				triggerClientEvent(player, "dpChat.broadcastMessage", root, "local", rawMessage, client, distance)
+				triggerClientEvent(player, "dpChat.broadcastMessage", root, tabName, rawMessage, sender, nil, distance)
 			end
 		end
 	end
@@ -44,20 +52,26 @@ end)
 
 addEvent("dpChat.me", true)
 addEventHandler("dpChat.me", root, function (tabName, rawMessage)
+	local sender
+	if not client then
+		sender = source
+	else
+		sender = client
+	end
+
 	if tabName == "local" then
 		for i, player in ipairs(getElementsByType("player")) do
-			local distance = (player.position - client.position):getLength()
+			local distance = (player.position - sender.position):getLength()
 			if distance < 100 then
-				triggerClientEvent(player, "dpChat.me", root, tabName, rawMessage, client, distance)
+				triggerClientEvent(player, "dpChat.me", root, tabName, rawMessage, sender, distance)
 			end
 		end
 	else
-		triggerClientEvent("dpChat.me", root, tabName, rawMessage, client)
+		triggerClientEvent("dpChat.me", root, tabName, rawMessage, sender)
 	end
 end)
 
 local function setupPlayerCountry(player)
-	local code = exports.geoip:getCountry(player.ip)
 	if not code then
 		return
 	end
@@ -76,6 +90,15 @@ end)
 addEventHandler("onResourceStart", resourceRoot, function ()
 	for i, p in ipairs(getElementsByType("player")) do
 		setupPlayerCountry(p)
+	end
+end)
+
+addEventHandler("onPlayerChat", root, function (message, messageType)
+	cancelEvent()
+	if messageType == 0 then
+		triggerEvent("dpChat.broadcastMessage", source, "global", message)
+	elseif messageType == 1 then
+		triggerEvent("dpChat.me", source, "global", message)
 	end
 end)
 

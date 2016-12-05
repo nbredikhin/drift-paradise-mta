@@ -52,10 +52,9 @@ addEventHandler("dpChat.message", root, function (tabName, message)
 	if tabName == "global" or tabName == "lang" or tabName == "local" or tabName == "web" then
 		if AntiFlood.isMuted() then
 			AntiFlood.onMessage()
-			Chat.message(tabName, "#FF0000Don't spam!")			
+			Chat.message(tabName, "#FF0000" .. exports.dpLang:getString("chat_message_dont_flood"))
 			return
 		end
-		message = WordsFilter.filter(message)
 		triggerServerEvent("dpChat.broadcastMessage", root, tabName, message)
 		AntiFlood.onMessage()
 	end
@@ -73,13 +72,23 @@ local function getColorFromDistance(distance, r, g, b)
 end
 
 addEvent("dpChat.broadcastMessage", true)
-addEventHandler("dpChat.broadcastMessage", root, function (tabName, message, sender, distance)
-	if tabName == "local" then
-		local message = sender.name .. tostring(getColorFromDistance(distance)) .. ": " .. tostring(message)
-		Chat.message(tabName, message)
-	else
-		Chat.message(tabName, message)
+addEventHandler("dpChat.broadcastMessage", root, function (tabName, message, sender, isAdmin, distance)
+	if exports.dpConfig:getProperty("chat.block_offensive_words") then
+		message = WordsFilter.filter(message)
 	end
+
+	if tabName == "local" then
+		message = sender.name .. tostring(getColorFromDistance(distance)) .. ": " .. tostring(message)
+	elseif tabName == "global" then
+		message = ("%s: #FFFFFF%s"):format(sender.name, tostring(message))
+		if isAdmin then
+			message = ("#75FF00[%s] %s"):format(exports.dpLang:getString("chat_adminsay_admin"), message)
+		end
+	else
+		message = ("%s: #FFFFFF%s"):format(sender.name, tostring(message))
+	end
+
+	Chat.message(tabName, message)
 end)
 
 addEvent("dpChat.me", true)

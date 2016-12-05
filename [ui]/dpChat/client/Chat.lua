@@ -1,6 +1,6 @@
 Chat = {}
 
-local MAX_CHAT_LINES = 8
+local MAX_CHAT_LINES = 10
 local MAX_VISIBLE_TABS = 6
 local MAX_TAB_WIDTH = 72
 local MAX_LINE_LENGTH = 80
@@ -117,8 +117,6 @@ function Chat.message(tabName, text, r, g, b, colorCoded)
 	text = utf8.gsub(text, "\n", " ")
 	local rest
 
-	-- outputDebugString("Text = " .. tostring(text))
-	-- outputDebugString("Gsub = " .. tostring(utf8.gsub(text, "#%x%x%x%x%x%x", "")))
 	local textWithoutColors = utf8.gsub(text, "#%x%x%x%x%x%x", "")
 	if utf8.len(textWithoutColors) > MAX_LINE_LENGTH then
 		rest = utf8.sub(text, MAX_LINE_LENGTH + 1, -1)

@@ -16,6 +16,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	PropsStorage.setDefault("ui.blur", true)
 	PropsStorage.setDefault("chat.timestamp", false)
 	PropsStorage.setDefault("chat.joinquit_messages", true)
+	PropsStorage.setDefault("chat.block_offensive_words", true)
 	-- Параметры графики
 	PropsStorage.setDefault("graphics.reflections_cars", false)
 	PropsStorage.setDefault("graphics.reflections_water", false)

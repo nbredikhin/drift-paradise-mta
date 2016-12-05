@@ -145,6 +145,7 @@
 	"chat_message_login_success": "You have successfully logged in",
 	"chat_message_player_join": "Player %s has joined the server",
 	"chat_message_player_quit": "Player %s has left the server (%s)",
+	"chat_message_dont_flood": "Don't flood!",
 	"chat_adminsay_admin": "Admin",
 
 	// =====================================

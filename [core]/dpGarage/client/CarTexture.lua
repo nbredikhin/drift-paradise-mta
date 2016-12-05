@@ -7,7 +7,7 @@ local DEFAULT_STICKER_SIZE = 300
 local selectedSticker = false
 local previousSticker = false
 local stickerMirroringEnabled = false
-local MAX_STICKER_COUNT = 1500
+local MAX_STICKER_COUNT = 2000
 
 function CarTexture.start()
 	vehicle = GarageCar.getVehicle()

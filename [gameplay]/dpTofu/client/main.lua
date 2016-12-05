@@ -13,7 +13,7 @@ local MUSIC_POSITIONS = {
 	Vector3(471.078, -1280.93, 15.435)
 }
 
-local CHECKPOINTS_COUNT = 2
+local CHECKPOINTS_COUNT = 32
 local MIN_COLLISION_FORCE = 350
 
 local peds = {}

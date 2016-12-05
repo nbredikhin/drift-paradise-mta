@@ -3,4 +3,6 @@
 
 	<oop>true</oop>
 	<script src="client.lua" type="client"/>
+
+	<export type="client" function="setEnabled"/>
 </meta>

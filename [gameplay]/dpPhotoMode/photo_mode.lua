@@ -354,6 +354,7 @@ function enablePhotoMode()
 	exports.dpHUD:setVisible(false)
 	exports.dpNametags:setVisible(false)
 	exports.dpChat:setVisible(false)
+	exports.dpRadio:setEnabled(false)
 
 	-- Toggle controls
 	for i, name in ipairs(controlList) do
@@ -393,6 +394,7 @@ function disablePhotoMode()
 	exports.dpHUD:setVisible(true)
 	exports.dpNametags:setVisible(true)
 	exports.dpChat:setVisible(true)
+	exports.dpRadio:setEnabled(true)
 
 	for i, name in ipairs(controlList) do
 		setControlState(name, false)

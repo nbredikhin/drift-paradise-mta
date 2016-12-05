@@ -6,7 +6,7 @@ addEventHandler("dpTofu.finish", resourceRoot, function (isPerfect)
 		prize = 0
 	end
 	if isPerfect then
-		bonus = exports.dpShared:getEconomicsProperty("tofu_perfect_mul") 
+		bonus = exports.dpShared:getEconomicsProperty("tofu_perfect_mul")
 		if not bonus then
 			bonus = 1
 		end
@@ -17,7 +17,7 @@ addEventHandler("dpTofu.finish", resourceRoot, function (isPerfect)
 	if not xp then
 		xp = 0
 	end
-	
+	xp = xp * bonus
 	exports.dpCore:givePlayerMoney(client, prize)
 	exports.dpCore:givePlayerXP(client, xp)
 end)

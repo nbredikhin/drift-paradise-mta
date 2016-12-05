@@ -12,7 +12,7 @@ local helpLines = {
 	{keys = {CONTROLS.NEXT_TIME:upper(), CONTROLS.PREVIOUS_TIME:upper()},		locale = "photo_mode_help_time"},
 	{keys = {CONTROLS.NEXT_WEATHER:upper(), CONTROLS.PREVIOUS_WEATHER:upper()},	locale = "photo_mode_help_weather"},
 	{keys = {"I"},																locale = "photo_mode_help_tips"},
-	{keys = {PHOTO_MODE_KEY},													locale = "photo_mode_help_exit"}
+	{keys = {PHOTO_MODE_KEY:upper()},													locale = "photo_mode_help_exit"}
 }
 
 local weatherLine = ""

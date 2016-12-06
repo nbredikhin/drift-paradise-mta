@@ -6,7 +6,7 @@ local function reportAFK()
 		return
 	end
 
-	triggerServerEvent("selfKick", localPlayer, "afk")	
+	triggerServerEvent("selfKick", localPlayer, "afk")
 end
 
 local function resetTimer()

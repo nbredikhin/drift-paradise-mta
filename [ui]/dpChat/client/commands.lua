@@ -14,9 +14,15 @@ commandHandlers["me"] = function (tabName, command, ...)
 	triggerServerEvent("dpChat.me", root, tabName, table.concat({...}, " "))
 end
 
-addEvent("dpChat.command")
+addEvent("dpChat.command", true)
 addEventHandler("dpChat.command", root, function(tabName, command, ...)
 	if commandHandlers[command] then
+		if AntiFlood.isMuted() then
+			AntiFlood.onMessage()
+			Chat.message(tabName, "#FF0000" .. exports.dpLang:getString("chat_message_dont_flood"))
+			return
+		end
 		commandHandlers[command](tabName, command, ...)
+		AntiFlood.onMessage()
 	end
 end)

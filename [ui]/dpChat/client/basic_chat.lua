@@ -47,7 +47,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	-- Chat.createTab("web", "Web", true)
 end)
 
-addEvent("dpChat.message")
+addEvent("dpChat.message", true)
 addEventHandler("dpChat.message", root, function (tabName, message)
 	if tabName == "global" or tabName == "lang" or tabName == "local" or tabName == "web" then
 		if AntiFlood.isMuted() then
@@ -93,6 +93,10 @@ end)
 
 addEvent("dpChat.me", true)
 addEventHandler("dpChat.me", root, function (tabName, message, sender, distance)
+	if exports.dpConfig:getProperty("chat.block_offensive_words") then
+		message = WordsFilter.filter(message)
+	end
+
 	if tabName == "local" then
 		local senderName = exports.dpUtils:removeHexFromString(tostring(sender.name))
 		message = exports.dpUtils:removeHexFromString(tostring(message))

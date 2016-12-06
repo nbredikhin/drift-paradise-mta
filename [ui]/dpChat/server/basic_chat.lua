@@ -96,9 +96,9 @@ end)
 addEventHandler("onPlayerChat", root, function (message, messageType)
 	cancelEvent()
 	if messageType == 0 then
-		triggerEvent("dpChat.broadcastMessage", source, "global", message)
+		triggerClientEvent(source, "dpChat.message", source, "global", message)
 	elseif messageType == 1 then
-		triggerEvent("dpChat.me", source, "global", message)
+		triggerClientEvent(source, "dpChat.command", source, "global", "me", message)
 	end
 end)
 

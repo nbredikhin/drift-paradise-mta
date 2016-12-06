@@ -10,7 +10,7 @@
 
     "enableReadmeFiles": true,
 
-    "only": ["dpTofu"],
+    "only": ["shit1", "dpCarParts", "dpTuningEditor"],
 
     "include": [
         "geoip",

@@ -17,6 +17,7 @@ addEventHandler("onResourceStart", resourceRoot, function ()
 	Users.setup()
 	UserVehicles.setup()
 	GiftKeys.setup()
+	Donations.setup()
 	outputDebugString("Server started. SERVER_ID=" .. tostring(SERVER_ID))
 end)
 

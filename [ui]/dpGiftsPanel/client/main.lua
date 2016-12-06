@@ -116,6 +116,9 @@ end)
 
 addEvent("dpWebAPI.donationSuccess", true)
 addEventHandler("dpWebAPI.donationSuccess", root, function (amount)
+	if localPlayer:getData("activeUI") then
+		return
+	end
 	UI:showMessageBox(
 		exports.dpLang:getString("donation_message_title"), 
 		string.format(exports.dpLang:getString("donation_message_text"), "$" .. tostring(amount)))

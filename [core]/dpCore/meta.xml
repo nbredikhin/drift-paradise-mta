@@ -34,6 +34,8 @@
 	<!-- Подарочные ключи -->
 	<script type="server" src="server/giftkeys/GiftKeys.lua"/>
 	<script type="server" src="server/giftkeys/exports.lua"/>
+	<!-- Донаты -->
+	<script type="server" src="server/donations/Donations.lua"/>
 	<!-- Gameplay -->
 	<script type="server" src="server/gameplay/PlayerSpawn.lua"/>
 	<script type="server" src="server/gameplay/player_join.lua"/>

@@ -6,16 +6,17 @@ local isEnterExitInProcess = false 	-- Входит (выходит) ли в д�
 addEvent("dpGarage.enter", true)
 addEventHandler("dpGarage.enter", resourceRoot, function (success, vehiclesList, enteredVehicleId, vehicle)
 	isEnterExitInProcess = false
-	
+
 	if success then
 		Garage.start(vehiclesList, enteredVehicleId, vehicle)
 	else
+		localPlayer:setData("dpCore.state", false)
 		local errorType = vehiclesList
 		fadeCamera(true, 0.5)
 		if errorType then
 			local errorText = exports.dpLang:getString(errorType)
 			if errorText then
-				outputChatBox(errorText, 255, 0, 0)
+				exports.dpChat:message("global", errorText, 255, 0, 0)
 			end
 		end
 	end
@@ -30,11 +31,11 @@ addEventHandler("dpGarage.exit", resourceRoot, function (success)
 		if localPlayer:getData("tutorialActive") then
 			localPlayer:setData("tutorialActive", false)
 			exports.dpTutorialMessage:showMessage(
-				exports.dpLang:getString("tutorial_city_title"), 
+				exports.dpLang:getString("tutorial_city_title"),
 				exports.dpLang:getString("tutorial_city_text"),
-				"F1", "F9", "M", exports.dpLang:getString("tutorial_city_race"))	
+				"F1", "F9", "M", exports.dpLang:getString("tutorial_city_race"))
 		end
-	end, 500, 1)	
+	end, 500, 1)
 end)
 
 local function enterExitGarage(enter, selectedCarId)

@@ -26,6 +26,10 @@ function getPlayerVehicles(player)
 	return UserVehicles.getVehicles(ownerId)
 end
 
+function getPlayerSpawnedVehicles(player)
+	return VehicleSpawn.getPlayerSpawnedVehicles(player)
+end
+
 function getVehicleById(vehicleId)
 	if not vehicleId then
 		return

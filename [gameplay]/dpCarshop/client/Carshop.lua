@@ -55,32 +55,32 @@ local function draw()
 
 	local primaryColor = tocolor(themeColor[1], themeColor[2], themeColor[3], 255)
 	dxDrawText(
-		"$#FFFFFF" .. tostring(localPlayer:getData("money")), 
-		0, 20, 
-		screenSize.x - 20, screenSize.y, 
-		primaryColor, 
-		1, 
+		"$#FFFFFF" .. tostring(localPlayer:getData("money")),
+		0, 20,
+		screenSize.x - 20, screenSize.y,
+		primaryColor,
+		1,
 		fonts.money,
 		"right",
-		"top", 
+		"top",
 		false, false, false, true
 	)
 
 	dxDrawText(
-		exports.dpLang:getString("player_level") .. ": #FFFFFF" .. tostring(localPlayer:getData("level")), 
-		0, 60, 
-		screenSize.x - 20, screenSize.y, 
-		primaryColor, 
-		1, 
+		exports.dpLang:getString("player_level") .. ": #FFFFFF" .. tostring(localPlayer:getData("level")),
+		0, 60,
+		screenSize.x - 20, screenSize.y,
+		primaryColor,
+		1,
 		fonts.level,
 		"right",
-		"top", 
+		"top",
 		false, false, false, true
-	)	
+	)
 end
 
 local function startAutomoving()
-	automoving = true	
+	automoving = true
 end
 
 local function onCursorMove(x, y)
@@ -118,7 +118,7 @@ local function onKey(key, down)
 	end
 
 	if exports.dpTutorialMessage:isMessageVisible() then
-		return 
+		return
 	end
 
 	if key == "a" or key == "arrow_l" then
@@ -132,7 +132,7 @@ local function onKey(key, down)
 	elseif key == "d" or key == "arrow_r" then
 		currentVehicleId = currentVehicleId + 1
 		if currentVehicleId > #vehiclesList then
-			currentVehicleId = 1 
+			currentVehicleId = 1
 		end
 		Carshop.showVehicle(currentVehicleId)
 		exports.dpUI:hideMessageBox()
@@ -160,7 +160,7 @@ function Carshop.start()
 	-- Список автомобилей
 	vehiclesList = {}
 	local vehicles = exports.dpShared:getVehiclesTable()
-	for name, model in pairs(vehicles) do		
+	for name, model in pairs(vehicles) do
 		local priceInfo = exports.dpShared:getVehiclePrices(name)
 		if priceInfo then
 			local vehicleInfo = {
@@ -172,7 +172,7 @@ function Carshop.start()
 					speed = (3 + math.random(1, 7)) / 10,
 					acceleration = (3 + math.random(1, 7)) / 10,
 					control = (3 + math.random(1, 7)) / 10
-				}			
+				}
 			}
 			table.insert(vehiclesList, vehicleInfo)
 		end
@@ -217,10 +217,10 @@ function Carshop.start()
 
 	if localPlayer:getData("tutorialActive") then
 		exports.dpTutorialMessage:showMessage(
-			exports.dpLang:getString("tutorial_car_shop_title"), 
-			exports.dpLang:getString("tutorial_car_shop_text"), 
-			"$" .. tostring(localPlayer:getData("money")), 
-			utf8.lower(exports.dpLang:getString("controls_arrows")), 
+			exports.dpLang:getString("tutorial_car_shop_title"),
+			exports.dpLang:getString("tutorial_car_shop_text"),
+			"$" .. tostring(localPlayer:getData("money")),
+			utf8.lower(exports.dpLang:getString("controls_arrows")),
 			utf8.lower(exports.dpLang:getString("controls_mouse")),
 			"ENTER")
 	end
@@ -239,7 +239,7 @@ function Carshop.stop()
 		if isElement(font) then
 			destroyElement(font)
 		end
-	end 
+	end
 	fonts = {}
 
 	toggleAllControls(true)
@@ -274,7 +274,7 @@ function Carshop.showVehicle(id)
 		return false
 	end
 	Carshop.currentVehicleInfo = vehicleInfo
-	
+
 	vehicle.model = vehicleInfo.model
 	vehicle.frozen = false
 	vehicle.alpha = 0
@@ -294,19 +294,19 @@ end
 
 function Carshop.buy()
 	if exports.dpTutorialMessage:isMessageVisible() then
-		return 
-	end	
+		return
+	end
 	if Carshop.currentVehicleInfo.level > localPlayer:getData("level") then
 		exports.dpSounds:playSound("error.wav")
 		exports.dpUI:showMessageBox(
-			exports.dpLang:getString("carshop_buy_error_title"), 
+			exports.dpLang:getString("carshop_buy_error_title"),
 			string.format(
-				exports.dpLang:getString("carshop_required_level"), 
+				exports.dpLang:getString("carshop_required_level"),
 				tostring(Carshop.currentVehicleInfo.level)))
 	elseif Carshop.currentVehicleInfo.price > localPlayer:getData("money") then
 		exports.dpSounds:playSound("error.wav")
 		exports.dpUI:showMessageBox(
-			exports.dpLang:getString("carshop_buy_error_title"), 
+			exports.dpLang:getString("carshop_buy_error_title"),
 			exports.dpLang:getString("carshop_no_money"))
 	else
 		triggerServerEvent("dpCarshop.buyVehicle", resourceRoot, Carshop.currentVehicleInfo.model)
@@ -324,7 +324,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	local dff = engineLoadDFF("assets/object.dff")
 	engineReplaceModel(dff, 3781)
 	dff = engineLoadDFF("assets/object2.dff")
-	engineReplaceModel(dff, 3782)	
+	engineReplaceModel(dff, 3782)
 	local col = engineLoadCOL("assets/object2.col")
 	engineReplaceCOL(col, 3782)
 
@@ -340,7 +340,7 @@ addEventHandler("dpCarshop.buyVehicle", resourceRoot, function (success)
 	isBuying = false
 	if not success then
 		exports.dpUI:showMessageBox(
-			exports.dpLang:getString("carshop_buy_error_title"), 
+			exports.dpLang:getString("carshop_buy_error_title"),
 			exports.dpLang:getString("carshop_buy_error_unknown"))
 		return
 	else

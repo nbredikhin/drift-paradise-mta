@@ -61,6 +61,7 @@
 	<export type="server" function="isPlayerOwningVehicle"/>
 	<export type="server" function="returnVehicleToGarage"/>
 	<export type="server" function="getPlayerVehicles"/>
+	<export type="server" function="getPlayerSpawnedVehicles"/>
 	<export type="server" function="addPlayerVehicle"/>
 	<export type="server" function="removePlayerVehicle"/>
 	<export type="server" function="getVehicleById"/>

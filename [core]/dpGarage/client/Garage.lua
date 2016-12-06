@@ -16,12 +16,11 @@ function Garage.start(vehicles, enteredVehicleId, vehicle)
 	exports.dpChat:setVisible(false)
 	exports.dpMainPanel:setVisible(false)
 	exports.dpTabPanel:setVisible(false)
-	exports.dpWorldMap:setVisible(false)	
+	exports.dpWorldMap:setVisible(false)
 	exports.dpHUD:setVisible(false)
 
-
 	Assets.start()
-	GarageCar.start(vehicle, vehicles)		
+	GarageCar.start(vehicle, vehicles)
 	GarageUI.start()
 
 	setTimer(function ()
@@ -68,7 +67,7 @@ function Garage.playRandomMusic(reason)
 	sound = playSound(musicURLs[math.random(1, #musicURLs)], false)
 	sound:setEffectEnabled("reverb", true)
 	sound.volume = 0.08
-	sound.maxDistance = 50	
+	sound.maxDistance = 50
 end
 
 function Garage.buy(price, level, callback)
@@ -80,7 +79,7 @@ function Garage.buy(price, level, callback)
 		callback(false)
 		exports.dpSounds:playSound("error.wav")
 		return false
-	end	
+	end
 	if level > localPlayer:getData("level") then
 		outputDebugString("Error: Not enough level")
 		exports.dpSounds:playSound("error.wav")
@@ -91,7 +90,7 @@ function Garage.buy(price, level, callback)
 		outputDebugString("Error: Not enough money")
 		exports.dpSounds:playSound("error.wav")
 		callback(false)
-		return 
+		return
 	end
 	pendingBuyCallback = callback
 	triggerServerEvent("dpGarage.buy", resourceRoot, price, level)

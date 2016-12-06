@@ -11,7 +11,7 @@ end
 
 function AntiFlood.onMessage()
 	local muteTime = FLOOD_TIME
-	if AntiFlood.isMuted() then		
+	if AntiFlood.isMuted() then
 		floodCount = floodCount + 1
 		if floodCount >= 3 then
 			muteTime = TEMPORARY_MUTE_TIME
@@ -19,7 +19,7 @@ function AntiFlood.onMessage()
 		end
 	end
 	if isTimer(timer) then
-		killTimer(timer) 
+		killTimer(timer)
 	end
 	timer = setTimer(unmute, muteTime, 1)
 end

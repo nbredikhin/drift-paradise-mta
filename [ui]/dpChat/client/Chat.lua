@@ -119,8 +119,25 @@ function Chat.message(tabName, text, r, g, b, colorCoded)
 
 	local textWithoutColors = utf8.gsub(text, "#%x%x%x%x%x%x", "")
 	if utf8.len(textWithoutColors) > MAX_LINE_LENGTH then
-		rest = utf8.sub(text, MAX_LINE_LENGTH + 1, -1)
-		text = utf8.sub(text, 1, MAX_LINE_LENGTH)
+		local colorsLength = #text - #textWithoutColors
+		local foundSpace = false
+		for i = MAX_LINE_LENGTH + colorsLength, MAX_LINE_LENGTH + colorsLength - 20, -1 do
+			local c = utf8.sub(text, i, i)
+			if c == ' ' then
+				foundSpace = true
+				rest = utf8.sub(text, i + 1, -1)
+				text = utf8.sub(text, 1, i - 1)
+				break
+			end
+		end
+		if not foundSpace then
+			rest = utf8.sub(text, MAX_LINE_LENGTH + colorsLength + 1, -1)
+			text = utf8.sub(text, 1, MAX_LINE_LENGTH + colorsLength)
+		end
+		local match = pregMatch(text, "(#[0-9A-F]{6})")
+		if match then
+			rest = match[#match] .. rest
+		end
 		textWithoutColors = utf8.gsub(text, "#%x%x%x%x%x%x", "")
 	end
 	local message = {

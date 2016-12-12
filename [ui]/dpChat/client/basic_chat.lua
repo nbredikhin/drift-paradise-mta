@@ -77,6 +77,11 @@ addEventHandler("dpChat.broadcastMessage", root, function (tabName, message, sen
 		message = WordsFilter.filter(message)
 	end
 
+	if not isAdmin then
+		-- remove colors
+		message = utf8.gsub(message, "#%x%x%x%x%x%x", "")
+	end
+
 	if tabName == "local" then
 		message = sender.name .. tostring(getColorFromDistance(distance)) .. ": " .. tostring(message)
 	elseif tabName == "global" then

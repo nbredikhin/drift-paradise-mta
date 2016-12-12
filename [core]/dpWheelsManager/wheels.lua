@@ -20,13 +20,13 @@ local wheelsModels = {1025, 1074, 1075, 1076, 1077, 1078, 1079, 1080, 1081, 1082
 
 -- Дата, изменение которой вызывает обновление колёс
 local dataNames = {
-	["WheelsWidthF"] 	= true, 
-	["WheelsWidthR"] 	= true, 
-	["WheelsAngleF"] 	= true, 
-	["WheelsAngleR"] 	= true, 
-	["Wheels"] 			= true, 
-	["WheelsF"] 		= true, 
-	["WheelsR"] 		= true, 
+	["WheelsWidthF"] 	= true,
+	["WheelsWidthR"] 	= true,
+	["WheelsAngleF"] 	= true,
+	["WheelsAngleR"] 	= true,
+	["Wheels"] 			= true,
+	["WheelsF"] 		= true,
+	["WheelsR"] 		= true,
 	["WheelsSize"] 		= true,
 	["WheelsColorR"] 	= true,
 	["WheelsColorF"] 	= true,
@@ -119,10 +119,10 @@ local function updateVehicleWheels(vehicle)
 				wheelRazval = vehicle:getData("WheelsAngleF") or 0
 				wheelColor = vehicle:getData("WheelsColorF")
 			else
-				wheelWidth = vehicle:getData("WheelsWidthR") or 0 
+				wheelWidth = vehicle:getData("WheelsWidthR") or 0
 				wheelRazval = vehicle:getData("WheelsAngleR") or 0
 				wheelColor = vehicle:getData("WheelsColorR")
-			end	
+			end
 			if not wheelColor then
 				wheelColor = {255, 255, 255}
 			end
@@ -131,7 +131,7 @@ local function updateVehicleWheels(vehicle)
 			if isElement(wheel.object) then
 				wheel.object.alpha = 255
 				wheel.object.model = wheelsModels[wheelId]
-				wheel.object.scale = wheelSize * wheelsScale		
+				wheel.object.scale = wheelSize * wheelsScale
 			end
 			-- Обновить развал и толщину
 			if isElement(wheel.shader) then
@@ -139,7 +139,7 @@ local function updateVehicleWheels(vehicle)
 				wheel.shader:setValue("sWidth", WHEELS_WIDTH_MIN + wheelWidth * (WHEELS_WIDTH_MAX - WHEELS_WIDTH_MIN))
 				-- Цвет колеса
 				for i = 1, 3 do
-					wheelColor[i] = wheelColor[i] / 255 
+					wheelColor[i] = wheelColor[i] / 255
 				end
 				wheelColor[4] = 1
 				wheel.shader:setValue("sColor", wheelColor)
@@ -152,7 +152,7 @@ local function updateVehicleWheels(vehicle)
 			--wheel.object.position = wheelsHiddenPosition
 		end
 		-- Скрыть/отобразить стандартное колесо
-		setVehicleComponentVisible(vehicle, name, not wheel.custom)		
+		setVehicleComponentVisible(vehicle, name, not wheel.custom)
 	end
 	return true
 end
@@ -219,7 +219,7 @@ end)
 
 addEventHandler("onClientResourceStart", resourceRoot, function()
 	shaderReflectionTexture = dxCreateTexture("assets/reflection_cubemap.dds", "dxt5")
-	
+
 	for i, vehicle in ipairs(getElementsByType("vehicle")) do
 		setupVehicleWheels(vehicle)
 	end
@@ -303,7 +303,7 @@ addEventHandler("onClientPreRender", root, function ()
 					currentSteering = localVehicleSteering[name]
 				end
 				wheel.object.alpha = vehicle.alpha
-				setElementAttachedOffsets(wheel.object, 
+				setElementAttachedOffsets(wheel.object,
 					wheel.position[1],
 					wheel.position[2],
 					wheel.position[3] + (wheel.object.scale - WHEELS_SIZE_MIN - 0.1) * 0.5)
@@ -314,14 +314,14 @@ addEventHandler("onClientPreRender", root, function ()
 
 				wheel.shader:setValue("sRotationX", rx)
 				wheel.shader:setValue("sRotationZ", currentSteering)
-				wheel.shader:setValue("sAxis", {vehicle.matrix.up.x, vehicle.matrix.up.y, vehicle.matrix.up.z})					
-			end	
+				wheel.shader:setValue("sAxis", {vehicle.matrix.up.x, vehicle.matrix.up.y, vehicle.matrix.up.z})
+			end
 			vehicle:setComponentVisible(name, not wheel.custom)
 		end
 	end
 end)
 
--- Обновление позиции колёс 
+-- Обновление позиции колёс
 addEventHandler("onClientHUDRender", root, function ()
 	for vehicle, wheels in pairs(vehicleWheels) do
 		local wheelsAngleF = vehicle:getData("WheelsAngleF") or 0
@@ -332,7 +332,7 @@ addEventHandler("onClientHUDRender", root, function ()
 				wheelRazval = wheelsAngleF
 			else
 				wheelRazval = wheelsAngleR
-			end	
+			end
 			if wheel.custom then
 				local x, y, z = vehicle:getComponentPosition(name)
 				wheel.position = {x, y, z + wheelRazval / 800}
@@ -345,7 +345,7 @@ addEventHandler("onClientRender", root, function ()
 	for vehicle, wheels in pairs(vehicleWheels) do
 		for name, wheel in pairs(wheels) do
 			vehicle:setComponentVisible(name, not wheel.custom)
-		end			
+		end
 	end
 end)
 

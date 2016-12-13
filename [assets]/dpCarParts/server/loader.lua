@@ -1,7 +1,7 @@
 Async:setPriority(500, 100)
 
 local function loadPack(name, packInfo)
-	local file = fileOpen("packs/dp_" .. tostring(name) .. ".bin") 
+	local file = fileOpen("packs/dp_" .. tostring(name) .. ".bin")
 	local headerLength = packInfo[1]
 	file.pos = headerLength
 
@@ -21,7 +21,7 @@ local function loadPack(name, packInfo)
 
 		if currentFile == filesCount then
 			file:close()
-		end 
+		end
 	end)
 end
 

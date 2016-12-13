@@ -6,7 +6,7 @@ local selectedSkinIndex = 2
 local cameraAnimationFinished = false
 
 local peds = {}
-local pedsInfo = {	
+local pedsInfo = {
 	{ model = 1, position = Vector3(1356, -1111.7, 23.775), rotation = 140},
 	{ model = 2, position = Vector3(1359, -1115.355, 23.775), rotation = 90},
 	{ model = 22, position = Vector3(1357, -1118.7, 23.775), rotation = 50}
@@ -47,8 +47,8 @@ local function finishAnimation()
 	end
 	exports.dpTutorialMessage:hideMessage()
 	exports.dpTutorialMessage:showMessage(
-		exports.dpLang:getString("tutorial_skin_select_title"), 
-		exports.dpLang:getString("tutorial_skin_select_text"), 
+		exports.dpLang:getString("tutorial_skin_select_title"),
+		exports.dpLang:getString("tutorial_skin_select_text"),
 		utf8.lower(exports.dpLang:getString("controls_arrows")))
 
 	cameraAnimationFinished = true
@@ -72,7 +72,7 @@ local function update(deltaTime)
 	setCameraMatrix(
 		cameraStartPosition + (cameraEndPosition - cameraStartPosition) * positionProgress,
 		cameraStartLookPosition + (cameraEndLookPosition - cameraStartLookPosition) * lookProgress,
-		0, 
+		0,
 		cameraStartFOV + (cameraEndFOV - cameraStartFOV) * fovProgress
 	)
 
@@ -87,7 +87,7 @@ end
 local function draw()
 	dxDrawText(
 		exports.dpLang:getString("skin_select_text"),
-		20, 
+		20,
 		20,
 		screenSize.x,
 		screenSize.y,
@@ -95,7 +95,7 @@ local function draw()
 		1,
 		font,
 		"center",
-		"top")	
+		"top")
 
 	local offset = math.sin(arrowsAnimation * 5) * 10
 	local a = 255 * guiAlpha
@@ -175,13 +175,13 @@ function show()
 
 	addEventHandler("onClientPreRender", root, update)
 	addEventHandler("onClientRender", root, draw)
-	addEventHandler("onClientKey", root, onKey)		
+	addEventHandler("onClientKey", root, onKey)
 
 	localPlayer:setData("dpCore.state", "skinSelect")
 	localPlayer:setData("activeUI", "skinSelect")
 
 	exports.dpHUD:setVisible(false)
-	exports.dpChat:setVisible(false)
+	exports.dpChat:setVisible(false, true)
 
 	localPlayer.dimension = 0
 
@@ -191,7 +191,7 @@ end
 
 function hide()
 	if not isActive then
-		return 
+		return
 	end
 	isActive = false
 
@@ -220,7 +220,7 @@ function hide()
 		if isElement(ped) then
 			destroyElement(ped)
 		end
-	end	
+	end
 
 	localPlayer:setData("dpCore.state", false)
 	localPlayer:setData("activeUI", false)

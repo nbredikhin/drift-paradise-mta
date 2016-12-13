@@ -5,12 +5,12 @@ function startIntro()
 	fadeCamera(false, 0)
 	localPlayer:setData("activeUI", "intro")
 	exports.dpHUD:setVisible(false)
-	exports.dpChat:setVisible(false)	
+	exports.dpChat:setVisible(false, true)
 	setTimer(function ()
 		IntroCutscene.start()
 		fadeCamera(true, 3)
 		music = playSound("assets/background_music.mp3")
-	end, 1000, 1)	
+	end, 1000, 1)
 end
 
 function stopIntro()
@@ -25,7 +25,7 @@ local function updateMusic(dt)
 		return
 	end
 
-	music.volume = music.volume - dt	
+	music.volume = music.volume - dt
 	if music.volume <= 0.01 then
 		destroyElement(music)
 	end

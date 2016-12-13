@@ -4,7 +4,9 @@ local MAX_CHAT_LINES = 10
 local MAX_VISIBLE_TABS = 6
 local MAX_TAB_WIDTH = 72
 local MAX_LINE_LENGTH = 80
+local TAB_PADDING = 10
 
+local forceVisible = false
 local isVisible = false
 local chatTabs = {}
 local activeTabName
@@ -13,6 +15,7 @@ local screenSize = Vector2(guiGetScreenSize())
 
 function Chat.setVisible(visible)
 	visible = not not visible
+
 	if visible == isVisible then
 		return false
 	end
@@ -27,7 +30,7 @@ function Chat.setVisible(visible)
 end
 
 function Chat.isVisible()
-	return not not isVisible
+	return isVisible
 end
 
 function Chat.removeTab(name)
@@ -192,8 +195,8 @@ local function drawMessages()
 			textWithoutColors = timeString .. textWithoutColors
 		end
 
-		dxDrawText(textWithoutColors, 33, 33 + j * 20, 0, 0, 0xFF000000, 1.0, "default-bold", "left", "top", false, false, false, false, true)
-		dxDrawText(text, 32, 32 + j * 20, 0, 0, message.color, 1.0, "default-bold", "left", "top", false, false, false, message.colorCoded, true)
+		dxDrawText(textWithoutColors, 33, 57 + j * 20, 0, 0, 0xFF000000, 1.0, "default-bold", "left", "top", false, false, false, false, true)
+		dxDrawText(text, 32, 56 + j * 20, 0, 0, message.color, 1.0, "default-bold", "left", "top", false, false, false, message.colorCoded, true)
 		j = j - 1
 	end
 end
@@ -212,13 +215,13 @@ function drawTabs()
 	local font = "default-bold"
 	local x = 32
 	local y = 16
-	local height = 12
+	local height = dxGetFontHeight(scale, font)
 	local limitTabs = not (my > y / 2 and my < y + height)
 	highlightedTabName = nil
 	for i, tab in ipairs(chatTabs) do
 		local width = math.min(dxGetTextWidth(tab.title, scale, font), MAX_TAB_WIDTH)
 		local alpha = 200
-		if mx > x and mx < x + width and my > y and my < y + height then
+		if mx > x and mx < x + width + TAB_PADDING * 2 and my > y and my < y + height + TAB_PADDING * 2 then
 			limitTabs = false
 			alpha = 255
 
@@ -229,19 +232,48 @@ function drawTabs()
 			highlightedTabName = tab.name
 		end
 
-		local color = tocolor(255, 255, 255, alpha)
+		local themeColor = {exports.dpUI:getThemeColor()}
+		local color
+		local backgroundColor
 		if tab.name == activeTabName then
-			local themeColor = {exports.dpUI:getThemeColor()}
-			color = tocolor(themeColor[1], themeColor[2], themeColor[3], alpha)
+			color = tocolor(255, 255, 255, 255)
+			backgroundColor = tocolor(themeColor[1], themeColor[2], themeColor[3], alpha)
+		else
+			color = tocolor(themeColor[1], themeColor[2], themeColor[3], 255)
+			backgroundColor = tocolor(255, 255, 255, alpha)
 		end
-		-- Текст
-		dxDrawText(tab.title, x, y, x + width, y + height, color, scale, font, "left", "center", true)
 
-		x = x + 5 + width
+		dxDrawRectangle(x, y, width + TAB_PADDING * 2, height + TAB_PADDING * 2, backgroundColor)
+		dxDrawText(tab.title, x + TAB_PADDING, y + TAB_PADDING, x + TAB_PADDING + width, y + TAB_PADDING + height, color, scale, font, "left", "center", true)
+
+		if tab.name == highlightedTabName then
+			local closeScale = scale / 1.2
+			local closeWidth = dxGetTextWidth("✕", scale, font)
+			local closeHeight = dxGetFontHeight(closeScale, font)
+			local closeX, closeY = x + TAB_PADDING * 2 + width, y
+			dxDrawText("✕", closeX - closeWidth, closeY, closeX, closeY + closeHeight, color, closeScale, font, "right", "top", false)
+			if mx > closeX - closeWidth and mx < closeX and my > closeY and my < closeY + closeHeight then
+				if getKeyState("mouse1") then
+					Chat.removeTab(tab.name)
+				end
+			end
+		end
+
+		x = x + TAB_PADDING * 2 + width
 		if i == MAX_VISIBLE_TABS and limitTabs then
 			break
 		end
 	end
+end
+
+function drawInput()
+	if not Input.isActive() then
+		return
+	end
+	local text = exports.dpLang:getString("chat_input_message") .. ": " .. Input.getText()
+	local right = 32 + dxGetTextWidth(utf8.sub(text, 1, 96), 1, "default-bold")
+	dxDrawText(text, 33, 57 + MAX_CHAT_LINES * 20, right + 1, 0, 0xFF000000, 1.0, "default-bold", "left", "top", false, true, false, false, true)
+	dxDrawText(text, 32, 56 + MAX_CHAT_LINES * 20, right, 0, 0xFFFFFFFF, 1.0, "default-bold", "left", "top", false, true, false, false, true)
 end
 
 function Chat.getActiveTab()
@@ -255,16 +287,6 @@ function Chat.clearTab(name)
 	end
 	tab.messages = {}
 	return false
-end
-
-function drawInput()
-	if not Input.isActive() then
-		return
-	end
-	local text = exports.dpLang:getString("chat_input_message") .. ": " .. Input.getText()
-	local right = 32 + dxGetTextWidth(utf8.sub(text, 1, 96), 1, "default-bold")
-	dxDrawText(text, 33, 33 + MAX_CHAT_LINES * 20, right + 1, 0, 0xFF000000, 1.0, "default-bold", "left", "top", false, true, false, false, true)
-	dxDrawText(text, 32, 32 + MAX_CHAT_LINES * 20, right, 0, 0xFFFFFFFF, 1.0, "default-bold", "left", "top", false, true, false, false, true)
 end
 
 addEventHandler("onClientRender", root, function ()
@@ -281,11 +303,9 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	Chat.setVisible(true)
 end)
 
-bindKey("mouse2", "down", function ()
-	if not isCursorShowing() or not highlightedTabName then
-		return
-	end
-	Chat.removeTab(highlightedTabName)
-end)
-
 setTimer(showChat, 1000, 0, false)
+bindKey("F7", "down",
+	function ()
+		Chat.setVisible(not Chat.isVisible())
+	end
+)

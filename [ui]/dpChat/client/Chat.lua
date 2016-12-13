@@ -252,7 +252,7 @@ function drawTabs()
 		dxDrawRectangle(x, y, width + TAB_PADDING * 2, height + TAB_PADDING * 2, backgroundColor)
 		dxDrawText(tab.title, x + TAB_PADDING, y + TAB_PADDING, x + TAB_PADDING + width, y + TAB_PADDING + height, color, scale, font, "left", "center", true)
 
-		if tab.name == highlightedTabName then
+		if tab.name == highlightedTabName and not tab.unremovable then
 			local closeScale = scale / 1.2
 			local closeWidth = dxGetTextWidth("✕", scale, font)
 			local closeHeight = dxGetFontHeight(closeScale, font)

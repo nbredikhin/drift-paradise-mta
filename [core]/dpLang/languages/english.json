@@ -138,6 +138,7 @@
 	"login_panel_err_enter_password_confirm": "Enter password confirmation",
 	"login_panel_err_passwords_do_not_match": "Your passwords do not match!",
 	"login_panel_err_beta_key_invalid": "Your beta key is invalid",
+	"login_panel_err_account_banned": "This account is banned",
 
 	// ======================================================
 	// ================== Chat messages =====================

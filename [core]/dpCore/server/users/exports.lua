@@ -54,3 +54,23 @@ function givePlayerXP(player, xp)
 	player:setData("xp", math.max(0, currentXP + xp))
 	return true
 end
+
+function banPlayer(...)
+	return Bans.banPlayer(...)
+end
+
+function mutePlayer(...)
+	return Bans.mutePlayer(...)
+end
+
+function isPlayerMuted(...)
+	return Bans.isPlayerMuted(...)
+end
+
+function isSerialBanned(...)
+	return Bans.isSerialBanned(...)
+end
+
+function isUserBanned(...)
+	return Bans.isUserBanned(...)
+end

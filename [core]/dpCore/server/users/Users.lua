@@ -22,7 +22,9 @@ function Users.setup()
 		-- Дата последней активности
 		{ name="lastseen", type="timestamp", options="DEFAULT 0" },
 		-- XP
-		{ name="xp", type="bigint", options="UNSIGNED NOT NULL DEFAULT 0" }
+		{ name="xp", type="bigint", options="UNSIGNED NOT NULL DEFAULT 0" },
+		-- Группа
+		{ name="group", type="varchar", size=25 }
 	})
 	-- Очистка даты
 	for i, player in ipairs(getElementsByType("player")) do
@@ -88,6 +90,11 @@ function Users.loginPlayer(player, username, password, callback)
 		return false
 	end
 
+	-- Если игрок забанен
+	if Bans.isUserBanned(username) then
+		outputDebugString("ERROR: Users.loginPlayer: User is banned")
+		return false, "account_banned"
+	end
 	-- Если игрок уже залогинен
 	if Sessions.isActive(player) then
 		outputDebugString("ERROR: Users.loginPlayer: User already logged in")

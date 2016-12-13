@@ -22,6 +22,7 @@
 	<script type="server" src="server/database/DatabaseTable.lua"/>
 	<!-- Аккаунты пользователей -->
 	<script type="server" src="server/users/Sessions.lua"/>
+	<script type="server" src="server/users/Bans.lua"/>
 	<script type="server" src="server/users/Users.lua"/>
 	<script type="server" src="server/users/PlayerData.lua"/>
 	<script type="server" src="server/users/exports.lua"/>
@@ -54,6 +55,11 @@
 	<export type="server" function="givePlayerMoney"/>
 	<export type="server" function="givePlayerXP"/>
 	<export type="server" function="logoutOfflineUsers"/>
+	<export type="server" function="banPlayer"/>
+	<export type="server" function="mutePlayer"/>
+	<export type="server" function="isSerialBanned"/>
+	<export type="server" function="isUserBanned"/>
+	<export type="server" function="isPlayerMuted"/>
 	<!-- Функции для работы с автомобилями -->
 	<export type="shared" function="generateDefaultNumberplate"/>
 	<export type="server" function="spawnVehicle"/>

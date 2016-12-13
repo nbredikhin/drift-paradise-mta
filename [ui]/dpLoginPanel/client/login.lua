@@ -41,6 +41,8 @@ addEventHandler("dpCore.loginResponse", root, function (success, err)
 			errorText = exports.dpLang:getString("login_panel_err_user_not_found")
 		elseif err == "already_logged_in" then
 			errorText = exports.dpLang:getString("login_panel_err_account_in_use")
+		elseif err == "account_banned" then
+			errorText = exports.dpLang:getString("login_panel_err_account_banned")
 		end
 		exports.dpUI:showMessageBox(exports.dpLang:getString("login_panel_auth_error"),  errorText)
 		return

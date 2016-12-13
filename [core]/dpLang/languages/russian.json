@@ -124,6 +124,7 @@
 	"login_panel_err_enter_password_confirm": "Введите подтверждение пароля",
 	"login_panel_err_passwords_do_not_match": "Введённые пароли не совпадают",
 	"login_panel_err_beta_key_invalid": "Введённый ключ недействителен!",
+	"login_panel_err_account_banned": "Ваш аккаунт забанен на сервере!",
 
 	// Chat messages
 	"chat_message_login_success": "Вы успешно вошли",

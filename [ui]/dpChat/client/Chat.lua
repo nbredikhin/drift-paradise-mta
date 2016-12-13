@@ -12,6 +12,7 @@ local chatTabs = {}
 local activeTabName
 local highlightedTabName
 local screenSize = Vector2(guiGetScreenSize())
+local chatHistoryCurrent
 
 function Chat.setVisible(visible)
 	visible = not not visible
@@ -165,6 +166,7 @@ function Chat.setActiveTab(name)
 	end
 	if Chat.getTabFromName(name) then
 		activeTabName = name
+		chatHistoryCurrent = nil
 		return true
 	end
 end
@@ -177,13 +179,17 @@ local function drawMessages()
 	local messages = tab.messages
 	local messageCount = #messages
 
-	local firstIndex = 1
-	if messageCount > MAX_CHAT_LINES then
-		firstIndex = messageCount - MAX_CHAT_LINES + 1
-	end
-
 	local j = MAX_CHAT_LINES - 1
-	for i = messageCount, firstIndex, -1 do
+
+	local endIndex
+	if chatHistoryCurrent then
+		endIndex = chatHistoryCurrent
+	else
+		endIndex = messageCount
+	end
+	local firstIndex = math.max(1, endIndex - MAX_CHAT_LINES + 1)
+
+	for i = endIndex, firstIndex, -1 do
 		local message = messages[i]
 		local text = message.text
 		local textWithoutColors = message.textWithoutColors
@@ -276,6 +282,47 @@ function drawInput()
 	dxDrawText(text, 32, 56 + MAX_CHAT_LINES * 20, right, 0, 0xFFFFFFFF, 1.0, "default-bold", "left", "top", false, true, false, false, true)
 end
 
+function Chat.historyUp()
+	if not isVisible then
+		return false
+	end
+
+	local tab = Chat.getTabFromName(activeTabName)
+	if #tab.messages == 0 then
+		return false
+	end
+
+	if chatHistoryCurrent == nil then
+		chatHistoryCurrent = math.max(1, #tab.messages - MAX_CHAT_LINES / 2)
+	elseif chatHistoryCurrent == 1 then
+		return false
+	else
+		chatHistoryCurrent = math.max(1, chatHistoryCurrent - MAX_CHAT_LINES / 2)
+	end
+	return true
+end
+
+function Chat.historyDown()
+	if not isVisible then
+		return false
+	end
+
+	local tab = Chat.getTabFromName(activeTabName)
+	if #tab.messages == 0 then
+		return false
+	end
+
+	if type(chatHistoryCurrent) == "number" then
+		chatHistoryCurrent = math.min(#tab.messages, chatHistoryCurrent + MAX_CHAT_LINES / 2)
+		if chatHistoryCurrent == #tab.messages then
+			chatHistoryCurrent = nil
+		end
+	else
+		return false
+	end
+	return true
+end
+
 function Chat.getActiveTab()
 	return activeTabName
 end
@@ -309,3 +356,6 @@ bindKey("F7", "down",
 		Chat.setVisible(not Chat.isVisible())
 	end
 )
+
+bindKey("pgup", "down", Chat.historyUp)
+bindKey("pgdn", "down", Chat.historyDown)

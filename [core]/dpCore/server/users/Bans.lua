@@ -10,8 +10,8 @@ local allowedBanTypes = {
 
 function Bans.setup() 
 	DatabaseTable.create(BANS_TABLE_NAME, {
-		{ name="username", 		type="varchar", size=25, options="UNIQUE" },
-		{ name="serial", 		type="varchar", size=64, options="UNIQUE" },
+		{ name="username", 		type="varchar", size=25, options="" },
+		{ name="serial", 		type="varchar", size=64, options="" },
 		-- Тип бана: "ban" или "mute"
 		{ name="type",			type="varchar",	size=64, options="NOT NULL"},
 		{ name="nickname",		type="varchar",	size=64 },
@@ -149,6 +149,10 @@ end
 function Bans.mutePlayer(player, duration)
 	if not isElement(player) then
 		outputDebugString("Bans: Failed to mute player. Bad player element")
+		return false
+	end
+	if Bans.isPlayerMuted(player) then
+		outputDebugString("Bans: Failed to mute player. Player is already muted")
 		return false
 	end
 	if type(duration) ~= "number" then

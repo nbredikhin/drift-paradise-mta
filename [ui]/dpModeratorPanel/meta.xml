@@ -1,0 +1,8 @@
+<meta>
+	<oop>true</oop>
+
+	<!-- Client -->
+	<script type="client" src="client/ui/Panel.lua"/>
+	<script type="client" src="client/ui/players.lua"/>
+	<script type="client" src="client/ui/timeSelect.lua"/>
+</meta>

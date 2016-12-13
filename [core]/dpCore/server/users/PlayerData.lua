@@ -1,12 +1,12 @@
 PlayerData = {}
 local loadFields = {
-	"_id", "username", "skin", "money", "lastseen", "playtime", "register_time", "xp"
+	"_id", "username", "skin", "money", "lastseen", "playtime", "register_time", "xp", "group"
 }
 local saveFields = {
 	"skin", "money", "playtime", "xp"
 }
 local protectFields = {
-	"house_id", "level", "money", "xp"
+	"house_id", "level", "money", "xp", "group"
 }
 
 local function filterData(dataName, value)

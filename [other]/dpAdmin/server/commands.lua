@@ -1,34 +1,60 @@
 local commands = {}
 
-local function addCommand(name, handler)
+local function hasPlayerEnoughRights(player, requestedGroup)
+	if not isElement(player) then
+		return false
+	end
+	if not requestedGroup then
+		return false
+	end
+	if isPlayerAdmin(player) then
+		return true
+	end
+	local playerGroup = player:getData("group")
+	if playerGroup == "admin" then
+		return true
+	end
+	if playerGroup == "moderator" and requestedGroup == "moderator" then
+		return true
+	end
+	return false
+end
+
+local function addCommand(name, group, handler)
 	if type(name) ~= "string" or type(handler) ~= "function" then
 		return false
 	end
-	commands[name] = handler
+	if not group then
+		group = "admin"
+	end
+	commands[name] = { handler = handler, group = group }
 end
 
 local function executeCommand(player, name, ...)
 	if type(name) ~= "string" then
 		return false
 	end
-	if type(commands[name]) ~= "function" then
+	if type(commands[name]) ~= "table" then
 		return false
 	end
-	if not isPlayerAdmin(player) then
+	if type(commands[name].handler) ~= "function" then
 		return false
 	end
-	return commands[name](...)
+	if not hasPlayerEnoughRights(player, commands[name].group) then
+		return false
+	end
+	return commands[name].handler(player, ...)
 end
 
-addCommand("givemoney", function (player, amount)
+addCommand("givemoney", "admin", function (admin, player, amount)
 	return exports.dpCore:givePlayerMoney(player, amount)
 end)
 
-addCommand("givexp", function (player, amount)
+addCommand("givexp", "admin", function (admin, player, amount)
 	return exports.dpCore:givePlayerXP(player, amount)
 end)
 
-addCommand("givecar", function (player, name)
+addCommand("givecar", "admin", function (admin, player, name)
 	local model = exports.dpShared:getVehicleModelFromName(name)
 	if type(model) ~= "number" then
 		return false
@@ -36,27 +62,31 @@ addCommand("givecar", function (player, name)
 	return exports.dpCore:addPlayerVehicle(player, model)
 end)
 
-addCommand("removecar", function (player, id)
+addCommand("removecar", "admin", function (admin, player, id)
 	return exports.dpCore:removePlayerVehicle(player, id)
 end)
 
-addCommand("sethouse", function (player, id)
-	if not tonumber(id) then
-		return false
-	end
-	return exports.dpCore:setPlayerHouse(player, tonumber(id))
-end)
-
-addCommand("removehouse", function (player)
-	return exports.dpCore:removePlayerHouse(player)
-end)
-
-addCommand("settime", function (hh, mm)
+addCommand("settime", "admin", function (admin, hh, mm)
 	return exports.dpTime:setServerTime(hh, mm)
 end)
 
+addCommand("kick", "moderator", function (admin, player, reason)
+	return kickPlayer(player, admin, reason)
+end)
+
+addCommand("ban", "moderator", function (admin, player, duration, reason)
+	return exports.dpCore:banPlayer(player, duration, reason)
+end)
+
+addCommand("mute", "moderator", function (admin, player, duration)
+	return exports.dpCore:mutePlayer(player, duration)
+end)
+
+addCommand("destroyCar", "moderator", function (admin, player)
+	--return exports.dpCore:mutePlayer(player, duration)
+end)
 
 addEvent("dpAdmin.executeCommand", true)
-addEventHandler("dpAdmin.executeCommand", resourceRoot, function (commandName, ...)
+addEventHandler("dpAdmin.executeCommand", root, function (commandName, ...)
 	executeCommand(client, commandName, ...)
 end)

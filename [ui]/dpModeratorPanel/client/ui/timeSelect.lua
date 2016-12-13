@@ -7,19 +7,26 @@ local currentCallback
 local valueButtons = {
 	{ text = "5 minutes", 	value = 60 * 5 },
 	{ text = "10 minutes", 	value = 60 * 10 },
-	{ text = "1 hour", 		value = 60 * 60 },
-	{ text = "5 hours", 	value = 60 * 60 * 5 },
+	{ text = "30 minutes", 	value = 60 * 30 },
+	{ text = "2 hours", 	value = 60 * 60 },
 	{ text = "1 day", 		value = 60 * 60 * 24 },
 	{ text = "3 days", 		value = 60 * 60 * 24 * 3 },
 	{ text = "7 days", 		value = 60 * 60 * 24 * 7 }
 }
 
-function Panel.showTimeSelectWindow(callback)
+function Panel.showTimeSelectWindow(maxValue, callback)
 	if ui.window.visible then
 		return false
 	end
 	if not callback then
 		return false
+	end
+	for i, valueButton in ipairs(valueButtons) do
+		if maxValue then
+			valueButton.button.enabled = valueButton.value <= maxValue
+		else
+			valueButton.button.enabled = true
+		end
 	end
 	ui.window.visible = true
 	ui.window:bringToFront()

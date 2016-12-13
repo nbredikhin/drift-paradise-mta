@@ -75,11 +75,14 @@ addCommand("kick", "moderator", function (admin, player, reason)
 end)
 
 addCommand("ban", "moderator", function (admin, player, duration, reason)
+	triggerClientEvent("dpAdmin.showMessage", resourceRoot, "ban", admin, player)
 	return exports.dpCore:banPlayer(player, duration, reason)
 end)
 
 addCommand("mute", "moderator", function (admin, player, duration)
-	return exports.dpCore:mutePlayer(player, duration)
+	if exports.dpCore:mutePlayer(player, duration) then
+		triggerClientEvent("dpAdmin.showMessage", resourceRoot, "mute", admin, player, duration)
+	end
 end)
 
 addCommand("destroyCar", "moderator", function (admin, player)

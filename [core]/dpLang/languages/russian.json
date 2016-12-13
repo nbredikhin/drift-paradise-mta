@@ -131,8 +131,11 @@
 	"chat_message_player_join": "Игрок %s присоединился к серверу",
 	"chat_message_player_quit": "Игрок %s вышел с сервера (%s)",
 	"chat_message_dont_flood": "Не флуди!",
+	"chat_message_muted": "Администратор временно запретил Вам отправлять сообщения",
 	"chat_adminsay_admin": "Администратор",
 	"chat_adminsay_moderator": "Модератор",
+	"chat_admin_mute": "Игрок %s получил мут от модератора %s на %s сек.",
+	"chat_admin_ban": "Игрок %s был забанен администратором %s",
 
 	// Гараж
 	"garage_no_vehicle_error": "Вы должны находиться в машине, чтобы войти в гараж",

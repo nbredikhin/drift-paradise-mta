@@ -126,7 +126,7 @@ function Bans.banPlayer(player, duration, reason)
 		return false
 	end	
 	local username = player:getData("username")
-	local success = DatabaseTable.insert(BANS_TABLE_NAME, { 
+	return DatabaseTable.insert(BANS_TABLE_NAME, { 
 		username 	= username, 
 		nickname 	= player.name,
 		serial 		= player.serial,
@@ -160,7 +160,7 @@ function Bans.mutePlayer(player, duration)
 		return false
 	end	
 	local username = player:getData("username")
-	local success = DatabaseTable.insert(BANS_TABLE_NAME, { 
+	return DatabaseTable.insert(BANS_TABLE_NAME, { 
 		username 	= username, 
 		nickname 	= player.name,
 		serial 		= player.serial,
@@ -177,7 +177,7 @@ end
 
 function Bans.update()
 	DatabaseTable.select(BANS_TABLE_NAME, {}, {}, function (result)
-		if not result or #result == 0 then 
+		if not result then 
 			return
 		end
 
@@ -190,6 +190,10 @@ function Bans.update()
 			else
 				addBan(banInfo)
 			end
+		end
+
+		for i, player in ipairs(getElementsByType("player")) do
+			player:setData("isMuted", Bans.isPlayerMuted(player))
 		end
 	end)
 end

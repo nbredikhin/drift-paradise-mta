@@ -16,6 +16,9 @@ addEventHandler("dpChat.broadcastMessage", root, function (tabName, rawMessage)
 	if sender.muted then
 		return
 	end
+	if sender:getData("isMuted") then
+		return
+	end
 
 	triggerEvent("dpChat.message", resourceRoot, sender, tabName, rawMessage)
 	if tabName == "global" then

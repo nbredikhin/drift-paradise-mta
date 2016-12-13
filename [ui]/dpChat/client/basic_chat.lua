@@ -50,6 +50,10 @@ end)
 addEvent("dpChat.message", true)
 addEventHandler("dpChat.message", root, function (tabName, message)
 	if tabName == "global" or tabName == "lang" or tabName == "local" or tabName == "web" then
+		if localPlayer:getData("isMuted") then
+			Chat.message(tabName, "#FF0000" .. exports.dpLang:getString("chat_message_muted"))
+			return
+		end
 		if AntiFlood.isMuted() then
 			AntiFlood.onMessage()
 			Chat.message(tabName, "#FF0000" .. exports.dpLang:getString("chat_message_dont_flood"))

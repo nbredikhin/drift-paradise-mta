@@ -100,6 +100,10 @@ local function updateSelectedPlayer()
 		ui.player.ban.enabled = false
 		ui.player.removeCar.enabled = false
 	end
+		ui.player.kick.enabled = true
+		ui.player.mute.enabled = true
+		ui.player.ban.enabled = true
+		ui.player.removeCar.enabled = true	
 end
 
 local function handleDataChange()
@@ -175,7 +179,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 			return
 		end
 		local name = exports.dpUtils:removeHexFromString(selectedPlayer.name)
-		Panel.showTimeSelectWindow(function (duration)
+		Panel.showTimeSelectWindow(10000, function (duration)
 			triggerServerEvent("dpAdmin.executeCommand", resourceRoot, "mute", selectedPlayer, duration)
 		end)
 	end, false)
@@ -185,7 +189,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 			return
 		end
 		local name = exports.dpUtils:removeHexFromString(selectedPlayer.name)
-		Panel.showTimeSelectWindow(function (duration)
+		Panel.showTimeSelectWindow(nil, function (duration)
 			triggerServerEvent("dpAdmin.executeCommand", resourceRoot, "ban", selectedPlayer, duration)
 		end)
 	end, false)

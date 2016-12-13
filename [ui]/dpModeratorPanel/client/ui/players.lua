@@ -100,10 +100,6 @@ local function updateSelectedPlayer()
 		ui.player.ban.enabled = false
 		ui.player.removeCar.enabled = false
 	end
-			ui.player.kick.enabled = true
-		ui.player.mute.enabled = true
-		ui.player.ban.enabled = true
-		ui.player.removeCar.enabled = true
 end
 
 local function handleDataChange()

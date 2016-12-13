@@ -132,6 +132,7 @@
 	"chat_message_player_quit": "Игрок %s вышел с сервера (%s)",
 	"chat_message_dont_flood": "Не флуди!",
 	"chat_adminsay_admin": "Администратор",
+	"chat_adminsay_moderator": "Модератор",
 
 	// Гараж
 	"garage_no_vehicle_error": "Вы должны находиться в машине, чтобы войти в гараж",

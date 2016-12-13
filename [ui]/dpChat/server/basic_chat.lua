@@ -19,11 +19,7 @@ addEventHandler("dpChat.broadcastMessage", root, function (tabName, rawMessage)
 
 	triggerEvent("dpChat.message", resourceRoot, sender, tabName, rawMessage)
 	if tabName == "global" then
-		local isAdmin = false
-		if exports.dpUtils:isPlayerAdmin(sender) then
-			isAdmin = true
-		end
-		triggerClientEvent("dpChat.broadcastMessage", root, tabName, rawMessage, sender, isAdmin)
+		triggerClientEvent("dpChat.broadcastMessage", root, tabName, rawMessage, sender)
 	elseif tabName == "web" then
 		triggerClientEvent("dpChat.broadcastMessage", root, tabName, rawMessage, sender)
 	elseif tabName == "lang" then

@@ -6,7 +6,7 @@ function AccountTab.create()
 	panel = Panel.addTab("account")
 	local width = UI:getWidth(panel)
 	local height = UI:getHeight(panel)
-	
+
 	local usernameLabel = UI:createDpLabel {
 		x = 20, y = 15,
 		width = width / 3, height = 50,
@@ -40,7 +40,7 @@ function AccountTab.create()
 	UI:addChild(panel, moneyLabel)
 	UIDataBinder.bind(moneyLabel, "money", function (value)
 		return "$" .. tostring(value)
-	end)	
+	end)
 	-- Подпись
 	local moneyLabelText = UI:createDpLabel {
 		x = width - width / 3 - 20 , y = 55,
@@ -51,7 +51,7 @@ function AccountTab.create()
 		alignX = "right",
 		locale = "main_panel_account_money"
 	}
-	UI:addChild(panel, moneyLabelText)		
+	UI:addChild(panel, moneyLabelText)
 
 	-- Прогрессбар
 	local levelProgressBg = UI:createRectangle {
@@ -88,7 +88,18 @@ function AccountTab.create()
 		alignX = "right",
 		alignY = "center"
 	}
-	UI:addChild(levelProgressBg, levelLabelNext)		
+	UI:addChild(levelProgressBg, levelLabelNext)
+
+	local xpLabel = UI:createDpLabel {
+		x = (UI:getWidth(levelProgressBg) - 50) / 2, y = 0,
+		width = 50, height = 30,
+		text = "0/0",
+		color = tocolor(110, 110, 110, 255),
+		fontType = "defaultSmall",
+		alignX = "center",
+		alignY = "center"
+	}
+	UI:addChild(levelProgressBg, xpLabel)
 
 	local levelLabel = UI:createDpLabel {
 		x = 20, y = 135,
@@ -99,7 +110,7 @@ function AccountTab.create()
 		alignX = "left",
 		locale = "main_panel_account_level"
 	}
-	UI:addChild(panel, levelLabel)	
+	UI:addChild(panel, levelLabel)
 
 	---------------- Статистика -------------------
 	-- Количество автомобилей в гараже
@@ -133,7 +144,7 @@ function AccountTab.create()
 			houseStr = "main_panel_account_house_yes"
 		end
 		return exports.dpLang:getString("main_panel_account_house") .. ": " .. exports.dpLang:getString(houseStr)
-	end)	
+	end)
 
 	-- Дата регистрации
 	local registerDateLabel = UI:createDpLabel {
@@ -143,14 +154,14 @@ function AccountTab.create()
 		fontType = "defaultSmall",
 		type = "dark",
 	}
-	UI:addChild(panel, registerDateLabel)	
+	UI:addChild(panel, registerDateLabel)
 	UIDataBinder.bind(registerDateLabel, "register_time", function (value)
 		if type(value) ~= "string" then
 			return ""
 		end
 		local timeString = tostring(value:sub(1, string.find(value, " ")))
 		return exports.dpLang:getString("main_panel_account_regtime") .. ": " .. timeString
-	end)	
+	end)
 
 	-- Время, проведенное на сервере
 	local playtimeLabel = UI:createDpLabel {
@@ -159,13 +170,13 @@ function AccountTab.create()
 		fontType = "defaultSmall",
 		type = "dark",
 	}
-	UI:addChild(panel, playtimeLabel)		
+	UI:addChild(panel, playtimeLabel)
 	UIDataBinder.bind(playtimeLabel, "playtime", function (value)
 		value = tonumber(value)
 		if not value then
 			value = 0
 		end
-		value = math.floor(value / 60 * 10) / 10		
+		value = math.floor(value / 60 * 10) / 10
 		return exports.dpLang:getString("main_panel_account_playtime") .. ": " .. tostring(value)
 	end)
 
@@ -173,7 +184,7 @@ function AccountTab.create()
 	-- Кнопка "Дополнительно"
 	local bottomButtonsHeight = 70
 	local helpButton = UI:createDpButton {
-		x = 0, 
+		x = 0,
 		y = height - bottomButtonsHeight,
 		width = width / 2,
 		height = bottomButtonsHeight,
@@ -184,14 +195,14 @@ function AccountTab.create()
 
 	-- Кнопка "Донат"
 	local donateButton = UI:createDpButton {
-		x = width / 2, 
+		x = width / 2,
 		y = height - bottomButtonsHeight,
 		width = width / 2,
 		height = bottomButtonsHeight,
 		locale = "main_panel_account_donat",
 		type = "primary"
 	}
-	UI:addChild(panel, donateButton)	
+	UI:addChild(panel, donateButton)
 
 	ui = {
 		levelProgressBg = levelProgressBg,
@@ -199,10 +210,22 @@ function AccountTab.create()
 
 		levelLabelCurrent = levelLabelCurrent,
 		levelLabelNext = levelLabelNext,
+		xpLabel = xpLabel,
 
 		donateButton = donateButton,
 		helpButton = helpButton
 	}
+end
+
+function comma_value(amount)
+	local formatted = amount
+	while true do
+		formatted, k = utf8.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
+		if (k == 0) then
+			break
+		end
+	end
+	return formatted
 end
 
 function AccountTab.refresh()
@@ -214,21 +237,30 @@ function AccountTab.refresh()
 	if not xp then
 		return
 	end
+
+	local maxLevel = exports.dpCore:getMaxLevel()
 	local xp1 = exports.dpCore:getXPFromLevel(level)
 	local xp2 = exports.dpCore:getXPFromLevel(level + 1)
+	local nextLevelXp = xp2 - xp1
+	local currentXp = xp - xp1
 
-	local progress = (xp - xp1) / (xp2 - xp1)
-	if level >= 100 then
+	local progress = currentXp / nextLevelXp
+	if level >= maxLevel then
 		progress = 1
 	end
 	local width = UI:getWidth(ui.levelProgressBg)
 	UI:setWidth(ui.levelProgress, width * progress)
 
 	UI:setText(ui.levelLabelCurrent, tostring(level))
-	UI:setText(ui.levelLabelNext, tostring(level + 1))
-	if level >= 100 then
+	if level >= maxLevel then
 		UI:setText(ui.levelLabelNext, "MAX")
+		UI:setVisible(ui.xpLabel, false)
+	else
+		UI:setText(ui.levelLabelNext, tostring(level + 1))
+		UI:setText(ui.xpLabel, ("%s/%s"):format(comma_value(currentXp), comma_value(nextLevelXp)))
+		UI:setVisible(ui.xpLabel, true)
 	end
+
 end
 
 addEvent("dpUI.click", false)

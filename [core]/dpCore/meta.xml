@@ -83,6 +83,8 @@
 	<export type="client" function="login"/>
 	<export type="client" function="logout"/>
 
+	<!-- Level functions -->
+	<export type="shared" function="getMaxLevel"/>
 	<export type="shared" function="getXPFromLevel"/>
 	<export type="shared" function="getLevelFromXP"/>
 </meta>

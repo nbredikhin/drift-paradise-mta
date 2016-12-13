@@ -1,7 +1,7 @@
 local MAX_LEVEL = 100
 local xpValues = {}
 
-function getXPFromLevel(level)
+local function _getXPFromLevel(level)
 	if type(level) ~= "number" then
 		return
 	end
@@ -10,12 +10,23 @@ function getXPFromLevel(level)
 end
 
 for i = 1, MAX_LEVEL + 1 do
-	xpValues[i] = getXPFromLevel(i)
+	xpValues[i] = _getXPFromLevel(i)
+end
+
+function getMaxLevel()
+	return MAX_LEVEL
+end
+
+function getXPFromLevel(level)
+	if type(level) ~= "number" then
+		return
+	end
+	return xpValues[level]
 end
 
 function getLevelFromXP(xp)
 	if type(xp) ~= "number" then
-		return 
+		return
 	end
 	local i = 1
 	for i = 1, MAX_LEVEL do

@@ -149,19 +149,19 @@ local function update(dt)
 	local isChangingDirectionBonusAllowed = false
 	local speedMultiplier = math.min(1, localPlayer.vehicle.velocity.length / MAX_DRIFT_SPEED)
 	if isDrifting then
-		 -- Add points and drift time, reset non-drift time
-		 driftPoints = driftPoints + math.ceil(MIN_DRIFT_POINTS * speedMultiplier * pointsMultiplier * dt * 0.05)
-		 driftTimer = driftTimer + dt
-		 directionDriftTimer = directionDriftTimer + dt
+		-- Add points and drift time, reset non-drift time
+		driftPoints = driftPoints + math.ceil(MIN_DRIFT_POINTS * speedMultiplier * pointsMultiplier * dt * 0.05)
+		driftTimer = driftTimer + dt
+		directionDriftTimer = directionDriftTimer + dt
 
-		 if PointsDrawing.show() then
-		 	driftDirection = direction
-		 end
-		 if nonDriftTimer > 250 and nonDriftTimer < DIRECTION_CHANGE_MAX_TIME then
-		 	isChangingDirectionBonusAllowed = true
-		 end
-		 nonDriftTimer = 0
-		 PointsDrawing.setShaking(true)
+		if PointsDrawing.show() then
+			driftDirection = direction
+		end
+		if nonDriftTimer > 250 and nonDriftTimer < DIRECTION_CHANGE_MAX_TIME then
+			isChangingDirectionBonusAllowed = true
+		end
+		nonDriftTimer = 0
+		PointsDrawing.setShaking(true)
 	else
 		PointsDrawing.setShaking(false)
 		nonDriftTimer = nonDriftTimer + dt

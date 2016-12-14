@@ -76,7 +76,7 @@ local function insert(character)
 end
 
 function Input.open()
-	if not Chat.isVisible() or nputActive then
+	if not Chat.isVisible() or inputActive then
 		return false
 	end
 

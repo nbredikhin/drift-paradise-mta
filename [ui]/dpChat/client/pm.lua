@@ -12,7 +12,7 @@ function startPM(player, message)
 	end
 	local playerId = player:getData("_id")
 	if not playerId then
-		return 
+		return
 	end
 
 	local tabName = TAB_NAME_PREFIX .. tostring(playerId)
@@ -33,7 +33,7 @@ function startPM(player, message)
 	if message then
 		Chat.message(tabName, localPlayer.name .. "#FFFFFF: " .. tostring(message))
 		triggerServerEvent("dpChat.pm", root, player, message)
-	end	
+	end
 end
 
 addCommandHandler("pm", function (cmd, name, ...)
@@ -54,7 +54,7 @@ addCommandHandler("pm", function (cmd, name, ...)
 	local message
 	if #args > 0 then
 		message = table.concat(args, " ")
-	end	
+	end
 	startPM(player, message)
 end)
 

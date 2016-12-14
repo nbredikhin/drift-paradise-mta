@@ -77,11 +77,12 @@ end
 
 addEvent("dpChat.broadcastMessage", true)
 addEventHandler("dpChat.broadcastMessage", root, function (tabName, message, sender, distance)
+	-- filter offensive words if enabled
 	if exports.dpConfig:getProperty("chat.block_offensive_words") then
 		message = WordsFilter.filter(message)
 	end
 
-	local playerGroup = sender:getData("group")	
+	local playerGroup = sender:getData("group")
 	if not playerGroup then
 		-- remove colors
 		message = utf8.gsub(message, "#%x%x%x%x%x%x", "")
@@ -92,6 +93,7 @@ addEventHandler("dpChat.broadcastMessage", root, function (tabName, message, sen
 	elseif tabName == "global" then
 		message = ("%s: #FFFFFF%s"):format(sender.name, tostring(message))
 		if playerGroup then
+			-- add tag to message
 			message = ("#75FF00[%s] %s"):format(exports.dpLang:getString("chat_adminsay_" .. tostring(playerGroup)), message)
 		end
 	else

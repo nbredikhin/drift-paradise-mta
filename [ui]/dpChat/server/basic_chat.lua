@@ -25,7 +25,7 @@ addEventHandler("dpChat.broadcastMessage", root, function (tabName, rawMessage)
 		tostring(sender.name),
 		tostring(sender:getData("username")),
 		tostring(rawMessage)))
-	
+
 	triggerEvent("dpChat.message", resourceRoot, sender, tabName, rawMessage)
 	if tabName == "global" then
 		triggerClientEvent("dpChat.broadcastMessage", root, tabName, rawMessage, sender)
@@ -49,7 +49,7 @@ addEventHandler("dpChat.broadcastMessage", root, function (tabName, rawMessage)
 		for i, player in ipairs(getElementsByType("player")) do
 			local distance = (player.position - sender.position):getLength()
 			if distance < 100 then
-				triggerClientEvent(player, "dpChat.broadcastMessage", root, tabName, rawMessage, sender, nil, distance)
+				triggerClientEvent(player, "dpChat.broadcastMessage", root, tabName, rawMessage, sender, distance)
 			end
 		end
 	end

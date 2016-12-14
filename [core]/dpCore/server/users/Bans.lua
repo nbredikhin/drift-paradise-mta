@@ -68,11 +68,11 @@ local function addBan(banInfo)
 	end	
 end	
 
-local function removeBan(id)
-	if not id then
+local function removeBan(id, serial, username, type)
+	if not id and not serial and not username then
 		return false
 	end
-	DatabaseTable.delete(BANS_TABLE_NAME, { _id = id }, function (result)
+	DatabaseTable.delete(BANS_TABLE_NAME, { _id=id, serial=serial, username=username, type=type }, function (result)
 		if result then
 			outputDebugString("Ban removed: " .. tostring(id))
 		end
@@ -173,6 +173,10 @@ function Bans.mutePlayer(player, duration)
 			Bans.update()
 		end
 	end)
+end
+
+function Bans.unmutePlayer(player)
+	return removeBan(nil, player:getData("username"), nil, "mute")
 end
 
 function Bans.update()

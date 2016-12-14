@@ -1,5 +1,5 @@
 local screenSize = Vector2(guiGetScreenSize())
-local windowSize = Vector2(240, 340)
+local windowSize = Vector2(240, 380)
 -- Элементы интерфейса
 local ui = {}
 local currentCallback
@@ -14,19 +14,12 @@ local valueButtons = {
 	{ text = "7 days", 		value = 60 * 60 * 24 * 7 }
 }
 
-function Panel.showTimeSelectWindow(maxValue, callback)
+function Panel.showBanWindow(callback)
 	if ui.window.visible then
 		return false
 	end
 	if not callback then
 		return false
-	end
-	for i, valueButton in ipairs(valueButtons) do
-		if maxValue then
-			valueButton.button.enabled = valueButton.value <= maxValue
-		else
-			valueButton.button.enabled = true
-		end
 	end
 	ui.window.visible = true
 	ui.window:bringToFront()
@@ -36,19 +29,9 @@ function Panel.showTimeSelectWindow(maxValue, callback)
 	currentCallback = callback
 end
 
-function Panel.hideTimeSelectWindow()
+function Panel.hideBanWindow()
 	ui.window.visible = false
 	currentCallback = nil
-end
-
-local function acceptValue()
-	if not ui.window.visible then
-		return false
-	end	
-	if type(currentCallback) == "function" then
-		currentCallback()
-	end
-	admin.ui.hideValueWindow()
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
@@ -57,13 +40,15 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		(screenSize.y - windowSize.y) / 2,
 		windowSize.x,
 		windowSize.y, 
-		"Select time", 
+		"Ban player", 
 		false)
 
 	ui.window.sizable = false
 
+	ui.reasonEdit = GuiEdit(0.05, 0.065, 0.9, 0.08, "Reason", true, ui.window)
+
 	for i, valueButton in ipairs(valueButtons) do
-		valueButton.button = GuiButton(0.05, 0.09 + 0.11 * (i - 1), 0.9, 0.1, valueButton.text, true, ui.window)
+		valueButton.button = GuiButton(0.05, 0.16 + 0.1 * (i - 1), 0.9, 0.08, valueButton.text, true, ui.window)
 	end
 
 	ui.cancelButton = GuiButton(0.2, 0.87, 0.6, 0.1, "Cancel", true, ui.window)
@@ -74,15 +59,17 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 			return false
 		end			
 		if source == ui.cancelButton then
-			Panel.hideTimeSelectWindow()
+			Panel.hideBanWindow()
 			return
 		end
 		for i, b in ipairs(valueButtons) do
 			if b.button == source then
-				currentCallback(b.value)
-				Panel.hideTimeSelectWindow()
+				currentCallback(b.value, ui.reasonEdit.text)
+				Panel.hideBanWindow()
 				return
 			end
 		end
 	end)
+
+	--Panel.showBanWindow(function ()end)
 end)

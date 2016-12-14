@@ -189,8 +189,11 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 			return
 		end
 		local name = exports.dpUtils:removeHexFromString(selectedPlayer.name)
-		Panel.showTimeSelectWindow(nil, function (duration)
-			triggerServerEvent("dpAdmin.executeCommand", resourceRoot, "ban", selectedPlayer, duration)
+		Panel.showBanWindow(function (duration, reason)
+			if reason and reason == "Reason" then
+				reason = nil
+			end
+			triggerServerEvent("dpAdmin.executeCommand", resourceRoot, "ban", selectedPlayer, durationa, reason)
 		end)
 	end, false)
 

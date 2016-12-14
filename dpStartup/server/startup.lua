@@ -21,6 +21,7 @@ local startupResources = {
 
 	-- Core
 	"dpUtils",
+	"dpLogger",
 	"dpLang",
 	"dpMarkers",
 	"dpCore",

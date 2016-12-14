@@ -20,6 +20,12 @@ addEventHandler("dpChat.broadcastMessage", root, function (tabName, rawMessage)
 		return
 	end
 
+	exports.dpLogger:log("chat", string.format("[%s] %s (%s): %s",
+		tostring(tabName),
+		tostring(sender.name),
+		tostring(sender:getData("username")),
+		tostring(rawMessage)))
+	
 	triggerEvent("dpChat.message", resourceRoot, sender, tabName, rawMessage)
 	if tabName == "global" then
 		triggerClientEvent("dpChat.broadcastMessage", root, tabName, rawMessage, sender)

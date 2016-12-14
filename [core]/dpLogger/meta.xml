@@ -1,0 +1,9 @@
+<meta>
+	<oop>true</oop>
+
+	<script type="server" src="Logger.lua"/>
+	<script type="server" src="exports.lua"/>
+	
+	<export type="server" function="log"/>
+	<export type="server" function="debug"/>
+</meta>

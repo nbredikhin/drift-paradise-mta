@@ -16,6 +16,10 @@
 	"player_level": "Level",
 	"player_money": "Money",
 
+	"groups_player": "Player",
+	"groups_moderator": "Moderator",
+	"groups_admin": "Admin",
+
 	"race_type_drift": "Drift",
 	"race_type_drag": "Drag",
 	"race_type_sprint": "Sprint",

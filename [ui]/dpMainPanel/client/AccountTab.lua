@@ -28,6 +28,13 @@ function AccountTab.create()
 		locale = "main_panel_account_player"
 	}
 	UI:addChild(panel, usernameLabelText)
+	UIDataBinder.bind(usernameLabelText, "group", function (value)
+		if not value then
+			return exports.dpLang:getString("groups_player")
+		else
+			return exports.dpLang:getString("groups_" .. tostring(value))
+		end
+	end)	
 
 	local moneyLabel = UI:createDpLabel {
 		x = width - width / 3 - 20 , y = 15,

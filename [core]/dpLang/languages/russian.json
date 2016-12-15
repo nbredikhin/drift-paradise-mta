@@ -14,6 +14,10 @@
 	"player_level": "Уровень",
 	"player_money": "Деньги",
 
+	"groups_player": "Игрок",
+	"groups_moderator": "Модератор",
+	"groups_admin": "Администратор",	
+
 	"race_type_drift": "Дрифт",
 	"race_type_drag": "Драг",
 	"race_type_sprint": "Спринт",

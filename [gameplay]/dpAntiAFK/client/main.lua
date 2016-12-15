@@ -6,6 +6,10 @@ local function reportAFK()
 		return
 	end
 
+	if localPlayer:getData("group") then
+		return
+	end
+
 	triggerServerEvent("selfKick", localPlayer, "afk")
 end
 

@@ -12,6 +12,7 @@ setTimer(function ()
     if localPlayer.vehicle.inWater then
         triggerServerEvent("dpDamage.respawn", resourceRoot)
         flipMyVehicle()
+        makeVehicleBlink(localPlayer.vehicle)
         setTimer(restartVehicleEngine, 1000, 1)
     end
 end, 3000, 0)

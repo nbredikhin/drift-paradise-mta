@@ -55,7 +55,46 @@ function isVehicleOnRoof(vehicle)
 end
 
 local blinkTimer
-local blinkVehicle
+local currentBlinkingVehicle
+
+-- Заставляет машину мигать
+function makeVehicleBlink(vehicle)
+    if not isElement(vehicle) then
+        return
+    end
+    if currentBlinkingVehicle then
+        return
+    end
+    if isTimer(blinkTimer) then
+        killTimer(blinkTimer)
+        if isElement(currentBlinkingVehicle) then
+            currentBlinkingVehicle.alpha = 255
+        end
+    end
+
+    local blinkInterval = 120
+    local blinkTimes = 16
+    currentBlinkingVehicle = vehicle
+    blinkTimer = setTimer(function ()
+        if not isElement(vehicle) then
+            killTimer(blinkTimer)
+            return
+        end
+
+        if vehicle.alpha < 255 then
+            vehicle.alpha = 255
+        else
+            vehicle.alpha = 0
+        end
+    end, blinkInterval, blinkTimes)
+
+    setTimer(function()
+        if isElement(currentBlinkingVehicle) then
+            vehicle.alpha = 255
+            currentBlinkingVehicle = nil
+        end
+    end, blinkInterval * (blinkTimes + 2), 1)
+end
 
 function flipMyVehicle()
     if not localPlayer.vehicle then
@@ -65,25 +104,11 @@ function flipMyVehicle()
         return false
     end      
     localPlayer.vehicle.alpha = 255
-    blinkTimer = setTimer(function()
-        if not localPlayer.vehicle then
-            if isTimer(blinkTimer) then
-                killTimer(blinkTimer)
-            end
-            if isElement(blinkVehicle) then
-                blinkVehicle.alpha = 255
-            end
-            localPlayer.alpha = 255
-            return
-        end
 
-        if localPlayer.vehicle.alpha > 0 then
-            localPlayer.vehicle.alpha = 0
-        else
-            localPlayer.vehicle.alpha = 255
-        end
-        localPlayer.alpha = localPlayer.vehicle.alpha
-    end, 150, 12)
+    if not localPlayer.vehicle.inWater then
+        makeVehicleBlink(localPlayer.vehicle)
+    end
+
     localPlayer.vehicle.rotation = Vector3(0, 0, localPlayer.vehicle.rotation.z + 180)
 end
 

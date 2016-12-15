@@ -102,6 +102,9 @@
 	"tab_panel_column_money": "Деньги",
 	"tab_panel_column_level": "Уровень",
 	"tab_panel_players_online": "Игроков онлайн",
+	"tab_panel_group_moderators": "Модераторы",
+	"tab_panel_group_premium": "Донатеры",
+	"tab_panel_group_players": "Игроки",	
 
 	// Message box
 	"login_panel_auth_error": "Ошибка авторизации",

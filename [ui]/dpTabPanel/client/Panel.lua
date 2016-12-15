@@ -24,6 +24,7 @@ local columns = {
 	{ name = "tab_panel_column_level", 		size = 0.25, 	data = "level"},
 }
 local playersList = {}
+local playersOnlineCount = 0
 local playersOnlineString = "Players online"
 local scrollOffset = 0
 
@@ -47,24 +48,31 @@ local function draw()
 	local itemY = y
 	dxDrawRectangle(screenWidth / 2 - panelWidth / 2, y, panelWidth, itemsCount * itemHeight, itemColor)
 	for i = scrollOffset + 1, math.min(itemsCount + scrollOffset, #playersList) do
-		local player = playersList[i]
+		local item = playersList[i]
 		local color = itemColor
-		if i == 1 then
+		if item.isGroup then
+			color = item.color
+		end
+		if item.isLocalPlayer then
 			color = highlightedColor
 		end
 		x = panelX
 		dxDrawRectangle(x, y, panelWidth, itemHeight, color)
-		for j, column in ipairs(columns) do
-			local text = player[column.data]
-			local width = panelWidth * column.size
-			dxDrawText(text, x, y, x + width, y + headerHeight * 0.8, tocolor(255, 255, 255), 1, itemFont, "center", "center", true)
-			x = x + width
+		if item.isGroup then
+			dxDrawText(item.text, x, y, x + panelWidth, y + headerHeight * 0.8, tocolor(255, 255, 255), 1, itemFont, "center", "center", true)
+		else
+			for j, column in ipairs(columns) do
+				local text = item[column.data]
+				local width = panelWidth * column.size
+				dxDrawText(tostring(text), x, y, x + width, y + headerHeight * 0.8, tocolor(255, 255, 255), 1, itemFont, "center", "center", true)
+				x = x + width
+			end
 		end
 		y = y + itemHeight
 	end
 	x = panelX
 	y = itemY + itemsCount * itemHeight
-	dxDrawText(playersOnlineString .. ": " .. tostring(#playersList), x, y, x + panelWidth, y + headerHeight, tocolor(255, 255, 255), 1, headerFont, "center", "center")
+	dxDrawText(playersOnlineString .. ": " .. tostring(playersOnlineCount), x, y, x + panelWidth, y + headerHeight, tocolor(255, 255, 255), 1, headerFont, "center", "center")
 	if renderTarget then
 		dxSetRenderTarget()
 	end
@@ -104,31 +112,61 @@ function Panel.start()
 	highlightedColor = tocolor(exports.dpUI:getThemeColor())
 
 	playersList = {}
-	-- local fakePlayers = {}
-	-- for i = 1, math.random(30, 50) do
-	-- 	local fakePlayer = {}
-	-- 	fakePlayer.name = "Kama#" .. tostring(math.random(1, 100))
-	-- 	local data = {
-	-- 		money = math.random(100, 999999)
-	-- 	}
-	-- 	function fakePlayer:getData(name)
-	-- 		return data[name]
-	-- 	end
-	-- 	table.insert(fakePlayers, fakePlayer)
-	-- end
 
-	local function addPlayerToList(player)
+	local function addPlayerToList(player, isLocalPlayer)
+		if type(player) == "table" then
+			table.insert(playersList, player)
+			return
+		end
 		table.insert(playersList, {
+			isLocalPlayer = isLocalPlayer,
 			id = player:getData("serverId") or 0,
 			name = exports.dpUtils:removeHexFromString(player.name),
-			money = player:getData("money") or 0,
+			money = "$" .. tostring(player:getData("money") or 0),
 			level = player:getData("level") or "-"
 		})
 	end
-	addPlayerToList(localPlayer)
-	for i, player in ipairs(getElementsByType("player")) do
-		if player ~= localPlayer then
-			addPlayerToList(player)
+
+	local players = getElementsByType("player")
+	table.sort(players, function (player1, player2)
+		local id1 = player1:getData("serverId") or 999
+		local id2 = player2:getData("serverId") or 999
+		return id1 < id2
+	end)
+	playersOnlineCount = #players
+
+	local function getPlayersWithData(dataName)
+		local t = {}
+		for i = #players, 1, -1 do
+			if players[i]:getData(dataName) then
+				table.insert(t, table.remove(players, i))
+			end
+		end
+		return t
+	end
+
+	addPlayerToList(localPlayer, true)
+	local moderators = getPlayersWithData("group")
+	if #moderators > 0 then
+		addPlayerToList({ text = exports.dpLang:getString("tab_panel_group_moderators"), color = headerColor, isGroup = true} )
+		for i, p in ipairs(moderators) do
+			addPlayerToList(p)
+		end
+	end
+	local premiums = getPlayersWithData("premium")
+	if #premiums > 0 then
+		addPlayerToList({ text = exports.dpLang:getString("tab_panel_group_premium"), color = headerColor, isGroup = true} )
+		for i, p in ipairs(premiums) do
+			addPlayerToList(p)
+		end
+	end
+
+	if #players > 0 then
+		addPlayerToList({ text = exports.dpLang:getString("tab_panel_group_players"), color = headerColor, isGroup = true} )
+		for i, player in ipairs(players) do
+			if player ~= localPlayer then
+				addPlayerToList(player)
+			end
 		end
 	end
 

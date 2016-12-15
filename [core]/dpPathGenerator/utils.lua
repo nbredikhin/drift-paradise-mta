@@ -1,8 +1,8 @@
-math.randomseed(getTickCount()) 
+math.randomseed(getTickCount())
 math.random() math.random() math.random()
 
 function getPositionFromElementOffset(element,offX,offY,offZ)
-	local m = getElementMatrix ( element )  -- Get the matrix
+	local m = getElementMatrix(element)  -- Get the matrix
 	local x = offX * m[1][1] + offY * m[2][1] + offZ * m[3][1] + m[4][1]  -- Apply transform
 	local y = offX * m[1][2] + offY * m[2][2] + offZ * m[3][2] + m[4][2]
 	local z = offX * m[1][3] + offY * m[2][3] + offZ * m[3][3] + m[4][3]
@@ -49,7 +49,7 @@ function getDistanceBetweenPointAndLine(x, y, x1, y1, x2, y2)
 	local lineLen = getDistanceBetweenPoints2D(x1, y1, x2, y2)
 
 	local dMin = getDistanceBetweenPoints2D(x, y, xMin, yMin)
-	
+
 	if getLineAngle(x0, y0, x, y) ~= angle then
 		return dMin
 	else
@@ -81,7 +81,7 @@ end
 	end
 
 	local t = ((p.x - v.x) * (w.x - v.x) + (p.y - v.y) * (w.y - v.y)) / l2
-	if t < 0 then 
+	if t < 0 then
 		return dist2(p, v)
 	end
 	if t > 1 then

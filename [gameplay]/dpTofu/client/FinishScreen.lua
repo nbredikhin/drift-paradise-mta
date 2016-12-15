@@ -59,19 +59,17 @@ local function update(dt)
 	end
 end
 
-function FinishScreen.show(money, timePassed, bonus)
+function FinishScreen.show(money, xp, perfectBonus, timeBonus, timePassed)
 	themeColorHEX = exports.dpUtils:RGBToHex(exports.dpUI:getThemeColor())
 
-	local timeString = ""
-	if type(timePassed) == "number" then
-		timeString = exports.dpLang:getString("tofu_time_text") .. ": " .. themeColorHEX .. tostring(getTimeString(math.floor(timePassed)))
-	end
+	infoText = exports.dpLang:getString("tofu_time_text") .. ": " .. themeColorHEX .. tostring(getTimeString(math.floor(timePassed)))
 	mainText = exports.dpLang:getString("tofu_finish_text")
-	moneyText = exports.dpLang:getString("tofu_prize_text") .. ": " .. themeColorHEX .. "$" .. tostring(money) 
-	if bonus and bonus > 0 then
-		infoText = "+" .. tostring(bonus) .. "% " .. themeColorHEX .. exports.dpLang:getString("tofu_perfect_text")
-	else 
-		infoText = timeString
+	moneyText = themeColorHEX .. "+$" .. tostring(money) .. " +" .. tostring(xp) .. " XP"
+	if perfectBonus and perfectBonus > 1 then
+		infoText = ("%s\n#FFFFFF+%d%% %s%s"):format(infoText, perfectBonus * 100 - 100, themeColorHEX, exports.dpLang:getString("tofu_perfect_text"))
+	end
+	if timeBonus and timeBonus > 1 then
+		infoText = ("%s\n#FFFFFF+%d%% %s%s"):format(infoText, timeBonus * 100 - 100, themeColorHEX, exports.dpLang:getString("tofu_fast_delivery_text"))
 	end
 
 	FinishScreen.start()

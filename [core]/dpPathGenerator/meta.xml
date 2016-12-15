@@ -1,0 +1,10 @@
+<meta>
+    <oop>true</oop>
+    <script type="client" src="utils.lua"/>
+	<script type="client" src="checkpointsTable"/>
+	<script type="client" src="checkpoint.lua"/>
+	<script type="client" src="PathGenerator.lua"/>
+	<script type="client" src="exports.lua"/>
+
+    <export type="client" function="generateCheckpointsForPlayer"/>
+</meta>

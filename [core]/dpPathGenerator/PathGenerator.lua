@@ -17,7 +17,7 @@ local function getNextCheckpointRandom(cp, prev)
 		if #goodLinks > 1 then
 			nextIndex = math.random(1, #goodLinks)
 		end
-		return goodLinks[nextIndex] 
+		return goodLinks[nextIndex]
 	end
 
 
@@ -25,7 +25,7 @@ local function getNextCheckpointRandom(cp, prev)
 	if #links > 1 then
 		nextIndex = math.random(1, #links)
 	end
-	return links[nextIndex] 
+	return links[nextIndex]
 end
 
 function getNextCheckpointDirection(cp, x, y)
@@ -70,7 +70,6 @@ local function generateTrack(x, y, z, dx, dy, angle, totalCheckpointsCount)
 		table.insert(checkpoints, {cp.x, cp.y, cp.z})
 	end
 
-
 	prev = cp
 	cp = getNextCheckpointDirection(cp, x, y)
 	ignoredID = firstCp.id
@@ -79,9 +78,9 @@ local function generateTrack(x, y, z, dx, dy, angle, totalCheckpointsCount)
 		return false
 	end
 	table.insert(checkpoints, {cp.x, cp.y, cp.z})
-	--math.randomseed(3) 
+	--math.randomseed(3)
 	--math.random()
-	for i = 1, totalCheckpointsCount do
+	for i = 1, totalCheckpointsCount - 1 do
 		local oldCp = cp
 		cp = getNextCheckpointRandom(cp, prev, info)
 
@@ -102,7 +101,7 @@ local function generateTrack(x, y, z, dx, dy, angle, totalCheckpointsCount)
 			-- Размер
 			checkpoints[i - 1] = {spliceCheckpoints(cp1[1], cp1[2], cp1[3], cp2[1], cp2[2], cp2[3])}
 			table.remove(checkpoints, i)
-			
+
 		end
 		i = i + 1
 	end
@@ -128,7 +127,7 @@ end
 local function get_random_offset(min, max)
 	local offset = math.random(min, max)
 	if math.random(1, 2) == 2 then
-		offset = -offset 
+		offset = -offset
 	end
 	return offset
 end
@@ -140,8 +139,8 @@ function PathGenerator.generateCheckpointsFromPoint(x, y, z, checkpointsCount)
 	if not checkpointsCount then
 		return false
 	end
-	-- Чекпойнтов не может быть меньше трёх
-	checkpointsCount = math.max(3, checkpointsCount)
+	-- Чекпойнтов не может быть меньше двух
+	checkpointsCount = math.max(2, checkpointsCount)
 
 	-- Начальные координаты
 	local rx, ry, rz = 0, 0, math.random(0, 360)

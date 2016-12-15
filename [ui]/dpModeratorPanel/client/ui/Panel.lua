@@ -11,6 +11,7 @@ local isVisible = false
 local playersList = {}
 local playersListOffset = 0
 local playersShowCount = 7
+local selectedPlayer
 
 function Panel.show()
 	if isVisible then
@@ -80,10 +81,20 @@ function Panel.showPlayerInfo(player)
 		state = "city"
 	end
 	UI:setText(ui.locationLabel, 		"Location: " .. tostring(state))
+
+	if player:getData("isMuted") then
+		UI:setText(ui.muteButton, "Unmute")
+	else
+		UI:setText(ui.muteButton, "Mute")
+	end
+
+	selectedPlayer = player
 end
 
 function Panel.hidePlayerInfo()
 	UI:setVisible(ui.playerPanel, false)
+
+	selectedPlayer = nil
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
@@ -204,7 +215,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		y = playerPanelHeight - buttonsHeight,
 		width = playerPanelWidth / 3,
 		height = buttonsHeight,
-		locale = "Mute",
+		text = "",
 		type = "primary"
 	}
 	UI:addChild(ui.playerPanel, ui.muteButton)
@@ -214,7 +225,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		y = playerPanelHeight - buttonsHeight,
 		width = playerPanelWidth / 3,
 		height = buttonsHeight,
-		locale = "Kick",
+		text = "Kick",
 		type = "primary"
 	}
 	UI:addChild(ui.playerPanel, ui.kickButton)
@@ -224,12 +235,10 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		y = playerPanelHeight - buttonsHeight,
 		width = playerPanelWidth / 3,
 		height = buttonsHeight,
-		locale = "Ban",
+		text = "Ban",
 		type = "primary"
 	}
 	UI:addChild(ui.playerPanel, ui.banButton)		
-
-	Panel.show()
 end)
 
 addEvent("dpUI.click", false)
@@ -238,6 +247,12 @@ addEventHandler("dpUI.click", resourceRoot, function (widget)
 		local items = exports.dpUI:getItems(ui.playersList)
 		local selectedItem = exports.dpUI:getActiveItem(ui.playersList)
 		Panel.showPlayerInfo(items[selectedItem].player)
+	elseif widget == ui.muteButton then
+		Panel.hide()
+		MutePanel.show(selectedPlayer)
+	elseif widget == ui.banButton then
+		Panel.hide()
+		BanPanel.show(selectedPlayer)
 	end
 end)
 
@@ -270,6 +285,10 @@ addEventHandler("onClientKey", root, function (button, down)
 end)
 
 bindKey("F4", "down", function ()
+	if not localPlayer:getData("group") then
+		Panel.hide()
+		return
+	end
 	if not isVisible then
 		Panel.show()
 	else

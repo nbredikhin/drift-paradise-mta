@@ -136,6 +136,7 @@
 	"chat_adminsay_admin": "Администратор",
 	"chat_adminsay_moderator": "Модератор",
 	"chat_admin_mute": "Игрок %s получил мут от модератора %s на %s сек.",
+	"chat_admin_unmute": "С игрока %s был снят мут модератором %s.",
 	"chat_admin_ban": "Игрок %s был забанен администратором %s",
 
 	// Гараж

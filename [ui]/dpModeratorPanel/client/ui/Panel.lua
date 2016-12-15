@@ -65,6 +65,7 @@ end
 
 function Panel.showPlayerInfo(player)
 	if not isElement(player) then
+		Panel.filterPlayersList()
 		return false
 	end
 	UI:setVisible(ui.playerPanel, true)
@@ -249,10 +250,17 @@ addEventHandler("dpUI.click", resourceRoot, function (widget)
 		Panel.showPlayerInfo(items[selectedItem].player)
 	elseif widget == ui.muteButton then
 		Panel.hide()
-		MutePanel.show(selectedPlayer)
+		if selectedPlayer:getData("isMuted") then
+			triggerServerEvent("dpAdmin.executeCommand", resourceRoot, "unmute", selectedPlayer)
+		else
+			MutePanel.show(selectedPlayer)
+		end
 	elseif widget == ui.banButton then
 		Panel.hide()
 		BanPanel.show(selectedPlayer)
+	elseif widget == ui.kickButton then
+		Panel.hidePlayerInfo()
+		triggerServerEvent("dpAdmin.executeCommand", resourceRoot, "kick", targetPlayer)
 	end
 end)
 

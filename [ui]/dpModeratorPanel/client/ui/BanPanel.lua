@@ -135,9 +135,22 @@ end)
 
 addEvent("dpUI.click", false)
 addEventHandler("dpUI.click", resourceRoot, function (widget)
-	if widget == ui.acceptButton then
+	if widget == ui.acceptButton then		
+		local button = durationButtons[selectedDuration]
+		if not button then
+			return
+		end
+		local duration = button.duration
+		if not duration then
+			return
+		end
+		local reason = UI:getText(ui.reasonInput)
+		if not reason or reason == "" or reason == "" then
+			exports.dpUI:showMessageBox("Error", "Введите причину бана")
+			return
+		end
+		triggerServerEvent("dpAdmin.executeCommand", resourceRoot, "ban", targetPlayer, duration, reason)
 		BanPanel.hide()
-		outputDebugString(tostring(selectedDuration))
 	elseif widget == ui.cancelButton then
 		BanPanel.hide()
 		Panel.show()

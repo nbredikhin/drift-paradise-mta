@@ -31,11 +31,10 @@ function MutePanel.show(player)
 	if not isElement(player) then
 		return 
 	end
+	targetPlayer = player
 	if isVisible then
-		targetPlayer = player
 		return
 	end
-	targetPlayer = player
 	isVisible = true
 	UI:setText(ui.infoLabel, "Mute player " .. exports.dpUtils:removeHexFromString(player.name))
 	showCursor(true)
@@ -118,8 +117,16 @@ end)
 addEvent("dpUI.click", false)
 addEventHandler("dpUI.click", resourceRoot, function (widget)
 	if widget == ui.acceptButton then
+		local button = durationButtons[selectedDuration]
+		if not button then
+			return
+		end
+		local duration = button.duration
+		if not duration then
+			return
+		end
+		triggerServerEvent("dpAdmin.executeCommand", resourceRoot, "mute", targetPlayer, duration)
 		MutePanel.hide()
-		outputDebugString(tostring(selectedDuration))
 	elseif widget == ui.cancelButton then
 		MutePanel.hide()
 		Panel.show()

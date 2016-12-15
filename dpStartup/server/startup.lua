@@ -39,6 +39,7 @@ local startupResources = {
 	"dpMainPanel",
 	"dpHelpPanel",
 	"dpGiftsPanel",
+	"dpModeratorPanel",
 
 	-- Gameplay
 	"dpTutorialMessage",

@@ -5,6 +5,7 @@
 	<script type="shared" src="shared/luafun.lua"/>
 	<!-- Client -->
 	<script type="client" src="client/main.lua"/>
+	<script type="client" src="client/messages.lua"/>
 	<script type="client" src="client/ui/main.lua"/>
 	<script type="client" src="client/ui/value_window.lua"/>
 	<script type="client" src="client/ui/confirm_window.lua"/>

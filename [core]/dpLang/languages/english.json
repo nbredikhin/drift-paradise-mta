@@ -152,6 +152,7 @@
 	"chat_adminsay_admin": "Admin",
 	"chat_adminsay_moderator": "Moderator",
 	"chat_admin_mute": "Player %s has been muted by %s for %s seconds",
+	"chat_admin_unmute": "Players %s has been unmuted by %s.",
 	"chat_admin_ban": "Player %s has been banned %s",
 
 	// =====================================

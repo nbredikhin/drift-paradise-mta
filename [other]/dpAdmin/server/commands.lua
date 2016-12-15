@@ -145,6 +145,18 @@ addCommand("mute", "moderator", function (admin, player, duration)
 	end
 end)
 
+addCommand("unmute", "moderator", function (admin, player)
+	if exports.dpCore:unmutePlayer(player) then
+		exports.dpLogger:log("admin", string.format("Admin: %s (%s) | Command: %s | Target Player: %s (%s)",
+			tostring(admin.name),
+			tostring(admin:getData("username")),
+			"unmute",
+			tostring(player.name),
+			tostring(player:getData("username"))))
+		triggerClientEvent("dpAdmin.showMessage", resourceRoot, "unmute", admin, player)
+	end
+end)
+
 addCommand("destroyCar", "moderator", function (admin, player)
 	--return exports.dpCore:mutePlayer(player, duration)
 end)

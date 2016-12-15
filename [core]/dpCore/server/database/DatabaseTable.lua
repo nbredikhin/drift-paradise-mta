@@ -156,7 +156,7 @@ function DatabaseTable.update(tableName, setFields, whereFields, callback, ...)
 	end
 	local queryString = connection:prepareString("UPDATE `??` SET " .. table.concat(setQueries, ", "), tableName)
 	if #whereQueries > 0 then
-		queryString = queryString .. connection:prepareString(" WHERE " .. table.concat(whereQueries, ", "))
+		queryString = queryString .. connection:prepareString(" WHERE " .. table.concat(whereQueries, " AND "))
 	end
 	queryString = queryString .. ";"
 	return retrieveQueryResults(connection, queryString, callback, ...)
@@ -190,7 +190,7 @@ function DatabaseTable.select(tableName, columns, whereFields, callback, ...)
 	end
 	local whereQueryString = ""
 	if #whereQueries > 0 then
-		whereQueryString = " WHERE " .. table.concat(whereQueries, ", ")
+		whereQueryString = " WHERE " .. table.concat(whereQueries, " AND ")
 	end
 
 	-- COLUMNS
@@ -238,7 +238,7 @@ function DatabaseTable.delete(tableName, whereFields, callback, ...)
 	end
 	local whereQueryString = ""
 	if #whereQueries > 0 then
-		whereQueryString = " WHERE " .. table.concat(whereQueries, ", ")
+		whereQueryString = " WHERE " .. table.concat(whereQueries, " AND ")
 	end
 
 	-- SELECT COLUMNS

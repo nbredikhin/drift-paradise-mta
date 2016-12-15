@@ -12,6 +12,11 @@
 	"price_free": "Бесплатно",
 	"skin_select_text": "Выберите персонажа",
 	"player_level": "Уровень",
+	"player_money": "Деньги",
+
+	"groups_player": "Игрок",
+	"groups_moderator": "Модератор",
+	"groups_admin": "Администратор",	
 
 	"race_type_drift": "Дрифт",
 	"race_type_drag": "Драг",
@@ -101,6 +106,9 @@
 	"tab_panel_column_money": "Деньги",
 	"tab_panel_column_level": "Уровень",
 	"tab_panel_players_online": "Игроков онлайн",
+	"tab_panel_group_moderators": "Модераторы",
+	"tab_panel_group_premium": "Донатеры",
+	"tab_panel_group_players": "Игроки",	
 
 	// Message box
 	"login_panel_auth_error": "Ошибка авторизации",
@@ -135,6 +143,7 @@
 	"chat_adminsay_admin": "Администратор",
 	"chat_adminsay_moderator": "Модератор",
 	"chat_admin_mute": "Игрок %s получил мут от модератора %s на %s сек.",
+	"chat_admin_unmute": "С игрока %s был снят мут модератором %s.",
 	"chat_admin_ban": "Игрок %s был забанен администратором %s",
 
 	// Гараж

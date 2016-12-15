@@ -63,6 +63,10 @@ function mutePlayer(...)
 	return Bans.mutePlayer(...)
 end
 
+function unmutePlayer(...)
+	return Bans.unmutePlayer(...)
+end
+
 function isPlayerMuted(...)
 	return Bans.isPlayerMuted(...)
 end

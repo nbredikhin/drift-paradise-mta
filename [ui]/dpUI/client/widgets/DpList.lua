@@ -35,8 +35,9 @@ function DpList.create(properties)
 
 	function widget:draw()
 		local y = self.y
+		local itemY = 0
 		for i, item in ipairs(self.items) do
-			local isHover = isPointInRect(self.mouseX, self.mouseY, 0, y, self.width, ITEM_HEIGHT)
+			local isHover = isPointInRect(self.mouseX, self.mouseY, 0, itemY, self.width, ITEM_HEIGHT)
 			-- Фон
 			if isHover then
 				self.activeItem = i
@@ -83,6 +84,7 @@ function DpList.create(properties)
 			end
 
 			y = y + ITEM_HEIGHT
+			itemY = itemY + ITEM_HEIGHT
 		end
 	end
 	return widget

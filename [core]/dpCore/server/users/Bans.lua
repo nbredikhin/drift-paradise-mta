@@ -13,7 +13,7 @@ function Bans.setup()
 		{ name="username", 		type="varchar", size=25, options="" },
 		{ name="serial", 		type="varchar", size=64, options="" },
 		-- Тип бана: "ban" или "mute"
-		{ name="type",			type="varchar",	size=64, options="NOT NULL"},
+		{ name="banType",		type="varchar",	size=64, options="NOT NULL"},
 		{ name="nickname",		type="varchar",	size=64 },
 		{ name="reason",		type="MEDIUMTEXT" },
 		{ name="ban_date", 		type="int", 	options="NOT NULL" },
@@ -41,39 +41,40 @@ local function getBan(banType, dataType, data)
 end
 
 local function addBan(banInfo)
-	if type(banInfo.type) ~= "string" then
+	if type(banInfo.banType) ~= "string" then
 		return
 	end
-	if not allowedBanTypes[banInfo.type] then
+	if not allowedBanTypes[banInfo.banType] then
 		outputDebugString("Invalid ban type")
 		return
 	end
-	if not bansTable[banInfo.type] then
-		bansTable[banInfo.type] = {}
+	if not bansTable[banInfo.banType] then
+		bansTable[banInfo.banType] = {}
 	end
 
 	local banData = { reason = banInfo.reason }
 
 	if banInfo.username then
-		if not bansTable[banInfo.type].username then
-			bansTable[banInfo.type].username = {}
+		if not bansTable[banInfo.banType].username then
+			bansTable[banInfo.banType].username = {}
 		end
-		bansTable[banInfo.type].username[string.lower(banInfo.username)] = banData
+		bansTable[banInfo.banType].username[string.lower(banInfo.username)] = banData
 	end
 	if banInfo.serial then
-		if not bansTable[banInfo.type].serial then
-			bansTable[banInfo.type].serial = {}
+		if not bansTable[banInfo.banType].serial then
+			bansTable[banInfo.banType].serial = {}
 		end
-		bansTable[banInfo.type].serial[banInfo.serial] = banData
+		bansTable[banInfo.banType].serial[banInfo.serial] = banData
 	end	
 end	
 
-local function removeBan(id, serial, username, type)
-	if not id and not serial and not username then
+local function removeBan(id)
+	if not id then
 		return false
 	end
-	DatabaseTable.delete(BANS_TABLE_NAME, { _id=id, serial=serial, username=username, type=type }, function (result)
+	DatabaseTable.delete(BANS_TABLE_NAME, { _id = id }, function (result)
 		if result then
+			Bans.update()
 			outputDebugString("Ban removed: " .. tostring(id))
 		end
 	end)
@@ -133,7 +134,7 @@ function Bans.banPlayer(player, duration, reason)
 		reason 		= reason,
 		unban_date 	= getRealTime().timestamp + duration,
 		ban_date	= getRealTime().timestamp,
-		type 		= "ban"
+		banType 	= "ban"
 	}, function (result)
 		if result then
 			local reasonText = "You have been banned."
@@ -167,7 +168,7 @@ function Bans.mutePlayer(player, duration)
 		reason 		= reason,
 		unban_date 	= getRealTime().timestamp + duration,
 		ban_date	= getRealTime().timestamp,
-		type 		= "mute"
+		banType 	= "mute"
 	}, function (result)
 		if result then
 			Bans.update()
@@ -176,7 +177,23 @@ function Bans.mutePlayer(player, duration)
 end
 
 function Bans.unmutePlayer(player)
-	return removeBan(nil, player:getData("username"), nil, "mute")
+	if not isElement(player) then
+		outputDebugString("Bans: Failed to unmute player. Bad player element")
+		return false
+	end
+	local username = player:getData("username")
+	if type(username) ~= "string" then
+		outputDebugString("Bans: Failed to unmute player. Player is not logged in")
+		return false
+	end
+	return DatabaseTable.select(BANS_TABLE_NAME, {"_id"}, { username = username, banType="mute" }, function (result)
+		if not result then 
+			return
+		end
+		for i, banInfo in ipairs(result) do
+			removeBan(banInfo._id)
+		end
+	end)	
 end
 
 function Bans.update()

@@ -35,6 +35,10 @@ local function takeTofu()
 		return
 	end
 
+	if localPlayer.vehicle.controller ~= localPlayer then
+		return
+	end
+
 	local checkpointsList = PathGenerator.generateCheckpointsForPlayer(localPlayer, CHECKPOINTS_COUNT)
 	RaceCheckpoints.start(checkpointsList)
 	isRunning = true
@@ -153,7 +157,7 @@ addEventHandler("dpConfig.update", root, function (key, value)
 	if key == "game.background_music" then
 		if value then
 			for i, point in ipairs(TOFU_POINT_POSITIONS) do
-				sound = Sound3D("music/music.mp3", point.music, true)
+				local sound = Sound3D("music/music.mp3", point.music, true)
 				sound.minDistance = 20
 				sound.maxDistance = 50
 				tofuPoints[i].sound = sound
@@ -192,6 +196,5 @@ addEventHandler("onClientVehicleExit", root, function (player)
 	if player ~= localPlayer then
 		return
 	end
-	print("CANCEL")
 	cancelTofu()
 end)

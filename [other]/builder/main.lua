@@ -43,24 +43,24 @@ local function processResource(resource)
         shared = ""
     }
 
-    local buildPath = "build/" .. resource.name .. "/" 
+    local buildPath = "build/" .. resource.name .. "/"
     if config.enablePathEncrypt then
         concatScripts.shared = concatScripts.shared .. "_exclude_paths=" .. arrayToString(config.pathEncryptExclude) .. ";\n"
-        concatScripts.shared = concatScripts.shared .. loadFile("files/path_decrypt.lua") .. "\n\n"        
+        concatScripts.shared = concatScripts.shared .. loadFile("files/path_decrypt.lua") .. "\n\n"
     end
     if config.enableExportEncrypt then
         buildPath = "build/" .. md5(resource.name) .. "/"
         concatScripts.shared = concatScripts.shared .. loadFile("files/export_decrypt.lua") .. "\n\n"
     end
-    local buildMeta = XML(buildPath .. "meta.xml", "meta")    
+    local buildMeta = XML(buildPath .. "meta.xml", "meta")
 
     local resourceHasClientFiles = false
     underscore.each(resourceMeta.children, function (child)
         if child.name == "script" then
             local scriptType = child:getAttribute("type")
             local scriptPath = child:getAttribute("src")
-            local scriptData = loadFile(resourcePath .. scriptPath) 
-            concatScripts[scriptType] = concatScripts[scriptType] 
+            local scriptData = loadFile(resourcePath .. scriptPath)
+            concatScripts[scriptType] = concatScripts[scriptType]
                 .. "-- " .. scriptPath .. "\n"
                 .. moduleStart
                 .. scriptData
@@ -71,7 +71,7 @@ local function processResource(resource)
             for name, value in pairs(child.attributes) do
                 buildChild:setAttribute(name, value)
             end
-            local sourcePath = buildChild:getAttribute("src")            
+            local sourcePath = buildChild:getAttribute("src")
             if sourcePath then
                 local targetPath = sourcePath
                 if config.enableShaderCache == false and sourcePath:find(".fx") then
@@ -87,11 +87,11 @@ local function processResource(resource)
                             end
                         end
                     else
-                        targetPath = md5("dp" .. sourcePath)                      
+                        targetPath = md5("dp" .. sourcePath)
                     end
                     buildChild:setAttribute("src", targetPath)
                 end
-                copyFile(resourcePath .. sourcePath, buildPath .. targetPath)               
+                copyFile(resourcePath .. sourcePath, buildPath .. targetPath)
             end
             if child.name == "file" then
                 resourceHasClientFiles = true
@@ -117,7 +117,7 @@ local function processResource(resource)
             end
             child:setAttribute("src", filename)
             child:setAttribute("type", type)
-            child:setAttribute("cache", tostring(not not config.enableScriptCache))            
+            child:setAttribute("cache", tostring(not not config.enableScriptCache))
             saveFile(buildPath .. filename, data)
 
             if config.enableCompilation then
@@ -155,7 +155,7 @@ addCommandHandler("build", function ()
 
     -- Сборка
     local resources = getResources()
-    config.only = config.only or {}    
+    config.only = config.only or {}
     config.include = config.include or {}
     config.pathEncryptExclude = config.pathEncryptExclude or {}
     -- Если не задан список ресурсов, которые нужно собрать - собрать всё
@@ -163,7 +163,7 @@ addCommandHandler("build", function ()
         config.resourcePrefix = config.resourcePrefix or "dp"
         print("Build all resources with prefix '" .. config.resourcePrefix .. "'")
         resources = underscore.filter(resources, function (resource)
-            return 
+            return
                 resource.name:sub(1, #config.resourcePrefix) == config.resourcePrefix
                 or underscore.include(config.include, resource.name)
         end)
@@ -179,5 +179,5 @@ addCommandHandler("build", function ()
     print("Done building")
     if config.enableCompilation then
         print("Compiling " .. compileTotal .. " scripts...")
-    end    
+    end
 end)

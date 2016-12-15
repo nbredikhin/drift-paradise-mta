@@ -55,10 +55,15 @@ addEventHandler("dpTeleports.teleport", resourceRoot, function (mapName)
     client:setData("activeMap", mapName)
     
     if client.vehicle then
-        client.vehicle.position = position
-        -- Телепортировать всех игроков, сидящих в машине
-        for seat, player in pairs(client.vehicle.occupants) do
-            player:setData("activeMap", mapName)
+        if client.vehicle.controller == client then
+            client.vehicle.position = position
+            -- Телепортировать всех игроков, сидящих в машине
+            for seat, player in pairs(client.vehicle.occupants) do
+                player:setData("activeMap", mapName)
+            end
+        else
+            client.vehicle = nil
+            client.position = position
         end
     else
         client.position = position

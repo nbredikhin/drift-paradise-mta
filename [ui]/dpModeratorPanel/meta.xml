@@ -3,6 +3,4 @@
 
 	<!-- Client -->
 	<script type="client" src="client/ui/Panel.lua"/>
-	<script type="client" src="client/ui/players.lua"/>
-	<script type="client" src="client/ui/banWindow.lua"/>
 </meta>

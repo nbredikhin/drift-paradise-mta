@@ -83,6 +83,7 @@ local function handleKey(key, repeatKey)
 	end
 	if key == "backspace" then
 		activeInput.text = utf8.sub(activeInput.text, 1, -2)
+		triggerEvent("dpUI.inputChange", activeInput.resourceRoot, activeInput.id)
 	elseif key == "tab" then
 		local inputs = {}
 		local currentIndex = 0
@@ -146,5 +147,6 @@ addEventHandler("onClientCharacter", root, function (character)
 			end
 		end
 		activeInput.text = utf8.insert(activeInput.text, tostring(character))
+		triggerEvent("dpUI.inputChange", activeInput.resourceRoot, activeInput.id)
 	end
 end)

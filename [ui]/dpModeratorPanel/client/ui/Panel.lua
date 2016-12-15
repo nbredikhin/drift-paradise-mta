@@ -1,48 +1,278 @@
 Panel = {}
-Panel.ui = {}
-local screenSize = Vector2(guiGetScreenSize())
-local windowSize = Vector2(650, 400)
--- Элементы интерфейса
+local UI = exports.dpUI
+local screenWidth, screenHeight = UI:getScreenSize()
 local ui = {}
 
-addEvent("dpModeratorPanel.opened", false)
+local panelWidth = 500
+local panelHeight = 365
 
-function Panel.isVisible()
-	return not not ui.window.visible
-end
+local isVisible = false
 
-function Panel.getWindow()
-	return ui.window
-end
+local playersList = {}
+local playersListOffset = 0
+local playersShowCount = 7
 
-function Panel.toggle()
-	if not localPlayer:getData("group") then
+function Panel.show()
+	if isVisible then
 		return false
 	end
-	local visible = not ui.window.visible
-	if ui.window.visible == visible then
-		return 
-	end
-	ui.window.visible = visible
-	showCursor(visible)
+	isVisible = true
 
-	if visible then
-		triggerEvent("dpModeratorPanel.opened", resourceRoot)
+	UI:setVisible(ui.panel, true)
+	showCursor(true)
+
+	UI:setText(ui.playerSearchInput, "")
+	Panel.filterPlayersList()
+
+	Panel.hidePlayerInfo()
+end
+
+function Panel.filterPlayersList()
+	local searchText = utf8.lower(UI:getText(ui.playerSearchInput))
+	playersList = {}
+	for i, player in ipairs(getElementsByType("player")) do
+		if string.find(utf8.lower(player.name), searchText, 1, true) then
+			table.insert(playersList, player)
+		end
 	end
+	Panel.redrawPlayersList()
+end
+
+function Panel.redrawPlayersList()
+	local showPlayers = {}
+	local indexStart = math.max(1, playersListOffset + 1)
+	local indexEnd = math.min(#playersList, playersListOffset + playersShowCount)
+	for i = indexStart, indexEnd do
+		local item = { 
+			[1] = exports.dpUtils:removeHexFromString(playersList[i].name),
+			player = playersList[i]
+		}
+		table.insert(showPlayers, item)
+	end
+	UI:setItems(ui.playersList, showPlayers)
+end
+
+function Panel.hide()
+	if not isVisible then
+		return false
+	end
+	isVisible = false
+
+	UI:setVisible(ui.panel, false)
+	showCursor(false)
+end
+
+function Panel.showPlayerInfo(player)
+	if not isElement(player) then
+		return false
+	end
+	UI:setVisible(ui.playerPanel, true)
+
+	UI:setText(ui.nicknameLabel, exports.dpUtils:removeHexFromString(player.name))
+	UI:setText(ui.usernameLabel, "Login: " .. tostring(player:getData("username")))
+
+	UI:setText(ui.moneyLabel, 			exports.dpLang:getString("player_money") .. ": $" .. tostring(player:getData("money")))
+	UI:setText(ui.levelLabel, 			exports.dpLang:getString("player_level") .. ": " .. tostring(player:getData("level")))
+	UI:setText(ui.carsCountLabel,  	    exports.dpLang:getString("main_panel_account_cars_count") ..": " .. tostring(player:getData("garage_cars_count")))
+
+	local state = player:getData("dpCore.state")
+	if not state then
+		state = "city"
+	end
+	UI:setText(ui.locationLabel, 		"Location: " .. tostring(state))
+end
+
+function Panel.hidePlayerInfo()
+	UI:setVisible(ui.playerPanel, false)
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
-	ui.window = GuiWindow(
-		(screenSize.x - windowSize.x) / 2, 
-		(screenSize.y - windowSize.y) / 2,
-		windowSize.x,
-		windowSize.y, 
-		"Drift Paradise Moderator Panel", 
-		false)
-	ui.window.sizable = false
-	ui.window.movable = true
-	ui.window.visible = false
+	ui.panel = UI:createDpPanel {
+		x = (screenWidth - panelWidth) / 2,
+		y = (screenHeight - panelHeight) / 2,
+		width = panelWidth,
+		height = panelHeight,
+		type = "light"
+	}
+	UI:addChild(ui.panel)
+	UI:setVisible(ui.panel, false)
+
+	-- Список игроков
+	local playerSearchInputHeight = 50
+	local playerListWidth = 200
+	ui.playerSearchInput = UI:createDpInput({
+		x = 0,
+		y = 0,
+		width = playerListWidth,
+		height = 50,
+		type = "light",
+		locale = "Search..."
+	})
+	UI:addChild(ui.panel, ui.playerSearchInput)	
+	ui.playersList = UI:createDpList {
+		x = 0, y = playerSearchInputHeight,
+		width = playerListWidth, height = panelHeight,
+		items = {},
+		columns = {
+			{size = 1, offset = 0.06, align = "left"}
+		}
+	}
+	UI:addChild(ui.panel, ui.playersList)
+
+	-- Панель с информацией об игроке
+	local playerPanelWidth = panelWidth - playerListWidth
+	local playerPanelHeight = panelHeight
+
+	local notSelectedLabel = UI:createDpLabel {
+		x = playerListWidth, y = 0,
+		width = playerPanelWidth, height = playerPanelHeight,
+		locale = "Player not selected",
+		color = tocolor(0, 0, 0, 100),
+		fontType = "defaultLarge",
+		alignX = "center",
+		alignY = "center"
+	}	
+	UI:addChild(ui.panel, notSelectedLabel)
+
+	ui.playerPanel = UI:createDpPanel {
+		x = playerListWidth, y = 0,
+		width = playerPanelWidth,
+		height = playerPanelHeight,
+		type = "light"
+	}
+	UI:addChild(ui.panel, ui.playerPanel)
+
+	ui.nicknameLabel = UI:createDpLabel {
+		x = 20, y = 15,
+		width = playerPanelWidth / 3, playerPanelHeight = 50,
+		text = "...",
+		type = "primary",
+		fontType = "defaultLarger"
+	}	
+	UI:addChild(ui.playerPanel, ui.nicknameLabel)
+
+	ui.usernameLabel = UI:createDpLabel {
+		x = 20 , y = 60,
+		width = playerPanelWidth, height = 50,
+		text = "...",
+		color = tocolor(0, 0, 0, 100),
+		fontType = "defaultSmall"
+	}
+	UI:addChild(ui.playerPanel, ui.usernameLabel)
+
+	-- Деньги
+	ui.moneyLabel = UI:createDpLabel {
+		x = 20, y = 100,
+		width = playerPanelWidth, height = 50,
+		text = "",
+		fontType = "defaultSmall",
+		type = "dark",
+	}
+	UI:addChild(ui.playerPanel, ui.moneyLabel)
+
+	ui.levelLabel = UI:createDpLabel {
+		x = 20, y = 130,
+		width = playerPanelWidth, height = 50,
+		text = "",
+		fontType = "defaultSmall",
+		type = "dark",
+	}
+	UI:addChild(ui.playerPanel, ui.levelLabel)	
+
+	ui.carsCountLabel = UI:createDpLabel {
+		x = 20, y = 160,
+		width = playerPanelWidth, height = 50,
+		text = "",
+		fontType = "defaultSmall",
+		type = "dark",
+	}
+	UI:addChild(ui.playerPanel, ui.carsCountLabel)
+
+	ui.locationLabel = UI:createDpLabel {
+		x = 20, y = 190,
+		width = playerPanelWidth, height = 50,
+		text = "Местоположение: -",
+		fontType = "defaultSmall",
+		type = "dark",
+	}
+	UI:addChild(ui.playerPanel, ui.locationLabel)			
+
+	-- 
+	local buttonsHeight = 45
+	ui.muteButton = UI:createDpButton {
+		x = 0,
+		y = playerPanelHeight - buttonsHeight,
+		width = playerPanelWidth / 3,
+		height = buttonsHeight,
+		locale = "Mute",
+		type = "primary"
+	}
+	UI:addChild(ui.playerPanel, ui.muteButton)
+
+	ui.kickButton = UI:createDpButton {
+		x = playerPanelWidth / 3,
+		y = playerPanelHeight - buttonsHeight,
+		width = playerPanelWidth / 3,
+		height = buttonsHeight,
+		locale = "Kick",
+		type = "primary"
+	}
+	UI:addChild(ui.playerPanel, ui.kickButton)
+
+	ui.banButton = UI:createDpButton {
+		x = playerPanelWidth / 3 * 2,
+		y = playerPanelHeight - buttonsHeight,
+		width = playerPanelWidth / 3,
+		height = buttonsHeight,
+		locale = "Ban",
+		type = "primary"
+	}
+	UI:addChild(ui.playerPanel, ui.banButton)		
+
+	Panel.show()
 end)
 
--- setTimer(Panel.toggle, 50, 1)
-bindKey("f4", "down", Panel.toggle)
+addEvent("dpUI.click", false)
+addEventHandler("dpUI.click", resourceRoot, function (widget)
+	if widget == ui.playersList then
+		local items = exports.dpUI:getItems(ui.playersList)
+		local selectedItem = exports.dpUI:getActiveItem(ui.playersList)
+		Panel.showPlayerInfo(items[selectedItem].player)
+	end
+end)
+
+addEvent("dpUI.inputChange", false)
+addEventHandler("dpUI.inputChange", resourceRoot, function (widget)
+	if widget == ui.playerSearchInput then
+		Panel.filterPlayersList()
+	end
+end)
+
+addEventHandler("onClientKey", root, function (button, down)
+	if not down or not isVisible then
+		return
+	end
+	if button == "mouse_wheel_up" then
+		playersListOffset = playersListOffset - 1
+		if playersListOffset < 0 then
+			playersListOffset = 0
+		end
+		Panel.redrawPlayersList()
+	elseif button == "mouse_wheel_down" then
+		playersListOffset = playersListOffset + 1
+
+		local count = math.min(#playersList, playersShowCount)
+		if playersListOffset > #playersList - count then
+			playersListOffset = #playersList - count
+		end
+		Panel.redrawPlayersList()
+	end
+end)
+
+bindKey("F4", "down", function ()
+	if not isVisible then
+		Panel.show()
+	else
+		Panel.hide()
+	end
+end)

@@ -22,7 +22,7 @@ local playerEconomics = {
 		{ xp = 150, money = 75 },
 	},
 
-	tofu_prize = 300,
+	tofu_prize = 250,
 	tofu_xp = 370,
 	tofu_perfect_mul = 1.5,
 }

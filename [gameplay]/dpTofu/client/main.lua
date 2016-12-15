@@ -1,22 +1,21 @@
-local MARKER_POSITIONS = {
-	Vector3(1821.247, -1842.192, 12.6),
-	Vector3(473.9, -1296.518, 14.5)
-}
-local PED_POSITIONS = {
-	{ position = Vector3(1828.649, -1842.192, 13.578), rotation = 90 },
-	{ position = Vector3(468.605, -1290.124, 15.435),  rotation = 210}
+local TOFU_POINT_POSITIONS = {
+	{
+		marker = Vector3(1821.247, -1842.192, 12.6),
+		ped = {position = Vector3(1828.649, -1842.192, 13.578), rotation = 90},
+		music = Vector3(1835.613, -1842.073, 13.078)
+	},
+	{
+		marker = Vector3(473.9, -1296.518, 14.5),
+		ped = {position = Vector3(468.605, -1290.124, 15.435),  rotation = 210},
+		music = Vector3(471.078, -1280.93, 15.435)
+	}
 }
 
 local PED_MODEL = 10
-local MUSIC_POSITIONS = {
-	Vector3(1835.613, -1842.073, 13.078),
-	Vector3(471.078, -1280.93, 15.435)
-}
-
 local CHECKPOINTS_COUNT = 32
 local MIN_COLLISION_FORCE = 350
 
-local peds = {}
+local tofuPoints = {}
 
 local isRunning = false
 local isThereCollision = false
@@ -42,37 +41,53 @@ local function takeTofu()
 	isThereCollision = false
 	startTime = getRealTime().timestamp
 
-	for i, ped in ipairs(peds) do
-		setPedAnimation(ped, "DANCING", "dance_loop")
+	for i, tofuPoint in ipairs(tofuPoints) do
+		tofuPoint.ped:setAnimation("DANCING", "dance_loop")
 	end
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
-	for i, position in ipairs(MARKER_POSITIONS) do
-		local marker = exports.dpMarkers:createMarker("tofu", position, 0)
+	local txd = EngineTXD("skin/1.txd")
+	txd:import(PED_MODEL)
+	local dff = EngineDFF("skin/1.dff")
+	dff:replace(PED_MODEL)
+
+	for i, point in ipairs(TOFU_POINT_POSITIONS) do
+		local markerPosition = point.marker
+		local pedPosition = point.ped
+		local musicPosition = point.music
+
+		-- marker
+		local marker = exports.dpMarkers:createMarker("tofu", markerPosition, 0)
 		addEventHandler("dpMarkers.use", marker, takeTofu)
 
-		local blip = createBlip(0, 0, 0, 27)
+		local blip = Blip(0, 0, 0, 27)
 		blip:attach(marker)
 		blip:setData("text", "tofu_blip_text")
-	end
 
-	local txd = engineLoadTXD("skin/1.txd")
-	engineImportTXD(txd, PED_MODEL)
-	local dff = engineLoadDFF("skin/1.dff")
-	engineReplaceModel(dff, PED_MODEL)
-
-	for i, pedPosition in ipairs(PED_POSITIONS) do
-		local ped = createPed(PED_MODEL, pedPosition.position, pedPosition.rotation)
+		-- ped
+		local ped = Ped(PED_MODEL, pedPosition.position, pedPosition.rotation)
 		ped.frozen = true
 		addEventHandler("onClientPedDamage", ped, cancelEvent)
-		peds[i] = ped
-	end
 
-	for i, position in ipairs(MUSIC_POSITIONS) do
-		local sound = playSound3D("music/music.mp3", position, true)
-		sound.minDistance = 20
-		sound.maxDistance = 50
+		-- ped colshape
+		local colshape = ColShape.Sphere(pedPosition.position, 5.0)
+
+		-- music
+		local sound
+		if exports.dpConfig:getProperty("game.background_music") then
+			sound = Sound3D("music/music.mp3", musicPosition, true)
+			sound.minDistance = 20
+			sound.maxDistance = 50
+		end
+
+		tofuPoints[i] = {
+			marker = marker,
+			blip = blip,
+			ped = ped,
+			colshape = colshape,
+			sound = sound
+		}
 	end
 end)
 
@@ -83,8 +98,8 @@ function cancelTofu()
 	isRunning = false
 	startTime = 0
 	RaceCheckpoints.stop()
-	for i, ped in ipairs(peds) do
-		setPedAnimation(ped)
+	for i, tofuPoint in ipairs(tofuPoints) do
+		tofuPoint.ped:setAnimation()
 	end
 end
 
@@ -112,6 +127,54 @@ function finishTofu()
 	triggerServerEvent("dpTofu.finish", resourceRoot, not isThereCollision)
 end
 
+local function handlePedCollision(colshape, element, matchingDimension, enabled)
+	if not matchingDimension then
+		return
+	end
+	if not isElement(element) then
+		return
+	end
+
+	if element.type == "player" or element.type == "vehicle" then
+		local ped
+		for i, tofuPoint in ipairs(tofuPoints) do
+			if tofuPoint.colshape == colshape then
+				ped = tofuPoint.ped
+				break
+			end
+		end
+		ped:setCollidableWith(element, enabled)
+	end
+end
+
+addEvent("dpConfig.update", false)
+addEventHandler("dpConfig.update", root, function (key, value)
+	-- toggle music
+	if key == "game.background_music" then
+		if value then
+			for i, point in ipairs(TOFU_POINT_POSITIONS) do
+				sound = Sound3D("music/music.mp3", point.music, true)
+				sound.minDistance = 20
+				sound.maxDistance = 50
+				tofuPoints[i].sound = sound
+			end
+		else
+			for i, point in ipairs(tofuPoints) do
+				point.sound:destroy()
+				point.sound = nil
+			end
+		end
+	end
+end)
+
+addEventHandler("onClientColShapeHit", resourceRoot, function (element, matchingDimension)
+	handlePedCollision(source, element, matchingDimension, false)
+end)
+
+addEventHandler("onClientColShapeLeave", resourceRoot, function (element, matchingDimension)
+	handlePedCollision(source, element, matchingDimension, true)
+end)
+
 addEventHandler("onClientVehicleCollision", root, function (_, force)
 	if source ~= localPlayer.vehicle then
 		return
@@ -129,5 +192,6 @@ addEventHandler("onClientVehicleExit", root, function (player)
 	if player ~= localPlayer then
 		return
 	end
+	print("CANCEL")
 	cancelTofu()
 end)

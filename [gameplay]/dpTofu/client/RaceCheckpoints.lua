@@ -4,9 +4,7 @@ local isActive = false
 local checkpointsList = {}
 local currentCheckpoint = 1
 
-local currentMarker
-local nextMarker
-local hitMarker
+local markers = {}
 
 local currentBlip
 local nextBlip
@@ -20,29 +18,23 @@ local defaultSettings = {
 local settings = {}
 
 local function destroyMarkers()
-	if isElement(currentMarker) then
-		destroyElement(currentMarker)
-	end
-
-	if isElement(nextMarker) then
-		destroyElement(nextMarker)
-	end
-
-	if isElement(hitMarker) then
-		destroyElement(hitMarker)
+	for name, marker in pairs(markers) do
+		if isElement(marker) then
+			marker:destroy()
+		end
 	end
 
 	if isElement(currentBlip) then
-		destroyElement(currentBlip)
+		currentBlip:destroy()
 	end
 
 	if isElement(nextBlip) then
-		destroyElement(nextBlip)
+		nextBlip:destroy()
 	end
 end
 
 local function onMarkerHit(player)
-	if source ~= hitMarker or player ~= localPlayer then
+	if source ~= markers.hit or player ~= localPlayer then
 		return
 	end
 	if settings.checkpointsVisible then
@@ -61,7 +53,7 @@ local function onMarkerHit(player)
 			currentCheckpoint = 0
 			RaceCheckpoints.showNext()
 		end
-	end	
+	end
 	-- Sraka
 end
 
@@ -96,48 +88,48 @@ function RaceCheckpoints.showNext()
 	currentCheckpoint = currentCheckpoint + 1
 
 	local x, y, z = unpack(checkpointsList[currentCheckpoint])
-	hitMarker = createMarker(x, y, z - 1, "cylinder", 9, 0, 0, 0, 0)
-	hitMarker.dimension = localPlayer.dimension
+	markers.hit = Marker(x, y, z - 1, "cylinder", 9, 0, 0, 0, 0)
+	markers.hit.dimension = localPlayer.dimension
 
 	if settings.checkpointsVisible then
-		local r,g,b = exports.dpUI:getThemeColor()
-		currentMarker = createMarker(x, y, z, "checkpoint", 7, r, g, b)
-		currentMarker.dimension = localPlayer.dimension
+		local r, g, b = exports.dpUI:getThemeColor()
+		markers.current = Marker(x, y, z, "checkpoint", 7, r, g, b)
+		markers.current.dimension = localPlayer.dimension
 
 		local isLast = currentCheckpoint == #checkpointsList
-		local isLastLap = currentLap == settings.lapsCount 
+		local isLastLap = currentLap == settings.lapsCount
 		if not isLast then
 			local cp = checkpointsList[currentCheckpoint + 1]
 			local x, y, z = unpack(cp)
-			currentMarker:setTarget(x, y, z)
+			markers.current:setTarget(x, y, z)
 
-			nextMarker = createMarker(x, y, z, "checkpoint", 7, r, g, b, 100)
-			nextMarker.dimension = localPlayer.dimension
+			markers.next = Marker(x, y, z, "checkpoint", 7, r, g, b, 100)
+			markers.next.dimension = localPlayer.dimension
 			local isLast = currentCheckpoint + 1 == #checkpointsList
 			if isLast then
-				nextMarker.icon = "finish"
+				markers.next.icon = "finish"
 				if isLastLap then
-					nextMarker:setColor(255, 255, 255)
+					markers.next:setColor(255, 255, 255)
 				end
 			end
 		else
 			if not isLastLap then
 				local x, y, z = unpack(checkpointsList[1])
-				currentMarker:setTarget(x, y, z)
+				markers.current:setTarget(x, y, z)
 
-				nextMarker = createMarker(x, y, z, "checkpoint", 7, r, g, b, 100)
-				nextMarker.dimension = localPlayer.dimension
+				markers.next = Marker(x, y, z, "checkpoint", 7, r, g, b, 100)
+				markers.next.dimension = localPlayer.dimension
 			end
-			currentMarker.icon = "finish"
-			currentMarker:setColor(255, 255, 255)
-		end		
+			markers.current.icon = "finish"
+			markers.current:setColor(255, 255, 255)
+		end
 	end
 
-	if isElement(currentMarker) then
-		currentBlip = createBlipAttachedTo(currentMarker, 0)
+	if isElement(markers.current) then
+		currentBlip = createBlipAttachedTo(markers.current, 0)
 	end
-	if isElement(nextMarker) then
-		nextBlip = createBlipAttachedTo(nextMarker, 0)
+	if isElement(markers.next) then
+		nextBlip = createBlipAttachedTo(markers.next, 0)
 	end
 end
 
@@ -146,12 +138,12 @@ function RaceCheckpoints.getCurrentCheckpoint()
 end
 
 function RaceCheckpoints.getCheckpointsCount()
-	return #checkpointsList * settings.lapsCount 
+	return #checkpointsList * settings.lapsCount
 end
 
 function RaceCheckpoints.getCheckpointPosition()
-	if not isElement(currentMarker) then
+	if not isElement(markers.current) then
 		return false
 	end
-	return currentMarker.position
+	return markers.current.position
 end

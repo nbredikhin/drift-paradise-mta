@@ -34,7 +34,7 @@ function createSafeZone(pos1, pos2)
 	rectMax.x = math.max(pos1.x, pos2.x)
 	rectMax.y = math.max(pos1.y, pos2.y)
 	local size = rectMax - rectMin
-	local colShape = createColRectangle(rectMin, size)
+	local colShape = ColShape.Rectangle(rectMin, size)
 	colShape:setData("dpSafeZone", true)
 	return colShape
 end

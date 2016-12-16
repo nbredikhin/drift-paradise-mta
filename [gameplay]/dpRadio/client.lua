@@ -15,6 +15,7 @@ local secondFont = exports.dpAssets:createFont("Roboto-Regular.ttf", 16, true)
 
 local radios = {
     {localized_name = "radio_user_tracks", url = 12},
+    {name = "BBC 1Xtra", url = "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1xtra_mf_p"},
     {name = "Radio Record", url = "http://stream.radiorecord.ru:8100/rr_aac"},
     {name = "Europa Plus", url = "http://ep128.streamr.ru"},
     {name = "D-FM", url = "http://striiming.trio.ee/dfm.mp3"},
@@ -76,21 +77,28 @@ function stopRadio()
     end
 end
 
+function showRadioName()
+    if not localPlayer:getData("dpCore.state") and not localPlayer:getData("activeUI") then
+        if radioNameVisible then
+            alphaProgress = 1.0
+            fading = false
+        else
+            alphaProgress = 0.0
+            fading = "in"
+        end
+
+        resetHideRadioNameTimer()
+        hideRadioNameTimer = Timer(function ()
+            fading = "out"
+        end, HIDE_RADIO_NAME_DELAY, 1)
+
+        radioNameVisible = true
+    end
+end
+
 function setRadio(stationId)
     currentStationId = stationId
 
-    if radioNameVisible then
-        alphaProgress = 1.0
-        fading = false
-    else
-        alphaProgress = 0.0
-        fading = "in"
-    end
-
-    resetHideRadioNameTimer()
-    hideRadioNameTimer = Timer(function ()
-        fading = "out"
-    end, HIDE_RADIO_NAME_DELAY, 1)
     stopRadio()
 
     if stationId ~= TURN_OFF_STATION_ID then
@@ -104,7 +112,7 @@ function setRadio(stationId)
         setRadioChannel(0)
     end
 
-    radioNameVisible = true
+    showRadioName()
 end
 
 function switchRadio(next)
@@ -126,11 +134,13 @@ function bindRadioKeys()
     bindKey("radio_previous", "down", function ()
         switchRadio(false)
     end)
+    bindKey("z", "down", showRadioName)
 end
 
 function unbindRadioKeys()
     unbindKey("radio_next", "down")
     unbindKey("radio_previous", "down")
+    unbindKey("z", "down", showRadioName)
 end
 
 local function drawRadioName()

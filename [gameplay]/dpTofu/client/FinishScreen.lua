@@ -80,8 +80,6 @@ function FinishScreen.start()
 		return false
 	end
 	isActive = true
-	addEventHandler("onClientRender", root, draw)
-	addEventHandler("onClientPreRender", root, update)
 
 	mainTextFont = exports.dpAssets:createFont("Roboto-Regular.ttf", 52)
 	moneyTextFont = exports.dpAssets:createFont("Roboto-Regular.ttf", 36)
@@ -89,6 +87,9 @@ function FinishScreen.start()
 
 	moneyTextFontHeight = dxGetFontHeight(1, mainTextFont)
 	visibleDelay = VISIBLE_TIME
+
+	addEventHandler("onClientRender", root, draw)
+	addEventHandler("onClientPreRender", root, update)
 	return true
 end
 

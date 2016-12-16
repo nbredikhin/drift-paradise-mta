@@ -8,7 +8,7 @@ local screenOffset = Utils.screenScale(20)
 local WORLD_SIZE = 3072
 local CHUNK_SIZE = 256
 local CHUNKS_COUNT = 12
-local SCALE_FACTOR = 2
+local SCALE_FACTOR = 1.5
 local arrowSize = 25
 local playerTextureSize = 25
 local blipTextureSize = 32
@@ -20,7 +20,7 @@ local maskTexture
 local arrowTexture
 local playerTexture
 
-local DEFAULT_SCALE = 5
+local DEFAULT_SCALE = 3
 local MAX_SPEED_SCALE = 1.3
 
 local scale = DEFAULT_SCALE
@@ -32,9 +32,9 @@ local chunksTextures = {}
 local players = {}
 local blips = {}
 local allowedIcons = {
-	[0] = true, 
-	[27] = true, 
-	[21] = true, 
+	[0] = true,
+	[27] = true,
+	[21] = true,
 	[55] = true,
 	[31] = true,
 	[33] = true
@@ -47,9 +47,9 @@ local function drawRadarChunk(x, y, chunkX, chunkY)
 	if chunkID < 0 or chunkID > 143 or chunkX >= CHUNKS_COUNT or chunkY >= CHUNKS_COUNT or chunkX < 0 or chunkY < 0 then
 		return
 	end
-	
-	local posX, posY = ((x - (chunkX) * CHUNK_SIZE) / CHUNK_SIZE) * chunkRenderSize, 
-				       ((y - (chunkY) * CHUNK_SIZE) / CHUNK_SIZE) * chunkRenderSize 
+
+	local posX, posY = ((x - (chunkX) * CHUNK_SIZE) / CHUNK_SIZE) * chunkRenderSize,
+				       ((y - (chunkY) * CHUNK_SIZE) / CHUNK_SIZE) * chunkRenderSize
 	dxDrawImage(width / 2 - posX, width / 2 - posY, chunkRenderSize, chunkRenderSize, chunksTextures[chunkID])
 end
 
@@ -63,7 +63,7 @@ local function drawRadarSection(x, y)
 
 	drawRadarChunk(x, y, chunkX - 1, chunkY - 1)
 	drawRadarChunk(x, y, chunkX, chunkY - 1)
-	drawRadarChunk(x, y, chunkX + 1, chunkY - 1)	
+	drawRadarChunk(x, y, chunkX + 1, chunkY - 1)
 
 	drawRadarChunk(x, y, chunkX - 1, chunkY + 1)
 	drawRadarChunk(x, y, chunkX, chunkY + 1)
@@ -74,11 +74,11 @@ local function drawBlips()
 	local px, py, pz = getElementPosition(localPlayer)
 	for i,blip in ipairs(getElementsByType("blip")) do
 		local x, y, z = getElementPosition(blip)
-		if allowedIcons[blip.icon] and getDistanceBetweenPoints2D(x, y, px, py) < 100 then			
+		if allowedIcons[blip.icon] and getDistanceBetweenPoints2D(x, y, px, py) < 100 then
 			Radar.drawImageOnMap(
 				x, y, camera.rotation.z,
 				blipTextures[blip.icon],
-				blipTextureSize, 
+				blipTextureSize,
 				blipTextureSize
 			)
 		end
@@ -92,12 +92,12 @@ local function drawPlayers()
 			local color = tocolor(255, 255, 255, 255)
 			if player.vehicle then
 				color = player.vehicle:getData("BodyColor")
-				if color then 
+				if color then
 					color = tocolor(unpack(color))
 				end
 			end
 			-- color = tocolor(123, 0, 123)
-			Radar.drawImageOnMap(player.position.x, player.position.y, player.rotation.z, 
+			Radar.drawImageOnMap(player.position.x, player.position.y, player.rotation.z,
 				playerTexture, playerTextureSize, playerTextureSize, color)
 		end
 	end
@@ -112,30 +112,30 @@ local function drawRadar()
 	drawRadarSection(sectionX, sectionY)
 	drawPlayers()
 	local color = tocolor(255, 255, 255)
-	if localPlayer.vehicle then 
+	if localPlayer.vehicle then
 	    color = localPlayer.vehicle:getData("BodyColor")
-	    if color then 
+	    if color then
 		color = tocolor(unpack(color))
 	    else
 		color = tocolor(255, 255, 255)
 	    end
 	end
 	-- Пример использования:
-	-- Radar.drawImageOnMap(700, 900, 0, arrowTexture, 
-		-- arrowSize, arrowSize, 
+	-- Radar.drawImageOnMap(700, 900, 0, arrowTexture,
+		-- arrowSize, arrowSize,
 		-- tocolor(16, 160, 207))
 
 	dxDrawImage(
-		(width - arrowSize) / 2, 
-		(height - arrowSize) / 2, 
-		arrowSize, 
+		(width - arrowSize) / 2,
+		(height - arrowSize) / 2,
+		arrowSize,
 		arrowSize,
 		arrowTexture,
 		-localPlayer.rotation.z,
 		0,
 		0,
 		color
-	)	
+	)
 
 	drawBlips()
 end
@@ -153,7 +153,7 @@ addEventHandler("onClientRender", root, function ()
 	end
 	chunkRenderSize = CHUNK_SIZE * scale / SCALE_FACTOR
 
-	if not fallbackTo2d then	
+	if not fallbackTo2d then
 		-- Отрисовка радара в renderTarget
 		dxSetRenderTarget(renderTarget, true)
 		drawRadar()
@@ -168,12 +168,12 @@ addEventHandler("onClientRender", root, function ()
 
 		dxDrawImage(
 			screenOffset,
-			screenHeight - height - screenOffset, 
-			width, 
+			screenHeight - height - screenOffset,
+			width,
 			height,
-			maskShader, 
-			0, 0, 0, 
-			tocolor(255, 255, 255, 255), 
+			maskShader,
+			0, 0, 0,
+			tocolor(255, 255, 255, 255),
 			DRAW_POST_GUI
 		)
 	end
@@ -192,7 +192,7 @@ addEventHandler("onClientElementStreamOut", root, function()
 		players[source] = nil
 	elseif source.type == "blip" then
 		blips[source] = nil
-	end	
+	end
 end)
 
 addEventHandler("onClientPlayerJoin", root, function()
@@ -227,7 +227,7 @@ function Radar.start()
 
 	for k,v in pairs(allowedIcons) do
 		blipTextures[k] = dxCreateTexture("assets/textures/radar/icons/" .. k .. ".png")
-	end	
+	end
 
 	players = {}
 	for i,v in ipairs(getElementsByType("player")) do
@@ -263,15 +263,15 @@ function Radar.drawImageOnMap(globalX, globalY, rotationZ, image, imgWidth, imgH
 	end
 	local relativeX, relativeY = localPlayer.position.x - globalX,
 								 localPlayer.position.y - globalY
-	local mapX, mapY = 	relativeX / 6000 * WORLD_SIZE * scale / SCALE_FACTOR, 
+	local mapX, mapY = 	relativeX / 6000 * WORLD_SIZE * scale / SCALE_FACTOR,
 						relativeY / 6000 * WORLD_SIZE * scale / SCALE_FACTOR
- 
+
 	local distance = mapX * mapX + mapY * mapY
 	-- Картинка слишком далеко от игрока, нет смысла рисовать
 	if distance > chunkRenderSize * chunkRenderSize * 9 then
 		return
 	end
-	dxDrawImage((width -  imgWidth) / 2 - mapX, 
+	dxDrawImage((width -  imgWidth) / 2 - mapX,
 				(height - imgHeight) / 2 + mapY, imgWidth, imgHeight, image,
 				 -rotationZ, 0, 0, color)
 end

@@ -1,41 +1,38 @@
 TURN_OFF_STATION_ID = 0
-HIDE_RADIO_NAME_DELAY = 2000
+HIDE_RADIO_NAME_DELAY = 3000
 
 local enabled = true
 local currentStationId = TURN_OFF_STATION_ID
 local changeStationId = TURN_OFF_STATION_ID
+
 local hideRadioNameTimer = nil
 local radioNameVisible = false
 local fading = false
 
 local screenSize = Vector2(guiGetScreenSize())
 local font = exports.dpAssets:createFont("Cuprum-Bold.ttf", 32, true)
+local secondFont = exports.dpAssets:createFont("Roboto-Regular.ttf", 16, true)
 
 local radios = {
     {localized_name = "radio_user_tracks", url = 12},
-    {name = "LIVE", url = "http://giss.tv:8000/allstars_channel.mp3"},
     {name = "Radio Record", url = "http://stream.radiorecord.ru:8100/rr_aac"},
     {name = "Europa Plus", url = "http://ep128.streamr.ru"},
     {name = "D-FM", url = "http://striiming.trio.ee/dfm.mp3"},
-    {name = "Gangsta & Hip-Hop.101", url = "http://ic3.101.ru:8000/c14_11"},
     {name = "Good Company Radio", url = "http://uk4.internet-radio.com:10104/"},
     {name = "Dubplate.fm Dub & Bass", url = "http://sc2.dubplate.fm:5000/dubstep/192"},
     {name = "Dubplate.fm Drum 'n Bass", url = "http://sc2.dubplate.fm:5000/DnB/192"},
+    {name = "Gangsta & Hip-Hop.101", url = "http://ic3.101.ru:8000/c14_11"},
+    {name = "TOP100RAP", url = "http://radio-tochka.com:6570"},
     {name = "YO.FM", url = "http://air.radiorecord.ru:8102/yo_320"},
     {name = "GOP.FM", url = "http://online.radiorecord.ru:8102/gop_128"},
     {name = "Dorojnoe Radio", url = "http://dorognoe48.streamr.ru"},
-    {name = "ChartHits.FM", url = "http://95.141.24.3:80/"},
     {name = "Real Dance Radio", url = "http://uk4.internet-radio.com:10138/"},
     {name = "Big R Radio-80s Metal FM", url = "http://107.155.111.234:18310/"},
-    {name = "TOP100RAP", url = "http://radio-tochka.com:6570"},
-    {name = "1.FM Trance Radio", url = "http://sc8.1.fm:7706/"},
     {name = "GoHamRadioTrance", url = "http://uk4.internet-radio.com:15938/"},
-    {name = "Hay.FM Yerevan", url = "http://hayfm.am:8000/HayFm"},
+    {name = "1.FM Trance Radio", url = "http://sc8.1.fm:7706/"},
     {name = "Big B Radio #JPOP", url = "http://62.75.253.56:8012/"},
-    {name = "Maximum.FM", url = "http://maximum.fmtuner.ru/96kbit/s"},
     {name = "Zaycev.FM", url = "http://zaycev.fm:9002/ZaycevFM(128)"},
     {name = "100hitz", url = "http://206.217.213.235:8170/"},
-    {name = "DEFJAY", url = "http://212.45.104.39:8008/"},
     {name = "TRAP.FM", url = "http://stream.trap.fm:6002/"}
 }
 
@@ -83,17 +80,15 @@ function setRadio(stationId)
     currentStationId = stationId
 
     if radioNameVisible then
-        alpha = 255
+        alphaProgress = 1.0
         fading = false
     else
-        alpha = 0
-        targetAlpha = 255
+        alphaProgress = 0.0
         fading = "in"
     end
 
     resetHideRadioNameTimer()
     hideRadioNameTimer = Timer(function ()
-        targetAlpha = 0
         fading = "out"
     end, HIDE_RADIO_NAME_DELAY, 1)
     stopRadio()
@@ -138,17 +133,6 @@ function unbindRadioKeys()
     unbindKey("radio_previous", "down")
 end
 
-function dxDrawBorderedText(text, left, top, right, bottom, color, borderColor, scale, font, alignX, alignY, clip, wordBreak, postGUI,
-        colorCoded, subPixelPositioning, fRotation, fRotationCenterX, fRotationCenterY)
-    for oX = -1, 1 do
-        for oY = -1, 1 do
-            dxDrawText(text, left + oX, top + oY, right + oX, bottom + oY, borderColor, scale, font,
-                alignX, alignY, clip, wordBreak, postGUI, colorCoded, subPixelPositioning, fRotation, fRotationCenterX, fRotationCenterY)
-        end
-    end
-    dxDrawText(text, left, top, right, bottom, color, scale, font, alignX, alignY, clip, wordBreak, postGUI)
-end
-
 local function drawRadioName()
     if enabled and radioNameVisible then
         local text
@@ -160,22 +144,29 @@ local function drawRadioName()
             text = radios[currentStationId].name
         end
 
-        local x, y = screenSize.x, screenSize.y * 0.1
         local r, g, b = exports.dpUI:getThemeColor()
 
         if fading == "out" then
-            alpha = alpha + math.floor((targetAlpha - alpha) * 0.2)
-            if alpha <= targetAlpha then
+            alphaProgress = math.max(0, alphaProgress - (15 / 100))
+            if alphaProgress <= 0.0 then
                 hideRadioName()
             end
         elseif fading == "in" then
-            alpha = alpha + math.ceil((targetAlpha - alpha) * 0.4)
-            if alpha >= targetAlpha then
+            alphaProgress = math.min(1, alphaProgress + (30 / 100))
+            if alphaProgress >= 1.0 then
                 fading = false
             end
         end
 
-        dxDrawBorderedText(text, 0, 0, x, y, tocolor(r, g, b, alpha), tocolor(0, 0, 0, alpha), 1, font, "center", "center", false, false, true)
+        local x, y = screenSize.x, screenSize.y * 0.1
+        dxDrawBorderedText(text, 0, 0, x, y, tocolor(r, g, b, 255 * alphaProgress), tocolor(0, 0, 0, 100 * alphaProgress), 1, font, "center", "center", false, false, true)
+
+        if isElement(radioSound) then
+            local metaTags = radioSound:getMetaTags()
+            if metaTags.stream_title then
+                dxDrawBorderedText(metaTags.stream_title, 0, 0, x, screenSize.y * 0.18, tocolor(r, g, b, 255 * alphaProgress), tocolor(0, 0, 0, 100 * alphaProgress), 1, secondFont, "center", "center", false, false, true)
+            end
+        end
     end
 end
 

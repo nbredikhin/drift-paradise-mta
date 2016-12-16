@@ -1,6 +1,8 @@
 Colors = {}
-local currentThemeName = "red"
-local colorSchemeDefault = {
+
+local THEME_NAMES = {"purple", "blue", "red", "orange", "green"}
+local DEFAULT_THEME_NAME = "red"
+local DEFAULT_THEME = {
 	white			= {255, 255, 255},
 	black			= {0, 0, 0},
 
@@ -17,13 +19,15 @@ local colorSchemeDefault = {
 	warning			= {240, 173, 78},
 	danger			= {217, 83, 79}
 }
-local colorScheme = {}
+
+local currentThemeName
+local themes = {}
 
 function Colors.color(name, alpha)
 	if not name then
 		return false
 	end
-	local color = colorScheme[name]
+	local color = themes[currentThemeName][name]
 	if not color then
 		return tocolor(255, 255, 255, alpha)
 	end
@@ -44,7 +48,7 @@ local function colorMul(color, mul)
 end
 
 function Colors.darken(name, amount, alpha)
-	local color = colorScheme[name]
+	local color = themes[currentThemeName][name]
 	if not color then
 		return tocolor(0, 0, 0, alpha)
 	end
@@ -53,7 +57,7 @@ function Colors.darken(name, amount, alpha)
 end
 
 function Colors.lighten(name, amount, alpha)
-	local color = colorScheme[name]
+	local color = themes[currentThemeName][name]
 	if not color then
 		return tocolor(255, 255, 255, alpha)
 	end
@@ -65,49 +69,67 @@ function Colors.setTheme(name)
 	if type(name) ~= "string" then
 		return false
 	end
-	local file = fileOpen("themes/" .. name .. ".json")
-	if not file then
-		return false
-	end
-	local themeJSON = file:read(file.size)
-	file:close()
 
-	local theme = fromJSON(themeJSON)
-	if not theme then
-		return false
-	end
-
-	colorScheme = {}
-	for colorName, defaultColor in pairs(colorSchemeDefault) do
-		if theme[colorName] then
-			colorScheme[colorName] = theme[colorName]
-		else
-			colorScheme[colorName] = {unpack(colorSchemeDefault[colorName])}
+	local exist = false
+	for themeName in pairs(themes) do
+		if name == themeName then
+			exist = true
+			break
 		end
 	end
+	if not exist then
+		return false
+	end
+
 	currentThemeName = name
 	Render.updateTheme()
 	triggerEvent("dpUI.updateTheme", resourceRoot)
 	return true
 end
 
-function Colors.getThemeColor()
-	return unpack(colorScheme["primary"])
+function Colors.getThemeColor(themeName)
+	if type(themeName) == "string" then
+		return unpack(themes[themeName]["primary"])
+	end
+
+	return unpack(themes[currentThemeName]["primary"])
 end
 
 function Colors.getThemeName()
 	return currentThemeName
 end
 
-addEventHandler("onClientResourceStart", resourceRoot, function ()
-	colorScheme = exports.dpUtils:tableCopy(colorSchemeDefault)
+local function loadThemes()
+	for i, themeName in pairs(THEME_NAMES) do
+		local file = fileOpen("themes/" .. themeName .. ".json")
+		if file then
+			local themeJSON = file:read(file.size)
+			file:close()
+
+			local theme = fromJSON(themeJSON)
+			if theme then
+				themes[themeName] = {}
+				for colorName, defaultColor in pairs(DEFAULT_THEME) do
+					if theme[colorName] then
+						themes[themeName][colorName] = theme[colorName]
+					else
+						themes[themeName][colorName] = {unpack(DEFAULT_THEME[colorName])}
+					end
+				end
+			end
+		end
+	end
 
 	local theme = exports.dpConfig:getProperty("ui.theme")
 	if theme then
 		Colors.setTheme(theme)
 	else
-		Colors.setTheme("red")
+		Colors.setTheme(DEFAULT_THEME_NAME)
 	end
+end
+
+addEventHandler("onClientResourceStart", resourceRoot, function ()
+	loadThemes()
 end)
 
 addEvent("dpConfig.update", false)

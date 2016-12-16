@@ -67,7 +67,7 @@ function SettingsTab.create()
 		x = 20,
 		y = y + 5,
 		width = 20, height = 20,
-		color = tocolor(150, 0, 255),
+		color = tocolor(exports.dpUI:getThemeColor("purple")),
 		texture = circleTexture
 	})
 	UI:addChild(panel, colorPurple)
@@ -76,7 +76,7 @@ function SettingsTab.create()
 		x = 45,
 		y = y + 5,
 		width = 20, height = 20,
-		color = tocolor(16, 160, 207),
+		color = tocolor(exports.dpUI:getThemeColor("blue")),
 		texture = circleTexture
 	})
 	UI:addChild(panel, colorBlue)
@@ -85,10 +85,28 @@ function SettingsTab.create()
 		x = 70,
 		y = y + 5,
 		width = 20, height = 20,
-		color = tocolor(212, 0, 40),
+		color = tocolor(exports.dpUI:getThemeColor("red")),
 		texture = circleTexture
 	})
 	UI:addChild(panel, colorRed)
+
+	local colorOrange = UI:createDpImageButton({
+		x = 95,
+		y = y + 5,
+		width = 20, height = 20,
+		color = tocolor(exports.dpUI:getThemeColor("orange")),
+		texture = circleTexture
+	})
+	UI:addChild(panel, colorOrange)
+
+	local colorGreen = UI:createDpImageButton({
+		x = 120,
+		y = y + 5,
+		width = 20, height = 20,
+		color = tocolor(exports.dpUI:getThemeColor("green")),
+		texture = circleTexture
+	})
+	UI:addChild(panel, colorGreen)
 
 	y = y + 30
 
@@ -282,7 +300,9 @@ function SettingsTab.create()
 		colorButtons = {
 			red = colorRed,
 			blue = colorBlue,
-			purple = colorPurple
+			purple = colorPurple,
+			orange = colorOrange,
+			green = colorGreen
 		},
 		joinQuitMessagesCheckbox = joinQuitMessagesCheckbox,
 	 	chatTimestampCheckbox = chatTimestampCheckbox,
@@ -318,6 +338,12 @@ addEventHandler("dpUI.click", resourceRoot, function(widget)
 	elseif widget == widgets.colorButtons.blue then
 		checkboxClicked = true
 		UI:setTheme("blue")
+	elseif widget == widgets.colorButtons.orange then
+		checkboxClicked = true
+		UI:setTheme("orange")
+	elseif widget == widgets.colorButtons.green then
+		checkboxClicked = true
+		UI:setTheme("green")
 	elseif widget == widgets.joinQuitMessagesCheckbox then
 		checkboxClicked = true
 		exports.dpConfig:setProperty("chat.joinquit_messages", UI:getState(widget))

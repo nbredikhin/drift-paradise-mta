@@ -38,6 +38,8 @@
 	<file src="themes/blue.json"/>
 	<file src="themes/red.json"/>
 	<file src="themes/purple.json"/>
+	<file src="themes/orange.json"/>
+	<file src="themes/green.json"/>
 
 	<!-- Сгенерированный список экспортов -->
 	<export type="client" function="getScreenSize"/>

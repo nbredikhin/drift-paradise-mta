@@ -15,6 +15,7 @@ end
 
 bindKey("F1", "down", function ()
 	Panel.setVisible(not Panel.isVisible())
+	PasswordPanel.hide()
 end)
 
 bindKey("backspace", "down", function ()

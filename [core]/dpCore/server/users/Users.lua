@@ -133,6 +133,23 @@ function Users.loginPlayer(player, username, password, callback)
 	end)
 end
 
+function Users.updateUserPassword(username, password, callback)
+	if type(username) ~= "string" or type(password) ~= "string" then
+		outputDebugString("ERROR: Users.updateUserPassword: bad arguments")
+		return false
+	end
+
+	-- Проверка пароля
+	if not checkPassword(password) then
+		outputDebugString("ERROR: Users.updateUserPassword: bad password")
+		return false, "bad_password"
+	end
+	-- Хэширование пароля
+	password = hashUserPassword(username, password)
+	-- Обновление пароля
+	return DatabaseTable.update(USERS_TABLE_NAME, { password = password }, { username = username }, callback)
+end
+
 function Users.get(userId, fields, callback)
 	if type(userId) ~= "number" or type(fields) ~= "table" then
 		executeCallback(callback, false)
@@ -146,8 +163,7 @@ function Users.update(username, fields)
 	if type(username) ~= "string" or type(fields) ~= "table" then
 		return false
 	end
-	local success = DatabaseTable.update(USERS_TABLE_NAME, fields, {username = username}, function () end)
-	return success
+	return DatabaseTable.update(USERS_TABLE_NAME, fields, {username = username}, function () end)
 end
 
 function Users.getByUsername(username, fields)
@@ -275,6 +291,23 @@ addEventHandler("dpCore.logoutRequest", resourceRoot, function(username, passwor
 	if not success then
 		triggerClientEvent(player, "dpCore.logoutResponse", resourceRoot, false)
 		triggerEvent("dpCore.logout", player, false)
+	end
+end)
+
+addEvent("dpCore.passwordChangeRequest", true)
+addEventHandler("dpCore.passwordChangeRequest", resourceRoot, function (password)
+	local player = client
+
+	if not Users.isPlayerLoggedIn(player) then
+		triggerClientEvent(player, "dpCore.passwordChangeResponse", resourceRoot, false)
+		return false
+	end
+	local username = player:getData("username")
+	local success = Users.updateUserPassword(username, password, function (result)
+		triggerClientEvent(player, "dpCore.passwordChangeResponse", resourceRoot, result)
+	end)
+	if not success then
+		triggerClientEvent(player, "dpCore.passwordChangeResponse", resourceRoot, false)
 	end
 end)
 

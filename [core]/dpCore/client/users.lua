@@ -20,6 +20,23 @@ function register(username, password, ...)
 end
 
 -- Result event:
+-- dpCore.passwordChangeResponse
+function changePassword(password)
+	if type(password) ~= "string" then
+		return false, "bad_password"
+	end
+	success, errorType = checkPassword(password)
+	if not success then
+		return false, errorType
+	end
+	if AccountsConfig.HASH_PASSWORDS_CLIENTSIDE then
+		password = sha256(password)
+	end	
+	triggerServerEvent("dpCore.passwordChangeRequest", resourceRoot, password)
+	return true
+end
+
+-- Result event:
 -- dpCore.loginResponse
 function login(username, password)
 	if type(username) ~= "string" or type(password) ~= "string" then

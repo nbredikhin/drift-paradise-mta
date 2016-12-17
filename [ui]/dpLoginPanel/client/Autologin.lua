@@ -44,3 +44,6 @@ function Autologin.load()
 	end
 	return fields
 end
+
+-- export
+autologinRemember = Autologin.remember

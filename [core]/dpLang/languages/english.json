@@ -25,7 +25,6 @@
 	"race_type_sprint": "Sprint",
 	"race_type_circle": "Lap race",
 
-
 	"quit_reason_unknown": "disconnect",
 	"quit_reason_quit": "disconnect",
 	"quit_reason_kicked": "kicked",
@@ -328,6 +327,18 @@
 	"main_panel_settings_screen_blur": "screen blur",
 	"main_panel_settings_tyres_smoke": "tyres smoke",
 	"main_panel_settings_background_music": "background music",
+	"main_panel_setting_change_password": "Change password",
+
+	"main_panel_password_change_title": "Change account password",
+	"main_panel_new_password_label": "New password",
+	"main_panel_new_password_placeholder": "Enter new password",
+	"main_panel_new_password_repeat_label": "Repeat new password",
+	"main_panel_new_password_repeat_placeholder": "Enter new password again",
+	"main_panel_new_password_accept": "Accept",
+	"main_panel_new_password_cancel": "Back",	
+	"main_panel_password_change_message": "Password change",
+	"main_panel_password_change_error": "Failed to change your password",
+	"main_panel_password_change_success": "You have successfully changed your account password",
 
 	// ==========================================
 	// ================ Markers =================

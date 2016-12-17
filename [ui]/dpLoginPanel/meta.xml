@@ -9,5 +9,6 @@
 	<file src="assets/background.jpg"/>
 	<file src="assets/quote.png"/>
 
-	<export type="client" function="setVisible"/>
+    <export type="client" function="setVisible"/>
+	<export type="client" function="autologinRemember"/>
 </meta>

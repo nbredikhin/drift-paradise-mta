@@ -34,7 +34,7 @@ function AccountTab.create()
 		else
 			return exports.dpLang:getString("groups_" .. tostring(value))
 		end
-	end)	
+	end)
 
 	local moneyLabel = UI:createDpLabel {
 		x = width - width / 3 - 20 , y = 15,
@@ -224,17 +224,6 @@ function AccountTab.create()
 	}
 end
 
-function comma_value(amount)
-	local formatted = amount
-	while true do
-		formatted, k = utf8.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
-		if (k == 0) then
-			break
-		end
-	end
-	return formatted
-end
-
 function AccountTab.refresh()
 	local level = localPlayer:getData("level")
 	if not level then
@@ -264,7 +253,7 @@ function AccountTab.refresh()
 		UI:setVisible(ui.xpLabel, false)
 	else
 		UI:setText(ui.levelLabelNext, tostring(level + 1))
-		UI:setText(ui.xpLabel, ("%s/%s"):format(comma_value(currentXp), comma_value(nextLevelXp)))
+		UI:setText(ui.xpLabel, ("%s/%s XP"):format(exports.dpUtils:format_num(currentXp, 0), exports.dpUtils:format_num(nextLevelXp, 0)))
 		UI:setVisible(ui.xpLabel, true)
 	end
 

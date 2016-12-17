@@ -87,12 +87,19 @@ function Colors.setTheme(name)
 	return true
 end
 
-function Colors.getThemeColor(themeName)
+function Colors.getThemeColor(themeName, color)
+	local theme
 	if type(themeName) == "string" then
-		return unpack(themes[themeName]["primary"])
+		theme = themes[themeName]
+	else
+		theme = themes[currentThemeName]
 	end
 
-	return unpack(themes[currentThemeName]["primary"])
+	if type(color) == "string" then
+		return unpack(theme[color])
+	end
+
+	return unpack(theme["primary"])
 end
 
 function Colors.getThemeName()
@@ -113,7 +120,7 @@ local function loadThemes()
 					if theme[colorName] then
 						themes[themeName][colorName] = theme[colorName]
 					else
-						themes[themeName][colorName] = {unpack(DEFAULT_THEME[colorName])}
+						themes[themeName][colorName] = {unpack(defaultColor)}
 					end
 				end
 			end

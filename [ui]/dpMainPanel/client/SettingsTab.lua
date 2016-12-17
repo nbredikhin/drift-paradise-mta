@@ -25,9 +25,9 @@ function SettingsTab.create()
 
     -- Раздел настроек игры
     UI:addChild(ui.panel, UI:createDpLabel {
-        x        = 20, 
+        x        = 20,
         y        = y,
-        width    = width / 2, 
+        width    = width / 2,
         height   = 30,
         color    = tocolor(0, 0, 0, 100),
         fontType = "defaultSmall",
@@ -37,9 +37,9 @@ function SettingsTab.create()
     -- Подпись к кнопкам выбора языка
     y = y + 25
     UI:addChild(ui.panel, UI:createDpLabel {
-        x        = 20, 
+        x        = 20,
         y        = y,
-        width    = width / 3, 
+        width    = width / 3,
         height   = 30,
         fontType = "defaultSmall",
         type     = "dark",
@@ -51,9 +51,9 @@ function SettingsTab.create()
     local langX = 20
     for i, languageButton in ipairs(languageButtonsList) do
         local button = UI:createDpImageButton({
-            x       = langX, 
+            x       = langX,
             y       = y + 5,
-            width   = 20, 
+            width   = 20,
             height  = 20,
             texture = exports.dpAssets:createTexture("buttons/" .. tostring(languageButton.name) .. ".png")
         })
@@ -65,9 +65,9 @@ function SettingsTab.create()
     -- Подпись к кнопкам выбора цвета
     y = y + 30
     UI:addChild(ui.panel, UI:createDpLabel {
-        x        = 20, 
+        x        = 20,
         y        = y,
-        width    = width / 3, 
+        width    = width / 3,
         height   = 30,
         fontType = "defaultSmall",
         type     = "dark",
@@ -82,21 +82,22 @@ function SettingsTab.create()
         local button = UI:createDpImageButton({
             x       = colorButtonX,
             y       = y + 5,
-            width   = 20, 
+            width   = 20,
             height  = 20,
             color   = tocolor(exports.dpUI:getThemeColor(colorButton.name)),
             texture = circleTexture
         })
         UI:addChild(ui.panel, button)
+        colorButton.button = button
         colorButtonX = colorButtonX + 25
     end
 
     -- Раздел настроек чата
     y = y + 30
     UI:addChild(ui.panel, UI:createDpLabel {
-        x        = 20 , 
+        x        = 20 ,
         y        = y,
-        width    = width / 2, 
+        width    = width / 2,
         height   = 30,
         color    = tocolor(0, 0, 0, 100),
         fontType = "defaultSmall",
@@ -107,17 +108,17 @@ function SettingsTab.create()
     y = y + 30
     local chatSectionY = y
     ui.joinQuitMessagesCheckbox = UI:createDpCheckbox {
-        x      = 20, 
+        x      = 20,
         y      = y + 4,
-        width  = 20, 
+        width  = 20,
         height = 20
     }
     UI:addChild(ui.panel, ui.joinQuitMessagesCheckbox)
     UI:setState(ui.joinQuitMessagesCheckbox, exports.dpConfig:getProperty("chat.joinquit_messages"))
     UI:addChild(ui.panel, UI:createDpLabel {
-        x        = 50, 
+        x        = 50,
         y        = y,
-        width    = width / 3, 
+        width    = width / 3,
         height   = 30,
         fontType = "defaultSmall",
         type     = "dark",
@@ -127,17 +128,17 @@ function SettingsTab.create()
     -- Время в чате
     local chatTimestampX = width * 0.6
     ui.chatTimestampCheckbox = UI:createDpCheckbox {
-        x      = chatTimestampX, 
+        x      = chatTimestampX,
         y      = chatSectionY + 4,
-        width  = 20, 
+        width  = 20,
         height = 20
     }
     UI:addChild(ui.panel, ui.chatTimestampCheckbox)
     UI:setState(ui.chatTimestampCheckbox, exports.dpConfig:getProperty("chat.timestamp"))
     UI:addChild(ui.panel, UI:createDpLabel {
-        x        = chatTimestampX + 30, 
+        x        = chatTimestampX + 30,
         y        = chatSectionY,
-        width    = width / 3, 
+        width    = width / 3,
         height   = 30,
         fontType = "defaultSmall",
         type     = "dark",
@@ -147,9 +148,9 @@ function SettingsTab.create()
     -- Заголовок раздела графики
     y = y + 30
     UI:addChild(ui.panel, UI:createDpLabel {
-        x        = 20, 
+        x        = 20,
         y        = y,
-        width    = width / 2, 
+        width    = width / 2,
         height   = 30,
         color    = tocolor(0, 0, 0, 100),
         fontType = "defaultSmall",
@@ -160,17 +161,17 @@ function SettingsTab.create()
     y = y + 30
     local graphicsSectionY = y
     ui.reflectionsCheckbox = UI:createDpCheckbox {
-        x      = 20, 
+        x      = 20,
         y      = y + 4,
-        width  = 20, 
+        width  = 20,
         height = 20
     }
     UI:addChild(ui.panel, ui.reflectionsCheckbox)
     UI:setState(ui.reflectionsCheckbox, exports.dpConfig:getProperty("graphics.reflections_cars"))
     UI:addChild(ui.panel, UI:createDpLabel {
-        x        = 50, 
+        x        = 50,
         y        = y,
-        width    = width / 3, 
+        width    = width / 3,
         height   = 30,
         fontType = "defaultSmall",
         type     = "dark",
@@ -180,9 +181,9 @@ function SettingsTab.create()
     -- Вода
     y = y + 30
     ui.waterCheckbox = UI:createDpCheckbox {
-        x      = 20, 
+        x      = 20,
         y      = y + 4,
-        width  = 20, 
+        width  = 20,
         height = 20
     }
     UI:addChild(ui.panel, ui.waterCheckbox)
@@ -190,7 +191,7 @@ function SettingsTab.create()
     UI:addChild(ui.panel, UI:createDpLabel {
         x        = 50,
         y        = y,
-        width    = width / 3, 
+        width    = width / 3,
         height   = 30,
         fontType = "defaultSmall",
         type     = "dark",
@@ -200,17 +201,17 @@ function SettingsTab.create()
     -- Фары
     y = y + 30
     ui.carLightsCheckbox = UI:createDpCheckbox {
-        x      = 20, 
+        x      = 20,
         y      = y + 4,
-        width  = 20, 
+        width  = 20,
         height = 20
     }
     UI:addChild(ui.panel, ui.carLightsCheckbox)
     UI:setState(ui.carLightsCheckbox, exports.dpConfig:getProperty("graphics.improved_car_lights"))
     UI:addChild(ui.panel, UI:createDpLabel {
-        x        = 50, 
+        x        = 50,
         y        = y,
-        width    = width / 3, 
+        width    = width / 3,
         height   = 30,
         fontType = "defaultSmall",
         type     = "dark",
@@ -220,17 +221,17 @@ function SettingsTab.create()
     -- Небо
     y = y + 30
     ui.improvedSkyCheckbox = UI:createDpCheckbox {
-        x      = 20, 
+        x      = 20,
         y      = y + 4,
-        width  = 20, 
+        width  = 20,
         height = 20
     }
     UI:addChild(ui.panel, ui.improvedSkyCheckbox)
     UI:setState(ui.improvedSkyCheckbox, exports.dpConfig:getProperty("graphics.improved_sky"))
     UI:addChild(ui.panel, UI:createDpLabel {
-        x        = 50, 
+        x        = 50,
         y        = y,
-        width    = width / 3, 
+        width    = width / 3,
         height   = 30,
         fontType = "defaultSmall",
         type     = "dark",
@@ -240,18 +241,18 @@ function SettingsTab.create()
     -- Размытие
     y = y + 30
     ui.blurChechbox = UI:createDpCheckbox {
-        x      = 20, 
+        x      = 20,
         y      = y + 4,
-        width  = 20, 
+        width  = 20,
         height = 20
     }
     UI:addChild(ui.panel, ui.blurChechbox)
     UI:setState(ui.blurChechbox, exports.dpConfig:getProperty("ui.blur"))
 
     UI:addChild(ui.panel, UI:createDpLabel {
-        x        = 50, 
+        x        = 50,
         y        = y,
-        width    = width / 3, 
+        width    = width / 3,
         height   = 30,
         fontType = "defaultSmall",
         type     = "dark",
@@ -261,18 +262,18 @@ function SettingsTab.create()
     -- Дым
     local x = width * 0.6
     ui.smokeCheckbox = UI:createDpCheckbox {
-        x      = x, 
+        x      = x,
         y      = graphicsSectionY + 4,
-        width  = 20, 
+        width  = 20,
         height = 20
     }
     UI:addChild(ui.panel, ui.smokeCheckbox)
     UI:setState(ui.smokeCheckbox, exports.dpConfig:getProperty("graphics.tyres_smoke"))
 
     UI:addChild(ui.panel, UI:createDpLabel {
-        x        = x + 30, 
+        x        = x + 30,
         y        = graphicsSectionY,
-        width    = width / 3, 
+        width    = width / 3,
         height   = 30,
         text     = "",
         fontType = "defaultSmall",
@@ -284,18 +285,18 @@ function SettingsTab.create()
     local x = width * 0.6
     graphicsSectionY = graphicsSectionY + 30
     ui.musicCheckbox = UI:createDpCheckbox {
-        x      = x, 
+        x      = x,
         y      = graphicsSectionY + 4,
-        width  = 20, 
+        width  = 20,
         height = 20
     }
     UI:addChild(ui.panel, ui.musicCheckbox)
     UI:setState(ui.musicCheckbox, exports.dpConfig:getProperty("game.background_music"))
 
     UI:addChild(ui.panel, UI:createDpLabel {
-        x        = x + 30, 
+        x        = x + 30,
         y        = graphicsSectionY,
-        width    = width / 3, 
+        width    = width / 3,
         height   = 30,
         text     = "",
         fontType = "defaultSmall",
@@ -317,7 +318,7 @@ function SettingsTab.create()
         locale = "main_panel_setting_change_password",
         type   = "primary"
     }
-    UI:addChild(ui.panel, ui.passwordChangeButton)  
+    UI:addChild(ui.panel, ui.passwordChangeButton)
 end
 
 addEvent("dpUI.click", false)

@@ -32,7 +32,7 @@ function MutePanel.show(player)
 		return 
 	end
 	targetPlayer = player
-	if isVisible then
+	if isVisible or localPlayer:getData("activeUI") then
 		return
 	end
 	isVisible = true
@@ -42,6 +42,8 @@ function MutePanel.show(player)
 
 	selectedDuration = 1
 	redrawDurationButtons()
+	localPlayer:setData("activeUI", "moderatorPanel")
+	exports.dpUI:fadeScreen(true)
 end
 
 function MutePanel.hide()
@@ -52,6 +54,8 @@ function MutePanel.hide()
 	targetPlayer = nil
 	showCursor(false)
 	UI:setVisible(ui.panel, false)
+	localPlayer:setData("activeUI", false)
+	exports.dpUI:fadeScreen(false)
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()

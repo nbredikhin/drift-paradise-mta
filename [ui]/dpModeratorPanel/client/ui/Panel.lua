@@ -14,7 +14,7 @@ local playersShowCount = 7
 local selectedPlayer
 
 function Panel.show()
-	if isVisible then
+	if isVisible or localPlayer:getData("activeUI") then
 		return false
 	end
 	isVisible = true
@@ -26,6 +26,8 @@ function Panel.show()
 	Panel.filterPlayersList()
 
 	Panel.hidePlayerInfo()
+	localPlayer:setData("activeUI", "moderatorPanel")
+	exports.dpUI:fadeScreen(true)
 end
 
 function Panel.filterPlayersList()
@@ -61,6 +63,8 @@ function Panel.hide()
 
 	UI:setVisible(ui.panel, false)
 	showCursor(false)
+	localPlayer:setData("activeUI", false)
+	exports.dpUI:fadeScreen(false)
 end
 
 function Panel.showPlayerInfo(player)

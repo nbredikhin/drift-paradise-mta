@@ -34,7 +34,7 @@ function BanPanel.show(player)
 	if not isElement(player) then
 		return 
 	end
-	if isVisible then
+	if isVisible or localPlayer:getData("activeUI") then
 		targetPlayer = player
 		return
 	end
@@ -46,6 +46,8 @@ function BanPanel.show(player)
 
 	selectedDuration = 1
 	redrawDurationButtons()
+	localPlayer:setData("activeUI", "moderatorPanel")
+	exports.dpUI:fadeScreen(true)
 end
 
 function BanPanel.hide()
@@ -56,6 +58,8 @@ function BanPanel.hide()
 	targetPlayer = nil
 	showCursor(false)
 	UI:setVisible(ui.panel, false)
+	localPlayer:setData("activeUI", false)
+	exports.dpUI:fadeScreen(false)
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()

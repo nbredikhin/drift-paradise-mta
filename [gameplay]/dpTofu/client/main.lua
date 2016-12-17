@@ -21,7 +21,90 @@ local isRunning = false
 local isThereCollision = false
 local startTime = 0
 
+local screenSize = Vector2(guiGetScreenSize())
+local font = exports.dpAssets:createFont("Roboto-Regular.ttf", 24)
+
 addEvent("dpMarkers.use", false)
+
+function screenScale(val)
+	if screenSize.x < 1280 then
+		return val * screenSize.x / 1280
+	end
+	return val
+end
+
+local function draw()
+	-- colors
+	local bgColorR, bgColorG, bgColorB = exports.dpUI:getThemeColor(nil, "gray_darker")
+	local bg2ColorR, bg2ColorG, bg2ColorB = exports.dpUI:getThemeColor(nil, "gray_dark")
+	local bgColor = tocolor(bgColorR, bgColorG, bgColorB, 255)
+	local bg2Color = tocolor(bg2ColorR, bg2ColorG, bg2ColorB, 255)
+
+	local themeColorR, themeColorG, themeColorB = exports.dpUI:getThemeColor()
+	local themeColor = tocolor(themeColorR, themeColorG, themeColorB, 255)
+	local themeColorHEX = exports.dpUtils:RGBToHex(themeColorR, themeColorG, themeColorB)
+
+    -- name
+    local textWidth
+    local nameBgOffsetX = screenScale(20)
+    local nameBgWidth, nameBgHeight = screenScale(256), screenScale(48)
+    local nameBgOffsetY = screenScale(366)
+    dxDrawRectangle(nameBgOffsetX, screenSize.y - nameBgHeight - nameBgOffsetY, nameBgWidth, nameBgHeight, themeColor)
+
+    local textOffsetX = screenScale(10)
+	local textOffsetY = screenScale(3)
+	local fontHeight = font:getHeight()
+
+    local nameText = exports.dpLang:getString("tofu_blip_text")
+	textWidth = font:getTextWidth(nameText, 1, true)
+	local nameTextX = nameBgOffsetX + textOffsetX
+	textY = screenSize.y - (nameBgOffsetY + textOffsetY)
+	dxDrawText(nameText, nameTextX, textY - fontHeight, nameBgOffsetX + nameBgWidth, textY, 0xFFFFFFFF, 1, font, "left", "bottom", true, false, false, false, true)
+
+	-- bg
+	local bgOffsetX = screenScale(20)
+	local bgWidth, bgHeight = screenScale(256), screenScale(48)
+	local bgOffsetY = screenScale(318)
+	dxDrawRectangle(bgOffsetX, screenSize.y - bgHeight - bgOffsetY, bgWidth, bgHeight, bgColor)
+
+	local bg2OffsetX = screenScale(20)
+	local bg2OffsetY = screenScale(270)
+	local bg2Width, bg2Height = screenScale(256), screenScale(48)
+	dxDrawRectangle(bg2OffsetX, screenSize.y - bg2Height - bg2OffsetY, bg2Width, bg2Height, bg2Color)
+
+	-- text
+	local elapsedTime = getElapsedTime()
+
+	-- checkpoints
+	local checkpointsText = ("%d%s/#FFFFFF%d"):format(RaceCheckpoints.getCurrentCheckpoint(), themeColorHEX, RaceCheckpoints.getCheckpointsCount())
+	textWidth = font:getTextWidth(checkpointsText, 1, true)
+	local checkpointsTextX = bgOffsetX + textOffsetX
+	textY = screenSize.y - (bgOffsetY + textOffsetY)
+	dxDrawText(checkpointsText, checkpointsTextX, textY - fontHeight, checkpointsTextX + textWidth, textY, 0xFFFFFFFF, 1, font, "left", "bottom", false, false, false, true, true)
+
+	-- time
+	local timeText = ("#FFFFFF%02d%s:#FFFFFF%02d"):format(elapsedTime / 60, themeColorHEX, elapsedTime % 60)
+	textWidth = font:getTextWidth(timeText, 1, true)
+	local timeTextX = (bgOffsetX + bgWidth) - textWidth - textOffsetX
+	dxDrawText(timeText, timeTextX, textY - fontHeight, timeTextX + textWidth, textY, 0xFFFFFFFF, 1, font, "right", "bottom", false, false, false, true, true)
+
+	-- money
+	local perfectBonus = getPerfectBonus(false)
+	local timeBonus = getTimeBonus(elapsedTime)
+
+	local moneyText = ("+%s%s"):format(themeColorHEX, exports.dpUtils:format_num(getMoneyReward(perfectBonus, timeBonus), 0, "$"))
+	textWidth = font:getTextWidth(moneyText, 1, true)
+	local moneyTextX = bg2OffsetX + textOffsetX
+	textY = screenSize.y - (bg2OffsetY + textOffsetY)
+	dxDrawText(moneyText, moneyTextX, textY - fontHeight, checkpointsTextX + textWidth, textY, 0xFFFFFFFF, 1, font, "left", "bottom", false, false, false, true, true)
+
+	-- xp
+	local xpText = ("+%s%s XP"):format(themeColorHEX, exports.dpUtils:format_num(getXpReward(perfectBonus, timeBonus), 0))
+	textWidth = font:getTextWidth(xpText, 1, true)
+	local xpTextX = (bg2OffsetX + bg2Width) - textWidth - textOffsetX
+	dxDrawText(xpText, xpTextX, textY - fontHeight, xpTextX + textWidth, textY, 0xFFFFFFFF, 1, font, "right", "bottom", false, false, false, true, true)
+
+end
 
 local function takeTofu()
     if isRunning then
@@ -48,6 +131,8 @@ local function takeTofu()
     for i, tofuPoint in ipairs(tofuPoints) do
         tofuPoint.ped:setAnimation("DANCING", "dance_loop")
     end
+
+    addEventHandler("onClientRender", root, draw)
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
@@ -105,20 +190,25 @@ function cancelTofu()
     for i, tofuPoint in ipairs(tofuPoints) do
         tofuPoint.ped:setAnimation()
     end
+
+    removeEventHandler("onClientRender", root, draw)
+end
+
+function getElapsedTime()
+    return getRealTime().timestamp - startTime
 end
 
 function finishTofu()
     if not isRunning then
         return false
     end
-    local timePassed = getRealTime().timestamp - startTime
 
-    triggerServerEvent("dpTofu.finish", resourceRoot, timePassed, not isThereCollision)
+    triggerServerEvent("dpTofu.finish", resourceRoot, getElapsedTime(), not isThereCollision)
 end
 
 addEvent("dpTofu.finish", true)
 addEventHandler("dpTofu.finish", localPlayer,
-    function (money, xp, perfectBonus, timeBonus, timePassed, isPerfect)
+    function (money, xp, perfectBonus, timeBonus, isPerfect, timePassed)
         FinishScreen.show(money, xp, perfectBonus, timeBonus, timePassed)
         cancelTofu()
     end
@@ -173,13 +263,13 @@ addEventHandler("onClientColShapeLeave", resourceRoot, function (element, matchi
 end)
 
 addEventHandler("onClientVehicleCollision", root, function (_, force)
+    if not isRunning then
+        return
+    end
     if source ~= localPlayer.vehicle then
         return
     end
     if force < MIN_COLLISION_FORCE then
-        return
-    end
-    if not isRunning then
         return
     end
     isThereCollision = true

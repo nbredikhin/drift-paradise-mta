@@ -39,11 +39,11 @@ function RGBToHex(red, green, blue, alpha)
 		return string.format("#%.2X%.2X%.2X", red,green,blue)
 	end
 end
- 
+
 function generateString(len)
     if tonumber(len) then
         math.randomseed ( getTickCount () )
- 
+
         local str = ""
         for i = 1, len do
             str = str .. string.char ( math.random (65, 90 ) )
@@ -95,10 +95,10 @@ end
 
 ---============================================================
 -- add comma to separate thousands
--- 
+--
 function comma_value(amount)
 	local formatted = amount
-	while true do  
+	while true do
 		formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
 		if (k==0) then
 			break
@@ -129,7 +129,7 @@ function format_num(amount, decimal, prefix, neg_prefix)
 	decimal = decimal or 2  -- default 2 decimal places
 	neg_prefix = neg_prefix or "-" -- default negative sign
 
-	famount = math.abs(round(amount,decimal))
+	famount = math.abs(round(amount, decimal))
 	famount = math.floor(famount)
 
 	remain = round(math.abs(amount) - famount, decimal)
@@ -144,15 +144,15 @@ function format_num(amount, decimal, prefix, neg_prefix)
 								string.rep("0", decimal - string.len(remain))
 	end
 
-				-- attach prefix string e.g '$' 
-	formatted = (prefix or "") .. formatted 
+				-- attach prefix string e.g '$'
+	formatted = (prefix or "") .. formatted
 
 				-- if value is negative then format accordingly
-	if (amount<0) then
+	if (amount < 0) then
 		if (neg_prefix=="()") then
-			formatted = "("..formatted ..")"
+			formatted = "(" .. formatted .. ")"
 		else
-			formatted = neg_prefix .. formatted 
+			formatted = neg_prefix .. formatted
 		end
 	end
 

@@ -54,13 +54,14 @@ local function onMarkerHit(player)
 			RaceCheckpoints.showNext()
 		end
 	end
-	-- Sraka
 end
 
 function RaceCheckpoints.start(checkpoints, settingsTable)
 	if isActive then
 		return false
 	end
+	isActive = true
+
 	if not settingsTable then settingsTable = {} end
 	settings = exports.dpUtils:extendTable(settingsTable, defaultSettings)
 
@@ -71,7 +72,6 @@ function RaceCheckpoints.start(checkpoints, settingsTable)
 	RaceCheckpoints.showNext()
 
 	addEventHandler("onClientMarkerHit", resourceRoot, onMarkerHit)
-	isActive = true
 end
 
 function RaceCheckpoints.stop()
@@ -79,8 +79,8 @@ function RaceCheckpoints.stop()
 		return false
 	end
 	destroyMarkers()
-	removeEventHandler("onClientMarkerHit", resourceRoot, onMarkerHit)
 	isActive = false
+	removeEventHandler("onClientMarkerHit", resourceRoot, onMarkerHit)
 end
 
 function RaceCheckpoints.showNext()

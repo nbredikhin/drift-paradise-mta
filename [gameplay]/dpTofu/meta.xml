@@ -4,6 +4,7 @@
 	<script type="client" src="client/FinishScreen.lua"/>
 	<script type="client" src="client/main.lua"/>
 	<script type="server" src="server/server.lua"/>
+	<script type="shared" src="shared/reward.lua"/>
 
 	<file src="skin/1.dff"/>
 	<file src="skin/1.txd"/>

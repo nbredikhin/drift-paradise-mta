@@ -17,24 +17,7 @@ local moneyTextFont
 local infoTextFont
 
 local moneyTextFontHeight = 0
-local themeColorHEX = "#FFAA00"
-
-local function getTimeString(value)
-	local seconds = math.floor(value)
-	local minutes = math.floor(seconds / 60)
-	seconds = seconds - minutes * 60
-	if minutes < 10 then
-		minutes = "0" .. tostring(minutes)
-	else
-		minutes = tostring(minutes)
-	end
-	if seconds < 10 then
-		seconds = "0" .. tostring(seconds)
-	else
-		seconds = tostring(seconds)
-	end
-	return tostring(minutes) .. ":" .. tostring(seconds)
-end
+local themeColorHEX
 
 local function draw()
 	dxDrawRectangle(0, 0, screenSize.x, screenSize.y, tocolor(0, 0, 0, 200 * animationProgress))
@@ -62,7 +45,7 @@ end
 function FinishScreen.show(money, xp, perfectBonus, timeBonus, timePassed)
 	themeColorHEX = exports.dpUtils:RGBToHex(exports.dpUI:getThemeColor())
 
-	infoText = exports.dpLang:getString("tofu_time_text") .. ": " .. themeColorHEX .. tostring(getTimeString(math.floor(timePassed)))
+	infoText = exports.dpLang:getString("tofu_time_text") .. ": " .. themeColorHEX .. ("%02d:%02d"):format(timePassed / 60, timePassed % 60)
 	mainText = exports.dpLang:getString("tofu_finish_text")
 	moneyText = themeColorHEX .. "+$" .. tostring(money) .. " +" .. tostring(xp) .. " XP"
 	if perfectBonus and perfectBonus > 1 then

@@ -16,7 +16,7 @@
 
 	"groups_player": "Игрок",
 	"groups_moderator": "Модератор",
-	"groups_admin": "Администратор",	
+	"groups_admin": "Администратор",
 
 	"race_type_drift": "Дрифт",
 	"race_type_drag": "Драг",
@@ -108,7 +108,7 @@
 	"tab_panel_players_online": "Игроков онлайн",
 	"tab_panel_group_moderators": "Модераторы",
 	"tab_panel_group_premium": "Донатеры",
-	"tab_panel_group_players": "Игроки",	
+	"tab_panel_group_players": "Игроки",
 
 	// Message box
 	"login_panel_auth_error": "Ошибка авторизации",

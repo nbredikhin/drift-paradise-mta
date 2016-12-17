@@ -22,9 +22,6 @@ local isThereCollision = false
 local startTime = 0
 
 local screenSize = Vector2(guiGetScreenSize())
-local font = exports.dpAssets:createFont("Roboto-Regular.ttf", 24)
-
-addEvent("dpMarkers.use", false)
 
 function screenScale(val)
 	if screenSize.x < 1280 then
@@ -32,6 +29,11 @@ function screenScale(val)
 	end
 	return val
 end
+
+
+local font = exports.dpAssets:createFont("Roboto-Regular.ttf", screenScale(20))
+
+addEvent("dpMarkers.use", false)
 
 local function draw()
 	-- colors
@@ -52,14 +54,14 @@ local function draw()
     dxDrawRectangle(nameBgOffsetX, screenSize.y - nameBgHeight - nameBgOffsetY, nameBgWidth, nameBgHeight, themeColor)
 
     local textOffsetX = screenScale(10)
-	local textOffsetY = screenScale(3)
+	local textOffsetY = screenScale(8)
 	local fontHeight = font:getHeight()
 
     local nameText = exports.dpLang:getString("tofu_blip_text")
 	textWidth = font:getTextWidth(nameText, 1, true)
 	local nameTextX = nameBgOffsetX + textOffsetX
-	textY = screenSize.y - (nameBgOffsetY + textOffsetY)
-	dxDrawText(nameText, nameTextX, textY - fontHeight, nameBgOffsetX + nameBgWidth, textY, 0xFFFFFFFF, 1, font, "left", "bottom", true, false, false, false, true)
+	textY = screenSize.y - (nameBgOffsetY)
+	dxDrawText(nameText, nameTextX, textY - nameBgHeight, nameBgOffsetX + nameBgWidth - textOffsetX, textY, 0xFFFFFFFF, 1, font, "left", "center", true, false, false, false, true)
 
 	-- bg
 	local bgOffsetX = screenScale(20)
@@ -79,14 +81,14 @@ local function draw()
 	local checkpointsText = ("%d%s/#FFFFFF%d"):format(RaceCheckpoints.getCurrentCheckpoint(), themeColorHEX, RaceCheckpoints.getCheckpointsCount())
 	textWidth = font:getTextWidth(checkpointsText, 1, true)
 	local checkpointsTextX = bgOffsetX + textOffsetX
-	textY = screenSize.y - (bgOffsetY + textOffsetY)
-	dxDrawText(checkpointsText, checkpointsTextX, textY - fontHeight, checkpointsTextX + textWidth, textY, 0xFFFFFFFF, 1, font, "left", "bottom", false, false, false, true, true)
+	textY = screenSize.y - (bgOffsetY)
+	dxDrawText(checkpointsText, checkpointsTextX, textY - bgHeight, checkpointsTextX + textWidth, textY, 0xFFFFFFFF, 1, font, "left", "center", false, false, false, true, true)
 
 	-- time
 	local timeText = ("#FFFFFF%02d%s:#FFFFFF%02d"):format(elapsedTime / 60, themeColorHEX, elapsedTime % 60)
 	textWidth = font:getTextWidth(timeText, 1, true)
 	local timeTextX = (bgOffsetX + bgWidth) - textWidth - textOffsetX
-	dxDrawText(timeText, timeTextX, textY - fontHeight, timeTextX + textWidth, textY, 0xFFFFFFFF, 1, font, "right", "bottom", false, false, false, true, true)
+	dxDrawText(timeText, timeTextX, textY - bgHeight, timeTextX + textWidth, textY, 0xFFFFFFFF, 1, font, "right", "center", false, false, false, true, true)
 
 	-- money
 	local perfectBonus = getPerfectBonus(false)
@@ -95,15 +97,14 @@ local function draw()
 	local moneyText = ("+%s%s"):format(themeColorHEX, exports.dpUtils:format_num(getMoneyReward(perfectBonus, timeBonus), 0, "$"))
 	textWidth = font:getTextWidth(moneyText, 1, true)
 	local moneyTextX = bg2OffsetX + textOffsetX
-	textY = screenSize.y - (bg2OffsetY + textOffsetY)
-	dxDrawText(moneyText, moneyTextX, textY - fontHeight, checkpointsTextX + textWidth, textY, 0xFFFFFFFF, 1, font, "left", "bottom", false, false, false, true, true)
+	textY = screenSize.y - (bg2OffsetY)
+	dxDrawText(moneyText, moneyTextX, textY - bg2Height, checkpointsTextX + textWidth, textY, 0xFFFFFFFF, 1, font, "left", "center", false, false, false, true, true)
 
 	-- xp
 	local xpText = ("+%s%s XP"):format(themeColorHEX, exports.dpUtils:format_num(getXpReward(perfectBonus, timeBonus), 0))
 	textWidth = font:getTextWidth(xpText, 1, true)
 	local xpTextX = (bg2OffsetX + bg2Width) - textWidth - textOffsetX
-	dxDrawText(xpText, xpTextX, textY - fontHeight, xpTextX + textWidth, textY, 0xFFFFFFFF, 1, font, "right", "bottom", false, false, false, true, true)
-
+	dxDrawText(xpText, xpTextX, textY - bg2Height, xpTextX + textWidth, textY, 0xFFFFFFFF, 1, font, "right", "center", false, false, false, true, true)
 end
 
 local function takeTofu()

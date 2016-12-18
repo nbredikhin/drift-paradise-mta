@@ -25,7 +25,7 @@ local startupResources = {
 	"dpLang",
 	"dpMarkers",
 	"dpCore",
-	"dpPathGenerator"
+	"dpPathGenerator",
 
 	-- UI
 	"dpUI",

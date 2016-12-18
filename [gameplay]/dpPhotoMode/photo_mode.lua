@@ -5,7 +5,7 @@ CAMERA_ZOOM_SPEED = 5
 MAX_CAMERA_FOV = 100
 MIN_CAMERA_FOV = 30
 MOUSE_SENSITIVITY = 0.2
-MAX_DISTANCE_FROM_PLAYER = 50
+MAX_DISTANCE_FROM_PLAYER = 80
 SPEED_SLOWER_MUL = 0.1
 SPEED_FASTER_MUL = 2.5
 SMOOTH_MOVEMENT_SPEED = 0.004
@@ -84,7 +84,6 @@ local photoModeEnabled = false
 local mouseFrameDelay = 0
 local updateFramesDelay = 0
 
-local savedHour, savedMinute
 timeHour, timeMinute = 0, 0
 local savedWeather
 currentWeather = 0
@@ -318,7 +317,6 @@ function enablePhotoMode()
 
 	photoModeEnabled = true
 
-	savedHour, savedMinute = getTime()
 	savedWeather = getWeather()
 	currentWeather = 0
 
@@ -387,7 +385,7 @@ function disablePhotoMode()
 
 	-- Set server time and weather
 	setMinuteDuration(1000)
-	setTime(savedHour, savedMinute)
+	exports.dpTime:restoreTime()
 	setWeather(savedWeather)
 
 	-- Show HUD

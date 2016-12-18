@@ -39,7 +39,7 @@ function PlayerData.clear(player)
 	player:setData("dpCore.state", nil)
 end
 
--- Защита даты 
+-- Защита даты
 addEventHandler("onElementDataChange", root, function(dataName, oldValue)
 	if not client then
 		return
@@ -48,15 +48,15 @@ addEventHandler("onElementDataChange", root, function(dataName, oldValue)
 		for i, name in ipairs(loadFields) do
 			if dataName == name then
 				source:setData(dataName, oldValue)
-				return 
+				return
 			end
 		end
 		for i, name in ipairs(protectFields) do
 			if dataName == name then
 				source:setData(dataName, oldValue)
-				return 
+				return
 			end
-		end		
+		end
 	end
 end)
 

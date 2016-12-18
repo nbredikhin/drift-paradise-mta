@@ -5,7 +5,7 @@
 PlayerSpawn = {}
 
 --- Заспавнить игрока.
--- Если у игрока нет дома, он будет заспавнен в отеле.
+-- Если у игрока нет дома, он будет заспавнен в гараже.
 -- @tparam player player игрок, которого необходимо заспавнить
 -- @treturn bool удалось ли заспавнить игрока
 function PlayerSpawn.spawn(player)
@@ -16,16 +16,19 @@ function PlayerSpawn.spawn(player)
 	if not isHotel then
 		player:setData("activeMap", "house")
 		player:setData("currentHouse", player:getData("house_id"))
+		player:fadeCamera(true, 3)
 	end
-	player:spawn(location.position)
+
 	if location.rotation then
 		player.rotation = location.rotation
 	end
+
 	player:setCameraTarget()
-	player:fadeCamera(true, 3)
 	player.interior = location.interior
 	player.dimension = location.dimension
+	player:spawn(location.position)
 	player.model = player:getData("skin")
+
 	triggerClientEvent("dpCore.spawn", player, isHotel)
 	return true
 end

@@ -92,6 +92,7 @@ local startupResources = {
 	"dynamic_lighting",
 	"dynamic_lighting_vehicles",
 	"shader_dynamic_sky",
+	"snowmod",
 
 	-- Non-important assets
 	"dpCarParts",

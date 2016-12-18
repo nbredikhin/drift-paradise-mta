@@ -281,8 +281,29 @@ function SettingsTab.create()
         locale   = "main_panel_settings_tyres_smoke"
     })
 
+    -- Снег
+    graphicsSectionY = graphicsSectionY + 30
+    ui.snowCheckbox = UI:createDpCheckbox {
+        x      = x,
+        y      = graphicsSectionY + 4,
+        width  = 20,
+        height = 20
+    }
+    UI:addChild(ui.panel, ui.snowCheckbox)
+    UI:setState(ui.snowCheckbox, exports.dpConfig:getProperty("graphics.snow"))
+
+    UI:addChild(ui.panel, UI:createDpLabel {
+        x        = x + 30,
+        y        = graphicsSectionY,
+        width    = width / 3,
+        height   = 30,
+        text     = "",
+        fontType = "defaultSmall",
+        type     = "dark",
+        locale   = "main_panel_settings_snow"
+    })    
+
     -- Музыка
-    local x = width * 0.6
     graphicsSectionY = graphicsSectionY + 30
     ui.musicCheckbox = UI:createDpCheckbox {
         x      = x,
@@ -364,6 +385,9 @@ addEventHandler("dpUI.click", resourceRoot, function(widget)
     elseif widget == ui.smokeCheckbox then
         playClickSound = true
         exports.dpConfig:setProperty("graphics.tyres_smoke", UI:getState(widget))
+    elseif widget == ui.snowCheckbox then
+        playClickSound = true
+        exports.dpConfig:setProperty("graphics.snow", UI:getState(widget))        
     elseif widget == ui.musicCheckbox then
         playClickSound = true
         exports.dpConfig:setProperty("game.background_music", UI:getState(widget))

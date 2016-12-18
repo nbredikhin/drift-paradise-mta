@@ -1,0 +1,28 @@
+<meta>
+	<script src="async.lua" type="client" cache="false"/>
+	<script src="snowmod.lua" type="client" cache="false"/>
+	
+	<file src="img/tex1.png" />
+	<file src="img/tex2.png" />
+	<file src="img/tex3.png" />
+	<file src="img/tex4.png" />
+	<file src="img/tex5.png" />
+	<file src="img/tex6.png" />
+	<file src="img/tex7.png" />
+	<file src="img/tex8.png" />
+	<file src="img/tex9.png" />
+	<file src="img/tex10.png" />
+	<file src="img/tex11.png" />
+	<file src="img/tex12.png" />
+	<file src="img/tex13.png" />
+	<file src="img/tex14.png" />
+	<file src="img/tex15.png" />
+	<file src="img/tex16.png" />
+	<file src="img/tex17.png" />
+	<file src="img/tex18.png" />
+	<file src="img/tex19.png" />
+	<file src="img/tex20.png" />
+	<file src="img/tex21.png" />
+	<file src="img/tex22.png" />
+	<file src="snowmod.fx" />
+</meta>

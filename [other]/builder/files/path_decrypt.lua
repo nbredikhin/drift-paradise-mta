@@ -24,9 +24,14 @@
         "Sound3D"
     }
 
-    local excludePaths = _exclude_paths
-    if not excludePaths then
-        excludePaths = {}
+    if not _exclude_paths then
+        _exclude_paths = {}
+    end
+
+    -- Таблица для более быстрого доступа
+    local excludedPaths = {}
+    for i, path in ipairs(_exclude_paths) do
+        excludedPaths[path] = true
     end
 
     for i, name in ipairs(functionsList) do
@@ -36,11 +41,9 @@
                 if type(path) ~= "string" then
                     return fn(path, ...)
                 end
-                for i,p in ipairs(excludePaths) do
-                    if string.find(path, p, 1, true) then
-                        return fn(path, ...)
-                    end
-                end           
+                if excludedPaths[path] then
+                    return fn(path, ...)
+                end         
                 return fn(md5("dp" .. path), ...)
             end
         end

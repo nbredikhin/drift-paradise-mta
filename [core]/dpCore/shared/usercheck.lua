@@ -32,6 +32,6 @@ function checkPassword(password)
 	local success, err = checkStringLength(password, PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH)
 	if not success then
 		return false, "password_" .. err
-	end	
+	end
 	return true
 end

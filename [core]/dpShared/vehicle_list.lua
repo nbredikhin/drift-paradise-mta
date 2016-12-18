@@ -8,11 +8,11 @@ local vehiclesTable = {
 	-- mazda_mx5miata 		= 411,
 	nissan_180sx 		= 602,
 	-- mitsubishi_eclipse	= nil,
-	nissan_silvia_s13	= 401,	
+	nissan_silvia_s13	= 401,
 	-- 3 класс
 	bmw_e30				= 410,
 	-- nissan_skyline_er34 = 445,
-	-- toyota_mark2_100	= nil,		
+	-- toyota_mark2_100	= nil,
 	nissan_datsun_240z	= 475,
 	-- toyota_altezza 		= 402,
 	-- 4 класс
@@ -31,7 +31,7 @@ local vehiclesTable = {
 	nissan_gtr35 		= 558,
 	lamborghini_huracan = 415,
 	ferrari_458_italia	= 451,
-	lamborghini_aventador = 506	
+	lamborghini_aventador = 506
 }
 
 -- Названия в том виде, в котором они будут отображаться
@@ -48,7 +48,7 @@ local vehiclesReadableNames = {
 	-- 3 класс
 	bmw_e30				= "BMW E30",
 	nissan_skyline_er34 = "Nissan Skyline ER34",
-	toyota_mark2_100	= "Toyota Mark II 100",	
+	toyota_mark2_100	= "Toyota Mark II 100",
 	nissan_datsun_240z 	= "Nissan Datsun 240Z",
 	toyota_altezza 		= "Toyota Altezza",
 	-- 4 класс

@@ -30,7 +30,6 @@ function screenScale(val)
 	return val
 end
 
-
 local font = exports.dpAssets:createFont("Roboto-Regular.ttf", screenScale(20))
 
 addEvent("dpMarkers.use", false)
@@ -91,7 +90,7 @@ local function draw()
 	dxDrawText(timeText, timeTextX, textY - bgHeight, timeTextX + textWidth, textY, 0xFFFFFFFF, 1, font, "right", "center", false, false, false, true, true)
 
 	-- money
-	local perfectBonus = getPerfectBonus(false)
+	local perfectBonus = getPerfectBonus(not isThereCollision)
 	local timeBonus = getTimeBonus(elapsedTime)
 
 	local moneyText = ("+%s%s"):format(themeColorHEX, exports.dpUtils:format_num(getMoneyReward(perfectBonus, timeBonus), 0, "$"))

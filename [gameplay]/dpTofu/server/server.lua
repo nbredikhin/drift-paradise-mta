@@ -8,8 +8,5 @@ addEventHandler("dpTofu.finish", resourceRoot, function (timePassed, isPerfect)
 	exports.dpCore:givePlayerMoney(client, moneyReward)
 	exports.dpCore:givePlayerXP(client, xpReward)
 
-
-
-	print("serv", isPerfect, perfectBonus)
 	triggerClientEvent(client, "dpTofu.finish", client, moneyReward, xpReward, perfectBonus, timeBonus, isPerfect, timePassed)
 end)

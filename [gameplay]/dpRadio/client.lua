@@ -10,8 +10,8 @@ local radioNameVisible = false
 local fading = false
 
 local screenSize = Vector2(guiGetScreenSize())
-local font = exports.dpAssets:createFont("Cuprum-Bold.ttf", 32, true)
-local secondFont = exports.dpAssets:createFont("Roboto-Regular.ttf", 16, true)
+local font = exports.dpAssets:createFont("Cuprum-Bold.ttf", screenScale(32), true)
+local secondFont = exports.dpAssets:createFont("Roboto-Regular.ttf", screenScale(16), true)
 
 local radios = {
     {localized_name = "radio_user_tracks", url = 12},
@@ -169,13 +169,13 @@ local function drawRadioName()
             end
         end
 
-        local x, y = screenSize.x, screenSize.y * 0.1
+        local x, y = screenSize.x, screenScale(64)
         dxDrawBorderedText(text, 0, 0, x, y, tocolor(r, g, b, 255 * alphaProgress), tocolor(0, 0, 0, 100 * alphaProgress), 1, font, "center", "center", false, false, true)
 
         if isElement(radioSound) then
             local metaTags = radioSound:getMetaTags()
             if metaTags.stream_title then
-                dxDrawBorderedText(metaTags.stream_title, 0, 0, x, screenSize.y * 0.18, tocolor(r, g, b, 255 * alphaProgress), tocolor(0, 0, 0, 100 * alphaProgress), 1, secondFont, "center", "center", false, false, true)
+                dxDrawBorderedText(metaTags.stream_title, 0, 0, x, screenScale(144), tocolor(r, g, b, 255 * alphaProgress), tocolor(0, 0, 0, 100 * alphaProgress), 1, secondFont, "center", "center", false, false, true)
             end
         end
     end
@@ -183,26 +183,22 @@ end
 
 addEventHandler("onClientRender", root, drawRadioName)
 
-addEventHandler("onClientVehicleExit", root,
-    function (player)
-        if localPlayer == player then
-            stopRadio()
-        end
+addEventHandler("onClientPlayerVehicleExit", localPlayer,
+    function (vehicle)
+        stopRadio()
     end
 )
 
-addEventHandler("onClientVehicleEnter", root,
-    function (player)
-        if localPlayer == player then
-            setRadio(currentStationId)
-        end
+addEventHandler("onClientPlayerVehicleEnter", localPlayer,
+    function (vehicle)
+        setRadio(currentStationId)
     end
 )
 
 addEventHandler("onClientElementDestroy", root,
     function ()
         if source and getElementType(source) == "vehicle" then
-            if source == localPlayer.o then
+            if source == localPlayer.vehicle then
                 stopRadio()
             end
         end

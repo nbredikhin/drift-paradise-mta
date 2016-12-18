@@ -1,5 +1,6 @@
 Chat = {}
 
+local MAX_HISTORY_LINES = 500
 local MAX_CHAT_LINES = 10
 local MAX_VISIBLE_TABS = 6
 local MAX_TAB_WIDTH = 72
@@ -21,9 +22,7 @@ function Chat.setVisible(visible)
 		return false
 	end
 
-	if visible then
-
-	else
+	if not visible then
 		Input.close()
 	end
 
@@ -347,7 +346,6 @@ end)
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
 	showChat(false)
-	Chat.setVisible(true)
 end)
 
 setTimer(showChat, 1000, 0, false)

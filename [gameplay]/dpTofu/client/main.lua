@@ -123,6 +123,8 @@ local function takeTofu()
         return
     end
 
+    tofuVehicle = localPlayer.vehicle
+
     local checkpointsList = exports.dpPathGenerator:generateCheckpointsForPlayer(localPlayer, CHECKPOINTS_COUNT)
     RaceCheckpoints.start(checkpointsList)
     isRunning = true
@@ -134,6 +136,7 @@ local function takeTofu()
     end
 
     addEventHandler("onClientRender", root, draw)
+    addEventHandler("onClientElementDestroy", tofuVehicle, cancelTofu)
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
@@ -185,6 +188,10 @@ function cancelTofu()
     if not isRunning then
         return false
     end
+
+    removeEventHandler("onClientRender", root, draw)
+    removeEventHandler("onClientElementDestroy", tofuVehicle, cancelTofu)
+
     isRunning = false
     startTime = 0
     RaceCheckpoints.stop()
@@ -192,7 +199,7 @@ function cancelTofu()
         tofuPoint.ped:setAnimation()
     end
 
-    removeEventHandler("onClientRender", root, draw)
+    tofuVehicle = nil
 end
 
 function getElapsedTime()
@@ -276,9 +283,11 @@ addEventHandler("onClientVehicleCollision", root, function (_, force)
     isThereCollision = true
 end)
 
-addEventHandler("onClientVehicleExit", root, function (player)
-    if player ~= localPlayer then
-        return
+addEventHandler("onClientPlayerVehicleExit", localPlayer,
+    function (vehicle, seat)
+        if not isRunning then
+            return
+        end
+        cancelTofu()
     end
-    cancelTofu()
-end)
+)

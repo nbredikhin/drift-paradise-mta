@@ -59,7 +59,7 @@ addEventHandler("dpMarkers.enter", root, function ()
 			local isOpen = marker:getData("house_open")
 
 			if not isOpen then
-				marker:setData("dpMarkers.text", exports.dpLang:getString("markers_house_knock_text"), false)		
+				marker:setData("dpMarkers.text", exports.dpLang:getString("markers_house_knock_text"), false)
 			else
 				marker:setData("dpMarkers.text", exports.dpLang:getString("markers_house_enter_text"), false)
 			end
@@ -82,7 +82,7 @@ addEventHandler("dpMarkers.use", root, function ()
 		local playerId = localPlayer:getData("_id")
 		if not ownerId and houseId then
 			exports.dpUI:showMessageBox(
-				exports.dpLang:getString("houses_message_title"), 
+				exports.dpLang:getString("houses_message_title"),
 				exports.dpLang:getString("houses_message_already_have_house")
 			)
 			return
@@ -100,13 +100,13 @@ addEventHandler("dpMarkers.use", root, function ()
 		end
 		if ownerId == playerId then
 			enterHouse(marker)
-		end		
+		end
 	elseif type(marker:getData("house_exit_position")) == "table" then
 		setTimer(function ()
 			triggerServerEvent("dpHouses.house_exit", resourceRoot, marker.id)
 			exports.dpHUD:setVisible(true)
 		end, 500, 1)
-		fadeCamera(false, 0.5)		
+		fadeCamera(false, 0.5)
 	end
 end)
 
@@ -118,7 +118,7 @@ end)
 addEventHandler("onClientElementDataChange", root, function(dataName)
 	if source.type ~= "marker" then
 		return
-	end	
+	end
 	local marker = source
 	-- Текст маркера при открытии/закрытии двери
 	if dataName == "house_open" then
@@ -127,10 +127,10 @@ addEventHandler("onClientElementDataChange", root, function(dataName)
 		end
 		local isOpen = marker:getData("house_open")
 		if not isOpen then
-			marker:setData("dpMarkers.text", exports.dpLang:getString("markers_house_knock_text"), false)			
+			marker:setData("dpMarkers.text", exports.dpLang:getString("markers_house_knock_text"), false)
 		else
 			marker:setData("dpMarkers.text", exports.dpLang:getString("markers_house_enter_text"), false)
-		end	
+		end
 	elseif dataName == "owner_id" then
 		local ownerId = marker:getData("owner_id")
 		if not ownerId then
@@ -152,5 +152,7 @@ addEvent("dpCore.spawn", true)
 addEventHandler("dpCore.spawn", localPlayer, function(isHotel)
 	if not isHotel then
 		exports.dpHUD:setVisible(false)
+	else
+		exports.dpGarage:enterGarage()
 	end
 end)

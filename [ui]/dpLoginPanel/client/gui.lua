@@ -1,6 +1,6 @@
 isAuthInProgress = false
 local UI = exports.dpUI
-local HIDE_CHAT = true
+local HIDE_CHAT = false
 local screenWidth, screenHeight = exports.dpUI:getScreenSize()
 
 local realSceenWidth, realScreenHeight = guiGetScreenSize()

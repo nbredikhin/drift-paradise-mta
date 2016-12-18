@@ -57,7 +57,7 @@ end
 
 function Panel.addTab(name)
     local tab = UI:createDpPanel {
-        x          = 0, 
+        x          = 0,
         y          = TABS_HEIGHT,
         width      = width,
         height     = height - TABS_HEIGHT,

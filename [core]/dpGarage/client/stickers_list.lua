@@ -202,7 +202,7 @@ TuningConfig.stickers = {
 		{id = 154, price = 70, level = 14},
 		{id = 155, price = 70, level = 14},
 		{id = 156, price = 70, level = 14},
-		{id = 157, price = 80, level = 17}	
+		{id = 157, price = 80, level = 17}
 	},
 	-- Раздел "флаги"
 	{
@@ -245,10 +245,10 @@ TuningConfig.stickers = {
 		{id = 180, price = 10, level = 10},
 		{id = 181, price = 10, level = 10},
 		{id = 182, price = 10, level = 10},
-		{id = 183, price = 10, level = 10}	
+		{id = 183, price = 10, level = 10}
 	},
 	-- Раздел "цифры"
-	{	
+	{
 		{id = 303, price = 5, level = 9},
 		{id = 304, price = 5, level = 9},
 		{id = 305, price = 5, level = 9},
@@ -262,6 +262,7 @@ TuningConfig.stickers = {
 	},
 	-- Раздел "другое"
 	{
+		{id = 228, price = 45, level = 1},
 		{id = 184, price = 25, level = 15},
 		{id = 185, price = 25, level = 15},
 		{id = 186, price = 25, level = 15},
@@ -309,7 +310,6 @@ TuningConfig.stickers = {
 		{id = 225, price = 45, level = 18},
 		{id = 226, price = 45, level = 18},
 		{id = 227, price = 45, level = 18},
-		{id = 228, price = 45, level = 18},
 		{id = 229, price = 45, level = 18},
 		{id = 230, price = 45, level = 18},
 		{id = 231, price = 45, level = 18},
@@ -332,5 +332,5 @@ TuningConfig.stickers = {
 		{id = 248, price = 50, level = 19},
 		{id = 249, price = 50, level = 19},
 		{id = 250, price = 5, level = 20}
-	}	
+	}
 }

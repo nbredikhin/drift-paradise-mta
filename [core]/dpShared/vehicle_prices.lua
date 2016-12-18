@@ -7,8 +7,8 @@ local vehiclesPrices = {
 	-- 2 класс
 	mazda_mx5miata 			= {22000,	5},
 	nissan_180sx 			= {28000,	7},
-	mitsubishi_eclipse		= {28300,	9},
-	nissan_silvia_s13		= {32700,	11},
+	mitsubishi_eclipse		= {34000,	9},
+	nissan_silvia_s13		= {39000,	11},
 	-- 3 класс
 	nissan_datsun_240z		= {41500,	13},
 	nissan_skyline_er34 	= {48000,	15},

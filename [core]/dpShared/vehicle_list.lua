@@ -33,9 +33,9 @@ local vehiclesTable = {
 	lamborghini_aventador = 506,
 
 	-- Unknown
-	mazda_rx7_fc		= nil,
-	subaru_impreza 		= nil,
-	nissan_silvia_s15	= nil,
+	mazda_rx7_fc		= 496,
+	subaru_impreza 		= 526,
+	nissan_silvia_s15	= 474,
 }
 
 -- Названия в том виде, в котором они будут отображаться

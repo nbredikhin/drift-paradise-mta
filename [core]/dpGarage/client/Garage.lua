@@ -19,12 +19,16 @@ function Garage.start(vehicles, enteredVehicleId, vehicle)
 	exports.dpWorldMap:setVisible(false)
 	exports.dpHUD:setVisible(false)
 
+	-- СУПЕРКОСТЫЛЬ #1
+	vehicle.position = Vector3 { x = 2915.438, y = -3186.282, z = 2535.2 }
 	Assets.start()
 	GarageCar.start(vehicle, vehicles)
 	GarageUI.start()
 
 	setTimer(function ()
 		GarageCar.showCarById(enteredVehicleId)
+		-- СУПЕРКОСТЫЛЬ #2
+		vehicle.position = Vector3 { x = 2915.438, y = -3186.282, z = 2535.2 }
 		CameraManager.start()
 		fadeCamera(true, 0.5)
 		CarTexture.start()

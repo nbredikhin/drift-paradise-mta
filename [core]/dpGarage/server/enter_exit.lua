@@ -39,7 +39,7 @@ addEventHandler("dpGarage.enter", resourceRoot, function ()
 	client.alpha = 0
 	removePedFromVehicle(client)
 
-	local vehicle = createVehicle(594, garagePosition)
+	local vehicle = createVehicle(547, 5000, 0, -1000)
 	vehicle.rotation = Vector3(0, 0, -90)
 	vehicle.dimension = client.dimension
 	vehicle.interior = client.interior

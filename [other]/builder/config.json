@@ -10,7 +10,7 @@
 
     "enableReadmeFiles": true,
 
-    "only": ["shit1", "dpCarParts", "dpTuningEditor"],
+    "only": ["server_assets"],
 
     "include": [
         "geoip",

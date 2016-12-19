@@ -31,6 +31,11 @@ function UserVehicles.addVehicle(ownerId, model, callback)
 	if not success then
 		executeCallback(callback, false)
 	end
+	exports.dpLogger:log("vehicles", 
+		string.format("Added vehicle %s to user %s. Success: %s", 
+			tostring(model), 
+			tostring(ownerId), 
+			tostring(success)))
 	return not not success
 end
 
@@ -52,6 +57,10 @@ function UserVehicles.removeVehicle(vehicleId, callback)
 	if not success then
 		executeCallback(callback, false)
 	end
+	exports.dpLogger:log("vehicles", 
+		string.format("Removed vehicle %s. Success: %s", 
+			tostring(vehicleId), 
+			tostring(success)))	
 	return success
 end
 

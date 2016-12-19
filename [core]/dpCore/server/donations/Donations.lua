@@ -17,7 +17,8 @@ function Donations.setup()
 end
 
 local function giveDonationToPlayer(player, donation)
-	if not donation then
+	if not isElement(player) or not donation then
+		exports.dpLogger:log("donations", "Failed to process donation for " .. tostring(player.name))
 		return false
 	end
 	DatabaseTable.delete(DONATIONS_TABLE_NAME, { _id = donation._id }, function (result)
@@ -39,6 +40,10 @@ local function giveDonationToPlayer(player, donation)
 		givePlayerXP(player, xp)
 
 		triggerClientEvent(player, "dpWebAPI.donationSuccess", player, money)
+		exports.dpLogger:log("donations", string.format("Given donation %s to player %s (%s)", 
+			tostring(donation._id),
+			tostring(player.name),
+			tostring(player:getData("username"))))
 	end)
 end
 

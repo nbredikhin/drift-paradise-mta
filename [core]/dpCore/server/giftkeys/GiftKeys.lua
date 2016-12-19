@@ -131,7 +131,7 @@ function GiftKeys.activate(key, player)
 		else
 			local key = result[1]
 			if giveKeyGiftsToPlayer(player, key) then
-				outputDebugString("GiftKeys: Key activated: " .. tostring(key.key) .. " for " .. tostring(player.name))
+				exports.dpLogger:log("giftkeys", "Key activated: " .. tostring(key.key) .. " for " .. tostring(player.name))
 				GiftKeys.remove(key.key)
 				triggerClientEvent(player, "dpCore.keyActivation", resourceRoot, true, key)				
 			else

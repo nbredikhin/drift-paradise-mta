@@ -5,7 +5,7 @@ local vehiclesTable = {
 	nissan_skyline2000	= 535,
 	honda_civic			= 565,
 	-- 2 класс
-	-- mazda_mx5miata 		= 411,
+	mazda_mx5miata 		= 411,
 	nissan_180sx 		= 602,
 	-- mitsubishi_eclipse	= nil,
 	nissan_silvia_s13	= 401,
@@ -14,9 +14,9 @@ local vehiclesTable = {
 	-- nissan_skyline_er34 = 445,
 	-- toyota_mark2_100	= nil,
 	nissan_datsun_240z	= 475,
-	-- toyota_altezza 		= 402,
+	toyota_altezza 		= 402,
 	-- 4 класс
-	-- honda_s2000 		= 429,
+	honda_s2000 		= 429,
 	bmw_e34 			= 529,
 	nissan_silvia_s14	= 576,
 	-- nissan_silvia_s15	= nil,

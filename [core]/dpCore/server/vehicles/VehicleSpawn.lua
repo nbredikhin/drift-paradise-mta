@@ -222,7 +222,7 @@ function VehicleSpawn.spawn(vehicleId, position, rotation)
 
 	-- Выключить фары
 	vehicle:setData("LightsState", false)
-	outputDebugString("VehicleSpawn.spawn: Spawned vehicle " .. tostring(vehicleInfo._id))
+	exports.dpLogger:log("vehicles", "Spawned vehicle " .. tostring(vehicleInfo._id))
 
 	triggerEvent("onVehicleCreated", vehicle)
 	triggerClientEvent(root, "onClientVehicleCreated", vehicle)

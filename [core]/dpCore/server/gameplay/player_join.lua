@@ -38,3 +38,10 @@ addEventHandler("dpCore.selfKick", root, function ()
 		client:kick("You have been disconnected")
 	end
 end)
+
+addEventHandler("onPlayerChangeNick", root, function (oldNick, newNick, changedByPlayer)
+	if not changedByPlayer then
+		return
+	end
+	exports.dpLogger:log("nicknames", "Player %s changed nickname to %s", tostring(oldNick), tostring(newNick))
+end)

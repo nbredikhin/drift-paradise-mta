@@ -3,7 +3,7 @@
 	<script type="client" src="client/RaceCheckpoints.lua"/>
 	<script type="client" src="client/FinishScreen.lua"/>
 	<script type="client" src="client/main.lua"/>
-	<script type="server" src="server/server.lua"/>
+	<script type="server" src="server/main.lua"/>
 	<script type="shared" src="shared/reward.lua"/>
 
 	<file src="skin/1.dff"/>

@@ -34,7 +34,7 @@ local vehiclesTable = {
 
 	-- Unknown
 	mazda_rx7_fc		= 496,
-	subaru_impreza 		= 526,
+	subaru_impreza 		= 560,
 	nissan_silvia_s15	= 474,
 }
 

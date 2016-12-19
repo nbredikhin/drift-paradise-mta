@@ -20,7 +20,7 @@ local vehiclesPrices = {
     bmw_e34                 = {84000,   29},
     nissan_silvia_s14       = {92100,   34},
     nissan_silvia_s15       = {100000,  37},
-    -- mazda_rx8                = {62000,   48},
+    mazda_rx8               = {62000,   48},
     -- 5 класс
     bmw_e60                 = {120000,  42},
     toyota_supra            = {140000,  45},

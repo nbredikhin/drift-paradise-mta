@@ -15,6 +15,7 @@ addEventHandler("dpGarage.sellVehicle", resourceRoot, function (vehicleId)
 		outputDebugString("Sell error: No vehicle info")
 		return
 	end
+	iprint(vehicleInfo)
 	if type(vehicleInfo[1]) ~= "table" then
 		outputDebugString("Sell error: No vehicle info 2")
 		return
@@ -35,12 +36,11 @@ addEventHandler("dpGarage.sellVehicle", resourceRoot, function (vehicleId)
 		outputDebugString("Sell error: No vehicle name")
 		return
 	end
-	local priceInfo = exports.dpShared:getVehiclePrices(vehicleName)
-	if type(priceInfo[1]) ~= "number" then 
+	local price = getVehicleSellPrice(vehicleName, vehicleInfo.mileage)
+	if not price then
 		outputDebugString("Sell error: No vehicle price")
 		return
 	end
-	local price = math.floor(priceInfo[1] * exports.dpShared:getEconomicsProperty("vehicle_sell_price"))
 	if not exports.dpCore:givePlayerMoney(client, price) then
 		outputDebugString("Sell error: Failed to give player money")
 		return

@@ -7,13 +7,14 @@
 	<!-- Общие -->
 	<script type="shared" src="shared/lib/yaci.lua"/>
 	<script type="shared" src="shared/lib/check.lua"/>
+	<script type="shared" src="shared/vehicle_price.lua"/>
 
 	<!-- Сервер -->
 	<script type="server" src="server/enter_exit.lua"/>
 	<script type="server" src="server/tuning_server.lua"/>
 	<script type="server" src="server/handling.lua"/>
 	<script type="server" src="server/sell.lua"/>
-	
+
 	<!-- Клиент -->
 	<script type="client" src="client/TuningConfig.lua"/>
 	<script type="client" src="client/stickers_list.lua"/>

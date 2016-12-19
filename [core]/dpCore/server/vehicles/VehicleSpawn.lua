@@ -9,7 +9,7 @@ local dataFields = {
 	"_id", "owner_id", "mileage", "tuning", "stickers"
 }
 local autosaveFields = {
-	"mileage",
+	"mileage"
 }
 -- Поля, которые можно менять на клиенте
 local allowedFields = {

@@ -8,6 +8,10 @@ addEventHandler("dpGarage.enter", resourceRoot, function ()
 		triggerClientEvent(client, "dpGarage.enter", resourceRoot, false, "garage_enter_failed")
 		return
 	end
+
+	-- Выкинуть игрока из машины
+	exports.dpCore:returnPlayerVehiclesToGarage(client)
+
 	local playerVehicles = exports.dpCore:getPlayerVehicles(client)
 	if type(playerVehicles) ~= "table" or #playerVehicles == 0 then
 		triggerClientEvent(client, "dpGarage.enter", resourceRoot, false, "garage_enter_failed")
@@ -17,17 +21,6 @@ addEventHandler("dpGarage.enter", resourceRoot, function ()
 
 	-- _id машины, в которой был игрок, когда вошел в гараж (если это его машина)
 	local enteredVehicleId
-	-- Выкинуть игрока из машины
-	if client.vehicle then
-		-- Отправить машину игрока в гараж, если игрок является водителем и владельцем
-		local playerVehicle = client.vehicle
-		local isPlayerVehicle = playerVehicle.controller == client and exports.dpCore:isPlayerOwningVehicle(client, playerVehicle)
-		client.vehicle = nil
-		if isPlayerVehicle then
-			enteredVehicleId = playerVehicle:getData("_id")
-			exports.dpCore:returnVehicleToGarage(playerVehicle)
-		end
-	end
 
 	-- Перенос игрока в уникальный dimension
 	local garagePosition = Vector3 { x = 2915.438, y = -3186.282, z = 2535.3 }

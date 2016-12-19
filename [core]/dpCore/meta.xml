@@ -1,0 +1,99 @@
+<meta>
+	<oop>true</oop>
+	<min_mta_version server="1.5.2"/>
+	<include resource="dpUtils"/>
+
+	<!-- SHARED -->
+
+	<script type="shared" src="shared/utils.lua"/>
+	<!-- Основной конфиг -->
+	<script type="shared" src="shared/levels.lua"/>
+	<script type="shared" src="shared/AccountsConfig.lua"/>
+	<!-- Функция для проверки имени пользователя -->
+	<script type="shared" src="shared/usercheck.lua"/>
+	<export type="shared" function="checkUsername"/>
+
+	<!-- SERVER -->
+
+	<!-- Модули для работы с базой данных -->
+	<script type="server" src="server/database/DatabaseUtils.lua"/>
+	<script type="server" src="server/database/DatabaseConfig.lua"/>
+	<script type="server" src="server/database/Database.lua"/>
+	<script type="server" src="server/database/DatabaseTable.lua"/>
+	<!-- Аккаунты пользователей -->
+	<script type="server" src="server/users/Sessions.lua"/>
+	<script type="server" src="server/users/Bans.lua"/>
+	<script type="server" src="server/users/Users.lua"/>
+	<script type="server" src="server/users/PlayerData.lua"/>
+	<script type="server" src="server/users/exports.lua"/>
+	<script type="server" src="server/users/BetaKeys.lua"/>
+	<!-- Автомобили -->
+	<script type="server" src="server/vehicles/UserVehicles.lua"/>
+	<script type="server" src="server/vehicles/VehicleTuning.lua"/>
+	<script type="server" src="server/vehicles/VehicleSpawn.lua"/>
+	<script type="server" src="server/vehicles/exports.lua"/>
+	<!-- Подарочные ключи -->
+	<script type="server" src="server/giftkeys/GiftKeys.lua"/>
+	<script type="server" src="server/giftkeys/exports.lua"/>
+	<!-- Донаты -->
+	<script type="server" src="server/donations/Donations.lua"/>
+	<!-- Gameplay -->
+	<script type="server" src="server/gameplay/PlayerSpawn.lua"/>
+	<script type="server" src="server/gameplay/player_join.lua"/>
+	<script type="server" src="server/gameplay/player_ids.lua"/>
+	<script type="server" src="server/gameplay/player_levels.lua"/>
+	<!-- Основной скрипт -->
+	<script type="server" src="server/main.lua"/>
+
+	<!-- Функции для работы с игроками -->
+	<export type="server" function="isPlayerLoggedIn"/>
+	<export type="server" function="saveAccount"/>
+	<export type="server" function="userExists"/>
+	<export type="server" function="getUserAccount"/>
+	<export type="server" function="updateUserAccount"/>
+	<export type="server" function="getUserPlayer"/>
+	<export type="server" function="givePlayerMoney"/>
+	<export type="server" function="givePlayerXP"/>
+	<export type="server" function="logoutOfflineUsers"/>
+	<export type="server" function="banPlayer"/>
+	<export type="server" function="mutePlayer"/>
+	<export type="server" function="unmutePlayer"/>
+	<export type="server" function="isSerialBanned"/>
+	<export type="server" function="isUserBanned"/>
+	<export type="server" function="isPlayerMuted"/>
+	<!-- Функции для работы с автомобилями -->
+	<export type="shared" function="generateDefaultNumberplate"/>
+	<export type="server" function="spawnVehicle"/>
+	<export type="server" function="updateVehicle"/>
+	<export type="server" function="updateVehicleTuning"/>
+	<export type="server" function="updatePlayerVehiclesCount"/>
+	<export type="server" function="isPlayerOwningVehicle"/>
+	<export type="server" function="returnVehicleToGarage"/>
+	<export type="server" function="returnPlayerVehiclesToGarage"/>
+	<export type="server" function="getPlayerVehicles"/>
+	<export type="server" function="getPlayerSpawnedVehicles"/>
+	<export type="server" function="addPlayerVehicle"/>
+	<export type="server" function="removePlayerVehicle"/>
+	<export type="server" function="getVehicleById"/>
+	<!-- Функции для работы с подарочными ключами -->
+	<export type="server" function="createGiftKey"/>
+	<export type="server" function="activateGiftKey"/>
+	<export type="server" function="removeGiftKey"/>
+	<export type="server" function="getGiftKeys"/>
+	<export type="server" function="isGiftKeyValid"/>
+
+	<!-- CLIENT -->
+
+	<script type="client" src="client/users.lua"/>
+	<script type="client" src="client/join.lua"/>
+	<!-- Функции для авторизации -->
+	<export type="client" function="register"/>
+	<export type="client" function="changePassword"/>
+	<export type="client" function="login"/>
+	<export type="client" function="logout"/>
+
+	<!-- Level functions -->
+	<export type="shared" function="getMaxLevel"/>
+	<export type="shared" function="getXPFromLevel"/>
+	<export type="shared" function="getLevelFromXP"/>
+</meta>

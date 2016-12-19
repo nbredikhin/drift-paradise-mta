@@ -6,20 +6,17 @@ function SellCarScreen:init(callback)
 	self.fadeSpeed = 4
 	self.canSell = true
 	self.text = exports.dpLang:getString("garage_sell_text")
+	self.back = utf8.fold(exports.dpLang:getString("garage_menu_back"))
 	self.confirm = exports.dpLang:getString("garage_sell_confirm")
 
 	if GarageCar.getCarsCount() <= 1 then
 		self.canSell = false
 		self.text = exports.dpLang:getString("garage_sell_last_car")
-		self.confirm = utf8.fold(exports.dpLang:getString("garage_menu_back"))
 	end
-	local priceTable =  exports.dpShared:getVehiclePrices(GarageCar.getName())
 
-	local vehiclePrice = 0
-	if type(priceTable) == "table" then
-		vehiclePrice = priceTable[1]
-	end
-	self.price = math.floor(vehiclePrice * exports.dpShared:getEconomicsProperty("vehicle_sell_price"))
+	local mileage = GarageCar.getMileage()
+
+	self.price = getVehicleSellPrice(GarageCar.getName(), GarageCar.getMileage())
 	self.colorHex = exports.dpUtils:RGBToHex(exports.dpUI:getThemeColor())
 end
 
@@ -43,34 +40,32 @@ function SellCarScreen:draw()
 		text = self.text
 	end
 	dxDrawText(
-		text, 
-		0, 0, 
-		screenSize.x, screenSize.y * 0.5, 
-		tocolor(255, 255, 255, 255 * self.fadeProgress), 
-		1, 
+		text,
+		0, 0,
+		screenSize.x, screenSize.y * 0.5,
+		tocolor(255, 255, 255, 255 * self.fadeProgress),
+		1,
 		Assets.fonts.componentName,
 		"center",
 		"bottom",
 		false, false, false, true
 	)
 
-	local confirmText = ""
-	if self.canSell  then 
-		confirmText = self.colorHex .. "ENTER #FFFFFF- " .. self.confirm
-	else
-		confirmText = self.colorHex .. "Backspace #FFFFFF- " .. self.confirm
+	local confirmText = self.colorHex .. "Backspace #FFFFFF- " .. self.back
+	if self.canSell  then
+		confirmText = self.colorHex .. "Enter #FFFFFF- " .. self.confirm .. "\n" .. confirmText
 	end
 	dxDrawText(
-		confirmText, 
-		0, screenSize.y * 0.51, 
-		screenSize.x, screenSize.y, 
-		tocolor(255, 255, 255, 255 * self.fadeProgress), 
-		1, 
+		confirmText,
+		0, screenSize.y * 0.51,
+		screenSize.x, screenSize.y,
+		tocolor(255, 255, 255, 255 * self.fadeProgress),
+		1,
 		Assets.fonts.moneyText,
 		"center",
 		"top",
 		false, false, false, true
-	)	
+	)
 end
 
 function SellCarScreen:update(deltaTime)
@@ -84,7 +79,7 @@ function SellCarScreen:onKey(key)
 			return
 		end
 		GarageCar.sell()
-		self.screenManager:showScreen(MainScreen(2))		
+		self.screenManager:showScreen(MainScreen(2))
 	elseif key == "backspace" then
 		self.screenManager:showScreen(MainScreen(2))
 	end

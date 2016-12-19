@@ -16,13 +16,13 @@ setTimer(function ()
 	end
 	distanceCounter = distanceCounter + math.floor(passedDistance * metersMul)
 	previousPosition = localPlayer.position
+	local currentMileage = localPlayer.vehicle:getData("mileage")
+	if not currentMileage then
+		currentMileage = 0
+	end
 	if distanceCounter >= 1000 then
-		local currentMileage = localPlayer.vehicle:getData("mileage")
-		if not currentMileage then
-			return
-		end
 		localPlayer.vehicle:setData("mileage", currentMileage + 1)
-		distanceCounter = 0
+		distanceCounter = distanceCounter - 1000
 	end
 end, 1000, 0)
 

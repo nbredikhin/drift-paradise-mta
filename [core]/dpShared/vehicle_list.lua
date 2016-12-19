@@ -19,7 +19,6 @@ local vehiclesTable = {
 	honda_s2000 		= 429,
 	bmw_e34 			= 529,
 	nissan_silvia_s14	= 576,
-	-- nissan_silvia_s15	= nil,
 	mazda_rx8 			= 550,
 	-- 5 класс
 	bmw_e60				= 540,
@@ -31,7 +30,12 @@ local vehiclesTable = {
 	nissan_gtr35 		= 558,
 	lamborghini_huracan = 415,
 	ferrari_458_italia	= 451,
-	lamborghini_aventador = 506
+	lamborghini_aventador = 506,
+
+	-- Unknown
+	mazda_rx7_fc		= nil,
+	subaru_impreza 		= nil,
+	nissan_silvia_s15	= nil,
 }
 
 -- Названия в том виде, в котором они будут отображаться
@@ -55,7 +59,6 @@ local vehiclesReadableNames = {
 	honda_s2000 		= "Honda S2000",
 	bmw_e34 			= "BMW E34",
 	nissan_silvia_s14	= "Nissan Silvia S14",
-	nissan_silvia_s15	= "Nissan Silvia S15",
 	mazda_rx8			= "Mazda RX-8",
 	-- 5 класс
 	bmw_e60				= "BMW E60",
@@ -67,7 +70,12 @@ local vehiclesReadableNames = {
 	nissan_gtr35 		= "Nissan GTR35",
 	lamborghini_huracan = "Lamborghini Huracan",
 	ferrari_458_italia	= "Ferrari 458 Italia",
-	lamborghini_aventador = "Lamborghini Aventador"
+	lamborghini_aventador = "Lamborghini Aventador",
+
+	-- Unknown
+	mazda_rx7_fc 		= "Mazda RX7 FC",
+	subaru_impreza 		= "Subaru Impreza",
+	nissan_silvia_s15	= "Nissan Silvia S15"
 }
 
 -- Функции

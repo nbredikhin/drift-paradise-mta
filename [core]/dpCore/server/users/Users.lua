@@ -194,8 +194,8 @@ function Users.logoutPlayer(player, callback)
 
     local playerName = player.name
     local username = player:getData("username")
+    exports.dpLogger:log("auth", string.format("User '%s' has logged out (%s)", username, tostring(player.name)))
     return DatabaseTable.update(USERS_TABLE_NAME, {online=0}, {username=username}, function(result)
-        exports.dpLogger:log("auth", string.format("User '%s' has logged out (%s)", username, tostring(player.name)))
         if type(callback) == "function" then
             callback(not not result)
         end

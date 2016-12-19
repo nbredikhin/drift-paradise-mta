@@ -60,6 +60,7 @@ local overrideWheelsScale = {
 	lamborghini_huracan = 1,
 	ferrari_458_italia 	= 1.06,
 	lamborghini_aventador = 1.01,
+	mazda_rx7_fc = 0.95,
 }
 
 -- Удаление кастомных колёс и шейдера

@@ -6,7 +6,7 @@ function setVisible(visible)
 		if not localPlayer:getData("username") or localPlayer:getData("dpCore.state") then
 			return false
 		end
-	end		
+	end
 	if localPlayer:getData("dpCore.state") or exports.dpMainPanel:isVisible() then
 		visible = false
 	end
@@ -16,7 +16,7 @@ function setVisible(visible)
 
 	if isActive == visible then
 		return
-	end	
+	end
 	exports.dpUI:fadeScreen(visible)
 	isActive = visible
 	showCursor(visible)

@@ -12,7 +12,8 @@ local playerEconomics = {
 	drift_xp = 370,
 
 	-- Процент от цены авто при продаже
-	vehicle_sell_price = 0.35,
+	vehicle_sell_min_mileage_factor = 0.5,
+	vehicle_sell_max_mileage = 5000,
 
 	race_prizes = {
 		{ xp = 350, money = 700 },

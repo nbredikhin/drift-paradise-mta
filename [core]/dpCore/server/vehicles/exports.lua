@@ -6,6 +6,14 @@ function returnVehicleToGarage(vehicle)
 	return VehicleSpawn.returnToGarage(vehicle)
 end
 
+function returnPlayerVehiclesToGarage(player)
+	if not isElement(player) then
+		return false
+	end
+	local ownerId = player:getData("_id")
+	return VehicleSpawn.returnUserVehiclesToGarage(ownerId)
+end
+
 function isPlayerOwningVehicle(...)
 	return VehicleSpawn.isPlayerOwningVehicle(...)
 end

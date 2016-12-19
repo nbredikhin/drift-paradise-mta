@@ -174,6 +174,7 @@ local function setupVehicleWheels(vehicle)
 		-- Создать объект колеса
 		wheel.object = createObject(1025, vehicle.position)
 		wheel.object.alpha = 0
+		wheel.object:setCollisionsEnabled(false)
 		if wheel.object.dimension ~= vehicle.dimension then
 			wheel.object.dimension = vehicle.dimension
 		end

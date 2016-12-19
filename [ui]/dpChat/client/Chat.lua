@@ -1,6 +1,6 @@
 Chat = {}
 
-local MAX_HISTORY_LINES = 500
+local MAX_CHAT_HISTORY = 500
 local MAX_CHAT_LINES = 10
 local MAX_VISIBLE_TABS = 6
 local MAX_TAB_WIDTH = 72
@@ -116,15 +116,20 @@ function Chat.message(tabName, text, r, g, b, colorCoded)
 	else
 		colorCoded = not not colorCoded
 	end
-	-- Удаление переносов строк
-	text = utf8.gsub(text, "\n", " ")
-	local rest
 
+	-- удаление переносов строк
+	text = utf8.gsub(text, "\n", " ")
+
+	-- перенос строки
+	local rest
 	local textWithoutColors = utf8.gsub(text, "#%x%x%x%x%x%x", "")
 	if utf8.len(textWithoutColors) > MAX_LINE_LENGTH then
 		local colorsLength = #text - #textWithoutColors
 		local foundSpace = false
-		for i = MAX_LINE_LENGTH + colorsLength, MAX_LINE_LENGTH + colorsLength - 20, -1 do
+		local spaceStart = MAX_LINE_LENGTH + colorsLength
+		local spaceEnd = start - 20
+
+		for i = spaceStart, spaceEnd, -1 do
 			local c = utf8.sub(text, i, i)
 			if c == ' ' then
 				foundSpace = true
@@ -133,16 +138,20 @@ function Chat.message(tabName, text, r, g, b, colorCoded)
 				break
 			end
 		end
+		-- если пробела нет, текст переносится принудительно
 		if not foundSpace then
 			rest = utf8.sub(text, MAX_LINE_LENGTH + colorsLength + 1, -1)
 			text = utf8.sub(text, 1, MAX_LINE_LENGTH + colorsLength)
 		end
+		-- перенос цвета на следующую строку
 		local match = pregMatch(text, "(#[0-9A-F]{6})")
 		if match then
 			rest = match[#match] .. rest
 		end
 		textWithoutColors = utf8.gsub(text, "#%x%x%x%x%x%x", "")
 	end
+
+	-- сообщение
 	local message = {
 		text = text,
 		textWithoutColors = textWithoutColors,
@@ -150,7 +159,15 @@ function Chat.message(tabName, text, r, g, b, colorCoded)
 		color = color,
 		colorCoded = colorCoded
 	}
+
+	-- удалить самое старое сообщение при достижении лимита истории
+	if #tab.messages >= MAX_CHAT_HISTORY then
+		table.remove(tab.messages, 1)
+	end
+	-- добавление сообщения
 	table.insert(tab.messages, message)
+
+	-- отправить перенесённую часть сообщения
 	if rest and utf8.len(rest) > 0 then
 		Chat.message(tabName, rest, r, g, b, colorCoded)
 	end

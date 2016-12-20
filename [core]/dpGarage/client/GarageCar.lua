@@ -123,6 +123,10 @@ function GarageCar.getVehicleModel()
     return vehiclesList[currentVehicle].model
 end
 
+function GarageCar.getMileage()
+    return vehiclesList[currentVehicle].mileage
+end
+
 function GarageCar.getCarsCount()
     return #vehiclesList
 end
@@ -323,7 +327,7 @@ function GarageCar.hasDefaultSpoilers()
         honda_civic = true,
         mazda_rx7_fc = true
     }
-    return not carNames[GarageCar.getName()] 
+    return not carNames[GarageCar.getName()]
 end
 
 function GarageCar.hasCustomSpoiler(id)

@@ -127,7 +127,7 @@ function Chat.message(tabName, text, r, g, b, colorCoded)
 		local colorsLength = #text - #textWithoutColors
 		local foundSpace = false
 		local spaceStart = MAX_LINE_LENGTH + colorsLength
-		local spaceEnd = start - 20
+		local spaceEnd = spaceStart - 20
 
 		for i = spaceStart, spaceEnd, -1 do
 			local c = utf8.sub(text, i, i)

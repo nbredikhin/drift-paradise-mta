@@ -10,10 +10,6 @@ commandHandlers["cleardebug"] = function (tabName, command, ...)
 	end
 end
 
-commandHandlers["me"] = function (tabName, command, ...)
-	triggerServerEvent("dpChat.me", root, tabName, table.concat({...}, " "))
-end
-
 addEvent("dpChat.command", true)
 addEventHandler("dpChat.command", root, function(tabName, command, ...)
 	if commandHandlers[command] then

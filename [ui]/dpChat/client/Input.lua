@@ -79,6 +79,9 @@ function Input.open()
 	if localPlayer:getData("dpCore.state") or localPlayer:getData("activeUI") then
 		return false
 	end
+	if not localPlayer:getData("username") then
+		return false
+	end
 	if not Chat.isVisible() or inputActive then
 		return false
 	end

@@ -103,25 +103,6 @@ addEventHandler("dpChat.broadcastMessage", root, function (tabName, message, sen
 	Chat.message(tabName, message)
 end)
 
-addEvent("dpChat.me", true)
-addEventHandler("dpChat.me", root, function (tabName, message, sender, distance)
-	if exports.dpConfig:getProperty("chat.block_offensive_words") then
-		message = WordsFilter.filter(message)
-	end
-
-	if tabName == "local" then
-		local senderName = exports.dpUtils:removeHexFromString(tostring(sender.name))
-		message = exports.dpUtils:removeHexFromString(tostring(message))
-		message = getColorFromDistance(distance, 255, 0, 255) .. "* " ..  senderName .. " " .. message
-		Chat.message(tabName, message)
-	else
-		local senderName = exports.dpUtils:removeHexFromString(tostring(sender.name))
-		message = exports.dpUtils:removeHexFromString(tostring(message))
-		message = "#FF00FF* " .. senderName .. " " .. message
-		Chat.message(tabName, message)
-	end
-end)
-
 addEventHandler("onClientElementDataChange", localPlayer, function(dataName)
 	if dataName == "langChat" then
 		Chat.clearTab("lang")

@@ -55,27 +55,6 @@ addEventHandler("dpChat.broadcastMessage", root, function (tabName, rawMessage)
 	end
 end)
 
-addEvent("dpChat.me", true)
-addEventHandler("dpChat.me", root, function (tabName, rawMessage)
-	local sender
-	if not client then
-		sender = source
-	else
-		sender = client
-	end
-
-	if tabName == "local" then
-		for i, player in ipairs(getElementsByType("player")) do
-			local distance = (player.position - sender.position):getLength()
-			if distance < 100 then
-				triggerClientEvent(player, "dpChat.me", root, tabName, rawMessage, sender, distance)
-			end
-		end
-	else
-		triggerClientEvent("dpChat.me", root, tabName, rawMessage, sender)
-	end
-end)
-
 local function setupPlayerCountry(player)
 	if not code then
 		return
@@ -100,10 +79,10 @@ end)
 
 addEventHandler("onPlayerChat", root, function (message, messageType)
 	cancelEvent()
-	if messageType == 0 then
-		triggerClientEvent(source, "dpChat.message", source, "global", message)
-	elseif messageType == 1 then
-		triggerClientEvent(source, "dpChat.command", source, "global", "me", message)
+	if exports.dpCore:isPlayerLoggedIn(source) then
+		if messageType == 0 then
+			triggerClientEvent(source, "dpChat.message", source, "global", message)
+		end
 	end
 end)
 

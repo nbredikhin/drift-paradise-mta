@@ -38,7 +38,7 @@ local wheelsHiddenOffset = Vector3(0, 0, -1000)
 local WHEELS_SIZE_MIN = 0.55
 local WHEELS_SIZE_MAX = 0.75
 
-local WHEELS_CAMBER_MAX = 16
+local WHEELS_RAZVAL_MAX = 16
 local WHEELS_WIDTH_MIN = 0.15
 local WHEELS_WIDTH_MAX = 0.62
 
@@ -60,6 +60,8 @@ local overrideWheelsScale = {
 	lamborghini_huracan = 1,
 	ferrari_458_italia 	= 1.06,
 	lamborghini_aventador = 1.01,
+	mazda_rx7_fc 		= 0.95,
+	subaru_impreza 		= 0.95,
 }
 
 -- Удаление кастомных колёс и шейдера
@@ -111,16 +113,16 @@ local function updateVehicleWheels(vehicle)
 			local sizeMul = vehicle:getData("WheelsSize") or 0.5
 			local wheelSize = WHEELS_SIZE_MIN + totalSize * sizeMul
 
-			local wheelCamber = 10
+			local wheelRazval = 10
 			local wheelWidth = 0.15
 			local wheelColor = {255, 255, 255}
 			if frontWheels[name] then
 				wheelWidth = vehicle:getData("WheelsWidthF") or 0
-				wheelCamber = vehicle:getData("WheelsAngleF") or 0
+				wheelRazval = vehicle:getData("WheelsAngleF") or 0
 				wheelColor = vehicle:getData("WheelsColorF")
 			else
 				wheelWidth = vehicle:getData("WheelsWidthR") or 0
-				wheelCamber = vehicle:getData("WheelsAngleR") or 0
+				wheelRazval = vehicle:getData("WheelsAngleR") or 0
 				wheelColor = vehicle:getData("WheelsColorR")
 			end
 			if not wheelColor then
@@ -135,7 +137,7 @@ local function updateVehicleWheels(vehicle)
 			end
 			-- Обновить развал и толщину
 			if isElement(wheel.shader) then
-				wheel.shader:setValue("sCamber", -wheelCamber * WHEELS_CAMBER_MAX)
+				wheel.shader:setValue("sRazval", -wheelRazval * WHEELS_RAZVAL_MAX)
 				wheel.shader:setValue("sWidth", WHEELS_WIDTH_MIN + wheelWidth * (WHEELS_WIDTH_MAX - WHEELS_WIDTH_MIN))
 				-- Цвет колеса
 				for i = 1, 3 do
@@ -152,7 +154,7 @@ local function updateVehicleWheels(vehicle)
 			--wheel.object.position = wheelsHiddenPosition
 		end
 		-- Скрыть/отобразить стандартное колесо
-		vehicle:setComponentVisible(name, not wheel.custom)
+		setVehicleComponentVisible(vehicle, name, not wheel.custom)
 	end
 	return true
 end
@@ -327,15 +329,15 @@ addEventHandler("onClientHUDRender", root, function ()
 		local wheelsAngleF = vehicle:getData("WheelsAngleF") or 0
 		local wheelsAngleR = vehicle:getData("WheelsAngleR") or 0
 		for name, wheel in pairs(wheels) do
-			local wheelCamber = 0
+			local wheelRazval = 0
 			if frontWheels[name] then
-				wheelCamber = wheelsAngleF
+				wheelRazval = wheelsAngleF
 			else
-				wheelCamber = wheelsAngleR
+				wheelRazval = wheelsAngleR
 			end
 			if wheel.custom then
 				local x, y, z = vehicle:getComponentPosition(name)
-				wheel.position = {x, y, z + wheelCamber / 800}
+				wheel.position = {x, y, z + wheelRazval / 800}
 			end
 		end
 	end

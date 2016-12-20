@@ -89,6 +89,8 @@ local startupResources = {
 	"dynamic_lighting_vehicles",
 	"shader_dynamic_sky",
 	"snowmod",
+	"fara",
+	"svet",	
 
 	-- Non-important assets
 	"dpCarParts",
@@ -98,8 +100,6 @@ local startupResources = {
 	"dpAntiAFK",
 	"dpDriftSound",
 	"dpSkins",
-	"fara",
-	"svet",
 }
 
 local function processResourceByName(resourceName, start)

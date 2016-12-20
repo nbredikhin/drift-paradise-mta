@@ -10,7 +10,7 @@
 
     "enableReadmeFiles": true,
 
-    "only": ["server_assets"],
+    "only": ["dpCore"],
 
     "include": [
         "geoip",
@@ -21,18 +21,16 @@
         "dynamic_lighting_vehicles",
         "shader_dynamic_sky",
         "snowmod",
+        "fara",
+        "svet",
 
         "server_assets",
-        "MAPPING-MAIN",
+        "MAPPING",
         "TD-INT",
-        "TD-BILLBOARD",
         "TD-CARSHOP",
         "TD-MAPFILES",
         "TD-RACEMAPS",
-        "TD-VILLA",
-        "TX-VILLA",
-        "MAP2017",
-        "DESTROY-MAP"
+        "TD-CHRISTMASS"
     ],
 
     "pathEncryptExclude": [

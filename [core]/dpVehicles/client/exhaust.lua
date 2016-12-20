@@ -34,19 +34,32 @@ local function updateVehicleExhaust(vehicle)
     end
     local exhaustTable = {}
     local x, y, z = vehicle:getComponentPosition("RearBumpExhaust" .. tostring(bumper))
-    if not x then
-        return removeVehicleExhausts(vehicle)
+    local hasFirst = false
+    if x then
+        hasFirst = true
+        exhaustTable[1] = createObject(MODELS[exhaust], vehicle.position)
+        exhaustTable[1]:attach(vehicle, x, y, z)
+        if x > 0.5 then
+            exhaustTable[1]:setAttachedOffsets(x, y, z, 180, 0, 0)
+            exhaustTable[1]:setScale(-1, -1, -1)
+            exhaustTable[1].doubleSided = true
+        end  
     end
-    exhaustTable[1] = createObject(MODELS[exhaust], vehicle.position)
-    exhaustTable[1]:attach(vehicle, x, y, z)
 
     -- Второй глушитель
     x, y, z = vehicle:getComponentPosition("SecondExhaust" .. tostring(bumper))
+    local hasSecond = false
     if x then
+        hasSecond = true
         exhaustTable[2] = createObject(MODELS[exhaust], vehicle.position)
         exhaustTable[2]:attach(vehicle, x, y, z, 180, 0, 0)
         exhaustTable[2]:setScale(-1, -1, -1)
         exhaustTable[2].doubleSided = true
+    end
+
+    -- Если нет ни одного глушителя
+    if not hasFirst and not hasSecond then
+        return removeVehicleExhausts(vehicle)
     end
     vehicleExhausts[vehicle] = exhaustTable
 end

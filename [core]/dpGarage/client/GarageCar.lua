@@ -318,7 +318,12 @@ function GarageCar.hasComponent(name, id)
 end
 
 function GarageCar.hasDefaultSpoilers()
-    return not not vehicle:getComponentPosition("ug_spoiler")
+    local carNames = {
+        toyota_ae86 = true,
+        honda_civic = true,
+        mazda_rx7_fc = true
+    }
+    return not carNames[GarageCar.getName()] 
 end
 
 function GarageCar.hasCustomSpoiler(id)

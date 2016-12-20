@@ -65,16 +65,12 @@ local startupResources = {
 	"dpIntro",
 
 	-- World
-	"MAPPING-MAIN",
+	"MAPPING",
 	"TD-INT",
-	"TD-BILLBOARD",
 	"TD-CARSHOP",
 	"TD-MAPFILES",
 	"TD-RACEMAPS",
-	"TD-VILLA",
-	"TX-VILLA",
-	"MAP2017",
-	"DESTROY-MAP",
+	"TD-CHRISTMASS",
 
 	-- Admin
 	"dpAdmin",
@@ -104,7 +100,6 @@ local startupResources = {
 	"dpSkins",
 	"fara",
 	"svet",
-	"zapravki"
 }
 
 local function processResourceByName(resourceName, start)

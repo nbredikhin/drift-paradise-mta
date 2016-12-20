@@ -6,24 +6,6 @@
     <export type="client" function="loadMap"/>
     <export type="client" function="unloadMap"/>
 
-    <file src="tokyo.txd" />
-    <file src="tokyo8.txd" />
-    <file src="tokyo1.col" />
-    <file src="tokyo1.dff" />
-    <file src="tokyo2.col" />
-    <file src="tokyo2.dff" />
-    <file src="tokyo3.col" />
-    <file src="tokyo3.dff" />
-    <file src="tokyo4.col" />
-    <file src="tokyo4.dff" />
-    <file src="tokyo5.col" />
-    <file src="tokyo5.dff" />
-    <file src="tokyo6.col" />
-    <file src="tokyo6.dff" />
-    <file src="tokyo7.col" />
-    <file src="tokyo7.dff" />
-    <file src="tokyo8.col" />
-    <file src="tokyo8.dff" />
 
     <file src="gateway.txd" />
     <file src="gateway1.dff" />
@@ -71,131 +53,12 @@
     <file src="sega15.col" />
     <file src="sega16.dff" />
     <file src="sega16.col" />
+    <file src="sega17.dff" />
+    <file src="sega17.col" />
 
-    <file src="suzuka.txd" />
-    <file src="suzuka1.dff" />
-    <file src="suzuka1.col" />
-    <file src="suzuka2.dff" />
-    <file src="suzuka2.col" />
-    <file src="suzuka3.dff" />
-    <file src="suzuka3.col" />
-    <file src="suzuka4.dff" />
-    <file src="suzuka4.col" />
-    <file src="suzuka5.dff" />
-    <file src="suzuka5.col" />
-    <file src="suzuka6.dff" />
-    <file src="suzuka6.col" />
-    <file src="suzuka7.dff" />
-    <file src="suzuka7.col" />
-    <file src="suzuka8.dff" />
-    <file src="suzuka8.col" />
-    <file src="suzuka9.dff" />
-    <file src="suzuka9.col" />
-    <file src="suzuka10.dff" />
-    <file src="suzuka10.col" />
-    <file src="suzuka11.dff" />
-    <file src="suzuka11.col" />
-    <file src="suzuka12.dff" />
-    <file src="suzuka12.col" />
-    <file src="suzuka13.dff" />
-    <file src="suzuka13.col" />
-    <file src="suzuka14.dff" />
-    <file src="suzuka14.col" />
-    <file src="suzuka15.dff" />
-    <file src="suzuka15.col" />
-    <file src="suzuka16.dff" />
-    <file src="suzuka16.col" />
-    <file src="suzukapitstop.dff" />
-    <file src="suzukapitstop.col" />
 
-    <file src="akina.txd" />
-    <file src="akina1.dff" />
-    <file src="akina1.col" />
-    <file src="akina2.dff" />
-    <file src="akina2.col" />
-    <file src="akina3.dff" />
-    <file src="akina3.col" />
-    <file src="akina4.dff" />
-    <file src="akina4.col" />
-    <file src="akina5.dff" />
-    <file src="akina5.col" />
-    <file src="akina6.dff" />
-    <file src="akina6.col" />
-    <file src="akina7.dff" />
-    <file src="akina7.col" />
-    <file src="akina8.dff" />
-    <file src="akina8.col" />
-    <file src="akina9.dff" />
-    <file src="akina9.col" />
-    <file src="akina10.dff" />
-    <file src="akina10.col" />
-    <file src="akina11.dff" />
-    <file src="akina11.col" />
-    <file src="akina12.dff" />
-    <file src="akina12.col" />
-    <file src="akina13.dff" />
-    <file src="akina13.col" />
-    <file src="akina14.dff" />
-    <file src="akina14.col" />
-    <file src="akina15.dff" />
-    <file src="akina15.col" />
-    <file src="akina16.dff" />
-    <file src="akina16.col" />
-    <file src="akina17.dff" />
-    <file src="akina17.col" />
-    <file src="akina18.dff" />
-    <file src="akina18.col" />
-    <file src="akina19.dff" />
-    <file src="akina19.col" />
-    <file src="akina20.dff" />
-    <file src="akina20.col" />
-    <file src="akina21.dff" />
-    <file src="akina21.col" />
-    <file src="akina22.dff" />
-    <file src="akina22.col" />
-    <file src="akina23.dff" />
-    <file src="akina23.col" />
-    <file src="akina24.dff" />
-    <file src="akina24.col" />
-    <file src="akina25.dff" />
-    <file src="akina25.col" />
-    <file src="akina26.dff" />
-    <file src="akina26.col" />
-    <file src="akina27.dff" />
-    <file src="akina27.col" />
-    <file src="akina28.dff" />
-    <file src="akina28.col" />
-    <file src="akina29.dff" />
-    <file src="akina29.col" />
-    <file src="akina30.dff" />
-    <file src="akina30.col" />
-    <file src="akina31.dff" />
-    <file src="akina31.col" />
-    <file src="akina32.dff" />
-    <file src="akina32.col" />
-    <file src="akina33.dff" />
-    <file src="akina33.col" />
-    <file src="akina34.dff" />
-    <file src="akina34.col" />
-    <file src="akina35.dff" />
-    <file src="akina35.col" />
-    <file src="akina36.dff" />
-    <file src="akina36.col" />
-    <file src="akina37.dff" />
-    <file src="akina37.col" />
-    <file src="akina38.dff" />
-    <file src="akina38.col" />
-    <file src="akina39.dff" />
-    <file src="akina39.col" />
-    <file src="akina40.dff" />
-    <file src="akina40.col" />
-    <file src="akina41.dff" />
-    <file src="akina41.col" />
-    <file src="akina42.dff" />
-    <file src="akina42.col" />
-    <file src="akina43.dff" />
-    <file src="akina43.col" />
 
+  
 <file src="ebiwest.txd" />
 <file src="ebiwest1.dff" />
 <file src="ebiwest1.col" />
@@ -218,44 +81,12 @@
     <file src="mikawa3.col" />
     <file src="mikawa4.col" />
 
-<file src="ebiminami.txd" />
-<file src="ebiminami1.dff" />
-<file src="ebiminami1.col" />
-<file src="ebiminami2.dff" />
-<file src="ebiminami2.col" />
-<file src="ebiminami3.dff" />
-<file src="ebiminami3.col" />
 
     <file src="springshorse.txd" />
     <file src="springshorse.col" />
     <file src="projectouge.dff" />
 
 
-    <file src="tran.txd" />
-    <file src="tran1.dff" />
-    <file src="tran2.dff" />
-    <file src="tran3.dff" />
-    <file src="tran4.dff" />
-    <file src="tran5.dff" />
-    <file src="tran6.dff" />
-    <file src="tran7.dff" />
-    <file src="tran8.dff" />
-    <file src="tran9.dff" />
-    <file src="tran10.dff" />
-    <file src="tran11.dff" />
-    <file src="tran12.dff" />
-    <file src="tran1.col" />
-    <file src="tran2.col" />
-    <file src="tran3.col" />
-    <file src="tran4.col" />
-    <file src="tran5.col" />
-    <file src="tran6.col" />
-    <file src="tran7.col" />
-    <file src="tran8.col" />
-    <file src="tran9.col" />
-    <file src="tran10.col" />
-    <file src="tran11.col" />
-    <file src="tran12.col" />
 
     <file src="gokart.txd" />
     <file src="gokart1.col" />
@@ -294,9 +125,6 @@
     <file src="bihokutree.col" />
     <file src="bihokutree.dff" />
 
-    <file src="sekia.txd" />
-    <file src="sekia.col" />
-    <file src="sekia.dff" />
 
     <file src="yz.txd" />
     <file src="yz1.col" />
@@ -306,11 +134,40 @@
     <file src="yz3.col" />
     <file src="yz3.dff" />
 
-    <file src="hakone.txd" />
-    <file src="hakone1.col" />
-    <file src="hakone1.dff" />
-    <file src="hakone2.col" />
-    <file src="hakone2.dff" />
 
+    <file src="rally1.col" />
+    <file src="rally1.dff" />
+    <file src="rally2.col" />
+    <file src="rally2.dff" />
+    <file src="rally3.col" />
+    <file src="rally3.dff" />
+    <file src="rally4.col" />
+    <file src="rally4.dff" />
+    <file src="rally5.col" />
+    <file src="rally5.dff" />
+    <file src="rally6.col" />
+    <file src="rally6.dff" />
+    <file src="rally.txd" />
 
+    <file src="galdori.txd" />
+    <file src="galdori.col" />
+    <file src="galdori.dff" />
+    <file src="galdori1.col" />
+    <file src="galdori1.dff" />
+	
+	<file src="unost.txd" />
+    <file src="unost.col" />
+    <file src="unost.dff" />
+    <file src="unost2.col" />
+    <file src="unost2.dff" />
+    <file src="unost3.col" />
+    <file src="unost3.dff" />
+    <file src="unost4.col" />
+    <file src="unost4.dff" />
+    <file src="unost5.col" />
+    <file src="unost5.dff" />
+	
+
+	
+	
 </meta>

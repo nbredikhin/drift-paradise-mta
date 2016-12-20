@@ -5,20 +5,19 @@ local offset = 1
 local showCount = 6
 
 local teleports = {
-    { "Hakone Nanamagari",  "hakone" },
-    { "YZ Circuit",         "yz_circuit" },
-    { "Suzuka Circuit",     "suzuka_circuit" },
-    { "Sekia",              "sekia" },
-    { "Project Touge",      "project_touge" },
-    { "Mikawa",             "mikawa" },
-    { "Mazda Raceway",      "mazda_raceway" },
-    { "Hero Shinoi",        "hero_shinoi" },
-    { "Honjo Circuit",      "honjo_circuit" },
-    { "Gateway International Raceway", "gateway_raceway" },
-    { "GoKart ver.2",       "gokart2" },
-    { "Ebisu West",         "ebisu_west" },
-    { "Ebisu Minami",       "ebisu_minami" },
+    { "Winter Rally Race Track",  "winter_rally_race_track" },
     { "Bihoku",             "bihoku" },
+    { "Honjo Circuit",      "honjo_circuit" },
+    { "Hero Shinoi",        "hero_shinoi" },
+    { "Gateway International Raceway", "gateway_raceway" },
+    { "Galdori",            "galdori"},
+    { "GoKart ver.2",       "gokart2" },
+    { "Mazda Raceway",      "mazda_raceway" },
+    { "Ebisu West",         "ebisu_west" },
+    { "Mikawa",             "mikawa" },
+    { "Project Touge",      "project_touge" },
+    { "YZ Circuit",         "yz_circuit" },
+    { "Unost",              "unost" },
 }
 
 function TeleportTab.create()

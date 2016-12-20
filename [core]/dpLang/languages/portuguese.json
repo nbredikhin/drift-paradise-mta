@@ -14,7 +14,12 @@
 	"price_free": "Gratis",
 	"skin_select_text": "Selecione seu personagem",
 	"player_level": "Nível do jogador",
+	"player_money": "Dinheiro",
 
+    "groups_player": "Jogador",
+	"groups_moderator": "Moderador",
+	"groups_admin": "Admin",
+	
 	"race_type_drift": "Drift",
 	"race_type_drag": "Racha",
 	"race_type_sprint": "Corrida",
@@ -45,11 +50,11 @@
 	"tutorial_garage_text": "Esta é a sua garagem. Aqui você sempre vai poder acessar seus carros. Há também uma seção de ajuste onde você pode atualizar e personalizar seu veículo. A maioria dos upgrades sao desbloqueados com novos niveis. Para obter novos %s você precisa competir contra outros jogadores.",
 	"tutorial_city_title": "Cidade",
 	"tutorial_city_text": "Seja bem vindo a Los Santos! Agora você pode abrir o menu principal pressionando %s. Lá você vai encontrar diversas informações úteis. Se precisar de ajuda, pode abrir o menu %s. Agora tente pressionar para abrir o mapa e %s. Boa sorte!",
-	"tutorial_city_race": "Encontre sua primeira corrida",
+	"tutorial_city_race": "Encontre sua primeira corrida",	
 
 	"help_panel_general_title": "Geral",
 	"help_panel_general_text": "-",
-
+	
 	"help_panel_garage_title": "Garagem",
 	"help_panel_garage_text": "-",
 
@@ -65,14 +70,21 @@
 	// =============================================
 	// ================= PhotoMode =================
 	// =============================================
-	"photo_mode_help_roll": "Rolar esquerda/direita",
-	"photo_mode_help_move": "Mover",
-	"photo_mode_help_speed": "Mover mais rápido/lento",
-	"photo_mode_help_look": "Veja",
-	"photo_mode_help_zoom": "Zoom in/out",
-	"photo_mode_help_updown": "Mover cima/baixo",
-	"photo_mode_help_tips": "Alterar interface e ajuda",
-	"photo_mode_help_smooth": "Alterar movimento suave",
+	"photo_mode_help_shoot": "Tire uma captura de tela",
+    "photo_mode_help_roll": "Rolar esquerda/direita",
+    "photo_mode_help_move": "Mover",
+    "photo_mode_help_speed": "Mover mais rápido/lento",
+    "photo_mode_help_look": "Veja",
+    "photo_mode_help_zoom": "Zoom in/out",
+    "photo_mode_help_updown": "Mover cima/baixo",
+    "photo_mode_help_smooth": "Alterar movimento suave",
+    "photo_mode_help_time": "Mudar tempo",
+    "photo_mode_help_weather": "Mudar clima",
+    "photo_mode_help_tips": "Ativar UI e ajuda",
+    "photo_mode_help_exit": "Sair do modo de fotografia",
+    "photo_mode_param_time": "Tempo",
+    "photo_mode_param_weather": "Clima",
+    "photo_mode_param_weather_unknown": "Desconhecido",
 
 	// =============================================
 	// ================ Login panel ================
@@ -106,7 +118,10 @@
 	"tab_panel_column_money": "Dinheiro",
 	"tab_panel_column_level": "Nível",
 	"tab_panel_players_online": "Jogadores online",
-
+    "tab_panel_group_moderators": "Moderadores",
+	"tab_panel_group_premium": "Donators",
+	"tab_panel_group_players": "Jogadores",
+	
 	// =============================================
 	// ================ Message box ================
 	// =============================================
@@ -131,6 +146,7 @@
 	"login_panel_err_enter_password_confirm": "Confirme sua senha",
 	"login_panel_err_passwords_do_not_match": "Suas senha não coincidem!",
 	"login_panel_err_beta_key_invalid": "Sua chave de acesso é inválida",
+	"login_panel_err_account_banned": "Esta conta está proibida",
 
 	// ======================================================
 	// ================== Chat messages =====================
@@ -138,7 +154,13 @@
 	"chat_message_login_success": "Você logou com sucesso",
 	"chat_message_player_join": "O Jogador %s Entrou no servidor ",
 	"chat_message_player_quit": "O Jogador %s saiu do servidor (%s)",
+	"chat_message_dont_flood": "Pare de fazer flood!",
+	"chat_message_muted": "Você foi temporariamente mutado pelo administrador",
 	"chat_adminsay_admin": "Admin",
+	"chat_adminsay_moderator": "Moderador",
+	"chat_admin_mute": "Jogador %s foi silenciado por %s para %s segundos",
+	"chat_admin_unmute": "Jogadores %s foi desmutado por %s.",
+	"chat_admin_ban": "Jogador %s foi banido %s",
 
 	// =====================================
 	// ============= Garage ================
@@ -165,7 +187,7 @@
 	"garage_menu_back": "Voltar",
 
 	"garage_sell_text": "Venda esse veículo por",
-	"garage_sell_confirm": "Confirmar",
+	"garage_sell_confirm": "Confirmar",	
 	"garage_sell_last_car": "Você não pode vender seu ultimo carro!",
 
 	// ========================================
@@ -260,7 +282,7 @@
 	"garage_sticker_editor_help_transform": "Mover, tamanho e rodar",
 	"garage_sticker_editor_help_mirroring": "Ativar reflexo",
 	"garage_sticker_editor_help_next_prev": "Selecionar próximo/anterior adesivo",
-	"garage_sticker_editor_help_toggle": "Ativar ajuda",
+	"garage_sticker_editor_help_toggle": "Ativar ajuda",	
 
 	"garage_tuning_sticker_color": "Cor do adesivo",
 	"garage_tuning_sticker_prev": "%s - Anterior",
@@ -293,15 +315,32 @@
 	"main_panel_account_house_no": "Nenhum",
 
 	"main_panel_settings_section_game": "Opções do jogo",
+	"main_panel_settings_section_chat": "Configurações de bate-papo",
 	"main_panel_settings_section_graphics": "Opções gráficas",
 	"main_panel_settings_language": "Linguagem",
 	"main_panel_settings_color": "Cor do UI",
+	"main_panel_settings_joinquit_messages": "Logou/Saiu mensagem",
+	"main_panel_settings_chat_timestamp": "Tempo de envio",
 	"main_panel_settings_reflections_cars": "Reflexo do carro",
 	"main_panel_settings_reflections_water": "Reflexo da água",
 	"main_panel_settings_improved_car_lights": "Melhorar luz do carro",
 	"main_panel_settings_improved_sky": "Melhorar céu",
 	"main_panel_settings_screen_blur": "Borrão da tela",
 	"main_panel_settings_tyres_smoke": "Fumaça dos pneus",
+	"main_panel_settings_snow": "Neve",
+	"main_panel_settings_background_music": "Música de fundo",
+	"main_panel_setting_change_password": "Mudar senha",
+	
+	"main_panel_password_change_title": "Alterar senha da conta",
+	"main_panel_new_password_label": "Nova senha",
+	"main_panel_new_password_placeholder": "Insira a nova senha",
+	"main_panel_new_password_repeat_label": "Repita a nova senha",
+	"main_panel_new_password_repeat_placeholder": "Digite a nova senha novamente",
+	"main_panel_new_password_accept": "Aceitart",
+	"main_panel_new_password_cancel": "Voltar",	
+	"main_panel_password_change_message": "Mudança de senha",
+	"main_panel_password_change_error": "Falha ao alterar sua senha",
+	"main_panel_password_change_success": "Você alterou com êxito a senha da sua conta",
 
 	// ==========================================
 	// ================ Markers =================
@@ -315,6 +354,7 @@
 	"markers_house_buy_text": "Aperte %q para abrir o menu de vendas de casa",
 	"markers_strip_enter_text": "Aperte %q para entrar no club de strip",
 	"markers_race_enter_text": "Aperte %q para entrar na sala de corrida",
+	"markers_tofu_text": "Pressione %q para iniciar a missão do tofu",
 
 	// ====================================
 	// =========== House system ===========
@@ -416,15 +456,18 @@
 	"context_menu_vehicle_door_rf_close": "Fechar porta frontal direita",
 	"context_menu_vehicle_door_lb_close": "Fechar porta traseira esquerda",
 	"context_menu_vehicle_door_rb_close": "Fechar porta traseira direita",
+	
+	"context_menu_vehicle_lock": "Bloquear portas",
+	"context_menu_vehicle_unlock": "Desbloquear portas",
 
 	"context_menu_vehicle_enable_drift_mode": "Ativa modo de Drift",
-	"context_menu_vehicle_disable_drift_mode": "Desativar modo de Drift",
+	"context_menu_vehicle_disable_drift_mode": "Desativar modo de Drift",	
 
 	"context_menu_vehicle_lights_on": "Ligar as luzes",
 	"context_menu_vehicle_lights_off": "Desligar as luzes",
 
 	"context_menu_vehicle_handbrake_on": "Ativar o freio de mão",
-	"context_menu_vehicle_handbrake_off": "Desativar o freio de mão",
+	"context_menu_vehicle_handbrake_off": "Desativar o freio de mão",	
 
 	"context_menu_vehicle_engine_on": "Ligar motor",
 	"context_menu_vehicle_engine_off": "Desligar motor",
@@ -476,19 +519,19 @@
 
 	"duel_accept_message": "Jogador %s quer duelar com você.\nAposta: $%s",
 	"duel_accept_key_accept": "%s - Aceitar (%s)",
-	"duel_accept_key_decline": "%s - Recusar",
+	"duel_accept_key_decline": "%s - Recusar",	
 
 	"duel_winner_screen_you_won": "Você venceu!",
 	"duel_winner_screen_you_lost": "Você perdeu",
 	"duel_winner_screen_prize": "Preço",
-	"duel_winner_screen_time": "Tempo",
-	"duel_winner_screen_timeout": "O tempo terminou!",
+	"duel_winner_screen_time": "Tempo",	
+	"duel_winner_screen_timeout": "O tempo terminou!",	
 
 	// Handling switching
 	"handling_switching_message_drift": "Mudando para o modo de Drift...",
 	"handling_switching_message_street": "Mudando para o modo de Rua...",
 	"handling_switching_message_no_upgrade": "Você não tem a atuazalição de Drift instalada!",
-	"handling_switching_message_moving": "Você tem que parar seu carro para alterar!",
+	"handling_switching_message_moving": "Você tem que parar seu carro para alterar!",	
 	"handling_switching_message_forced": "Você não tem permissão para mudar de modo aqui",
 
 	// Gift panel
@@ -508,5 +551,44 @@
 	"lobby_screen_field_players": "Jogadores na sala",
 	"lobby_screen_field_class": "Vidro do carro",
 
-	"lobby_screen_enter_button": "Entrar",
+	"lobby_screen_enter_button": "Entrar",	
+	
+	// Donation
+	"donation_message_title": "Doação",
+	"donation_message_text": "Você comprou com êxito %s!",
+
+	// Tofu delivery
+	"tofu_blip_text": "Entrega de Tofu",
+	"tofu_finish_text": "Você entregou Tofu!",
+	"tofu_prize_text": "Dinheiro adquirido",
+	"tofu_time_text": "Tempo de entrega",
+	"tofu_perfect_text": "Para entrega sem danos",
+	"tofu_fast_delivery_text": "Para entrega rápida",
+	"tofu_message_box_title": "Entrega de Tofu",
+	"tofu_message_box_text": "Você já entregou o Tofu! agora siga o caminho",
+
+	// Radio
+	"radio_off": "Rádio desligada",
+	"radio_user_tracks": "Faixas do usuário",
+
+    // Weather
+    "weather_extrasunny_la": "Extra Ensolarado 1",
+    "weather_extrasunny_smog_la": "Extra ensolarado 2",
+    "weather_extrasunny_sf": "Extra Ensolarado 3",
+    "weather_extrasunny_vegas": "Extra Ensolarado 4",
+    "weather_extrasunny_countryside": "Extra Ensolarado 5",
+    "weather_extrasunny_desert": "Extra Ensolarado 6",
+    "weather_sunny_la": "Ensolarado 1",
+    "weather_sunny_smog_la": "Ensolarado 2",
+    "weather_sunny_sf": "Ensolarado 3",
+    "weather_sunny_vegas": "Ensolarado 4",
+    "weather_sunny_countryside": "Ensolarado 5",
+    "weather_sunny_desert": "Ensolarado 6",
+    "weather_cloudy_la1": "Nublado 1",
+    "weather_cloudy_sf2": "Nublado 2",
+    "weather_cloudy_vegas3": "Nublado 3",
+    "weather_cloudy_countryside4": "Nublado 4",
+    "weather_rainy_sf": "Chuvoso",
+    "weather_foggy_sf": "Nebuloso",
+    "weather_sandstorm_desert": "Tempestade de areia"
 }

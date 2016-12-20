@@ -11,12 +11,14 @@ local vehiclesPrices = {
     nissan_silvia_s13       = {39000,   11},
     -- 3 класс
     nissan_datsun_240z      = {41500,   13},
+    mazda_rx7_fc            = {45000,   14},
     nissan_skyline_er34     = {48000,   15},
     toyota_mark2_100        = {55000,   17},
     bmw_e30                 = {62000,   19},
     toyota_altezza          = {68500,   21},
     -- 4 класс
     honda_s2000             = {78200,   25},
+    subaru_impreza          = {81500,   27},
     bmw_e34                 = {84000,   29},
     nissan_silvia_s14       = {92100,   34},
     nissan_silvia_s15       = {100000,  37},
@@ -32,11 +34,6 @@ local vehiclesPrices = {
     lamborghini_huracan     = {350000,  67},
     ferrari_458_italia      = {385500,  73},
     lamborghini_aventador   = {430000,  80},
-
-    -- Unknown
-    mazda_rx7_fc            = {0,   100},
-    subaru_impreza          = {0,   100},
-    nissan_silvia_s15       = {0,   100},   
 }
 
 function getVehiclePrices(name)

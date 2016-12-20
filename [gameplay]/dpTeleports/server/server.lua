@@ -13,7 +13,9 @@ local mapsTeleports = {
     gokart2         = Vector3 { x = -1877.571,  y = -2758.882,  z = 1120.514 },
     ebisu_west      = Vector3 { x = -2718.073,  y = -2805.739,  z = 1434.322 },
     ebisu_minami    = Vector3 { x = -6492.131,  y = -3290.781,  z = 311.303 },
-    bihoku          = Vector3 { x = -4694.072,  y = -3193.400,  z = 116.466 }
+    bihoku          = Vector3 { x = -4694.072,  y = -3193.400,  z = 116.466 },
+    unost           = Vector3 { x = 766.356, y = -4345.913, z = 87.702 },
+    winter_rally_race_track = Vector3 { x = 6122.218, y = -1990.260, z = 29.039 }
 }
 local cityTeleports = {
     Vector3 { x = -8169.207,    y = -1268.439,  z = 1114.1 },
@@ -30,7 +32,9 @@ local cityTeleports = {
     Vector3 { x = -1847.451,    y = -2759.856,  z = 1120.3 },
     Vector3 { x = -2740.114,    y = -2806.345,  z = 1436 },
     Vector3 { x = -6470.735,    y = -3292.223,  z = 311 },
-    Vector3 { x = -4694.880,    y = -3179.275,  z = 116.1 }
+    Vector3 { x = -4694.880,    y = -3179.275,  z = 116.1 },
+    Vector3 { x = 6137.958,     y = -1999.080,  z = 29.7 },
+    Vector3 { x = 803.378,      y = -4351.334,  z = 87.2 },
 }
 
 local cityPosition = Vector3(1467.486, -1749.974, 13.147)

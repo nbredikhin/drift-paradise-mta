@@ -425,7 +425,7 @@ addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуск�
     end
 )
 
-local ID = 4550 -- Айди объекта на который заменяется клуб
+local ID = 1515 -- Айди объекта на который заменяется клуб
  
 addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуске ресурса подгружаем и заменяем модель
     function ( )
@@ -437,7 +437,7 @@ addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуск�
  
         local col = engineLoadCOL ( 'hdneboscreb.col' ) -- col файл
         engineReplaceCOL ( col, ID ) -- заменяем коллизию модели
-		engineSetModelLODDistance(4550 , 3000)
+		engineSetModelLODDistance(1515 , 3000)
     end
 )
 
@@ -489,7 +489,7 @@ addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуск�
     end
 )
 
-local ID = 8493 -- Айди объекта на который заменяется клуб
+local ID = 1830 -- Айди объекта на который заменяется клуб
  
 addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуске ресурса подгружаем и заменяем модель
     function ( )
@@ -501,11 +501,11 @@ addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуск�
  
         local col = engineLoadCOL ( 'eclipsetower1.col' ) -- col файл
         engineReplaceCOL ( col, ID ) -- заменяем коллизию модели
-		engineSetModelLODDistance(8493 , 3000)
+		engineSetModelLODDistance(1830 , 3000)
     end
 )
 
-local ID = 8493 -- Айди объекта на который заменяется клуб
+local ID = 1830 -- Айди объекта на который заменяется клуб
  
 addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуске ресурса подгружаем и заменяем модель
     function ( )
@@ -521,7 +521,7 @@ addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуск�
     end
 )
 
-local ID = 8493 -- Айди объекта на который заменяется клуб
+local ID = 1830  -- Айди объекта на который заменяется клуб
  
 addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуске ресурса подгружаем и заменяем модель
     function ( )
@@ -533,11 +533,11 @@ addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуск�
  
         local col = engineLoadCOL ( 'eclipsetower1.col' ) -- col файл
         engineReplaceCOL ( col, ID ) -- заменяем коллизию модели
-		engineSetModelLODDistance(8493 , 3000)
+		engineSetModelLODDistance(1830  , 3000)
     end
 )
 
-local ID = 8493 -- Айди объекта на который заменяется клуб
+local ID = 1830  -- Айди объекта на который заменяется клуб
  
 addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуске ресурса подгружаем и заменяем модель
     function ( )
@@ -549,12 +549,12 @@ addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуск�
  
         local col = engineLoadCOL ( 'eclipsetower1.col' ) -- col файл
         engineReplaceCOL ( col, ID ) -- заменяем коллизию модели
-		engineSetModelLODDistance(8493 , 3000)
+		engineSetModelLODDistance(1830  , 3000)
     end
 )
 
 
-local ID = 7234 -- Айди объекта на который заменяется клуб
+local ID = 1832 -- Айди объекта на который заменяется клуб
  
 addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуске ресурса подгружаем и заменяем модель
     function ( )
@@ -566,12 +566,12 @@ addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуск�
  
         local col = engineLoadCOL ( 'eclipsetower2.col' ) -- col файл
         engineReplaceCOL ( col, ID ) -- заменяем коллизию модели
-		engineSetModelLODDistance(7234 , 3000)
+		engineSetModelLODDistance(1832 , 3000)
     end
 )
 
 
-local ID = 9078 -- Айди объекта на который заменяется клуб
+local ID = 1831 -- Айди объекта на который заменяется клуб
  
 addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуске ресурса подгружаем и заменяем модель
     function ( )
@@ -583,7 +583,7 @@ addEventHandler ( 'onClientResourceStart', resourceRoot, -- При запуск�
  
         local col = engineLoadCOL ( 'eclipsetower3.col' ) -- col файл
         engineReplaceCOL ( col, ID ) -- заменяем коллизию модели
-		engineSetModelLODDistance(9078 , 3000)
+		engineSetModelLODDistance(1831 , 3000)
     end
 )
 

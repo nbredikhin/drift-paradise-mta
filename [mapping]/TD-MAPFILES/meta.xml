@@ -5,9 +5,6 @@
     <file src="hotelgarage.col" />
     <file src="hotelgarage.dff" />
 
-    <file src="primring.txd" />
-    <file src="primring.col" />
-    <file src="primring.dff" />
 
     <file src="hotelfoor.txd" />
     <file src="hotelfoor.col" />
@@ -86,7 +83,7 @@
     <file src="hdneboscreb.col" />
     <file src="hdneboscreb.dff" /> 
 
-	    <file src="2.txd" />
+    <file src="2.txd" />
     <file src="2.col" />
     <file src="2.dff" /> 
 	

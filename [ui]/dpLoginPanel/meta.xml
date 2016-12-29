@@ -6,8 +6,7 @@
 	<script type="client" src="client/login.lua"/>
 	<script type="client" src="client/gui.lua"/>
 	<script type="client" src="client/Autologin.lua"/>
-	<file src="assets/background.jpg"/>
-	<file src="assets/quote.png"/>
+	<file src="assets/background.png"/>
 
     <export type="client" function="setVisible"/>
 	<export type="client" function="autologinRemember"/>

@@ -2,7 +2,7 @@ Users = {}
 -- Время автосохранения в минутах
 local AUTOSAVE_INTERVAL = 7
 local USERS_TABLE_NAME = "users"
-local PASSWORD_SECRET = "s9abBUIg090j21aASGzc90avj1l"
+local PASSWORD_SECRET = "oijqwgi912hon3gf8h0q1n9n01f1"
 local BETA_KEY_CHECK_ENABLED = false
 
 function Users.setup()

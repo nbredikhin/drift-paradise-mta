@@ -16,15 +16,13 @@ local KEY_REGEXP = "^[A-Za-z0-9_]$"
 
 local languageButtonsList = {
 	{ name = "en", language = "english" },
-	{ name = "ru", language = "russian" },
-	{ name = "ua", language = "ukrainian" },
-	{ name = "pt", language = "portuguese" },
+	{ name = "ru", language = "russian" }
 }
 
 local function draw()
 	animationProgress = math.min(1, animationProgress + ANIMATION_SPEED)
 	dxDrawImage(0, 0, backgroundWidth, backgroundHeight, backgroundTexture, 0, 0, 0, tocolor(255, 255, 255, 255 * animationProgress))
-	dxDrawText("Drift Paradise 2.0", 3, screenHeight - 14, 3, screenHeight - 14, tocolor(255, 255, 255, 100 * animationProgress))
+	dxDrawText("Drive Crew Beta", 3, screenHeight - 14, 3, screenHeight - 14, tocolor(255, 255, 255, 100 * animationProgress))
 	if not root:getData("dbConnected") then
 		dxDrawText("The server is currently not available.\nСервер на данный момент недоступен.",
 			0,
@@ -97,7 +95,7 @@ function setVisible(visible)
 			UI:setText(loginPanel.username, fields.username)
 			UI:setText(loginPanel.password, fields.password)
 		end
-		backgroundTexture = DxTexture("assets/background.jpg", "dxt5")
+		backgroundTexture = DxTexture("assets/background.png")
 	else
 		if isElement(backgroundTexture) then
 			destroyElement(backgroundTexture)
@@ -108,7 +106,7 @@ function setVisible(visible)
 end
 
 local function createLoginPanel()
-	local logoTexture = exports.dpAssets:createTexture("logo.png", "dxt5")
+	local logoTexture = exports.dpAssets:createTexture("logo.png")
 	local textureWidth, textureHeight = dxGetMaterialSize(logoTexture)
 	local logoWidth = 415
 	local logoHeight = textureHeight * 415 / textureWidth
@@ -236,60 +234,7 @@ local function createRegisterPanel()
 		langX = langX + 27 + 5
 	end
 
-	local circleTexture = exports.dpAssets:createTexture("buttons/circle.png", "argb", false, "clamp")
-	local colorPurple = UI:createDpImageButton({
-		x = panelWidth - 50 - 27,
-		y = 40,
-		width = 27, height = 27,
-		color = tocolor(150, 0, 255),
-		texture = circleTexture
-	})
-	UI:addChild(panel, colorPurple)
-
-	local colorBlue = UI:createDpImageButton({
-		x = panelWidth - 50 - 27 - 7 - 27,
-		y = 40,
-		width = 27, height = 27,
-		color = tocolor(16, 160, 207),
-		texture = circleTexture
-	})
-	UI:addChild(panel, colorBlue)
-
-	local colorRed = UI:createDpImageButton({
-		x = panelWidth - 50 - 27 - 7 - 27 - 7 - 27,
-		y = 40,
-		width = 27, height = 27,
-		color = tocolor(212, 0, 40),
-		texture = circleTexture
-	})
-	UI:addChild(panel, colorRed)
-
-	local colorLabelWidth = 50
-	local colorLabel = UI:createDpLabel({
-		x = panelWidth - colorLabelWidth - 30 - (37 * 3) - 10,
-		y = 40,
-		width = colorLabelWidth,
-		wordBreak = false,
-		clip = true,
-		height = 50,
-		alignX = "right",
-		alignY = "top",
-		locale = "login_panel_color"
-	})
-	UI:addChild(panel, colorLabel)
-
-	local y = 30
-	-- local betaKeyInput = UI:createDpInput({
-	-- 	x = 50,
-	-- 	y = y,
-	-- 	width = 450,
-	-- 	height = 50,
-	-- 	type = "dark",
-	-- 	locale = "login_panel_beta_key_label"
-	-- })
-	-- UI:addChild(panel, betaKeyInput)
-
-	y = y + 70
+	local y = 100
 	local usernameInput = UI:createDpInput({
 		x = 50,
 		y = y,
@@ -354,12 +299,6 @@ local function createRegisterPanel()
 	registerPanel.passwordConfirm = passwordConfirmInput
 	registerPanel.username = usernameInput
 	registerPanel.betaKey = betaKeyInput
-
-	registerPanel.colorButtons = {
-		red = colorRed,
-		purple = colorPurple,
-		blue = colorBlue
-	}
 end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
@@ -406,15 +345,6 @@ addEventHandler("dpUI.click", resourceRoot, function(widget)
 			UI:getText(registerPanel.passwordConfirm)
 			--UI:getText(registerPanel.betaKey)
 		)
-	elseif widget == registerPanel.colorButtons.red then
-		exports.dpSounds:playSound("ui_change.wav")
-		exports.dpConfig:setProperty("ui.theme", "red")
-	elseif widget == registerPanel.colorButtons.purple then
-		exports.dpSounds:playSound("ui_change.wav")
-		exports.dpConfig:setProperty("ui.theme", "purple")
-	elseif widget == registerPanel.colorButtons.blue then
-		exports.dpSounds:playSound("ui_change.wav")
-		exports.dpConfig:setProperty("ui.theme", "blue")
 	end
 end)
 

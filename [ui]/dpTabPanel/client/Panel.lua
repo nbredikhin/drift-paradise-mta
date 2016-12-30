@@ -106,8 +106,8 @@ function Panel.start()
 	itemFont = exports.dpAssets:createFont("Roboto-Regular.ttf", 14)
 	logoTexture = exports.dpAssets:createTexture("logo.png")
 	local textureWidth, textureHeight = dxGetMaterialSize(logoTexture)
-	logoWidth = 415
-	logoHeight = textureHeight * 415 / textureWidth
+	logoWidth = 280
+	logoHeight = textureHeight * logoWidth / textureWidth
 	panelHeight = logoHeight + 10 + headerHeight * 2 + itemsCount * itemHeight
 	highlightedColor = tocolor(exports.dpUI:getThemeColor())
 
@@ -161,7 +161,7 @@ function Panel.start()
 		end
 	end
 
-	if #players > 0 then
+	if #players > 1 then
 		addPlayerToList({ text = exports.dpLang:getString("tab_panel_group_players"), color = headerColor, isGroup = true} )
 		for i, player in ipairs(players) do
 			if player ~= localPlayer then

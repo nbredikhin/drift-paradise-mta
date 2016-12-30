@@ -75,7 +75,8 @@ function ItemsMenu:draw(fadeProgress)
 	y = -130
 	local logoSize = self.resolution.x
 	if not self.hideLogo then
-		dxDrawImage(0, y, logoSize, logoSize, Assets.textures.logo)
+		local scaledLogoSize = logoSize * 0.8
+		dxDrawImage(self.resolution.x / 2 - scaledLogoSize / 2, y + 60, scaledLogoSize, scaledLogoSize, Assets.textures.logo)
 	end
 	y = y + logoSize / 2 + 15
 	-- Стрелка вверх

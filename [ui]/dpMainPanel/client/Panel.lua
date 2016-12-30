@@ -17,7 +17,7 @@ function Panel.create()
     end
     panel = UI:createDpPanel {
         x       = (screenWidth - width) / 2,
-        y       = (screenHeight - height) / 1.7,
+        y       = (screenHeight - height) / 1.4,
         width   = width,
         height  = height,
         type    = "light"
@@ -27,8 +27,8 @@ function Panel.create()
     if screenHeight >= 710 then
         local logoTexture = exports.dpAssets:createTexture("logo.png")
         local textureWidth, textureHeight = dxGetMaterialSize(logoTexture)
-        local logoWidth = 415
-        local logoHeight = textureHeight * 415 / textureWidth
+        local logoWidth = 300
+        local logoHeight = textureHeight * 300 / textureWidth
         local logoImage = UI:createImage({
             x       = (width - logoWidth) / 2,
             y       = -logoHeight - 25,

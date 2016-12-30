@@ -11,6 +11,8 @@ local ANIMATION_SPEED = 0.01
 local loginPanel = {}
 local registerPanel = {}
 
+local LOGO_WIDTH = 300
+
 local USERNAME_REGEXP = "^[A-Za-z0-9_]$"
 local KEY_REGEXP = "^[A-Za-z0-9_]$"
 
@@ -108,8 +110,8 @@ end
 local function createLoginPanel()
 	local logoTexture = exports.dpAssets:createTexture("logo.png")
 	local textureWidth, textureHeight = dxGetMaterialSize(logoTexture)
-	local logoWidth = 415
-	local logoHeight = textureHeight * 415 / textureWidth
+	local logoWidth = LOGO_WIDTH
+	local logoHeight = textureHeight * LOGO_WIDTH / textureWidth
 
 	local panelWidth = 550
 	local panelHeight = 260
@@ -185,8 +187,8 @@ local function createRegisterPanel()
 	local logoTexture = exports.dpAssets:createTexture("logo.png")
 	local textureWidth, textureHeight = dxGetMaterialSize(logoTexture)
 	local logoScale = 1
-	local logoWidth = 415 * logoScale
-	local logoHeight = textureHeight * 415 / textureWidth * logoScale
+	local logoWidth = LOGO_WIDTH * logoScale
+	local logoHeight = textureHeight * LOGO_WIDTH / textureWidth * logoScale
 
 	local totalPanelHeight = panelHeight - logoHeight + 25
 

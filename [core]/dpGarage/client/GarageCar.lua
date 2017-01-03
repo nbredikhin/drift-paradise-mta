@@ -209,7 +209,7 @@ function GarageCar.resetTuning()
 
     -- Цвета
     if not currentTuningTable.BodyColor then
-        currentTuningTable.BodyColor = {212, 0, 40}
+        currentTuningTable.BodyColor = exports.dpShared:getGameplaySetting("default_vehicle_color") or {255, 255, 255}
     end
     for i, name in ipairs(colorsData) do
         if currentTuningTable[name] then

@@ -285,7 +285,8 @@ function Carshop.showVehicle(id)
 	end
 	showTimer = setTimer(function ()
 		vehicle.alpha = 255
-		vehicle:setColor(212, 0, 40)
+		local color = exports.dpShared:getGameplaySetting("default_vehicle_color") or {255, 255, 255}
+		vehicle:setColor(unpack(color))
 	end, 250, 1)
 
 	local vehicleName = exports.dpShared:getVehicleNameFromModel(vehicle.model)

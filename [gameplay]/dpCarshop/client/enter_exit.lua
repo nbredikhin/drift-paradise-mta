@@ -34,10 +34,6 @@ local function enterExitCarshop(enter)
 	end
 	isEnterExitInProcess = true
 	fadeCamera(false, 1)
-	if not enter then
-		-- Если играла музыка в интро
-		exports.dpIntro:stopMusic()
-	end
 	Timer(function ()
 		if enter then
 			triggerServerEvent("dpCarshop.enter", resourceRoot)

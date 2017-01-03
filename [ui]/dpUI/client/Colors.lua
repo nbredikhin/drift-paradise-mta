@@ -94,7 +94,9 @@ function Colors.getThemeColor(themeName, color)
 	else
 		theme = themes[currentThemeName]
 	end
-
+	if not theme then
+		return 255, 0, 0
+	end
 	if type(color) == "string" then
 		return unpack(theme[color])
 	end

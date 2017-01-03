@@ -103,7 +103,7 @@
 	// Tab panel
 	"tab_panel_column_id": "ID",
 	"tab_panel_column_nickname": "Ник",
-	"tab_panel_column_money": "Деньги",
+	"tab_panel_column_ping": "Пинг",
 	"tab_panel_column_level": "Уровень",
 	"tab_panel_players_online": "Игроков онлайн",
 	"tab_panel_group_moderators": "Модераторы",

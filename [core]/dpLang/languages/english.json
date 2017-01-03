@@ -114,7 +114,7 @@
 	// ==============================================
 	"tab_panel_column_id": "ID",
 	"tab_panel_column_nickname": "Nickname",
-	"tab_panel_column_money": "Money",
+	"tab_panel_column_ping": "Ping",
 	"tab_panel_column_level": "Level",
 	"tab_panel_players_online": "Players online",
 	"tab_panel_group_moderators": "Moderators",

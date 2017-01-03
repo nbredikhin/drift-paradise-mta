@@ -36,29 +36,29 @@ function AccountTab.create()
 		end
 	end)
 
-	local moneyLabel = UI:createDpLabel {
-		x = width - width / 3 - 20 , y = 15,
-		width = width / 3, height = 50,
-		text = "$0",
-		type = "primary",
-		fontType = "defaultLarger",
-		alignX = "right"
-	}
-	UI:addChild(panel, moneyLabel)
-	UIDataBinder.bind(moneyLabel, "money", function (value)
-		return "$" .. tostring(value)
-	end)
-	-- Подпись
-	local moneyLabelText = UI:createDpLabel {
-		x = width - width / 3 - 20 , y = 55,
-		width = width / 3, height = 50,
-		text = "Money",
-		color = tocolor(0, 0, 0, 100),
-		fontType = "defaultSmall",
-		alignX = "right",
-		locale = "main_panel_account_money"
-	}
-	UI:addChild(panel, moneyLabelText)
+	-- local moneyLabel = UI:createDpLabel {
+	-- 	x = width - width / 3 - 20 , y = 15,
+	-- 	width = width / 3, height = 50,
+	-- 	text = "$0",
+	-- 	type = "primary",
+	-- 	fontType = "defaultLarger",
+	-- 	alignX = "right"
+	-- }
+	-- UI:addChild(panel, moneyLabel)
+	-- UIDataBinder.bind(moneyLabel, "money", function (value)
+	-- 	return "$" .. tostring(value)
+	-- end)
+	-- -- Подпись
+	-- local moneyLabelText = UI:createDpLabel {
+	-- 	x = width - width / 3 - 20 , y = 55,
+	-- 	width = width / 3, height = 50,
+	-- 	text = "Money",
+	-- 	color = tocolor(0, 0, 0, 100),
+	-- 	fontType = "defaultSmall",
+	-- 	alignX = "right",
+	-- 	locale = "main_panel_account_money"
+	-- }
+	-- UI:addChild(panel, moneyLabelText)
 
 	-- Прогрессбар
 	local levelProgressBg = UI:createRectangle {
@@ -136,22 +136,39 @@ function AccountTab.create()
 		return exports.dpLang:getString("main_panel_account_cars_count") .. ": " .. tostring(value)
 	end)
 
-	-- Наличие у игрока дома (TODO)
-	local hasHouseLabel = UI:createDpLabel {
+	-- Время, проведенное на сервере
+	local playtimeLabel = UI:createDpLabel {
 		x = 20, y = 210,
 		width = width / 3, height = 50,
-		text = "House: none",
 		fontType = "defaultSmall",
 		type = "dark",
 	}
-	UI:addChild(panel, hasHouseLabel)
-	UIDataBinder.bind(hasHouseLabel, "house_id", function (value)
-		local houseStr = "main_panel_account_house_no"
-		if type(value) == "number" and value > 0 then
-			houseStr = "main_panel_account_house_yes"
+	UI:addChild(panel, playtimeLabel)
+	UIDataBinder.bind(playtimeLabel, "playtime", function (value)
+		value = tonumber(value)
+		if not value then
+			value = 0
 		end
-		return exports.dpLang:getString("main_panel_account_house") .. ": " .. exports.dpLang:getString(houseStr)
-	end)
+		value = math.floor(value / 60 * 10) / 10
+		return exports.dpLang:getString("main_panel_account_playtime") .. ": " .. tostring(value)
+	end)	
+
+	-- Наличие у игрока дома (TODO)
+	-- local hasHouseLabel = UI:createDpLabel {
+	-- 	x = 20, y = 210,
+	-- 	width = width / 3, height = 50,
+	-- 	text = "House: none",
+	-- 	fontType = "defaultSmall",
+	-- 	type = "dark",
+	-- }
+	-- UI:addChild(panel, hasHouseLabel)
+	-- UIDataBinder.bind(hasHouseLabel, "house_id", function (value)
+	-- 	local houseStr = "main_panel_account_house_no"
+	-- 	if type(value) == "number" and value > 0 then
+	-- 		houseStr = "main_panel_account_house_yes"
+	-- 	end
+	-- 	return exports.dpLang:getString("main_panel_account_house") .. ": " .. exports.dpLang:getString(houseStr)
+	-- end)
 
 	-- Дата регистрации
 	local registerDateLabel = UI:createDpLabel {
@@ -168,23 +185,6 @@ function AccountTab.create()
 		end
 		local timeString = tostring(value:sub(1, string.find(value, " ")))
 		return exports.dpLang:getString("main_panel_account_regtime") .. ": " .. timeString
-	end)
-
-	-- Время, проведенное на сервере
-	local playtimeLabel = UI:createDpLabel {
-		x = width / 2, y = 210,
-		width = width / 3, height = 50,
-		fontType = "defaultSmall",
-		type = "dark",
-	}
-	UI:addChild(panel, playtimeLabel)
-	UIDataBinder.bind(playtimeLabel, "playtime", function (value)
-		value = tonumber(value)
-		if not value then
-			value = 0
-		end
-		value = math.floor(value / 60 * 10) / 10
-		return exports.dpLang:getString("main_panel_account_playtime") .. ": " .. tostring(value)
 	end)
 
 	-------------------------- Нижние кнопки ------------------------------

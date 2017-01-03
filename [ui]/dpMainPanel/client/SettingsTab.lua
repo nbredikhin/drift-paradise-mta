@@ -2,17 +2,13 @@ SettingsTab = {}
 local ui = {}
 
 local colorButtonsList = {
+    { name = "red" },
     { name = "purple" },
     { name = "blue" },
-    { name = "red" },
-    { name = "orange" },
-    { name = "green" }
 }
 local languageButtonsList = {
     { name = "en", language = "english" },
-    { name = "ru", language = "russian" },
-    { name = "ua", language = "ukrainian" },
-    { name = "pt", language = "portuguese" },
+    { name = "ru", language = "russian" }
 }
 
 function SettingsTab.create()

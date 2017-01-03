@@ -20,8 +20,8 @@ local logoWidth, logoHeight
 local columns = {
 	{ name = "tab_panel_column_id", 		size = 0.1, 	data = "id"},
 	{ name = "tab_panel_column_nickname", 	size = 0.4, 	data = "name"},
-	{ name = "tab_panel_column_money", 		size = 0.25, 	data = "money"},
 	{ name = "tab_panel_column_level", 		size = 0.25, 	data = "level"},
+	{ name = "tab_panel_column_ping", 		size = 0.25, 	data = "ping"},	
 }
 local playersList = {}
 local playersOnlineCount = 0
@@ -122,7 +122,7 @@ function Panel.start()
 			isLocalPlayer = isLocalPlayer,
 			id = player:getData("serverId") or 0,
 			name = exports.dpUtils:removeHexFromString(player.name),
-			money = "$" .. tostring(player:getData("money") or 0),
+			ping = tostring(player.ping) .. "ms",
 			level = player:getData("level") or "-"
 		})
 	end

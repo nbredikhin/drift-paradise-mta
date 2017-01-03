@@ -60,9 +60,6 @@ local startupResources = {
 	"dpStripClub",
 	"dpTeleports",
 	"dpContextMenu",
-	"dpSkinSelect",
-	"dpTofu",
-	"dpIntro",
 
 	-- World
 	"MAPPING",

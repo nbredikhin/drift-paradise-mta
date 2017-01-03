@@ -72,13 +72,7 @@ function ItemsMenu:draw(fadeProgress)
 	dxSetRenderTarget(self.renderTarget, true)
 
 	-- Логотип
-	y = -130
-	local logoSize = self.resolution.x
-	if not self.hideLogo then
-		local scaledLogoSize = logoSize * 0.8
-		dxDrawImage(self.resolution.x / 2 - scaledLogoSize / 2, y + 60, scaledLogoSize, scaledLogoSize, Assets.textures.logo)
-	end
-	y = y + logoSize / 2 + 15
+	y = -130 + self.resolution.x / 2 + 15
 	-- Стрелка вверх
 	local arrowSize = self.resolution.x / 4
 	local arrowsX = (self.resolution.x - arrowSize) / 2

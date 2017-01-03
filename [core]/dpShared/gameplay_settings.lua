@@ -1,5 +1,5 @@
 local gameplaySettings = {
-	
+	start_vehicle = "toyota_ae86"
 }
 
 function getGameplaySetting(name)

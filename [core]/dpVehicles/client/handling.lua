@@ -118,9 +118,9 @@ function switchHandlingInstantly()
 	triggerServerEvent("switchPlayerHandling", resourceRoot)
 end
 
-bindKey("2", "down", function ()
-	if not localPlayer.vehicle then
-		return
-	end
-	switchHandling()
-end)
+-- bindKey("2", "down", function ()
+-- 	if not localPlayer.vehicle then
+-- 		return
+-- 	end
+-- 	switchHandling()
+-- end)

@@ -1,6 +1,6 @@
 <meta>
     <oop>true</oop>
-    <!-- <script src="replace.lua" type="client" /> -->
+    
     <script src="server/utils.lua"   type="server"/>
     <script src="server/encrypt.lua" type="server"/>
 

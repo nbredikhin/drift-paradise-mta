@@ -10,7 +10,7 @@
 
     "enableReadmeFiles": true,
 
-    "only": ["dpCore"],
+    "only": [],
 
     "include": [
         "geoip",

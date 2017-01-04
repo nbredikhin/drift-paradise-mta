@@ -102,7 +102,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
     end
 end)
 
-addEventHandler("onClientElementStreamedIn", root, function ()
+addEventHandler("onClientElementStreamIn", root, function ()
     if source.type ~= "vehicle" then
         return
     end

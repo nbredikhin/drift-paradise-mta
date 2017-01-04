@@ -143,14 +143,14 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	addEventHandler("onClientPreRender", root, update)
 end)
 
-addEventHandler("onClientElementStreamedIn", root, function ()
+addEventHandler("onClientElementStreamIn", root, function ()
 	outputChatBox("Streamed in")
 	if source.type == "vehicle" then
 		addVehicleSmoke(source)
 	end
 end)
 
-addEventHandler("onClientElementStreamedOut", root, function ()
+addEventHandler("onClientElementStreamOut", root, function ()
 	if source.type == "vehicle" then
 		removeVehicleSmoke(source)
 	end

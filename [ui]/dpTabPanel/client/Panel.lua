@@ -153,7 +153,7 @@ function Panel.start()
 			addPlayerToList(p)
 		end
 	end
-	local premiums = getPlayersWithData("premium")
+	local premiums = getPlayersWithData("isPremium")
 	if #premiums > 0 then
 		addPlayerToList({ text = exports.dpLang:getString("tab_panel_group_premium"), color = headerColor, isGroup = true} )
 		for i, p in ipairs(premiums) do

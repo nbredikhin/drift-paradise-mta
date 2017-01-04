@@ -52,17 +52,11 @@
 	"tutorial_city_race": "find your first race",
 
 	"help_panel_general_title": "General",
-	"help_panel_general_text": "Keys:\nF1 - main panel, teleports, settings\nF2 - cursor\n1 - toggle lights\n2 - toggle drift mode\nO - photo mode\nI toggle UI",
+	"help_panel_general_text": "Keys:\nF1 - main panel, teleports, settings\nF2 - cursor\n1 - toggle lights\nB - handling editor\nO - photo mode\nI toggle UI",
 
 	"help_panel_garage_title": "Garage",
-	"help_panel_garage_text": "You can use garage to access all your cars. You can also use it to sell your car and to customize it. Some of tuning parts are unlocked when you reach a certain level.",
-
-	"help_panel_races_title": "Races",
-	"help_panel_races_text": "Races are the easiest way to earn money. You can race against players with same car class. You can also call player to duel with you. To duel players use F2 -> RMB on player -> Duel.",
-
-	"help_panel_more_title": "Other",
-	"help_panel_more_text": "You can also use F2 and RMB on yourself or on your car to access actions.",
-
+	"help_panel_garage_text": "You can use garage to access all your cars. You can also use it to remove your car and to customize it.",
+	
 	"help_panel_devs_title": "Developers",
 	"help_panel_devs_text": "MAIN DEVELOPERS\nDEFOLT - design and modeling\nElksnis - mapping, handling\nWherry - scripting\n\nLOCALIZATION\nWherry, DS_Matias, Romiz\n\nSPECIAL THANKS\nMOTHERS_BL3ND3R, Strix, KPoJIuK",
 
@@ -554,8 +548,8 @@
 	"lobby_screen_enter_button": "Enter",
 
 	// Donation
-	"donation_message_title": "Donation",
-	"donation_message_text": "You have successfully purchased %s!",
+	"donation_message_title": "Premium activated",
+	"donation_message_text": "You have successfully activated your premium account!",
 
 	// Tofu delivery
 	"tofu_blip_text": "Tofu delivery",

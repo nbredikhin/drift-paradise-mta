@@ -15,7 +15,7 @@ local secondFont = exports.dpAssets:createFont("Roboto-Regular.ttf", screenScale
 
 local radios = {
     {localized_name = "radio_user_tracks", url = 12},
-    {name = "Drift Paradise Radio", url="http://stream.radio-hosting.net:8000/dpradio"},
+    -- {name = "Drift Paradise Radio", url="http://stream.radio-hosting.net:8000/dpradio"},
     {name = "BBC 1Xtra", url = "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1xtra_mf_p"},
     {name = "Radio Record", url = "http://stream.radiorecord.ru:8100/rr_aac"},
     {name = "Europa Plus", url = "http://ep128.streamr.ru"},

@@ -114,12 +114,12 @@ addEventHandler("dpCore.keyActivation", root, function (success, info)
 	end
 end)
 
-addEvent("dpWebAPI.donationSuccess", true)
-addEventHandler("dpWebAPI.donationSuccess", root, function (amount)
+addEvent("dpCore.donation", true)
+addEventHandler("dpCore.donation", root, function (amount)
 	if localPlayer:getData("activeUI") then
 		return
 	end
 	UI:showMessageBox(
 		exports.dpLang:getString("donation_message_title"), 
-		string.format(exports.dpLang:getString("donation_message_text"), "$" .. tostring(amount)))
+		exports.dpLang:getString("donation_message_text"))
 end)

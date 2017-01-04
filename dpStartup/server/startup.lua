@@ -88,6 +88,7 @@ local startupResources = {
 	"snowmod",
 	"fara",
 	"svet",	
+	"hedit",
 
 	-- Non-important assets
 	"dpCarParts",

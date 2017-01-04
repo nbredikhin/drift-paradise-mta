@@ -1,12 +1,32 @@
 PlayerData = {}
 local loadFields = {
-	"_id", "username", "skin", "money", "lastseen", "playtime", "register_time", "xp", "group"
+	"_id",
+	"username",
+	"skin",
+	"money",
+	"lastseen",
+	"playtime",
+	"register_time",
+	"xp",
+	"group",
+	"premium_expires"
 }
 local saveFields = {
-	"skin", "money", "playtime", "xp"
+	"skin",
+	"money",
+	"playtime",
+	"xp",
+	"premium_expires"
 }
 local protectFields = {
-	"house_id", "level", "money", "xp", "group", "isMuted"
+	"house_id",
+	"level",
+	"money",
+	"xp",
+	"group",
+	"isMuted",
+	"isPremium",
+	"premium_expires"
 }
 
 local function filterData(dataName, value)
@@ -21,6 +41,14 @@ function PlayerData.set(player, account)
 		player:setData(name, filterData(name, account[name]))
 	end
 	player:setData("level", 1)
+	player:setData("isPremium", false)
+	local premiumExpireTimestamp = player:getData("premium_expires")
+	if not premiumExpireTimestamp then
+		premiumExpireTimestamp = 0
+	end
+	if premiumExpireTimestamp > getRealTime().timestamp then
+		player:setData("isPremium", true)
+	end
 	triggerEvent("_playerDataLoaded", resourceRoot, player)
 end
 
@@ -37,6 +65,7 @@ function PlayerData.clear(player)
 		player:setData(name, nil)
 	end
 	player:setData("dpCore.state", nil)
+	player:setData("isPremium", nil)
 end
 
 -- Защита даты

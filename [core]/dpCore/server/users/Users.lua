@@ -1,6 +1,6 @@
 Users = {}
 -- Время автосохранения в минутах
-local AUTOSAVE_INTERVAL = 7
+local AUTOSAVE_INTERVAL = 5
 local USERS_TABLE_NAME = "users"
 local PASSWORD_SECRET = "oijqwgi912hon3gf8h0q1n9n01f1"
 local BETA_KEY_CHECK_ENABLED = false
@@ -20,7 +20,9 @@ function Users.setup()
         -- Дата регистрации
         { name="register_time", type="timestamp", options="DEFAULT CURRENT_TIMESTAMP" },
         -- Дата последней активности
-        { name="lastseen", type="timestamp", options="DEFAULT 0" },
+        { name="lastseen", type="int", options="DEFAULT 0" },
+        -- День, до которого активен премиум
+        { name="premium_expires",  type="int", options="DEFAULT 0" },
         -- XP
         { name="xp", type="bigint", options="UNSIGNED NOT NULL DEFAULT 0" },
         -- Группа
@@ -344,8 +346,30 @@ function logoutOfflineUsers()
     end)
 end
 
+local function checkPlayerPremium(player)
+    if not isElement(player) then
+        return
+    end
+    local premiumExpireDate = player:getData("premium_expires")
+    if type(premiumExpireDate) ~= "number" then
+        player:setData("isPremium", false)
+        player:setData("premium_expires", 0)
+        return
+    end
+
+    if premiumExpireDate < getRealTime().timestamp then
+        player:setData("isPremium", false)
+        player:setData("premium_expires", 0)
+        outputDebugString("Premium expired for " .. tostring(player.name))
+        return
+    end
+end
+
 setTimer(function ()
     for i, player in ipairs(getElementsByType("player")) do
+        if player:getData("isPremium") then
+            checkPlayerPremium(player)
+        end
         Users.saveAccount(player)
     end
 

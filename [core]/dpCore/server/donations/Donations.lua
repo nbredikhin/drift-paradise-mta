@@ -1,18 +1,19 @@
 Donations = {}
 
 local DONATIONS_TABLE_NAME = "donations"
--- Интервал обновления в минутах
-local DONATIONS_UPDATE_INTERVAL = 1
+-- Интервал обновления в секундах
+local DONATIONS_UPDATE_INTERVAL = 10
 
 function Donations.setup()
 	DatabaseTable.create(DONATIONS_TABLE_NAME, {
 		{ name="user_id", type=DatabaseTable.ID_COLUMN_TYPE, options="NOT NULL" },
 		-- Вещи, которые даёт ключ
-		{ name="money", 	type="bigint", options="UNSIGNED DEFAULT 0" },
-		{ name="xp", 		type="bigint", options="UNSIGNED DEFAULT 0" }
+		{ name="money",   type="bigint", options="UNSIGNED DEFAULT 0" },
+		{ name="xp", 	  type="bigint", options="UNSIGNED DEFAULT 0" },
+		{ name="premium", type="int",	 options="UNSIGNED DEFAULT 0" }
 	}, "FOREIGN KEY (user_id)\n\tREFERENCES users("..DatabaseTable.ID_COLUMN_NAME..")\n\tON DELETE CASCADE")
 
-	setTimer(Donations.update, DONATIONS_UPDATE_INTERVAL * 1000 * 60, 0)
+	setTimer(Donations.update, DONATIONS_UPDATE_INTERVAL * 1000, 0)
 	Donations.update()
 end
 
@@ -39,7 +40,21 @@ local function giveDonationToPlayer(player, donation)
 		givePlayerMoney(player, money)
 		givePlayerXP(player, xp)
 
-		triggerClientEvent(player, "dpWebAPI.donationSuccess", player, money)
+		local premiumDuration = donation.premium
+		if premiumDuration and type(premiumDuration) == "number" then
+			local currentPremium = player:getData("premium_expires")
+			if not currentPremium then
+				currentPremium = 0
+			end
+			local timestamp = getRealTime().timestamp
+			local premiumExpireDate = currentPremium + premiumDuration
+			if currentPremium < timestamp then
+				premiumExpireDate = timestamp + premiumDuration
+			end
+			player:setData("premium_expires", premiumExpireDate)
+			player:setData("isPremium", true)
+		end
+		triggerClientEvent(player, "dpCore.donation", player)
 		exports.dpLogger:log("donations", string.format("Given donation %s to player %s (%s)", 
 			tostring(donation._id),
 			tostring(player.name),

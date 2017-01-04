@@ -6,7 +6,7 @@ function MainScreen:init(item)
 	self.mainMenu = ItemsMenu(
 		{
 			"garage_menu_go_city",
-			"garage_menu_sell",
+			"garage_menu_remove",
 			"garage_menu_customize",
 			"garage_menu_exit"
 		},
@@ -65,7 +65,7 @@ function MainScreen:onKey(key)
 	if key == "enter" then
 		if self.mainMenu:getItem() == "garage_menu_go_city" then
 			exitGarage(GarageCar.getId())
-		elseif self.mainMenu:getItem() == "garage_menu_sell" then
+		elseif self.mainMenu:getItem() == "garage_menu_remove" then
 			self.screenManager:showScreen(SellCarScreen())
 		elseif self.mainMenu:getItem() == "garage_menu_customize" then
 			self.screenManager:showScreen(TuningScreen(true))

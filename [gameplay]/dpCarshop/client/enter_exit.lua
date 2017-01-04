@@ -26,6 +26,7 @@ end)
 local function enterExitCarshop(enter)
 	if enter then
 		if localPlayer.vehicle then
+			exports.dpChat:message("global", "Exit your vehicle", 255, 0, 0)
 			return false
 		end
 	end

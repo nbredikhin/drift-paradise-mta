@@ -360,10 +360,7 @@ function GarageCar.getName()
 end
 
 function GarageCar.sell()
-    if #vehiclesList == 1 then
-        return false
-    end
-    return triggerServerEvent("dpGarage.sellVehicle", resourceRoot, vehiclesList[currentVehicle]._id)
+    triggerServerEvent("dpGarage.sellVehicle", resourceRoot, vehiclesList[currentVehicle]._id)
 end
 
 addEvent("dpGarage.updateVehiclesList", true)
@@ -371,6 +368,10 @@ addEventHandler("dpGarage.updateVehiclesList", resourceRoot, function (vehicles)
     if type(vehicles) ~= "table" then
         return
     end
+    if #vehicles <= 1 then
+        exitGarage()
+        return
+    end    
     vehiclesList = vehicles
     updateVehicle()
 end)

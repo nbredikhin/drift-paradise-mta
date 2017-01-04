@@ -170,11 +170,13 @@
 	"garage_not_owner": "You must car owner to enter garage",
 	"garage_not_logged_in": "You must be logged in to enter garage",
 	"garage_enter_failed": "Failed to enter garage",
+	"garage_enter_failed_no_cars": "Failed to enter garage. You have no cars. Get car in /carshop",
 
 	"garage_menu_go_city": "Take car",
 	"garage_menu_customize": "Tuning",
 	"garage_menu_settings": "Settings",
 	"garage_menu_sell": "Sell car",
+	"garage_menu_remove": "Remove car",
 	"garage_menu_exit": "Exit garage",
 
 	"garage_menu_customize_components": "Components",
@@ -185,9 +187,9 @@
 	"garage_menu_settings_bumper": "Remove rear bumper",
 	"garage_menu_back": "Back",
 
-	"garage_sell_text": "Sell this car for",
+	"garage_sell_text": "Remove this car?",
 	"garage_sell_confirm": "confirm",
-	"garage_sell_last_car": "You can't sell your last car!",
+	"garage_sell_last_car": "You can't remove your last car!",
 
 	// ========================================
 	// ================ Tuning ================

@@ -153,12 +153,14 @@
 	"garage_not_owner": "Вы должны быть владельцем автомобиля, чтобы войти в гараж",
 	"garage_not_logged_in": "Вы должны быть залогинены, чтобы войти в гараж",
 	"garage_enter_failed": "Не удалось войти в гараж",
+	"garage_enter_failed_no_cars": "У вас нет автомобилей! Посетите /carshop",
 
 	// Интерфейс гаража
 	"garage_menu_go_city": "Выбрать машину",
 	"garage_menu_customize": "Тюнинг",
 	"garage_menu_settings": "Настройки",
 	"garage_menu_sell": "Продать машину",
+	"garage_menu_remove": "Удалить машину",
 	"garage_menu_exit": "Выход",
 
 	"garage_menu_customize_components": "Компоненты",
@@ -169,9 +171,9 @@
 	"garage_menu_settings_bumper": "Снять задний бампер",
 	"garage_menu_back": "Назад",
 
-	"garage_sell_text": "Продать этот автомобиль за",
+	"garage_sell_text": "Удалить выбранный автомобиль",
 	"garage_sell_confirm": "подтвердить",
-	"garage_sell_last_car": "Вы не можете продать свой единственный автомобиль!",
+	"garage_sell_last_car": "Вы не можете удалить свой единственный автомобиль!",
 
 
 	// Тюнинг в гараже

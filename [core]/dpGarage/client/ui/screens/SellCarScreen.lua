@@ -9,14 +9,13 @@ function SellCarScreen:init(callback)
 	self.back = utf8.fold(exports.dpLang:getString("garage_menu_back"))
 	self.confirm = exports.dpLang:getString("garage_sell_confirm")
 
-	if GarageCar.getCarsCount() <= 1 then
-		self.canSell = false
-		self.text = exports.dpLang:getString("garage_sell_last_car")
-	end
+	-- if GarageCar.getCarsCount() <= 1 then
+	-- 	self.canSell = false
+	-- 	self.text = exports.dpLang:getString("garage_sell_last_car")
+	-- end
 
-	local mileage = GarageCar.getMileage()
+	-- local mileage = GarageCar.getMileage()
 
-	self.price = getVehicleSellPrice(GarageCar.getName(), GarageCar.getMileage())
 	self.colorHex = exports.dpUtils:RGBToHex(exports.dpUI:getThemeColor())
 end
 
@@ -33,12 +32,7 @@ end
 function SellCarScreen:draw()
 	self.super:draw()
 	dxDrawRectangle(0, 0, screenSize.x, screenSize.y, tocolor(0, 0, 0, 150 * self.fadeProgress))
-	local text = ""
-	if self.canSell then
-		text = self.text .. " " .. self.colorHex .. "$" .. tostring(self.price) .. "#FFFFFF?"
-	else
-		text = self.text
-	end
+	local text = self.text
 	dxDrawText(
 		text,
 		0, 0,
@@ -79,7 +73,9 @@ function SellCarScreen:onKey(key)
 			return
 		end
 		GarageCar.sell()
-		self.screenManager:showScreen(MainScreen(2))
+		if GarageCar.getCarsCount() > 1 then
+			self.screenManager:showScreen(MainScreen(2))
+		end
 	elseif key == "backspace" then
 		self.screenManager:showScreen(MainScreen(2))
 	end

@@ -71,7 +71,7 @@ function Assets.start()
 	for k, v in pairs(Assets.textures) do
 		texturesCount = texturesCount + 1
 	end
-	outputDebugString("Garage Assets: Created " .. tostring(texturesCount) .. " textures")
+	--outputDebugString("Garage Assets: Created " .. tostring(texturesCount) .. " textures")
 end
 
 function Assets.loadSticker(id)
@@ -95,7 +95,7 @@ function Assets.stop()
 			texturesCount = texturesCount + 1
 		end
 	end
-	outputDebugString("Garage Assets: Destroyed " .. tostring(texturesCount) .. " textures")
+	--outputDebugString("Garage Assets: Destroyed " .. tostring(texturesCount) .. " textures")
 
 	for name, font in pairs(Assets.fonts) do
 		if isElement(font) then

@@ -10,7 +10,7 @@
 
     "enableReadmeFiles": true,
 
-    "only": [],
+    "only": ["server_assets"],
 
     "include": [
         "geoip",

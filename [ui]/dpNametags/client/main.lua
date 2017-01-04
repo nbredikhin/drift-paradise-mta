@@ -4,11 +4,16 @@ local NAMETAG_HEIGHT = 20
 local NAMETAG_MAX_DISTANCE = 25
 local NAMETAG_SCALE = 3.5
 
+local CROWN_SIZE = 70
+
 local HP_BAR_HEIGHT = 15
+
+local premiumColor = {255, 165, 0}
 
 local nametagFont = "default"
 local streamedPlayers = {}
 local nametagsVisible = true
+local crownTexture
 
 local function dxDrawNametagText(text, x1, y1, x2, y2, color, scale)
 	dxDrawText(text, x1 - 1, y1, x2 - 1, y2, tocolor(0, 0, 0, 150), scale, nametagFont, "center", "center")
@@ -16,13 +21,14 @@ local function dxDrawNametagText(text, x1, y1, x2, y2, color, scale)
 	dxDrawText(text, x1, y1 - 1, x2, y2 - 1, tocolor(0, 0, 0, 150), scale, nametagFont, "center", "center")
 	dxDrawText(text, x1, y1 + 1, x2, y2 + 1, tocolor(0, 0, 0, 150), scale, nametagFont, "center", "center")
 	dxDrawText(text, x1, y1, x2, y2, color, scale, nametagFont, "center", "center")
+	return dxGetTextWidth(text, scale, nametagFont)
 end
 
 addEventHandler("onClientRender", root, function ()
 	if not nametagsVisible then
 		return
 	end
-	local r, g, b = exports.dpUI:getThemeColor()
+	local tr, tg, tb = exports.dpUI:getThemeColor()
 	local cx, cy, cz = getCameraMatrix()
 	for player, info in pairs(streamedPlayers) do
 		local px, py, pz = getElementPosition(player)		
@@ -36,7 +42,16 @@ addEventHandler("onClientRender", root, function ()
 				local width = NAMETAG_WIDTH * scale
 				local height = NAMETAG_HEIGHT * scale
 				local nx, ny = x - width / 2, y - height / 2
-				dxDrawNametagText(name, nx, ny, nx + width, ny + height, tocolor(r, g, b, a), scale)
+				local r, g, b = tr, tg, tb
+				if info.premium then
+					r, g, b = unpack(premiumColor)
+				end
+				local textWidth = dxDrawNametagText(name, nx, ny, nx + width, ny + height, tocolor(r, g, b, a), scale)
+				local cx = nx + width / 2 - textWidth / 2 - CROWN_SIZE * scale * 1.2
+				local crownSize = CROWN_SIZE * scale
+				dxDrawImage(cx, ny -  CROWN_SIZE / 2 * scale, crownSize, crownSize, crownTexture, 0, 0, 0, tocolor(r, g, b, a))
+				cx = nx + width / 2 + textWidth / 2 + CROWN_SIZE * scale * 0.2
+				dxDrawImage(cx, ny -  CROWN_SIZE / 2 * scale, crownSize, crownSize, crownTexture, 0, 0, 0, tocolor(r, g, b, a))
 				-- Отрисовка HP
 				if not player.vehicle then
 					local offset = height * 2.9
@@ -57,7 +72,10 @@ local function showPlayer(player)
 	if player == localPlayer then
 		return
 	end
-	streamedPlayers[player] = {name = exports.dpUtils:removeHexFromString(player.name)}
+	streamedPlayers[player] = {
+		name = exports.dpUtils:removeHexFromString(player.name),
+		premium = not not player:getData("isPremium")
+	}
 	return true
 end
 
@@ -98,11 +116,12 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 		setPlayerNametagShowing(player, false)
 	end
 
-	-- local ped = createPed(0, Vector3{ x = 1698.612, y = -1594.151, z = 13.377})
-	-- streamedPlayers[ped] = {name = "TESTPLAYER123"}
+	-- local ped = createPed(0, Vector3{ x = 1739.240, y = -1440.502, z = 13.366 })
+	-- streamedPlayers[ped] = {name = "TESTPLAYER123", premium = true}
 	-- ped.health = 76
 
 	nametagFont = dxCreateFont("assets/font.ttf", 50)
+	crownTexture = exports.dpAssets:createTexture("crown.png")
 end)
 
 function setVisible(visible)

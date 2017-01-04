@@ -2,7 +2,7 @@ VehicleTuning = {}
 
 VehicleTuning.defaultTuningTable = {
 	-- Цвета
-	BodyColor 		= {212, 0, 40},		-- Цвет кузова
+	BodyColor 		= {255, 255, 255},		-- Цвет кузова
 	WheelsColorR 	= {255, 255, 255},	-- Цвет задних дисков
 	WheelsColorF 	= {255, 255, 255},	-- Цвет передних дисков
 	BodyTexture 	= false,			-- Текстура кузова
@@ -10,7 +10,7 @@ VehicleTuning.defaultTuningTable = {
 	SpoilerColor	= false,			-- Цвет спойлера
 
 	-- Дополнительно
-	Numberplate 	= "DRIFT", 	-- Текст номерного знака
+	Numberplate 	= "CREW", -- Текст номерного знака
 	Nitro 			= 0, -- Уровень нитро
 	Windows			= 0, -- Тонировка окон	
 

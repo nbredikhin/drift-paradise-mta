@@ -1,13 +1,13 @@
 local cameraViews = {
 	false, -- Обычная камера
 	DriftView,
-	--CockpitView
+	CockpitView
 }
 local currentCameraViewIndex = 1
 local currentCameraView
 
 local cockpitDisabledCars = {
-	toyota_ae86 = true
+	toyota_ae86 = false
 }
 
 local function startCameraView(cameraView)

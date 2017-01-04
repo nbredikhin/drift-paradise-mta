@@ -4,9 +4,9 @@ local function handlePlayerFirstSpawn(player)
 	end
 
 	player:setData("tutorialActive", false)
-	player:setData("skin", 0)
+	player:setData("skin", 2)
 	player:setData("doCore.state", false)
-	player.model = 0	
+	player.model = 2
 
 	local startVehicleName = exports.dpShared:getGameplaySetting("start_vehicle")
 	if not startVehicleName then

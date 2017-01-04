@@ -98,7 +98,7 @@
 	"login_panel_language": "Select language",
 	"login_panel_color": "Color",
 	"login_panel_back": "Back",
-	"login_panel_server_not_available": "Drift Paradise server is currently not available",
+	"login_panel_server_not_available": "The server is currently not available",
 	"login_panel_server_error": "Server error",
 
 	// ==============================================

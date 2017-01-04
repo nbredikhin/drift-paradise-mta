@@ -154,21 +154,32 @@ function AccountTab.create()
 	end)	
 
 	-- Наличие у игрока дома (TODO)
-	-- local hasHouseLabel = UI:createDpLabel {
-	-- 	x = 20, y = 210,
-	-- 	width = width / 3, height = 50,
-	-- 	text = "House: none",
-	-- 	fontType = "defaultSmall",
-	-- 	type = "dark",
-	-- }
-	-- UI:addChild(panel, hasHouseLabel)
-	-- UIDataBinder.bind(hasHouseLabel, "house_id", function (value)
-	-- 	local houseStr = "main_panel_account_house_no"
-	-- 	if type(value) == "number" and value > 0 then
-	-- 		houseStr = "main_panel_account_house_yes"
-	-- 	end
-	-- 	return exports.dpLang:getString("main_panel_account_house") .. ": " .. exports.dpLang:getString(houseStr)
-	-- end)
+	local premiumLabel = UI:createDpLabel {
+		x = width / 2, y = 210,
+		width = width / 3, height = 50,
+		text = "",
+		fontType = "defaultSmall",
+		type = "dark",
+	}
+	UI:addChild(panel, premiumLabel)
+	UIDataBinder.bind(premiumLabel, "premium_expires", function (value)
+		if not localPlayer:getData("isPremium") then
+			return exports.dpLang:getString("main_panel_account_premium") .. ": -"
+		end
+		if not value or type(value) ~= "number" then
+			return exports.dpLang:getString("main_panel_account_premium") .. ": -"
+		end
+		local time = getRealTime(value)
+		local month = tostring(time.month + 1)
+		if time.month < 10 then
+			month = "0" .. tostring(time.month + 1)
+		end
+		local day = tostring(time.monthday)
+		if time.monthday < 10 then
+			day = "0" .. tostring(time.monthday)
+		end
+		return exports.dpLang:getString("main_panel_account_premium") .. ": " .. tostring(1900 + time.year) .. "-" .. month .. "-" .. day
+	end)
 
 	-- Дата регистрации
 	local registerDateLabel = UI:createDpLabel {

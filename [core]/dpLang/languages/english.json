@@ -305,9 +305,7 @@
 	"main_panel_account_regtime": "Registration date",
 	"main_panel_account_playtime": "Hours in-game",
 	"main_panel_account_cars_count": "Cars in garage",
-	"main_panel_account_house": "House",
-	"main_panel_account_house_yes": "yes",
-	"main_panel_account_house_no": "none",
+	"main_panel_account_premium": "Premium expires",
 
 	"main_panel_settings_section_game": "Game settings",
 	"main_panel_settings_section_chat": "Chat settings",

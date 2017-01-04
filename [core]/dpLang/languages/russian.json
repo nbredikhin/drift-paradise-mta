@@ -286,9 +286,7 @@
 	"main_panel_account_regtime": "Дата регистрации",
 	"main_panel_account_playtime": "Часов в игре",
 	"main_panel_account_cars_count": "Количество машин",
-	"main_panel_account_house": "Дом",
-	"main_panel_account_house_yes": "есть",
-	"main_panel_account_house_no": "нет",
+	"main_panel_account_premium": "Премиум истекает",
 
 	"main_panel_settings_section_game": "Настройки игры",
 	"main_panel_settings_section_chat": "Настройки чата",

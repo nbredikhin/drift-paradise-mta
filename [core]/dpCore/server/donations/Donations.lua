@@ -43,13 +43,17 @@ local function giveDonationToPlayer(player, donation)
 		local premiumDuration = donation.premium
 		if premiumDuration and type(premiumDuration) == "number" then
 			local currentPremium = player:getData("premium_expires")
-			if not currentPremium then
+			if type(currentPremium) ~= "number" then
 				currentPremium = 0
 			end
 			local timestamp = getRealTime().timestamp
-			local premiumExpireDate = currentPremium + premiumDuration
+			local premiumExpireDate = 0
 			if currentPremium < timestamp then
 				premiumExpireDate = timestamp + premiumDuration
+				outputDebugString("Renew player premium")
+			else
+				premiumExpireDate = currentPremium + premiumDuration
+				outputDebugString("Expired player premium")
 			end
 			player:setData("premium_expires", premiumExpireDate)
 			player:setData("isPremium", true)

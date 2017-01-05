@@ -168,6 +168,7 @@ function Carshop.start()
 				name = exports.dpShared:getVehicleReadableName(name),
 				price = priceInfo[1],
 				level = priceInfo[2],
+				premium = priceInfo[3],
 				specs = {
 					speed = (3 + math.random(1, 7)) / 10,
 					acceleration = (3 + math.random(1, 7)) / 10,
@@ -179,7 +180,11 @@ function Carshop.start()
 	end
 
 	table.sort(vehiclesList, function (v1, v2)
-		return v1.price < v2.price
+		if not v1.premium and v2.premium then
+			return true
+		else
+			return false
+		end
 	end)
 
 	localPlayer.dimension = LOCAL_DIMENSION
@@ -295,6 +300,10 @@ end
 
 function Carshop.buy()
 	if exports.dpTutorialMessage:isMessageVisible() then
+		return
+	end
+	if Carshop.currentVehicleInfo.premium and not localPlayer:getData("isPremium") then
+		exports.dpSounds:playSound("error.wav")
 		return
 	end
 	if not hasMoreGarageSlots() then

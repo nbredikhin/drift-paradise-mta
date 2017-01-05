@@ -30,10 +30,8 @@ local function draw()
 	dxDrawRectangle(0, 0, resolution.x, headerHeight, tocolor(32, 30, 31))	
 
 	local priceText = ""
-	if Carshop.currentVehicleInfo.price > 0 then
-		priceText = "$" .. tostring(Carshop.currentVehicleInfo.price)
-	else
-		priceText = exports.dpLang:getString("price_free")
+	if Carshop.currentVehicleInfo.premium then
+		priceText = exports.dpLang:getString("price_premium")
 	end
 	dxDrawText(priceText, 0, 0, resolution.x - 20, headerHeight, tocolor(themeColor[1], themeColor[2], themeColor[3]), 1, labelFont, "right", "center")
 
@@ -57,6 +55,10 @@ local function draw()
 	if not hasMoreGarageSlots() then
 		buyButtonActive = false
 		buyButtonText = exports.dpLang:getString("carshop_no_slots")
+	end
+	if Carshop.currentVehicleInfo.premium and not localPlayer:getData("isPremium") then
+		buyButtonActive = false
+		buyButtonText = exports.dpLang:getString("carshop_need_premium")
 	end
 	if not buyButtonActive then
 		dxDrawRectangle(0, resolution.y - headerHeight, resolution.x, headerHeight, tocolor(32, 30, 31))	

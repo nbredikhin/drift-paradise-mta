@@ -10,8 +10,8 @@ local vehiclesPrices = {
     mitsubishi_eclipse      = {0, 1},
     nissan_silvia_s13       = {0, 1},
     -- 3 класс
-    nissan_datsun_240z      = {0, 1},
-    mazda_rx7_fc            = {0, 1},
+    nissan_datsun_240z      = {0, 1, true},
+    mazda_rx7_fc            = {0, 1, true},
     nissan_skyline_er34     = {0, 1},
     toyota_mark2_100        = {0, 1},
     bmw_e30                 = {0, 1},
@@ -27,13 +27,13 @@ local vehiclesPrices = {
     bmw_e60                 = {0, 1},
     toyota_supra            = {0, 1},
     bmw_e46                 = {0, 1},
-    nissan_skyline_gtr34    = {0, 1},
+    nissan_skyline_gtr34    = {0, 1, true},
     subaru_brz              = {0, 1},
     -- 6 класс
-    nissan_gtr35            = {0, 1},
-    lamborghini_huracan     = {0, 1},
-    ferrari_458_italia      = {0, 1},
-    lamborghini_aventador   = {0, 1},
+    nissan_gtr35            = {0, 1, true},
+    lamborghini_huracan     = {0, 1, true},
+    ferrari_458_italia      = {0, 1, true},
+    lamborghini_aventador   = {0, 1, true},
 }
 
 function getVehiclePrices(name)

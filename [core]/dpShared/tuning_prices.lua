@@ -74,7 +74,7 @@ function getTuningPrices(name)
 		if tuningPrices[name] then
 			return tuningPrices[name]
 		else
-			return {999, 1}
+			return {0, 1, false}
 		end
 	end
 end

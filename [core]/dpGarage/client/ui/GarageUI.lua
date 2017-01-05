@@ -33,21 +33,21 @@ local function draw()
 		-- Деньги игрока
 		if screenManager.activeScreen then
 			local primaryColor = tocolor(Garage.themePrimaryColor[1], Garage.themePrimaryColor[2], Garage.themePrimaryColor[3], 255)
-			dxDrawText(
-				"$#FFFFFF" .. tostring(localPlayer:getData("money")), 
-				0, 20, 
-				screenSize.x - 20, screenSize.y, 
-				primaryColor, 
-				1, 
-				Assets.fonts.moneyText,
-				"right",
-				"top", 
-				false, false, false, true
-			)
+			-- dxDrawText(
+			-- 	"$#FFFFFF" .. tostring(localPlayer:getData("money")), 
+			-- 	0, 20, 
+			-- 	screenSize.x - 20, screenSize.y, 
+			-- 	primaryColor, 
+			-- 	1, 
+			-- 	Assets.fonts.moneyText,
+			-- 	"right",
+			-- 	"top", 
+			-- 	false, false, false, true
+			-- )
 
 			dxDrawText(
 				exports.dpLang:getString("player_level") .. ": #FFFFFF" .. tostring(localPlayer:getData("level")), 
-				0, 60, 
+				0, 70, 
 				screenSize.x - 20, screenSize.y, 
 				primaryColor, 
 				1, 
@@ -64,19 +64,20 @@ local function draw()
 				end
 				dxDrawText(
 						exports.dpLang:getString("garage_slot") 
-						.. " " .. color 
+						.. " " 
+						.. color 
 						.. tostring(GarageCar.getCurrentSlot()) 
 						.. " "
 						.. exports.dpLang:getString("garage_slot_of")
 						.. " "
 						.. tostring(GarageCar.getSlotsCount()), 
-					0, 0, 
-					screenSize.x - 20, screenSize.y - 60, 
+					0, 20, 
+					screenSize.x - 20, screenSize.y, 
 					primaryColor, 
 					1, 
 					Assets.fonts.slotsText,
 					"right",
-					"bottom", 
+					"top", 
 					false, false, false, true
 				)		
 			end

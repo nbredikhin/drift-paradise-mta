@@ -54,6 +54,10 @@ local function draw()
 		buyButtonActive = false
 		buyButtonText = exports.dpLang:getString("carshop_no_money")
 	end
+	if not hasMoreGarageSlots() then
+		buyButtonActive = false
+		buyButtonText = exports.dpLang:getString("carshop_no_slots")
+	end
 	if not buyButtonActive then
 		dxDrawRectangle(0, resolution.y - headerHeight, resolution.x, headerHeight, tocolor(32, 30, 31))	
 		dxDrawText(buyButtonText, 20, resolution.y - headerHeight, resolution.x, resolution.y, tocolor(255, 255, 255, 150), 1, headerFont, "center", "center")		

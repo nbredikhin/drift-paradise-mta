@@ -257,7 +257,7 @@ function GarageCar.resetTuning()
     end
 
     if not currentTuningTable["Numberplate"] then
-        GarageCar.applyTuning("Numberplate", "DRIFT")
+        GarageCar.applyTuning("Numberplate", "CREW")
     end
 
     if not currentTuningTable["StreetHandling"] then

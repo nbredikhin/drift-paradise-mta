@@ -297,6 +297,10 @@ function Carshop.buy()
 	if exports.dpTutorialMessage:isMessageVisible() then
 		return
 	end
+	if not hasMoreGarageSlots() then
+		exports.dpSounds:playSound("error.wav")
+		return
+	end
 	if Carshop.currentVehicleInfo.level > localPlayer:getData("level") then
 		exports.dpSounds:playSound("error.wav")
 		exports.dpUI:showMessageBox(
@@ -336,9 +340,21 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 	roomObject.dimension = LOCAL_DIMENSION
 end)
 
+function hasMoreGarageSlots()
+    local garageSlots = exports.dpShared:getGameplaySetting("default_garage_slots")
+    if localPlayer:getData("isPremium") then
+        garageSlots = exports.dpShared:getGameplaySetting("premium_garage_slots")
+    end
+	if localPlayer:getData("garage_cars_count") >= garageSlots then
+		return false
+	end
+	return true
+end
+
 addEvent("dpCarshop.buyVehicle", true)
 addEventHandler("dpCarshop.buyVehicle", resourceRoot, function (success)
 	isBuying = false
+	
 	if not success then
 		exports.dpUI:showMessageBox(
 			exports.dpLang:getString("carshop_buy_error_title"),

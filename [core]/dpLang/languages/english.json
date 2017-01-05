@@ -432,9 +432,10 @@
 	"carshop_label_acceleration": "Acceleration",
 	"carshop_label_control": "Control",
 
-	"carshop_buy_button": "Buy",
+	"carshop_buy_button": "Add to garage",
 	"carshop_required_level": "Required level %s",
 	"carshop_no_money": "Not enough money",
+	"carshop_no_slots": "No slots in garage",
 	"carshop_buy_error_title": "Failed to buy car",
 	"carshop_buy_error_unknown": "Unknown error",
 	"carshop_drift_label": "Drift upgrade available",

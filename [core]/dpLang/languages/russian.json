@@ -409,9 +409,10 @@
 	"carshop_label_acceleration": "Ускорение",
 	"carshop_label_control": "Управление",
 
-	"carshop_buy_button": "Купить",
+	"carshop_buy_button": "Добавить в гараж",
 	"carshop_required_level": "Требуется уровень %s",
 	"carshop_no_money": "Недостаточно денег",
+	"carshop_no_slots": "Нет места в гараже",
 	"carshop_buy_error_title": "Не удалось купить машину",
 	"carshop_buy_error_unknown": "Неизвестная ошибка",
 	"carshop_drift_label": "Улучшение для дрифта",

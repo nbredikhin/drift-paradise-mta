@@ -8,6 +8,7 @@ local vehicle
 local vehiclesList = {}
 local currentVehicle = 1
 local currentTuningTable = {}
+local availableSlotsCount = 0
 
 -- Время, на которое размораживается машина при смене модели
 local unfreezeTimer
@@ -97,6 +98,11 @@ function GarageCar.getId()
 end
 
 function GarageCar.start(car, vehicles)
+    availableSlotsCount = exports.dpShared:getGameplaySetting("default_garage_slots")
+    if localPlayer:getData("isPremium") then
+        availableSlotsCount = exports.dpShared:getGameplaySetting("premium_garage_slots")
+    end
+
     vehiclesList = vehicles
     currentVehicle = 1
     vehicle = car
@@ -119,6 +125,14 @@ function GarageCar.getVehicle()
     return vehicle
 end
 
+function GarageCar.getSlotsCount()
+    return availableSlotsCount
+end
+
+function GarageCar.getCurrentSlot()
+    return currentVehicle
+end
+
 function GarageCar.getVehicleModel()
     return vehiclesList[currentVehicle].model
 end
@@ -133,7 +147,7 @@ end
 
 function GarageCar.showNextCar()
     currentVehicle = currentVehicle + 1
-    if currentVehicle > #vehiclesList then
+    if currentVehicle > math.min(#vehiclesList, availableSlotsCount) then
         currentVehicle = 1
     end
     updateVehicle()
@@ -142,7 +156,7 @@ end
 function GarageCar.showPreviousCar()
     currentVehicle = currentVehicle - 1
     if currentVehicle < 1 then
-        currentVehicle = #vehiclesList
+        currentVehicle = math.min(#vehiclesList, availableSlotsCount)
     end
     updateVehicle()
 end

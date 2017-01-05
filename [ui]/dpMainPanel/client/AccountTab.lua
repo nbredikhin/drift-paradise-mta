@@ -164,10 +164,10 @@ function AccountTab.create()
 	UI:addChild(panel, premiumLabel)
 	UIDataBinder.bind(premiumLabel, "premium_expires", function (value)
 		if not localPlayer:getData("isPremium") then
-			return exports.dpLang:getString("main_panel_account_premium") .. ": -"
+			return ""
 		end
 		if not value or type(value) ~= "number" then
-			return exports.dpLang:getString("main_panel_account_premium") .. ": -"
+			return ""
 		end
 		local time = getRealTime(value)
 		local month = tostring(time.month + 1)

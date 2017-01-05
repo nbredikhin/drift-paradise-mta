@@ -55,7 +55,31 @@ local function draw()
 				"right",
 				"top", 
 				false, false, false, true
-			)			
+			)		
+
+			if screenManager.activeScreen:class() == MainScreen then
+				local color = "#FFFFFF"
+				if localPlayer:getData("isPremium") then
+					color = "#FFCC00"
+				end
+				dxDrawText(
+						exports.dpLang:getString("garage_slot") 
+						.. " " .. color 
+						.. tostring(GarageCar.getCurrentSlot()) 
+						.. " "
+						.. exports.dpLang:getString("garage_slot_of")
+						.. " "
+						.. tostring(GarageCar.getSlotsCount()), 
+					0, 0, 
+					screenSize.x - 20, screenSize.y - 60, 
+					primaryColor, 
+					1, 
+					Assets.fonts.slotsText,
+					"right",
+					"bottom", 
+					false, false, false, true
+				)		
+			end
 		end		
 		dxSetRenderTarget()
 	end

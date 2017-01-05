@@ -74,7 +74,6 @@ local startupResources = {
 
 	-- Other
 	"dpGreetings",
-	"dpTelegramChat",
 	"dpStats",
 	"server_assets",
 

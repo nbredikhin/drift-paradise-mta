@@ -64,6 +64,7 @@ function Assets.start()
 	loadFont("componentItemInfo", 13)
 	loadFont("stickerPreviewHelp", 12)
 	loadFont("helpPanelText", 14)
+	loadFont("slotsText", 30)
 
 	triggerEvent("dpGarage.assetsLoaded", resourceRoot)
 

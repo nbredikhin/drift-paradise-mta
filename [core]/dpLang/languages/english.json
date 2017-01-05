@@ -184,6 +184,8 @@
 	"garage_sell_text": "Remove this car?",
 	"garage_sell_confirm": "confirm",
 	"garage_sell_last_car": "You can't remove your last car!",
+	"garage_slot": "Car slot",
+	"garage_slot_of": "of",
 
 	// ========================================
 	// ================ Tuning ================

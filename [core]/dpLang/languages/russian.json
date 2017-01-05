@@ -169,6 +169,8 @@
 	"garage_sell_confirm": "подтвердить",
 	"garage_sell_last_car": "Вы не можете удалить свой единственный автомобиль!",
 
+	"garage_slot": "Слот",
+	"garage_slot_of": "из",	
 
 	// Тюнинг в гараже
 	"garage_tuning_component_front_bump": "Передний бампер",

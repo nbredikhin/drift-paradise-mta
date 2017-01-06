@@ -1,0 +1,5 @@
+<meta>
+    <oop>true</oop>
+    <script type="server" src="main.lua"/>
+    <export http="true" function="processPayment"/>
+</meta>

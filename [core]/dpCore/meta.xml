@@ -61,6 +61,7 @@
 	<export type="server" function="isSerialBanned"/>
 	<export type="server" function="isUserBanned"/>
 	<export type="server" function="isPlayerMuted"/>
+	<export type="server" function="giveUserPremium"/>
 	<!-- Функции для работы с автомобилями -->
 	<export type="shared" function="generateDefaultNumberplate"/>
 	<export type="server" function="spawnVehicle"/>

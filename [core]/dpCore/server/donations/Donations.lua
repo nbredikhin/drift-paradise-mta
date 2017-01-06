@@ -17,6 +17,15 @@ function Donations.setup()
 	Donations.update()
 end
 
+function giveUserPremium(username, duration)
+	if type(username) ~= "string" or type(duration) ~= "number" then
+		return
+	end
+	return DatabaseTable.insert(DONATIONS_TABLE_NAME, { premium = duration }, function (result)
+
+	end)
+end
+
 local function giveDonationToPlayer(player, donation)
 	if not isElement(player) or not donation then
 		exports.dpLogger:log("donations", "Failed to process donation for " .. tostring(player.name))

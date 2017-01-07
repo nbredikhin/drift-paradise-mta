@@ -18,8 +18,8 @@ local tabs = {
         text = "help_panel_garage_text"
     },
     {
-        name = "help_panel_devs_title",
-        text = "help_panel_devs_text"
+        name = "help_panel_premium_title",
+        text = "help_panel_premium_text"
     } 
 }
 

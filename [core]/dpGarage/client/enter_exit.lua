@@ -28,13 +28,13 @@ addEventHandler("dpGarage.exit", resourceRoot, function (success)
 	Garage.stop()
 	setTimer(function ()
 		fadeCamera(true, 0.5)
-		if localPlayer:getData("tutorialActive") then
-			localPlayer:setData("tutorialActive", false)
-			exports.dpTutorialMessage:showMessage(
-				exports.dpLang:getString("tutorial_city_title"),
-				exports.dpLang:getString("tutorial_city_text"),
-				"F1", "F9", "M", exports.dpLang:getString("tutorial_city_race"))
-		end
+		-- if localPlayer:getData("tutorialActive") then
+		-- 	localPlayer:setData("tutorialActive", false)
+		-- 	exports.dpTutorialMessage:showMessage(
+		-- 		exports.dpLang:getString("tutorial_city_title"),
+		-- 		exports.dpLang:getString("tutorial_city_text"),
+		-- 		"F1", "F9", "M", exports.dpLang:getString("tutorial_city_race"))
+		-- end
 	end, 500, 1)
 end)
 

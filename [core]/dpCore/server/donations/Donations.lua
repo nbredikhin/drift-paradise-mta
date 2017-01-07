@@ -21,8 +21,13 @@ function giveUserPremium(username, duration)
 	if type(username) ~= "string" or type(duration) ~= "number" then
 		return
 	end
-	return DatabaseTable.insert(DONATIONS_TABLE_NAME, { premium = duration }, function (result)
-
+	return Users.getByUsername(username, {"_id"}, function(result)
+		if not result or not result[1] or not result[1]._id then
+			return 
+		end
+		DatabaseTable.insert(DONATIONS_TABLE_NAME, { user_id = result[1]._id, premium = duration }, function (result)
+			outputDebugString("Premium for '" .. tostring(username) .. "'")
+		end)
 	end)
 end
 
@@ -59,10 +64,10 @@ local function giveDonationToPlayer(player, donation)
 			local premiumExpireDate = 0
 			if currentPremium < timestamp then
 				premiumExpireDate = timestamp + premiumDuration
-				outputDebugString("Renew player premium")
+				--outputDebugString("Started player premium")
 			else
 				premiumExpireDate = currentPremium + premiumDuration
-				outputDebugString("Expired player premium")
+				--outputDebugString("Added player premium")
 			end
 			player:setData("premium_expires", premiumExpireDate)
 			player:setData("isPremium", true)

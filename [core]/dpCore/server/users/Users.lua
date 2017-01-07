@@ -172,12 +172,12 @@ function Users.update(username, fields)
     return DatabaseTable.update(USERS_TABLE_NAME, fields, {username = username}, function () end)
 end
 
-function Users.getByUsername(username, fields)
+function Users.getByUsername(username, fields, callback)
     if type(username) ~= "string" or type(fields) ~= "table" then
         return false
     end
 
-    return DatabaseTable.select(USERS_TABLE_NAME, fields, { username = username })
+    return DatabaseTable.select(USERS_TABLE_NAME, fields, { username = username }, callback)
 end
 
 function Users.isPlayerLoggedIn(player)

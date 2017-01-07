@@ -3,7 +3,7 @@ local function handlePlayerFirstSpawn(player)
 		return
 	end
 
-	player:setData("tutorialActive", false)
+	player:setData("tutorialActive", true)
 	player:setData("skin", 2)
 	player:setData("doCore.state", false)
 	player.model = 2

@@ -10,7 +10,7 @@
 
     "enableReadmeFiles": true,
 
-    "only": ["server_assets"],
+    "only": [],
 
     "include": [
         "geoip",
@@ -23,14 +23,14 @@
         "snowmod",
         "fara",
         "svet",
+        "hedit",
 
         // "server_assets",
         "MAPPING",
         "TD-INT",
         "TD-CARSHOP",
         "TD-MAPFILES",
-        "TD-RACEMAPS",
-        "TD-CHRISTMASS"
+        "TD-RACEMAPS"
     ],
 
     "pathEncryptExclude": [

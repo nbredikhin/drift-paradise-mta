@@ -70,11 +70,6 @@ local function updateVehicle()
         if vehicle.position.z - CAR_POSITION.z > 0.5 then
             vehicle.position = CAR_POSITION
         end
-        if currentTuningTable.Suspension and tonumber(currentTuningTable.Suspension) > 0.5 then
-            vehicle.velocity = Vector3(0, 0, 0.01)
-        else
-            vehicle.velocity = Vector3(0, 0, -0.01)
-        end
     end, 250, 3)
 
     -- Наклейки
@@ -177,8 +172,8 @@ function GarageCar.previewTuning(name, value)
 end
 
 function GarageCar.previewHandling(name, value)
-    vehicle:setData(name, value, true)
-    triggerServerEvent("dpGarage.previewHandling", vehicle, name, value)
+    --vehicle:setData(name, value, true)
+    --triggerServerEvent("dpGarage.previewHandling", vehicle, name, value)
 end
 
 function GarageCar.applyTuning(name, value)

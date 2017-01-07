@@ -134,8 +134,9 @@ function GarageUI.start()
 	addEventHandler("onClientRender", root, draw)
 	addEventHandler("onClientPreRender", root, update)
 	addEventHandler("onClientKey", root, onKey)
-
+	
 	if localPlayer:getData("tutorialActive") then
+		localPlayer:setData("tutorialActive", false)
 		setTimer(function ()
 		exports.dpTutorialMessage:showMessage(
 			exports.dpLang:getString("tutorial_garage_title"), 

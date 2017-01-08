@@ -64,12 +64,8 @@ function StickersGrid:changeSection(sectionId)
 		for k, v in pairs(sticker) do
 			item[k] = v
 		end
-		if not item.level then
-			item.level = 1
-		end
-		if item.level < 1 then
-			item.level = 1
-		end
+		item.level = 1
+		item.price = 0
 		if item.id then
 			item.texture = Assets.loadSticker(item.id)
 			if item.texture then

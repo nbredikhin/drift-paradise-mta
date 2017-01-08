@@ -6,7 +6,9 @@ function ConfigurationsScreen:init(componentName)
 	self.super:init()
 
 	
-	self.componentsSelection = ComponentSelection({})
+	self.componentsSelection = ComponentSelection({
+		{name="Suspension", camera="suspension", locale="garage_tuning_config_suspension", price = 0, level = 1}
+	})
 
 	local vehicle = GarageCar.getVehicle()
 

@@ -47,11 +47,13 @@ addEventHandler("onClientRender", root, function ()
 					r, g, b = unpack(premiumColor)
 				end
 				local textWidth = dxDrawNametagText(name, nx, ny, nx + width, ny + height, tocolor(r, g, b, a), scale)
-				local cx = nx + width / 2 - textWidth / 2 - CROWN_SIZE * scale * 1.2
-				local crownSize = CROWN_SIZE * scale
-				dxDrawImage(cx, ny -  CROWN_SIZE / 2 * scale, crownSize, crownSize, crownTexture, 0, 0, 0, tocolor(r, g, b, a))
-				cx = nx + width / 2 + textWidth / 2 + CROWN_SIZE * scale * 0.2
-				dxDrawImage(cx, ny -  CROWN_SIZE / 2 * scale, crownSize, crownSize, crownTexture, 0, 0, 0, tocolor(r, g, b, a))
+				if info.premium then
+					local cx = nx + width / 2 - textWidth / 2 - CROWN_SIZE * scale * 1.2
+					local crownSize = CROWN_SIZE * scale
+					dxDrawImage(cx, ny -  CROWN_SIZE / 2 * scale, crownSize, crownSize, crownTexture, 0, 0, 0, tocolor(r, g, b, a))
+					cx = nx + width / 2 + textWidth / 2 + CROWN_SIZE * scale * 0.2
+					dxDrawImage(cx, ny -  CROWN_SIZE / 2 * scale, crownSize, crownSize, crownTexture, 0, 0, 0, tocolor(r, g, b, a))
+				end
 				-- Отрисовка HP
 				if not player.vehicle then
 					local offset = height * 2.9

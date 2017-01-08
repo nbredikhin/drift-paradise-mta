@@ -46,13 +46,13 @@ function MenuItem:draw(fadeProgress)
 	dxDrawImage(starX, self.resolution.y / 2 - starSize / 2, starSize, starSize, Assets.textures.levelIcon, 0, 0, 0, levelColor)
 
 	dxDrawText(tostring(self.level), starX + starSize + 2, 0, self.resolution.x, self.resolution.y, levelColor, 1, Assets.fonts.componentItemInfo, "left", "center")
-	local priceText = ""
-	if self.price > 0 then
-		priceText = "$" .. tostring(self.price)
-	else
-		priceText = exports.dpLang:getString("price_free")
-	end	
-	dxDrawText(priceText, self.resolution.x * 0.4, 0, starX - 10, self.resolution.y, priceColor, 1, Assets.fonts.componentItemInfo, "right", "center")
+	-- local priceText = ""
+	-- if self.price > 0 then
+	-- 	priceText = "$" .. tostring(self.price)
+	-- else
+	-- 	priceText = exports.dpLang:getString("price_free")
+	-- end	
+	-- dxDrawText(priceText, self.resolution.x * 0.4, 0, starX - 10, self.resolution.y, priceColor, 1, Assets.fonts.componentItemInfo, "right", "center")
 	dxSetRenderTarget()
 end
 

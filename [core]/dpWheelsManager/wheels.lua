@@ -150,8 +150,7 @@ local function updateVehicleWheels(vehicle)
 		else
 			wheel.custom = false
 			wheel.object.alpha = 0
-			--setElementAttachedOffsets(wheel.object, wheelsHiddenOffset)
-			--wheel.object.position = wheelsHiddenPosition
+			wheel.object.model = 1852
 		end
 		-- Скрыть/отобразить стандартное колесо
 		setVehicleComponentVisible(vehicle, name, not wheel.custom)
@@ -174,7 +173,7 @@ local function setupVehicleWheels(vehicle)
 	for i, name in ipairs(wheelsNames) do
 		local wheel = {}
 		-- Создать объект колеса
-		wheel.object = createObject(1025, vehicle.position)
+		wheel.object = createObject(1852, vehicle.position)
 		wheel.object.alpha = 0
 		wheel.object:setCollisionsEnabled(false)
 		if wheel.object.dimension ~= vehicle.dimension then

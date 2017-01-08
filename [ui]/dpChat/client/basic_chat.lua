@@ -91,13 +91,15 @@ addEventHandler("dpChat.broadcastMessage", root, function (tabName, message, sen
 	if tabName == "local" then
 		message = sender.name .. tostring(getColorFromDistance(distance)) .. ": " .. tostring(message)
 	elseif tabName == "global" then
-		message = ("%s: #FFFFFF%s"):format(sender.name, tostring(message))
+		message = ("%s: #FFFFFF%s"):format(tostring(sender.name), tostring(message))
 		if playerGroup then
 			-- add tag to message
-			message = ("#75FF00[%s] %s"):format(exports.dpLang:getString("chat_adminsay_" .. tostring(playerGroup)), message)
+			message = ("#75FF00[%s]#FFFFFF %s"):format(exports.dpLang:getString("chat_adminsay_" .. tostring(playerGroup)), tostring(message))
+		elseif sender:getData("isPremium") then
+			message = ("#FFAA00[%s]#FFFFFF %s"):format(exports.dpLang:getString("chat_premiumsay"), tostring(message))
 		end
 	else
-		message = ("%s: #FFFFFF%s"):format(sender.name, tostring(message))
+		message = ("%s: #FFFFFF%s"):format(tostring(sender.name), tostring(message))
 	end
 
 	Chat.message(tabName, message)

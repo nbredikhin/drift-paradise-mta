@@ -1,4 +1,4 @@
-local PRIVATE_SLOTS_COUNT = 3
+local PRIVATE_SLOTS_COUNT = 1
 local serialsList = {}
 
 local function reloadSerials()

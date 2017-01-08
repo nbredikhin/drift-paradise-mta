@@ -10,7 +10,12 @@
 
     "enableReadmeFiles": true,
 
-    "only": [],
+    "only": [
+        "dpStartup",
+        "dpGarage",
+        "dpVehicles",
+        "dpWheelsManager"
+    ],
 
     "include": [
         "geoip",

@@ -90,9 +90,6 @@ function switchHandling()
 	if localPlayer.vehicle:getData("forceHandling") then
 		drawProgress = false
 		text = exports.dpLang:getString("handling_switching_message_forced")
-	elseif localPlayer.vehicle:getData("DriftHandling") == 0 then
-		drawProgress = false
-		text = exports.dpLang:getString("handling_switching_message_no_upgrade")
 	elseif localPlayer.vehicle.velocity:getLength() > 0.001 then
 		drawProgress = false
 		text = exports.dpLang:getString("handling_switching_message_moving")
@@ -118,9 +115,9 @@ function switchHandlingInstantly()
 	triggerServerEvent("switchPlayerHandling", resourceRoot)
 end
 
--- bindKey("2", "down", function ()
--- 	if not localPlayer.vehicle then
--- 		return
--- 	end
--- 	switchHandling()
--- end)
+bindKey("2", "down", function ()
+	if not localPlayer.vehicle then
+		return
+	end
+	switchHandling()
+end)

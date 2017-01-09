@@ -8,6 +8,10 @@ local mouseLookEnabled = false
 local MOUSE_LOOK_VERTICAL_MAX = 33
 local MOUSE_LOOK_VERTICAL_MIN = -3
 
+local MOUSE_LOOK_DISTANCE_DELTA = 0.5
+local MOUSE_LOOK_DISTANCE_MIN = 4
+local MOUSE_LOOK_DISTANCE_MAX = 8
+
 local camera = {
 	rotationHorizontal = 0,
 	rotationVertical = 0,
@@ -46,6 +50,9 @@ local function update(deltaTime)
 		camera.roll, 
 		camera.FOV
 	)
+
+	--outputDebugString("currentCameraState: " .. tostring(currentCameraState))
+	camera.rotationHorizontal = exports.dpUtils:wrapAngle(camera.rotationHorizontal)
 end
 
 function CameraManager.setState(name, noAnimation, animationSpeed)
@@ -101,6 +108,25 @@ local function mouseMove(x, y)
 	end
 end
 
+local function handleKey(key, down)
+	if not down then
+		return
+	end
+	if currentCameraState == "freeLookCamera" then
+		if key == "mouse_wheel_down" then
+			targetCamera.distance = targetCamera.distance + MOUSE_LOOK_DISTANCE_DELTA
+			if targetCamera.distance > MOUSE_LOOK_DISTANCE_MAX then
+				targetCamera.distance = MOUSE_LOOK_DISTANCE_MAX
+			end
+		elseif key == "mouse_wheel_up" then
+			targetCamera.distance = targetCamera.distance - MOUSE_LOOK_DISTANCE_DELTA
+			if targetCamera.distance < MOUSE_LOOK_DISTANCE_MIN then
+				targetCamera.distance = MOUSE_LOOK_DISTANCE_MIN
+			end
+		end
+	end
+end
+
 local function startMouseLook()
 	if mouseLookEnabled or isMTAWindowActive() then
 		return
@@ -108,13 +134,22 @@ local function startMouseLook()
 	mouseLookEnabled = true
 	oldCameraState = currentCameraState
 	local rotationHorizontal = camera.rotationHorizontal
-	local rotationVertical = camera.rotationVertical	
+	local rotationVertical = camera.rotationVertical
+	local distance = false
+	if currentCameraState == "freeLookCamera" then
+		distance = targetCamera.distance
+	end
 	CameraManager.setState("freeLookCamera", false, 5)
+	if distance then
+		targetCamera.distance = distance
+	end
 	camera.rotationHorizontal = rotationHorizontal
 	camera.rotationVertical = rotationVertical
 	targetCamera.rotationHorizontal = rotationHorizontal
-	targetCamera.rotationVertical = rotationVertical		
-	GarageUI.setVisible(false)
+	targetCamera.rotationVertical = rotationVertical	
+	if oldCameraState ~= "freeLookCamera" then	
+		GarageUI.setVisible(false)
+	end
 end
 
 local function stopMouseLook()
@@ -122,14 +157,18 @@ local function stopMouseLook()
 		return
 	end
 	mouseLookEnabled = false
-	CameraManager.setState(oldCameraState, false, 5)
-	GarageUI.setVisible(true)
+	
+	if oldCameraState ~= "freeLookCamera" then
+		CameraManager.setState(oldCameraState, false, 5)
+		GarageUI.setVisible(true)
+	end
 end
 
 function CameraManager.start()
 	CameraManager.setState("startingCamera", true)
 	addEventHandler("onClientPreRender", root, update)
 	addEventHandler("onClientCursorMove", root, mouseMove)
+	addEventHandler("onClientKey", root, handleKey)
 	bindKey("mouse1", "down", startMouseLook)
 	bindKey("mouse1", "up", stopMouseLook)
 
@@ -139,6 +178,7 @@ end
 function CameraManager.stop()
 	removeEventHandler("onClientPreRender", root, update)
 	removeEventHandler("onClientCursorMove", root, mouseMove)
+	removeEventHandler("onClientKey", root, handleKey)
 	unbindKey("mouse1", "down", startMouseLook)
 	unbindKey("mouse1", "up", stopMouseLook)
 	Camera.setTarget(localPlayer)
@@ -150,6 +190,10 @@ end)
 
 function CameraManager.getTargetPosition()
 	return camera.targetPosition
+end
+
+function CameraManager.getRotation()
+	return camera.rotationHorizontal, camera.rotationVertical
 end
 
 function CameraManager.isMouseLookEnabled()

@@ -36,7 +36,7 @@ function TuningScreen:onKey(key)
 		elseif self.panel:getActiveItem() == 2 then
 			self.screenManager:showScreen(ColorsScreen())
 		elseif self.panel:getActiveItem() == 3 then
-			self.screenManager:showScreen(StickersSideScreen())
+			self.screenManager:showScreen(StickerEditorScreen())
 		elseif self.panel:getActiveItem() == 4 then
 			self.screenManager:showScreen(ConfigurationsScreen())
 		end

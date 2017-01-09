@@ -1,4 +1,6 @@
 StickerEditorScreen = Screen:subclass "StickerEditorScreen"
+local screenWidth, screenHeight = guiGetScreenSize()
+
 
 local stickerControlKeys = {
 	["q"] = {mode = "move", 	panelItem = 1}, 
@@ -19,9 +21,9 @@ local STICKER_ROTATE_SPEED = 90
 local SLOW_SPEED_MUL = 0.2
 local FAST_SPEED_MUL = 3
 
-function StickerEditorScreen:init(sideName)
+function StickerEditorScreen:init(saveCameraPosition)
 	self.super:init()
-	self.sideName = sideName
+	self.sideName = "Left"
 	self.panel = TuningPanel({
 		{icon = Assets.textures.stickersMoveIcon, text = exports.dpLang:getString("garage_sticker_editor_move"), key = "Q"},
 		{icon = Assets.textures.stickersScaleIcon, text = exports.dpLang:getString("garage_sticker_editor_scale"), key = "W"},
@@ -44,7 +46,9 @@ function StickerEditorScreen:init(sideName)
 	self.stickerPreview = StickerPreview()
 	self:updateSelectedSticker()
 
-	CameraManager.setState("side" .. tostring(sideName), false, 2)
+	if not saveCameraPosition then
+		CameraManager.setState("freeLookCamera", false, 5)
+	end
 
 	self.helpPanel = HelpPanel({
 		{ keys = {"A"}, 				locale = "garage_sticker_editor_help_add" },
@@ -59,6 +63,8 @@ function StickerEditorScreen:init(sideName)
 		{ keys = {"K", "L"}, 			locale = "garage_sticker_editor_help_next_prev"},		
 		{ keys = {"Z"}, 				locale = "garage_sticker_editor_help_toggle"},
 	})
+
+	self:updateSide()
 end
 
 function StickerEditorScreen:draw()
@@ -72,6 +78,17 @@ function StickerEditorScreen:draw()
 
 	self.stickerPreview:draw(self.fadeProgress)
 	self.helpPanel:draw(self.fadeProgress)
+
+	dxDrawText(
+		exports.dpLang:getString("garage_tuning_side_" .. string.lower(self.sideName)), 
+		0, screenHeight - 50, 
+		screenWidth - 15, screenHeight, 
+		tocolor(255, 255, 255, 255 * self.fadeProgress), 
+		1, 
+		Assets.fonts.helpText,
+		"right",
+		"center"
+	)	
 end
 
 function StickerEditorScreen:update(deltaTime)
@@ -79,6 +96,8 @@ function StickerEditorScreen:update(deltaTime)
 	self.panel:update(deltaTime)
 	self.helpPanel:update(deltaTime)
 	self.colorPanel.x = self.colorPanel.x + (self.colorPanelX - self.colorPanel.x) * deltaTime * 20
+
+	self:updateSide()
 
 	if not isMTAWindowActive() then
 		local transformX = 0
@@ -158,6 +177,7 @@ function StickerEditorScreen:show()
 	self.super:show()
 
 	GarageUI.setHelpText("")
+	self:updateSide()
 end
 
 function StickerEditorScreen:hide()
@@ -166,6 +186,23 @@ function StickerEditorScreen:hide()
 	GarageUI.resetHelpText()
 	CarTexture.unselectSticker()
 	CarTexture.save()
+end
+
+function StickerEditorScreen:updateSide()
+	self.sideName = "Left"
+	local camRotX, camRotY = CameraManager.getRotation()
+	if camRotX < 25 or camRotX > 335 then
+		self.sideName = "Front"
+	elseif camRotX > 25 and camRotX < 160 then
+		self.sideName = "Left"
+	elseif camRotX > 160 and camRotX < 200 then
+		self.sideName = "Back"
+	elseif camRotX > 200 and camRotX < 335 then
+		self.sideName = "Right"
+	end
+	if camRotY > 32 and self.sideName == "Front" then
+		self.sideName = "Top"
+	end
 end
 
 function StickerEditorScreen:updateSelectedSticker()
@@ -184,8 +221,8 @@ function StickerEditorScreen:updateSelectedSticker()
 				minSide = name
 			end
 		end
-		self.sideName = minSide
-		CameraManager.setState("side" .. tostring(self.sideName), false, 4)
+		--self.sideName = minSide
+		--CameraManager.setState("side" .. tostring(self.sideName), false, 4)
 
 		local stickerColor = CarTexture.getStickerColor()
 		if stickerColor then
@@ -205,7 +242,7 @@ function StickerEditorScreen:onKey(key)
 	if key == "backspace" then
 		GarageCar.save()
 		CarTexture.reset()
-		self.screenManager:showScreen(StickersSideScreen(self.sideName))
+		self.screenManager:showScreen(TuningScreen(3))
 	elseif key == "z" then
 		self.helpPanel:toggle()
 	elseif key == "f" then

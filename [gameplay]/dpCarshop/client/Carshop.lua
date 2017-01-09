@@ -194,7 +194,7 @@ function Carshop.start()
 	vehicle.frozen = true
 	vehicle.alpha = 0
 	vehicle.dimension = LOCAL_DIMENSION
-	vehicle:setData("Numberplate", "PARADISE")
+	vehicle:setData("Numberplate", "CREW")
 
 	toggleAllControls(false)
 	exports.dpHUD:setVisible(false)

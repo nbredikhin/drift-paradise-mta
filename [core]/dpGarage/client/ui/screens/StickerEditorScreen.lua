@@ -200,7 +200,7 @@ function StickerEditorScreen:updateSide()
 	elseif camRotX > 200 and camRotX < 335 then
 		self.sideName = "Right"
 	end
-	if camRotY > 32 and self.sideName == "Front" then
+	if camRotY > 34 and self.sideName == "Front" then
 		self.sideName = "Top"
 	end
 end

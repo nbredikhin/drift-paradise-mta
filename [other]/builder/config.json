@@ -11,10 +11,8 @@
     "enableReadmeFiles": true,
 
     "only": [
-        "dpStartup",
         "dpGarage",
-        "dpVehicles",
-        "dpWheelsManager"
+        "dpLang"
     ],
 
     "include": [

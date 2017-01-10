@@ -5,12 +5,12 @@ local currentAnimationSpeed = ANIMATION_SPEED
 local currentCameraState
 local MOUSE_LOOK_SPEED = 50
 local mouseLookEnabled = false
-local MOUSE_LOOK_VERTICAL_MAX = 33
+local MOUSE_LOOK_VERTICAL_MAX = 45
 local MOUSE_LOOK_VERTICAL_MIN = -3
 
 local MOUSE_LOOK_DISTANCE_DELTA = 0.5
 local MOUSE_LOOK_DISTANCE_MIN = 4
-local MOUSE_LOOK_DISTANCE_MAX = 8
+local MOUSE_LOOK_DISTANCE_MAX = 6.5
 
 local camera = {
 	rotationHorizontal = 0,

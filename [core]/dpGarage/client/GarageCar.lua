@@ -29,7 +29,8 @@ local colorsData = {
     "BodyColor",
     "WheelsColorR",
     "WheelsColorF",
-    "SpoilerColor"
+    "SpoilerColor",
+    "SmokeColor"
 }
 -- Дата, которая копируется как есть
 local copyData = {

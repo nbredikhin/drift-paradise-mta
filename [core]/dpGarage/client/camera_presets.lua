@@ -22,12 +22,34 @@ cameraPresets.freeLookCamera = {
 	targetPosition = Vector3(0, 0.1, 0),
 	rotationHorizontal = 30,
 	rotationVertical = 5,
-	distance = 7,
-	FOV = 45,
+	distance = 6,
+	FOV = 55,
 	roll = 0
 }
 
 ----------------------------------------------------------
+
+-- Дым	
+cameraPresets.smokeColor = {
+	targetPosition = Vector3(0, 1, 0),
+	rotationHorizontal = -20,
+	rotationVertical = 10,
+	distance = 6,
+	FOV = 50,
+	roll = 0
+}
+
+cameraPresets.selectingSmokeColor = {
+	targetPosition = Vector3(1, 1, 0.4),
+	rotationHorizontal = -20,
+	rotationVertical = 5,
+	distance = 6,
+	FOV = 50,
+	roll = 0
+}
+
+----------------------------------------------------------
+
 
 -- Передний бампер
 cameraPresets.frontBump = {

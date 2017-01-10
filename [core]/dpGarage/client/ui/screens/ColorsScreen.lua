@@ -6,6 +6,12 @@ function ColorsScreen:init(componentName)
 	self.componentsSelection = ComponentSelection({
 		{name="BodyColor", 		camera="bodyColor", 	locale="garage_tuning_paint_body", price = bodyColorPrice, level = bodyColorLevel},
 	})
+
+
+	if localPlayer:getData("isPremium") then
+		self.componentsSelection:addComponent("SmokeColor", "smokeColor", "garage_tuning_smoke_color", nil, 0, 1)
+	end
+
 	local vehicle = GarageCar.getVehicle()
 	-- Если на машине установлены передние диски
 	if vehicle:getData("WheelsF") and vehicle:getData("WheelsF") > 0 then

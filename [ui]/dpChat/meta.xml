@@ -12,6 +12,7 @@
 	<script type="server" src="server/commands.lua"/>
 	<script type="server" src="server/basic_chat.lua"/>
 	<script type="server" src="server/pm.lua"/>
+	<script type="server" src="server/spam.lua"/>
 
 	<export type="client" function="setVisible"/>
 	<export type="client" function="message"/>

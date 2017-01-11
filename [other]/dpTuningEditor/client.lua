@@ -88,7 +88,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
             elseif field.type == "ScrollBar" then
                 dataValue = field.guiElement:getScrollPosition() / 100
             end
-            localPlayer.vehicle:setData(field.data, dataValue, false)
+            localPlayer.vehicle:setData(field.data, dataValue, true)
         end
     end, 50, 0)
 end)

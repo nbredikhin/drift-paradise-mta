@@ -187,6 +187,9 @@ function hasVehicleHandling(vehicleName, handlingName, level)
 	if type(vehicleName) ~= "string" then
 		return false
 	end
+	if handlingName == "drift" then
+		return true
+	end
 	if type(handlingsTable[vehicleName]) ~= "table" then
 		return false
 	end
@@ -214,6 +217,9 @@ function getVehicleHandlingString(vehicleName, handlingName, level)
 end
 
 function getVehicleHandlingTable(vehicleName, handlingName, level)
+	if handlingName == "drift" then
+		vehicleName = "nissan_silvia_s14"
+	end
 	local handlingString = getVehicleHandlingString(vehicleName, handlingName, level)
 	if type(handlingString) ~= "string" then
 		return false

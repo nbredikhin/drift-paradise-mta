@@ -58,10 +58,12 @@ function SettingsTab.create()
         langX = langX + 25
     end
 
+
+    local colorButtonsX = width * 0.6
     -- Подпись к кнопкам выбора цвета
-    y = y + 30
+    y = y - 20
     UI:addChild(ui.panel, UI:createDpLabel {
-        x        = 20,
+        x        = colorButtonsX,
         y        = y,
         width    = width / 3,
         height   = 30,
@@ -71,7 +73,7 @@ function SettingsTab.create()
     })
 
     y = y + 20
-    local colorButtonX = 20
+    local colorButtonX = colorButtonsX
     local circleTexture = exports.dpAssets:createTexture("buttons/circle.png", "argb", false, "clamp")
     -- Кнопки выбора цвета
     for i, colorButton in ipairs(colorButtonsList) do
@@ -321,8 +323,29 @@ function SettingsTab.create()
         locale   = "main_panel_settings_background_music"
     })
 
+    -- Подруливание
+    graphicsSectionY = graphicsSectionY + 30
+    ui.smoothSteering = UI:createDpCheckbox {
+        x      = x,
+        y      = graphicsSectionY + 4,
+        width  = 20,
+        height = 20
+    }
+    UI:addChild(ui.panel, ui.smoothSteering)
+    UI:setState(ui.smoothSteering, exports.dpConfig:getProperty("graphics.smooth_steering"))
+
+    UI:addChild(ui.panel, UI:createDpLabel {
+        x        = x + 30,
+        y        = graphicsSectionY,
+        width    = width / 3,
+        height   = 30,
+        fontType = "defaultSmall",
+        type     = "dark",
+        locale   = "main_panel_settings_smooth_steering"
+    })        
+
     -- Отступ снизу
-    y = y + 40
+    y = y + 60
     UI:setHeight(ui.panel, y)
 
     local passwordButtonWidth  = 180
@@ -381,6 +404,9 @@ addEventHandler("dpUI.click", resourceRoot, function(widget)
     elseif widget == ui.smokeCheckbox then
         playClickSound = true
         exports.dpConfig:setProperty("graphics.tyres_smoke", UI:getState(widget))
+    elseif widget == ui.smoothSteering then
+        playClickSound = true
+        exports.dpConfig:setProperty("graphics.smooth_steering", UI:getState(widget))        
     elseif widget == ui.snowCheckbox then
         playClickSound = true
         exports.dpConfig:setProperty("graphics.snow", UI:getState(widget))        

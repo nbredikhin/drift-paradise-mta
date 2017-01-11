@@ -32,6 +32,11 @@ local dataNames = {
 	["WheelsColorF"] 	= true,
 }
 
+-- Подруливание
+local CONFIG_PROPERTY_NAME = "graphics.smooth_steering"
+local steeringHelpEnabled = false
+local steeringSmoothing = 0.7
+
 local shaderReflectionTexture
 local wheelsHiddenOffset = Vector3(0, 0, -1000)
 
@@ -224,6 +229,8 @@ addEventHandler("onClientResourceStart", resourceRoot, function()
 	for i, vehicle in ipairs(getElementsByType("vehicle")) do
 		setupVehicleWheels(vehicle)
 	end
+
+	steeringHelpEnabled = not not exports.dpConfig:getProperty(CONFIG_PROPERTY_NAME)
 end)
 
 local function getDriftAngle(vehicle)
@@ -260,8 +267,6 @@ for i, name in ipairs(wheelsNames) do
 	localVehicleSteering[name] = 0
 end
 
-local steeringSmoothing = 0.7
-
 -- Обновление положения колёс
 addEventHandler("onClientPreRender", root, function ()
 	if getKeyState("space") then
@@ -291,15 +296,23 @@ addEventHandler("onClientPreRender", root, function ()
 				local steering = 0
 				if name == "wheel_rf_dummy" then
 					local angleOffset = wrapAngle(rz + 180) - 180
-					steering = driftAngle * 0.6 + angleOffset * driftMul * steeringMul
+					if steeringHelpEnabled then
+						steering = driftAngle * 0.6 + angleOffset * driftMul * steeringMul
+					else
+						steering = angleOffset
+					end
 				elseif name == "wheel_lf_dummy" then
 					local angleOffset = rz - 180
-					steering = driftAngle * 0.6 + angleOffset * driftMul  * steeringMul + 180
+					if steeringHelpEnabled then
+						steering = driftAngle * 0.6 + angleOffset * driftMul  * steeringMul + 180
+					else
+						steering = angleOffset + 180
+					end					
 				else
 					steering = rz
 				end
 				local currentSteering = steering
-				if isLocalVehicle then
+				if isLocalVehicle and steeringHelpEnabled then
 					localVehicleSteering[name] = localVehicleSteering[name] + (steering - localVehicleSteering[name]) * steeringSmoothing
 					currentSteering = localVehicleSteering[name]
 				end
@@ -356,5 +369,12 @@ addEventHandler("onClientElementDataChange", root, function (name, oldVaue)
 	end
 	if dataNames[name] then
 		updateVehicleWheels(source)
+	end
+end)
+
+addEvent("dpConfig.update", false)
+addEventHandler("dpConfig.update", root, function (key, value)
+	if key == CONFIG_PROPERTY_NAME then
+		steeringHelpEnabled = not not value
 	end
 end)

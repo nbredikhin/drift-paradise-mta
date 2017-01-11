@@ -11,8 +11,12 @@
     "enableReadmeFiles": true,
 
     "only": [
-        "dpGarage",
-        "dpLang"
+        "dpVehicles",
+        "dpChat",
+        "dpWheelsManager",
+        "dpConfig",
+        "dpLang",
+        "dpMainPanel"
     ],
 
     "include": [

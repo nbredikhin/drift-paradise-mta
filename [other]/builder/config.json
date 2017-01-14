@@ -11,12 +11,10 @@
     "enableReadmeFiles": true,
 
     "only": [
-        "dpVehicles",
-        "dpChat",
-        "dpWheelsManager",
-        "dpConfig",
-        "dpLang",
-        "dpMainPanel"
+        "dpTeleports",
+        "dpMainPanel",
+        "dpCameraViews",
+        "dpSafeZones"
     ],
 
     "include": [

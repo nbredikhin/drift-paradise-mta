@@ -5,12 +5,15 @@ local offset = 1
 local showCount = 6
 
 local teleports = {
+    { "Los Santos",  "city_ls" },
+    { "San Fierro",  "city_sf" },
+    { "Las Venturas",  "city_lv" },
+
     { "Winter Rally Race Track",  "winter_rally_race_track" },
     { "Bihoku",             "bihoku" },
     { "Honjo Circuit",      "honjo_circuit" },
     { "Hero Shinoi",        "hero_shinoi" },
     { "Gateway International Raceway", "gateway_raceway" },
-    { "Galdori",            "galdori"},
     { "GoKart ver.2",       "gokart2" },
     { "Mazda Raceway",      "mazda_raceway" },
     { "Ebisu West",         "ebisu_west" },
@@ -47,10 +50,14 @@ function TeleportTab.refresh()
     for i = offset, math.min(#teleports, offset + showCount) do
         local name = teleports[i][1]
         local count = 0
-        for j, player in ipairs(getElementsByType("player")) do
-            if string.lower(tostring(player:getData("activeMap"))) == teleports[i][2] then
-                count = count + 1
+        if i > 3 then
+            for j, player in ipairs(getElementsByType("player")) do
+                if string.lower(tostring(player:getData("activeMap"))) == teleports[i][2] then
+                    count = count + 1
+                end
             end
+        else
+            count = "-"
         end
         table.insert(items, {name, exports.dpLang:getString("main_panel_teleport_players") .. ":", count})
     end

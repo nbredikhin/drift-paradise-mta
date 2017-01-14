@@ -1,4 +1,8 @@
 local mapsTeleports = {
+    city_ls         = Vector3 { x = 1467.486,   y = -1749.974,  z = 13.147 },
+    city_sf         = Vector3 { x = -1991.581,  y = 137.797,    z = 27.234 } ,
+    city_lv         = Vector3 { x = 2152.503,   y = 1004.375,   z = 10.515 },
+
     akina           = Vector3 { x = -8176.514,  y = -1298.812,  z = 1114.472 },
     hakone          = Vector3 { x = 2780.287,   y = 5106.657,   z = 140.441 },
     yz_circuit      = Vector3 { x = -7910.922,  y = -1394.332,  z = 133.452 },
@@ -17,6 +21,13 @@ local mapsTeleports = {
     unost           = Vector3 { x = 766.356, y = -4345.913, z = 87.702 },
     winter_rally_race_track = Vector3 { x = 6122.218, y = -1990.260, z = 29.039 }
 }
+
+local cityTeleportNames = {
+    city_ls = true,
+    city_lv = true,
+    city_sf = true
+}
+
 local cityTeleports = {
     Vector3 { x = -8169.207,    y = -1268.439,  z = 1114.1 },
     Vector3 { x = 2798.335,     y = 5122.248,   z = 140.1 },
@@ -54,6 +65,9 @@ addEventHandler("dpTeleports.teleport", resourceRoot, function (mapName)
     local position = mapsTeleports[mapName]
     if not position then
         position = cityPosition
+    end
+    if cityTeleportNames[mapName] then
+        mapName = nil
     end
 
     client:setData("activeMap", mapName)

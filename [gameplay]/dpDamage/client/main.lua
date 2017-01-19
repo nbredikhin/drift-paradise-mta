@@ -54,46 +54,46 @@ function isVehicleOnRoof(vehicle)
     return false
 end
 
-local blinkTimer
-local currentBlinkingVehicle
+-- local blinkTimer
+-- local currentBlinkingVehicle
 
 -- Заставляет машину мигать
 function makeVehicleBlink(vehicle)
-    if not isElement(vehicle) then
-        return
-    end
-    if currentBlinkingVehicle then
-        return
-    end
-    if isTimer(blinkTimer) then
-        killTimer(blinkTimer)
-        if isElement(currentBlinkingVehicle) then
-            currentBlinkingVehicle.alpha = 255
-        end
-    end
+    -- if not isElement(vehicle) then
+    --     return
+    -- end
+    -- if currentBlinkingVehicle then
+    --     return
+    -- end
+    -- if isTimer(blinkTimer) then
+    --     killTimer(blinkTimer)
+    --     if isElement(currentBlinkingVehicle) then
+    --         currentBlinkingVehicle.alpha = 255
+    --     end
+    -- end
 
-    local blinkInterval = 120
-    local blinkTimes = 16
-    currentBlinkingVehicle = vehicle
-    blinkTimer = setTimer(function ()
-        if not isElement(vehicle) then
-            killTimer(blinkTimer)
-            return
-        end
+    -- local blinkInterval = 120
+    -- local blinkTimes = 16
+    -- currentBlinkingVehicle = vehicle
+    -- blinkTimer = setTimer(function ()
+    --     if not isElement(vehicle) then
+    --         killTimer(blinkTimer)
+    --         return
+    --     end
 
-        if vehicle.alpha < 255 then
-            vehicle.alpha = 255
-        else
-            vehicle.alpha = 0
-        end
-    end, blinkInterval, blinkTimes)
+    --     if vehicle.alpha < 255 then
+    --         vehicle.alpha = 255
+    --     else
+    --         vehicle.alpha = 0
+    --     end
+    -- end, blinkInterval, blinkTimes)
 
-    setTimer(function()
-        if isElement(currentBlinkingVehicle) then
-            vehicle.alpha = 255
-            currentBlinkingVehicle = nil
-        end
-    end, blinkInterval * (blinkTimes + 2), 1)
+    -- setTimer(function()
+    --     if isElement(currentBlinkingVehicle) then
+    --         vehicle.alpha = 255
+    --         currentBlinkingVehicle = nil
+    --     end
+    -- end, blinkInterval * (blinkTimes + 2), 1)
 end
 
 function flipMyVehicle()

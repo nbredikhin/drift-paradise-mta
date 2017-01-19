@@ -13,6 +13,8 @@
 	<script type="shared" src="shared/usercheck.lua"/>
 	<export type="shared" function="checkUsername"/>
 
+	<export type="shared" function="getPlayerGarageSlots"/>
+
 	<!-- SERVER -->
 
 	<!-- Модули для работы с базой данных -->

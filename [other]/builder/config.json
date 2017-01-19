@@ -14,7 +14,8 @@
         "dpTeleports",
         "dpMainPanel",
         "dpCameraViews",
-        "dpSafeZones"
+        "dpSafeZones",
+        "dpDamage"
     ],
 
     "include": [

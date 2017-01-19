@@ -36,3 +36,29 @@ function getLevelFromXP(xp)
 	end
 	return MAX_LEVEL
 end
+
+function getPlayerGarageSlots(player)
+	local isPremium = player:getData("isPremium")
+	if isPremium then
+		return exports.dpShared:getGameplaySetting("premium_garage_slots")
+	end
+
+	local slotsLevels = exports.dpShared:getGameplaySetting("garage_slots_levels")
+	if not slotsLevels then
+		return false
+	end
+	local playerLevel = player:getData("level") 
+	if not playerLevel then
+		return false
+	end
+	local slotsCount = exports.dpShared:getGameplaySetting("default_garage_slots")
+	if not slotsCount then
+		slotsCount = 3
+	end
+	for i, level in ipairs(slotsLevels) do
+		if level <= playerLevel then
+			slotsCount = slotsCount + 1
+		end 
+	end
+	return slotsCount
+end

@@ -350,9 +350,9 @@ addEventHandler("onClientResourceStart", resourceRoot, function ()
 end)
 
 function hasMoreGarageSlots()
-    local garageSlots = exports.dpShared:getGameplaySetting("default_garage_slots")
-    if localPlayer:getData("isPremium") then
-        garageSlots = exports.dpShared:getGameplaySetting("premium_garage_slots")
+    local garageSlots = exports.dpCore:getPlayerGarageSlots(localPlayer)
+    if not garageSlots then
+    	garageSlots = 0 
     end
 	if localPlayer:getData("garage_cars_count") >= garageSlots then
 		return false

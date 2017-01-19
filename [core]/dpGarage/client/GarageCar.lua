@@ -99,10 +99,8 @@ function GarageCar.getId()
 end
 
 function GarageCar.start(car, vehicles)
-    availableSlotsCount = exports.dpShared:getGameplaySetting("default_garage_slots")
-    if localPlayer:getData("isPremium") then
-        availableSlotsCount = exports.dpShared:getGameplaySetting("premium_garage_slots")
-    end
+    availableSlotsCount = exports.dpCore:getPlayerGarageSlots(localPlayer)
+    maxSlotsCount = availableSlotsCount + #exports.dpShared:getGameplaySetting("garage_slots_levels")
 
     vehiclesList = vehicles
     currentVehicle = 1

@@ -38,7 +38,20 @@ function MainScreen:updateCarName()
 	if not isElement(GarageCar.getVehicle()) then
 		return
 	end
-	self.carNamePanel.text = exports.dpShared:getVehicleReadableName(GarageCar.getVehicleModel())
+	if not GarageCar.isSlotAvailable() then
+		local activeSlot = GarageCar.getCurrentSlot()
+		local additionalSlot = activeSlot - exports.dpShared:getGameplaySetting("default_garage_slots")
+		local levels = exports.dpShared:getGameplaySetting("garage_slots_levels")
+
+		local availableSlots = exports.dpCore:getPlayerGarageSlots(localPlayer)
+		if activeSlot > availableSlots and levels[additionalSlot] then
+			self.carNamePanel.text = exports.dpLang:getString("garage_slot_need_level") .. " " .. tostring(levels[additionalSlot])
+		else
+			self.carNamePanel.text = exports.dpLang:getString("garage_slot_empty")
+		end
+	else
+		self.carNamePanel.text = exports.dpShared:getVehicleReadableName(GarageCar.getVehicleModel())
+	end
 end
 
 function MainScreen:hide()
@@ -63,13 +76,16 @@ function MainScreen:onKey(key)
 	self.super:onKey(key)
 	self.mainMenu:onKey(key)
 	if key == "enter" then
-		if self.mainMenu:getItem() == "garage_menu_go_city" then
-			exitGarage(GarageCar.getId())
-		elseif self.mainMenu:getItem() == "garage_menu_remove" then
-			self.screenManager:showScreen(SellCarScreen())
-		elseif self.mainMenu:getItem() == "garage_menu_customize" then
-			self.screenManager:showScreen(TuningScreen(true))
-		elseif self.mainMenu:getItem() == "garage_menu_exit" then
+		if GarageCar.isSlotAvailable() then
+			if self.mainMenu:getItem() == "garage_menu_go_city" then
+				exitGarage(GarageCar.getId())
+			elseif self.mainMenu:getItem() == "garage_menu_remove" then
+				self.screenManager:showScreen(SellCarScreen())
+			elseif self.mainMenu:getItem() == "garage_menu_customize" then
+				self.screenManager:showScreen(TuningScreen(true))
+			end
+		end
+		if self.mainMenu:getItem() == "garage_menu_exit" then
 			self.screenManager:hideScreen()
 			exitGarage()
 		end

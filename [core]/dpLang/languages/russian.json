@@ -144,6 +144,9 @@
 	"garage_enter_failed": "Не удалось войти в гараж",
 	"garage_enter_failed_no_cars": "У вас нет автомобилей! Посетите /carshop",
 
+	"garage_slot_empty": "Пустой слот",
+	"garage_slot_need_level": "Нужен уровень",
+
 	// Интерфейс гаража
 	"garage_menu_go_city": "Выбрать машину",
 	"garage_menu_customize": "Тюнинг",

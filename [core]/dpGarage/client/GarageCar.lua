@@ -44,9 +44,12 @@ local function setData(key, value)
 end
 
 local function updateVehicle()
-    currentVehicle = math.min(#vehiclesList, math.max(1, currentVehicle))
+    if isTimer(unfreezeTimer) then killTimer(unfreezeTimer) end
+    --currentVehicle = math.min(#vehiclesList, math.max(1, currentVehicle))
     if not vehiclesList[currentVehicle] then
-        outputDebugString("Could not load vehicle: " .. tostring(currentVehicle))
+        -- outputDebugString("NO CAR AT " .. tostring(currentVehicle))
+        vehicle.position = CAR_POSITION + Vector3(0, 0, 10)
+        vehicle.frozen = true
         return
     end
 
@@ -56,13 +59,11 @@ local function updateVehicle()
     vehicle.position = CAR_POSITION
     vehicle.rotation = Vector3(0, 0, -90)
     vehicle.velocity = Vector3(0, 0, 0)
-
+    vehicle.frozen = false
     currentTuningTable = {}
     if type(vehiclesList[currentVehicle].tuning) == "string" then
         currentTuningTable = fromJSON(vehiclesList[currentVehicle].tuning)
     end
-
-    if isTimer(unfreezeTimer) then killTimer(unfreezeTimer) end
     unfreezeTimer = setTimer(function ()
         if not isElement(vehicle) then
             killTimer(unfreezeTimer)
@@ -95,13 +96,20 @@ local function updateVehicle()
 end
 
 function GarageCar.getId()
+    if not vehiclesList[currentVehicle] then
+        return vehiclesList[1]._id
+    end
     return vehiclesList[currentVehicle]._id
 end
 
 function GarageCar.start(car, vehicles)
     availableSlotsCount = exports.dpCore:getPlayerGarageSlots(localPlayer)
-    maxSlotsCount = availableSlotsCount + #exports.dpShared:getGameplaySetting("garage_slots_levels")
-
+    maxSlotsCount = exports.dpShared:getGameplaySetting("default_garage_slots") + 
+        #exports.dpShared:getGameplaySetting("garage_slots_levels")
+    if availableSlotsCount > maxSlotsCount then
+        maxSlotsCount = availableSlotsCount 
+    end
+    -- outputDebugString("Max slots: " .. tostring(maxSlotsCount))
     vehiclesList = vehicles
     currentVehicle = 1
     vehicle = car
@@ -125,14 +133,21 @@ function GarageCar.getVehicle()
 end
 
 function GarageCar.getSlotsCount()
-    return availableSlotsCount
+    return maxSlotsCount
 end
 
 function GarageCar.getCurrentSlot()
     return currentVehicle
 end
 
+function GarageCar.isSlotAvailable()
+    return not not vehiclesList[currentVehicle]
+end
+
 function GarageCar.getVehicleModel()
+    if not vehiclesList[currentVehicle] then
+        return 0
+    end
     return vehiclesList[currentVehicle].model
 end
 
@@ -146,7 +161,7 @@ end
 
 function GarageCar.showNextCar()
     currentVehicle = currentVehicle + 1
-    if currentVehicle > math.min(#vehiclesList, availableSlotsCount) then
+    if currentVehicle > maxSlotsCount then
         currentVehicle = 1
     end
     updateVehicle()
@@ -155,7 +170,7 @@ end
 function GarageCar.showPreviousCar()
     currentVehicle = currentVehicle - 1
     if currentVehicle < 1 then
-        currentVehicle = math.min(#vehiclesList, availableSlotsCount)
+        currentVehicle = maxSlotsCount
     end
     updateVehicle()
 end
@@ -381,7 +396,7 @@ addEventHandler("dpGarage.updateVehiclesList", resourceRoot, function (vehicles)
     if type(vehicles) ~= "table" then
         return
     end
-    if #vehicles <= 1 then
+    if #vehicles <= 0 then
         exitGarage()
         return
     end    

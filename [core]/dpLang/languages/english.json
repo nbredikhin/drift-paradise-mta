@@ -161,6 +161,9 @@
 	"garage_enter_failed": "Failed to enter garage",
 	"garage_enter_failed_no_cars": "Failed to enter garage. You have no cars. Get car in /carshop",
 
+	"garage_slot_empty": "Empty slot",
+	"garage_slot_need_level": "Need level",	
+
 	"garage_menu_go_city": "Take car",
 	"garage_menu_customize": "Tuning",
 	"garage_menu_settings": "Settings",

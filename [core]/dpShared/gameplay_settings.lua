@@ -5,7 +5,7 @@ local gameplaySettings = {
     default_garage_slots = 3,
     premium_garage_slots = 10,
 
-    garage_slots_levels = {2, 5}
+    garage_slots_levels = {3, 6}
 }
 
 function getGameplaySetting(name)

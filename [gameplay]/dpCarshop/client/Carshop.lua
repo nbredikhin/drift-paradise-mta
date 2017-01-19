@@ -332,19 +332,20 @@ end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
 	-- Замена моделей
+	local models = {3781, 3782}
 	local txd = engineLoadTXD("assets/object.txd")
-	engineImportTXD(txd, 3781)
-	engineImportTXD(txd, 3782)
+	engineImportTXD(txd, models[1])
+	engineImportTXD(txd, models[2])
 	local dff = engineLoadDFF("assets/object.dff")
-	engineReplaceModel(dff, 3781)
+	engineReplaceModel(dff, models[1])
 	dff = engineLoadDFF("assets/object2.dff")
-	engineReplaceModel(dff, 3782)
+	engineReplaceModel(dff, models[2])
 	local col = engineLoadCOL("assets/object2.col")
-	engineReplaceCOL(col, 3782)
+	engineReplaceCOL(col, models[2])
 
 	-- Создание объектов помещения
-	stageObject = createObject(3782, CARSHOP_POSITION + STAGE_OFFSET)
-	roomObject = createObject(3781, CARSHOP_POSITION, 0, 0, CARSHOP_ROTATION)
+	stageObject = createObject(models[2], CARSHOP_POSITION + STAGE_OFFSET)
+	roomObject = createObject(models[1], CARSHOP_POSITION, 0, 0, CARSHOP_ROTATION)
 	stageObject.dimension = LOCAL_DIMENSION
 	roomObject.dimension = LOCAL_DIMENSION
 end)

@@ -262,9 +262,9 @@ addEventHandler("dpUI.click", resourceRoot, function (widget)
 	elseif widget == ui.banButton then
 		Panel.hide()
 		BanPanel.show(selectedPlayer)
-	elseif widget == ui.kickButton then
+	elseif widget == ui.kickButton then		
+		triggerServerEvent("dpAdmin.executeCommand", resourceRoot, "kick", selectedPlayer)
 		Panel.hidePlayerInfo()
-		triggerServerEvent("dpAdmin.executeCommand", resourceRoot, "kick", targetPlayer)
 	end
 end)
 

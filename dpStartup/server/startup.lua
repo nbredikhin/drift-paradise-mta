@@ -65,7 +65,6 @@ local startupResources = {
 	-- World
 	"MAPPING",
 	"TD-INT",
-	"TD-CARSHOP",
 	"TD-MAPFILES",
 	"TD-RACEMAPS",
 	"TD-CHRISTMASS",

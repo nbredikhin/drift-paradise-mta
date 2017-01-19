@@ -11,11 +11,7 @@
     "enableReadmeFiles": true,
 
     "only": [
-        "dpTeleports",
-        "dpMainPanel",
-        "dpCameraViews",
-        "dpSafeZones",
-        "dpDamage"
+        "dpModeratorPanel",
     ],
 
     "include": [

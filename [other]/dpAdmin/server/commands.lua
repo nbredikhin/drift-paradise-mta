@@ -108,6 +108,9 @@ addCommand("settime", "admin", function (admin, hh, mm)
 end)
 
 addCommand("kick", "moderator", function (admin, player, reason)
+	if not isElement(player) then
+		return
+	end
 	exports.dpLogger:log("admin", string.format("Admin: %s (%s) | Command: %s | Target Player: %s (%s) | Reason: %s",
 		tostring(admin.name),
 		tostring(admin:getData("username")),

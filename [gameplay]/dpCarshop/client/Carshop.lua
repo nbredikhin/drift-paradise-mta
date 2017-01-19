@@ -332,7 +332,7 @@ end
 
 addEventHandler("onClientResourceStart", resourceRoot, function ()
 	-- Замена моделей
-	local models = {3781, 3782}
+	local models = {1546, 1547}
 	local txd = engineLoadTXD("assets/object.txd")
 	engineImportTXD(txd, models[1])
 	engineImportTXD(txd, models[2])

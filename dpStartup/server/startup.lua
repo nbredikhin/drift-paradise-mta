@@ -99,6 +99,9 @@ local startupResources = {
 	"dpSkins",
 }
 
+-- Test
+-- startupResources = {"dpUtils", "dpConfig", "dpLang", "dpChat"}
+
 local function processResourceByName(resourceName, start)
 	local resource = getResourceFromName(resourceName)
 	if not resource then

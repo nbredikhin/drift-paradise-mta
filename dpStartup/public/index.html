@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test</title>
+</head>
+<body>
+    <*
+        if form.time then
+            exports.dpStartup:performRestart(tonumber(form.time))
+        elseif form.cancel then
+            exports.dpStartup:cancelRestart(form.reason)
+        end
+    *>
+    <h3>Авторестарт сервера</h3>
+    <*
+        local delay = exports.dpStartup:getRestartTimeLeft()
+        if delay then
+            httpWrite("Рестарт сервера через <b>" .. tostring(delay) .. " секунд</b> ")
+        else
+            httpWrite("Рестарт не запланирован")
+        end
+    *>
+    <hr>
+    <*
+        if not delay then
+            httpWrite([[
+                <h3>Запланировать рестарт</h3>
+                <form method="post">
+                    <input type='number' name="time" value='1800'>
+                    <button type="submit">Запланировать</button>
+                </form>            
+            ]])
+        else
+            httpWrite([[
+                <h3>Отменить рестарт</h3>
+                <form method="post">
+                    <input type="hidden" name="cancel" value="1">
+                    <button type="submit">Отменить</button>
+                </form>            
+            ]])
+        end
+    *>
+    <p><*
+        if form.time then
+            httpWrite("Рестарт успешно запланирован.")
+        elseif form.cancel then
+            httpWrite("Рестарт успешно отменён.")
+        end
+    *></p>
+</body>
+</html>

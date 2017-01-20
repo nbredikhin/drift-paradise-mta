@@ -8,6 +8,13 @@
 	<script type="server" src="server/private_slots.lua"/>
 	<script type="server" src="server/kicker.lua"/>
 	<script type="client" src="client/cache_check.lua"/>
-	
-	<export function="getGamemodeInfo" http="true"/>
+
+    <!-- Http access -->
+    <script type="server" src="server/autorestart.lua"/>
+
+    <export function="getRestartTimeLeft"/>
+    <export function="performRestart"/>
+    <export function="cancelRestart"/>
+
+    <html src="public/index.html"/>
 </meta>

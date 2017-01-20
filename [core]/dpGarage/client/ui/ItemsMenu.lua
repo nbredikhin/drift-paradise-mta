@@ -37,10 +37,16 @@ function ItemsMenu:onKey(key)
 	local prev = self.selectedItem
 	if key == "arrow_u" then
 		self.selectedItem = self.selectedItem - 1
+		if self.selectedItem < 1 then
+			self.selectedItem = #self.items
+		end
 	elseif key == "arrow_d" then
 		self.selectedItem = self.selectedItem + 1
+		if self.selectedItem > #self.items then
+			self.selectedItem = 1
+		end		
 	end
-	self.selectedItem = math.min(#self.items, math.max(1, self.selectedItem))
+	--self.selectedItem = math.min(#self.items, math.max(1, self.selectedItem))
 	if self.selectedItem ~= prev then		
 		self.selectionProgress = 0.3
 	end

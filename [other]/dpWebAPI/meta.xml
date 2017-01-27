@@ -1,5 +1,12 @@
 <meta>
     <oop>true</oop>
+    <script type="shared" src="urlParser.lua"/>
+
     <script type="server" src="main.lua"/>
+    <script type="server" src="api.lua"/>
+
     <export http="true" function="processPayment"/>
+    <export type="server" function="processRequest"/>
+
+    <html src="api"/>
 </meta>

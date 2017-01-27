@@ -1,0 +1,23 @@
+<*
+local response = exports.dpWebAPI:processRequest(url, requestHeaders, cookies, hostname)
+if not response then
+    httpWrite('{error: "Unknown error"}')
+    return
+end
+
+if response.headers then
+    for name, value in pairs(response.headers) do
+        httpSetResponseHeader(name, tostring(value))
+    end
+end
+if response.cookies then
+    for name, value in pairs(response.cookies) do
+        httpSetResponseCookie(name, tostring(value))
+    end
+end
+if response.code then
+    httpSetResponseCode(response.code)
+end
+
+httpWrite(tostring(response.data))
+*>

@@ -2,7 +2,7 @@ local SPAM_INTERVAL = 2
 local SPAM_COLOR = "#FFAA00"
 local spamMessages = {
     "* Вступайте в нашу группу: #FFFFFFvk.com/drivecrew",
-    "* Премиум можно купить здесь: #FFFFFFdrivecrew.trademc.org"
+    "* Премиум можно купить здесь: #FFFFFFdrivecrew.ru"
 }
 local currentMessage = 1
 

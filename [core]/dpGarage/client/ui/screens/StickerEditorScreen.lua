@@ -9,11 +9,11 @@ local stickerControlKeys = {
 	["r"] = {mode = "color", 	panelItem = 4}
 }
 local bodySides = {
-	["Left"] = {reverse = true, ox = 1, oy = -1, px = 890, py = 512, rot = -90},
+	["Left"]  = {reverse = true, ox = 1, oy = -1, px = 890, py = 512, rot = -90},
 	["Right"] = {reverse = true, ox = -1, oy = 1, px = 110, py = 512, rot = 90},
-	["Top"] = {reverse = false, ox = 1, oy = 1, px = 512, py = 512, rot = 0},
+	["Top"]   = {reverse = false, ox = 1, oy = 1, px = 512, py = 512, rot = 0},
 	["Front"] = {reverse = false, ox = 1, oy = 1, px = 512, py = 830, rot = 0},
-	["Back"] = {reverse = false, ox = -1, oy = -1, px = 512, py = 150, rot = 180},
+	["Back"]  = {reverse = false, ox = -1, oy = -1, px = 512, py = 150, rot = 180},
 }
 local STICKER_MOVE_SPEED = 200
 local STICKER_SCALE_SPEED = 150

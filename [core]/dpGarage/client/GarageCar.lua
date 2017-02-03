@@ -104,10 +104,10 @@ end
 
 function GarageCar.start(car, vehicles)
     availableSlotsCount = exports.dpCore:getPlayerGarageSlots(localPlayer)
-    maxSlotsCount = exports.dpShared:getGameplaySetting("default_garage_slots") + 
+    maxSlotsCount = exports.dpShared:getGameplaySetting("default_garage_slots") +
         #exports.dpShared:getGameplaySetting("garage_slots_levels")
     if availableSlotsCount > maxSlotsCount then
-        maxSlotsCount = availableSlotsCount 
+        maxSlotsCount = availableSlotsCount
     end
     -- outputDebugString("Max slots: " .. tostring(maxSlotsCount))
     vehiclesList = vehicles
@@ -323,7 +323,7 @@ function GarageCar.save()
 
     --outputDebugString("SAVE WheelsSize = " .. tostring(tuningTable.WheelsSize))
     triggerServerEvent("dpGarage.saveCar", resourceRoot,
-        currentVehicle,
+        GarageCar.getId(),
         tuningTable,
         vehicle:getData("stickers")
     )
@@ -399,7 +399,7 @@ addEventHandler("dpGarage.updateVehiclesList", resourceRoot, function (vehicles)
     if #vehicles <= 0 then
         exitGarage()
         return
-    end    
+    end
     vehiclesList = vehicles
     updateVehicle()
 end)

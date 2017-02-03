@@ -1,3 +1,36 @@
+addEvent("garageEnterVehiclesReceived", false)
+addEventHandler("garageEnterVehiclesReceived", resourceRoot, function (player, playerVehicles)
+	if type(playerVehicles) ~= "table" or #playerVehicles == 0 then
+		triggerClientEvent(player, "dpGarage.enter", resourceRoot, false, "garage_enter_failed_no_cars")
+		return
+	end
+	player:setData("dpCore.state", "garage")
+
+	-- _id машины, в которой был игрок, когда вошел в гараж (если это его машина)
+	local enteredVehicleId
+
+	-- Перенос игрока в уникальный dimension
+	local garagePosition = Vector3 { x = 2915.438, y = -3186.282, z = 2535.3 }
+
+	player.dimension = tonumber(player:getData("_id")) + 4000
+	player.position = Vector3(garagePosition + Vector3(0, 5, 25))
+	player.frozen = true
+	player.interior = 0
+	player.alpha = 0
+	removePedFromVehicle(player)
+
+	local vehicle = createVehicle(547, 5000, 0, -1000)
+	vehicle.rotation = Vector3(0, 0, -90)
+	vehicle.dimension = player.dimension
+	vehicle.interior = player.interior
+	player:setData("garageVehicle", vehicle)
+	vehicle:setData("localVehicle", true)
+	vehicle:setSyncer(player)
+
+	triggerClientEvent(player, "dpGarage.enter", resourceRoot, true, playerVehicles, enteredVehicleId, vehicle)
+	player:setData("activeMap", false)
+end)
+
 addEvent("dpGarage.enter", true)
 addEventHandler("dpGarage.enter", resourceRoot, function ()
 	if client:getData("dpCore.state") then
@@ -11,37 +44,7 @@ addEventHandler("dpGarage.enter", resourceRoot, function ()
 
 	-- Выкинуть игрока из машины
 	exports.dpCore:returnPlayerVehiclesToGarage(client)
-
-	local playerVehicles = exports.dpCore:getPlayerVehicles(client)
-	if type(playerVehicles) ~= "table" or #playerVehicles == 0 then
-		triggerClientEvent(client, "dpGarage.enter", resourceRoot, false, "garage_enter_failed_no_cars")
-		return
-	end
-	client:setData("dpCore.state", "garage")
-
-	-- _id машины, в которой был игрок, когда вошел в гараж (если это его машина)
-	local enteredVehicleId
-
-	-- Перенос игрока в уникальный dimension
-	local garagePosition = Vector3 { x = 2915.438, y = -3186.282, z = 2535.3 }
-
-	client.dimension = tonumber(client:getData("_id")) + 4000
-	client.position = Vector3(garagePosition + Vector3(0, 5, 25))
-	client.frozen = true
-	client.interior = 0
-	client.alpha = 0
-	removePedFromVehicle(client)
-
-	local vehicle = createVehicle(547, 5000, 0, -1000)
-	vehicle.rotation = Vector3(0, 0, -90)
-	vehicle.dimension = client.dimension
-	vehicle.interior = client.interior
-	client:setData("garageVehicle", vehicle)
-	vehicle:setData("localVehicle", true)
-	vehicle:setSyncer(client)
-
-	triggerClientEvent(client, "dpGarage.enter", resourceRoot, true, playerVehicles, enteredVehicleId, vehicle)
-	client:setData("activeMap", false)
+	exports.dpCore:getPlayerVehiclesAsync(client, "garageEnterVehiclesReceived")
 end)
 
 addEvent("dpGarage.exit", true)

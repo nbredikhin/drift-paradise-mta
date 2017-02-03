@@ -74,9 +74,12 @@
 	<export type="server" function="returnVehicleToGarage"/>
 	<export type="server" function="returnPlayerVehiclesToGarage"/>
 	<export type="server" function="getPlayerVehicles"/>
+	<export type="server" function="getPlayerVehiclesAsync"/>
+	<export type="server" function="getVehicleOwnerAsync"/>
 	<export type="server" function="getPlayerSpawnedVehicles"/>
 	<export type="server" function="addPlayerVehicle"/>
 	<export type="server" function="removePlayerVehicle"/>
+	<export type="server" function="removePlayerVehicleAsync"/>
 	<export type="server" function="getVehicleById"/>
 	<!-- Функции для работы с подарочными ключами -->
 	<export type="server" function="createGiftKey"/>

@@ -24,7 +24,7 @@
 	"race_type_sprint": "Спринт",
 	"race_type_circle": "Кольцо",
 
-	"quit_reason_unknown": "выход",
+	"quit_reason_unknown": "неизвестная ошибка",
 	"quit_reason_quit": "выход",
 	"quit_reason_kicked": "кик",
 	"quit_reason_banned": "бан",

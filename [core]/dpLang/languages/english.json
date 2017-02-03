@@ -26,7 +26,7 @@
 	"race_type_sprint": "Sprint",
 	"race_type_circle": "Lap race",
 
-	"quit_reason_unknown": "disconnect",
+	"quit_reason_unknown": "unknown reason",
 	"quit_reason_quit": "disconnect",
 	"quit_reason_kicked": "kicked",
 	"quit_reason_banned": "banned",

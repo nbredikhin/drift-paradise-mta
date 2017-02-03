@@ -8,6 +8,16 @@ local function outputDebugString(...)
 	_outputDebugString(...)
 end
 
+addEvent("sell_vehicleRemoved", false)
+addEventHandler("sell_vehicleRemoved", resourceRoot, function (player, result)
+	exports.dpCore:getPlayerVehiclesAsync(player, "sell_vehiclesListReceived")
+end)
+
+addEvent("sell_vehiclesListReceived", false)
+addEventHandler("sell_vehiclesListReceived", resourceRoot, function (player, playerVehicles)
+	triggerClientEvent(player, "dpGarage.updateVehiclesList", resourceRoot, playerVehicles)
+end)
+
 addEvent("dpGarage.sellVehicle", true)
 addEventHandler("dpGarage.sellVehicle", resourceRoot, function (vehicleId)
 	local vehicleInfo = exports.dpCore:getVehicleById(vehicleId)
@@ -30,7 +40,6 @@ addEventHandler("dpGarage.sellVehicle", resourceRoot, function (vehicleId)
 		outputDebugString("Sell error: Vehicle not owned")
 		return
 	end
-	exports.dpCore:removePlayerVehicle(client, vehicleId)
-	local playerVehicles = exports.dpCore:getPlayerVehicles(client)
-	triggerClientEvent(client, "dpGarage.updateVehiclesList", resourceRoot, playerVehicles)
+	outputDebugString("Removing car")
+	exports.dpCore:removePlayerVehicleAsync(client, vehicleId, "sell_vehicleRemoved")
 end)

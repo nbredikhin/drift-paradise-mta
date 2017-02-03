@@ -31,10 +31,10 @@ function UserVehicles.addVehicle(ownerId, model, callback)
 	if not success then
 		executeCallback(callback, false)
 	end
-	exports.dpLogger:log("vehicles", 
-		string.format("Added vehicle %s to user %s. Success: %s", 
-			tostring(model), 
-			tostring(ownerId), 
+	exports.dpLogger:log("vehicles",
+		string.format("Added vehicle %s to user %s. Success: %s",
+			tostring(model),
+			tostring(ownerId),
 			tostring(success)))
 	return not not success
 end
@@ -50,17 +50,17 @@ function UserVehicles.removeVehicle(vehicleId, callback)
 	-- Вернуть автомобиль в гараж, если он заспавнен в момент удаления
 	local vehicle = VehicleSpawn.getSpawnedVehicle(vehicleId)
 	if isElement(vehicle) then
-		returnVehicleToGarage(vehicle)	
+		returnVehicleToGarage(vehicle)
 	end
 
 	local success = DatabaseTable.delete(VEHICLES_TABLE_NAME, { _id = vehicleId }, callback)
 	if not success then
 		executeCallback(callback, false)
 	end
-	exports.dpLogger:log("vehicles", 
-		string.format("Removed vehicle %s. Success: %s", 
-			tostring(vehicleId), 
-			tostring(success)))	
+	exports.dpLogger:log("vehicles",
+		string.format("Removed vehicle %s. Success: %s",
+			tostring(vehicleId),
+			tostring(success)))
 	return success
 end
 
@@ -74,7 +74,16 @@ function UserVehicles.getVehicle(vehicleId, callback)
 	return DatabaseTable.select(VEHICLES_TABLE_NAME, {}, {_id = vehicleId}, callback)
 end
 
--- Информация об автомобиле
+-- Владелец
+function UserVehicles.getVehicleOwner(vehicleId, callback)
+	if type(vehicleId) ~= "number" then
+		executeCallback(callback, false)
+		return false
+	end
+
+	return DatabaseTable.select(VEHICLES_TABLE_NAME, { "owner_id" }, {_id = vehicleId}, callback)
+end
+
 function UserVehicles.updateVehicle(vehicleId, fields, callback)
 	if type(vehicleId) ~= "number" or type(fields) ~= "table" then
 		executeCallback(callback, false)
@@ -82,9 +91,9 @@ function UserVehicles.updateVehicle(vehicleId, fields, callback)
 	end
 
 	local success = DatabaseTable.update(VEHICLES_TABLE_NAME, fields, {_id = vehicleId},
-	function (result)
-		executeCallback(callback, not not result)
-	end)
+		function (result)
+			executeCallback(callback, not not result)
+		end)
 	if not success then
 		executeCallback(callback, false)
 	end

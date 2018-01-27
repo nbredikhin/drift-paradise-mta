@@ -13,6 +13,10 @@ FAQ: https://github.com/dpmta/driftparadise/wiki
 ```bash
 git clone https://github.com/dpmta/driftparadise.git [dp]
 ```
+or
+```bash
+git clone https://github.com/dcr30/drift-paradise-mta.git [dp]
+```
 2. Install MySQL server and enter your credentials in `[core]/dpCore/server/database/DatabaseConfig.lua` (you will need to create this file from DatabaseConfig-sample.lua)
 Change *host, port, dbName, username* and *password* to desired values according to your MySQL installation.
 3. Modify your server's `acl.xml` to give admin rights to specific resources:
@@ -42,6 +46,10 @@ Drift Paradise это гоночный игровой режим для [Multi T
 1. Склонируйте этот репозиторий в папку `resources` вашего сервера:
 ```bash
 git clone https://github.com/dpmta/driftparadise.git [dp]
+```
+или
+```bash
+git clone https://github.com/dcr30/drift-paradise-mta.git [dp]
 ```
 2. Установите MySQL сервер и укажите данные для подключения к нему в файле `[core]/dpCore/server/database/DatabaseConfig.lua` (этот файл потребуется создать из DatabaseConfig-sample.lua)
 Измените значения полей *host, port, dbName, username* and *password* на необходимые вам.
